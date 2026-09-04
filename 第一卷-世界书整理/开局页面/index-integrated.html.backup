@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>落第骑士英雄谭 · 入学档案</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --lk-ink: #3d2b1f;
+      --lk-muted: #8a7766;
+      --lk-dim: #a89988;
+      --lk-bg: #e8dcc4;
+      --lk-panel: #f5f0e8;
+      --lk-panel-strong: #f0e8d8;
+      --lk-line: rgba(160, 57, 46, .15);
+      --lk-red: #a0392e;
+      --lk-red-deep: #8b2e24;
+      --lk-red-soft: rgba(160, 57, 46, .08);
+      --lk-gold: #d4a574;
+      --lk-good: #5e7d69;
+      --lk-orange: #e67e22;
+      --lk-radius: 8px;
+      --lk-shadow: 0 2px 8px rgba(61, 43, 31, .12), 0 8px 24px rgba(61, 43, 31, .08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    html { min-width: 320px; background: var(--lk-bg); }
+    
+    body {
+      color: var(--lk-ink);
+      background:
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(61, 43, 31, .015) 2px, rgba(61, 43, 31, .015) 4px),
+        linear-gradient(135deg, #ede3ce 0%, #e8dcc4 50%, #e3d5bc 100%);
+      font: 15px/1.6 "Segoe UI", "Microsoft YaHei", "Yu Gothic", sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    
+    button, input, select, textarea { font: inherit; }
+    button { cursor: pointer; }
+    button:disabled { cursor: not-allowed; opacity: .55; }
+    :focus-visible { outline: 3px solid var(--lk-red); outline-offset: 3px; }
+
+    /* ========== 第一段：开局叙事 ========== */
+    .opening-scene {
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .game-title {
+      font-size: clamp(28px, 5vw, 48px);
+      font-weight: 900;
+      color: var(--lk-red);
+      letter-spacing: 0.1em;
+      margin-bottom: 10px;
+      font-family: "Noto Serif JP", Georgia, serif;
+      text-shadow: 0 2px 4px rgba(160, 57, 46, .2);
+    }
+
+    .game-subtitle {
+      font-size: 13px;
+      color: var(--lk-muted);
+      letter-spacing: 0.3em;
+      margin-bottom: 50px;
+      font-weight: 400;
+    }
+
+    .novel-style-text {
+      background: var(--lk-panel);
+      border: 1px solid var(--lk-line);
+      border-radius: 12px;
+      padding: 50px 40px;
+      text-align: left;
+      margin-bottom: 40px;
+      position: relative;
+      box-shadow: var(--lk-shadow);
+      color: var(--lk-ink);
+      line-height: 2;
+    }
+
+    .novel-style-text::before {
+      content: "『";
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-size: 64px;
+      color: rgba(160, 57, 46, .12);
+      font-family: "Noto Serif SC", serif;
+      line-height: 1;
+      font-weight: 300;
+    }
+
+    .novel-style-text::after {
+      content: "』";
+      position: absolute;
+      bottom: -10px;
+      right: 15px;
+      font-size: 64px;
+      color: rgba(160, 57, 46, .12);
+      font-family: "Noto Serif SC", serif;
+      line-height: 1;
+      font-weight: 300;
+    }
+
+    .narrative-p {
+      font-size: 15px;
+      color: var(--lk-ink);
+      margin-bottom: 20px;
+      text-indent: 2em;
+      line-height: 2;
+    }
+
+    .narrative-p:first-child {
+      color: var(--lk-red);
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .narrative-p:last-child {
+      margin-bottom: 0;
+    }
+
+    .world-intro {
+      background: var(--lk-red-soft);
+      border-left: 4px solid var(--lk-red);
+      padding: 20px 25px;
+      margin: 30px 0;
+      text-align: left;
+      border-radius: 0 8px 8px 0;
+      position: relative;
+      box-shadow: var(--lk-shadow);
+    }
+    
+    .world-intro::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -4px;
+      width: 4px;
+      height: 100%;
+      background: var(--lk-red);
+      box-shadow: 0 2px 4px rgba(160, 57, 46, .2);
+    }
+
+    .world-intro-title {
+      color: var(--lk-red);
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 10px;
+      letter-spacing: 0.05em;
+    }
+
+    .world-intro p {
+      font-size: 13px;
+      color: var(--lk-ink);
+      line-height: 1.9;
+    }
+
+    .start-btn {
+      background: var(--lk-red);
+      color: #fff;
+      border: none;
+      padding: 18px 70px;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      cursor: pointer;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(160, 57, 46, .3);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .start-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    .start-btn:hover::before {
+      left: 100%;
+    }
+
+    .start-btn:hover {
+      transform: translateY(-3px);
+      background: var(--lk-red-deep);
+      box-shadow: 0 6px 20px rgba(160, 57, 46, .4);
+    }
+    
+    .start-btn:active {
+      transform: translateY(-1px);
+    }
+
+    /* ========== 第二段：能力填写 ========== */
+    .ability-scene {
+      padding: 30px 20px;
+    }
+
+    .scene-title {
+      text-align: center;
+      font-size: 22px;
+      color: var(--lk-red);
+      margin-bottom: 35px;
+      letter-spacing: 0.1em;
+      font-weight: 700;
+      position: relative;
+      padding-bottom: 15px;
+    }
+    
+    .scene-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--lk-red), transparent);
+    }
+
+    .form-panel {
+      background: var(--lk-panel);
+      border: 1px solid var(--lk-line);
+      border-radius: 12px;
+      padding: 35px;
+      margin-bottom: 25px;
+      box-shadow: var(--lk-shadow);
+      position: relative;
+    }
+    
+    .form-panel::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--lk-red);
+      border-radius: 12px 12px 0 0;
+    }
+
+    .form-section-title {
+      color: var(--lk-red);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--lk-line);
+      position: relative;
+      padding-left: 12px;
+    }
+    
+    .form-section-title::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 14px;
+      background: var(--lk-red);
+      clip-path: polygon(0 0, 100% 0, 80% 100%, 0 100%);
+    }
+
+    .form-row {
+      margin-bottom: 18px;
+    }
+
+    .form-label {
+      display: block;
+      color: var(--lk-muted);
+      font-size: 12px;
+      margin-bottom: 8px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    .form-input {
+      width: 100%;
+      background: #fff;
+      border: 1px solid var(--lk-line);
+      border-radius: 6px;
+      padding: 13px 16px;
+      color: var(--lk-ink);
+      font-size: 14px;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--lk-red);
+      box-shadow: 0 0 0 3px var(--lk-red-soft);
+    }
+
+    .form-input::placeholder {
+      color: var(--lk-dim);
+    }
+
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .ability-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .ability-item {
+      background: var(--lk-panel-strong);
+      border: 1px solid var(--lk-line);
+      border-radius: 8px;
+      padding: 14px;
+      transition: all 0.3s ease;
+    }
+    
+    .ability-item:hover {
+      border-color: var(--lk-red);
+      background: #fff;
+    }
+
+    .ability-label {
+      color: var(--lk-muted);
+      font-size: 11px;
+      margin-bottom: 8px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+
+    .ability-select {
+      width: 100%;
+      background: #fff;
+      border: 1px solid var(--lk-line);
+      border-radius: 5px;
+      padding: 9px 12px;
+      color: var(--lk-ink);
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: inherit;
+    }
+
+    .ability-select:focus {
+      outline: none;
+      border-color: var(--lk-red);
+      box-shadow: 0 0 0 3px var(--lk-red-soft);
+    }
+    
+    .ability-select:hover {
+      border-color: var(--lk-red);
+    }
+
+    .button-row {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .btn-secondary {
+      background: #fff;
+      color: var(--lk-muted);
+      border: 1px solid var(--lk-line);
+      padding: 14px 40px;
+      font-size: 15px;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+
+    .btn-secondary:hover {
+      background: var(--lk-red-soft);
+      border-color: var(--lk-red);
+      color: var(--lk-red);
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: var(--lk-red);
+      color: #fff;
+      border: none;
+      padding: 14px 45px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(160, 57, 46, .3);
+      transition: all 0.3s ease;
+      letter-spacing: 0.05em;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    .btn-primary:hover::before {
+      left: 100%;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      background: var(--lk-red-deep);
+      box-shadow: 0 6px 16px rgba(160, 57, 46, .4);
+    }
+
+    /* ========== 第三段：档案确认 ========== */
+    .confirm-scene {
+      padding: 30px 20px;
+    }
+
+    .character-card {
+      background: var(--lk-panel);
+      border: 2px solid var(--lk-red);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 35px;
+      box-shadow: var(--lk-shadow);
+    }
+
+    .card-header {
+      background: var(--lk-red);
+      padding: 30px 25px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .card-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.05) 10px, rgba(255,255,255,0.05) 20px);
+      pointer-events: none;
+    }
+
+    .card-name {
+      font-size: 32px;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 1;
+      font-family: "Noto Serif JP", Georgia, serif;
+    }
+
+    .card-romaji {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.85);
+      letter-spacing: 0.25em;
+      font-weight: 300;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-body {
+      padding: 30px;
+    }
+
+    .card-section {
+      margin-bottom: 25px;
+      position: relative;
+      padding-top: 8px;
+    }
+
+    .card-section-title {
+      color: var(--lk-red);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .15em;
+      margin-bottom: 20px;
+      padding: 0;
+      border: none;
+      position: relative;
+      padding-left: 0;
+      padding-top: 28px;
+      font-family: Georgia, serif;
+      visibility: hidden;
+    }
+    
+    .card-section-title::before {
+      content: attr(data-title);
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 6px 20px;
+      background: var(--lk-red);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 100%);
+      z-index: 2;
+      visibility: visible;
+    }
+
+    .card-profile {
+      color: var(--lk-ink);
+      font-size: 14px;
+      line-height: 2;
+      background: var(--lk-red-soft);
+      padding: 18px 20px;
+      border-radius: 8px;
+      border-left: 3px solid var(--lk-red);
+      margin-top: 8px;
+    }
+
+    .card-info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      margin-top: 8px;
+      gap: 14px;
+    }
+
+    .card-info-item {
+      display: flex;
+      background: var(--lk-panel-strong);
+      padding: 12px 14px;
+      border-radius: 6px;
+      border: 1px solid var(--lk-line);
+      transition: all 0.3s ease;
+    }
+    
+    .card-info-item:hover {
+      border-color: var(--lk-red);
+      background: #fff;
+    }
+
+    .card-info-label {
+      color: var(--lk-dim);
+      font-size: 12px;
+      min-width: 70px;
+      font-weight: 500;
+    }
+
+    .card-info-value {
+      color: var(--lk-ink);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .card-ability-section {
+      margin-top: 25px;
+    }
+
+    .radar-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 8px;
+      margin-bottom: 20px;
+    }
+
+    #preview-radar {
+      width: 100%;
+      max-width: 380px;
+      height: auto;
+    }
+
+    .ability-legend {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .ability-legend .ability-bar-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--lk-panel-strong);
+      padding: 10px 14px;
+      border-radius: 6px;
+      border: 1px solid var(--lk-line);
+    }
+
+    .ability-grade-lg {
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--lk-orange);
+    }
+    }
+
+    .ability-bar-item {
+      background: var(--lk-panel-strong);
+      border-radius: 6px;
+      padding: 12px 14px;
+      border: 1px solid var(--lk-line);
+      transition: all 0.3s ease;
+    }
+    
+    .ability-bar-item:hover {
+      border-color: var(--lk-red);
+      background: #fff;
+    }
+
+    .ability-bar-label {
+      color: var(--lk-muted);
+      font-size: 11px;
+      margin-bottom: 8px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+
+    .ability-bar-visual {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .ability-grade {
+      color: var(--lk-orange);
+      font-size: 15px;
+      font-weight: 700;
+      margin-right: 8px;
+      min-width: 20px;
+    }
+
+    .bar-segment {
+      width: 20px;
+      height: 10px;
+      background: var(--lk-panel-strong);
+      border-radius: 2px;
+      border: 1px solid var(--lk-line);
+      transition: all 0.3s ease;
+    }
+
+    .bar-segment.filled {
+      background: var(--lk-red);
+      border-color: var(--lk-red-deep);
+    }
+
+    .confirm-buttons {
+      text-align: center;
+    }
+
+    .final-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      flex-wrap: wrap;
+    }
+
+    .btn-back {
+      background: transparent;
+      color: var(--lk-muted);
+      border: 1px solid var(--lk-line);
+      padding: 14px 40px;
+      font-size: 15px;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+
+    .btn-back:hover {
+      background: rgba(255, 107, 74, 0.1);
+      border-color: var(--lk-red);
+      color: var(--lk-red);
+      transform: translateY(-2px);
+    }
+
+    .btn-confirm {
+      background: linear-gradient(135deg, var(--lk-good), #22c55e);
+      color: #fff;
+      border: none;
+      padding: 14px 50px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      border-radius: 6px;
+      box-shadow: 0 4px 15px rgba(74, 222, 128, 0.3);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      letter-spacing: 0.05em;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn-confirm::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    .btn-confirm:hover::before {
+      left: 100%;
+    }
+
+    .btn-confirm:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(74, 222, 128, 0.4);
+    }
+
+    .success-message {
+      text-align: center;
+      padding: 60px 40px;
+      color: var(--lk-good);
+    }
+
+    .success-message h3 {
+      font-size: 26px;
+      margin-bottom: 20px;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      text-shadow: 0 0 20px rgba(74, 222, 128, 0.4);
+    }
+
+    .success-message p {
+      color: var(--lk-muted);
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    /* ========== 响应式设计 ========== */
+    @media (max-width: 768px) {
+      .form-grid-2,
+      .ability-grid,
+      .ability-bars,
+      .card-info-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .game-title {
+        font-size: 24px;
+      }
+      
+      .novel-style-text {
+        padding: 35px 25px;
+      }
+      
+      .form-panel {
+        padding: 25px 20px;
+      }
+      
+      .button-row,
+      .final-buttons {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .btn-secondary,
+      .btn-primary,
+      .btn-back,
+      .btn-confirm,
+      .start-btn {
+        width: 100%;
+      }
+    }
+
+    /* ========== 酒馆助手兼容样式（备用） ========== */
+    .tavern-compatible {
+      all: initial;
+      font-family: "Inter", "Sora", "Microsoft YaHei", "PingFang SC", sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <div class="scene-container">
+
+    <!-- ========== 第一段：开局叙事 ========== -->
+    <section id="scene-opening" class="page-section active">
+      <div class="opening-scene">
+        <h1 class="game-title">落第骑士英雄谭</h1>
+        <p class="game-subtitle">— 破军学园入学档案登录 —</p>
+
+        <div class="novel-style-text">
+          <p class="narrative-p">
+            「没有才能——吗？」
+          </p>
+          <p class="narrative-p">
+            站在破军学园的正门前，凛冽的风拂过脸颊。这是一所培育「伐刀者」的最高学府——所谓伐刀者，是指能够以自身的「灵装」干涉现实、操控万物法则的稀有人类。
+          </p>
+          <p class="narrative-p">
+            而我，黑铁一辉。在这个天才云集的学园里，是一个货真价实的「落第者」——伐刀者等级F，没有任何特殊能力，被所有人嘲笑的吊车尾。
+          </p>
+          <p class="narrative-p">
+            然而，命运的齿轮开始转动。当我以为自己将永远站在阴影中时，一位银发的美少女却向我伸出了手……
+          </p>
+
+          <div class="world-intro">
+            <div class="world-intro-title">◆ 世界观简介</div>
+            <p>这是一个以「伐刀者」为核心的奇幻世界。伐刀者能够觉醒专属的「灵装」与「伐刀绝技」，在战场上叱咤风云。然而，并非所有人都能成为伐刀者——唯有拥有「适性」的极少数人，才能踏入这个光怪陆离的领域。</p>
+          </div>
+
+          <p class="narrative-p">
+            现在，轮到你书写属于自己的传说了。在踏入这所学园之前，请先完成你的入学档案——
+          </p>
+        </div>
+
+        <button class="start-btn" onclick="showScene('scene-ability')">■ 填写入学档案 ■</button>
+      </div>
+    </section>
+
+    <!-- ========== 第二段：能力填写 ========== -->
+    <section id="scene-ability" class="page-section">
+      <div class="ability-scene">
+        <h2 class="scene-title">— 角色能力设定 —</h2>
+
+        <div class="form-panel">
+          <div class="form-section-title">◆ 基础信息</div>
+          <div class="form-grid-2">
+            <div class="form-row">
+              <label class="form-label">姓名</label>
+              <input type="text" class="form-input" id="input-name" placeholder="如：黑铁一辉">
+            </div>
+            <div class="form-row">
+              <label class="form-label">罗马音</label>
+              <input type="text" class="form-input" id="input-romaji" placeholder="如：IKKI KUROGANE">
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-row">
+              <label class="form-label">所属学园 / 班级</label>
+              <input type="text" class="form-input" id="input-school" placeholder="如：破军学园 / 一年一班">
+            </div>
+            <div class="form-row">
+              <label class="form-label">伐刀者等级</label>
+              <select class="ability-select" id="input-rank">
+                <option value="">— 待评定 —</option>
+                <option value="A">A 级</option>
+                <option value="B">B 级</option>
+                <option value="C">C 级</option>
+                <option value="D">D 级</option>
+                <option value="E">E 级</option>
+                <option value="F">F 级</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-row">
+              <label class="form-label">固有灵装（武器）</label>
+              <input type="text" class="form-input" id="input-device" placeholder="如：阴铁 / 圣剑 / 法杖">
+            </div>
+            <div class="form-row">
+              <label class="form-label">伐刀绝技（必杀技）</label>
+              <input type="text" class="form-input" id="input-noble-art" placeholder="如：一刀修罗 / 流星剑法">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-panel">
+          <div class="form-section-title">◆ 能力参数（六维）</div>
+          <div class="ability-grid">
+            <div class="ability-item">
+              <div class="ability-label">攻击力</div>
+              <select class="ability-select" id="stat-attack">
+                <option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option>
+              </select>
+            </div>
+            <div class="ability-item">
+              <div class="ability-label">防御力</div>
+              <select class="ability-select" id="stat-defense">
+                <option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option>
+              </select>
+            </div>
+            <div class="ability-item">
+              <div class="ability-label">魔力量</div>
+              <select class="ability-select" id="stat-magic">
+                <option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option>
+              </select>
+            </div>
+            <div class="ability-item">
+              <div class="ability-label">魔力控制</div>
+              <select class="ability-select" id="stat-control">
+                <option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option>
+              </select>
+            </div>
+            <div class="ability-item">
+              <div class="ability-label">体能</div>
+              <select class="ability-select" id="stat-physical">
+                <option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option>
+              </select>
+            </div>
+            <div class="ability-item">
+              <div class="ability-label">运气</div>
+              <select class="ability-select" id="stat-luck">
+                <option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-panel">
+          <div class="form-section-title">◆ 角色简介</div>
+          <div class="form-row">
+            <textarea class="form-input" id="input-desc" rows="4" placeholder="一段简短的自我介绍，将显示在你的档案简介栏中..."></textarea>
+          </div>
+        </div>
+
+        <div class="button-row">
+          <button class="btn-secondary" onclick="showScene('scene-opening')">← 返回</button>
+          <button class="btn-primary" onclick="generateCard()">生成档案 →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 第三段：档案确认 ========== -->
+    <section id="scene-confirm" class="page-section">
+      <div class="confirm-scene">
+        <h2 class="scene-title">— 档案确认 —</h2>
+
+        <div class="character-card" id="preview-card">
+          <div class="card-header">
+            <div class="card-name" id="card-name">未命名</div>
+            <div class="card-romaji" id="card-romaji">UNNAMED</div>
+          </div>
+          <div class="card-body">
+            <div class="card-section">
+              <div class="card-section-title" data-title="PROFILE">PROFILE · 简介</div>
+              <div class="card-profile" id="card-desc">
+                请填写角色简介...
+              </div>
+            </div>
+
+            <div class="card-section">
+              <div class="card-section-title" data-title="STATUS">STATUS · 状态</div>
+              <div class="card-info-grid">
+                <div class="card-info-item">
+                  <span class="card-info-label">所属</span>
+                  <span class="card-info-value" id="card-school">—</span>
+                </div>
+                <div class="card-info-item">
+                  <span class="card-info-label">等级</span>
+                  <span class="card-info-value" id="card-rank">—</span>
+                </div>
+                <div class="card-info-item">
+                  <span class="card-info-label">灵装</span>
+                  <span class="card-info-value" id="card-device">—</span>
+                </div>
+                <div class="card-info-item">
+                  <span class="card-info-label">绝技</span>
+                  <span class="card-info-value" id="card-noble-art">—</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-ability-section">
+              <div class="card-section-title" data-title="PARAMETER">PARAMETER · 能力值</div>
+              <div class="radar-container">
+                <svg id="preview-radar" viewBox="0 0 420 430" xmlns="http://www.w3.org/2000/svg">
+                  <desc>能力雷达图</desc>
+                </svg>
+              </div>
+              <div class="ability-legend">
+                <div class="ability-bar-item">
+                  <span class="ability-bar-label">攻击力</span>
+                  <span class="ability-grade-lg" id="bar-attack">—</span>
+                </div>
+                <div class="ability-bar-item">
+                  <span class="ability-bar-label">防御力</span>
+                  <span class="ability-grade-lg" id="bar-defense">—</span>
+                </div>
+                <div class="ability-bar-item">
+                  <span class="ability-bar-label">魔力量</span>
+                  <span class="ability-grade-lg" id="bar-magic">—</span>
+                </div>
+                <div class="ability-bar-item">
+                  <span class="ability-bar-label">魔力控制</span>
+                  <span class="ability-grade-lg" id="bar-control">—</span>
+                </div>
+                <div class="ability-bar-item">
+                  <span class="ability-bar-label">体能</span>
+                  <span class="ability-grade-lg" id="bar-physical">—</span>
+                </div>
+                <div class="ability-bar-item">
+                  <span class="ability-bar-label">运气</span>
+                  <span class="ability-grade-lg" id="bar-luck">—</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="final-buttons">
+          <button class="btn-back" onclick="showScene('scene-ability')">← 修改</button>
+          <button class="btn-confirm" onclick="confirmCharacter()">✓ 确认入学</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 完成页面 ========== -->
+    <section id="scene-complete" class="page-section">
+      <div class="confirm-scene">
+        <div class="success-message">
+          <h3>★ 入学档案登录完成 ★</h3>
+          <p>欢迎来到破军学园，<span id="complete-name">新学员</span>。</p>
+          <p style="margin-top: 20px;">你的传奇故事，即将开始——</p>
+        </div>
+        <div class="final-buttons">
+          <button class="btn-secondary" onclick="resetAll()">重新开始</button>
+          <button class="btn-primary" onclick="showScene('scene-opening')">再次阅读世界观</button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // 等级到数值转换
+    var GRADE_MAP = { 'A': 6, 'B': 5, 'C': 4, 'D': 3, 'E': 2, 'F': 1 };
+    
+    // 场景切换
+    function showScene(sceneId) {
+      var scenes = document.querySelectorAll('.page-section');
+      for (var i = 0; i < scenes.length; i++) {
+        scenes[i].classList.remove('active');
+      }
+      var target = document.getElementById(sceneId);
+      if (target) {
+        target.classList.add('active');
+      }
+    }
+
+    // 渲染六边形雷达图
+    function renderPreviewRadar() {
+      var svg = document.getElementById('preview-radar');
+      if (!svg) return;
+      
+      // 清空现有内容
+      while (svg.lastChild && svg.lastChild.tagName !== 'desc') {
+        svg.removeChild(svg.lastChild);
+      }
+      
+      var cx = 210, cy = 205, radius = 130;
+      var axes = ['攻击力', '防御力', '魔力量', '魔力控制', '体能', '运气'];
+      var gradeMap = { 'A': 1.0, 'B': 0.83, 'C': 0.67, 'D': 0.5, 'E': 0.33, 'F': 0.17 };
+      
+      // 极坐标转换
+      function polar(r, i) {
+        var angle = (Math.PI * 2 * i) / axes.length - Math.PI / 2;
+        return [cx + r * Math.cos(angle), cy + r * Math.sin(angle)];
+      }
+      
+      // 创建SVG元素
+      function svgEl(tag, attrs) {
+        var el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+        for (var k in attrs) el.setAttribute(k, attrs[k]);
+        return el;
+      }
+      
+      // 绘制灰色六边形背景网格
+      [0.33, 0.66, 1].forEach(function(ratio) {
+        var points = axes.map(function(_, i) { return polar(radius * ratio, i).join(','); }).join(' ');
+        svg.appendChild(svgEl('polygon', {
+          points: points,
+          fill: ratio === 1 ? 'none' : 'rgba(140, 130, 120, .08)',
+          stroke: 'rgba(140, 130, 120, .35)',
+          'stroke-width': 1.5
+        }));
+      });
+      
+      // 绘制径向线
+      axes.forEach(function(_, i) {
+        var end = polar(radius, i);
+        svg.appendChild(svgEl('line', {
+          x1: cx, y1: cy, x2: end[0], y2: end[1],
+          stroke: 'rgba(140, 130, 120, .3)',
+          'stroke-width': 1.5
+        }));
+      });
+      
+      // 获取等级值
+      var grades = ['attack', 'defense', 'magic', 'control', 'physical', 'luck'].map(function(stat) {
+        var el = document.getElementById('stat-' + stat);
+        return el ? el.value : '';
+      });
+      
+      // 计算数据点
+      var points = grades.map(function(grade, i) {
+        var ratio = grade && gradeMap[grade] ? gradeMap[grade] : 0.15;
+        return polar(radius * ratio, i);
+      });
+      
+      // 绘制数据填充多边形
+      var hasData = grades.some(function(g) { return g; });
+      if (hasData) {
+        var polyPoints = points.map(function(p, i) { 
+          return grades[i] ? p.join(',') : polar(radius * 0.1, i).join(',');
+        }).join(' ');
+        svg.appendChild(svgEl('polygon', {
+          points: polyPoints,
+          fill: 'rgba(230, 126, 34, .4)',
+          stroke: '#e67e22',
+          'stroke-width': 2.5,
+          'stroke-linejoin': 'round'
+        }));
+        
+        // 绘制数据点
+        points.forEach(function(p, i) {
+          if (grades[i]) {
+            svg.appendChild(svgEl('circle', {
+              cx: p[0], cy: p[1], r: 5,
+              fill: '#e67e22',
+              stroke: '#fff',
+              'stroke-width': 2
+            }));
+          }
+        });
+      }
+      
+      // 绘制轴标签和等级
+      axes.forEach(function(axis, i) {
+        var labelPos = polar(radius + 32, i);
+        var grade = grades[i] || '?';
+        var gradeColor = grades[i] ? '#e67e22' : '#d4a574';
+        
+        // 轴名称
+        var axisText = svgEl('text', {
+          x: labelPos[0], y: labelPos[1] - 6,
+          fill: '#8a7766',
+          'font-size': 11,
+          'font-weight': 600,
+          'text-anchor': 'middle',
+          'dominant-baseline': 'middle'
+        });
+        axisText.textContent = axis;
+        svg.appendChild(axisText);
+        
+        // 等级字母
+        var gradeText = svgEl('text', {
+          x: labelPos[0], y: labelPos[1] + 10,
+          fill: gradeColor,
+          'font-size': 16,
+          'font-weight': 900,
+          'text-anchor': 'middle',
+          'dominant-baseline': 'middle'
+        });
+        gradeText.textContent = grade;
+        svg.appendChild(gradeText);
+      });
+    }
+
+    // 生成角色卡预览
+    function generateCard() {
+      var name = document.getElementById('input-name').value.trim() || '未命名';
+      var romaji = document.getElementById('input-romaji').value.trim() || 'UNNAMED';
+      var school = document.getElementById('input-school').value.trim() || '—';
+      var rank = document.getElementById('input-rank').value || '—';
+      var device = document.getElementById('input-device').value.trim() || '—';
+      var nobleArt = document.getElementById('input-noble-art').value.trim() || '—';
+      var desc = document.getElementById('input-desc').value.trim() || '暂无简介...';
+
+      // 更新卡片内容
+      document.getElementById('card-name').textContent = name;
+      document.getElementById('card-romaji').textContent = romaji;
+      document.getElementById('card-school').textContent = school;
+      document.getElementById('card-rank').textContent = rank;
+      document.getElementById('card-device').textContent = device;
+      document.getElementById('card-noble-art').textContent = nobleArt;
+      document.getElementById('card-desc').textContent = desc;
+
+      // 更新能力值显示
+      var stats = ['attack', 'defense', 'magic', 'control', 'physical', 'luck'];
+      stats.forEach(function(stat) {
+        var grade = document.getElementById('stat-' + stat).value;
+        var barEl = document.getElementById('bar-' + stat);
+        if (barEl) {
+          barEl.textContent = grade || '—';
+        }
+      });
+
+      // 渲染雷达图
+      renderPreviewRadar();
+
+      // 切换到确认页面
+      showScene('scene-confirm');
+    }
+
+    // 确认角色
+    function confirmCharacter() {
+      var name = document.getElementById('input-name').value.trim() || '新学员';
+      document.getElementById('complete-name').textContent = name;
+      
+      // 保存到本地存储
+      var characterData = {
+        name: name,
+        romaji: document.getElementById('input-romaji').value.trim(),
+        school: document.getElementById('input-school').value.trim(),
+        rank: document.getElementById('input-rank').value,
+        device: document.getElementById('input-device').value.trim(),
+        nobleArt: document.getElementById('input-noble-art').value.trim(),
+        desc: document.getElementById('input-desc').value.trim(),
+        stats: {
+          attack: document.getElementById('stat-attack').value,
+          defense: document.getElementById('stat-defense').value,
+          magic: document.getElementById('stat-magic').value,
+          control: document.getElementById('stat-control').value,
+          physical: document.getElementById('stat-physical').value,
+          luck: document.getElementById('stat-luck').value
+        }
+      };
+      
+      try {
+        localStorage.setItem('raku-da-hero-character', JSON.stringify(characterData));
+      } catch (e) {}
+
+      showScene('scene-complete');
+    }
+
+    // 重置所有
+    function resetAll() {
+      var inputs = ['input-name', 'input-romaji', 'input-school', 'input-device', 'input-noble-art', 'input-desc'];
+      for (var i = 0; i < inputs.length; i++) {
+        var el = document.getElementById(inputs[i]);
+        if (el) el.value = '';
+      }
+      
+      document.getElementById('input-rank').value = '';
+      
+      var stats = ['attack', 'defense', 'magic', 'control', 'physical', 'luck'];
+      for (var j = 0; j < stats.length; j++) {
+        document.getElementById('stat-' + stats[j]).value = '';
+      }
+      
+      showScene('scene-opening');
+    }
+
+    // 尝试加载已保存的角色
+    function loadSavedCharacter() {
+      try {
+        var saved = localStorage.getItem('raku-da-hero-character');
+        if (saved) {
+          var data = JSON.parse(saved);
+          document.getElementById('input-name').value = data.name || '';
+          document.getElementById('input-romaji').value = data.romaji || '';
+          document.getElementById('input-school').value = data.school || '';
+          document.getElementById('input-rank').value = data.rank || '';
+          document.getElementById('input-device').value = data.device || '';
+          document.getElementById('input-noble-art').value = data.nobleArt || '';
+          document.getElementById('input-desc').value = data.desc || '';
+          
+          if (data.stats) {
+            var stats = ['attack', 'defense', 'magic', 'control', 'physical', 'luck'];
+            for (var j = 0; j < stats.length; j++) {
+              var el = document.getElementById('stat-' + stats[j]);
+              if (el && data.stats[stats[j]]) {
+                el.value = data.stats[stats[j]];
+              }
+            }
+          }
+        }
+      } catch (e) {}
+    }
+
+    // 页面加载时尝试恢复数据
+    window.onload = loadSavedCharacter;
+  </script>
+</body>
+</html>

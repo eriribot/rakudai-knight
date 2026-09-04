@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "title": "《落第骑士英雄谭》第一卷·入学档案",
+  "source_material": "MAT-001",
+  "axis_order": ["攻击力", "防御力", "魔力量", "魔力控制", "体能", "运气"],
+  "grade_values": ["A", "B", "C", "D", "E", "F"],
+  "profiles": [
+    {
+      "profile_id": "vol1-ikki-kurogane",
+      "type": "canon",
+      "name": "黑铁一辉",
+      "romanized_name": "IKKI KUROGANE",
+      "subtitle": "一年一班 · 落第骑士",
+      "school": "破军学园",
+      "class": "一年一班",
+      "blazer_rank": "F",
+      "title": "落第骑士",
+      "device": "阴铁",
+      "noble_art": "一刀修罗",
+      "traits": ["剑术实力极端优异", "体能突出", "擅长观察与解析"],
+      "limits": ["能力等级不评价剑术、体术与实战判断", "一刀修罗是短时爆发，使用后会严重虚弱"],
+      "radar": {
+        "攻击力": "F",
+        "防御力": "F",
+        "魔力量": "F",
+        "魔力控制": "E",
+        "体能": "A",
+        "运气": "F"
+      },
+      "source_fragments": ["MAT-001#L3,522-L3,544", "MAT-001#L1,315-L1,323", "MAT-001#L1,137-L1,303"]
+    },
+    {
+      "profile_id": "vol1-stella-vermillion",
+      "type": "canon",
+      "name": "史黛菈·法米利昂",
+      "romanized_name": "STELLA VERMILLION",
+      "subtitle": "一年一班 · 红莲皇女",
+      "school": "破军学园",
+      "class": "一年一班",
+      "blazer_rank": "A",
+      "title": "红莲皇女",
+      "device": "妃龙罪剑",
+      "noble_art": "妃龙吐息",
+      "traits": ["跨海前来追求强敌的皇女", "性格活泼，举止稍嫌粗野", "火焰与魔力量极强"],
+      "limits": ["魔力控制与体能为 B，不是六轴全满", "苦战经验较少可能使战斗方式偏单纯"],
+      "radar": {
+        "攻击力": "A",
+        "防御力": "A",
+        "魔力量": "A",
+        "魔力控制": "B",
+        "体能": "B",
+        "运气": "A"
+      },
+      "source_fragments": ["MAT-001#L5,569-L5,591", "MAT-001#L225-L259"]
+    },
+    {
+      "profile_id": "vol1-sizuku-kurogane",
+      "type": "canon",
+      "name": "黑铁珠雫",
+      "romanized_name": "SIZUKU KUROGANE",
+      "subtitle": "一年四班 · 英雄之血",
+      "school": "破军学园",
+      "class": "一年四班",
+      "blazer_rank": "B",
+      "title": "NO DATA",
+      "device": "宵时雨",
+      "noble_art": "障破水莲（正文亦见“障波水莲”）",
+      "traits": ["水属性伐刀者", "魔力控制极高", "擅长精密操控水流与防御"],
+      "limits": ["攻击力为 D、体能为 E，不能把水属性误写成单纯强攻", "能力等级不等于实际战术价值"],
+      "radar": {
+        "攻击力": "D",
+        "防御力": "B",
+        "魔力量": "C",
+        "魔力控制": "A",
+        "体能": "E",
+        "运气": "C"
+      },
+      "source_fragments": ["MAT-001#L7,546-L7,568", "MAT-001#L4,995-L5,079", "MAT-001#L5,598-L5,678"]
+    },
+    {
+      "profile_id": "custom-student-knight",
+      "type": "custom",
+      "name": "",
+      "romanized_name": "",
+      "subtitle": "自定义学生骑士",
+      "school": "破军学园",
+      "class": "",
+      "blazer_rank": null,
+      "title": "",
+      "device": "",
+      "noble_art": "",
+      "traits": [],
+      "limits": ["自定义能力值仅用于开局档案展示，不会自动成为第一卷正典"],
+      "radar": {
+        "攻击力": null,
+        "防御力": null,
+        "魔力量": null,
+        "魔力控制": null,
+        "体能": null,
+        "运气": null
+      },
+      "source_fragments": []
+    }
+  ]
+}

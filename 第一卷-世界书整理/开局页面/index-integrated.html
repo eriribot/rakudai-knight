@@ -1,0 +1,1990 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>落第骑士英雄谭 · 第一卷入学档案</title>
+  <style>
+    :root {
+      /* 纯正古典轻小说羊皮纸色系，彻底剔除所有黑点噪点 */
+      --lk-bg: #e8dec8;
+      --lk-bg-gradient: linear-gradient(135deg, #eee5d0 0%, #e8dec8 50%, #dfd3bb 100%);
+      
+      /* 纯羊皮纸多层次光泽 */
+      --lk-parchment-base: #faf4e8;
+      --lk-parchment-glow: linear-gradient(168deg, #fdfaf4 0%, #f9f3e5 45%, #f4ebd7 100%);
+      --lk-parchment-card: linear-gradient(172deg, #fcf8ee 0%, #f7f0e0 55%, #f1e6d3 100%);
+      --lk-parchment-panel: linear-gradient(160deg, #f3ece0 0%, #ede3d1 100%);
+      --lk-parchment-box: #f3ece0;
+      
+      /* 羊皮纸专属沉淀墨色 */
+      --lk-ink: #22160f;          /* 纯正古墨褐，字形深邃饱满 */
+      --lk-ink-soft: #38281d;     /* 说明文字深褐 */
+      --lk-ink-label: #4a382b;    /* 字段与标签加深 */
+      --lk-muted: #6e5948;        /* 次要副标加深，杜绝发虚 */
+      
+      /* 学院与契约朱砂深红 */
+      --lk-red: #8b1e1e;
+      --lk-red-hover: #731616;
+      --lk-red-label: #8b1e1e;
+      --lk-line: rgba(139, 30, 30, 0.22);
+      
+      --lk-orange: #ea580c;
+      --lk-bottom-bar: #6d554f;
+      --font-serif: "Noto Serif SC", "Source Han Serif CN", "Songti SC", "SimSun", serif;
+      --font-sans: "Segoe UI", "Microsoft YaHei", -apple-system, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--lk-bg-gradient);
+      color: var(--lk-ink);
+      min-height: 100vh;
+      padding: 24px 16px 40px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    /* 顶部导航与总标题 */
+    .top-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .top-title {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      font-weight: 900;
+      color: var(--lk-red);
+      letter-spacing: 0.12em;
+      margin-bottom: 5px;
+      text-shadow: 0 1px 2px rgba(139, 30, 30, 0.12);
+    }
+
+    .top-subtitle {
+      font-family: var(--font-serif);
+      font-size: 13.5px;
+      color: var(--lk-muted);
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      margin-bottom: 18px;
+    }
+
+    /* 三段式进度条指示器 */
+    .stepper-nav {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.55);
+      border: 1px solid rgba(139, 30, 30, 0.18);
+      border-radius: 30px;
+      padding: 4px 8px;
+      margin-bottom: 25px;
+      box-shadow: 0 2px 8px rgba(58, 44, 34, 0.05);
+    }
+
+    .step-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 18px;
+      border-radius: 20px;
+      font-size: 12.5px;
+      font-weight: 700;
+      font-family: var(--font-serif);
+      color: #523f31;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      border: none;
+      background: transparent;
+    }
+
+    .step-item:hover {
+      color: var(--lk-red);
+    }
+
+    .step-item.active {
+      background: var(--lk-red);
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(139, 30, 30, 0.3);
+    }
+
+    .step-arrow {
+      color: rgba(139, 30, 30, 0.3);
+      font-size: 11px;
+      margin: 0 2px;
+    }
+
+    /* 场景显隐控制 */
+    .scene-view {
+      display: none;
+    }
+
+    .scene-view.active {
+      display: block;
+      animation: fadeIn 0.35s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ================= 第一幕：开局叙事 + 轻小说封面轮播展台 ================= */
+    .opening-layout {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 32px;
+      align-items: stretch;
+      max-width: 1160px;
+      margin: 0 auto;
+    }
+
+    /* 左侧：轻小说封面3D展台与轮播 */
+    .book-showcase-panel {
+      background: var(--lk-parchment-glow);
+      border-radius: 12px;
+      border: 1.5px solid rgba(139, 30, 30, 0.24);
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 
+        inset 0 0 25px rgba(185, 150, 105, 0.12),
+        0 10px 32px rgba(58, 44, 34, 0.1);
+      position: relative;
+    }
+
+    .showcase-header {
+      text-align: center;
+      margin-bottom: 16px;
+      width: 100%;
+      border-bottom: 1px dashed rgba(139, 30, 30, 0.18);
+      padding-bottom: 10px;
+    }
+
+    .showcase-tag {
+      font-family: "Georgia", serif;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--lk-red);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .showcase-subtitle {
+      font-family: var(--font-serif);
+      font-size: 13px;
+      font-weight: 900;
+      color: var(--lk-ink);
+      margin-top: 2px;
+    }
+
+    /* 轮播核心容器 */
+    .carousel-container {
+      position: relative;
+      width: 260px;
+      height: 390px;
+      perspective: 1000px;
+      margin: 4px auto 14px;
+    }
+
+    .book-frame {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 8px;
+      box-shadow: 
+        -6px 0 12px rgba(0, 0, 0, 0.25),
+        0 10px 24px rgba(58, 44, 34, 0.3);
+      overflow: hidden;
+      transform: rotateY(-3deg);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: #2a221b;
+    }
+
+    .book-frame:hover {
+      transform: rotateY(0deg) translateY(-4px);
+      box-shadow: 
+        0 14px 30px rgba(58, 44, 34, 0.38);
+    }
+
+    /* 书脊微光泽反光层 */
+    .book-spine-glow {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 16px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.1) 40%, rgba(0,0,0,0.3) 100%);
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .carousel-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out, transform 0.5s ease-out;
+      transform: scale(0.96);
+      pointer-events: none;
+    }
+
+    .carousel-slide.active {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+    }
+
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* 左右切换箭头按钮 */
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(40, 25, 18, 0.7);
+      color: #ffffff;
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      z-index: 10;
+      transition: all 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    .carousel-btn:hover {
+      background: var(--lk-red);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .carousel-btn.prev { left: -14px; }
+    .carousel-btn.next { right: -14px; }
+
+    /* 底部指示圆点 */
+    .carousel-dots {
+      display: flex;
+      gap: 8px;
+      margin-top: 6px;
+      margin-bottom: 12px;
+    }
+
+    .dot {
+      width: 22px;
+      height: 5px;
+      border-radius: 3px;
+      background: rgba(139, 30, 30, 0.2);
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+
+    .dot.active {
+      width: 34px;
+      background: var(--lk-red);
+    }
+
+    /* 当前卷册信息说明卡片 */
+    .volume-meta-card {
+      background: #f4ede0;
+      border: 1px solid rgba(139, 30, 30, 0.18);
+      border-radius: 6px;
+      padding: 10px 14px;
+      text-align: center;
+      width: 100%;
+      margin-top: auto;
+    }
+
+    .volume-title {
+      font-family: var(--font-serif);
+      font-size: 13px;
+      font-weight: 900;
+      color: var(--lk-red);
+      letter-spacing: 0.05em;
+    }
+
+    .volume-desc {
+      font-size: 11.5px;
+      color: var(--lk-ink-soft);
+      margin-top: 3px;
+      line-height: 1.5;
+    }
+
+    /* 右侧：纯正轻小说特典羊皮纸长卷 */
+    .narrative-card {
+      background: var(--lk-parchment-glow);
+      border-radius: 12px;
+      border: 1.5px solid rgba(139, 30, 30, 0.28);
+      padding: 42px 48px;
+      box-shadow: 
+        inset 0 0 45px rgba(185, 150, 105, 0.16),
+        inset 0 0 0 4px #fbf7ee,
+        inset 0 0 0 5.5px rgba(139, 30, 30, 0.15),
+        0 12px 38px rgba(58, 44, 34, 0.12);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .narrative-title {
+      font-family: var(--font-serif);
+      font-size: 26px;
+      font-weight: 900;
+      color: var(--lk-red);
+      text-align: center;
+      letter-spacing: 0.16em;
+      margin-bottom: 22px;
+      position: relative;
+    }
+
+    .narrative-title::after {
+      content: "";
+      display: block;
+      width: 80px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--lk-red), transparent);
+      margin: 12px auto 0;
+      opacity: 0.65;
+    }
+
+    .narrative-quote {
+      font-family: var(--font-serif);
+      font-size: 15px;
+      line-height: 2.1;
+      color: var(--lk-ink);
+      text-indent: 2em;
+      margin-bottom: 18px;
+      letter-spacing: 0.02em;
+    }
+
+    .narrative-quote.highlight {
+      color: var(--lk-red);
+      font-weight: 700;
+      font-size: 16px;
+      text-align: center;
+      text-indent: 0;
+      padding: 4px 0;
+      letter-spacing: 0.04em;
+    }
+
+    .narrative-box {
+      background: var(--lk-parchment-box);
+      border: 1px solid rgba(139, 30, 30, 0.18);
+      border-left: 4.5px solid var(--lk-red);
+      padding: 16px 22px;
+      margin: 22px 0;
+      border-radius: 0 8px 8px 0;
+      box-shadow: inset 0 0 15px rgba(185, 150, 105, 0.08), 0 2px 8px rgba(58, 44, 34, 0.04);
+    }
+
+    .narrative-box-title {
+      font-family: var(--font-serif);
+      font-size: 13.5px;
+      font-weight: 900;
+      color: var(--lk-red);
+      margin-bottom: 8px;
+      letter-spacing: 0.1em;
+    }
+
+    .narrative-box-p {
+      font-size: 13px;
+      color: var(--lk-ink-soft);
+      line-height: 1.85;
+      letter-spacing: 0.01em;
+    }
+
+    .narrative-actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 18px;
+      margin-top: 26px;
+      flex-wrap: wrap;
+    }
+
+    .btn-narrative-start {
+      background: var(--lk-red);
+      color: #ffffff;
+      border: none;
+      padding: 13px 40px;
+      border-radius: 6px;
+      font-family: var(--font-serif);
+      font-size: 15.5px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(139, 30, 30, 0.32);
+      transition: all 0.25s ease;
+    }
+
+    .btn-narrative-start:hover {
+      background: var(--lk-red-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(139, 30, 30, 0.42);
+    }
+
+    .btn-narrative-skip {
+      font-family: var(--font-serif);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--lk-red);
+      background: #f1e6d5;
+      border: 1.5px solid rgba(139, 30, 30, 0.35);
+      border-radius: 6px;
+      padding: 11px 20px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      text-decoration: none;
+      box-shadow: 0 2px 6px rgba(58, 44, 34, 0.05);
+    }
+
+    .btn-narrative-skip:hover {
+      background: var(--lk-red);
+      color: #ffffff;
+      border-color: var(--lk-red);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(139, 30, 30, 0.25);
+    }
+
+    /* ================= 第二幕：纯羊皮纸经典双栏布局 ================= */
+    .register-main-layout {
+      display: grid;
+      grid-template-columns: 460px 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    /* 左侧 REGISTER 表单面板 */
+    .panel-register {
+      background: var(--lk-parchment-panel);
+      border: 1px solid rgba(139, 30, 30, 0.18);
+      border-radius: 12px;
+      padding: 24px 22px 28px;
+      box-shadow: 
+        inset 0 0 24px rgba(185, 150, 105, 0.1),
+        0 4px 18px rgba(58, 44, 34, 0.08);
+      position: relative;
+    }
+
+    /* 经典红底斜切平行四边形标签 */
+    .badge-slant {
+      display: inline-block;
+      background: var(--lk-red-label);
+      color: #ffffff;
+      transform: skewX(-15deg);
+      padding: 3px 18px;
+      margin-bottom: 16px;
+      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.18);
+      border-radius: 2px;
+    }
+
+    .badge-slant-text {
+      display: inline-block;
+      transform: skewX(15deg);
+      font-family: "Georgia", "Times New Roman", serif;
+      font-style: italic;
+      font-weight: 900;
+      font-size: 13px;
+      letter-spacing: 0.15em;
+      color: #ffffff;
+    }
+
+    /* 预设切换小工具 */
+    .preset-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px dashed rgba(139, 30, 30, 0.16);
+    }
+
+    .preset-label {
+      font-size: 11.5px;
+      font-family: var(--font-serif);
+      font-weight: 700;
+      color: var(--lk-ink-label);
+      white-space: nowrap;
+    }
+
+    .preset-chips {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .preset-chip {
+      padding: 3px 10px;
+      font-size: 11.5px;
+      border-radius: 4px;
+      border: 1px solid rgba(139, 30, 30, 0.25);
+      background: #ffffff;
+      color: var(--lk-ink-soft);
+      cursor: pointer;
+      font-family: var(--font-serif);
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .preset-chip:hover, .preset-chip.active {
+      background: var(--lk-red);
+      color: #ffffff;
+      border-color: var(--lk-red);
+    }
+
+    /* 表单控件栅格 */
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 14px;
+      margin-bottom: 12px;
+    }
+
+    .form-grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px 10px;
+      margin-bottom: 12px;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .field-label {
+      font-size: 11.5px;
+      font-family: var(--font-serif);
+      color: var(--lk-ink-label);
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .field-input, .field-select {
+      width: 100%;
+      padding: 8px 10px;
+      background: #ffffff;
+      border: 1px solid rgba(139, 30, 30, 0.16);
+      border-radius: 6px;
+      font-size: 13px;
+      color: var(--lk-ink);
+      font-family: var(--font-serif);
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.04);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .field-input::placeholder {
+      color: #9e8e7e;
+      font-style: normal;
+    }
+
+    .field-input:focus, .field-select:focus {
+      border-color: var(--lk-red);
+      box-shadow: 0 0 0 2px rgba(139, 30, 30, 0.15);
+    }
+
+    .field-textarea {
+      width: 100%;
+      height: 72px;
+      resize: vertical;
+      padding: 8px 10px;
+      background: #ffffff;
+      border: 1px solid rgba(139, 30, 30, 0.16);
+      border-radius: 6px;
+      font-size: 12px;
+      color: var(--lk-ink);
+      font-family: var(--font-serif);
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.04);
+      outline: none;
+      line-height: 1.6;
+    }
+
+    .field-textarea:focus {
+      border-color: var(--lk-red);
+      box-shadow: 0 0 0 2px rgba(139, 30, 30, 0.15);
+    }
+
+    .btn-group-register {
+      display: flex;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .btn-apply {
+      flex: 1.2;
+      padding: 9px 16px;
+      background: var(--lk-red);
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      font-family: var(--font-serif);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(139, 30, 30, 0.28);
+      transition: all 0.2s;
+    }
+
+    .btn-apply:hover {
+      background: var(--lk-red-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-reset {
+      flex: 1;
+      padding: 9px 16px;
+      background: #ffffff;
+      color: var(--lk-red);
+      border: 1.5px solid var(--lk-red);
+      border-radius: 6px;
+      font-family: var(--font-serif);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-reset:hover {
+      background: rgba(139, 30, 30, 0.06);
+    }
+
+    .register-status-feedback {
+      font-family: var(--font-serif);
+      font-size: 12px;
+      color: #245838;
+      font-weight: 600;
+      margin-top: 14px;
+      text-align: left;
+    }
+
+    .to-confirm-box {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px dashed rgba(139, 30, 30, 0.16);
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .btn-to-confirm {
+      background: #f7efe4;
+      color: var(--lk-red);
+      border: 1.5px solid var(--lk-red);
+      padding: 9px 20px;
+      border-radius: 6px;
+      font-family: var(--font-serif);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+      box-shadow: 0 2px 6px rgba(139, 30, 30, 0.1);
+    }
+
+    .btn-to-confirm:hover {
+      background: var(--lk-red);
+      color: #ffffff;
+    }
+
+    /* ================= 右侧：100% 纯羊皮纸角色设定卡 ================= */
+    .character-card-wrapper {
+      position: sticky;
+      top: 20px;
+    }
+
+    .character-card {
+      background: var(--lk-parchment-card);
+      border-radius: 10px;
+      box-shadow: 
+        inset 0 0 36px rgba(185, 150, 105, 0.18),
+        0 6px 28px rgba(58, 44, 34, 0.12);
+      overflow: hidden;
+      position: relative;
+      padding: 32px 34px 26px;
+      border: 1.5px solid rgba(139, 30, 30, 0.24);
+    }
+
+    /* 全局背景大水印印章（位于右上角，跨越STATUS与PARAMETER，精准复原原图位置！） */
+    .card-global-watermark {
+      position: absolute;
+      right: -55px;
+      top: 165px;
+      width: 370px;
+      height: 370px;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.14;
+    }
+
+    /* 卡片内容层置于水印之上 */
+    .card-content-layer {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* 卡片顶部：左姓名 + 右圆形头像 (绝无大红顶栏！) */
+    .card-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+    }
+
+    .card-name-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-display-name {
+      font-family: var(--font-serif);
+      font-size: 38px;
+      font-weight: 900;
+      color: var(--lk-red);
+      letter-spacing: 0.06em;
+      line-height: 1.1;
+      text-shadow: 0 1px 2px rgba(139, 30, 30, 0.12);
+    }
+
+    .card-display-romaji {
+      font-family: "Georgia", "Times New Roman", serif;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--lk-red);
+      letter-spacing: 0.32em;
+      margin-top: 6px;
+      text-transform: uppercase;
+      opacity: 0.95;
+    }
+
+    /* 右上角圆形头像 */
+    .card-avatar-container {
+      position: relative;
+      width: 106px;
+      height: 106px;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .card-avatar-ring {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 2.5px solid var(--lk-red);
+      overflow: hidden;
+      background: #dcd0bc;
+      position: relative;
+      box-shadow: 0 2px 10px rgba(139, 30, 30, 0.25);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .card-avatar-ring:hover {
+      transform: scale(1.04);
+      box-shadow: 0 4px 14px rgba(139, 30, 30, 0.35);
+    }
+
+    .card-avatar-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card-avatar-hint {
+      position: absolute;
+      inset: 0;
+      background: rgba(58, 44, 34, 0.65);
+      color: #ffffff;
+      font-size: 10px;
+      font-family: var(--font-serif);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .card-avatar-container:hover .card-avatar-hint {
+      opacity: 1;
+    }
+
+    /* PROFILE 区域 */
+    .card-profile-section {
+      margin-bottom: 22px;
+    }
+
+    .card-profile-text {
+      font-family: var(--font-serif);
+      font-size: 12.5px;
+      color: var(--lk-ink);
+      font-weight: 500;
+      line-height: 1.85;
+      min-height: 22px;
+    }
+
+    /* STATUS 区域：清爽极简两列无框排版 */
+    .card-status-section {
+      margin-bottom: 22px;
+    }
+
+    .status-two-col {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 7px 24px;
+      font-family: var(--font-serif);
+      font-size: 13.5px;
+      color: var(--lk-ink);
+    }
+
+    .status-item {
+      display: flex;
+      align-items: baseline;
+    }
+
+    .status-label {
+      color: var(--lk-ink-soft);
+      min-width: 52px;
+      font-weight: 600;
+    }
+
+    .status-value {
+      font-weight: 700;
+      color: var(--lk-ink);
+    }
+
+    .status-value.rank-val {
+      font-weight: 900;
+      font-size: 15px;
+      color: var(--lk-red);
+    }
+
+    /* PARAMETER 雷达图区域 */
+    .card-parameter-section {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .radar-svg-wrapper {
+      width: 100%;
+      max-width: 390px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .radar-svg-wrapper svg {
+      overflow: visible;
+    }
+
+    /* NOTES 附注说明 */
+    .card-notes-section {
+      position: relative;
+      z-index: 2;
+      margin-bottom: 28px;
+    }
+
+    .notes-list {
+      font-family: var(--font-serif);
+      font-size: 12.5px;
+      color: var(--lk-ink-soft);
+      font-weight: 500;
+      line-height: 1.85;
+    }
+
+    .note-row {
+      display: flex;
+      align-items: baseline;
+    }
+
+    /* 卡片底部暗褐色斜条装饰 */
+    .card-bottom-bar {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 52px;
+      background: var(--lk-bottom-bar);
+      clip-path: polygon(0 42%, 100% 0, 100% 100%, 0 100%);
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    /* ================= 第三幕：终审大卡与学园授印 ================= */
+    .confirm-stage {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .stage-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .stage-header-title {
+      font-family: var(--font-serif);
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--lk-red);
+      letter-spacing: 0.15em;
+    }
+
+    .stage-header-desc {
+      font-family: var(--font-serif);
+      font-size: 13px;
+      color: var(--lk-muted);
+      margin-top: 5px;
+    }
+
+    /* 终审印章（红色朱砂公文印） */
+    .stamp-seal {
+      position: absolute;
+      right: 25px;
+      top: 155px;
+      width: 105px;
+      height: 105px;
+      border: 3.5px solid #a32218;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #a32218;
+      font-family: var(--font-serif);
+      transform: rotate(-12deg);
+      opacity: 0.88;
+      box-shadow: 0 0 6px rgba(163, 34, 24, 0.2), inset 0 0 4px rgba(163, 34, 24, 0.2);
+      pointer-events: none;
+      z-index: 10;
+      animation: stampDrop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes stampDrop {
+      0% { transform: scale(2.2) rotate(10deg); opacity: 0; }
+      100% { transform: scale(1) rotate(-12deg); opacity: 0.88; }
+    }
+
+    .stamp-inner-border {
+      width: 90px;
+      height: 90px;
+      border: 1px dashed #a32218;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+    }
+
+    .stamp-school {
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.15em;
+    }
+
+    .stamp-status {
+      font-size: 17px;
+      font-weight: 900;
+      letter-spacing: 0.2em;
+      margin: 2px 0;
+      border-top: 1px solid #a32218;
+      border-bottom: 1px solid #a32218;
+      padding: 1px 0;
+    }
+
+    .stamp-date {
+      font-size: 9px;
+      letter-spacing: 0.05em;
+      opacity: 0.85;
+    }
+
+    .confirm-actions {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+
+    .btn-action-back {
+      background: #ffffff;
+      color: var(--lk-ink);
+      border: 1.5px solid rgba(139, 30, 30, 0.3);
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-family: var(--font-serif);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-action-back:hover {
+      border-color: var(--lk-red);
+      color: var(--lk-red);
+    }
+
+    .btn-action-copy {
+      background: #ffffff;
+      color: var(--lk-red);
+      border: 1.5px solid var(--lk-red);
+      padding: 12px 26px;
+      border-radius: 6px;
+      font-family: var(--font-serif);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-action-copy:hover {
+      background: rgba(139, 30, 30, 0.06);
+    }
+
+    .btn-action-start {
+      background: var(--lk-red);
+      color: #ffffff;
+      border: none;
+      padding: 12px 34px;
+      border-radius: 6px;
+      font-family: var(--font-serif);
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(139, 30, 30, 0.3);
+      transition: all 0.2s;
+    }
+
+    .btn-action-start:hover {
+      background: var(--lk-red-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(139, 30, 30, 0.4);
+    }
+
+    /* 响应式适配 */
+    @media (max-width: 1080px) {
+      .opening-layout {
+        grid-template-columns: 1fr;
+        max-width: 780px;
+      }
+      .book-showcase-panel {
+        order: -1;
+      }
+      .register-main-layout {
+        grid-template-columns: 1fr;
+      }
+      .character-card-wrapper {
+        position: static;
+      }
+      .character-card {
+        max-width: 580px;
+        margin: 0 auto;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .form-grid-2 {
+        grid-template-columns: 1fr;
+      }
+      .form-grid-3 {
+        grid-template-columns: 1fr 1fr;
+      }
+      .card-display-name {
+        font-size: 30px;
+      }
+      .narrative-card {
+        padding: 28px 20px;
+      }
+      .character-card {
+        padding: 22px 18px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- 顶部大标题与副标题 -->
+    <header class="top-header">
+      <h1 class="top-title">落第骑士英雄谭 · 第一卷入学档案</h1>
+      <p class="top-subtitle">破军学园伐刀者登用典则 · 新生能力评定回显</p>
+
+      <!-- 三段式渐进式导航条 -->
+      <nav class="stepper-nav">
+        <button class="step-item active" id="nav-step-1" onclick="switchScene(1)">
+          <span>① 序章启程</span>
+        </button>
+        <span class="step-arrow">▶</span>
+        <button class="step-item" id="nav-step-2" onclick="switchScene(2)">
+          <span>② 档案登记</span>
+        </button>
+        <span class="step-arrow">▶</span>
+        <button class="step-item" id="nav-step-3" onclick="switchScene(3)">
+          <span>③ 入学授印</span>
+        </button>
+      </nav>
+    </header>
+
+    <!-- ================= 第一幕：开局叙事 + 轻小说封面轮播展台 ================= -->
+    <main id="scene-narrative" class="scene-view active">
+      <div class="opening-layout">
+        
+        <!-- 左侧：轻小说封面3D展台轮播器 -->
+        <aside class="book-showcase-panel">
+          <div class="showcase-header">
+            <span class="showcase-tag">LIGHT NOVEL ARCHIVE</span>
+            <div class="showcase-subtitle">落第骑士英雄谭 · 正典文库卷目</div>
+          </div>
+
+          <div class="carousel-container" onmouseenter="pauseCarousel()" onmouseleave="resumeCarousel()">
+            <div class="book-frame">
+              <div class="book-spine-glow"></div>
+              
+              <!-- 第 1 卷 -->
+              <div class="carousel-slide active" id="slide-0">
+                <img src="covers/cover_vol1.jpg" alt="落第骑士英雄谭 第一卷封面 史黛菈">
+              </div>
+              
+              <!-- 第 2 卷 -->
+              <div class="carousel-slide" id="slide-1">
+                <img src="covers/cover_vol2.jpg" alt="落第骑士英雄谭 第二卷封面 黑铁珠雫">
+              </div>
+              
+              <!-- 第 3 卷 -->
+              <div class="carousel-slide" id="slide-2">
+                <img src="covers/cover_vol3.jpg" alt="落第骑士英雄谭 第三卷封面 黑铁一辉">
+              </div>
+            </div>
+
+            <!-- 切页按钮 -->
+            <button class="carousel-btn prev" onclick="prevSlide()" title="上一卷">‹</button>
+            <button class="carousel-btn next" onclick="nextSlide()" title="下一卷">›</button>
+          </div>
+
+          <!-- 底部指示条 -->
+          <div class="carousel-dots">
+            <span class="dot active" onclick="goToSlide(0)"></span>
+            <span class="dot" onclick="goToSlide(1)"></span>
+            <span class="dot" onclick="goToSlide(2)"></span>
+          </div>
+
+          <!-- 当前卷说明 -->
+          <div class="volume-meta-card" id="volume-meta-info">
+            <div class="volume-title" id="vol-meta-title">第 1 卷 · 始动的一刀修罗</div>
+            <div class="volume-desc" id="vol-meta-desc">破军学园开学日，F级劣等生黑铁一辉与A级红莲皇女史黛菈的决斗誓约。</div>
+          </div>
+        </aside>
+
+        <!-- 右侧：纯正轻小说特典羊皮纸长卷 -->
+        <article class="narrative-card">
+          <div>
+            <h2 class="narrative-title">序章 · 灵魂与魔力的誓约</h2>
+            
+            <p class="narrative-quote highlight">
+              『所谓的魔导骑士，是将自身灵魂化为固有灵装，以此驱使魔力的现代魔术师。』
+            </p>
+            
+            <p class="narrative-quote">
+              在这个时代，能够使用魔力的魔导骑士是国家的防卫力量与顶尖战力。拥有资质的人将进入骑士培养专门学校进行严苛的修炼。
+              位于东京都内的<strong>破军学园</strong>，正是日本培养青年伐刀者的重镇。
+            </p>
+            
+            <div class="narrative-box">
+              <div class="narrative-box-title">◆ 新生档案审查标准说明</div>
+              <p class="narrative-box-p">
+                根据日本伐刀者管理局规程，每一名入校新生均须在教务处留档固有灵装、伐刀绝技，并接受权威六维综合评测（攻击力、防御力、魔力量、魔力控制、体能、运气）。
+                评定等级自 A 至 F，作为排位战及分班核心考量。
+              </p>
+            </div>
+
+            <p class="narrative-quote">
+              即使是魔力量微乎其微的“落第骑士”，只要剑意不折，也能挥出超越极限的一刀修罗。
+              新生，请报上你的真名，签下这份决定命运的入学卷宗。
+            </p>
+          </div>
+
+          <div class="narrative-actions">
+            <button class="btn-narrative-start" onclick="switchScene(2)">开始登记档案 ➔</button>
+            <button class="btn-narrative-skip" onclick="quickLoadCanon('kurogane')">快速载入黑铁一辉正典 ⚡</button>
+          </div>
+        </article>
+
+      </div>
+    </main>
+
+    <!-- ================= 第二幕：纯羊皮纸档案登记与实时回显 ================= -->
+    <main id="scene-register" class="scene-view">
+      <div class="register-main-layout">
+        
+        <!-- 左侧表单面板 -->
+        <section class="panel-register">
+          <div class="badge-slant">
+            <span class="badge-slant-text">REGISTER</span>
+          </div>
+
+          <!-- 正典预设快速切换 -->
+          <div class="preset-row">
+            <span class="preset-label">正典预设:</span>
+            <div class="preset-chips">
+              <button type="button" class="preset-chip" onclick="loadPreset('kurogane')">黑铁一辉</button>
+              <button type="button" class="preset-chip" onclick="loadPreset('stella')">史黛菈</button>
+              <button type="button" class="preset-chip" onclick="loadPreset('shizuku')">黑铁珠雫</button>
+              <button type="button" class="preset-chip active" onclick="loadPreset('custom')">自定义</button>
+            </div>
+          </div>
+
+          <!-- 姓名 / 罗马音 -->
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label class="field-label">姓名</label>
+              <input type="text" class="field-input" id="input-name" placeholder="如：黎恩" value="黎恩" oninput="syncCard()">
+            </div>
+            <div class="form-field">
+              <label class="field-label">罗马音</label>
+              <input type="text" class="field-input" id="input-romaji" placeholder="如：IKKI KUROGANE" value="" oninput="syncCard()">
+            </div>
+          </div>
+
+          <!-- 所属 / 班级 与 伐刀者等级 -->
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label class="field-label">所属 / 班级</label>
+              <input type="text" class="field-input" id="input-school" placeholder="如：破军学园 / 一年一班" value="" oninput="syncCard()">
+            </div>
+            <div class="form-field">
+              <label class="field-label">伐刀者等级</label>
+              <select class="field-select" id="input-rank" onchange="syncCard()">
+                <option value="">— 待评定 —</option>
+                <option value="A">A 级</option>
+                <option value="B" selected>B 级</option>
+                <option value="C">C 级</option>
+                <option value="D">D 级</option>
+                <option value="E">E 级</option>
+                <option value="F">F 级</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- 固有灵装 与 伐刀绝技 -->
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label class="field-label">固有灵装</label>
+              <input type="text" class="field-input" id="input-device" placeholder="如：阴铁" value="" oninput="syncCard()">
+            </div>
+            <div class="form-field">
+              <label class="field-label">伐刀绝技</label>
+              <input type="text" class="field-input" id="input-noble-art" placeholder="如：一刀修罗" value="" oninput="syncCard()">
+            </div>
+          </div>
+
+          <!-- 角色简介 -->
+          <div class="form-field" style="margin-bottom: 14px;">
+            <label class="field-label">角色简介</label>
+            <textarea class="field-textarea" id="input-desc" placeholder="一段简介，将显示在 PROFILE 区块" oninput="syncCard()"></textarea>
+          </div>
+
+          <!-- 六维能力下拉框：3列并排 -->
+          <div class="form-grid-3">
+            <div class="form-field">
+              <label class="field-label">攻击力</label>
+              <select class="field-select" id="stat-attack" onchange="syncCard()">
+                <option value="">—</option>
+                <option value="A">A</option><option value="B">B</option><option value="C" selected>C</option>
+                <option value="D">D</option><option value="E">E</option><option value="F">F</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label class="field-label">防御力</label>
+              <select class="field-select" id="stat-defense" onchange="syncCard()">
+                <option value="">—</option>
+                <option value="A">A</option><option value="B">B</option><option value="C" selected>C</option>
+                <option value="D">D</option><option value="E">E</option><option value="F">F</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label class="field-label">魔力量</label>
+              <select class="field-select" id="stat-magic" onchange="syncCard()">
+                <option value="">—</option>
+                <option value="A" selected>A</option><option value="B">B</option><option value="C">C</option>
+                <option value="D">D</option><option value="E">E</option><option value="F">F</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-grid-3">
+            <div class="form-field">
+              <label class="field-label">魔力控制</label>
+              <select class="field-select" id="stat-control" onchange="syncCard()">
+                <option value="">—</option>
+                <option value="A">A</option><option value="B">B</option><option value="C" selected>C</option>
+                <option value="D">D</option><option value="E">E</option><option value="F">F</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label class="field-label">体能</label>
+              <select class="field-select" id="stat-physical" onchange="syncCard()">
+                <option value="">—</option>
+                <option value="A" selected>A</option><option value="B">B</option><option value="C">C</option>
+                <option value="D">D</option><option value="E">E</option><option value="F">F</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label class="field-label">运气</label>
+              <select class="field-select" id="stat-luck" onchange="syncCard()">
+                <option value="">—</option>
+                <option value="A">A</option><option value="B" selected>B</option><option value="C">C</option>
+                <option value="D">D</option><option value="E">E</option><option value="F">F</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- 按钮组：深红“应用并显示” 与 白底红框“重置表单” -->
+          <div class="btn-group-register">
+            <button type="button" class="btn-apply" onclick="applyAndNotify()">应用并显示</button>
+            <button type="button" class="btn-reset" onclick="resetRegisterForm()">重置表单</button>
+          </div>
+
+          <!-- 状态提示文案 -->
+          <div class="register-status-feedback" id="register-feedback">
+            已应用 黎恩，6/6 项能力已评定
+          </div>
+
+          <!-- 引导流下一步 -->
+          <div class="to-confirm-box">
+            <button type="button" class="btn-to-confirm" onclick="switchScene(3)">
+              下一步：确认档案与正式授印 ➔
+            </button>
+          </div>
+        </section>
+
+        <!-- 右侧：纯羊皮纸角色设定卡实时回显 (带右上方大水印印章！) -->
+        <aside class="character-card-wrapper">
+          <div class="character-card" id="main-character-card">
+            
+            <!-- 全局背景大水印印章（完美重合原图位置：位于卡片右上方偏右，跨越STATUS与PARAMETER！） -->
+            <div class="card-global-watermark">
+              <svg viewBox="0 0 380 380" width="100%" height="100%">
+                <g transform="translate(190, 190) rotate(16)">
+                  <!-- 同心圆环 -->
+                  <circle cx="0" cy="0" r="165" fill="none" stroke="#685547" stroke-width="2.2" opacity="0.85"/>
+                  <circle cx="0" cy="0" r="174" fill="none" stroke="#685547" stroke-width="1.2" stroke-dasharray="5 4" opacity="0.75"/>
+                  <circle cx="0" cy="0" r="70" fill="none" stroke="#685547" stroke-width="1.2" opacity="0.5"/>
+                  <!-- 巨大五角星芒 -->
+                  <polygon points="0,-170 48,-52 165,-52 72,20 106,134 0,65 -106,134 -72,20 -165,-52 -48,-52" fill="#685547" opacity="0.85"/>
+                </g>
+              </svg>
+            </div>
+
+            <!-- 卡片正文内容层 -->
+            <div class="card-content-layer">
+              <!-- 卡片顶部：左大姓名 + 右圆形头像 (绝无大红顶栏！) -->
+              <div class="card-top-row">
+                <div class="card-name-group">
+                  <span class="card-display-name" id="card-name">黎恩</span>
+                  <span class="card-display-romaji" id="card-romaji">UNNAMED</span>
+                </div>
+                
+                <!-- 圆形立绘头像框 -->
+                <div class="card-avatar-container" onclick="document.getElementById('avatar-file-input').click()" title="点击更换立绘照片">
+                  <div class="card-avatar-ring">
+                    <img class="card-avatar-img" id="card-avatar-img" src="data:image/png;base64,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" alt="角色立绘">
+                    <div class="card-avatar-hint">更换照片</div>
+                  </div>
+                  <input type="file" id="avatar-file-input" accept="image/*" style="display: none;" onchange="handleCustomAvatar(event)">
+                </div>
+              </div>
+
+              <!-- PROFILE -->
+              <div class="card-profile-section">
+                <div class="badge-slant">
+                  <span class="badge-slant-text">PROFILE</span>
+                </div>
+                <p class="card-profile-text" id="card-profile-text">请使用左侧注册面板填写角色档案。</p>
+              </div>
+
+              <!-- STATUS -->
+              <div class="card-status-section">
+                <div class="badge-slant">
+                  <span class="badge-slant-text">STATUS</span>
+                </div>
+                <div class="status-two-col">
+                  <div class="status-item">
+                    <span class="status-label">所属：</span>
+                    <span class="status-value" id="card-school-val">—</span>
+                  </div>
+                  <div class="status-item">
+                    <span class="status-label">等级：</span>
+                    <span class="status-value rank-val" id="card-rank-val">B</span>
+                  </div>
+                  <div class="status-item">
+                    <span class="status-label">武器：</span>
+                    <span class="status-value" id="card-device-val">—</span>
+                  </div>
+                  <div class="status-item">
+                    <span class="status-label">必杀技：</span>
+                    <span class="status-value" id="card-noble-val">—</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- PARAMETER 雷达图 -->
+              <div class="card-parameter-section">
+                <div class="badge-slant">
+                  <span class="badge-slant-text">PARAMETER</span>
+                </div>
+                <div class="radar-svg-wrapper">
+                  <svg id="ability-radar-svg" viewBox="0 0 380 370" width="100%" height="100%">
+                    <!-- 动态由 renderRadarEngine() 注入 -->
+                  </svg>
+                </div>
+              </div>
+
+              <!-- NOTES 附注 -->
+              <div class="card-notes-section">
+                <div class="badge-slant">
+                  <span class="badge-slant-text">NOTES</span>
+                </div>
+                <div class="notes-list">
+                  <div class="note-row">攻击力 (A-F): A 最强</div>
+                  <div class="note-row">防御力 (A-F): 抵御能力</div>
+                  <div class="note-row">魔力量 (A-F): 储存上限</div>
+                  <div class="note-row">魔力控制 (A-F): 输出效率</div>
+                  <div class="note-row">体能 (A-F): 身体素质</div>
+                  <div class="note-row">运气 (A-F): 判定修正</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 底部深褐色倾斜装饰条 -->
+            <div class="card-bottom-bar"></div>
+
+          </div>
+        </aside>
+
+      </div>
+    </main>
+
+    <!-- ================= 第三幕：终审大卡与学园授印 ================= -->
+    <main id="scene-confirm" class="scene-view">
+      <div class="confirm-stage">
+        
+        <div class="stage-header">
+          <h2 class="stage-header-title">破军学园 · 伐刀者正式登用书</h2>
+          <p class="stage-header-desc">理事长室与教务处已联合复核完毕，准予正式归档</p>
+        </div>
+
+        <!-- 放置最终核验卡片（带有朱砂印章） -->
+        <div style="position: relative;" id="final-card-mount">
+          <!-- 红色公文印章 -->
+          <div class="stamp-seal">
+            <div class="stamp-inner-border">
+              <div class="stamp-school">破军学园</div>
+              <div class="stamp-status">已评定</div>
+              <div class="stamp-date">RECORDS · 正式登用</div>
+            </div>
+          </div>
+          <!-- 卡片 DOM 将在进入第三幕时由 JS 挂载 / 展示 -->
+          <div id="final-card-container"></div>
+        </div>
+
+        <!-- 终审操作栏 -->
+        <div class="confirm-actions">
+          <button type="button" class="btn-action-back" onclick="switchScene(2)">← 返回修改档案</button>
+          <button type="button" class="btn-action-copy" onclick="copyCardSummary()">📋 复制档案开局稿</button>
+          <button type="button" class="btn-action-start" onclick="enterGame()">⚔️ 正式步入破军学园</button>
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <script>
+    // 正典角色预设数据
+    var CANON_PROFILES = {
+      'kurogane': {
+        name: '黑铁一辉',
+        romaji: 'IKKI KUROGANE',
+        school: '破军学园 / 一年一班',
+        rank: 'F',
+        device: '阴铁',
+        nobleArt: '一刀修罗',
+        desc: '破军学园史上最劣等生，拥有“落第骑士”称号。凭借绝不放弃的信念磨砺出极意剑技与盲点观察力，以身化为修罗斩破命运。',
+        stats: { attack: 'F', defense: 'F', magic: 'F', control: 'E', physical: 'A', luck: 'F' }
+      },
+      'stella': {
+        name: '史黛菈·法米利昂',
+        romaji: 'STELLA VERMILLION',
+        school: '破军学园 / 一年一班',
+        rank: 'A',
+        device: '妃龙罪剑',
+        nobleArt: '妃龙吐息',
+        desc: '法米利昂皇国第二皇女。拥有超越常人几十倍的恐怖魔力量与顶级火系操控力，被誉为十年难得一遇的天才骑士“红莲皇女”。',
+        stats: { attack: 'A', defense: 'A', magic: 'A', control: 'B', physical: 'B', luck: 'A' }
+      },
+      'shizuku': {
+        name: '黑铁珠雫',
+        romaji: 'SHIZUKU KUROGANE',
+        school: '破军学园 / 一年四班',
+        rank: 'B',
+        device: '宵雨',
+        nobleArt: '障破水莲',
+        desc: '黑铁一辉的亲生妹妹。破军学园屈指可数的水系高位伐刀者“深海魔女”，对兄长抱有极度深厚的依恋与信赖。',
+        stats: { attack: 'D', defense: 'B', magic: 'C', control: 'A', physical: 'E', luck: 'C' }
+      },
+      'custom': {
+        name: '黎恩',
+        romaji: 'UNNAMED',
+        school: '—',
+        rank: 'B',
+        device: '—',
+        nobleArt: '—',
+        desc: '请使用左侧注册面板填写角色档案。',
+        stats: { attack: 'C', defense: 'C', magic: 'A', control: 'C', physical: 'A', luck: 'B' }
+      }
+    };
+
+    // 轮播数据
+    var NOVEL_COVERS = [
+      {
+        title: '第 1 卷 · 始动的一刀修罗',
+        desc: '破军学园开学日，F级劣等生黑铁一辉与A级红莲皇女史黛菈的决斗誓约。'
+      },
+      {
+        title: '第 2 卷 · 深海魔女与宵雨之刃',
+        desc: '亲生妹妹黑铁珠雫参战！水系高阶伐刀者与兄长并肩，面对破军排位选拔。'
+      },
+      {
+        title: '第 3 卷 · 剑士之傲骨与修罗极意',
+        desc: '面对无法捕捉的猎人桐原静矢，一辉燃烧全部灵魂挥出超越极限的一刀修罗！'
+      }
+    ];
+
+    var currentSlide = 0;
+    var carouselTimer = null;
+
+    function showSlide(idx) {
+      var slides = document.querySelectorAll('.carousel-slide');
+      var dots = document.querySelectorAll('.carousel-dots .dot');
+      if (!slides.length) return;
+
+      currentSlide = (idx + slides.length) % slides.length;
+
+      slides.forEach(function(s, i) {
+        s.classList.toggle('active', i === currentSlide);
+      });
+
+      dots.forEach(function(d, i) {
+        d.classList.toggle('active', i === currentSlide);
+      });
+
+      var meta = NOVEL_COVERS[currentSlide];
+      if (meta) {
+        document.getElementById('vol-meta-title').textContent = meta.title;
+        document.getElementById('vol-meta-desc').textContent = meta.desc;
+      }
+    }
+
+    function nextSlide() {
+      showSlide(currentSlide + 1);
+    }
+
+    function prevSlide() {
+      showSlide(currentSlide - 1);
+    }
+
+    function goToSlide(idx) {
+      showSlide(idx);
+    }
+
+    function startCarousel() {
+      stopCarousel();
+      carouselTimer = setInterval(nextSlide, 4500);
+    }
+
+    function stopCarousel() {
+      if (carouselTimer) {
+        clearInterval(carouselTimer);
+        carouselTimer = null;
+      }
+    }
+
+    function pauseCarousel() {
+      stopCarousel();
+    }
+
+    function resumeCarousel() {
+      startCarousel();
+    }
+
+    // 当前场景切换 (1: 叙事, 2: 登记, 3: 确认)
+    var currentScene = 1;
+
+    function switchScene(sceneNum) {
+      currentScene = sceneNum;
+      
+      // 更新导航指示器
+      document.getElementById('nav-step-1').classList.toggle('active', sceneNum === 1);
+      document.getElementById('nav-step-2').classList.toggle('active', sceneNum === 2);
+      document.getElementById('nav-step-3').classList.toggle('active', sceneNum === 3);
+      
+      // 更新场景视图
+      document.getElementById('scene-narrative').classList.toggle('active', sceneNum === 1);
+      document.getElementById('scene-register').classList.toggle('active', sceneNum === 2);
+      document.getElementById('scene-confirm').classList.toggle('active', sceneNum === 3);
+
+      if (sceneNum === 1) {
+        startCarousel();
+      } else {
+        stopCarousel();
+      }
+
+      if (sceneNum === 2) {
+        syncCard();
+      } else if (sceneNum === 3) {
+        prepareFinalCard();
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function quickLoadCanon(presetKey) {
+      loadPreset(presetKey);
+      switchScene(2);
+    }
+
+    // 载入预设
+    function loadPreset(key) {
+      var p = CANON_PROFILES[key];
+      if (!p) return;
+
+      document.querySelectorAll('.preset-chip').forEach(function(el) {
+        el.classList.remove('active');
+      });
+      var clickedBtn = document.querySelector(`.preset-chip[onclick*="${key}"]`);
+      if (clickedBtn) clickedBtn.classList.add('active');
+
+      document.getElementById('input-name').value = p.name;
+      document.getElementById('input-romaji').value = p.romaji === 'UNNAMED' ? '' : p.romaji;
+      document.getElementById('input-school').value = p.school === '—' ? '' : p.school;
+      document.getElementById('input-rank').value = p.rank === '—' ? '' : p.rank;
+      document.getElementById('input-device').value = p.device === '—' ? '' : p.device;
+      document.getElementById('input-noble-art').value = p.nobleArt === '—' ? '' : p.nobleArt;
+      document.getElementById('input-desc').value = p.desc === '请使用左侧注册面板填写角色档案。' ? '' : p.desc;
+
+      document.getElementById('stat-attack').value = p.stats.attack;
+      document.getElementById('stat-defense').value = p.stats.defense;
+      document.getElementById('stat-magic').value = p.stats.magic;
+      document.getElementById('stat-control').value = p.stats.control;
+      document.getElementById('stat-physical').value = p.stats.physical;
+      document.getElementById('stat-luck').value = p.stats.luck;
+
+      syncCard();
+    }
+
+    // 同步表单数据到右侧卡片
+    function syncCard() {
+      var name = document.getElementById('input-name').value.trim() || '未命名';
+      var romaji = document.getElementById('input-romaji').value.trim() || 'UNNAMED';
+      var school = document.getElementById('input-school').value.trim() || '—';
+      var rank = document.getElementById('input-rank').value || '—';
+      var device = document.getElementById('input-device').value.trim() || '—';
+      var nobleArt = document.getElementById('input-noble-art').value.trim() || '—';
+      var desc = document.getElementById('input-desc').value.trim() || '请使用左侧注册面板填写角色档案。';
+
+      document.getElementById('card-name').textContent = name;
+      document.getElementById('card-romaji').textContent = romaji;
+      document.getElementById('card-school-val').textContent = school;
+      document.getElementById('card-rank-val').textContent = rank;
+      document.getElementById('card-device-val').textContent = device;
+      document.getElementById('card-noble-val').textContent = nobleArt;
+      document.getElementById('card-profile-text').textContent = desc;
+
+      var grades = {
+        attack: document.getElementById('stat-attack').value,
+        defense: document.getElementById('stat-defense').value,
+        magic: document.getElementById('stat-magic').value,
+        control: document.getElementById('stat-control').value,
+        physical: document.getElementById('stat-physical').value,
+        luck: document.getElementById('stat-luck').value
+      };
+
+      renderRadarEngine('ability-radar-svg', grades);
+
+      var filledCount = Object.values(grades).filter(function(v) { return !!v; }).length;
+      document.getElementById('register-feedback').textContent = `已应用 ${name}，${filledCount}/6 项能力已评定`;
+    }
+
+    function applyAndNotify() {
+      syncCard();
+      var name = document.getElementById('input-name').value.trim() || '未命名';
+      var feedback = document.getElementById('register-feedback');
+      feedback.style.transform = 'scale(1.04)';
+      feedback.style.transition = 'transform 0.15s';
+      setTimeout(function() { feedback.style.transform = 'scale(1)'; }, 150);
+    }
+
+    function resetRegisterForm() {
+      ['input-name', 'input-romaji', 'input-school', 'input-device', 'input-noble-art', 'input-desc'].forEach(function(id) {
+        document.getElementById(id).value = '';
+      });
+      document.getElementById('input-rank').value = '';
+      ['attack', 'defense', 'magic', 'control', 'physical', 'luck'].forEach(function(stat) {
+        document.getElementById('stat-' + stat).value = '';
+      });
+      syncCard();
+    }
+
+    // 自定义头像本地上传
+    function handleCustomAvatar(event) {
+      var file = event.target.files[0];
+      if (file && file.type.startsWith('image/')) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          var img = document.getElementById('card-avatar-img');
+          img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    // ================= 核心：100% 像素级复原的 SVG 雷达图引擎 =================
+    function renderRadarEngine(svgId, grades) {
+      var svg = document.getElementById(svgId);
+      if (!svg) return;
+
+      while (svg.firstChild) {
+        svg.removeChild(svg.firstChild);
+      }
+
+      var cx = 190, cy = 185;
+      var R_outer = 115;
+      var gradeMap = { 'A': 0.95, 'B': 0.78, 'C': 0.60, 'D': 0.44, 'E': 0.28, 'F': 0.12 };
+
+      var axes = [
+        { key: 'attack', name: '攻击力' },
+        { key: 'defense', name: '防御力' },
+        { key: 'magic', name: '魔力量' },
+        { key: 'control', name: '魔力控制' },
+        { key: 'physical', name: '体能' },
+        { key: 'luck', name: '运气' }
+      ];
+
+      function polar(r, idx) {
+        var angle = (Math.PI * 2 * idx) / 6 - Math.PI / 2;
+        return [cx + r * Math.cos(angle), cy + r * Math.sin(angle)];
+      }
+
+      function svgEl(tag, attrs) {
+        var el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+        for (var k in attrs) el.setAttribute(k, attrs[k]);
+        return el;
+      }
+
+      // 1. 外框大六边形轮廓线
+      var outerPts = axes.map(function(_, i) { return polar(R_outer, i).join(','); }).join(' ');
+      svg.appendChild(svgEl('polygon', {
+        points: outerPts,
+        fill: 'none',
+        stroke: '#262220',
+        'stroke-width': 2.5
+      }));
+
+      // 2. 内部同心正六边形网格
+      [0.25, 0.50, 0.75].forEach(function(ratio) {
+        var gridPts = axes.map(function(_, i) { return polar(R_outer * ratio, i).join(','); }).join(' ');
+        svg.appendChild(svgEl('polygon', {
+          points: gridPts,
+          fill: 'none',
+          stroke: '#3d352e',
+          'stroke-width': 1.2,
+          opacity: 0.65
+        }));
+      });
+
+      // 3. 中心放射径向轴线
+      axes.forEach(function(_, i) {
+        var end = polar(R_outer, i);
+        svg.appendChild(svgEl('line', {
+          x1: cx, y1: cy, x2: end[0], y2: end[1],
+          stroke: '#3d352e',
+          'stroke-width': 1.2,
+          opacity: 0.7
+        }));
+      });
+
+      // 4. 橙红色半透明数据填充多边形
+      var hasData = axes.some(function(ax) { return !!grades[ax.key]; });
+      if (hasData) {
+        var polyPoints = axes.map(function(ax, i) {
+          var g = grades[ax.key];
+          var ratio = g && gradeMap[g] ? gradeMap[g] : 0.1;
+          return polar(R_outer * ratio, i).join(',');
+        }).join(' ');
+
+        svg.appendChild(svgEl('polygon', {
+          points: polyPoints,
+          fill: 'rgba(235, 94, 23, 0.82)',
+          stroke: '#262220',
+          'stroke-width': 1.8,
+          'stroke-linejoin': 'round'
+        }));
+      }
+
+      // 5. 六个轴顶端的【黑色正六边形印章徽章】
+      var hex_r = 25.5;
+      axes.forEach(function(ax, i) {
+        var bp = polar(R_outer, i);
+        var bx = bp[0], by = bp[1];
+
+        // 尖角朝上/朝下的正六边形顶点
+        var b_pts = [];
+        for (var j = 0; j < 6; j++) {
+          var ha = (Math.PI / 3) * j - Math.PI / 2;
+          b_pts.push((bx + hex_r * Math.cos(ha)).toFixed(1) + ',' + (by + hex_r * Math.sin(ha)).toFixed(1));
+        }
+
+        var badgeGroup = svgEl('g', { class: 'radar-badge' });
+        
+        // 徽章黑色正六边形本体
+        badgeGroup.appendChild(svgEl('polygon', {
+          points: b_pts.join(' '),
+          fill: '#262220',
+          stroke: '#161413',
+          'stroke-width': 1.6
+        }));
+
+        // 等级大字：白色无衬线超粗体
+        var gradeVal = grades[ax.key] || '—';
+        var txtGrade = svgEl('text', {
+          x: bx, y: by - 2,
+          fill: '#ffffff',
+          'font-size': '18.5px',
+          'font-weight': '900',
+          'font-family': "'Impact', 'Arial Black', sans-serif",
+          'text-anchor': 'middle',
+          'dominant-baseline': 'central'
+        });
+        txtGrade.textContent = gradeVal;
+        badgeGroup.appendChild(txtGrade);
+
+        // 属性名称：白色中文
+        var txtName = svgEl('text', {
+          x: bx, y: by + 12,
+          fill: '#ffffff',
+          'font-size': '8px',
+          'font-weight': '700',
+          'font-family': "'Noto Serif SC', 'Microsoft YaHei', sans-serif",
+          'text-anchor': 'middle',
+          'dominant-baseline': 'central',
+          'letter-spacing': '0.04em'
+        });
+        txtName.textContent = ax.name;
+        badgeGroup.appendChild(txtName);
+
+        svg.appendChild(badgeGroup);
+      });
+    }
+
+    // ================= 第三幕挂载与交互 =================
+    function prepareFinalCard() {
+      var sourceCard = document.getElementById('main-character-card');
+      var targetContainer = document.getElementById('final-card-container');
+      targetContainer.innerHTML = '';
+      var clone = sourceCard.cloneNode(true);
+      clone.id = 'cloned-final-card';
+      targetContainer.appendChild(clone);
+
+      // 重新对克隆体中的 SVG 执行雷达图渲染
+      var clonedSvg = clone.querySelector('#ability-radar-svg');
+      if (clonedSvg) {
+        clonedSvg.id = 'final-radar-svg';
+        var grades = {
+          attack: document.getElementById('stat-attack').value,
+          defense: document.getElementById('stat-defense').value,
+          magic: document.getElementById('stat-magic').value,
+          control: document.getElementById('stat-control').value,
+          physical: document.getElementById('stat-physical').value,
+          luck: document.getElementById('stat-luck').value
+        };
+        renderRadarEngine('final-radar-svg', grades);
+      }
+    }
+
+    function copyCardSummary() {
+      var name = document.getElementById('input-name').value.trim() || '未命名';
+      var romaji = document.getElementById('input-romaji').value.trim() || 'UNNAMED';
+      var school = document.getElementById('input-school').value.trim() || '破军学园';
+      var rank = document.getElementById('input-rank').value || '未评定';
+      var device = document.getElementById('input-device').value.trim() || '—';
+      var nobleArt = document.getElementById('input-noble-art').value.trim() || '—';
+      var desc = document.getElementById('input-desc').value.trim() || '暂无';
+      var stats = [
+        '攻击力: ' + (document.getElementById('stat-attack').value || '—'),
+        '防御力: ' + (document.getElementById('stat-defense').value || '—'),
+        '魔力量: ' + (document.getElementById('stat-magic').value || '—'),
+        '魔力控制: ' + (document.getElementById('stat-control').value || '—'),
+        '体能: ' + (document.getElementById('stat-physical').value || '—'),
+        '运气: ' + (document.getElementById('stat-luck').value || '—')
+      ].join(' | ');
+
+      var text = [
+        '【落第骑士英雄谭 · 破军学园入学档案】',
+        '姓名：' + name + ' (' + romaji + ')',
+        '所属：' + school + '  等级：' + rank,
+        '固有灵装：' + device + '  伐刀绝技：' + nobleArt,
+        '六维评定：' + stats,
+        '个人简介：' + desc,
+        '── 破军学园教务处核验 ──'
+      ].join('\n');
+
+      navigator.clipboard.writeText(text).then(function() {
+        alert('已成功复制开局档案文本至剪贴板！');
+      }).catch(function() {
+        alert('复制失败，请手动复制：\n\n' + text);
+      });
+    }
+
+    function enterGame() {
+      var name = document.getElementById('input-name').value.trim() || '黎恩';
+      alert(`⚔️ 档案已正式录入破军学园名录！\n\n欢迎入学，${name}骑士！七星剑武祭的征程正式开启！`);
+    }
+
+    // 初始化
+    window.onload = function() {
+      var params = new URLSearchParams(window.location.search);
+      var sc = parseInt(params.get('scene'), 10);
+      if (sc >= 1 && sc <= 3) {
+        switchScene(sc);
+      } else {
+        switchScene(1);
+      }
+      syncCard();
+      startCarousel();
+    };
+  </script>
+</body>
+</html>
