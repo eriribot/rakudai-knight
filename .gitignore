@@ -1,6 +1,9 @@
-﻿.zcode/
+.zcode/
 *.tmp
 *.log
 .DS_Store
 Thumbs.db
+airp_bridge.js
+start_bridge.bat
+
 
