@@ -1122,9 +1122,546 @@
         padding: 22px 18px 20px;
       }
     }
+
+    /* ================= 古典轻小说 BGM 音乐组件样式 ================= */
+    .bgm-widget-container {
+      position: fixed;
+      top: 18px;
+      right: 24px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+      user-select: none;
+    }
+
+    .bgm-player-widget {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--lk-parchment-glow);
+      border: 1.5px solid #cbbe9f;
+      border-radius: 40px;
+      padding: 6px 14px 6px 8px;
+      box-shadow: 0 4px 18px rgba(50, 32, 18, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .bgm-player-widget:hover {
+      border-color: var(--lk-red);
+      box-shadow: 0 6px 22px rgba(139, 30, 30, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+      transform: translateY(-1px);
+    }
+
+    /* 唱机碟片转台 */
+    .bgm-turntable {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+    }
+
+    .bgm-disc {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #18120d;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4), 0 0 0 1px #3a2a1d;
+      position: relative;
+      overflow: hidden;
+      animation: bgmDiscSpin 6s linear infinite;
+    }
+
+    .bgm-player-widget.paused .bgm-disc {
+      animation-play-state: paused;
+    }
+
+    @keyframes bgmDiscSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .bgm-disc-inner {
+      position: absolute;
+      inset: 2px;
+      border-radius: 50%;
+      background: repeating-radial-gradient(
+        circle at 50% 50%,
+        #2a1e16 0px,
+        #1c130d 2px,
+        #271b13 3px,
+        #19110b 5px
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .bgm-disc-label {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #fbf5e9;
+      border: 1.5px solid #8b1e1e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: inset 0 0 3px rgba(139, 30, 30, 0.35);
+    }
+
+    .bgm-label-star {
+      width: 10px;
+      height: 10px;
+    }
+
+    /* 唱机唱臂 (带旋转底座与红色唱头) */
+    .bgm-stylus-wrap {
+      position: absolute;
+      top: -1px;
+      right: -1px;
+      width: 22px;
+      height: 24px;
+      pointer-events: none;
+      transform-origin: 18px 4px;
+      transform: rotate(24deg);
+      transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .bgm-player-widget.paused .bgm-stylus-wrap {
+      transform: rotate(0deg);
+    }
+
+    .bgm-stylus-pivot {
+      position: absolute;
+      top: 1px;
+      right: 1px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #c5a059;
+      border: 1px solid #7c5d27;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    }
+
+    .bgm-stylus-arm {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      width: 2px;
+      height: 18px;
+      background: linear-gradient(to bottom, #d4b068, #9c7835);
+      transform-origin: top center;
+      transform: rotate(-24deg);
+      border-radius: 1px;
+    }
+
+    .bgm-stylus-head {
+      position: absolute;
+      bottom: 0px;
+      left: -2px;
+      width: 6px;
+      height: 4px;
+      background: #8b1e1e;
+      border-radius: 1px;
+    }
+
+    /* 歌曲标题与音波 */
+    .bgm-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .bgm-title-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .bgm-status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
+      transition: all 0.3s ease;
+    }
+
+    .bgm-player-widget.paused .bgm-status-dot {
+      background: #9ca3af;
+      box-shadow: none;
+    }
+
+    .bgm-track-title {
+      font-family: var(--font-serif);
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--lk-ink);
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    /* 均衡器跳动音波 */
+    .bgm-equalizer {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 13px;
+      padding-left: 12px;
+    }
+
+    .eq-bar {
+      width: 3px;
+      height: 3px;
+      background: var(--lk-red);
+      border-radius: 2px;
+      transition: height 0.15s ease, opacity 0.3s ease;
+    }
+
+    .bgm-player-widget:not(.paused) .eq-bar-1 {
+      animation: eqDance 0.75s ease-in-out infinite alternate;
+    }
+    .bgm-player-widget:not(.paused) .eq-bar-2 {
+      animation: eqDance 0.55s ease-in-out 0.15s infinite alternate;
+    }
+    .bgm-player-widget:not(.paused) .eq-bar-3 {
+      animation: eqDance 0.9s ease-in-out 0.35s infinite alternate;
+    }
+    .bgm-player-widget:not(.paused) .eq-bar-4 {
+      animation: eqDance 0.65s ease-in-out 0.1s infinite alternate;
+    }
+    .bgm-player-widget:not(.paused) .eq-bar-5 {
+      animation: eqDance 0.8s ease-in-out 0.25s infinite alternate;
+    }
+
+    @keyframes eqDance {
+      0% { height: 3px; }
+      50% { height: 13px; }
+      100% { height: 6px; }
+    }
+
+    .bgm-player-widget.paused .eq-bar {
+      height: 3px;
+      opacity: 0.35;
+    }
+
+    /* 播放/暂停/面板按钮 */
+    .bgm-action-btn, .bgm-panel-trigger {
+      background: none;
+      border: none;
+      padding: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--lk-red);
+      cursor: pointer;
+      border-radius: 50%;
+      transition: all 0.2s ease;
+    }
+
+    .bgm-action-btn:hover, .bgm-panel-trigger:hover {
+      color: var(--lk-red-hover);
+      background: rgba(139, 30, 30, 0.08);
+      transform: scale(1.1);
+    }
+
+    .bgm-svg-icon {
+      width: 15px;
+      height: 15px;
+    }
+
+    .bgm-gear-icon {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* 音量与设置气泡 Popover */
+    .bgm-control-popover {
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      width: 270px;
+      background: var(--lk-parchment-glow);
+      border: 1.5px solid #cbbe9f;
+      border-radius: 12px;
+      padding: 14px 16px;
+      box-shadow: 0 10px 30px rgba(45, 28, 15, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      cursor: default;
+      backdrop-filter: blur(10px);
+      z-index: 10005;
+      animation: fadeInDown 0.2s ease;
+    }
+
+    .bgm-control-popover.show {
+      display: flex;
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .bgm-popover-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 6px;
+      border-bottom: 1px dashed rgba(139, 30, 30, 0.2);
+    }
+
+    .bgm-popover-badge {
+      font-family: var(--font-serif);
+      font-size: 10.5px;
+      font-weight: 800;
+      color: var(--lk-red);
+      letter-spacing: 0.12em;
+    }
+
+    .bgm-popover-state {
+      font-size: 11px;
+      color: var(--lk-muted);
+      font-weight: 600;
+    }
+
+    .bgm-popover-song {
+      font-family: var(--font-serif);
+      font-size: 12px;
+      color: var(--lk-ink);
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .bgm-volume-control {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .bgm-vol-label {
+      font-size: 11.5px;
+      color: var(--lk-ink-label);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .bgm-volume-slider {
+      flex: 1;
+      accent-color: var(--lk-red);
+      cursor: pointer;
+      height: 4px;
+    }
+
+    .bgm-vol-percent {
+      font-size: 11.5px;
+      color: var(--lk-muted);
+      width: 32px;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .bgm-popover-tips {
+      font-size: 10.5px;
+      color: var(--lk-muted);
+      line-height: 1.5;
+      background: rgba(139, 30, 30, 0.05);
+      padding: 7px 9px;
+      border-radius: 6px;
+      border-left: 2.5px solid var(--lk-red);
+    }
+
+    /* 自动播放被拦截提示角标 (呼吸发光) */
+    .bgm-autoplay-badge {
+      display: none;
+      align-items: center;
+      gap: 7px;
+      background: var(--lk-red);
+      color: #ffffff;
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 11.5px;
+      font-family: var(--font-serif);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(139, 30, 30, 0.35);
+      animation: badgePulse 2s infinite;
+      transition: all 0.25s ease;
+      z-index: 10000;
+    }
+
+    .bgm-autoplay-badge.show {
+      display: inline-flex;
+    }
+
+    .bgm-autoplay-badge:hover {
+      background: var(--lk-red-hover);
+      transform: scale(1.03);
+    }
+
+    @keyframes badgePulse {
+      0%, 100% {
+        box-shadow: 0 4px 14px rgba(139, 30, 30, 0.35);
+        transform: scale(1);
+      }
+      50% {
+        box-shadow: 0 4px 22px rgba(139, 30, 30, 0.65);
+        transform: scale(1.02);
+      }
+    }
+
+    .badge-pulse {
+      width: 6px;
+      height: 6px;
+      background: #ffdddd;
+      border-radius: 50%;
+      animation: blinkDot 1s infinite alternate;
+    }
+
+    @keyframes blinkDot {
+      from { opacity: 0.4; }
+      to { opacity: 1; }
+    }
+
+    /* 浮动操作反馈 Toast */
+    .bgm-floating-toast {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      background: rgba(34, 22, 15, 0.94);
+      color: #faf4e8;
+      font-family: var(--font-serif);
+      font-size: 11.5px;
+      padding: 6px 14px;
+      border-radius: 8px;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(-4px);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      z-index: 10010;
+    }
+
+    .bgm-floating-toast.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+      .bgm-widget-container {
+        top: 10px;
+        right: 12px;
+      }
+      .bgm-meta {
+        display: none;
+      }
+      .bgm-player-widget {
+        padding: 5px 8px;
+        gap: 6px;
+      }
+    }
+
   </style>
 </head>
 <body>
+
+  <!-- ================= 古典轻小说 BGM 音乐播放控制挂件 ================= -->
+  <aside class="bgm-widget-container" id="bgm-widget-container">
+    <div class="bgm-player-widget" id="bgm-player-widget" onclick="toggleBgm(event)" title="点击播放/暂停学园BGM">
+      <!-- 黑胶唱片转台与唱臂 -->
+      <div class="bgm-turntable">
+        <div class="bgm-disc" id="bgm-disc">
+          <div class="bgm-disc-inner">
+            <div class="bgm-disc-label">
+              <svg class="bgm-label-star" viewBox="0 0 24 24">
+                <polygon points="12,2 15,9 22,9 17,14 19,21 12,17 5,21 7,14 2,9 9,9" fill="#8b1e1e" />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <!-- 唱针臂组件 -->
+        <div class="bgm-stylus-wrap" id="bgm-stylus-wrap">
+          <div class="bgm-stylus-pivot"></div>
+          <div class="bgm-stylus-arm">
+            <div class="bgm-stylus-head"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 曲目名与音波 -->
+      <div class="bgm-meta">
+        <div class="bgm-title-row">
+          <span class="bgm-status-dot" id="bgm-status-dot"></span>
+          <span class="bgm-track-title" id="bgm-track-title">英雄交响 · 破军学园</span>
+        </div>
+        <div class="bgm-equalizer" id="bgm-equalizer">
+          <span class="eq-bar eq-bar-1"></span>
+          <span class="eq-bar eq-bar-2"></span>
+          <span class="eq-bar eq-bar-3"></span>
+          <span class="eq-bar eq-bar-4"></span>
+          <span class="eq-bar eq-bar-5"></span>
+        </div>
+      </div>
+
+      <!-- 播放/暂停图标按钮 -->
+      <button class="bgm-action-btn" id="bgm-action-btn" type="button" aria-label="播放或暂停" onclick="toggleBgm(event)">
+        <svg class="bgm-svg-icon" id="bgm-svg-play" viewBox="0 0 24 24" style="display: none;">
+          <polygon points="7,4 20,12 7,20" fill="currentColor" />
+        </svg>
+        <svg class="bgm-svg-icon" id="bgm-svg-pause" viewBox="0 0 24 24">
+          <rect x="6" y="4" width="4" height="16" fill="currentColor" rx="1" />
+          <rect x="14" y="4" width="4" height="16" fill="currentColor" rx="1" />
+        </svg>
+      </button>
+
+      <!-- 音量设置齿轮 -->
+      <button class="bgm-panel-trigger" id="bgm-panel-trigger" type="button" aria-label="音量与设置" onclick="toggleBgmPanel(event)">
+        <svg viewBox="0 0 24 24" class="bgm-gear-icon">
+          <path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+        </svg>
+      </button>
+
+      <!-- 音量悬浮面板 -->
+      <div class="bgm-control-popover" id="bgm-control-popover" onclick="event.stopPropagation()">
+        <div class="bgm-popover-header">
+          <span class="bgm-popover-badge">BGM PLAYER</span>
+          <span class="bgm-popover-state" id="bgm-popover-state">播放中</span>
+        </div>
+        <div class="bgm-popover-song">《落第骑士英雄谭 · 破军学园原声》</div>
+        <div class="bgm-volume-control">
+          <span class="bgm-vol-label">音量</span>
+          <input type="range" id="bgm-volume-range" class="bgm-volume-slider" min="0" max="1" step="0.01" value="0.35" oninput="changeBgmVolume(this.value)">
+          <span class="bgm-vol-percent" id="bgm-vol-percent">35%</span>
+        </div>
+        <div class="bgm-popover-tips">
+          <span>💡 支持浏览器进入自动播放；如遇系统拦截，点击页面任意处立即唤醒</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 自动播放被拦截时的呼吸发光指引提示 -->
+    <div class="bgm-autoplay-badge" id="bgm-autoplay-badge" onclick="toggleBgm(event)">
+      <span class="badge-pulse"></span>
+      <span class="badge-text">🎵 点击任意处开启背景音乐</span>
+    </div>
+
+    <!-- 操作提示气泡 -->
+    <div class="bgm-floating-toast" id="bgm-floating-toast"></div>
+
+    <!-- 原生音频标签 -->
+    <audio id="bgm-audio" loop preload="auto">
+      <source src="bgm.mp3" type="audio/mpeg">
+    </audio>
+  </aside>
+
 
   <div class="container">
     <!-- 顶部大标题与副标题 -->
@@ -1973,8 +2510,187 @@
       alert(`⚔️ 档案已正式录入破军学园名录！\n\n欢迎入学，${name}骑士！七星剑武祭的征程正式开启！`);
     }
 
+
+    // ================= 古典轻小说 BGM 播放器与浏览器自动播放控制 =================
+    var bgmAudio = null;
+    var bgmUnlocked = false;
+    var toastTimer = null;
+
+    function initBgmPlayer() {
+      bgmAudio = document.getElementById('bgm-audio');
+      if (!bgmAudio) return;
+
+      // 预设舒适初始音量 35%
+      bgmAudio.volume = 0.35;
+
+      // 绑定音频状态监听
+      bgmAudio.addEventListener('play', function() {
+        updateBgmUI(true);
+      });
+      bgmAudio.addEventListener('pause', function() {
+        updateBgmUI(false);
+      });
+      bgmAudio.addEventListener('ended', function() {
+        bgmAudio.currentTime = 0;
+        bgmAudio.play().catch(function(){});
+      });
+
+      // 核心特性：现代浏览器进入自动播放
+      // 1. 尝试直接执行 play()
+      var playPromise = bgmAudio.play();
+      if (playPromise !== undefined) {
+        playPromise.then(function() {
+          // 浏览器允许自动播放
+          bgmUnlocked = true;
+          updateBgmUI(true);
+          showBgmToast('⚡ 浏览器已自动启播背景音乐', 3500);
+          hideAutoplayBadge();
+        }).catch(function(err) {
+          // 浏览器策略拦截了非手势自动播放 (NotAllowedError)
+          console.log('[BGM] 浏览器已暂缓无交互自动播放，已就绪手势解锁监听:', err.message);
+          updateBgmUI(false);
+          showAutoplayBadge();
+          setupGestureUnlock();
+        });
+      }
+
+      // 点击外部自动关闭音量面板
+      document.addEventListener('click', function(e) {
+        var pop = document.getElementById('bgm-control-popover');
+        var trigger = document.getElementById('bgm-panel-trigger');
+        if (pop && pop.classList.contains('show')) {
+          if (!pop.contains(e.target) && !trigger.contains(e.target)) {
+            pop.classList.remove('show');
+          }
+        }
+      });
+    }
+
+    // 监听任意用户首次交互（点击、触摸、键盘），无缝静默解锁音频播放
+    function setupGestureUnlock() {
+      function unlockHandler(e) {
+        if (bgmUnlocked || !bgmAudio) return;
+
+        bgmAudio.play().then(function() {
+          bgmUnlocked = true;
+          updateBgmUI(true);
+          hideAutoplayBadge();
+          showBgmToast('⚔️ 欢迎入学！学园背景原声已开启', 3000);
+          removeUnlockListeners();
+        }).catch(function(err) {
+          console.log('[BGM] 解锁尝试中:', err);
+        });
+      }
+
+      var events = ['click', 'touchstart', 'keydown'];
+      function removeUnlockListeners() {
+        events.forEach(function(evt) {
+          window.removeEventListener(evt, unlockHandler, true);
+        });
+      }
+
+      events.forEach(function(evt) {
+        window.addEventListener(evt, unlockHandler, { once: true, capture: true });
+      });
+    }
+
+    // 切换播放与暂停
+    function toggleBgm(e) {
+      if (e) e.stopPropagation();
+      if (!bgmAudio) return;
+
+      if (bgmAudio.paused) {
+        bgmAudio.play().then(function() {
+          bgmUnlocked = true;
+          updateBgmUI(true);
+          hideAutoplayBadge();
+          showBgmToast('▶️ 播放背景音乐', 2000);
+        }).catch(function(err) {
+          console.error('[BGM] 播放失败:', err);
+        });
+      } else {
+        bgmAudio.pause();
+        updateBgmUI(false);
+        showBgmToast('⏸️ 已暂停背景音乐', 2000);
+      }
+    }
+
+    // 更新 UI 样式状态
+    function updateBgmUI(isPlaying) {
+      var widget = document.getElementById('bgm-player-widget');
+      var playIcon = document.getElementById('bgm-svg-play');
+      var pauseIcon = document.getElementById('bgm-svg-pause');
+      var stateText = document.getElementById('bgm-popover-state');
+
+      if (!widget) return;
+
+      if (isPlaying) {
+        widget.classList.remove('paused');
+        if (playIcon) playIcon.style.display = 'none';
+        if (pauseIcon) pauseIcon.style.display = 'block';
+        if (stateText) stateText.textContent = '播放中';
+      } else {
+        widget.classList.add('paused');
+        if (playIcon) playIcon.style.display = 'block';
+        if (pauseIcon) pauseIcon.style.display = 'none';
+        if (stateText) stateText.textContent = '已暂停';
+      }
+    }
+
+    // 显示与隐藏自动播放提示角标
+    function showAutoplayBadge() {
+      var badge = document.getElementById('bgm-autoplay-badge');
+      var pop = document.getElementById('bgm-control-popover');
+      if (badge && (!pop || !pop.classList.contains('show'))) {
+        badge.classList.add('show');
+      }
+    }
+
+    function hideAutoplayBadge() {
+      var badge = document.getElementById('bgm-autoplay-badge');
+      if (badge) badge.classList.remove('show');
+    }
+
+    // 音量面板开关
+    function toggleBgmPanel(e) {
+      if (e) e.stopPropagation();
+      var pop = document.getElementById('bgm-control-popover');
+      var badge = document.getElementById('bgm-autoplay-badge');
+      if (pop) {
+        var isShowing = pop.classList.toggle('show');
+        if (isShowing && badge) {
+          badge.classList.remove('show');
+        } else if (!isShowing && !bgmUnlocked) {
+          showAutoplayBadge();
+        }
+      }
+    }
+
+    // 音量调节
+    function changeBgmVolume(val) {
+      if (!bgmAudio) return;
+      var v = parseFloat(val);
+      bgmAudio.volume = v;
+      var pct = Math.round(v * 100) + '%';
+      var pctLabel = document.getElementById('bgm-vol-percent');
+      if (pctLabel) pctLabel.textContent = pct;
+    }
+
+    // 浮动 Toast 气泡
+    function showBgmToast(msg, duration) {
+      var toast = document.getElementById('bgm-floating-toast');
+      if (!toast) return;
+      toast.textContent = msg;
+      toast.classList.add('active');
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(function() {
+        toast.classList.remove('active');
+      }, duration || 2500);
+    }
+
     // 初始化
     window.onload = function() {
+      initBgmPlayer();
       var params = new URLSearchParams(window.location.search);
       var sc = parseInt(params.get('scene'), 10);
       if (sc >= 1 && sc <= 3) {
