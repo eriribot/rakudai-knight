@@ -42,6 +42,10 @@
       padding: 0;
     }
 
+    html, body {
+      overflow-x: hidden;
+    }
+
     body {
       font-family: var(--font-sans);
       background: var(--lk-bg-gradient);
@@ -54,12 +58,20 @@
     .container {
       max-width: 1280px;
       margin: 0 auto;
+      position: relative;
+      pointer-events: none;
+    }
+
+    .container > * {
+      pointer-events: auto;
     }
 
     /* 顶部导航与总标题 */
     .top-header {
       text-align: center;
       margin-bottom: 24px;
+      position: relative;
+      z-index: 20; /* 允许散落卡片 (z-index: 40) 在顶栏与Logo上方自由飞跃穿行 */
     }
 
     .top-title {
@@ -142,6 +154,8 @@
 
     /* ================= 第一幕：开局叙事 + 轻小说封面轮播展台 ================= */
     .opening-layout {
+      position: relative;
+      z-index: 50; /* 高于卡片漂浮层 (z-index: 40)，正文面板实色羊皮纸自然遮挡下方穿行卡片 */
       display: grid;
       grid-template-columns: 360px 1fr;
       gap: 32px;
@@ -501,6 +515,8 @@
 
     /* ================= 第二幕：纯羊皮纸经典双栏布局 ================= */
     .register-main-layout {
+      position: relative;
+      z-index: 50;
       display: grid;
       grid-template-columns: 460px 1fr;
       gap: 28px;
@@ -1190,48 +1206,7 @@
     }
 
     /* 响应式适配 */
-    @media (max-width: 1080px) {
-      .opening-layout {
-        grid-template-columns: 1fr;
-        max-width: 780px;
-      }
-      .book-showcase-panel {
-        order: -1;
-      }
-      .register-main-layout {
-        grid-template-columns: 1fr;
-      }
-      .character-card-wrapper {
-        position: static;
-      }
-      .character-card {
-        max-width: 580px;
-        margin: 0 auto;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .book-showcase-panel {
-        padding: 20px 12px;
-      }
-      .carousel-btn.prev { left: 4px; }
-      .carousel-btn.next { right: 4px; }
-      .form-grid-2 {
-        grid-template-columns: 1fr;
-      }
-      .form-grid-3 {
-        grid-template-columns: 1fr 1fr;
-      }
-      .card-display-name {
-        font-size: 30px;
-      }
-      .narrative-card {
-        padding: 28px 20px;
-      }
-      .character-card {
-        padding: 22px 18px 20px;
-      }
-    }
+    
 
     /* ================= 古典轻小说 BGM 音乐组件样式 ================= */
     .bgm-widget-container {
@@ -1267,7 +1242,7 @@
       transform: translateY(-1px);
     }
 
-    /* 唱机碟片转台 */
+    /* 唱机碟片转台 (含播放时外扩声波辉光) */
     .bgm-turntable {
       position: relative;
       width: 40px;
@@ -1275,15 +1250,48 @@
       flex-shrink: 0;
     }
 
+    /* 播放音乐时的共鸣声波微光 */
+    .bgm-turntable::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(139, 30, 30, 0.4);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .bgm-player-widget:not(.paused) .bgm-turntable::before {
+      animation: bgmTurntableWave 2.4s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+    }
+
+    @keyframes bgmTurntableWave {
+      0% {
+        transform: scale(0.96);
+        opacity: 0.65;
+        border-color: rgba(139, 30, 30, 0.55);
+      }
+      50% {
+        transform: scale(1.26);
+        opacity: 0;
+        border-color: rgba(197, 160, 89, 0.25);
+      }
+      100% {
+        transform: scale(1.32);
+        opacity: 0;
+      }
+    }
+
+    /* 黑胶唱片 (带纹路与动态旋转) */
     .bgm-disc {
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      background: #18120d;
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4), 0 0 0 1px #3a2a1d;
+      background: #150f0a;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.45), 0 0 0 1px #3a2a1d;
       position: relative;
       overflow: hidden;
-      animation: bgmDiscSpin 6s linear infinite;
+      animation: bgmDiscSpin 5s linear infinite;
     }
 
     .bgm-player-widget.paused .bgm-disc {
@@ -1295,6 +1303,26 @@
       to { transform: rotate(360deg); }
     }
 
+    /* 黑胶唱片表面真实动态光泽 (高光掠影随旋转而流转) */
+    .bgm-disc::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: conic-gradient(
+        from 0deg,
+        rgba(255, 255, 255, 0.22) 0deg,
+        transparent 40deg,
+        transparent 140deg,
+        rgba(255, 255, 255, 0.18) 180deg,
+        transparent 220deg,
+        transparent 320deg,
+        rgba(255, 255, 255, 0.22) 360deg
+      );
+      pointer-events: none;
+      mix-blend-mode: screen;
+    }
+
     .bgm-disc-inner {
       position: absolute;
       inset: 2px;
@@ -1302,33 +1330,43 @@
       background: repeating-radial-gradient(
         circle at 50% 50%,
         #2a1e16 0px,
-        #1c130d 2px,
-        #271b13 3px,
-        #19110b 5px
+        #170f0a 2px,
+        #241810 3px,
+        #130c07 5px
       );
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
+    /* 黑胶中心古典标签纸与落第骑士盾牌徽章 */
     .bgm-disc-label {
-      width: 16px;
-      height: 16px;
+      width: 18px;
+      height: 18px;
       border-radius: 50%;
-      background: #fbf5e9;
-      border: 1.5px solid #8b1e1e;
+      background: radial-gradient(circle, #fffdf8 0%, #f7efe1 70%, #ead7be 100%);
+      border: 1.2px solid #8b1e1e;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: inset 0 0 3px rgba(139, 30, 30, 0.35);
+      box-shadow: inset 0 0 3px rgba(139, 30, 30, 0.35), 0 0 0 0.8px rgba(197, 160, 89, 0.5);
+      position: relative;
+      z-index: 2;
     }
 
-    .bgm-label-star {
-      width: 10px;
-      height: 10px;
+    .bgm-label-shield {
+      width: 12px;
+      height: 14px;
+      display: block;
+      filter: drop-shadow(0 0.5px 1px rgba(139, 30, 30, 0.3));
+      transition: filter 0.3s ease;
     }
 
-    /* 唱机唱臂 (带旋转底座与红色唱头) */
+    .bgm-player-widget:not(.paused) .bgm-label-shield {
+      filter: drop-shadow(0 0 2px rgba(197, 160, 89, 0.75)) drop-shadow(0 0.5px 1px rgba(139, 30, 30, 0.4));
+    }
+
+    /* 唱机唱臂 (带旋转底座、红色唱头与拾音律动) */
     .bgm-stylus-wrap {
       position: absolute;
       top: -1px;
@@ -1337,12 +1375,23 @@
       height: 24px;
       pointer-events: none;
       transform-origin: 18px 4px;
-      transform: rotate(24deg);
-      transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform: rotate(25deg);
+      transition: transform 0.48s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     .bgm-player-widget.paused .bgm-stylus-wrap {
       transform: rotate(0deg);
+    }
+
+    /* 播放中唱臂随音频凹槽产生的细微律动 */
+    .bgm-player-widget:not(.paused) .bgm-stylus-wrap {
+      animation: bgmStylusGrooveTrack 3.6s ease-in-out infinite alternate;
+    }
+
+    @keyframes bgmStylusGrooveTrack {
+      0% { transform: rotate(24.5deg); }
+      50% { transform: rotate(26.2deg); }
+      100% { transform: rotate(24.8deg); }
     }
 
     .bgm-stylus-pivot {
@@ -1665,19 +1714,7 @@
       transform: translateY(0);
     }
 
-    @media (max-width: 768px) {
-      .bgm-widget-container {
-        top: 10px;
-        right: 12px;
-      }
-      .bgm-meta {
-        display: none;
-      }
-      .bgm-player-widget {
-        padding: 5px 8px;
-        gap: 6px;
-      }
-    }
+    
 
 
     /* ================= 官方正典 Logo 与黑铁一辉不可修改锁定样式 ================= */
@@ -1778,20 +1815,716 @@
       cursor: not-allowed !important;
     }
 
+    /* ================= 散落插画明信片氛围场景 (Postcard & Sakura Ambient) ================= */
+    #cardScene {
+      position: fixed;
+      inset: 0;
+      pointer-events: none; /* 关键：穿透到底层任何按钮 */
+      background: transparent; /* 去除白底羊皮纸底色 */
+      z-index: 40; /* 在底板之上，影院遮罩之下 */
+      overflow: hidden;
+      perspective: 1200px;
+      transform-style: preserve-3d;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    #cardScene.hidden-scene {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none !important;
+    }
+
+    #cardScene.hidden-scene .illustration-card,
+    #cardScene.hidden-scene .sakura-petal {
+      animation-play-state: paused !important;
+    }
+
+    /* 左上角古典樱枝雅致装饰 (复刻设计图氛围) */
+    .sakura-branch-decor {
+      position: absolute;
+      top: -10px;
+      left: -15px;
+      width: 240px;
+      height: 180px;
+      pointer-events: none;
+      opacity: 0.82;
+      filter: drop-shadow(0 4px 10px rgba(70, 35, 20, 0.18));
+      z-index: 92;
+      transition: opacity 0.4s ease;
+    }
+
+    /* 落樱花瓣粒子层 */
+    .sakura-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 91;
+    }
+
+    .sakura-petal {
+      position: absolute;
+      top: -30px;
+      pointer-events: none;
+      border-radius: 14px 2px 14px 2px;
+      background: linear-gradient(135deg, #ffc9d4 0%, #ff8ea3 55%, #d32f2f 100%);
+      opacity: 0.72;
+      filter: drop-shadow(0 2px 5px rgba(139, 30, 30, 0.22));
+      animation: sakuraFall linear infinite;
+    }
+
+    @keyframes sakuraFall {
+      0% {
+        top: -40px;
+        opacity: 0;
+        transform: rotate(0deg) rotateX(0deg) translateX(0px);
+      }
+      12% {
+        opacity: 0.85;
+      }
+      50% {
+        transform: rotate(180deg) rotateX(70deg) translateX(45px);
+      }
+      85% {
+        opacity: 0.8;
+      }
+      100% {
+        top: 108vh;
+        opacity: 0;
+        transform: rotate(360deg) rotateX(15deg) translateX(-25px);
+      }
+    }
+
+    /* 飘落明信片插画音轨与卡片容器 */
+    .cards-drift-track {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    /* 拍立得/明信片风格插画卡片 */
+    .illustration-card {
+      position: absolute;
+      pointer-events: auto; /* 仅卡片自身响应 hover/click */
+      cursor: pointer;
+      user-select: none;
+      width: 112px;
+      opacity: 0.88;
+      background: #faf5ea; /* 羊皮纸象牙白底板 */
+      border: 1px solid #d8c7af;
+      border-radius: 6px;
+      padding: 6px 6px 9px 6px;
+      box-shadow: 0 10px 25px rgba(92, 64, 51, 0.18), 0 2px 6px rgba(0, 0, 0, 0.06);
+      transform-style: preserve-3d;
+      transition: transform 0.42s cubic-bezier(0.25, 1, 0.5, 1),
+                  box-shadow 0.42s cubic-bezier(0.25, 1, 0.5, 1),
+                  border-color 0.35s ease,
+                  opacity 0.35s ease;
+      will-change: transform, top;
+      animation: cardDriftDown linear infinite;
+    }
+
+    /* 散落漂移下落轨道动画 */
+    @keyframes cardDriftDown {
+      0% {
+        top: -260px;
+      }
+      100% {
+        top: 112vh;
+      }
+    }
+
+    /* 内嵌插画视窗 (带古典金边与复古纸质内凹微阴影) */
+    .card-img-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      border-radius: 3px;
+      overflow: hidden;
+      background: #eadeca;
+      border: 1px solid rgba(197, 160, 89, 0.5);
+      box-shadow: inset 0 0 6px rgba(50, 32, 18, 0.15);
+    }
+
+    .card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.48s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    /* 明信片古典卷次说明文字 (英式古典手写衬线花体) */
+    .card-caption {
+      margin-top: 5px;
+      font-family: 'Cinzel', 'Playfair Display', 'Georgia', serif, 'Noto Serif SC';
+      font-size: 9.5px;
+      font-weight: 600;
+      font-style: italic;
+      color: #5c4033;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      letter-spacing: 0.04em;
+      transition: color 0.3s ease;
+    }
+
+    /* ================= 悬停状态 (Hover) ================= */
+    .illustration-card:hover {
+      animation-play-state: paused !important; /* 核心：在空中定格悬停！ */
+      opacity: 1 !important;
+      transform: scale(1.15) rotate(0deg) translateY(-8px) !important;
+      z-index: 180 !important;
+      border-color: #8b1e1e;
+      box-shadow: 0 16px 36px rgba(139, 30, 30, 0.32), 
+                  0 0 22px rgba(197, 160, 89, 0.65),
+                  inset 0 0 0 1px rgba(197, 160, 89, 0.6);
+    }
+
+    .illustration-card:hover .card-img {
+      transform: scale(1.05);
+    }
+
+    .illustration-card:hover .card-caption {
+      color: #8b1e1e;
+      font-weight: 700;
+    }
+
+    /* ================= 影院聚焦模式 (Cinema Mode Overlay) ================= */
+    .card-cinema-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: rgba(35, 20, 15, 0.68); /* 暖红褐暗调蒙版，避免死黑违和 */
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+      padding: 16px;
+      box-sizing: border-box;
+    }
+
+    .card-cinema-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .cinema-dialog {
+      position: relative;
+      max-width: 640px;
+      width: 90vw;
+      background: #fdfaf3; /* 羊皮纸色调画框 */
+      border: 1.5px solid #cbbe9f;
+      border-radius: 12px;
+      box-shadow: 0 24px 64px rgba(25, 12, 8, 0.6),
+                  0 0 0 1px rgba(197, 160, 89, 0.5),
+                  0 0 40px rgba(139, 30, 30, 0.25);
+      padding: 24px 28px 20px 28px;
+      transform: scale(0.92) translateY(14px);
+      transition: transform 0.38s cubic-bezier(0.34, 1.56, 0.64, 1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-sizing: border-box;
+    }
+
+    .card-cinema-overlay.active .cinema-dialog {
+      transform: scale(1) translateY(0);
+    }
+
+    /* 影院大图框架与暗色天鹅绒底衬 */
+    .cinema-frame {
+      position: relative;
+      width: 100%;
+      max-height: 66vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #17100b;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 2px solid #8b1e1e;
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.7), 0 6px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .cinema-img {
+      max-width: 100%;
+      max-height: 66vh;
+      object-fit: contain;
+      display: block;
+      transition: opacity 0.25s ease;
+    }
+
+    /* 四角古典金边饰角 */
+    .cinema-corner {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      pointer-events: none;
+      border-color: #c5a059;
+      border-style: solid;
+      z-index: 2;
+    }
+
+    .cinema-corner.top-left { top: 6px; left: 6px; border-width: 2px 0 0 2px; }
+    .cinema-corner.top-right { top: 6px; right: 6px; border-width: 2px 2px 0 0; }
+    .cinema-corner.bottom-left { bottom: 6px; left: 6px; border-width: 0 0 2px 2px; }
+    .cinema-corner.bottom-right { bottom: 6px; right: 6px; border-width: 0 2px 2px 0; }
+
+    /* 影院导航按键与关闭按键 */
+    .cinema-close-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1.2px solid #cbbe9f;
+      background: #fbf5ea;
+      color: #8b1e1e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+      transition: all 0.25s ease;
+      z-index: 10;
+    }
+
+    .cinema-close-btn:hover {
+      background: #8b1e1e;
+      color: #fff;
+      border-color: #8b1e1e;
+      transform: rotate(90deg) scale(1.08);
+    }
+
+    .cinema-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 38px;
+      height: 48px;
+      border-radius: 6px;
+      border: 1.2px solid #cbbe9f;
+      background: rgba(251, 245, 234, 0.92);
+      backdrop-filter: blur(4px);
+      color: #5c4033;
+      font-size: 26px;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16);
+      transition: all 0.22s ease;
+      user-select: none;
+      z-index: 10;
+    }
+
+    .cinema-nav-btn:hover {
+      background: #8b1e1e;
+      color: #fff;
+      border-color: #8b1e1e;
+      transform: translateY(-50%) scale(1.08);
+    }
+
+    .cinema-prev-btn { left: -19px; }
+    .cinema-next-btn { right: -19px; }
+
+    /* 影院元数据排版 */
+    .cinema-meta {
+      width: 100%;
+      text-align: center;
+      margin-top: 14px;
+    }
+
+    .cinema-vol-tag {
+      font-family: 'Cinzel', 'Playfair Display', serif, 'Noto Serif SC';
+      font-size: 13px;
+      font-style: italic;
+      font-weight: 700;
+      color: #8b1e1e;
+      letter-spacing: 0.05em;
+    }
+
+    .cinema-title {
+      font-family: var(--font-serif);
+      font-size: 17px;
+      font-weight: 700;
+      color: #22160f;
+      margin-top: 4px;
+      letter-spacing: 0.06em;
+    }
+
+    .cinema-tips {
+      font-size: 11.5px;
+      color: #8c7664;
+      margin-top: 6px;
+    }
+
+    /* 散落插画显隐开关 (悬浮于右侧或集成于 BGM 工具栏) */
+    .scene-ambient-toggle {
+      background: #faf5e8;
+      border: 1px solid #cbbe9f;
+      border-radius: 16px;
+      padding: 4px 12px;
+      font-family: var(--font-serif);
+      font-size: 12px;
+      font-weight: 600;
+      color: #5c4033;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(50, 32, 18, 0.08);
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .scene-ambient-toggle:hover {
+      border-color: #8b1e1e;
+      color: #8b1e1e;
+      box-shadow: 0 4px 12px rgba(139, 30, 30, 0.18);
+      transform: translateY(-1px);
+    }
+
+    .scene-ambient-toggle.paused {
+      background: #ede3ce;
+      color: #8c7664;
+      border-color: #b8a688;
+    }
+
+    
+
+
+    /* ================= 自适应附件与全尺寸响应式系统 (27寸大屏 / iPad Pro / Pixel 10) ================= */
+    
+    /* 1. 超大屏幕与 27寸桌面显示器 (min-width: 1600px / 2K / 4K) */
+    @media (min-width: 1600px) {
+      .container {
+        max-width: 1360px;
+      }
+      .opening-layout {
+        max-width: 1300px;
+        grid-template-columns: 390px 1fr;
+        gap: 36px;
+      }
+      .carousel-container {
+        width: min(280px, 100%);
+      }
+      .narrative-card {
+        padding: 46px 52px;
+      }
+      .narrative-title {
+        font-size: 28px;
+      }
+      .narrative-body {
+        font-size: 15.5px;
+        line-height: 1.85;
+      }
+      .register-main-layout {
+        max-width: 1300px;
+        grid-template-columns: 490px 1fr;
+        gap: 36px;
+      }
+      .top-logo-img {
+        max-width: 350px;
+      }
+    }
+
+    /* 2. 平板与附件窗口 (< 1100px，如 iPad Pro 竖屏、SillyTavern 附件容器) */
+    @media (max-width: 1100px) {
+      /* 卡片依靠层级天然隐藏于正文之下，无需强制关闭 */
+      .cards-drift-track {
+        display: block;
+      }
+      #ambientToggleWrap {
+        display: none !important; /* 无侧翼卡片时隐藏显隐开关按钮 */
+      }
+      .opening-layout {
+        grid-template-columns: 1fr;
+        max-width: 760px;
+        margin: 0 auto;
+        gap: 24px;
+      }
+      .book-showcase-panel {
+        order: -1;
+        padding: 22px 18px;
+      }
+      .carousel-container {
+        width: min(240px, 100%);
+      }
+      .narrative-card {
+        padding: 32px 28px;
+      }
+      .register-main-layout {
+        grid-template-columns: 1fr;
+        max-width: 760px;
+        margin: 0 auto;
+        gap: 24px;
+      }
+      .character-card-wrapper {
+        position: static;
+      }
+      .character-card {
+        max-width: 580px;
+        margin: 0 auto;
+      }
+      .sakura-branch-decor {
+        width: 180px;
+        height: 135px;
+        opacity: 0.7;
+      }
+    }
+
+    /* 3. 手机与小屏附件 (< 600px，如 Pixel 10: 412x924、iPhone) */
+    @media (max-width: 600px) {
+      body {
+        padding: 12px 8px 32px;
+      }
+      
+      /* 顶栏微缩与Logo适配 */
+      .top-header {
+        margin-bottom: 12px;
+      }
+      .top-logo-container {
+        gap: 5px;
+        margin-bottom: 4px;
+      }
+      .top-logo-img {
+        max-width: 200px;
+        width: 65%;
+      }
+      .top-archive-badge {
+        font-size: 11px;
+        padding: 2px 10px;
+      }
+      .top-subtitle {
+        font-size: 11px;
+        letter-spacing: 0.06em;
+        margin-bottom: 10px;
+      }
+
+      /* 极简精致的 BGM 挂件 (避免与Logo发生叠压) */
+      .bgm-widget-container {
+        top: 6px;
+        right: 6px;
+      }
+      .bgm-meta {
+        display: none;
+      }
+      .bgm-player-widget {
+        padding: 3px 6px;
+        gap: 4px;
+        border-radius: 18px;
+      }
+      .bgm-turntable,
+      .bgm-disc {
+        width: 28px;
+        height: 28px;
+      }
+      .bgm-tonearm {
+        display: none !important;
+      }
+      .bgm-wave-bars {
+        height: 10px;
+        gap: 1px;
+      }
+      .bgm-wave-bar {
+        width: 2px;
+      }
+      .bgm-status-icon {
+        font-size: 11px;
+      }
+
+      /* 关键修复：三段式导航按钮防折行防断词 (解决 "① 序\n章启\n程" 竖折 bug) */
+      .stepper-nav {
+        width: 100%;
+        max-width: 350px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 3px;
+        margin: 0 auto 16px;
+        gap: 2px;
+      }
+      .step-arrow {
+        display: none !important; /* 手机端隐藏中间箭头，为按钮保留充裕横向空间 */
+      }
+      .step-item {
+        flex: 1;
+        justify-content: center;
+        text-align: center;
+        padding: 6px 6px;
+        font-size: 11px;
+        white-space: nowrap !important; /* 严防字符换行折叠 */
+        gap: 3px;
+      }
+      .step-num {
+        font-size: 11.5px;
+      }
+
+      /* 3D 展台高度适度收紧，露出下方正文与登记操作按钮 */
+      .book-showcase-panel {
+        padding: 16px 12px;
+        border-radius: 10px;
+      }
+      .showcase-header {
+        margin-bottom: 8px;
+      }
+      .showcase-tag {
+        font-size: 10px;
+      }
+      .showcase-subtitle {
+        font-size: 12px;
+      }
+      .carousel-container {
+        width: min(200px, 72%);
+        margin: 2px auto 10px;
+      }
+      .carousel-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 13px;
+      }
+      .carousel-btn.prev { left: -2px; }
+      .carousel-btn.next { right: -2px; }
+      .carousel-meta-title {
+        font-size: 13px;
+      }
+      .carousel-meta-sub {
+        font-size: 10.5px;
+      }
+      .carousel-meta-bar {
+        margin-top: 8px;
+        padding-top: 8px;
+      }
+
+      /* 卷首序章卡片紧凑化 */
+      .narrative-card {
+        padding: 20px 14px;
+        border-radius: 10px;
+      }
+      .narrative-title {
+        font-size: 19px;
+        letter-spacing: 0.06em;
+        margin-bottom: 12px;
+      }
+      .narrative-body {
+        font-size: 13px;
+        line-height: 1.7;
+      }
+      .narrative-callout {
+        padding: 10px 12px;
+        margin: 14px 0;
+      }
+      .narrative-callout-title {
+        font-size: 12px;
+      }
+      .narrative-callout-text {
+        font-size: 11.5px;
+        line-height: 1.55;
+      }
+      .narrative-actions {
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 18px;
+      }
+      .btn-primary-action,
+      .btn-secondary-action {
+        width: 100%;
+        justify-content: center;
+        padding: 10px 14px;
+        font-size: 13px;
+      }
+
+      /* 入学档案表单与卡片适配 */
+      .form-grid-2 {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+      .form-grid-3 {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+      .preset-chips-scroll {
+        gap: 6px;
+        padding-bottom: 4px;
+      }
+      .preset-chip {
+        padding: 4px 10px;
+        font-size: 11px;
+      }
+      .character-card {
+        padding: 18px 14px 16px;
+        border-radius: 10px;
+      }
+      .card-display-name {
+        font-size: 24px;
+      }
+      .card-name-group {
+        gap: 2px;
+      }
+      .card-ruby-text {
+        font-size: 10px;
+      }
+      .sakura-branch-decor {
+        width: 130px;
+        height: 95px;
+        opacity: 0.55;
+      }
+
+      .illustration-card {
+        width: 88px;
+        padding: 4px 4px 7px 4px;
+      }
+      .card-caption {
+        font-size: 8.5px;
+      }
+      .cinema-nav-btn {
+        width: 32px;
+        height: 40px;
+        font-size: 20px;
+      }
+      .cinema-prev-btn { left: -8px; }
+      .cinema-next-btn { right: -8px; }
+    }
+
   </style>
 </head>
 <body>
 
   <!-- ================= 古典轻小说 BGM 音乐播放控制挂件 ================= -->
   <aside class="bgm-widget-container" id="bgm-widget-container">
-    <div class="bgm-player-widget" id="bgm-player-widget" onclick="toggleBgm(event)" title="点击播放/暂停学园BGM">
+    <div class="bgm-player-widget paused" id="bgm-player-widget" onclick="toggleBgm(event)" title="点击播放/暂停学园BGM">
       <!-- 黑胶唱片转台与唱臂 -->
       <div class="bgm-turntable">
         <div class="bgm-disc" id="bgm-disc">
           <div class="bgm-disc-inner">
-            <div class="bgm-disc-label">
-              <svg class="bgm-label-star" viewBox="0 0 24 24">
-                <polygon points="12,2 15,9 22,9 17,14 19,21 12,17 5,21 7,14 2,9 9,9" fill="#8b1e1e" />
+            <div class="bgm-disc-label" title="落第骑士英雄谭 · 破军学园徽章">
+              <svg class="bgm-label-shield" viewBox="0 0 100 115" aria-label="破军学园骑士盾徽">
+                <!-- 盾牌外廓与赤红基底 -->
+                <path d="M 50 10 C 60 12, 76 8, 87 5 C 89 24, 91 48, 83 66 C 74 85, 60 97, 50 106 C 40 97, 26 85, 17 66 C 9 48, 11 24, 13 5 C 24 8, 40 12, 50 10 Z" fill="#8b1e1e" />
+                <!-- 盾牌内圈象牙白底板 -->
+                <path d="M 50 16 C 58 17.5, 72 14, 81 12 C 83 28, 85 48, 78 63 C 70 79, 58 90, 50 97 C 42 90, 30 79, 22 63 C 15 48, 17 28, 19 12 C 28 14, 42 17.5, 50 16 Z" fill="#fffdfa" />
+                <!-- 盾牌内圈古典金色细边 -->
+                <path d="M 50 19 C 57 20, 69 17, 76 15 C 78 30, 80 48, 74 61 C 67 75, 57 84, 50 90 C 43 84, 33 75, 26 61 C 20 48, 22 30, 24 15 C 31 17, 43 20, 50 19 Z" fill="none" stroke="#c5a059" stroke-width="1.8" stroke-opacity="0.85" />
+                <!-- 内部骑士双翼鹿角十字纹章 -->
+                <g fill="#8b1e1e">
+                  <path d="M 50 47 C 48 38, 41 27, 30 23 C 31 28, 33 32, 37 35 C 33 33, 27 34, 25 37 C 29 39, 34 39, 39 41 C 42 43, 46 45, 50 47 Z" />
+                  <path d="M 32 25 C 33 20, 37 16, 39 14 C 38 18, 37 22, 36 26 Z" />
+                  <path d="M 50 47 C 52 38, 59 27, 70 23 C 69 28, 67 32, 63 35 C 67 33, 73 34, 75 37 C 71 39, 66 39, 61 41 C 58 43, 54 45, 50 47 Z" />
+                  <path d="M 68 25 C 67 20, 63 16, 61 14 C 62 18, 63 22, 64 26 Z" />
+                  <circle cx="22" cy="53" r="3.5" />
+                  <circle cx="78" cy="53" r="3.5" />
+                  <rect x="23" y="51" width="54" height="4" rx="1.5" />
+                  <path d="M 36 60 L 42 73 L 47 69 L 50 74 L 53 69 L 58 73 L 64 60 C 60 65, 56 67, 53 64 L 50 67 L 47 64 C 44 67, 40 65, 36 60 Z" />
+                  <polygon points="50,77 47,82 50,88 53,82" />
+                </g>
               </svg>
             </div>
           </div>
@@ -1809,7 +2542,7 @@
       <div class="bgm-meta">
         <div class="bgm-title-row">
           <span class="bgm-status-dot" id="bgm-status-dot"></span>
-          <span class="bgm-track-title" id="bgm-track-title">英雄交响 · 破军学园</span>
+          <span class="bgm-track-title" id="bgm-track-title">アイデンティティ</span>
         </div>
         <div class="bgm-equalizer" id="bgm-equalizer">
           <span class="eq-bar eq-bar-1"></span>
@@ -1820,12 +2553,12 @@
         </div>
       </div>
 
-      <!-- 播放/暂停图标按钮 -->
+      <!-- 播放/暂停图标按钮 (初始未播放显示播放三角) -->
       <button class="bgm-action-btn" id="bgm-action-btn" type="button" aria-label="播放或暂停" onclick="toggleBgm(event)">
-        <svg class="bgm-svg-icon" id="bgm-svg-play" viewBox="0 0 24 24" style="display: none;">
+        <svg class="bgm-svg-icon" id="bgm-svg-play" viewBox="0 0 24 24" style="display: block;">
           <polygon points="7,4 20,12 7,20" fill="currentColor" />
         </svg>
-        <svg class="bgm-svg-icon" id="bgm-svg-pause" viewBox="0 0 24 24">
+        <svg class="bgm-svg-icon" id="bgm-svg-pause" viewBox="0 0 24 24" style="display: none;">
           <rect x="6" y="4" width="4" height="16" fill="currentColor" rx="1" />
           <rect x="14" y="4" width="4" height="16" fill="currentColor" rx="1" />
         </svg>
@@ -1868,9 +2601,83 @@
     <!-- 原生音频标签 -->
     <audio id="bgm-audio" loop preload="auto">
       <source src="bgm1.mp3" type="audio/mpeg">
+      <source src="https://eriribot.github.io/rakudai-knight/bgm1.mp3" type="audio/mpeg">
     </audio>
   </aside>
 
+  <!-- ================= 散落插画明信片氛围场景 ================= -->
+  <div id="cardScene" class="card-scene-container" aria-hidden="true">
+    <!-- 左上角樱枝装饰 (复刻设计图氛围) -->
+    <svg class="sakura-branch-decor" viewBox="0 0 240 180" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#42291d" stroke-linecap="round" fill="none">
+        <path d="M-10,-5 Q60,35 120,40 T210,32" stroke-width="4.5"/>
+        <path d="M60,35 Q90,65 145,78" stroke-width="3"/>
+        <path d="M120,40 Q150,20 185,15" stroke-width="2.5"/>
+        <path d="M90,65 Q115,95 160,110" stroke-width="2"/>
+        <path d="M35,22 Q50,45 75,55" stroke-width="2"/>
+      </g>
+      <!-- 樱花朵与花瓣簇 -->
+      <g>
+        <g transform="translate(120, 38)">
+          <circle cx="0" cy="0" r="4.5" fill="#fbc02d" />
+          <path d="M0,0 C-6,-18 6,-18 0,0 M0,0 C18,-6 18,6 0,0 M0,0 C6,18 -6,18 0,0 M0,0 C-18,6 -18,-6 0,0 M0,0 C12,-12 18,-4 0,0" fill="#ffcdd2" stroke="#f48fb1" stroke-width="0.8" />
+        </g>
+        <g transform="translate(70, 38)">
+          <circle cx="0" cy="0" r="3.5" fill="#fbc02d" />
+          <path d="M0,0 C-5,-15 5,-15 0,0 M0,0 C15,-5 15,5 0,0 M0,0 C5,15 -5,15 0,0 M0,0 C-15,5 -15,-5 0,0" fill="#ffebee" stroke="#f48fb1" stroke-width="0.8" />
+        </g>
+        <g transform="translate(145, 78)">
+          <circle cx="0" cy="0" r="3.5" fill="#fbc02d" />
+          <path d="M0,0 C-4,-14 4,-14 0,0 M0,0 C14,-4 14,4 0,0 M0,0 C4,14 -4,14 0,0 M0,0 C-14,4 -14,-4 0,0" fill="#f8bbd0" stroke="#f06292" stroke-width="0.8" />
+        </g>
+        <g transform="translate(185, 15)">
+          <circle cx="0" cy="0" r="2.5" fill="#fbc02d" />
+          <path d="M0,0 C-3,-10 3,-10 0,0 M0,0 C10,-3 10,3 0,0 M0,0 C3,10 -3,10 0,0 M0,0 C-10,3 -10,-3 0,0" fill="#ffebee" stroke="#f48fb1" stroke-width="0.8" />
+        </g>
+        <g transform="translate(160, 110)">
+          <circle cx="0" cy="0" r="3" fill="#fbc02d" />
+          <path d="M0,0 C-4,-12 4,-12 0,0 M0,0 C12,-4 12,4 0,0 M0,0 C4,12 -4,12 0,0 M0,0 C-12,4 -12,-4 0,0" fill="#ffcdd2" stroke="#f48fb1" stroke-width="0.8" />
+        </g>
+      </g>
+    </svg>
+
+    <!-- 落樱花瓣粒子层 -->
+    <div class="sakura-layer" id="sakuraLayer"></div>
+
+    <!-- 飘落明信片插画音轨 -->
+    <div class="cards-drift-track" id="cardsDriftTrack"></div>
+  </div>
+
+  <!-- 影院聚焦模式大图弹窗 (Cinema Mode Overlay) -->
+  <div id="cardCinemaOverlay" class="card-cinema-overlay" onclick="closeCinemaMode(event)">
+    <div class="cinema-dialog" onclick="event.stopPropagation()">
+      <!-- 关闭按钮 -->
+      <button class="cinema-close-btn" onclick="closeCinemaMode(event)" aria-label="关闭画册" title="按 ESC 或点击空白处关闭">
+        <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+      </button>
+
+      <!-- 导航左右按钮 -->
+      <button class="cinema-nav-btn cinema-prev-btn" onclick="navigateCinema(-1)" aria-label="上一张">‹</button>
+      <button class="cinema-nav-btn cinema-next-btn" onclick="navigateCinema(1)" aria-label="下一张">›</button>
+
+      <!-- 核心大画框 -->
+      <div class="cinema-frame">
+        <div class="cinema-corner top-left"></div>
+        <div class="cinema-corner top-right"></div>
+        <div class="cinema-corner bottom-left"></div>
+        <div class="cinema-corner bottom-right"></div>
+
+        <img id="cinemaImg" src="" alt="落第骑士英雄谭插画" class="cinema-img">
+      </div>
+
+      <!-- 底部卷次与标题说明 -->
+      <div class="cinema-meta">
+        <div class="cinema-vol-tag" id="cinemaVolTag">Volume 01 · 序章 灵魂与魔力的誓约</div>
+        <div class="cinema-title" id="cinemaTitle">《落第骑士英雄谭》· 经典彩插画册</div>
+        <div class="cinema-tips">提示：点击空白处、右上角 ✕ 或按 [ESC] 键收回明信片</div>
+      </div>
+    </div>
+  </div>
 
   <div class="container">
     <!-- 顶部大标题与副标题 -->
@@ -1887,6 +2694,13 @@
         </div>
       </div>
       <p class="top-subtitle">破军学园伐刀者登用典则 · 新生能力评定回显</p>
+
+      <!-- 氛围开关控件栏 -->
+      <div id="ambientToggleWrap" style="margin-top: 10px; display: flex; justify-content: center; gap: 10px;">
+        <button class="scene-ambient-toggle" id="sceneAmbientToggle" onclick="toggleCardScene(event)" title="开启或收起散落明信片插画氛围">
+          🌸 散落插画: 显现
+        </button>
+      </div>
 
       <!-- 三段式渐进式导航条 -->
       <nav class="stepper-nav">
@@ -2532,20 +3346,32 @@
     function switchScene(sceneNum) {
       currentScene = sceneNum;
       
-      // 更新导航指示器
+      // 导航指示器
       document.getElementById('nav-step-1').classList.toggle('active', sceneNum === 1);
       document.getElementById('nav-step-2').classList.toggle('active', sceneNum === 2);
       document.getElementById('nav-step-3').classList.toggle('active', sceneNum === 3);
       
-      // 更新场景视图
+      // 场景视图
       document.getElementById('scene-narrative').classList.toggle('active', sceneNum === 1);
       document.getElementById('scene-register').classList.toggle('active', sceneNum === 2);
       document.getElementById('scene-confirm').classList.toggle('active', sceneNum === 3);
 
+      // 散落插画与落樱氛围：限定仅在【第一步 序章启程】显现与运转
+      var cardScene = document.getElementById('cardScene');
+      var toggleWrap = document.getElementById('ambientToggleWrap');
       if (sceneNum === 1) {
         startCarousel();
+        if (toggleWrap) toggleWrap.style.display = 'flex';
+        if (cardScene && cardSceneActive) {
+          cardScene.classList.remove('hidden-scene');
+        }
       } else {
         stopCarousel();
+        closeCinemaMode(); // 切换离开序章时自动关闭影院大图
+        if (toggleWrap) toggleWrap.style.display = 'none';
+        if (cardScene) {
+          cardScene.classList.add('hidden-scene');
+        }
       }
 
       if (sceneNum === 2) {
@@ -3212,9 +4038,237 @@
       }, duration || 2500);
     }
 
+    // ================= 散落插画明信片与影院模式驱动 (Postcard Gallery & Cinema Mode) =================
+    var GALLERY_CARDS = [
+      {
+        id: 0,
+        img: '../resource/no1.jpg',
+        caption: "Volume 01 · Poem - Stella's Vow",
+        title: "《落第骑士英雄谭》· 序章 灵魂与魔力的誓约",
+        desc: "红莲皇女 斯黛拉·法米利昂 (Stella Vermillion)"
+      },
+      {
+        id: 1,
+        img: '../resource/no2.jpg',
+        caption: "Volume 01 · Poem - Kurogane",
+        title: "《落第骑士英雄谭》· 落第骑士的最初觉醒",
+        desc: "落第骑士·无冕剑王 黑铁一辉 (Kurogane Ikki)"
+      },
+      {
+        id: 2,
+        img: '../resource/no3.jpg',
+        caption: "Volume 01 · Poem - Shizuku",
+        title: "《落第骑士英雄谭》· 纯白魔导骑士的深情随行",
+        desc: "深雪魔女 黑铁珠雫 (Kurogane Shizuku)"
+      },
+      {
+        id: 3,
+        img: '../resource/no4.jpg',
+        caption: "Volume 01 · Poem - Toka",
+        title: "《落第骑士英雄谭》· 雷切之刃 破军之顶点",
+        desc: "学生会长·雷切 东堂刀华 (Todo Toka)"
+      },
+      {
+        id: 4,
+        img: '../resource/no5.jpg',
+        caption: "Volume 01 · Poem - Ayase",
+        title: "《落第骑士英雄谭》· 绫辻一刀流 宿愿之剑",
+        desc: "绫辻一刀流后继 绫辻绚濑 (Ayatsuji Ayase)"
+      },
+      {
+        id: 5,
+        img: '../resource/no6.jpg',
+        caption: "Volume 01 · Poem - Alice",
+        title: "《落第骑士英雄谭》· 影之魔女与暗匿的契约",
+        desc: "黑之罗刹 有栖院凪 (Alice)"
+      },
+      {
+        id: 6,
+        img: '../resource/no7.jpg',
+        caption: "Volume 01 · Poem - Edelweiss",
+        title: "《落第骑士英雄谭》· 比翼之名 世界最高峰的绝剑",
+        desc: "比翼 爱德怀斯 (Edelweiss)"
+      },
+      {
+        id: 7,
+        img: 'covers/cover_vol1.jpg',
+        caption: "Volume 01 · Novel Cover Art",
+        title: "《落第骑士英雄谭》· 第一卷 破军学园开卷特报",
+        desc: "GA文库 官方小说卷一精美封绘"
+      }
+    ];
+
+    var currentCinemaIdx = 0;
+    var cardSceneActive = true;
+
+            function initCardScene() {
+      var track = document.getElementById('cardsDriftTrack');
+      var sakuraLayer = document.getElementById('sakuraLayer');
+      if (!track) return;
+
+      track.innerHTML = '';
+
+      var screenW = window.innerWidth || document.documentElement.clientWidth;
+      var isMobile = screenW < 600;
+
+      // 8 组明信片自然散落预设：均布于页面中轴与双侧 (5% ~ 92.5%)
+      // 核心原理：卡片置于底层 (z-index: 10)，中轴正文卡片与顶部Logo护盾 (z-index: 50~55) 具有 100% 实色羊皮纸底板
+      // 卡片穿行文字区时被天然遮挡隐藏，穿出文字区（底部/空隙/侧边）时自然露出！
+      var presets = [
+        { left: 5.5,  duration: 23, delay: -3,  tilt: -11, scale: 0.95 },
+        { left: 17.5, duration: 27, delay: -14, tilt: 8,   scale: 1.0  },
+        { left: 30.5, duration: 22, delay: -8,  tilt: -7,  scale: 0.92 },
+        { left: 43.5, duration: 26, delay: -19, tilt: 10,  scale: 0.96 },
+        { left: 56.5, duration: 24, delay: -6,  tilt: -9,  scale: 0.95 },
+        { left: 69.5, duration: 28, delay: -13, tilt: 12,  scale: 1.0  },
+        { left: 81.5, duration: 21, delay: -17, tilt: -8,  scale: 0.92 },
+        { left: 92.5, duration: 25, delay: -10, tilt: 9,   scale: 0.96 }
+      ];
+
+      GALLERY_CARDS.forEach(function(item, idx) {
+        var p = presets[idx % presets.length];
+        var card = document.createElement('div');
+        card.className = 'illustration-card';
+        card.style.left = p.left + '%';
+        card.style.animationDuration = p.duration + 's';
+        card.style.animationDelay = p.delay + 's';
+        card.style.transform = 'rotate(' + p.tilt + 'deg) scale(' + p.scale + ')';
+        card.title = '点击阅读 · 展开《' + item.title + '》画册大图';
+
+        card.innerHTML = 
+          '<div class="card-img-wrap">' +
+            '<img src="' + item.img + '" alt="' + item.caption + '" class="card-img" loading="lazy" onerror="this.onerror=null;this.src=\'covers/cover_vol1.jpg\'">' +
+          '</div>' +
+          '<div class="card-caption">' + item.caption + '</div>';
+
+        card.addEventListener('click', function(e) {
+          e.stopPropagation();
+          openCinemaMode(idx);
+        });
+
+        track.appendChild(card);
+      });
+
+      // 落樱花瓣粒子 (根据屏幕尺寸自适应数量，手机 10 枚，平板 14 枚，电脑 18 枚)
+      if (sakuraLayer) {
+        sakuraLayer.innerHTML = '';
+        var petalCount = isMobile ? 10 : (screenW < 1100 ? 14 : 18);
+        for (var i = 0; i < petalCount; i++) {
+          var petal = document.createElement('div');
+          petal.className = 'sakura-petal';
+          var w = (isMobile ? 8 : 10) + Math.random() * 7;
+          var h = (isMobile ? 11 : 13) + Math.random() * 8;
+          petal.style.width = w + 'px';
+          petal.style.height = h + 'px';
+          petal.style.left = (Math.random() * 98) + '%';
+          petal.style.animationDuration = (8.5 + Math.random() * 11) + 's';
+          petal.style.animationDelay = (-Math.random() * 16) + 's';
+          petal.style.opacity = (0.55 + Math.random() * 0.35).toFixed(2);
+          sakuraLayer.appendChild(petal);
+        }
+      }
+
+      // 绑定快捷键 ESC 与方向键
+      if (!window.__cinemaKeysBound) {
+        window.__cinemaKeysBound = true;
+        window.addEventListener('keydown', function(e) {
+          var overlay = document.getElementById('cardCinemaOverlay');
+          if (overlay && overlay.classList.contains('active')) {
+            if (e.key === 'Escape') {
+              closeCinemaMode();
+            } else if (e.key === 'ArrowLeft') {
+              navigateCinema(-1);
+            } else if (e.key === 'ArrowRight') {
+              navigateCinema(1);
+            }
+          }
+        });
+      }
+    }
+
+
+
+
+
+    // 开启影院聚焦模式
+    function openCinemaMode(idx) {
+      currentCinemaIdx = idx;
+      var overlay = document.getElementById('cardCinemaOverlay');
+      var img = document.getElementById('cinemaImg');
+      var tag = document.getElementById('cinemaVolTag');
+      var title = document.getElementById('cinemaTitle');
+      var data = GALLERY_CARDS[idx];
+
+      if (!overlay || !data) return;
+
+      if (img) img.src = data.img;
+      if (tag) tag.textContent = data.caption + ' · ' + data.desc;
+      if (title) title.textContent = data.title;
+
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // 关闭影院模式
+    function closeCinemaMode(e) {
+      if (e) e.stopPropagation();
+      var overlay = document.getElementById('cardCinemaOverlay');
+      if (overlay) overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // 影院切图
+    function navigateCinema(step) {
+      var next = (currentCinemaIdx + step + GALLERY_CARDS.length) % GALLERY_CARDS.length;
+      var img = document.getElementById('cinemaImg');
+      var tag = document.getElementById('cinemaVolTag');
+      var title = document.getElementById('cinemaTitle');
+      var data = GALLERY_CARDS[next];
+
+      if (!data) return;
+      currentCinemaIdx = next;
+
+      if (img) {
+        img.style.opacity = '0.35';
+        setTimeout(function() {
+          img.src = data.img;
+          img.style.opacity = '1';
+        }, 120);
+      }
+      if (tag) tag.textContent = data.caption + ' · ' + data.desc;
+      if (title) title.textContent = data.title;
+    }
+
+    // 散落插画显隐开关
+    function toggleCardScene(e) {
+      if (e) e.stopPropagation();
+      cardSceneActive = !cardSceneActive;
+      var scene = document.getElementById('cardScene');
+      var btn = document.getElementById('sceneAmbientToggle');
+      if (scene) {
+        // 仅当用户在第一步且开启时才呈现
+        if (cardSceneActive && currentScene === 1) {
+          scene.classList.remove('hidden-scene');
+          if (btn) {
+            btn.classList.remove('paused');
+            btn.innerHTML = '🌸 散落插画: 显现';
+          }
+          showBgmToast('🌸 已开启明信片插画与落樱氛围', 2000);
+        } else {
+          scene.classList.add('hidden-scene');
+          if (btn) {
+            btn.classList.add('paused');
+            btn.innerHTML = '🌸 散落插画: 已敛起';
+          }
+          showBgmToast('🍃 已收起散落明信片氛围', 2000);
+        }
+      }
+    }
+
     // 初始化
     window.onload = function() {
       initBgmPlayer();
+      initCardScene();
       showSlide(0);
       loadPreset('user');
       var params = new URLSearchParams(window.location.search);
