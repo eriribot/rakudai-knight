@@ -4,8 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="data:," />
-    <link rel="preload" as="video" href="../../op.mp4" type="video/mp4" />
-    <link rel="preload" as="image" href="../../title-screen-8k.png" />
+    <link
+      rel="preload"
+      as="video"
+      href="https://eriribot.github.io/rakudai-knight/op.mp4"
+      type="video/mp4"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="https://eriribot.github.io/rakudai-knight/title-screen-8k.png"
+      crossorigin="anonymous"
+    />
     <title>落第骑士英雄谭 · 第一卷入学档案</title>
     <style>
       :root {
@@ -75,9 +86,12 @@
       }
 
       .container {
+        width: 100%;
+        min-width: 0;
         max-width: 1280px;
         margin: 0 auto;
         position: relative;
+        container: lk-guide / inline-size;
         pointer-events: none;
       }
 
@@ -557,13 +571,15 @@
         box-shadow: 0 4px 10px rgba(139, 30, 30, 0.25);
       }
 
-      /* ================= 第二幕：纯羊皮纸经典双栏布局 ================= */
+      /* ================= 第二幕：纯羊皮纸单栏登记表 ================= */
       .register-main-layout {
         position: relative;
         z-index: 50;
         display: grid;
-        grid-template-columns: 460px 1fr;
-        gap: 28px;
+        grid-template-columns: minmax(0, 760px);
+        justify-content: center;
+        max-width: 760px;
+        margin: 0 auto;
         align-items: start;
       }
 
@@ -755,26 +771,6 @@
         margin-top: 18px;
       }
 
-      .btn-apply {
-        flex: 1.2;
-        padding: 9px 16px;
-        background: var(--lk-red);
-        color: #ffffff;
-        border: none;
-        border-radius: 6px;
-        font-family: var(--font-serif);
-        font-size: 14px;
-        font-weight: 700;
-        cursor: pointer;
-        box-shadow: 0 2px 6px rgba(139, 30, 30, 0.28);
-        transition: all 0.2s;
-      }
-
-      .btn-apply:hover {
-        background: var(--lk-red-hover);
-        transform: translateY(-1px);
-      }
-
       .btn-reset {
         flex: 1;
         padding: 9px 16px;
@@ -832,12 +828,7 @@
         color: #ffffff;
       }
 
-      /* ================= 右侧：100% 纯羊皮纸角色设定卡 ================= */
-      .character-card-wrapper {
-        position: sticky;
-        top: 20px;
-      }
-
+      /* ================= 第三步：纯羊皮纸角色设定卡 ================= */
       .character-card {
         background: var(--lk-parchment-card);
         border-radius: 10px;
@@ -978,15 +969,6 @@
         display: flex;
       }
 
-      .card-avatar-container.is-readonly {
-        cursor: default;
-      }
-
-      .card-avatar-container.is-readonly .card-avatar-ring:hover {
-        transform: none;
-        box-shadow: 0 2px 10px rgba(139, 30, 30, 0.25);
-      }
-
       .card-avatar-hint {
         position: absolute;
         inset: 0;
@@ -1004,6 +986,15 @@
 
       .card-avatar-container:hover .card-avatar-hint {
         opacity: 1;
+      }
+
+      .card-avatar-container.avatar-locked .card-avatar-hint {
+        display: none;
+      }
+
+      .card-avatar-container.avatar-locked .card-avatar-ring:hover {
+        transform: none;
+        box-shadow: 0 2px 10px rgba(139, 30, 30, 0.25);
       }
 
       /* PROFILE 区域 */
@@ -1132,6 +1123,48 @@
         font-size: 13px;
         color: var(--lk-muted);
         margin-top: 5px;
+      }
+
+      .final-avatar-tools {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 8px 12px;
+        margin: -4px auto 16px;
+        font-family: var(--font-serif);
+      }
+
+      .btn-final-avatar-upload {
+        border: 1.5px solid var(--lk-red);
+        border-radius: 999px;
+        padding: 8px 18px;
+        color: #fff;
+        background: var(--lk-red);
+        box-shadow: 0 3px 10px rgba(139, 30, 30, 0.22);
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 800;
+        cursor: pointer;
+        transition:
+          transform 0.2s ease,
+          background 0.2s ease,
+          opacity 0.2s ease;
+      }
+
+      .btn-final-avatar-upload:hover:not(:disabled) {
+        background: var(--lk-red-hover);
+        transform: translateY(-1px);
+      }
+
+      .btn-final-avatar-upload:disabled {
+        cursor: not-allowed;
+        opacity: 0.55;
+      }
+
+      .final-avatar-note {
+        color: var(--lk-muted);
+        font-size: 11.5px;
       }
 
       /* 终审印章（红色朱砂公文印） */
@@ -1874,44 +1907,7 @@
         color: var(--lk-ink);
       }
 
-      /* 正典黑铁一辉锁定提示与锁定状态表单字段 */
-      .canon-lock-notice {
-        display: none;
-        align-items: center;
-        gap: 8px;
-        background: rgba(139, 30, 30, 0.08);
-        border: 1px solid rgba(139, 30, 30, 0.28);
-        border-radius: 6px;
-        padding: 8px 12px;
-        margin-bottom: 14px;
-        font-size: 12.5px;
-        color: var(--lk-red);
-        font-family: var(--font-serif);
-        font-weight: 700;
-        line-height: 1.5;
-        animation: fadeInLock 0.25s ease;
-      }
-
-      .canon-lock-notice.active {
-        display: flex;
-      }
-
-      @keyframes fadeInLock {
-        from {
-          opacity: 0;
-          transform: translateY(-4px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      .canon-lock-icon {
-        font-size: 14px;
-        flex-shrink: 0;
-      }
-
+      /* 正典黑铁一辉锁定状态 */
       .field-input.is-locked,
       .field-select.is-locked,
       .field-textarea.is-locked {
@@ -2075,10 +2071,34 @@
         z-index: 3;
         pointer-events: none;
         background:
-          linear-gradient(135deg, #fff0ae 0 18%, #95651f 19% 30%, transparent 31%) top left / 14px 14px no-repeat,
-          linear-gradient(225deg, #fff0ae 0 18%, #95651f 19% 30%, transparent 31%) top right / 14px 14px no-repeat,
-          linear-gradient(45deg, #fff0ae 0 18%, #95651f 19% 30%, transparent 31%) bottom left / 14px 14px no-repeat,
-          linear-gradient(315deg, #fff0ae 0 18%, #95651f 19% 30%, transparent 31%) bottom right / 14px 14px no-repeat;
+          linear-gradient(
+              135deg,
+              #fff0ae 0 18%,
+              #95651f 19% 30%,
+              transparent 31%
+            )
+            top left / 14px 14px no-repeat,
+          linear-gradient(
+              225deg,
+              #fff0ae 0 18%,
+              #95651f 19% 30%,
+              transparent 31%
+            )
+            top right / 14px 14px no-repeat,
+          linear-gradient(
+              45deg,
+              #fff0ae 0 18%,
+              #95651f 19% 30%,
+              transparent 31%
+            )
+            bottom left / 14px 14px no-repeat,
+          linear-gradient(
+              315deg,
+              #fff0ae 0 18%,
+              #95651f 19% 30%,
+              transparent 31%
+            )
+            bottom right / 14px 14px no-repeat;
       }
 
       /* 散落漂移下落轨道动画 */
@@ -2371,9 +2391,8 @@
           line-height: 1.85;
         }
         .register-main-layout {
-          max-width: 1300px;
-          grid-template-columns: 490px 1fr;
-          gap: 36px;
+          max-width: 780px;
+          grid-template-columns: minmax(0, 1fr);
         }
         .top-logo-img {
           max-width: 350px;
@@ -2410,9 +2429,6 @@
           max-width: 760px;
           margin: 0 auto;
           gap: 24px;
-        }
-        .character-card-wrapper {
-          position: static;
         }
         .character-card {
           max-width: 580px;
@@ -2643,6 +2659,270 @@
         }
       }
 
+      /* ================= 按实际承载容器响应：SillyTavern mes_block / iframe ================= */
+      .opening-layout > *,
+      .register-main-layout > *,
+      .card-name-group,
+      .status-item,
+      .status-value {
+        min-width: 0;
+      }
+
+      .status-value {
+        overflow-wrap: anywhere;
+      }
+
+      @container lk-guide (max-width: 1100px) {
+        #ambientToggleWrap {
+          display: none !important;
+        }
+
+        .opening-layout,
+        .register-main-layout {
+          grid-template-columns: minmax(0, 1fr);
+          max-width: 760px;
+          margin-inline: auto;
+          gap: 24px;
+        }
+
+        .book-showcase-panel {
+          order: -1;
+          padding: 22px 18px;
+        }
+
+        .carousel-container {
+          width: min(240px, 100%);
+        }
+
+        .narrative-card {
+          padding: 32px 28px;
+        }
+
+        .character-card {
+          max-width: 580px;
+          margin-inline: auto;
+        }
+
+        .sakura-branch-decor {
+          width: 180px;
+          height: 135px;
+          opacity: 0.7;
+        }
+      }
+
+      @container lk-guide (max-width: 600px) {
+        .top-header {
+          margin-bottom: 12px;
+        }
+
+        .top-logo-container {
+          gap: 5px;
+          margin-bottom: 4px;
+        }
+
+        .top-logo-img {
+          width: 65%;
+          max-width: 200px;
+        }
+
+        .top-archive-badge {
+          padding: 2px 10px;
+          font-size: 11px;
+        }
+
+        .top-subtitle {
+          margin-bottom: 10px;
+          font-size: 11px;
+          letter-spacing: 0.06em;
+        }
+
+        .stepper-nav {
+          display: flex;
+          width: 100%;
+          max-width: 350px;
+          margin: 0 auto 16px;
+          padding: 3px;
+          gap: 2px;
+        }
+
+        .step-arrow {
+          display: none !important;
+        }
+
+        .step-item {
+          flex: 1 1 0;
+          min-width: 0;
+          justify-content: center;
+          padding: 6px 4px;
+          font-size: clamp(9px, 3cqi, 11px);
+          white-space: nowrap !important;
+        }
+
+        .book-showcase-panel {
+          padding: 16px 12px;
+          border-radius: 10px;
+        }
+
+        .showcase-header {
+          margin-bottom: 8px;
+        }
+
+        .showcase-tag {
+          font-size: 10px;
+        }
+
+        .showcase-subtitle {
+          font-size: 12px;
+        }
+
+        .carousel-container {
+          width: min(200px, 72%);
+          margin: 2px auto 10px;
+        }
+
+        .narrative-card {
+          padding: 20px 14px;
+          border-radius: 10px;
+        }
+
+        .narrative-title {
+          margin-bottom: 12px;
+          font-size: 19px;
+          letter-spacing: 0.06em;
+        }
+
+        .narrative-quote {
+          margin-bottom: 12px;
+          font-size: 13px;
+          line-height: 1.7;
+        }
+
+        .narrative-quote.highlight {
+          font-size: 14px;
+        }
+
+        .narrative-box {
+          margin: 14px 0;
+          padding: 10px 12px;
+        }
+
+        .narrative-box-title {
+          font-size: 12px;
+        }
+
+        .narrative-box-p {
+          font-size: 11.5px;
+          line-height: 1.55;
+        }
+
+        .narrative-actions {
+          flex-direction: column;
+          gap: 8px;
+          margin-top: 18px;
+        }
+
+        .btn-narrative-start,
+        .btn-narrative-skip {
+          width: 100%;
+          justify-content: center;
+          padding: 10px 14px;
+          font-size: 13px;
+        }
+
+        .panel-register {
+          padding: 18px 14px;
+        }
+
+        .preset-row {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .form-grid-2 {
+          grid-template-columns: minmax(0, 1fr);
+        }
+
+        .form-grid-3 {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .character-card {
+          padding: 18px 14px 16px;
+          border-radius: 10px;
+        }
+
+        .card-display-name {
+          font-size: 24px;
+        }
+
+        .confirm-stage {
+          width: 100%;
+          min-width: 0;
+        }
+
+        .stage-header-title {
+          font-size: clamp(18px, 5cqi, 24px);
+          letter-spacing: 0.08em;
+        }
+      }
+
+      @container lk-guide (max-width: 420px) {
+        .form-grid-3,
+        .status-two-col {
+          grid-template-columns: minmax(0, 1fr);
+        }
+
+        .card-top-row {
+          gap: 10px;
+        }
+
+        .card-avatar-container {
+          width: 76px;
+          height: 76px;
+        }
+
+        .card-display-name {
+          font-size: 21px;
+        }
+
+        .card-display-romaji {
+          overflow-wrap: anywhere;
+          letter-spacing: 0.12em;
+        }
+
+        .confirm-actions {
+          gap: 8px;
+        }
+
+        .confirm-actions > button {
+          width: 100%;
+        }
+
+        .stamp-seal {
+          top: 125px;
+          right: 8px;
+          width: 80px;
+          height: 80px;
+        }
+
+        .stamp-inner-border {
+          width: 68px;
+          height: 68px;
+        }
+
+        .stamp-school {
+          font-size: 8px;
+        }
+
+        .stamp-status {
+          font-size: 13px;
+        }
+
+        .stamp-date {
+          font-size: 6.5px;
+        }
+      }
+
       /* ================= OP 与标题待机画面 ================= */
       body.prelude-active {
         overflow: hidden;
@@ -2652,14 +2932,38 @@
         position: fixed;
         inset: 0;
         z-index: 2147483000;
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
+        max-height: 100%;
         overflow: hidden;
         color: #fff;
         background: #000;
+        container-type: size;
         opacity: 1;
         visibility: visible;
         transition:
           opacity 420ms ease,
           visibility 420ms ease;
+      }
+
+      /* SillyTavern 直接挂载时，只占用当前消息块，不覆盖整个酒馆界面。 */
+      .lk-prelude-host-active {
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+        min-width: 0 !important;
+        min-height: 0 !important;
+        aspect-ratio: 16 / 9;
+        overflow: hidden !important;
+        isolation: isolate;
+      }
+
+      .lk-prelude.is-message-embedded {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        min-height: 0;
       }
 
       .lk-prelude.is-finished {
@@ -2673,12 +2977,37 @@
         inset: 0;
         display: grid;
         place-items: center;
+        container-type: size;
+        overflow: hidden;
         visibility: hidden;
         opacity: 0;
         pointer-events: none;
         transition:
           opacity 420ms ease,
           visibility 420ms ease;
+      }
+
+      /* 前景舞台承载视频/图片/Logo/提示，所有组件以同一 16:9 基准整体缩放。 */
+      .lk-prelude-stage {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+        max-height: 100%;
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+        isolation: isolate;
+        container-type: size;
+        background: #050403;
+        box-shadow: 0 0 52px rgba(0, 0, 0, 0.5);
+      }
+
+      @supports (width: 1cqw) {
+        .lk-prelude-stage {
+          width: min(100cqw, calc(100cqh * 1.7777778));
+          height: min(100cqh, calc(100cqw * 0.5625));
+        }
       }
 
       .lk-prelude-screen.is-active {
@@ -2688,8 +3017,35 @@
       }
 
       .lk-opening-screen {
+        isolation: isolate;
         cursor: pointer;
-        background: #000;
+        background: #100b09;
+      }
+
+      .lk-opening-video-backdrop {
+        position: absolute;
+        inset: -8%;
+        z-index: 0;
+        width: 116%;
+        height: 116%;
+        object-fit: cover;
+        object-position: center;
+        filter: blur(26px) brightness(0.58) saturate(0.82);
+        transform: scale(1.08);
+        pointer-events: none;
+      }
+
+      .lk-opening-screen::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        background: radial-gradient(
+          circle at center,
+          rgba(30, 18, 14, 0.04),
+          rgba(0, 0, 0, 0.26) 82%
+        );
       }
 
       .lk-opening-video {
@@ -2697,13 +3053,15 @@
         height: 100%;
         display: block;
         object-fit: cover;
+        object-position: center;
         background: #000;
       }
 
-      .lk-opening-screen::after {
+      .lk-opening-stage::after {
         content: "";
         position: absolute;
         inset: auto 0 0;
+        z-index: 2;
         height: 20%;
         pointer-events: none;
         background: linear-gradient(to top, rgba(0, 0, 0, 0.58), transparent);
@@ -2716,6 +3074,7 @@
         z-index: 4;
         display: none;
         min-width: min(78vw, 320px);
+        min-width: min(78cqw, 320px);
         border: 1px solid rgba(230, 197, 126, 0.78);
         padding: 15px 24px 13px;
         transform: translate(-50%, -50%);
@@ -2726,6 +3085,7 @@
           inset 0 0 0 1px rgba(255, 255, 255, 0.08);
         font-family: Georgia, "Times New Roman", serif;
         font-size: clamp(13px, 1.2vw, 18px);
+        font-size: clamp(11px, 1.2cqw, 18px);
         letter-spacing: 0.17em;
         text-align: center;
         cursor: pointer;
@@ -2742,13 +3102,16 @@
         color: rgba(255, 255, 255, 0.7);
         font-family: "Microsoft YaHei", sans-serif;
         font-size: 11px;
+        font-size: clamp(9px, 1cqw, 11px);
         letter-spacing: 0.08em;
       }
 
       .lk-op-skip {
         position: absolute;
         right: clamp(18px, 3vw, 48px);
+        right: clamp(12px, 3cqw, 48px);
         bottom: clamp(16px, 3vh, 38px);
+        bottom: clamp(10px, 3cqh, 38px);
         z-index: 4;
         border: 0;
         padding: 8px 0;
@@ -2756,6 +3119,7 @@
         background: transparent;
         font-family: Georgia, "Times New Roman", serif;
         font-size: clamp(10px, 0.85vw, 14px);
+        font-size: clamp(9px, 0.85cqw, 14px);
         letter-spacing: 0.24em;
         text-shadow: 0 1px 8px rgba(0, 0, 0, 0.95);
         cursor: pointer;
@@ -2764,7 +3128,7 @@
       .lk-title-screen {
         isolation: isolate;
         cursor: pointer;
-        background: #f7f7f7;
+        background: #160e0b;
       }
 
       .lk-title-art {
@@ -2779,36 +3143,90 @@
         -webkit-user-drag: none;
       }
 
-      .lk-title-screen::before,
+      .lk-prelude.is-message-embedded .lk-op-sound-gate {
+        min-width: min(78cqw, 320px);
+        font-size: clamp(11px, 1.2cqw, 18px);
+      }
+
+      .lk-prelude.is-message-embedded .lk-op-skip {
+        right: clamp(12px, 3cqw, 48px);
+        bottom: clamp(10px, 3cqh, 38px);
+        font-size: clamp(9px, 0.85cqw, 14px);
+      }
+
+      .lk-prelude.is-message-embedded .lk-title-logo {
+        top: clamp(12px, 5cqh, 68px);
+        width: min(42cqw, 620px);
+        max-height: 25cqh;
+      }
+
+      .lk-prelude.is-message-embedded .lk-continue-prompt {
+        bottom: clamp(14px, 8cqh, 100px);
+        min-width: min(88cqw, 720px);
+        padding: clamp(8px, 1.7cqh, 18px) clamp(12px, 2cqw, 26px);
+        font-size: clamp(10px, 1.35cqw, 23px);
+      }
+
+      .lk-title-screen::before {
+        content: "";
+        position: absolute;
+        inset: -8%;
+        z-index: 0;
+        pointer-events: none;
+        background:
+          linear-gradient(rgba(30, 17, 12, 0.2), rgba(8, 5, 4, 0.34)),
+          url("https://eriribot.github.io/rakudai-knight/title-screen-8k.png")
+            center / cover no-repeat;
+        filter: blur(28px) saturate(0.78) brightness(0.78);
+        transform: scale(1.08);
+      }
+
       .lk-title-screen::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        background: radial-gradient(
+          circle at center,
+          transparent 34%,
+          rgba(5, 3, 2, 0.2) 100%
+        );
+      }
+
+      .lk-title-stage::before,
+      .lk-title-stage::after {
         content: "";
         position: absolute;
         inset: 0;
         pointer-events: none;
       }
 
-      .lk-title-screen::before {
+      .lk-title-stage::before {
         z-index: -2;
         background:
           linear-gradient(to bottom, rgba(10, 8, 7, 0.14), transparent 32%),
           linear-gradient(to top, rgba(9, 6, 5, 0.8), transparent 40%);
       }
 
-      .lk-title-screen::after {
+      .lk-title-stage::after {
         z-index: -1;
         box-shadow: inset 0 0 14vw rgba(0, 0, 0, 0.3);
+        box-shadow: inset 0 0 14cqw rgba(0, 0, 0, 0.3);
       }
 
       .lk-title-logo {
         position: absolute;
         top: clamp(22px, 5vh, 68px);
+        top: clamp(12px, 5cqh, 68px);
         left: 50%;
         width: min(42vw, 620px);
+        width: min(42cqw, 620px);
         max-height: 25vh;
+        max-height: 25cqh;
         object-fit: contain;
         transform: translateX(-50%);
-        filter:
-          drop-shadow(0 2px 1px rgba(255, 255, 255, 0.72))
+        filter: drop-shadow(0 2px 1px rgba(255, 255, 255, 0.72))
           drop-shadow(0 5px 13px rgba(0, 0, 0, 0.44));
         user-select: none;
         -webkit-user-drag: none;
@@ -2818,7 +3236,9 @@
         position: absolute;
         left: 50%;
         bottom: clamp(30px, 8vh, 100px);
+        bottom: clamp(14px, 8cqh, 100px);
         min-width: min(88vw, 720px);
+        min-width: min(88cqw, 720px);
         border: 0;
         padding: 18px 26px;
         transform: translateX(-50%);
@@ -2826,10 +3246,13 @@
         background: transparent;
         font-family: Georgia, "Times New Roman", serif;
         font-size: clamp(13px, 1.35vw, 23px);
+        font-size: clamp(10px, 1.35cqw, 23px);
         font-weight: 600;
         letter-spacing: clamp(0.16em, 0.45vw, 0.34em);
+        letter-spacing: clamp(0.16em, 0.45cqw, 0.34em);
         text-align: center;
         text-indent: clamp(0.16em, 0.45vw, 0.34em);
+        text-indent: clamp(0.16em, 0.45cqw, 0.34em);
         text-shadow:
           0 2px 3px rgba(0, 0, 0, 0.95),
           0 0 14px rgba(0, 0, 0, 0.82);
@@ -2894,21 +3317,42 @@
         aria-label="片头动画"
       >
         <video
-          id="lkOpeningVideo"
-          class="lk-opening-video"
-          autoplay
+          id="lkOpeningVideoBackdrop"
+          class="lk-opening-video-backdrop"
+          muted
           playsinline
           preload="auto"
+          crossorigin="anonymous"
+          aria-hidden="true"
+          tabindex="-1"
         >
-          <source src="../../op.mp4" type="video/mp4" />
+          <source
+            src="https://eriribot.github.io/rakudai-knight/op.mp4"
+            type="video/mp4"
+          />
         </video>
-        <button id="lkOpSoundGate" class="lk-op-sound-gate" type="button">
-          CLICK TO PLAY OP
-          <small>点击后将以有声模式播放</small>
-        </button>
-        <button id="lkOpSkip" class="lk-op-skip" type="button">
-          CLICK TO SKIP
-        </button>
+        <div class="lk-prelude-stage lk-opening-stage">
+          <video
+            id="lkOpeningVideo"
+            class="lk-opening-video"
+            autoplay
+            playsinline
+            preload="auto"
+            crossorigin="anonymous"
+          >
+            <source
+              src="https://eriribot.github.io/rakudai-knight/op.mp4"
+              type="video/mp4"
+            />
+          </video>
+          <button id="lkOpSoundGate" class="lk-op-sound-gate" type="button">
+            CLICK TO PLAY OP
+            <small>点击后将以有声模式播放</small>
+          </button>
+          <button id="lkOpSkip" class="lk-op-skip" type="button">
+            CLICK TO SKIP
+          </button>
+        </div>
       </section>
 
       <section
@@ -2917,15 +3361,27 @@
         aria-hidden="true"
         aria-label="标题待机画面"
       >
-        <img class="lk-title-art" src="../../title-screen-8k.png" alt="" />
-        <img
-          class="lk-title-logo"
-          src="./rakudai-logo.png"
-          alt="落第骑士英雄谭"
-        />
-        <button id="lkContinuePrompt" class="lk-continue-prompt" type="button">
-          PRESS ANY KEY TO CONTINUE
-        </button>
+        <div class="lk-prelude-stage lk-title-stage">
+          <img
+            class="lk-title-art"
+            src="https://eriribot.github.io/rakudai-knight/title-screen-8k.png"
+            crossorigin="anonymous"
+            alt=""
+          />
+          <img
+            class="lk-title-logo"
+            src="https://eriribot.github.io/rakudai-knight/rakudai-logo.png"
+            crossorigin="anonymous"
+            alt="落第骑士英雄谭"
+          />
+          <button
+            id="lkContinuePrompt"
+            class="lk-continue-prompt"
+            type="button"
+          >
+            PRESS ANY KEY TO CONTINUE
+          </button>
+        </div>
       </section>
     </div>
 
@@ -2935,29 +3391,71 @@
         var openingScreen = document.getElementById("lkOpeningScreen");
         var titleScreen = document.getElementById("lkTitleScreen");
         var video = document.getElementById("lkOpeningVideo");
+        var videoBackdrop = document.getElementById("lkOpeningVideoBackdrop");
         var soundGate = document.getElementById("lkOpSoundGate");
         var skipButton = document.getElementById("lkOpSkip");
         var continuePrompt = document.getElementById("lkContinuePrompt");
         var titleVisible = false;
         var needsGesture = false;
         var finished = false;
+        var messageHost = root.closest(".mes_text, .mes_block");
+        var localParent = root.parentElement || document.body;
 
         window.__lkPreludeComplete = false;
 
+        if (messageHost) {
+          root.classList.add("is-message-embedded");
+          messageHost.classList.add("lk-prelude-host-active");
+          document.body.classList.remove("prelude-active");
+        }
+
         function setGuideInert(inert) {
-          Array.prototype.forEach.call(document.body.children, function (child) {
-            if (child !== root) child.inert = inert;
-          });
+          Array.prototype.forEach.call(
+            localParent.children,
+            function (child) {
+              if (
+                child !== root &&
+                child.tagName !== "SCRIPT" &&
+                child.tagName !== "STYLE"
+              ) {
+                child.inert = inert;
+              }
+            },
+          );
         }
 
         function showSoundGate() {
           needsGesture = true;
+          videoBackdrop.pause();
           soundGate.classList.add("is-visible");
+        }
+
+        function syncOpeningBackdrop(force) {
+          try {
+            if (
+              force ||
+              Math.abs(videoBackdrop.currentTime - video.currentTime) > 0.45
+            ) {
+              videoBackdrop.currentTime = video.currentTime;
+            }
+          } catch (error) {
+            /* 元数据尚未就绪时，playing 事件会再次同步。 */
+          }
+        }
+
+        function playOpeningBackdrop() {
+          syncOpeningBackdrop(true);
+          videoBackdrop.muted = true;
+          var backdropPromise = videoBackdrop.play();
+          if (backdropPromise && typeof backdropPromise.catch === "function") {
+            backdropPromise.catch(function () {});
+          }
         }
 
         function markOpeningPlaying() {
           needsGesture = false;
           soundGate.classList.remove("is-visible");
+          playOpeningBackdrop();
         }
 
         function playOpeningWithSound() {
@@ -2974,6 +3472,7 @@
           if (titleVisible || finished) return;
           titleVisible = true;
           video.pause();
+          videoBackdrop.pause();
           openingScreen.classList.remove("is-active");
           openingScreen.setAttribute("aria-hidden", "true");
           titleScreen.classList.add("is-active");
@@ -2992,6 +3491,9 @@
           document.removeEventListener("keydown", handlePreludeKey, true);
           window.setTimeout(function () {
             root.hidden = true;
+            if (messageHost) {
+              messageHost.classList.remove("lk-prelude-host-active");
+            }
           }, 450);
         }
 
@@ -3030,13 +3532,39 @@
         openingScreen.addEventListener("click", handleOpeningClick);
         titleScreen.addEventListener("click", finishPrelude);
         video.addEventListener("playing", markOpeningPlaying);
+        video.addEventListener("timeupdate", function () {
+          syncOpeningBackdrop(false);
+        });
+        video.addEventListener("seeking", function () {
+          syncOpeningBackdrop(true);
+        });
         video.addEventListener("ended", revealTitle, { once: true });
         video.addEventListener("error", revealTitle, { once: true });
+        videoBackdrop.addEventListener(
+          "error",
+          function () {
+            videoBackdrop.hidden = true;
+          },
+          { once: true },
+        );
         document.addEventListener("keydown", handlePreludeKey, true);
-        document.addEventListener("DOMContentLoaded", function () {
+        function activatePreludeScope() {
           setGuideInert(true);
-        });
-        window.addEventListener("load", playOpeningWithSound, { once: true });
+        }
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", activatePreludeScope, {
+            once: true,
+          });
+        } else {
+          activatePreludeScope();
+        }
+
+        if (document.readyState === "complete") {
+          playOpeningWithSound();
+        } else {
+          window.addEventListener("load", playOpeningWithSound, { once: true });
+        }
       })();
     </script>
 
@@ -3366,11 +3894,10 @@
             class="cinema-img"
           />
         </div>
-
       </div>
     </div>
 
-    <div class="container">
+    <div class="container" id="lkGuideContainer">
       <!-- 顶部大标题与副标题 -->
       <header class="top-header">
         <div class="top-logo-container">
@@ -3378,10 +3905,7 @@
             src="https://eriribot.github.io/rakudai-knight/rakudai-logo.png"
             alt="落第騎士の英雄譚"
             class="top-logo-img"
-            onerror="
-              this.onerror = null;
-              this.src = './rakudai-logo.png';
-            "
+            crossorigin="anonymous"
           />
           <div class="top-archive-badge">
             <span class="badge-vol">第 1 卷</span>
@@ -4285,15 +4809,8 @@
               </div>
             </div>
 
-            <!-- 按钮组：深红“应用并显示” 与 白底红框“重置表单” -->
+            <!-- 表单重置 -->
             <div class="btn-group-register">
-              <button
-                type="button"
-                class="btn-apply"
-                onclick="applyAndNotify()"
-              >
-                应用并显示
-              </button>
               <button
                 type="button"
                 class="btn-reset"
@@ -4320,8 +4837,8 @@
             </div>
           </section>
 
-          <!-- 右侧：纯羊皮纸角色设定卡实时回显 (带右上方大水印印章！) -->
-          <aside class="character-card-wrapper">
+          <!-- 唯一档案卡的初始暂存处；页面初始化后会移入第三步。 -->
+          <aside class="character-card-wrapper" hidden aria-hidden="true">
             <div class="character-card" id="main-character-card">
               <!-- 全局背景大水印印章（完美重合原图位置：位于卡片右上方偏右，跨越STATUS与PARAMETER！） -->
               <div class="card-global-watermark">
@@ -4510,6 +5027,18 @@
             <p class="stage-header-desc">
               理事长室与教务处已联合复核完毕，准予正式归档
             </p>
+          </div>
+
+          <div class="final-avatar-tools">
+            <button
+              type="button"
+              class="btn-final-avatar-upload"
+              id="final-avatar-upload-button"
+              onclick="triggerAvatarUpload()"
+            >
+              📷 上传角色照片
+            </button>
+            <span class="final-avatar-note">也可以直接点击档案卡右上角头像</span>
           </div>
 
           <!-- 放置最终核验卡片（带有朱砂印章） -->
@@ -4797,14 +5326,35 @@
             : "玩家 U 默认按男 U 建档，不提供性别自选。";
       }
 
+      function updateAvatarUploadUi() {
+        var button = document.getElementById("final-avatar-upload-button");
+        var hint = document.querySelector(".card-avatar-hint");
+        var isCanon = activeStartProfile === "kurogane";
+        var actionLabel = avatarState === "uploaded" ? "更换照片" : "上传照片";
+
+        if (button) {
+          button.disabled = isCanon;
+          button.textContent = isCanon
+            ? "🔒 正典照片已封存"
+            : "📷 " + actionLabel;
+        }
+        if (hint) hint.textContent = actionLabel;
+      }
+
       function showUserAvatarPlaceholder() {
         var container = document.getElementById("card-avatar-container");
+        var img = document.getElementById("card-avatar-img");
         var symbol = document.getElementById("card-avatar-placeholder-symbol");
         var fileInput = document.getElementById("avatar-file-input");
         if (container) container.classList.add("is-placeholder");
+        if (img) {
+          img.removeAttribute("src");
+          img.alt = "";
+        }
         if (symbol) symbol.textContent = "♂";
         if (fileInput) fileInput.value = "";
         avatarState = "placeholder";
+        updateAvatarUploadUi();
       }
 
       function setProfileAvatar(key) {
@@ -4821,8 +5371,8 @@
           img.alt = "黑铁一辉立绘";
           container.classList.remove("is-placeholder");
           avatarState = "canon";
+          updateAvatarUploadUi();
         } else {
-          img.alt = "";
           showUserAvatarPlaceholder();
         }
       }
@@ -4897,18 +5447,14 @@
           }
         }
         if (avatarInput) avatarInput.disabled = isLocked;
+        updateAvatarUploadUi();
 
-        // 锁定提示条
-        var lockNotice = document.getElementById("canon-lock-notice");
-        if (lockNotice) {
-          lockNotice.classList.toggle("active", isLocked);
-        }
       }
 
       function triggerAvatarUpload() {
         if (activeStartProfile === "kurogane") {
           alert(
-            "⚔️ 正典黑铁一辉的立绘为破军学园官方正典档案，不可替换！\n\n如需自创立绘与设定，请点击上方方案切换至【玩家 U】。",
+            "⚔️ 正典黑铁一辉的立绘为破军学园官方正典档案，不可替换！\n\n请返回第二步并切换至【玩家 U】后上传照片。",
           );
           return;
         }
@@ -5013,18 +5559,6 @@
           `${route} · ${genderLabel} · ${name}，${filledCount}/6 项能力已评定`;
       }
 
-      function applyAndNotify() {
-        syncCard();
-        var name =
-          document.getElementById("input-name").value.trim() || "未命名";
-        var feedback = document.getElementById("register-feedback");
-        feedback.style.transform = "scale(1.04)";
-        feedback.style.transition = "transform 0.15s";
-        setTimeout(function () {
-          feedback.style.transform = "scale(1)";
-        }, 150);
-      }
-
       function resetRegisterForm() {
         loadPreset(activeStartProfile === "kurogane" ? "kurogane" : "user");
       }
@@ -5042,6 +5576,7 @@
             img.alt = "男 U 自定义立绘";
             if (container) container.classList.remove("is-placeholder");
             avatarState = "uploaded";
+            updateAvatarUploadUi();
             syncCard();
           };
           reader.readAsDataURL(file);
@@ -5221,43 +5756,23 @@
 
       // ================= 第三幕挂载与交互 =================
       function prepareFinalCard() {
-        var sourceCard = document.getElementById("main-character-card");
+        var card = document.getElementById("main-character-card");
         var targetContainer = document.getElementById("final-card-container");
-        targetContainer.innerHTML = "";
-        var clone = sourceCard.cloneNode(true);
-        clone.id = "cloned-final-card";
+        if (!card || !targetContainer) return;
 
-        // 终审卡是只读快照：移除登记页头像上传入口与所有重复 ID。
-        var clonedSvg = clone.querySelector("#ability-radar-svg");
-        var finalAvatar = clone.querySelector(".card-avatar-container");
-        if (finalAvatar) {
-          finalAvatar.classList.add("is-readonly");
-          finalAvatar.removeAttribute("onclick");
-          finalAvatar.removeAttribute("title");
-          finalAvatar.setAttribute("aria-label", "已确认的角色立绘");
-          var avatarHint = finalAvatar.querySelector(".card-avatar-hint");
-          var avatarInput = clone.querySelector("#avatar-file-input");
-          if (avatarHint) avatarHint.remove();
-          if (avatarInput) avatarInput.remove();
+        if (card.parentElement !== targetContainer) {
+          var temporaryWrapper = card.parentElement;
+          targetContainer.appendChild(card);
+          if (
+            temporaryWrapper &&
+            temporaryWrapper.classList.contains("character-card-wrapper")
+          ) {
+            temporaryWrapper.remove();
+          }
         }
-        clone.querySelectorAll("[id]").forEach(function (el) {
-          el.removeAttribute("id");
-        });
-        targetContainer.appendChild(clone);
 
-        // 重新对克隆体中的 SVG 执行雷达图渲染
-        if (clonedSvg) {
-          clonedSvg.id = "final-radar-svg";
-          var grades = {
-            attack: document.getElementById("stat-attack").value,
-            defense: document.getElementById("stat-defense").value,
-            magic: document.getElementById("stat-magic").value,
-            control: document.getElementById("stat-control").value,
-            physical: document.getElementById("stat-physical").value,
-            luck: document.getElementById("stat-luck").value,
-          };
-          renderRadarEngine("final-radar-svg", grades);
-        }
+        syncCard();
+        updateAvatarUploadUi();
       }
 
       function copyCardSummary() {
@@ -5536,35 +6051,35 @@
       var GALLERY_CARDS = [
         {
           id: 0,
-          img: "../../resource/p1.jpg",
+          img: "https://eriribot.github.io/rakudai-knight/resource/p1.jpg",
         },
         {
           id: 1,
-          img: "../../resource/p2.jpg",
+          img: "https://eriribot.github.io/rakudai-knight/resource/p2.jpg",
         },
         {
           id: 2,
-          img: "../../resource/p3.jpg",
+          img: "https://eriribot.github.io/rakudai-knight/resource/p3.jpg",
         },
         {
           id: 3,
-          img: "../../resource/p4.jpg",
+          img: "https://eriribot.github.io/rakudai-knight/resource/p4.jpg",
         },
         {
           id: 4,
-          img: "../../resource/p5.jpg",
+          img: "https://eriribot.github.io/rakudai-knight/resource/p5.jpg",
         },
         {
           id: 5,
-          img: "../../resource/p6.jpg",
+          img: "https://eriribot.github.io/rakudai-knight/resource/p6.jpg",
         },
         {
           id: 6,
-          img: "../../resource/p7.jpg",
+          img: "https://eriribot.github.io/rakudai-knight/resource/p7.jpg",
         },
         {
           id: 7,
-          img: "../../resource/no19.jpg",
+          img: "https://eriribot.github.io/rakudai-knight/resource/no19.jpg",
         },
       ];
 
@@ -5578,7 +6093,10 @@
 
         track.innerHTML = "";
 
-        var screenW = window.innerWidth || document.documentElement.clientWidth;
+        var guideContainer = document.getElementById("lkGuideContainer");
+        var screenW = guideContainer
+          ? guideContainer.getBoundingClientRect().width
+          : window.innerWidth || document.documentElement.clientWidth;
         var isMobile = screenW < 600;
 
         // 8 组明信片自然散落预设：均布于页面中轴与双侧 (5% ~ 92.5%)
@@ -5732,6 +6250,7 @@
         initCardScene();
         showSlide(0);
         loadPreset("user");
+        prepareFinalCard();
         var params = new URLSearchParams(window.location.search);
         var sc = parseInt(params.get("scene"), 10);
         if (sc >= 1 && sc <= 3) {
