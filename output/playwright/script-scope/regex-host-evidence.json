@@ -1,0 +1,15 @@
+{
+  "host": "http://127.0.0.1:8000/",
+  "sillyTavernVersion": "1.18.0",
+  "rule": "替换开局",
+  "pattern": "\\[开局\\]",
+  "observedOutput": "raw = raw.replace(/^```(?:json)?\\s*/i, <q>\"\"</q>).replace(/\\s*```$/, \"\");",
+  "cause": "Literal triple backticks inside the script terminate the quote-formatting code-block exclusion; quote tags are injected into JavaScript.",
+  "fix": "Use \\x60{3} instead of literal triple backticks in both cleanup regexes.",
+  "localTransportRegression": "PASS; both encode_tags branches; old failure reproduced",
+  "browserRegression": "PASS; classic/module; initialization, postcard nodes, buttons, forms",
+  "liveOutputInspection": true,
+  "liveIframeExecution": false,
+  "liveRuleSaved": false,
+  "iabObservation": "Message iframe has blob: src but empty html/head/body; cause not established."
+}

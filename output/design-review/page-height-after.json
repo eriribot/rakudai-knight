@@ -1,0 +1,22 @@
+[
+  {
+    "width": 1280,
+    "pageHeight": 900,
+    "overflow": false
+  },
+  {
+    "width": 1000,
+    "pageHeight": 900,
+    "overflow": false
+  },
+  {
+    "width": 800,
+    "pageHeight": 900,
+    "overflow": false
+  },
+  {
+    "width": 390,
+    "pageHeight": 844,
+    "overflow": false
+  }
+]

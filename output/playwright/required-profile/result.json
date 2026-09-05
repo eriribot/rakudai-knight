@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "checks": [
+    "mock helper generation/autofill/recalculation/stale reply rejected/malformed reply preserved/missing helper",
+    "default collapsed/invalid fields expand/AI greeting fills editor",
+    "repeated stat edits refresh score and calculation including excluded axis",
+    "all six axes required/whitespace rejected/automatic B/bio in message",
+    "slot/JSON/PNG parity/old archives readable without AI adjustment",
+    "record opens only on button/canonical fixed greeting and locked generator",
+    "canon unchanged/mobile width"
+  ],
+  "jsErrors": [],
+  "sillyTavernVerified": false
+}

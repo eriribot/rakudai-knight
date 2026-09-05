@@ -1,0 +1,18 @@
+{
+  "source": "https://github.com/LiarMTTT/TavernWeave",
+  "commit": "bda6fc3f6ee0d8d00092f40ea64f98da94ca1ac5",
+  "version": "1.4.0",
+  "sourceSkills": 21,
+  "installedSkills": 21,
+  "sourceFiles": 406,
+  "installedFiles": 406,
+  "missingFiles": [],
+  "extraFiles": [],
+  "changedFiles": [],
+  "verification": "Git blob byte-exact comparison",
+  "host": "Codex desktop",
+  "scope": "project",
+  "hostRediscovery": "pending-next-turn-or-new-task",
+  "globalRulesModified": false,
+  "frontDoorInstalled": false
+}

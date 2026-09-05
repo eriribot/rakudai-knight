@@ -1,0 +1,36 @@
+{
+  "format": "rakudai-opening-profile",
+  "schema_version": 3,
+  "profile_key": "user",
+  "profile": {
+    "stats": {
+      "attack": "D",
+      "defense": "B",
+      "magic": "C",
+      "control": "A",
+      "physical": "E",
+      "luck": "C"
+    },
+    "name": "测试骑士",
+    "personality": "认真温和",
+    "conduct": "先观察再行动",
+    "school": "破军学园 / 一年一班",
+    "device": "流水",
+    "nobleArt": "水壁",
+    "desc": "外貌：黑发灰瞳。背景：普通家庭。经历：训练后进入破军学园。",
+    "ability": "在十米内操纵水流",
+    "limits": "需要现成的水",
+    "style": "中距离防守",
+    "assessment": null,
+    "rating": {
+      "rule": "r05-v1",
+      "score": 5,
+      "base": "B",
+      "missing": [],
+      "proposed": null,
+      "status": "calculated"
+    }
+  },
+  "avatar": null,
+  "greeting": "入学报到那天，我停在训练场门前，向值日生询问报到处的位置。"
+}

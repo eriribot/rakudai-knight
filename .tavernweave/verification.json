@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "package": "tavernweave-agent-skills",
+  "version": "1.4.0",
+  "layout": "skills",
+  "targetRoot": "D:\\card\\rakudai-knight\\.agents\\skills",
+  "expectedSkills": 21,
+  "installedSkills": 21,
+  "matchedSkills": 21,
+  "missingSkills": [],
+  "driftedSkills": [],
+  "missingRequiredPaths": [],
+  "manifestVersionMismatches": [],
+  "extraTargetDirectories": [],
+  "librarySkill": "present-and-matched",
+  "libraryPicker": "present",
+  "soulSkill": "present-and-matched",
+  "hostFrontDoor": "not-checked",
+  "hostFrontDoorTarget": null,
+  "hostFrontDoorVersion": null,
+  "hostRediscovery": "required-new-task",
+  "failures": []
+}

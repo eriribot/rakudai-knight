@@ -1,0 +1,35 @@
+{
+  "results": [
+    {
+      "mode": "classic",
+      "status": "PASS",
+      "errors": [],
+      "checks": [
+        "initialization",
+        "inline interfaces",
+        "archive slots",
+        "illustrations",
+        "canon shortcut",
+        "three steps",
+        "custom input",
+        "mobile width"
+      ]
+    },
+    {
+      "mode": "module",
+      "status": "PASS",
+      "errors": [],
+      "checks": [
+        "initialization",
+        "inline interfaces",
+        "archive slots",
+        "illustrations",
+        "canon shortcut",
+        "three steps",
+        "custom input",
+        "mobile width"
+      ]
+    }
+  ],
+  "sillyTavernVerified": false
+}
