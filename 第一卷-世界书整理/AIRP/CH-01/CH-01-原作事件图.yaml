@@ -1,0 +1,657 @@
+format: airp-story-graph
+version: 1
+workId: rakudai-knight
+chapterId: CH-01
+graphId: RKH1-CH01
+origin: canon
+sourceSnapshot:
+  materialId: MAT-001
+  sourcePath: "落第骑士英雄谭 第一卷 gbk.txt"
+  encoding: GB18030
+  lineBasis: "decoded splitlines()"
+  scope: {start: 56, end: 2020}
+  sha256: caab7f49901f52244d39d8d290e73648ccd7771b2db210491b2eb2d789b47dcc
+  byteLength: 251024
+  decodedLineCount: 7938
+  excluded:
+    - "序章正文不在本图事件范围；仅引用 CH-00/T01 的405号室误会前置"
+    - "L2,021之后、零卷、第二卷至第十九卷、短篇和联网资料"
+relativeCalendar:
+  phaseId: T02
+  label: "正式开学前的宿舍安排与模拟战期"
+  dateKnown: false
+  temporalPrecision: relative
+  resolverRule: "只允许相对顺序、原文时段和明确钟点；禁止补写公历日期"
+roots:
+  - {id: root-canon, name: 原作主干, origin: canon}
+  - {id: root-authored, name: 预制分支, origin: authored}
+  - {id: root-emergent, name: 涌现分支, origin: emergent}
+locations:
+  - {id: rk-student-dorm-405, name: 第一学生宿舍405号室, scope: chapter_local, source: ["MAT-001#L77-L125", "MAT-001#L319-L371"]}
+  - {id: rk-director-office, name: 破军学园理事长室, scope: chapter_local, source: ["MAT-001#L77-L371"]}
+  - {id: rk-training-ground-03, name: 第三训练场, scope: chapter_local, source: ["MAT-001#L519-L637"]}
+  - {id: rk-campus-dorm-area, name: 破军学园学生宿舍区域, scope: chapter_local, source: ["MAT-001#L1,228-L2,020"]}
+participants:
+  - {id: char-ikki-kurogane, label: 黑铁一辉, kind: character, source: "人物条目/黑铁一辉.md"}
+  - {id: char-stella-vermillion, label: 史黛菈·法米利昂, kind: character, source: "人物条目/史黛菈·法米利昂.md"}
+  - {id: char-kurono-shinguuji, label: 新宫寺黑乃, kind: character, source: "人物条目/新宫寺黑乃.md"}
+  - {id: char-ryoma-kurogane, label: 黑铁龙马, kind: memory_character, source: "人物条目/黑铁龙马.md"}
+  - {id: group-audience, label: 二、三年级观众群体, kind: group, source: "06_角色对白索引.md"}
+  - {id: role-judge, label: 裁判角色位, kind: institutional_role, source: "06_角色对白索引.md"}
+  - {id: role-ikki-father, label: 一辉的父亲（回忆）, kind: memory_role, source: "06_角色对白索引.md"}
+  - {id: role-old-roommate, label: 一辉旧室友（梦中角色位）, kind: memory_role, source: "06_角色对白索引.md"}
+  - {id: player, label: 玩家, kind: runtime_optional}
+sceneIndex:
+  - {sceneId: CH-01-S01, range: "MAT-001#L56-L324", dialogueRange: "DIA-CH01-0005–DIA-CH01-0072"}
+  - {sceneId: CH-01-S02, range: "MAT-001#L326-L516", dialogueRange: "DIA-CH01-0073–DIA-CH01-0129"}
+  - {sceneId: CH-01-S03, range: "MAT-001#L518-L638", dialogueRange: "DIA-CH01-0130–DIA-CH01-0151"}
+  - {sceneId: CH-01-S04, range: "MAT-001#L640-L922", dialogueRange: "DIA-CH01-0152–DIA-CH01-0179"}
+  - {sceneId: CH-01-S05, range: "MAT-001#L924-L1,226", dialogueRange: "DIA-CH01-0180–DIA-CH01-0216"}
+  - {sceneId: CH-01-S06, range: "MAT-001#L1,228-L1,442", dialogueRange: "DIA-CH01-0217–DIA-CH01-0262"}
+  - {sceneId: CH-01-S07, range: "MAT-001#L1,444-L1,658", dialogueRange: "DIA-CH01-0263–DIA-CH01-0286"}
+  - {sceneId: CH-01-S08, range: "MAT-001#L1,660-L2,020", dialogueRange: "DIA-CH01-0287–DIA-CH01-0376"}
+terminalNodes: ["chapter-boundary/CH-02"]
+initialState:
+  provenance: expected_canon_input
+  committed: false
+  values:
+    world:
+      chapter: CH-01
+      relativePhase: T02
+      location: rk-director-office
+      clockHour: unknown
+    facts:
+      prequel_room_405_misunderstanding: true
+      ikki_at_director_office: true
+      ikki_brought_to_director_office: false
+      room_assignment_pending: true
+      room_assignment_offered: false
+      room_assignment_accepted: false
+      dorm_405_roommates: false
+      dorm_pairing_policy_revealed: false
+      duel_bet_active: false
+      duel_bet_scope: none
+      training_ground_03_permission: false
+      fantasia_mode: false
+      match_started: false
+      chapter02_started: false
+      terminal_romance_confirmed: false
+      private_misunderstanding_publicly_reported: false
+      medical_kit_available: true
+      dorm_clock_hour: unknown
+      stella_asks_why_ikki_is_F: false
+      stella_asks_family_reason: false
+      dream_disclosure_pending: false
+      dream_disclosure_completed: false
+      family_pressure_disclosed_to_stella: false
+      rating_system_explained: false
+      value_recognition_established: false
+      first_command_pending: false
+      first_command_completed: false
+      dinner_plan_created: false
+      kurono_left_room: false
+      stella_fell_and_needs_bandage: false
+      bandage_completed: false
+      stella_goal_revealed: false
+      stella_present: false
+      kurono_present: true
+      ikki_awake: true
+      ikki_alive: true
+      office_device_conflict: false
+      stella_device_revealed: false
+      ikki_device_revealed: false
+      audience_expects_ikki_loss: false
+      ikki_has_tactical_advantage: false
+      stella_ultimate_released: false
+      ikki_normal_strike_cannot_break_aura: false
+      match_completed: false
+      post_match_recovery_started: false
+      single_room_option_available: false
+      stella_observed_ikki_training: false
+      stella_asks_why_ikki_persists: false
+    combat:
+      ikki:
+        can_continue: true
+        observation_progress: none
+      stella:
+        auraDefense: active
+        can_use_ultimate: true
+      elapsedMinutes: 0
+    abilities:
+      char-ikki-kurogane:
+        ichigekiShura:
+          available: true
+          cooldown: ready
+    knowledge:
+      char-ikki-kurogane: {can_recall_family_history: true}
+      char-kurono-shinguuji: {can_disclose_school_history: true}
+      char-stella-vermillion: {asks_why_ikki_is_F: false, asks_family_reason: false, goal_question_open: false, has_heard_ikki_dream: false}
+    relationships:
+      ikki_stella:
+        stage: mutually_wary_strangers
+    decisions:
+      dorm_405: null
+      duel_contract: null
+      match_intervention: null
+      family_disclosure: null
+      dream_depth: null
+      domestic_plan: null
+      ikki: {use_ichigeki_shura: null, disclose_dream: null, revisit_bet: null, first_command: null}
+      stella: {accept_roommate: null}
+
+
+events:
+  - id: RKH1-CH01-A00
+    nodeId: root-canon/T02/context
+    origin: canon
+    title: "第一章上下文：伐刀者制度、等级差与405号室误会前置"
+    lifecycle: context
+    once: true
+    isContextAnchor: true
+    schedule: {relativePhase: T02, precision: contextual, timeCue: "第一章开篇；具体日期未知"}
+    locations: {anyOf: [rk-director-office, rk-student-dorm-405]}
+    participants: {required: [char-ikki-kurogane, char-stella-vermillion], optional: [char-kurono-shinguuji, player]}
+    canonPreconditions: {all: [{path: world.chapter, op: eq, value: CH-01}, {path: facts.prequel_room_405_misunderstanding, op: eq, value: true}]}
+    conditions: {all: [{path: world.relativePhase, op: eq, value: T02}]}
+    blockers: []
+    fixedFacts: [FA-CH01-001, FA-CH01-002, FA-CH01-003, FA-CH01-004, FA-CH01-005, FA-CH01-008]
+    narrativeIntent: ["建立制度与公开等级基线", "承接CH-00/T01误会，使理事长室事件有前置"]
+    replaceableShell: ["世界观说明长度与顺序", "学校规模比喻", "公开资料进入角色视角的包装"]
+    playerIntervention: {primary: observe, available: [observe, participate], requiredPresence: false, choiceBoundary: "可询问制度和等级，不可改写公开身份锚", forbiddenAutonomy: ["替一辉承认未输入罪责", "把公开资料扩写成全校内幕"]}
+    knowledgeEffects:
+      - {from: public_record, to: [char-ikki-kurogane, char-stella-vermillion, char-kurono-shinguuji], learns: [FA-CH01-001, FA-CH01-002, FA-CH01-003, FA-CH01-004, FA-CH01-005], channel: "公开学校资料/当面说明", proof: ["MAT-001#L57-L75", "MAT-001#L107-L121"]}
+    effects: {facts: [{path: world.chapter, op: set, value: CH-01}, {path: world.relativePhase, op: set, value: T02}, {path: facts.chapter02_started, op: set, value: false}]}
+    successors: [{to: RKH1-CH01-E01, edgeType: context_to_event, requires: [RKH1-CH01-A00]}]
+    adaptationPolicy: context_anchor
+    canonDisposition: {default: preserve, alternatives: [adapt], reason: "说明包装可压缩，制度与等级必须存在"}
+    evidence: {source: ["MAT-001#L56-L75", "MAT-001#L95-L121"], dialogue: [DIA-CH01-0005, DIA-CH01-0018]}
+
+  - id: RKH1-CH01-E01
+    nodeId: root-canon/T02/director-office/accountability
+    origin: canon
+    title: 理事长室责任追究
+    lifecycle: available
+    once: true
+    schedule: {relativePhase: T02, relation: after:RKH1-CH01-A00, precision: relative, timeCue: "春假期间、正式开学前"}
+    locations: {anyOf: [rk-director-office]}
+    participants: {required: [char-ikki-kurogane, char-kurono-shinguuji], optional: [char-stella-vermillion, player]}
+    canonPreconditions: {all: [{path: facts.prequel_room_405_misunderstanding, op: eq, value: true}, {path: world.location, op: eq, value: rk-director-office}]}
+    conditions: {all: [{path: world.chapter, op: eq, value: CH-01}, {path: world.relativePhase, op: eq, value: T02}, {path: facts.ikki_at_director_office, op: eq, value: true}]}
+    blockers: [{id: no-office, when: "一辉未被保全带到理事长室", disposition: delay}, {id: forced-confession, when: "玩家未输入却被写成已认罪或已接受处罚", disposition: reject_generation}]
+    fixedFacts: [FA-CH01-001, FA-CH01-002, FA-CH01-003, FA-CH01-004, FA-CH01-005, FA-CH01-008]
+    narrativeIntent: ["把私人误会转成校方责任问题", "让黑乃成为制度解释者", "保留史黛菈到场对质悬念"]
+    replaceableShell: ["保全处理方式", "黑乃讽刺强度", "外交风险措辞", "玩家证人/调解人镜头"]
+    playerIntervention: {primary: participate, available: [participate, disrupt, create], requiredPresence: false, choiceBoundary: "写到责任归属、道歉或钥匙来源时停笔", forbiddenAutonomy: ["替史黛菈接受道歉", "无传播链让全校/皇族获知私密事件"]}
+    knowledgeEffects: [{from: char-ikki-kurogane, to: char-kurono-shinguuji, learns: ["405号室现场行为", "一辉对公平脱衣的解释"], channel: face_to_face, proof: [DIA-CH01-0008, "MAT-001#L77-L125"]}, {from: char-kurono-shinguuji, to: char-stella-vermillion, learns: ["责任处理框架", "一辉公开等级和留级标签"], channel: face_to_face, proof: ["MAT-001#L95-L121"]}]
+    effects: {facts: [{path: facts.ikki_brought_to_director_office, op: set, value: true}, {path: facts.stella_present, op: set, value: true}, {path: facts.private_misunderstanding_publicly_reported, op: set, value: false}], relationships: [{path: relationship.ikki_stella.stage, op: set, value: mutually_wary_strangers}]}
+    successors: [{to: RKH1-CH01-E02, edgeType: confrontation, requires: [RKH1-CH01-E01, "史黛菈到场"]}]
+    adaptationPolicy: adaptive
+    canonDisposition: {default: preserve, alternatives: [adapt, delay, replace], reason: "处理方式可变，但责任框架和当面对质前置不可删除"}
+    evidence: {source: ["MAT-001#L77-L125"], dialogue: [DIA-CH01-0005, DIA-CH01-0008, DIA-CH01-0018]}
+
+  - id: RKH1-CH01-E02
+    nodeId: root-canon/T02/director-office/failed-apology
+    origin: canon
+    title: 史黛菈入室、道歉失败与短暂能力冲突
+    lifecycle: available
+    once: true
+    schedule: {relativePhase: T02, relation: after:RKH1-CH01-E01, precision: relative, timeCue: "紧接责任追究；间隔未知"}
+    locations: {anyOf: [rk-director-office]}
+    participants: {required: [char-ikki-kurogane, char-stella-vermillion, char-kurono-shinguuji], optional: [player]}
+    canonPreconditions: {all: [{path: facts.ikki_at_director_office, op: eq, value: true}, {path: relationship.ikki_stella.stage, op: eq, value: mutually_wary_strangers}]}
+    conditions: {all: [{path: facts.stella_present, op: eq, value: true}, {path: world.location, op: eq, value: rk-director-office}]}
+    blockers: [{id: early-forgiveness, when: "未有明确行动却写成史黛菈完全释怀", disposition: adapt}, {id: lethal-office-combat, when: "短暂冲突写成实像形态致死战", disposition: reject_generation}]
+    fixedFacts: [FA-CH01-004, FA-CH01-005, FA-CH01-009, FA-CH01-010, FA-CH01-008]
+    narrativeIntent: ["展示道歉、羞怒和调侃的冲突临界", "首次展示妃龙罪剑/妃龙吐息/阴铁交锋", "暴露钥匙矛盾"]
+    replaceableShell: ["切腹笑话与吐槽", "火焰视觉和防御动作", "称赞后敌意下降的节奏"]
+    playerIntervention: {primary: participate, available: [participate, disrupt], requiredPresence: false, choiceBoundary: "史黛菈是否收起灵装/继续攻击前停笔", forbiddenAutonomy: ["替史黛菈原谅", "替角色召唤或解除灵装", "改成实像形态"]}
+    knowledgeEffects: [{from: char-stella-vermillion, to: [char-ikki-kurogane, char-kurono-shinguuji], learns: ["她持有黑乃交给的405号室钥匙", "一辉道歉内容"], channel: face_to_face, proof: ["MAT-001#L129-L318"]}, {from: char-ikki-kurogane, to: char-stella-vermillion, learns: ["一辉对偷看/脱衣的自我解释"], channel: face_to_face, proof: [DIA-CH01-0024, "MAT-001#L141-L215"]}]
+    effects: {facts: [{path: facts.office_device_conflict, op: set, value: true}, {path: facts.stella_device_revealed, op: set, value: true}, {path: facts.ikki_device_revealed, op: set, value: true}], relationships: [{path: relationship.ikki_stella.stage, op: set, value: wary_with_curiosity}]}
+    successors: [{to: RKH1-CH01-E03, edgeType: explanation, requires: [RKH1-CH01-E02, "双方追问钥匙与房间安排"]}]
+    adaptationPolicy: conditional
+    canonDisposition: {default: preserve, alternatives: [adapt, delay, replace], reason: "冲突可被调解，但室友真相仍需校方解释"}
+    evidence: {source: ["MAT-001#L129-L318"], dialogue: [DIA-CH01-0022, DIA-CH01-0024, DIA-CH01-0048, DIA-CH01-0067]}
+
+  - id: RKH1-CH01-E03
+    nodeId: root-canon/T02/director-office/roommate-reveal
+    origin: canon
+    title: 黑乃揭示405号室室友安排
+    lifecycle: available
+    once: true
+    schedule: {relativePhase: T02, relation: after:RKH1-CH01-E02, precision: relative, timeCue: "理事长室冲突后"}
+    locations: {anyOf: [rk-director-office]}
+    participants: {required: [char-ikki-kurogane, char-stella-vermillion, char-kurono-shinguuji], optional: [player]}
+    canonPreconditions: {all: [{path: facts.office_device_conflict, op: eq, value: true}, {path: facts.stella_device_revealed, op: eq, value: true}]}
+    conditions: {all: [{path: facts.room_assignment_pending, op: eq, value: true}, {path: facts.kurono_present, op: eq, value: true}]}
+    blockers: [{id: single-room-selected, when: "玩家或史黛菈已明确选择单人房", disposition: adapt}, {id: school-policy-overridden, when: "校方制度已被真实公开事件暂停", disposition: replace}]
+    fixedFacts: [FA-CH01-006, FA-CH01-007]
+    narrativeIntent: ["将走错房间改写为制度安排的室友", "介绍实力主义/实战主义宿舍制度", "把关系推入共同生活前置"]
+    replaceableShell: ["黑乃制度说明长短", "办公室惊叫和拍桌", "男女同室争执措辞"]
+    playerIntervention: {primary: decide, available: [participate, decide, disrupt], requiredPresence: false, choiceBoundary: "黑乃说明同室/退学/单人房出口后等待明确选择", allowedActions: ["接受同室", "请求单人房", "质疑制度", "提出临时边界协议"], forbiddenAutonomy: ["替史黛菈接受同室", "让黑乃无理由改校规"]}
+    knowledgeEffects: [{from: char-kurono-shinguuji, to: [char-ikki-kurogane, char-stella-vermillion], learns: [FA-CH01-006, FA-CH01-007, "双方是无法找到合适搭档的极端个案"], channel: face_to_face, proof: ["MAT-001#L319-L371"]}]
+    effects: {facts: [{path: facts.room_assignment_offered, op: set, value: true}, {path: facts.dorm_405_roommates, op: set, value: pending}, {path: facts.dorm_pairing_policy_revealed, op: set, value: true}], commitments: [{path: commitments.dorm_405.pending_acceptance, op: set, value: true}], relationships: [{path: relationship.ikki_stella.stage, op: set, value: cohabitation_offered}]}
+    successors: [{to: RKH1-CH01-E04, edgeType: choice_boundary, requires: [RKH1-CH01-E03, "同室未取消或替代协议已建立"]}]
+    adaptationPolicy: conditional
+    canonDisposition: {default: preserve, alternatives: [adapt, delay, replace, invalidate], reason: "同室可因真实选择改变，不应脱离选择强行提交"}
+    evidence: {source: ["MAT-001#L319-L371"], dialogue: [DIA-CH01-0070, DIA-CH01-0072, DIA-CH01-0089]}
+
+  - id: RKH1-CH01-E04
+    nodeId: root-canon/T02/director-office/duel-contract
+    origin: canon
+    title: 生活规则争执、决斗赌约与场地许可
+    lifecycle: available
+    once: true
+    schedule: {relativePhase: T02, relation: after:RKH1-CH01-E03, precision: relative, timeCue: "同室安排说明后"}
+    locations: {anyOf: [rk-director-office, rk-student-dorm-405]}
+    participants: {required: [char-ikki-kurogane, char-stella-vermillion, char-kurono-shinguuji], optional: [player]}
+    canonPreconditions: {all: [{path: facts.room_assignment_offered, op: eq, value: true}, {path: facts.dorm_pairing_policy_revealed, op: eq, value: true}]}
+    conditions: {all: [{path: facts.room_assignment_offered, op: eq, value: true}, {path: facts.dorm_pairing_policy_revealed, op: eq, value: true}, {path: facts.duel_bet_active, op: eq, value: false}]}
+    blockers: [{id: duel-rejected, when: "双方未接受模拟战裁定或改用其他裁定", disposition: delay_or_replace}, {id: unbounded-bet, when: "赌约被解释为无边界现实强制/违法命令", disposition: reject_generation}]
+    fixedFacts: [FA-CH01-006, FA-CH01-007, FA-CH01-025]
+    narrativeIntent: ["把生活规则冲突转成骑士式决斗裁定", "建立关系性服从赌约", "说明一辉不能放弃魔法骑士和七星剑王道路"]
+    replaceableShell: ["三个条件的喜剧措辞", "仆人赌注反应", "黑乃指定场地的语气"]
+    playerIntervention: {primary: decide, available: [decide, participate, disrupt, create], requiredPresence: false, choiceBoundary: "是否接受决斗/仆人赌约前切断", allowedActions: ["接受完整赌约", "限定生活命令", "只接受决斗", "请求黑乃裁定", "拒绝决斗"], forbiddenAutonomy: ["替双方接受赌约", "把赌约写成现实奴役"]}
+    knowledgeEffects: [{from: char-kurono-shinguuji, to: char-ikki-kurogane, learns: ["七星剑武祭优胜可作为特殊毕业条件"], channel: face_to_face, proof: [DIA-CH01-0126, "MAT-001#L489-L491"]}]
+    effects: {facts: [{path: facts.room_assignment_accepted, op: set, value: true}, {path: facts.dorm_405_roommates, op: set, value: true}, {path: facts.duel_bet_active, op: set, value: true}, {path: facts.duel_bet_scope, op: set, value: "待战后具体化；不得超出双方明确同意范围"}, {path: facts.training_ground_03_permission, op: set, value: true}], commitments: [{path: commitments.duel.participants, op: set, value: [char-ikki-kurogane, char-stella-vermillion]}, {path: commitments.duel.referee, op: set, value: char-kurono-shinguuji}]}
+    successors: [{to: RKH1-CH01-E05, edgeType: legalized_match, requires: [RKH1-CH01-E04, facts.training_ground_03_permission, facts.duel_bet_active]}]
+    adaptationPolicy: conditional
+    canonDisposition: {default: preserve, alternatives: [adapt, delay, replace, invalidate], reason: "这是核心选择节点；拒绝决斗不得机械进入比赛"}
+    evidence: {source: ["MAT-001#L387-L515"], dialogue: [DIA-CH01-0093, DIA-CH01-0117, DIA-CH01-0120, DIA-CH01-0126]}
+
+  - id: RKH1-CH01-E05
+    nodeId: root-canon/T02/training-ground-03/rules
+    origin: canon
+    title: 第三训练场、裁判与幻想型态规则
+    lifecycle: available
+    once: true
+    schedule: {relativePhase: T02, relation: after:RKH1-CH01-E04, precision: relative, timeCue: "决斗获准后；到场顺序不补分钟"}
+    locations: {anyOf: [rk-training-ground-03]}
+    participants: {required: [char-ikki-kurogane, char-stella-vermillion, char-kurono-shinguuji], optional: [group-audience, player]}
+    canonPreconditions: {all: [{path: facts.duel_bet_active, op: eq, value: true}, {path: facts.training_ground_03_permission, op: eq, value: true}]}
+    conditions: {all: [{path: world.location, op: eq, value: rk-training-ground-03}, {path: facts.fantasia_mode, op: eq, value: false}]}
+    blockers: [{id: no-referee, when: "黑乃不在场且没有合法裁判", disposition: delay}, {id: real-combat-mode, when: "比赛切换为实像形态或真实致死战", disposition: reject_generation}]
+    fixedFacts: [FA-CH01-011, FA-CH01-004, FA-CH01-005]
+    narrativeIntent: ["把口头赌约转成合法模拟战", "建立观众对一辉必败的先入判断", "设定幻想型态安全边界"]
+    replaceableShell: ["竞技场和观众描写", "史黛菈童年训练回忆包装", "黑乃规则说明长度"]
+    playerIntervention: {primary: observe, available: [observe, participate, disrupt], requiredPresence: false, choiceBoundary: "开战信号前可介入；开战后不得替选手出招", allowedActions: ["观战", "询问幻想型态", "呼吁安全", "确认许可"], forbiddenAutonomy: ["替双方显现灵装", "替裁判宣布开始", "切换实像形态"]}
+    knowledgeEffects: [{from: public_record, to: group-audience, learns: ["史黛菈A级首席/红莲皇女", "一辉F级留级生/落第骑士"], channel: "校园公开评价", proof: ["MAT-001#L531-L551"]}]
+    effects: {facts: [{path: facts.fantasia_mode, op: set, value: true}, {path: facts.match_started, op: set, value: true}, {path: facts.audience_expects_ikki_loss, op: set, value: true}], locations: [{path: world.location, op: set, value: rk-training-ground-03}], combat: [{path: combat.elapsedMinutes, op: set, value: 0}]}
+    successors: [{to: RKH1-CH01-E06, edgeType: combat_start, requires: [RKH1-CH01-E05, facts.fantasia_mode, facts.match_started]}]
+    adaptationPolicy: conditional
+    canonDisposition: {default: preserve, alternatives: [adapt, delay, replace, invalidate], reason: "没有合法场地、裁判或幻想型态，比赛资格不成立"}
+    evidence: {source: ["MAT-001#L519-L637"], dialogue: [DIA-CH01-0130, DIA-CH01-0147, DIA-CH01-0148, DIA-CH01-0150]}
+
+  - id: RKH1-CH01-E06
+    nodeId: root-canon/T02/training-ground-03/pressure
+    origin: canon
+    title: 史黛菈火力压制与一辉防守
+    lifecycle: available
+    once: true
+    schedule: {relativePhase: T02, relation: after:RKH1-CH01-E05, precision: relative, timeCue: "开战后前段"}
+    locations: {anyOf: [rk-training-ground-03]}
+    participants: {required: [char-ikki-kurogane, char-stella-vermillion], optional: [char-kurono-shinguuji, group-audience, player]}
+    canonPreconditions: {all: [{path: facts.match_started, op: eq, value: true}, {path: facts.fantasia_mode, op: eq, value: true}]}
+    conditions: {all: [{path: facts.duel_bet_active, op: eq, value: true}, {path: combat.ikki.can_continue, op: eq, value: true}]}
+    blockers: [{id: outside-buff, when: "玩家无来源地给予一辉增益或伤势豁免", disposition: reject_generation}, {id: early-stop, when: "黑乃或玩家按真实规则中止比赛", disposition: adapt}]
+    fixedFacts: [FA-CH01-009, FA-CH01-010, FA-CH01-004, FA-CH01-005]
+    narrativeIntent: ["展示史黛菈火焰/魔力/正面力量优势", "展示一辉借力、角度和速度维持防守", "为观察剑术提供时间"]
+    replaceableShell: ["刀剑碰撞和火焰光效", "观众把防守误判为逃跑的措辞", "史黛菈意识到被牵制的节奏"]
+    playerIntervention: {primary: observe, available: [observe, participate, disrupt], requiredPresence: false, choiceBoundary: "玩家可影响场外信息，不可替选手完成攻防", allowedActions: ["观战", "呼喊提醒", "请求安全关注", "保护观众"], forbiddenAutonomy: ["替一辉格挡", "替史黛菈消耗魔力", "把F级升级"]}
+    knowledgeEffects: [{from: char-stella-vermillion, to: char-ikki-kurogane, learns: ["一辉持续以技术化解火力"], channel: combat_observation, proof: ["MAT-001#L641-L747"]}]
+    effects: {combat: [{path: combat.stella.mana_pressure, op: set, value: overwhelming}, {path: combat.ikki.observation_progress, op: set, value: accumulating}, {path: combat.elapsedMinutes, op: set, value: 5}], relationships: [{path: relationship.ikki_stella.combat_perception, op: set, value: stella_power_ikki_technique}]}
+    successors: [{to: RKH1-CH01-E07, edgeType: observation_threshold, requires: [RKH1-CH01-E06, "一辉持续观察并进入转守为攻窗口"]}]
+    adaptationPolicy: adaptive
+    canonDisposition: {default: preserve, alternatives: [adapt, delay, replace], reason: "具体攻防可变，但实力差和观察功能必须保留"}
+    evidence: {source: ["MAT-001#L641-L747"], dialogue: [DIA-CH01-0152, DIA-CH01-0158, DIA-CH01-0164, DIA-CH01-0170]}
+
+  - id: RKH1-CH01-E07
+    nodeId: root-canon/T02/training-ground-03/mimic
+    origin: canon
+    title: 模仿剑术、转守为攻与史黛菈的假动作
+    lifecycle: available
+    once: true
+    schedule: {relativePhase: T02, relation: after:RKH1-CH01-E06, precision: relative, timeCue: "开战约五分钟后"}
+    locations: {anyOf: [rk-training-ground-03]}
+    participants: {required: [char-ikki-kurogane, char-stella-vermillion], optional: [group-audience, player]}
+    canonPreconditions: {all: [{path: facts.match_started, op: eq, value: true}, {path: facts.fantasia_mode, op: eq, value: true}]}
+    conditions: {all: [{path: combat.elapsedMinutes, op: gte, value: 5}, {path: combat.ikki.can_continue, op: eq, value: true}]}
+    blockers: [{id: no-observation-window, when: "一辉未形成观察窗口", disposition: adapt}, {id: universal-copy, when: "模仿剑术被写成无条件复制所有异能", disposition: reject_generation}]
+    fixedFacts: [FA-CH01-014, FA-CH01-005]
+    narrativeIntent: ["揭示一辉通过理解复制皇家剑术", "让史黛菈用假动作反制", "并置F级能力值和强实战剑术"]
+    replaceableShell: ["技能解释长度和译名", "剑路/站位/假动作镜头顺序", "观众理解程度"]
+    playerIntervention: {primary: participate, available: [observe, participate, disrupt], requiredPresence: false, choiceBoundary: "能力解释或关键假动作前允许输入；不替角色完成读取", allowedActions: ["询问观察过程", "提供可被听见的提示", "请求暂停"], forbiddenAutonomy: ["替一辉完全掌握", "扩展为全异能复制"]}
+    knowledgeEffects: [{from: char-ikki-kurogane, to: char-stella-vermillion, learns: ["一辉能复制并修正皇家剑术"], channel: "亲眼观察/现场说明", proof: [DIA-CH01-0165, DIA-CH01-0173]}]
+    effects: {abilities: [{path: abilities.char-ikki-kurogane.mimicSwordsmanship, op: set, value: demonstrated_on_stella_swordsmanship}], facts: [{path: facts.ikki_has_tactical_advantage, op: set, value: true}], relationships: [{path: relationship.ikki_stella.stage, op: set, value: mutual_respect_emerging}]}
+    successors: [{to: RKH1-CH01-E08, edgeType: failed_damage_check, requires: [RKH1-CH01-E07, "普通斩击命中但未突破Aura"]}]
+    adaptationPolicy: adaptive
+    canonDisposition: {default: preserve, alternatives: [adapt, delay, replace], reason: "复制招式细节可变，观察—复制—反制功能不可删除"}
+    evidence: {source: ["MAT-001#L749-L921"], dialogue: [DIA-CH01-0165, DIA-CH01-0171, DIA-CH01-0173, DIA-CH01-0177]}
+
+  - id: RKH1-CH01-E08
+    nodeId: root-canon/T02/training-ground-03/aura-and-ultimate
+    origin: canon
+    title: Aura防护阻断普通斩击与史黛菈释放最强招式
+    lifecycle: available
+    once: true
+    schedule: {relativePhase: T02, relation: after:RKH1-CH01-E07, precision: relative, timeCue: "一辉取得剑术优势后"}
+    locations: {anyOf: [rk-training-ground-03]}
+    participants: {required: [char-ikki-kurogane, char-stella-vermillion], optional: [char-kurono-shinguuji, group-audience, player]}
+    canonPreconditions: {all: [{path: facts.ikki_has_tactical_advantage, op: eq, value: true}, {path: facts.fantasia_mode, op: eq, value: true}]}
+    conditions: {all: [{path: combat.stella.auraDefense, op: eq, value: active}, {path: combat.stella.can_use_ultimate, op: eq, value: true}]}
+    blockers: [{id: aura-removed, when: "玩家以未登记效果移除Aura", disposition: reject_generation}, {id: safety-intervention, when: "黑乃按真实危险或玩家真实行动中止", disposition: adapt}]
+    fixedFacts: [FA-CH01-010, FA-CH01-012, FA-CH01-011]
+    narrativeIntent: ["证明剑术优势不能自动穿透魔力防护", "推动史黛菈转用大规模火焰", "把一辉推到一刀修罗决定边缘"]
+    replaceableShell: ["斩击停在肩前的视觉", "天花板熔解和观众逃散", "史黛菈宣告最大敬意的措辞"]
+    playerIntervention: {primary: participate, available: [observe, participate, disrupt], requiredPresence: false, choiceBoundary: "最强招式释放后、一辉决定前切断", allowedActions: ["提醒危险", "组织疏散", "请求中止", "表达支持/劝阻"], forbiddenAutonomy: ["替一辉发动一刀修罗", "替史黛菈取消招式", "切换实像形态"]}
+    knowledgeEffects: [{from: char-ikki-kurogane, to: char-stella-vermillion, learns: ["普通斩击无法突破Aura"], channel: combat_result, proof: ["MAT-001#L925-L963"]}]
+    effects: {facts: [{path: facts.stella_ultimate_released, op: set, value: true}, {path: facts.ikki_normal_strike_cannot_break_aura, op: set, value: true}], combat: [{path: combat.ikki.decision_window, op: set, value: ichigeki_shura_or_loss}]}
+    successors: [{to: RKH1-CH01-E09, edgeType: decision_window, requires: [RKH1-CH01-E08, "一辉仍在场且未被合法中止"]}]
+    adaptationPolicy: conditional
+    canonDisposition: {default: preserve, alternatives: [adapt, delay, replace, invalidate], reason: "最强招式可因真实中止改变，但Aura机制必须保留"}
+    evidence: {source: ["MAT-001#L925-L1,011"], dialogue: [DIA-CH01-0180, DIA-CH01-0187, DIA-CH01-0192, DIA-CH01-0193]}
+
+  - id: RKH1-CH01-E09
+    nodeId: root-canon/T02/training-ground-03/ichigeki-shura-result
+    origin: canon
+    title: 一刀修罗、闪避与一刀胜负
+    lifecycle: available
+    once: true
+    schedule: {relativePhase: T02, relation: after:RKH1-CH01-E08, precision: relative, timeCue: "最强火焰释放后；一刀修罗短时窗口"}
+    locations: {anyOf: [rk-training-ground-03]}
+    participants: {required: [char-ikki-kurogane, char-stella-vermillion, char-kurono-shinguuji], optional: [group-audience, player]}
+    canonPreconditions: {all: [{path: facts.stella_ultimate_released, op: eq, value: true}, {path: facts.fantasia_mode, op: eq, value: true}, {path: combat.ikki.decision_window, op: eq, value: ichigeki_shura_or_loss}]}
+    conditions: {all: [{path: decisions.ikki.use_ichigeki_shura, op: eq, value: true}, {path: abilities.char-ikki-kurogane.ichigekiShura.available, op: eq, value: true}]}
+    blockers: [{id: no-explicit-choice, when: "没有真实选择却替一辉发动", disposition: reject_generation}, {id: fantasia-disabled, when: "幻想型态关闭且无合法替代事件", disposition: replace}, {id: shura-cooldown, when: "一刀修罗尚在冷却", disposition: delay_or_invalidate}]
+    fixedFacts: [FA-CH01-015, FA-CH01-016, FA-CH01-011, FA-CH01-018]
+    narrativeIntent: ["以极短爆发跨越能力值差距", "完成一辉击败史黛菈的默认比赛结果", "以幻想型态表达失去意识而非现实斩杀"]
+    replaceableShell: ["宣言、蓝色魔力光和闪避镜头", "观众静默和宣判声场", "命中视觉包装"]
+    playerIntervention: {primary: decide, available: [observe, participate, decide, disrupt], requiredPresence: false, choiceBoundary: "发动或接受失败前停笔，不替玩家/角色补写决定", allowedActions: ["劝阻", "支持", "请求中止", "保护观众"], forbiddenAutonomy: ["替一辉发动技能", "让技能无限持续", "现实死亡", "永久斩杀"]}
+    knowledgeEffects: [{from: char-ikki-kurogane, to: [char-stella-vermillion, char-kurono-shinguuji, group-audience], learns: ["一辉以异常短时爆发逆转", "一辉击败史黛菈"], channel: "现场目击", proof: ["MAT-001#L1,197-L1,225"]}]
+    effects: {facts: [{path: facts.duel_result, op: set, value: ikki_wins_fantasia_duel}, {path: facts.match_completed, op: set, value: true}, {path: facts.ichigeki_shura_used, op: set, value: true}, {path: facts.ikki_awake, op: set, value: false}, {path: facts.ikki_alive, op: set, value: true}], abilities: [{path: abilities.char-ikki-kurogane.ichigekiShura.available, op: set, value: false}, {path: abilities.char-ikki-kurogane.ichigekiShura.cooldown, op: set, value: "一天一次；进入恢复期"}], injuries: [{path: injuries.char-stella-vermillion, op: set, value: fantasia_unconscious_and_fatigued}, {path: injuries.char-ikki-kurogane, op: set, value: severe_post_shura_weakness}], relationships: [{path: relationship.ikki_stella.stage, op: set, value: defeated_opponents_with_respect_seed}]}
+    successors: [{to: RKH1-CH01-E10, edgeType: post_match_recovery, requires: [RKH1-CH01-E09, facts.match_completed]}]
+    adaptationPolicy: conditional
+    canonDisposition: {default: preserve, alternatives: [adapt, delay, replace, invalidate], reason: "仅在比赛资格、形态或关键窗口真实改变时进入D3以上处置"}
+    evidence: {source: ["MAT-001#L1,013-L1,225"], dialogue: [DIA-CH01-0198, DIA-CH01-0205, DIA-CH01-0215, DIA-CH01-0216]}
+
+  - id: RKH1-CH01-E10
+    nodeId: root-canon/T02/dorm-405/post-match-recovery
+    origin: canon
+    title: 战后醒来与一刀修罗代价
+    lifecycle: available
+    once: true
+    schedule: {relativePhase: T02, relation: after:RKH1-CH01-E09, precision: relative, timeCue: "战后；醒来时间未给出"}
+    locations: {anyOf: [rk-student-dorm-405]}
+    participants: {required: [char-stella-vermillion, char-kurono-shinguuji, char-ikki-kurogane], optional: [player]}
+    canonPreconditions: {all: [{path: facts.duel_result, op: eq, value: ikki_wins_fantasia_duel}, {path: injuries.char-ikki-kurogane, op: eq, value: severe_post_shura_weakness}]}
+    conditions: {all: [{path: world.location, op: eq, value: rk-student-dorm-405}, {path: facts.ikki_alive, op: eq, value: true}]}
+    blockers: [{id: medical-overwrite, when: "无证据新增iPS治疗、永久重伤或死亡", disposition: reject_generation}]
+    fixedFacts: [FA-CH01-017, FA-CH01-018, FA-CH01-015]
+    narrativeIntent: ["把比赛结果转换成伤势/资源状态", "让史黛菈确认败北并关心一辉", "打开制度解释场景"]
+    replaceableShell: ["醒来光线和床铺", "疲劳描写", "先谈比赛还是先谈状态"]
+    playerIntervention: {primary: participate, available: [observe, participate], requiredPresence: false, choiceBoundary: "状态说明后，史黛菈是否追问需等待明确输入", forbiddenAutonomy: ["写成永久伤残", "让一辉立即恢复战斗", "让观众自动知道战后代价"]}
+    knowledgeEffects: [{from: char-kurono-shinguuji, to: char-stella-vermillion, learns: [FA-CH01-017, FA-CH01-018, "一刀修罗严重代价"], channel: face_to_face, proof: ["MAT-001#L1,229-L1,303"]}]
+    effects: {facts: [{path: facts.post_match_recovery_started, op: set, value: true}, {path: facts.stella_asks_why_ikki_is_F, op: set, value: true}], resources: [{path: resources.char-ikki-kurogane.stamina, op: set, value: severely_depleted}], relationships: [{path: relationship.ikki_stella.stage, op: set, value: curiosity_after_defeat}]}
+    successors: [{to: RKH1-CH01-E11, edgeType: explanatory_question, requires: [RKH1-CH01-E10, "史黛菈追问F级与实战矛盾"]}]
+    adaptationPolicy: adaptive
+    canonDisposition: {default: preserve, alternatives: [adapt, delay, replace], reason: "表现可变，一刀修罗后遗症不能消失"}
+    evidence: {source: ["MAT-001#L1,229-L1,303"], dialogue: [DIA-CH01-0217, DIA-CH01-0222, DIA-CH01-0230, DIA-CH01-0251]}
+
+  - id: RKH1-CH01-E11
+    nodeId: root-canon/T02/dorm-405/rating-explanation
+    origin: canon
+    title: F级评价与实战能力脱钩
+    lifecycle: available
+    once: true
+    schedule: {relativePhase: T02, relation: after:RKH1-CH01-E10, precision: relative, timeCue: "战后恢复对话中"}
+    locations: {anyOf: [rk-student-dorm-405]}
+    participants: {required: [char-stella-vermillion, char-kurono-shinguuji], optional: [char-ikki-kurogane, player]}
+    canonPreconditions: {all: [{path: facts.post_match_recovery_started, op: eq, value: true}, {path: facts.duel_result, op: eq, value: ikki_wins_fantasia_duel}]}
+    conditions: {all: [{path: facts.stella_asks_why_ikki_is_F, op: eq, value: true}]}
+    blockers: [{id: f-rank-collapse, when: "把F级写成一辉全面不会战斗", disposition: reject_generation}]
+    fixedFacts: [FA-CH01-005, FA-CH01-019, FA-CH01-012]
+    narrativeIntent: ["纠正F级的单一理解", "分离能力值、剑术、体术和实战判断", "为家族内幕提供制度盲区"]
+    replaceableShell: ["黑乃类比/正式说明", "史黛菈质疑强度"]
+    playerIntervention: {primary: participate, available: [observe, participate, decide], requiredPresence: false, choiceBoundary: "评级说明完成后，是否继续追问内幕需由玩家/史黛菈决定", allowedActions: ["询问评级", "指出F级与剑术不一致", "要求依据"], forbiddenAutonomy: ["导入后续评级改革", "把F级改成隐藏A级", "让观众获得私密解释"]}
+    knowledgeEffects: [{from: char-kurono-shinguuji, to: char-stella-vermillion, learns: [FA-CH01-019, "一辉普通斩击无法突破史黛菈Aura"], channel: face_to_face, proof: ["MAT-001#L1,305-L1,333"]}]
+    effects: {facts: [{path: facts.rating_system_explained, op: set, value: true}, {path: facts.stella_asks_family_reason, op: set, value: true}], knowledge: [{path: knowledge.stella.ikki_rating_gap, op: set, value: true}, {path: knowledge.stella.knows_rating_excludes_swordsmanship, op: set, value: true}]}
+    successors: [{to: RKH1-CH01-E12, edgeType: why_question, requires: [RKH1-CH01-E11, "史黛菈继续追问留级原因"]}]
+    adaptationPolicy: adaptive
+    canonDisposition: {default: preserve, alternatives: [adapt, delay, replace], reason: "解释深度可调，能力值/实战分离是世界规则"}
+    evidence: {source: ["MAT-001#L1,305-L1,333"], dialogue: [DIA-CH01-0239, DIA-CH01-0243, DIA-CH01-0250, DIA-CH01-0259]}
+
+  - id: RKH1-CH01-E12
+    nodeId: root-canon/T02/dorm-405/family-pressure
+    origin: canon
+    title: 黑铁家施压与留级真相
+    lifecycle: available
+    once: true
+    schedule: {relativePhase: T02, relation: after:RKH1-CH01-E11, precision: relative, timeCue: "评级解释后"}
+    locations: {anyOf: [rk-student-dorm-405]}
+    participants: {required: [char-stella-vermillion, char-kurono-shinguuji], optional: [char-ikki-kurogane, player]}
+    canonPreconditions: {all: [{path: facts.rating_system_explained, op: eq, value: true}, {path: facts.stella_asks_family_reason, op: eq, value: true}]}
+    conditions: {all: [{path: facts.kurono_present, op: eq, value: true}, {path: knowledge.kurono.can_disclose_school_history, op: eq, value: true}]}
+    blockers: [{id: disclosure-denied, when: "玩家真实阻止黑乃披露或黑乃没有意愿/渠道", disposition: delay_or_adapt}, {id: family-omniscience, when: "无传播链让一辉、观众或黑铁家自动知道谈话", disposition: reject_generation}]
+    fixedFacts: [FA-CH01-020, FA-CH01-021, FA-CH01-022]
+    narrativeIntent: ["说明学分不足是借口", "揭示黑铁家与旧校方的制度排斥", "将黑乃定位为制度保护者而非后续全知者"]
+    replaceableShell: ["内幕披露顺序和语气", "史黛菈愤怒/同情表达"]
+    playerIntervention: {primary: participate, available: [observe, participate, disrupt, decide], requiredPresence: false, choiceBoundary: "黑乃准备说明内幕时停笔等待是否继续", allowedActions: ["允许完整披露", "只说明评级", "保护隐私", "要求查证"], forbiddenAutonomy: ["让黑铁家立刻现身", "公开给全校", "补写后续家族政治"]}
+    knowledgeEffects: [{from: char-kurono-shinguuji, to: char-stella-vermillion, learns: [FA-CH01-020, "一辉曾被本家和旧校方阻碍毕业"], channel: face_to_face, proof: ["MAT-001#L1,341-L1,395"]}]
+    effects: {facts: [{path: facts.family_pressure_disclosed_to_stella, op: set, value: true}], knowledge: [{path: knowledge.stella.goal_question_open, op: set, value: true}, {path: knowledge.stella.ikki_family_pressure, op: set, value: true}, {path: knowledge.audience.ikki_family_pressure, op: set, value: false}, {path: knowledge.ikki.kurono_stella_private_talk, op: set, value: false}], relationships: [{path: relationship.ikki_stella.stage, op: set, value: respect_and_curiosity}]}
+    successors: [{to: RKH1-CH01-E13, edgeType: parallel_goal, requires: [RKH1-CH01-E12, "讨论史黛菈留学目标"]}]
+    adaptationPolicy: conditional
+    canonDisposition: {default: preserve, alternatives: [adapt, delay, replace], reason: "知识披露受意愿与在场条件约束"}
+    evidence: {source: ["MAT-001#L1,341-L1,395"], dialogue: [DIA-CH01-0268, DIA-CH01-0272, DIA-CH01-0278, DIA-CH01-0284]}
+
+  - id: RKH1-CH01-E13
+    nodeId: root-canon/T02/dorm-405/stella-goal-and-room-choice
+    origin: canon
+    title: 史黛菈留学动机与单人房出口
+    lifecycle: available
+    once: true
+    schedule: {relativePhase: T02, relation: after:RKH1-CH01-E12, precision: relative, timeCue: "黑乃离开前"}
+    locations: {anyOf: [rk-student-dorm-405]}
+    participants: {required: [char-stella-vermillion, char-kurono-shinguuji], optional: [char-ikki-kurogane, player]}
+    canonPreconditions: {all: [{path: facts.family_pressure_disclosed_to_stella, op: eq, value: true}]}
+    conditions: {all: [{path: knowledge.stella.goal_question_open, op: eq, value: true}]}
+    blockers: [{id: room-choice-skipped, when: "未面对同室/单人房选择却写成已确定", disposition: stop_at_choice}]
+    fixedFacts: [FA-CH01-023, FA-CH01-006, FA-CH01-015]
+    narrativeIntent: ["确认赴日目标是寻找强者、成为七星剑王、守护国家", "保留单人房替代出口", "让黑乃离场并进入私密观察"]
+    replaceableShell: ["劝说方式", "单人房行政措辞", "史黛菈承认/回避一辉强大的节奏"]
+    playerIntervention: {primary: decide, available: [observe, participate, decide, disrupt], requiredPresence: false, choiceBoundary: "同室/单人房必须保持待定或等待明确选择", allowedActions: ["请求单人房", "继续同室", "临时协议", "询问留学目标"], forbiddenAutonomy: ["替史黛菈接受同室", "把目标改成恋爱目标", "补写后续皇室计划"]}
+    knowledgeEffects: [{from: char-stella-vermillion, to: char-kurono-shinguuji, learns: [FA-CH01-023], channel: face_to_face, proof: ["MAT-001#L1,399-L1,441"]}]
+    effects: {facts: [{path: facts.stella_goal_revealed, op: set, value: true}, {path: facts.single_room_option_available, op: set, value: true}, {path: facts.kurono_left_room, op: set, value: true}], knowledge: [{path: knowledge.stella.ichigeki_shura_limit, op: set, value: true}]}
+    successors: [{to: RKH1-CH01-E14, edgeType: private_observation, requires: [RKH1-CH01-E13, facts.kurono_left_room]}]
+    adaptationPolicy: conditional
+    canonDisposition: {default: preserve, alternatives: [adapt, delay, replace, invalidate], reason: "单人房是明确未采用分支；选择它需重算共同生活节点"}
+    evidence: {source: ["MAT-001#L1,399-L1,441"], dialogue: [DIA-CH01-0259, DIA-CH01-0262]}
+
+  - id: RKH1-CH01-E14
+    nodeId: root-canon/T02/dorm-405/private-observation
+    origin: canon
+    title: 史黛菈观察熟睡的一辉并意外跌落受伤
+    lifecycle: available
+    once: true
+    schedule: {relativePhase: T02, relation: after:RKH1-CH01-E13, precision: relative, timeCue: "黑乃离开后；经过时间未知"}
+    locations: {anyOf: [rk-student-dorm-405]}
+    participants: {required: [char-stella-vermillion, char-ikki-kurogane], optional: [player]}
+    canonPreconditions: {all: [{path: facts.kurono_left_room, op: eq, value: true}, {path: injuries.char-ikki-kurogane, op: eq, value: severe_post_shura_weakness}]}
+    conditions: {all: [{path: facts.ikki_awake, op: eq, value: false}, {path: world.location, op: eq, value: rk-student-dorm-405}]}
+    blockers: [{id: boundary-interruption, when: "玩家真实在房内并阻止接触", disposition: adapt}, {id: sexualized-expansion, when: "轻度好奇被扩写为露骨性行为", disposition: reject_generation}]
+    fixedFacts: [FA-CH01-017, FA-CH01-018]
+    narrativeIntent: ["展示史黛菈从观战转向好奇", "以意外跌落转成包扎事件", "不提前确认恋爱"]
+    replaceableShell: ["接触动作和喜剧节奏", "天花板/番茄汁道具", "玩家是否看到过程"]
+    playerIntervention: {primary: observe, available: [observe, participate, disrupt], requiredPresence: false, choiceBoundary: "靠近、打断、醒来时刻切断", allowedActions: ["及时打断", "提供医药箱", "要求身体边界", "醒来后询问"], forbiddenAutonomy: ["替玩家触碰角色", "判定恋爱", "新增长期伤病"]}
+    knowledgeEffects: [{from: char-stella-vermillion, to: char-ikki-kurogane, learns: ["一辉身体有长期训练痕迹"], channel: private_observation, proof: ["MAT-001#L1,445-L1,657"]}, {from: char-ikki-kurogane, to: char-stella-vermillion, learns: ["她在房内并因慌乱跌落受伤"], channel: direct_observation_after_waking, proof: ["MAT-001#L1,541-L1,657"]}]
+    effects: {injuries: [{path: injuries.char-stella-vermillion, op: set, value: minor_fall_injury}], facts: [{path: facts.stella_observed_ikki_training, op: set, value: true}, {path: facts.stella_fell_and_needs_bandage, op: set, value: true}, {path: facts.ikki_awake, op: set, value: true}, {path: facts.stella_asks_why_ikki_persists, op: set, value: true}], relationships: [{path: relationship.ikki_stella.stage, op: set, value: awkward_care_and_curiosity}]}
+    successors: [{to: RKH1-CH01-E15, edgeType: care_and_question, requires: [RKH1-CH01-E14, facts.stella_fell_and_needs_bandage]}]
+    adaptationPolicy: adaptive
+    canonDisposition: {default: preserve, alternatives: [adapt, delay, replace], reason: "可阻止接触，但保留照护/提问功能"}
+    evidence: {source: ["MAT-001#L1,445-L1,657"], dialogue: [DIA-CH01-0263, DIA-CH01-0272, DIA-CH01-0284, DIA-CH01-0286]}
+
+  - id: RKH1-CH01-E15
+    nodeId: root-canon/T02/dorm-405/bandage-question
+    origin: canon
+    title: 包扎与“为什么坚持成为骑士”的提问
+    lifecycle: available
+    once: true
+    schedule: {relativePhase: T02, relation: after:RKH1-CH01-E14, precision: relative, timeCue: "跌落后立即"}
+    locations: {anyOf: [rk-student-dorm-405]}
+    participants: {required: [char-ikki-kurogane, char-stella-vermillion], optional: [player]}
+    canonPreconditions: {all: [{path: facts.stella_fell_and_needs_bandage, op: eq, value: true}, {path: facts.ikki_awake, op: eq, value: true}]}
+    conditions: {all: [{path: facts.medical_kit_available, op: eq, value: true}, {path: facts.stella_asks_why_ikki_persists, op: eq, value: true}]}
+    blockers: [{id: no-consent-to-disclose, when: "玩家/一辉明确要求暂缓家庭或梦想问题", disposition: delay}]
+    fixedFacts: [FA-CH01-017, FA-CH01-022]
+    narrativeIntent: ["以照护缓和战斗紧张", "把话题转向一辉坚持成为骑士的动机", "建立当事人主动披露选择"]
+    replaceableShell: ["包扎动作", "提问的直接/委婉程度"]
+    playerIntervention: {primary: participate, available: [participate, decide, disrupt], requiredPresence: false, choiceBoundary: "一辉是否回答和回答深度由真实输入决定", allowedActions: ["鼓励回答", "保护隐私", "先问黑乃", "暂缓回忆"], forbiddenAutonomy: ["替一辉讲述经历", "把提问写成告白"]}
+    knowledgeEffects: [{from: char-stella-vermillion, to: char-ikki-kurogane, learns: ["她想知道一辉为何坚持成为骑士"], channel: face_to_face, proof: ["MAT-001#L1,661-L1,695"]}]
+    effects: {facts: [{path: facts.bandage_completed, op: set, value: true}, {path: facts.dream_disclosure_pending, op: set, value: true}], relationships: [{path: relationship.ikki_stella.stage, op: set, value: trust_question_open}]}
+    successors: [{to: RKH1-CH01-E16, edgeType: voluntary_disclosure, requires: [RKH1-CH01-E15, "一辉明确选择继续回答"]}]
+    adaptationPolicy: participate
+    canonDisposition: {default: preserve, alternatives: [adapt, delay, replace], reason: "提问功能可保留，回忆不能在未选择时自动发生"}
+    evidence: {source: ["MAT-001#L1,661-L1,695"], dialogue: [DIA-CH01-0287, DIA-CH01-0289, DIA-CH01-0291]}
+
+  - id: RKH1-CH01-E16
+    nodeId: root-canon/T02/dorm-405/memory-and-dream
+    origin: canon
+    title: 一辉讲述黑铁家、父亲与龙马记忆
+    lifecycle: available
+    once: true
+    schedule: {relativePhase: T02, relation: after:RKH1-CH01-E15, precision: relative, timeCue: "一辉主动回答后的回忆层"}
+    locations: {anyOf: [rk-student-dorm-405]}
+    participants: {required: [char-ikki-kurogane, char-stella-vermillion], optional: [char-ryoma-kurogane, role-ikki-father, player]}
+    canonPreconditions: {all: [{path: facts.dream_disclosure_pending, op: eq, value: true}, {path: decisions.ikki.disclose_dream, op: eq, value: true}]}
+    conditions: {all: [{path: knowledge.ikki.can_recall_family_history, op: eq, value: true}]}
+    blockers: [{id: memory-as-present, when: "父亲/龙马被写成当前时在场", disposition: reject_generation}, {id: memory-omniscience, when: "无讲述证据却让史黛菈/玩家知道回忆细节", disposition: reject_generation}]
+    fixedFacts: [FA-CH01-020, FA-CH01-021, FA-CH01-023]
+    narrativeIntent: ["把骑士目标连接到家族排斥、父亲否定和龙马鼓励", "说明七星剑王目标的精神标准", "让史黛菈通过当事人自述理解一辉"]
+    replaceableShell: ["家族/后山/暴风雪闪回顺序", "停顿和情绪", "回忆引语的显示方式"]
+    playerIntervention: {primary: decide, available: [observe, participate, decide, disrupt], requiredPresence: false, choiceBoundary: "一辉决定讲到哪一层前切断", allowedActions: ["只说目标", "说家族排斥", "说父亲", "说龙马", "拒绝继续"], forbiddenAutonomy: ["替一辉回忆", "把龙马变成当前NPC", "把个人记忆升级为完整历史档案"]}
+    knowledgeEffects: [{from: char-ikki-kurogane, to: char-stella-vermillion, learns: ["家族排斥", "父亲回忆中的否定", "龙马鼓励", "七星剑王目标"], channel: face_to_face_self_report, proof: ["MAT-001#L1,697-L1,757", DIA-CH01-0303, DIA-CH01-0305]}, {from: role-ikki-father, to: char-ikki-kurogane, learns: ["回忆中的否定话语"], channel: past_recalled_memory, proof: ["MAT-001#L1,707"]}, {from: char-ryoma-kurogane, to: char-ikki-kurogane, learns: ["不要因才能而放弃自己"], channel: past_recalled_memory, proof: ["MAT-001#L1,743-L1,749"]}]
+    effects: {knowledge: [{path: knowledge.stella.ikki_ryoma_memory, op: set, value: true}, {path: knowledge.stella.ikki_family_pressure, op: set, value: true}, {path: knowledge.stella.has_heard_ikki_dream, op: set, value: true}], facts: [{path: facts.dream_disclosure_completed, op: set, value: true}], commitments: [{path: commitments.ikki.become_magic_knight, op: set, value: true}, {path: commitments.ikki.seven_star_sword_king_goal, op: set, value: true}], relationships: [{path: relationship.ikki_stella.stage, op: set, value: shared_vulnerability}]}
+    successors: [{to: RKH1-CH01-E17, edgeType: value_recognition, requires: [RKH1-CH01-E16, "史黛菈回应一辉梦想"]}]
+    adaptationPolicy: conditional
+    canonDisposition: {default: preserve, alternatives: [adapt, delay, replace], reason: "回忆深度可变，已发生的引用必须保留时间层级"}
+    evidence: {source: ["MAT-001#L1,697-L1,757"], dialogue: [DIA-CH01-0297, DIA-CH01-0303, DIA-CH01-0305, DIA-CH01-0310]}
+
+  - id: RKH1-CH01-E17
+    nodeId: root-canon/T02/dorm-405/value-recognition
+    origin: canon
+    title: 价值观互认与史黛菈的“我输了”
+    lifecycle: available
+    once: true
+    schedule: {relativePhase: T02, relation: after:RKH1-CH01-E16, precision: relative, timeCue: "回忆叙述结束后"}
+    locations: {anyOf: [rk-student-dorm-405]}
+    participants: {required: [char-ikki-kurogane, char-stella-vermillion], optional: [player]}
+    canonPreconditions: {all: [{path: facts.dream_disclosure_completed, op: eq, value: true}]}
+    conditions: {all: [{path: facts.dream_disclosure_completed, op: eq, value: true}]}
+    blockers: [{id: romance-jump, when: "价值观互认被写成终章恋爱确认", disposition: reject_generation}]
+    fixedFacts: [FA-CH01-024, FA-CH01-025]
+    narrativeIntent: ["把第二种‘我输了’定义为放弃天才/庸才的片面评断", "建立尊重、好奇和继续了解的关系基础"]
+    replaceableShell: ["笑声和释然", "承认错误的措辞"]
+    playerIntervention: {primary: participate, available: [observe, participate, decide], requiredPresence: false, choiceBoundary: "史黛菈是否接受关系重新定义前切断", allowedActions: ["鼓励说明目标", "保持距离", "提出训练伙伴", "提醒尚未恋爱"], forbiddenAutonomy: ["替史黛菈宣布恋爱", "抹除竞争关系"]}
+    knowledgeEffects: [{from: char-stella-vermillion, to: char-ikki-kurogane, learns: ["她不会在未尝试前放弃", "她承认此前评断片面"], channel: face_to_face, proof: ["MAT-001#L1,759-L1,815"]}]
+    effects: {facts: [{path: facts.value_recognition_established, op: set, value: true}], relationships: [{path: relationship.ikki_stella.stage, op: set, value: respect_and_curiosity}, {path: relationship.ikki_stella.romanceConfirmed, op: set, value: false}]}
+    successors: [{to: RKH1-CH01-E18, edgeType: contract_revisit, requires: [RKH1-CH01-E17, facts.duel_bet_active]}]
+    adaptationPolicy: adaptive
+    canonDisposition: {default: preserve, alternatives: [adapt, delay, replace], reason: "互认功能锚保留，情绪和措辞可变"}
+    evidence: {source: ["MAT-001#L1,759-L1,815"], dialogue: [DIA-CH01-0314, DIA-CH01-0317, DIA-CH01-0320]}
+
+  - id: RKH1-CH01-E18
+    nodeId: root-canon/T02/dorm-405/bet-revisit
+    origin: canon
+    title: 仆人赌约被重新提起
+    lifecycle: available
+    once: true
+    schedule: {relativePhase: T02, relation: after:RKH1-CH01-E17, precision: relative, timeCue: "价值观互认之后"}
+    locations: {anyOf: [rk-student-dorm-405]}
+    participants: {required: [char-ikki-kurogane, char-stella-vermillion], optional: [player]}
+    canonPreconditions: {all: [{path: facts.duel_bet_active, op: eq, value: true}, {path: facts.value_recognition_established, op: eq, value: true}]}
+    conditions: {all: [{path: decisions.ikki.revisit_bet, op: eq, value: true}]}
+    blockers: [{id: bet-reinterpreted, when: "赌约已被限定为生活协议", disposition: adapt}, {id: coercive-command, when: "出现无边界强制、性命令或违法命令", disposition: reject_generation}]
+    fixedFacts: [FA-CH01-025]
+    narrativeIntent: ["让一辉面对胜者责任", "把仆人语言推向具体第一项命令", "保留重新协商范围的选择面"]
+    replaceableShell: ["调侃、床单、羞怒和挑衅"]
+    playerIntervention: {primary: decide, available: [participate, decide, disrupt], requiredPresence: false, choiceBoundary: "第一项命令提出前切断", allowedActions: ["接受原赌约", "限定生活命令", "重新协商", "拒绝不合理命令"], forbiddenAutonomy: ["升级为现实支配权", "自动服从全部命令", "跳过协商"]}
+    knowledgeEffects: [{from: char-ikki-kurogane, to: char-stella-vermillion, learns: ["一辉记得赌约并准备承担胜者责任"], channel: face_to_face, proof: ["MAT-001#L1,817-L1,875"]}]
+    effects: {facts: [{path: facts.bet_revisited, op: set, value: true}, {path: facts.first_command_pending, op: set, value: true}, {path: facts.dorm_clock_hour, op: set, value: 20}], commitments: [{path: commitments.duel_bet.scope, op: set, value: pending_explicit_scope}]}
+    successors: [{to: RKH1-CH01-E19, edgeType: first_command, requires: [RKH1-CH01-E18, facts.first_command_pending]}]
+    adaptationPolicy: decide
+    canonDisposition: {default: preserve, alternatives: [adapt, delay, replace, invalidate], reason: "赌约可限定或重谈，选择前不提交效果"}
+    evidence: {source: ["MAT-001#L1,817-L1,875"], dialogue: [DIA-CH01-0321, DIA-CH01-0324, DIA-CH01-0330, DIA-CH01-0335]}
+
+  - id: RKH1-CH01-E19
+    nodeId: root-canon/T02/dorm-405/roommate-command
+    origin: canon
+    title: 一辉把第一项命令改为成为室友
+    lifecycle: available
+    once: true
+    schedule: {relativePhase: T02, relation: after:RKH1-CH01-E18, precision: relative, timeCue: "赌约重新提起后"}
+    locations: {anyOf: [rk-student-dorm-405]}
+    participants: {required: [char-ikki-kurogane, char-stella-vermillion], optional: [player]}
+    canonPreconditions: {all: [{path: facts.first_command_pending, op: eq, value: true}, {path: facts.single_room_option_available, op: eq, value: true}]}
+    conditions: {all: [{path: decisions.ikki.first_command, op: eq, value: roommate}, {path: decisions.stella.accept_roommate, op: eq, value: true}]}
+    blockers: [{id: roommate-not-accepted, when: "史黛菈选择单人房或明确拒绝", disposition: delay_or_replace}, {id: romance-jump, when: "成为室友被写成已确认恋人", disposition: reject_generation}]
+    fixedFacts: [FA-CH01-006, FA-CH01-024, FA-CH01-025]
+    narrativeIntent: ["让一辉拒绝真正奴役，选择共同生活", "让史黛菈保留嘴硬与边界并接受室友", "把敌对关系转成合作意愿"]
+    replaceableShell: ["命令和接受语气", "羞涩、握手和视线回避"]
+    playerIntervention: {primary: decide, available: [participate, decide, disrupt], requiredPresence: false, choiceBoundary: "一辉提出室友后等待史黛菈明确接受/拒绝", allowedActions: ["接受室友命令", "改成平等协议", "重新协商", "请求单人房"], forbiddenAutonomy: ["替史黛菈点头", "改成恋爱告白", "抹除边界"]}
+    knowledgeEffects: [{from: char-ikki-kurogane, to: char-stella-vermillion, learns: ["一辉希望共同生活而非实际奴役"], channel: face_to_face, proof: ["MAT-001#L1,877-L1,929"]}, {from: char-stella-vermillion, to: char-ikki-kurogane, learns: ["她口头接受同房但仍以赌约/皇族信誉解释"], channel: face_to_face, proof: ["MAT-001#L1,907-L1,929"]}]
+    effects: {facts: [{path: facts.dorm_405_roommates, op: set, value: true}, {path: facts.first_command_completed, op: set, value: true}], commitments: [{path: commitments.ikki_stella.roommate_agreement, op: set, value: true}, {path: commitments.duel_bet.scope, op: set, value: roommate_and_life_agreement}], relationships: [{path: relationship.ikki_stella.stage, op: set, value: roommates_with_mutual_respect}, {path: relationship.ikki_stella.romanceConfirmed, op: set, value: false}]}
+    successors: [{to: RKH1-CH01-E20, edgeType: domestic_followup, requires: [RKH1-CH01-E19, commitments.ikki_stella.roommate_agreement]}]
+    adaptationPolicy: decide_and_adapt
+    canonDisposition: {default: preserve, alternatives: [adapt, delay, replace, invalidate], reason: "室友是章末承诺锚，可用平等协议或单人房路线改写"}
+    evidence: {source: ["MAT-001#L1,877-L1,929"], dialogue: [DIA-CH01-0347, DIA-CH01-0351, DIA-CH01-0357, DIA-CH01-0361]}
+
+  - id: RKH1-CH01-E20
+    nodeId: root-canon/T02/dorm-405/dinner-and-name
+    origin: canon
+    title: 八点晚餐问题、料理提议与直呼名字
+    lifecycle: available
+    once: true
+    schedule: {relativePhase: T02, relation: after:RKH1-CH01-E19, precision: relative, timeCue: "八点钟；餐厅关闭后；章末"}
+    locations: {anyOf: [rk-student-dorm-405, rk-campus-dorm-area]}
+    participants: {required: [char-ikki-kurogane, char-stella-vermillion], optional: [player]}
+    canonPreconditions: {all: [{path: commitments.ikki_stella.roommate_agreement, op: eq, value: true}, {path: facts.first_command_completed, op: eq, value: true}]}
+    conditions: {all: [{path: world.relativePhase, op: eq, value: T02}, {path: facts.dorm_clock_hour, op: eq, value: 20}]}
+    blockers: [{id: supermarket-overreach, when: "写成已经抵达超市、购买食材或进入L2,021之后", disposition: reject_generation}, {id: terminal-romance, when: "提交终章恋爱、月下告白或决胜战约定", disposition: reject_generation}]
+    fixedFacts: [FA-CH01-024, FA-CH01-026, FA-CH01-027, FA-CH01-029]
+    narrativeIntent: ["把决斗后关系落到日常生活", "形成料理和外出计划", "以准备出发收束而非替后续章节行动"]
+    replaceableShell: ["钟声、料理争论和称呼转换节奏", "晚餐计划细节", "章末镜头"]
+    playerIntervention: {primary: participate, available: [observe, participate, decide, create], requiredPresence: false, choiceBoundary: "吃什么/谁料理/是否现在出发前切断", allowedActions: ["参与晚餐选择", "确定分工", "接受直呼名字", "提出平等协议", "选择是否出发"], forbiddenAutonomy: ["替玩家决定路线", "写成已抵达超市", "提前触发开学/珠雫出场/恋爱"]}
+    knowledgeEffects: [{from: char-stella-vermillion, to: char-ikki-kurogane, learns: [FA-CH01-026, "史黛菈愿意承担料理/共同生活的一部分"], channel: face_to_face, proof: ["MAT-001#L1,931-L2,019"]}, {from: char-ikki-kurogane, to: char-stella-vermillion, learns: ["一辉接受直呼名字和共同外出计划"], channel: face_to_face, proof: ["MAT-001#L1,971-L2,019"]}]
+    effects: {facts: [{path: facts.dinner_plan_created, op: set, value: true}, {path: facts.chapter02_started, op: set, value: false}, {path: facts.terminal_romance_confirmed, op: set, value: false}], commitments: [{path: commitments.stella.name_preference, op: set, value: "一辉直呼史黛菈"}, {path: commitments.ikki_stella.dinner_plan, op: set, value: "准备去附近超市；尚未抵达"}], relationships: [{path: relationship.ikki_stella.stage, op: set, value: roommate_with_respect_and_curiosity}]}
+    successors: [{to: "chapter-boundary/CH-02", edgeType: chapter_boundary, requires: [RKH1-CH01-E20, facts.dinner_plan_created], disposition: next_chapter_input_only}]
+    adaptationPolicy: participate
+    canonDisposition: {default: preserve, alternatives: [adapt, delay, replace], reason: "本章只提交共同生活计划和称呼契约，不提前生成超市抵达或后续恋爱"}
+    evidence: {source: ["MAT-001#L1,931-L2,020"], dialogue: [DIA-CH01-0369, DIA-CH01-0372, DIA-CH01-0374, DIA-CH01-0376]}
+
+edges:
+  - {from: RKH1-CH01-A00, to: RKH1-CH01-E01, edgeType: context_to_event, requires: ["CH-00/T01前置已提交"]}
+  - {from: RKH1-CH01-E01, to: RKH1-CH01-E02, edgeType: confrontation, requires: ["史黛菈到场"]}
+  - {from: RKH1-CH01-E02, to: RKH1-CH01-E03, edgeType: explanation, requires: ["钥匙矛盾被提出"]}
+  - {from: RKH1-CH01-E03, to: RKH1-CH01-E04, edgeType: choice_boundary, requires: [facts.room_assignment_offered]}
+  - {from: RKH1-CH01-E04, to: RKH1-CH01-E05, edgeType: legalized_match, requires: [facts.duel_bet_active, facts.training_ground_03_permission]}
+  - {from: RKH1-CH01-E05, to: RKH1-CH01-E06, edgeType: combat_start, requires: [facts.fantasia_mode, facts.match_started]}
+  - {from: RKH1-CH01-E06, to: RKH1-CH01-E07, edgeType: observation_threshold, requires: ["一辉持续观察"]}
+  - {from: RKH1-CH01-E07, to: RKH1-CH01-E08, edgeType: failed_damage_check, requires: [facts.ikki_has_tactical_advantage]}
+  - {from: RKH1-CH01-E08, to: RKH1-CH01-E09, edgeType: decision_window, requires: [facts.stella_ultimate_released]}
+  - {from: RKH1-CH01-E09, to: RKH1-CH01-E10, edgeType: post_match_recovery, requires: [facts.match_completed]}
+  - {from: RKH1-CH01-E10, to: RKH1-CH01-E11, edgeType: explanatory_question, requires: [facts.post_match_recovery_started]}
+  - {from: RKH1-CH01-E11, to: RKH1-CH01-E12, edgeType: why_question, requires: [facts.rating_system_explained]}
+  - {from: RKH1-CH01-E12, to: RKH1-CH01-E13, edgeType: parallel_goal, requires: [facts.family_pressure_disclosed_to_stella]}
+  - {from: RKH1-CH01-E13, to: RKH1-CH01-E14, edgeType: private_observation, requires: [facts.kurono_left_room]}
+  - {from: RKH1-CH01-E14, to: RKH1-CH01-E15, edgeType: care_and_question, requires: [facts.stella_fell_and_needs_bandage]}
+  - {from: RKH1-CH01-E15, to: RKH1-CH01-E16, edgeType: voluntary_disclosure, requires: [facts.dream_disclosure_pending, "一辉明确选择回答"]}
+  - {from: RKH1-CH01-E16, to: RKH1-CH01-E17, edgeType: value_recognition, requires: ["史黛菈听见一辉自述"]}
+  - {from: RKH1-CH01-E17, to: RKH1-CH01-E18, edgeType: contract_revisit, requires: [facts.duel_bet_active]}
+  - {from: RKH1-CH01-E18, to: RKH1-CH01-E19, edgeType: first_command, requires: [facts.first_command_pending]}
+  - {from: RKH1-CH01-E19, to: RKH1-CH01-E20, edgeType: domestic_followup, requires: [commitments.ikki_stella.roommate_agreement]}
+  - {from: RKH1-CH01-E20, to: "chapter-boundary/CH-02", edgeType: chapter_boundary, requires: [facts.dinner_plan_created], disposition: next_chapter_input_only}
+
+adaptationRules:
+  preserve: [FA-CH01-001, FA-CH01-002, FA-CH01-003, FA-CH01-004, FA-CH01-005, FA-CH01-009, FA-CH01-010, FA-CH01-011, FA-CH01-012, FA-CH01-013, FA-CH01-015, FA-CH01-019, FA-CH01-029]
+  adaptiveShells: ["对白具体措辞", "观众反应", "感官/镜头/喜剧包装", "解释顺序和叙述视角", "玩家在场时的可感知表现"]
+  d3Triggers: ["同室被真实拒绝或校方制度改变", "决斗未获双方同意/场地许可", "幻想型态关闭或关键攻击窗口被改变", "黑乃未能向史黛菈披露且后续依赖该知识"]
+  d4Triggers: ["私密误会通过真实渠道公开到校方、媒体或外国使馆", "模拟战被真实改变为实像形态并造成死亡/永久重伤", "黑铁家或皇族因公开证据正式介入并改变身份/制度"]
+  requiredAuditForD3D4: true

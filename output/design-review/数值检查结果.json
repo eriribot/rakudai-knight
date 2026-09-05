@@ -1,0 +1,77 @@
+{
+  "scope": "Paper-design arithmetic only; no SillyTavern runtime or balance validation",
+  "examples": [
+    {
+      "input": [
+        24,
+        0,
+        1,
+        0,
+        18
+      ],
+      "result": {
+        "contact": 24,
+        "absorbed": 18,
+        "damage": 6,
+        "barrierLeft": 0
+      }
+    },
+    {
+      "input": [
+        24,
+        -2,
+        1,
+        0,
+        18
+      ],
+      "result": {
+        "contact": 12,
+        "absorbed": 12,
+        "damage": 0,
+        "barrierLeft": 6
+      }
+    },
+    {
+      "input": [
+        24,
+        6,
+        1,
+        8,
+        10
+      ],
+      "result": {
+        "contact": 30,
+        "absorbed": 10,
+        "damage": 12,
+        "barrierLeft": 0
+      }
+    }
+  ],
+  "scoreBoundaryContacts": [
+    0,
+    12,
+    12,
+    24,
+    24,
+    30
+  ],
+  "barrierConservationCases": 205,
+  "originalQuarterlyCounterexample": {
+    "afterMonths": 24,
+    "skill": 4,
+    "support": "C"
+  },
+  "oldDamagePerMpRatio": 41.66666666666667,
+  "newEfficiencyOnlyUpperRatio": 1.25,
+  "simultaneousExchange": {
+    "physicalExchange": {
+      "hp": 84,
+      "sp": 90
+    },
+    "fantasiaExchange": {
+      "hp": 100,
+      "sp": 74
+    }
+  },
+  "result": "PASS"
+}

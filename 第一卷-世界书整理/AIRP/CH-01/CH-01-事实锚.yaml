@@ -1,0 +1,508 @@
+format: airp-fact-anchors
+version: 1
+workId: rakudai-knight
+chapterId: CH-01
+graphId: RKH1-CH01
+sourceSnapshot:
+  materialId: MAT-001
+  sourcePath: "落第骑士英雄谭 第一卷 gbk.txt"
+  encoding: GB18030
+  lineBasis: "decoded splitlines()"
+  scope:
+    start: 56
+    end: 2020
+  sha256: caab7f49901f52244d39d8d290e73648ccd7771b2db210491b2eb2d789b47dcc
+  byteLength: 251024
+  decodedLineCount: 7938
+  excludedSources:
+    - "序章内容不作为本章事件节点；仅以 CH-00/T01 作为已完成前置引用"
+    - "L2,021 之后的第二章及其他卷、短篇、联网资料"
+relativeCalendar:
+  phaseId: T02
+  label: "正式开学前的宿舍安排与模拟战期"
+  dateKnown: false
+  temporalPrecision: relative
+  resolverRule: "不得由本文件推导公历日期"
+facts:
+  - id: FA-CH01-001
+    type: world_rule
+    subject: world.blazer
+    predicate: has_device_and_ability
+    value: "伐刀者能将灵魂显现为固有灵装，并以魔力操纵异能"
+    temporalScope: {chapterId: CH-01, phase: T02}
+    status: extracted
+    immutable: true
+    overridePolicy: preserve
+    source: ["MAT-001#L57-L67", "CLM-001"]
+    notes: "科学技术无法直接观测其能力；不要将伐刀者写成普通魔法师。"
+
+  - id: FA-CH01-002
+    type: world_rule
+    subject: world.magicKnight制度
+    predicate: requires_qualification
+    value: "伐刀者须从获认可的专门学校毕业、取得证照和魔法骑士社会身份后，才能合法使用能力"
+    temporalScope: {chapterId: CH-01, phase: T02}
+    status: extracted
+    immutable: true
+    overridePolicy: preserve
+    source: ["MAT-001#L69-L75", "CLM-002"]
+
+  - id: FA-CH01-003
+    type: identity
+    subject: organization.rakugunAcademy
+    predicate: is_knight_school_in
+    value: "日本国内可取得魔法骑士证照的七所骑士学校之一"
+    temporalScope: {chapterId: CH-01, phase: T02}
+    status: extracted
+    immutable: true
+    overridePolicy: preserve
+    source: ["MAT-001#L71-L75", "CLM-003"]
+
+  - id: FA-CH01-004
+    type: identity
+    subject: char-stella-vermillion
+    predicate: has_public_identity
+    value:
+      role: "法米利昂皇国第二公主"
+      schoolStatus: "破军学园留学生"
+      admission: "首席新生"
+      blazerRank: A
+      publicTitle: "红莲皇女"
+    temporalScope: {chapterId: CH-01, phase: T02}
+    status: extracted
+    immutable: true
+    overridePolicy: preserve
+    source: ["MAT-001#L107-L121"]
+    notes: "公开身份锚；不从本文件补写第一卷之外的皇室或年龄资料。"
+
+  - id: FA-CH01-005
+    type: identity
+    subject: char-ikki-kurogane
+    predicate: has_public_rating
+    value:
+      blazerRank: F
+      schoolStatus: "留级重读一年级"
+      auraComparedToFreshmen: "平均值的十分之一"
+      publicTitle: "落第骑士"
+    temporalScope: {chapterId: CH-01, phase: T02}
+    status: extracted
+    immutable: true
+    overridePolicy: preserve
+    source: ["MAT-001#L107-L121"]
+    notes: "F级只描述伐刀者能力值层级，不等于剑术、体术或实战能力。"
+
+  - id: FA-CH01-006
+    type: relationship
+    subject: dorm.rk-student-dorm-405
+    predicate: is_shared_room
+    value: true
+    temporalScope: {chapterId: CH-01, phase: T02}
+    status: extracted
+    immutable: false
+    overridePolicy: can_invalidate_with_D3_plus
+    source: ["MAT-001#L319-L353", "CLM-004"]
+    notes: "原作默认结果；玩家可在真实选择后改变当前世界线，但不能无记录地覆盖作者源。"
+
+  - id: FA-CH01-007
+    type: world_rule
+    subject: organization.rakugunAcademy.dormPolicy
+    predicate: uses_competitive_pairing
+    value: "黑乃推行完全实力主义、实战主义；宿舍按竞争与成长目的安排，不以性别作为绝对阻断"
+    temporalScope: {chapterId: CH-01, phase: T02}
+    status: extracted
+    immutable: false
+    overridePolicy: adapt_only
+    source: ["MAT-001#L335-L371", "CLM-004"]
+    notes: "制度可以被玩家质疑，但制度改变需要校方或理事会的真实因果。"
+
+  - id: FA-CH01-008
+    type: relationship
+    subject: relation.ikki_stella
+    predicate: starts_as
+    value: "因405号室误会而互相警戒的陌生人"
+    temporalScope: {chapterId: CH-01, phase: T02}
+    status: proposed
+    immutable: false
+    overridePolicy: adapt_only
+    source: ["MAT-001#L77-L125", "MAT-001#L129-L318", "MAT-001#L95-L95"]
+    notes: "序章误会是已完成前置；本条只保留第一章承接所需的关系起点。"
+
+  - id: FA-CH01-009
+    type: ability_limit
+    subject: char-stella-vermillion.device
+    predicate: is
+    value: "妃龙罪剑；固有灵装，以火焰覆盖剑身和战圈"
+    temporalScope: {chapterId: CH-01, phase: T02}
+    status: extracted
+    immutable: true
+    overridePolicy: preserve
+    source: ["MAT-001#L225-L237"]
+
+  - id: FA-CH01-010
+    type: ability_limit
+    subject: char-stella-vermillion.nobleArt
+    predicate: uses_fire
+    value: "妃龙吐息；原文描述火焰温度可达约摄氏三千度"
+    temporalScope: {chapterId: CH-01, phase: T02}
+    status: extracted
+    immutable: true
+    overridePolicy: preserve
+    source: ["MAT-001#L257-L259"]
+    notes: "约三千度是原文描述，不向外推导环境物理计算。"
+
+  - id: FA-CH01-011
+    type: world_rule
+    subject: combat.fantasiaMode
+    predicate: is_simulation_mode
+    value: "幻想型态用于模拟战；对人战以削减体力和令对手失去意识表现，不等同实像形态的永久肉体伤害"
+    temporalScope: {chapterId: CH-01, phase: T02}
+    status: extracted
+    immutable: true
+    overridePolicy: preserve
+    source: ["MAT-001#L621-L627", "MAT-001#L1,217-L1,219", "CLM-005"]
+
+  - id: FA-CH01-012
+    type: ability_limit
+    subject: combat.auraDefense
+    predicate: protects_against_low_aura_strikes
+    value: "伐刀者的魔力兼具防护；一辉的普通斩击无法突破史黛菈的无意识魔力防护"
+    temporalScope: {chapterId: CH-01, phase: T02}
+    status: extracted
+    immutable: true
+    overridePolicy: preserve
+    source: ["MAT-001#L925-L1,011"]
+
+  - id: FA-CH01-013
+    type: ability_limit
+    subject: char-ikki-kurogane.nobleArt
+    predicate: has_basic_form
+    value: "体能加倍；在能力等级评价中被视为低劣能力，但不覆盖其剑术与体术"
+    temporalScope: {chapterId: CH-01, phase: T02}
+    status: extracted
+    immutable: true
+    overridePolicy: preserve
+    source: ["MAT-001#L1,101-L1,117"]
+
+  - id: FA-CH01-014
+    type: ability_limit
+    subject: char-ikki-kurogane.skill
+    predicate: can_copy_swordsmanship
+    value: "模仿剑术/模仿剑技；通过观察架式、呼吸、历史、理念与招式结构理解并复制剑术"
+    temporalScope: {chapterId: CH-01, phase: T02}
+    status: extracted
+    immutable: true
+    overridePolicy: adapt_only
+    source: ["MAT-001#L789-L833", "DIA-CH01-0165", "DIA-CH01-0173"]
+    notes: "第一章只证明其在史黛菈皇家剑术上的使用，不扩展为能复制所有异能。"
+
+  - id: FA-CH01-015
+    type: ability_limit
+    subject: char-ikki-kurogane.nobleArt
+    predicate: has_burst_window
+    value:
+      name: "一刀修罗"
+      duration: "约一分钟"
+      mechanism: "突破生存本能留下的限制，集中压榨体力、魔力和力量"
+      cooldown: "一天一次"
+      interruptible: false
+      afterEffect: "严重虚弱，短时间内几乎无法行动"
+    temporalScope: {chapterId: CH-01, phase: T02}
+    status: extracted
+    immutable: true
+    overridePolicy: preserve
+    source: ["MAT-001#L1,133-L1,205", "MAT-001#L1,289-L1,292", "MAT-001#L1,439-L1,439"]
+    notes: "不可写成无冷却、无代价或可连续使用的普通强化。"
+
+  - id: FA-CH01-016
+    type: event_outcome
+    subject: event.RKH1-CH01-E09
+    predicate: results_in
+    value: "一辉在幻想型态模拟战中以一刀修罗击败史黛菈；黑乃宣布一辉胜利"
+    temporalScope: {chapterId: CH-01, phase: T02}
+    status: extracted
+    immutable: false
+    overridePolicy: can_invalidate_with_D3_plus
+    source: ["MAT-001#L1,197-L1,225", "CLM-006"]
+    notes: "这是原作默认结果锚；只有合法、可审计的 D3+ 前置变化才允许适配或失效。"
+
+  - id: FA-CH01-017
+    type: event_outcome
+    subject: injuries.ikki
+    predicate: becomes
+    value: "一刀修罗后严重虚弱、脸色苍白、呼吸微弱并进入长时间睡眠/恢复"
+    temporalScope: {chapterId: CH-01, phase: T02}
+    status: extracted
+    immutable: false
+    overridePolicy: adapt_only
+    source: ["MAT-001#L1,229-L1,303", "MAT-001#L1,439-L1,439"]
+
+  - id: FA-CH01-018
+    type: event_outcome
+    subject: injuries.stella
+    predicate: becomes
+    value: "幻想型态重击后失去意识并重度疲劳；不需要现实永久伤害处理"
+    temporalScope: {chapterId: CH-01, phase: T02}
+    status: extracted
+    immutable: false
+    overridePolicy: adapt_only
+    source: ["MAT-001#L1,217-L1,303"]
+
+  - id: FA-CH01-019
+    type: knowledge_boundary
+    subject: rating.system
+    predicate: excludes
+    value: "伐刀者等级以能力值为基准，不评价剑术、体术和实战判断"
+    temporalScope: {chapterId: CH-01, phase: T02}
+    status: extracted
+    immutable: true
+    overridePolicy: preserve
+    source: ["MAT-001#L1,313-L1,323", "CLM-007"]
+
+  - id: FA-CH01-020
+    type: identity
+    subject: char-ikki-kurogane.schoolHistory
+    predicate: was_blocked_by
+    value: "黑铁本家向破军学园施压；前任理事长以实战学科最低能力水准为由将一辉排除，学分不足是对外借口"
+    temporalScope: {chapterId: CH-01, phase: T02}
+    status: extracted
+    immutable: false
+    overridePolicy: adapt_only
+    source: ["MAT-001#L1,341-L1,395", "CLM-008"]
+    notes: "对史黛菈的披露必须沿黑乃→史黛菈的知识边，不自动变成全员知识。"
+
+  - id: FA-CH01-021
+    type: identity
+    subject: char-ryoma-kurogane
+    predicate: is_recalled_as
+    value: "黑铁一辉的曾祖父、历史英雄和人生榜样"
+    temporalScope: {chapterId: CH-01, phase: T02}
+    status: extracted
+    immutable: true
+    overridePolicy: preserve
+    source: ["MAT-001#L603-L617", "MAT-001#L1,343-L1,367", "MAT-001#L1,697-L1,757", "CLM-008"]
+    notes: "龙马只作为历史/回忆层出现；其台词是 memory_quoted，不是当前时在场 NPC。"
+
+  - id: FA-CH01-022
+    type: knowledge_boundary
+    subject: knowledge.kurono_to_stella
+    predicate: channel
+    value: "黑乃向史黛菈说明一辉的评级局限、家族阻碍和一刀修罗代价"
+    temporalScope: {chapterId: CH-01, phase: T02}
+    status: extracted
+    immutable: false
+    overridePolicy: adapt_only
+    source: ["MAT-001#L1,229-L1,441"]
+    notes: "这是知识传播事实，不表示一辉、观众或黑铁家同时得知。"
+
+  - id: FA-CH01-023
+    type: identity
+    subject: char-stella-vermillion.goal
+    predicate: is
+    value: "在日本寻找更强的骑士、成为七星剑王并守护法米利昂皇国"
+    temporalScope: {chapterId: CH-01, phase: T02}
+    status: extracted
+    immutable: true
+    overridePolicy: preserve
+    source: ["MAT-001#L1,399-L1,441"]
+
+  - id: FA-CH01-024
+    type: relationship
+    subject: relation.ikki_stella
+    predicate: ends_chapter_as
+    value: "共同生活的室友；决斗后互相尊重、好奇并认可对方的努力；不是已确认恋人"
+    temporalScope: {chapterId: CH-01, phase: T02}
+    status: extracted
+    immutable: false
+    overridePolicy: adapt_only
+    source: ["MAT-001#L1,759-L2,020"]
+    notes: "终章恋爱确认不属于本章。"
+
+  - id: FA-CH01-025
+    type: commitment
+    subject: commitment.ikki_stella.roommate
+    predicate: has_scope
+    value: "一辉将决斗后的第一项命令改为史黛菈成为室友；史黛菈口头接受同房"
+    temporalScope: {chapterId: CH-01, phase: T02}
+    status: extracted
+    immutable: false
+    overridePolicy: can_invalidate_with_D3_plus
+    source: ["MAT-001#L1,817-L1,929"]
+    notes: "主仆语言是关系性赌约，不自动产生无边界现实强制权。"
+
+  - id: FA-CH01-026
+    type: commitment
+    subject: commitment.stella.namePreference
+    predicate: becomes
+    value: "史黛菈要求一辉不再使用‘史黛菈同学’，改为直呼‘史黛菈’"
+    temporalScope: {chapterId: CH-01, phase: T02}
+    status: extracted
+    immutable: false
+    overridePolicy: adapt_only
+    source: ["MAT-001#L1,971-L2,019"]
+
+  - id: FA-CH01-027
+    type: commitment
+    subject: plan.ikki_stella.dinner
+    predicate: becomes
+    value: "餐厅八点关闭后，史黛菈提出料理；两人形成去附近超市的计划，但尚未抵达"
+    temporalScope: {chapterId: CH-01, phase: T02}
+    status: extracted
+    immutable: false
+    overridePolicy: adapt_only
+    source: ["MAT-001#L1,931-L2,020"]
+    notes: "不能把计划提前写成已经购买食材或进入第二章。"
+
+  - id: FA-CH01-028
+    type: knowledge_boundary
+    subject: knowledge.audience
+    predicate: knows_after_duel
+    value: "观众能看到一辉获胜与史黛菈倒下，但不自动知道一刀修罗完整机制、家族内幕或回忆内容"
+    temporalScope: {chapterId: CH-01, phase: T02}
+    status: proposed
+    immutable: false
+    overridePolicy: adapt_only
+    source: ["MAT-001#L519-L551", "MAT-001#L1,197-L1,225"]
+
+  - id: FA-CH01-029
+    type: temporal_boundary
+    subject: chapter.CH-01
+    predicate: ends_before
+    value: "L2,021；第二章开学、珠雫正式出场及其后内容不在本章图内"
+    temporalScope: {chapterId: CH-01, phase: T02}
+    status: extracted
+    immutable: true
+    overridePolicy: preserve
+    source: ["MAT-001#L2,020-L2,021"]
+
+negativeConstraints:
+  - id: NC-CH01-001
+    rule: "不得把一辉的 F 级或低魔力写成不会战斗；剑术、体术、观察与解析能力必须与能力值缺陷并存"
+    enforcement: reject
+    source: ["FA-CH01-005", "FA-CH01-013", "FA-CH01-019"]
+  - id: NC-CH01-002
+    rule: "不得把幻想型态模拟战改写为实像形态、现实斩杀或永久肉体伤害"
+    enforcement: reject
+    source: ["FA-CH01-011", "FA-CH01-018"]
+  - id: NC-CH01-003
+    rule: "不得把一刀修罗写成无冷却、无代价、可中途停止或可连续使用"
+    enforcement: reject
+    source: ["FA-CH01-015", "FA-CH01-017"]
+  - id: NC-CH01-004
+    rule: "黑乃向史黛菈披露的内幕必须保留知识渠道，不得自动扩散给一辉、观众、黑铁家或全校"
+    enforcement: reject
+    source: ["FA-CH01-022", "FA-CH01-028"]
+  - id: NC-CH01-005
+    rule: "父亲和黑铁龙马的台词属于 memory_quoted，不得写成第一章当前时在场角色"
+    enforcement: reject
+    source: ["FA-CH01-021", "MAT-001#L1,707", "MAT-001#L1,749"]
+  - id: NC-CH01-006
+    rule: "第一章末关系最多到室友、尊重、好奇和价值观互认，不得提前提交终章恋爱、月下告白或七星剑王决胜战约定"
+    enforcement: reject
+    source: ["FA-CH01-024", "FA-CH01-025"]
+  - id: NC-CH01-007
+    rule: "不得把主仆赌约扩写为无边界现实强制、违法或性命令；命令范围必须经过双方明确同意"
+    enforcement: reject
+    source: ["FA-CH01-025", "MAT-001#L1,817-L1,929"]
+  - id: NC-CH01-008
+    rule: "不得把准备去超市写成已经抵达、不得读取 L2,021 之后内容作为第一章效果"
+    enforcement: reject
+    source: ["FA-CH01-027", "FA-CH01-029"]
+  - id: NC-CH01-009
+    rule: "L1,445-L1,657 的接触事件只保留好奇、越界、意外跌落和包扎功能，不扩写性化细节"
+    enforcement: reject
+    source: ["MAT-001#L1,445-L1,657"]
+
+statePaths:
+  - world.relativePhase
+  - world.location
+  - world.chapter
+  - identities.char-ikki-kurogane.blazerRank
+  - identities.char-stella-vermillion.blazerRank
+  - identities.char-stella-vermillion.role
+  - facts.dorm_405_roommates
+  - facts.duel_bet_active
+  - facts.duel_bet_scope
+  - facts.duel_result
+  - facts.fantasia_mode
+  - facts.chapter02_started
+  - facts.terminal_romance_confirmed
+  - abilities.char-ikki-kurogane.ichigekiShura.available
+  - abilities.char-ikki-kurogane.ichigekiShura.cooldown
+  - resources.char-ikki-kurogane.stamina
+  - injuries.char-ikki-kurogane
+  - injuries.char-stella-vermillion
+  - knowledge.char-stella-vermillion.ikki_rating_gap
+  - knowledge.char-stella-vermillion.ikki_family_pressure
+  - knowledge.char-stella-vermillion.ikki_ryoma_memory
+  - relationship.char-ikki-kurogane.char-stella-vermillion.stage
+  - commitments.char-ikki-kurogane.char-stella-vermillion.roommate
+  - commitments.char-stella-vermillion.name_preference
+  - plans.char-ikki-kurogane.char-stella-vermillion.dinner
+
+expectedCanonStateAtEnd:
+  world:
+    chapter: CH-01
+    relativePhase: T02
+    location: rk-student-dorm-405
+    nextBoundary: "准备外出；尚未抵达超市"
+  identities:
+    char-ikki-kurogane:
+      role: "破军学园学生骑士"
+      blazerRank: F
+      publicTitle: "落第骑士"
+    char-stella-vermillion:
+      role: "法米利昂皇国第二公主／破军学园留学生"
+      blazerRank: A
+      publicTitle: "红莲皇女"
+    char-kurono-shinguuji:
+      role: "破军学园理事长"
+    char-ryoma-kurogane:
+      role: "历史英雄／一辉曾祖父／回忆对象"
+      presentTimeActor: false
+  facts:
+    dorm_405_roommates: true
+    duel_bet_active: true
+    duel_bet_scope: "一辉将第一项命令改为成为室友；主仆语言不产生无边界强制权"
+    duel_result: "ikki_wins_fantasia_duel"
+    fantasia_mode: true
+    chapter02_started: false
+    terminal_romance_confirmed: false
+  abilities:
+    char-ikki-kurogane:
+      ichigekiShura:
+        available: false
+        cooldown: "一天一次；本章末处于使用后恢复期"
+        afterEffect: "严重虚弱"
+      mimicSwordsmanship: "已在本章战斗中展现，但不扩展为全异能复制"
+  resources:
+    char-ikki-kurogane:
+      stamina: "一刀修罗后严重消耗；可醒来、简单交谈和处理日常，但非正常战斗状态"
+  injuries:
+    char-ikki-kurogane: "模拟战后严重虚弱，无永久实像伤害"
+    char-stella-vermillion: "幻想型态败北后的重度疲劳；另有跌落后的轻伤，已接受包扎"
+  knowledge:
+    char-stella-vermillion:
+      ikki_rating_gap: true
+      ikki_family_pressure: true
+      ikki_ryoma_memory: true
+      sourceEdges:
+        - "kurono -> stella: rating/system/family disclosure"
+        - "ikki -> stella: family memory and dream self-report"
+    char-ikki-kurogane:
+      knows_stella_observed_him: "仅能从醒来后的现场行为推断，不自动知道她的全部内心"
+      knows_kurono_stella_private_talk: false
+    group-audience:
+      knows_duel_outcome: true
+      knows_ichigeki_shura_full_mechanism: false
+      knows_family_pressure: false
+  relationship:
+    char-ikki-kurogane.char-stella-vermillion:
+      stage: roommate_with_respect_and_curiosity
+      romanceConfirmed: false
+  commitments:
+    char-ikki-kurogane.char-stella-vermillion:
+      roommate: true
+      namePreference: "称呼史黛菈，不加同学"
+  plans:
+    char-ikki-kurogane.char-stella-vermillion:
+      dinner: "史黛菈提议料理；两人准备去附近超市"

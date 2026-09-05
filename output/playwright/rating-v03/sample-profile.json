@@ -1,0 +1,48 @@
+{
+  "format": "rakudai-opening-profile",
+  "schema_version": 3,
+  "profile_key": "user",
+  "profile": {
+    "stats": {
+      "attack": "D",
+      "defense": "B",
+      "magic": "C",
+      "control": "A",
+      "physical": "E",
+      "luck": "C"
+    },
+    "name": "测试骑士",
+    "personality": "",
+    "conduct": "",
+    "school": "破军学园 / 一年一班",
+    "device": "",
+    "nobleArt": "",
+    "desc": "",
+    "ability": "在十米内操纵水流，形成水壁并限制对手行动",
+    "limits": "需要现成的水，维持多个水团会分散控制",
+    "style": "中距离防守与牵制",
+    "assessment": {
+      "rule": "r05-v1",
+      "basis": "[\"测试骑士\",\"\",\"\",\"破军学园 / 一年一班\",\"\",\"\",\"\",\"在十米内操纵水流，形成水壁并限制对手行动\",\"需要现成的水，维持多个水团会分散控制\",\"中距离防守与牵制\",\"D\",\"B\",\"C\",\"A\",\"E\",\"C\"]",
+      "adjustment": 0,
+      "reviewReason": "维持 B：能力价值已经体现在六维，不重复奖励",
+      "reasons": {
+        "attack": "用于验证往返链路的测试依据，不是实机 AI 判定",
+        "defense": "用于验证往返链路的测试依据，不是实机 AI 判定",
+        "magic": "用于验证往返链路的测试依据，不是实机 AI 判定",
+        "control": "用于验证往返链路的测试依据，不是实机 AI 判定",
+        "physical": "用于验证往返链路的测试依据，不是实机 AI 判定",
+        "luck": "用于验证往返链路的测试依据，不是实机 AI 判定"
+      }
+    },
+    "rating": {
+      "rule": "r05-v1",
+      "score": 5,
+      "base": "B",
+      "missing": [],
+      "proposed": "B",
+      "status": "reviewed_proposal"
+    }
+  },
+  "avatar": null
+}

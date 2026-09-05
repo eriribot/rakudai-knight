@@ -1,0 +1,489 @@
+format: airp-authored-branches
+version: 1
+workId: rakudai-knight
+chapterId: CH-01
+graphId: RKH1-CH01
+origin: authored
+sourceSnapshot:
+  materialId: MAT-001
+  sourcePath: "落第骑士英雄谭 第一卷 gbk.txt"
+  encoding: GB18030
+  lineBasis: "decoded splitlines()"
+  scope: {start: 56, end: 2020}
+  sha256: caab7f49901f52244d39d8d290e73648ccd7771b2db210491b2eb2d789b47dcc
+  sourceBoundary: "分支只适配第一章；不预写第二章或跨卷后果"
+branchRules:
+  choiceMustBeReal: true
+  bodyMustStopAtChoiceBoundary: true
+  maxImmediateEvents: 1
+  maxDelayedSeeds: 2
+  defaultDisposition: "保留仍成立的原作功能；只有前置真实失效时才适配、延迟、替换或失效"
+  deviationLevels: [D0, D1, D2, D3, D4]
+  prohibited:
+    - "模型替玩家作出接受、拒绝、攻击、告白、离开等关键决定"
+    - "把小幅措辞变化夸大为D3/D4"
+    - "无传播链让角色知道私密信息"
+    - "把主仆赌约扩写为无边界现实强制、违法或性命令"
+    - "把第一章末提前写成恋爱或月下誓言"
+
+branches:
+  - id: RKH1-CH01-B01
+    title: "405号室：接受同室、单人房或临时边界协议"
+    status: staged_template
+    affectsCanonEvents: [RKH1-CH01-E03, RKH1-CH01-E04, RKH1-CH01-E19, RKH1-CH01-E20]
+    causedBy:
+      events: [RKH1-CH01-E02]
+      facts: [FA-CH01-006, FA-CH01-007]
+      playerActions: ["玩家在黑乃说明同室/退学/单人房出口后真实表态"]
+    choiceBoundary:
+      location: rk-director-office
+      source: "MAT-001#L319-L385"
+      stopBefore: "史黛菈或玩家对同室、单人房或临时协议作出最终选择"
+      playerRequired: true
+    conditions:
+      all:
+        - {path: world.chapter, op: eq, value: CH-01}
+        - {path: world.relativePhase, op: eq, value: T02}
+        - {path: facts.dorm_pairing_policy_revealed, op: eq, value: true}
+    options:
+      - id: B01-O01
+        label: 接受同室
+        deviationLevel: D0
+        conditions: [{path: decision.dorm_405, op: eq, value: accept}
+        ]
+        effects:
+          facts: [{path: facts.dorm_405_roommates, op: set, value: true}]
+          relationships: [{path: relationship.ikki_stella.stage, op: set, value: cohabitation_forced}]
+        immediateConsequence: "继续进入生活规则争执与决斗赌约节点"
+        delayedSeeds: []
+        mergePoint: RKH1-CH01-E04
+        canonDisposition: {action: preserve, reason: "与原作默认室友安排一致"}
+      - id: B01-O02
+        label: 请求单人房
+        deviationLevel: D1
+        conditions: [{path: decision.dorm_405, op: eq, value: single_room}]
+        effects:
+          facts:
+            - {path: facts.dorm_405_roommates, op: set, value: false}
+            - {path: facts.single_room_requested, op: set, value: true}
+          relationships: [{path: relationship.ikki_stella.stage, op: set, value: separate_rooms_pending}]
+        immediateConsequence: "黑乃需要确认VIP单人房是否可执行；不自动触发同室生活"
+        delayedSeeds:
+          - id: seed-single-room-school-response
+            maturity: "黑乃/校方确认房源和制度安排"
+            possibleOutcomes: [preserve_separate_rooms, offer_temporary_room, reassign_pair]
+        mergePoint: RKH1-CH01-E04
+        canonDisposition: {action: adapt, reason: "保留校方裁定和竞争关系功能，改写共同生活前置"}
+      - id: B01-O03
+        label: 临时同室并签边界协议
+        deviationLevel: D1
+        conditions: [{path: decision.dorm_405, op: eq, value: temporary_boundary_agreement}]
+        effects:
+          facts:
+            - {path: facts.dorm_405_roommates, op: set, value: true}
+            - {path: facts.dorm_boundary_agreement, op: set, value: pending}
+          commitments: [{path: commitments.dorm_405.boundaries, op: set, value: player_defined_pending}]
+        immediateConsequence: "双方先确认作息、称呼或私人物品边界，再决定是否用决斗解决剩余争议"
+        delayedSeeds: []
+        mergePoint: RKH1-CH01-E04
+        canonDisposition: {action: adapt, reason: "共同生活功能保留，规则表现由真实协议承载"}
+    review:
+      causality: pass
+      character: pending_runtime
+      timeline: pass
+      canon: pass
+      confidence: 0.82
+    evidence: ["MAT-001#L319-L385", "DIA-CH01-0070", "DIA-CH01-0089"]
+
+  - id: RKH1-CH01-B02
+    title: "决斗与仆人赌约：完整、限定或拒绝"
+    status: staged_template
+    affectsCanonEvents: [RKH1-CH01-E04, RKH1-CH01-E05, RKH1-CH01-E06, RKH1-CH01-E09, RKH1-CH01-E18]
+    causedBy:
+      events: [RKH1-CH01-E03]
+      facts: [FA-CH01-025]
+      playerActions: ["玩家在黑乃提出模拟战后真实选择是否接受决斗及赌约范围"]
+    choiceBoundary:
+      location: rk-director-office
+      source: "MAT-001#L387-L515"
+      stopBefore: "双方最终接受/拒绝决斗和败者服从范围"
+      playerRequired: true
+    conditions:
+      all:
+        - {path: facts.dorm_405_roommates, op: eq, value: true}
+        - {path: facts.dorm_pairing_policy_revealed, op: eq, value: true}
+    options:
+      - id: B02-O01
+        label: 接受完整赌约
+        deviationLevel: D0
+        conditions: [{path: decision.duel_contract, op: eq, value: full_bet}]
+        effects:
+          facts:
+            - {path: facts.duel_bet_active, op: set, value: true}
+            - {path: facts.duel_bet_scope, op: set, value: pending_explicit_scope}
+            - {path: facts.training_ground_03_permission, op: set, value: true}
+        immediateConsequence: "进入第三训练场合法模拟战"
+        delayedSeeds: []
+        mergePoint: RKH1-CH01-E05
+        canonDisposition: {action: preserve, reason: "原作默认路径"}
+      - id: B02-O02
+        label: 限定生活命令
+        deviationLevel: D1
+        conditions: [{path: decision.duel_contract, op: eq, value: life_only_bet}]
+        effects:
+          facts:
+            - {path: facts.duel_bet_active, op: set, value: true}
+            - {path: facts.duel_bet_scope, op: set, value: life_related_only}
+            - {path: facts.training_ground_03_permission, op: set, value: true}
+        immediateConsequence: "保留决斗，但战后只可讨论生活相关安排"
+        delayedSeeds: []
+        mergePoint: RKH1-CH01-E05
+        canonDisposition: {action: adapt, reason: "比赛功能仍成立，赌约语义缩小"}
+      - id: B02-O03
+        label: 只接受决斗
+        deviationLevel: D2
+        conditions: [{path: decision.duel_contract, op: eq, value: duel_without_master_slave}]
+        effects:
+          facts:
+            - {path: facts.duel_bet_active, op: set, value: true}
+            - {path: facts.duel_bet_scope, op: set, value: duel_result_only}
+            - {path: facts.training_ground_03_permission, op: set, value: true}
+          relationships: [{path: relationship.ikki_stella.stage, op: set, value: competitive_without_subordination}]
+        immediateConsequence: "保留模拟战和胜负，但不产生主仆命令链"
+        delayedSeeds:
+          - id: seed-post_duel_protocol
+            maturity: "比赛结束且双方需要决定如何共同生活"
+            possibleOutcomes: [mutual_roommate_agreement, separate_rooms, training_partnership]
+        mergePoint: RKH1-CH01-E05
+        canonDisposition: {action: adapt, reason: "保留骑士式裁定，替换无边界主仆效果"}
+      - id: B02-O04
+        label: 拒绝决斗或请求重新裁定
+        deviationLevel: D3
+        conditions: [{path: decision.duel_contract, op: in, value: [reject, ask_kurono_to_arbitrate]}]
+        effects:
+          facts:
+            - {path: facts.duel_bet_active, op: set, value: false}
+            - {path: facts.training_ground_03_permission, op: set, value: false}
+          commitments: [{path: commitments.duel.replaced, op: set, value: true}]
+        immediateConsequence: "第三训练场原作战斗不具备触发资格，等待校方裁定或等价事件"
+        delayedSeeds:
+          - id: seed-alternate-room-resolution
+            maturity: "黑乃完成第三方裁定或双方产生新的合法竞争方式"
+            possibleOutcomes: [trial_without_combat, separate_room_assignment, later_duel]
+        mergePoint: null
+        canonDisposition: {action: delay, reason: "决斗前置被真实拒绝，不机械播放战斗"}
+        affectedCanonEvents:
+          - {eventId: RKH1-CH01-E05, action: invalidate, reason: "无双方同意/无赌约"}
+          - {eventId: RKH1-CH01-E06, action: delay, reason: "战斗节点等待等价裁定"}
+    review:
+      causality: pass
+      character: pending_runtime
+      timeline: pass
+      canon: pass
+      confidence: 0.9
+    evidence: ["MAT-001#L387-L515", "DIA-CH01-0093", "DIA-CH01-0117", "DIA-CH01-0120"]
+
+  - id: RKH1-CH01-B03
+    title: "战斗中的真实介入"
+    status: staged_template
+    affectsCanonEvents: [RKH1-CH01-E06, RKH1-CH01-E07, RKH1-CH01-E08, RKH1-CH01-E09]
+    causedBy:
+      events: [RKH1-CH01-E05]
+      facts: [FA-CH01-011, FA-CH01-015]
+      playerActions: ["玩家在Resolver确认的地点和传播范围内真实观战、呼喊或行动"]
+    choiceBoundary:
+      location: rk-training-ground-03
+      source: "MAT-001#L519-L1,225"
+      stopBefore: "玩家是否呼喊/保护观众/请求暂停/改变关键攻击窗口"
+      playerRequired: true
+    conditions:
+      all:
+        - {path: facts.match_started, op: eq, value: true}
+        - {path: facts.fantasia_mode, op: eq, value: true}
+        - {path: player.location, op: eq, value: rk-training-ground-03}
+    options:
+      - id: B03-O01
+        label: 观战或呼喊提示
+        deviationLevel: D0
+        conditions: [{path: decision.match_intervention, op: in, value: [observe, shout_hint]}]
+        effects:
+          knowledge: [{path: knowledge.player.heard_match, op: set, value: true}]
+        immediateConsequence: "默认不改变比赛核心；只有角色确实听见并采纳时才改变后续"
+        delayedSeeds: []
+        mergePoint: RKH1-CH01-E06
+        canonDisposition: {action: preserve, reason: "表现层偏差，不改变核心前置"}
+      - id: B03-O02
+        label: 请求暂停或保护观众
+        deviationLevel: D2
+        conditions: [{path: decision.match_intervention, op: in, value: [request_pause, protect_audience]}]
+        effects:
+          facts: [{path: facts.safety_intervention_requested, op: set, value: true}]
+          knowledge: [{path: knowledge.kurono.heard_safety_request, op: set, value: true}]
+        immediateConsequence: "由黑乃依据场地、形态和规则判断是否中止；玩家请求本身不等于成功"
+        delayedSeeds:
+          - id: seed-referee-decision
+            maturity: "黑乃完成安全判断"
+            possibleOutcomes: [match_continues, match_paused, match_adapted]
+        mergePoint: RKH1-CH01-E08
+        canonDisposition: {action: adapt, reason: "保留比赛裁定功能，允许合法安全干预改变表现"}
+      - id: B03-O03
+        label: 改变场地或关键攻击窗口
+        deviationLevel: D3
+        conditions: [{path: decision.match_intervention, op: in, value: [alter_arena, alter_attack_window]}]
+        effects:
+          facts: [{path: facts.match_key_window_changed, op: set, value: true}]
+          relationships: [{path: relationship.ikki_stella.combat_outcome, op: set, value: pending_recompute}]
+        immediateConsequence: "重算模仿剑术、最强招式和一刀修罗的前置；不自动保留原作胜负"
+        delayedSeeds:
+          - id: seed-post_match_reputation
+            maturity: "比赛以改变后的结果完成或中止"
+            possibleOutcomes: [school_rumor, referee_review, rival_interest]
+        mergePoint: null
+        canonDisposition: {action: adapt, reason: "关键战斗条件改变，必须进入D3审稿并重算后果"}
+        affectedCanonEvents:
+          - {eventId: RKH1-CH01-E07, action: adapt, reason: "观察窗口/站位可能改变"}
+          - {eventId: RKH1-CH01-E09, action: adapt_or_invalidate, reason: "一刀修罗窗口和比赛结果不再自动成立"}
+      - id: B03-O04
+        label: 导致现实死亡或永久重伤
+        deviationLevel: D4
+        conditions: [{path: decision.match_intervention, op: eq, value: reality_lethal_change}]
+        effects:
+          facts: [{path: worldline.root_required, op: set, value: true}]
+        immediateConsequence: "禁止普通预制分支直接提交；必须新建世界线根、重大事实账本和最高级审稿"
+        delayedSeeds: []
+        mergePoint: null
+        canonDisposition: {action: invalidate, reason: "幻想型态被真实改变为致死后果，原作节点失效并转入D4世界线审查"}
+        reviewGate: [causality, character, timeline_world_rules, canon, rollback]
+    review:
+      causality: pending_runtime
+      character: pending_runtime
+      timeline: pending_runtime
+      canon: pass
+      confidence: 0.86
+    evidence: ["MAT-001#L519-L637", "MAT-001#L925-L1,225"]
+
+  - id: RKH1-CH01-B04
+    title: "战后黑铁家内幕披露范围"
+    status: staged_template
+    affectsCanonEvents: [RKH1-CH01-E11, RKH1-CH01-E12, RKH1-CH01-E13]
+    causedBy:
+      events: [RKH1-CH01-E10]
+      facts: [FA-CH01-020, FA-CH01-022]
+      playerActions: ["玩家决定是否允许黑乃继续向史黛菈说明评级与家庭内幕"]
+    choiceBoundary:
+      location: rk-student-dorm-405
+      source: "MAT-001#L1,305-L1,441"
+      stopBefore: "黑乃是否披露家族施压、史黛菈是否继续追问"
+      playerRequired: true
+    conditions:
+      all:
+        - {path: facts.post_match_recovery_started, op: eq, value: true}
+        - {path: facts.rating_system_explained, op: eq, value: true}
+    options:
+      - id: B04-O01
+        label: 完整说明
+        deviationLevel: D0
+        conditions: [{path: decision.family_disclosure, op: eq, value: full}]
+        effects:
+          knowledge: [{path: knowledge.stella.ikki_family_pressure, op: set, value: true}]
+        immediateConsequence: "史黛菈沿黑乃→史黛菈知识边得知家族与旧校方阻碍"
+        delayedSeeds: []
+        mergePoint: RKH1-CH01-E13
+        canonDisposition: {action: preserve, reason: "原作默认知识传播路径"}
+      - id: B04-O02
+        label: 只说明评级、不披露家族
+        deviationLevel: D1
+        conditions: [{path: decision.family_disclosure, op: eq, value: rating_only}]
+        effects:
+          knowledge:
+            - {path: knowledge.stella.ikki_rating_gap, op: set, value: true}
+            - {path: knowledge.stella.ikki_family_pressure, op: set, value: false}
+        immediateConsequence: "E11保留，E12改为待披露/延迟；史黛菈不能凭空知道家庭内幕"
+        delayedSeeds:
+          - id: seed-family-disclosure-later
+            maturity: "一辉本人或可信校方渠道主动说明"
+            possibleOutcomes: [ikki_self_reports, kurono_later_discloses, disclosure_never_occurs]
+        mergePoint: RKH1-CH01-E13
+        canonDisposition: {action: adapt, reason: "保留评级解释，延迟家庭知识边"}
+      - id: B04-O03
+        label: 保护一辉家庭隐私
+        deviationLevel: D2
+        conditions: [{path: decision.family_disclosure, op: eq, value: protect_privacy}]
+        effects:
+          knowledge: [{path: knowledge.stella.ikki_family_pressure, op: set, value: false}]
+          relationships: [{path: relationship.player_ikki.trust, op: increase, value: small}]
+        immediateConsequence: "E12家庭内幕不提交；关系变化只对真实受影响角色生效"
+        delayedSeeds:
+          - id: seed-private-trust
+            maturity: "一辉本人决定是否向玩家/史黛菈自述"
+            possibleOutcomes: [ikki_discloses, stella_asks_later, family_history_remains_private]
+        mergePoint: RKH1-CH01-E15
+        canonDisposition: {action: delay, reason: "阻止了原作知识传播，但不删除后续自述可能性"}
+    review:
+      causality: pass
+      character: pending_runtime
+      timeline: pass
+      canon: pass
+      confidence: 0.9
+    evidence: ["MAT-001#L1,305-L1,441", "DIA-CH01-0243", "DIA-CH01-0272", "DIA-CH01-0284"]
+
+  - id: RKH1-CH01-B05
+    title: "一辉的梦想与回忆深度"
+    status: staged_template
+    affectsCanonEvents: [RKH1-CH01-E15, RKH1-CH01-E16, RKH1-CH01-E17]
+    causedBy:
+      events: [RKH1-CH01-E15]
+      facts: [FA-CH01-021, FA-CH01-023]
+      playerActions: ["玩家决定一辉是否、以及讲到哪一层家庭/龙马记忆"]
+    choiceBoundary:
+      location: rk-student-dorm-405
+      source: "MAT-001#L1,661-L1,757"
+      stopBefore: "一辉是否回答并选择公开深度"
+      playerRequired: true
+    conditions:
+      all:
+        - {path: facts.dream_disclosure_pending, op: eq, value: true}
+        - {path: facts.bandage_completed, op: eq, value: true}
+    options:
+      - id: B05-O01
+        label: 只说七星剑王目标
+        deviationLevel: D1
+        conditions: [{path: decision.dream_depth, op: eq, value: goal_only}]
+        effects:
+          knowledge: [{path: knowledge.stella.ikki_goal, op: set, value: true}]
+        immediateConsequence: "史黛菈知道目标，但不知道完整家族压力和龙马记忆"
+        delayedSeeds:
+          - id: seed-memory-disclosure
+            maturity: "一辉以后主动讲述"
+            possibleOutcomes: [family_disclosure, ryoma_memory_shared, no_further_disclosure]
+        mergePoint: RKH1-CH01-E17
+        canonDisposition: {action: adapt, reason: "保留梦想功能，缩短知识披露"}
+      - id: B05-O02
+        label: 讲述家族排斥、不展开龙马
+        deviationLevel: D1
+        conditions: [{path: decision.dream_depth, op: eq, value: family_without_ryoma}]
+        effects:
+          knowledge: [{path: knowledge.stella.ikki_family_pressure, op: set, value: true}, {path: knowledge.stella.ikki_ryoma_memory, op: set, value: false}]
+        immediateConsequence: "史黛菈理解家庭与学校阻碍，但龙马仍是未共享的个人记忆"
+        delayedSeeds:
+          - id: seed-ryoma-memory
+            maturity: "一辉日后明确提及龙马"
+            possibleOutcomes: [memory_shared, memory_remains_private]
+        mergePoint: RKH1-CH01-E17
+        canonDisposition: {action: adapt, reason: "保留家庭披露，延迟memory_quoted知识边"}
+      - id: B05-O03
+        label: 主动讲述父亲与龙马
+        deviationLevel: D0
+        conditions: [{path: decision.dream_depth, op: eq, value: full_memory}]
+        effects:
+          knowledge: [{path: knowledge.stella.ikki_ryoma_memory, op: set, value: true}, {path: knowledge.stella.ikki_family_pressure, op: set, value: true}]
+        immediateConsequence: "按原作路径完成当事人自述；父亲/龙马引语保留memory_quoted"
+        delayedSeeds: []
+        mergePoint: RKH1-CH01-E17
+        canonDisposition: {action: preserve, reason: "原作默认披露深度"}
+      - id: B05-O04
+        label: 不愿回答
+        deviationLevel: D2
+        conditions: [{path: decision.dream_depth, op: eq, value: refuse}]
+        effects:
+          facts: [{path: facts.dream_disclosure_pending, op: set, value: true}]
+          relationships: [{path: relationship.ikki_stella.stage, op: set, value: guarded_after_question}]
+        immediateConsequence: "E16延迟或替换；不得自动写出史黛菈已完整理解一辉"
+        delayedSeeds:
+          - id: seed-later-self-report
+            maturity: "一辉在信任或安全条件满足时重新决定"
+            possibleOutcomes: [partial_disclosure, full_disclosure, continued_privacy]
+        mergePoint: null
+        canonDisposition: {action: delay, reason: "玩家/一辉真实拒绝使原作披露前置失效"}
+    review:
+      causality: pass
+      character: pending_runtime
+      timeline: pass
+      canon: pass
+      confidence: 0.88
+    evidence: ["MAT-001#L1,697-L1,757", "DIA-CH01-0297", "DIA-CH01-0303", "DIA-CH01-0305"]
+
+  - id: RKH1-CH01-B06
+    title: "赌约具体化、室友协议与称呼"
+    status: staged_template
+    affectsCanonEvents: [RKH1-CH01-E18, RKH1-CH01-E19, RKH1-CH01-E20]
+    causedBy:
+      events: [RKH1-CH01-E17]
+      facts: [FA-CH01-024, FA-CH01-025, FA-CH01-026, FA-CH01-027]
+      playerActions: ["玩家在第一项命令和共同生活计划前真实选择协议范围"]
+    choiceBoundary:
+      location: rk-student-dorm-405
+      source: "MAT-001#L1,817-L2,020"
+      stopBefore: "第一项命令/室友协议/称呼和晚餐分工完成"
+      playerRequired: true
+    conditions:
+      all:
+        - {path: facts.value_recognition_established, op: eq, value: true}
+        - {path: facts.duel_bet_active, op: eq, value: true}
+    options:
+      - id: B06-O01
+        label: 第一项命令为成为室友
+        deviationLevel: D0
+        conditions: [{path: decision.first_command, op: eq, value: roommate}]
+        effects:
+          facts: [{path: facts.first_command_completed, op: set, value: true}, {path: facts.dorm_405_roommates, op: set, value: true}]
+          commitments: [{path: commitments.ikki_stella.roommate_agreement, op: set, value: true}]
+        immediateConsequence: "默认进入章末共同生活和晚餐计划"
+        delayedSeeds: []
+        mergePoint: RKH1-CH01-E20
+        canonDisposition: {action: preserve, reason: "原作章末落点"}
+      - id: B06-O02
+        label: 改写为平等室友协议
+        deviationLevel: D1
+        conditions: [{path: decision.first_command, op: eq, value: equal_roommate_agreement}]
+        effects:
+          facts: [{path: facts.first_command_completed, op: set, value: true}]
+          commitments: [{path: commitments.ikki_stella.roommate_agreement, op: set, value: equal_protocol}]
+          relationships: [{path: relationship.ikki_stella.stage, op: set, value: equal_roommates_with_respect}]
+        immediateConsequence: "共同生活保留，但主仆语言只作为已被重新界定的玩笑"
+        delayedSeeds: []
+        mergePoint: RKH1-CH01-E20
+        canonDisposition: {action: adapt, reason: "保留室友功能，替换命令语义"}
+      - id: B06-O03
+        label: 拒绝或重新协商
+        deviationLevel: D2
+        conditions: [{path: decision.first_command, op: in, value: [reject, renegotiate]}]
+        effects:
+          facts: [{path: facts.first_command_completed, op: set, value: false}]
+          commitments: [{path: commitments.duel_bet.scope, op: set, value: pending_renegotiation}]
+        immediateConsequence: "室友和主仆关系未最终提交；等待双方进一步协商，不自动写成退学或恋爱破裂"
+        delayedSeeds:
+          - id: seed-roommate-negotiation
+            maturity: "双方再次面对生活安排且至少一方提出具体方案"
+            possibleOutcomes: [roommate_agreement, separate_rooms, supervised_cohabitation]
+        mergePoint: null
+        canonDisposition: {action: delay, reason: "关系承诺未完成，章末可停在协商未决"}
+      - id: B06-O04
+        label: 接受直呼名字与料理计划
+        deviationLevel: D0
+        conditions: [{path: decision.domestic_plan, op: eq, value: accept_name_and_dinner}]
+        effects:
+          facts: [{path: facts.dinner_plan_created, op: set, value: true}]
+          commitments: [{path: commitments.stella.name_preference, op: set, value: "一辉直呼史黛菈"}, {path: commitments.ikki_stella.dinner_plan, op: set, value: "准备去附近超市；尚未抵达"}]
+        immediateConsequence: "章末停在准备外出；下一章才处理超市行动"
+        delayedSeeds: []
+        mergePoint: chapter-boundary/CH-02
+        canonDisposition: {action: preserve, reason: "原作最后状态"}
+    review:
+      causality: pass
+      character: pending_runtime
+      timeline: pass
+      canon: pass
+      confidence: 0.9
+    evidence: ["MAT-001#L1,817-L2,020", "DIA-CH01-0347", "DIA-CH01-0357", "DIA-CH01-0376"]
+
+review:
+  causality: pending_runtime
+  character: pending_runtime
+  timeline: pass
+  canon: pass
+  rollback: required_for_D3_D4
+  notes:
+    - "预制分支只提供候选，不代表已在当前存档中执行或提交"
+    - "每个D3/D4选项必须经过四重审稿和事后正文核验"
+    - "每回合最多选择一个立即分支，延迟种子不得提前写成既成事实"
