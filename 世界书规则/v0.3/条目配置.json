@@ -1,0 +1,39 @@
+{
+  "output": "导出/落第骑士英雄谭-v0.3规则.json",
+  "position": 4,
+  "role": 0,
+  "depth": 1,
+  "scanDepth": null,
+  "entries": [
+    {
+      "uid": 0,
+      "id": "LK-CORE-001",
+      "name": "世界设定",
+      "source": "00_世界与数值边界.md",
+      "constant": true,
+      "disable": false,
+      "order": 100,
+      "keys": []
+    },
+    {
+      "uid": 4,
+      "id": "LK-MANA-001",
+      "name": "魔力",
+      "source": "04_魔力与成长.md",
+      "constant": true,
+      "disable": false,
+      "order": 140,
+      "keys": []
+    },
+    {
+      "uid": 5,
+      "id": "LK-BOND-001",
+      "name": "羁绊与觉醒",
+      "source": "05_S羁绊与觉醒.md",
+      "constant": true,
+      "disable": false,
+      "order": 150,
+      "keys": []
+    }
+  ]
+}
