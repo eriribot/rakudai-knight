@@ -6363,8 +6363,39 @@ html
           lines.push("综合初评：" + (rating.base || "待填写") + "。按填写的六维自动计算，不代表实战胜负；不自动改变魔力上限，不授予魔人，也不覆盖原作 NPC 等级。");
         }
         if (draft.greeting) lines.push("", "【玩家选择的开场白】", draft.greeting);
-        lines.push("", "请依据第一卷世界观与当前已确认的开局时间、地点演绎第一幕；若时间地点尚未确定，先让我选择切入场景。若上方有玩家开场白，以其作为切入依据并续写。保持人物动机与信息边界，不预写卷末关系或替我作关键决定。变量按当前卡实际启用的更新协议处理。");
+        lines.push("", "【已确认的开局变量】", JSON.stringify(buildOpeningVariables(draft), null, 2));
+        lines.push("", "请将上述已确认档案按世界书的 MVU 变量更新规则写入对应中文路径；仅在当前开局状态为待建档时应用一次。综合初评直接采用页面计算结果；自定义角色的登记等级保持未登记，直到剧情明确确认。场景时间、地点以本局已确认信息为准，不因建档清空。");
+        lines.push("", "请依据第一卷世界观与当前已确认的开局时间、地点演绎第一幕；若时间地点尚未确定，先让我选择切入场景。若上方有玩家开场白，以其作为切入依据并续写。保持人物动机与信息边界，不预写卷末关系或替我作关键决定。");
         return lines.join("\n");
+      }
+
+      // MVU 使用中文字段；页面与 v2/v3 档案沿用原字段，旧存档仍可导入。
+      function buildOpeningVariables(draft) {
+        var p = draft.profile;
+        var canon = draft.profile_key === "kurogane";
+        var rating = profileRating(p, canon);
+        var player = {};
+        var fields = {
+          name: "姓名", personality: "性格关键词", conduct: "处事风格", school: "所属",
+          device: "固有灵装", nobleArt: "伐刀绝技", category: "能力系别", desc: "角色简介",
+          ability: "能力机制", limits: "限制与代价", style: "战斗风格",
+        };
+        Object.keys(fields).forEach(function (key) { player[fields[key]] = p[key] || ""; });
+        player["六维"] = {};
+        Object.keys(AXIS_LABELS).forEach(function (key) { player["六维"][AXIS_LABELS[key]] = p.stats[key] || ""; });
+        player["综合初评"] = {
+          "规则版本": canon ? "原作第一卷" : "R05-第一版",
+          "分数": rating.score, "等级": rating.base, "拟定登记等级": rating.proposed,
+          "评定状态": canon ? "原作档案" : rating.base ? "已计算" : "待填写六维",
+          "待填写项": rating.missing.map(function (key) { return AXIS_LABELS[key]; }),
+        };
+        player["登记等级"] = canon ? "F" : null;
+        var complete = Object.keys(fields).every(function (key) { return typeof p[key] === "string" && p[key].trim(); }) &&
+          RATING_AXES.every(function (key) { return RATING_GRADES.includes(p.stats[key]); });
+        return {
+          "系统": { "结构版本": 2, "开局状态": complete ? "已建档" : "待建档", "主角模式": canon ? "黑铁一辉" : "自定义角色" },
+          "玩家": player,
+        };
       }
 
       function archiveFeedback(message, isError) {

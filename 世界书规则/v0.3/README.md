@@ -19,4 +19,4 @@
 
 在项目根目录运行 `node scripts/build-worldbook-v03.cjs` 重新导出，附加 `--check` 只读核对产物。开局页的公式与参照仍在 `opening-rating-engine` 中维护；`node scripts/check-opening-rating.cjs --sync-anchors` 仅同步 02 的参照资料，无参数只读检查。
 
-`变量接线契约.md` 含旧评定流程，留作后续修订资料；变量结构尚未确认，不作为已接入的 MVU 协议。当前导出不含 InitVar、变量更新规则或 schema。酒馆同步与核对结果记在导入说明中。
+`变量接线契约.md` 含旧评定流程，留作历史资料。当前中文变量结构、InitVar 与更新规则见 [MVU 契约](../MVU/README.md)，独立于本目录的三条世界设定导出。酒馆同步与核对结果记在导入说明中。
