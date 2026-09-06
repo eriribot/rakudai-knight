@@ -1,0 +1,32 @@
+[
+  {
+    "id": "e0b51684-257a-422a-a9f8-rakudai00001",
+    "scriptName": "[落第骑士]伐刀者战术终端·变量折叠",
+    "findRegex": "/<(?:UpdateVariable|updatevariable|update)>(?:[\\s\\S]*?<(?:Analysis|analysis)>([\\s\\S]*?)<\\/(?:Analysis|analysis)>)?(?:[\\s\\S]*?<(?:JSONPatch|jsonpatch)>([\\s\\S]*?)<\\/(?:JSONPatch|jsonpatch)>)?[\\s\\S]*?<\\/(?:UpdateVariable|updatevariable|update)>/gi",
+    "replaceString": "<div style=\"margin: 12px 0 6px 0; width: 100%; box-sizing: border-box;\"><details style=\"background: linear-gradient(135deg, rgba(17, 24, 39, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%); border: 1px solid rgba(239, 68, 68, 0.4); border-left: 3px solid #ef4444; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);\"><summary style=\"padding: 8px 12px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; user-select: none; background: rgba(239, 68, 68, 0.05);\"><div style=\"display: flex; align-items: center; gap: 8px;\"><span style=\"display: inline-block; background: linear-gradient(135deg, #ef4444, #b91c1c); color: #fff; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; box-shadow: 0 0 6px rgba(239, 68, 68, 0.4);\">破军学园</span><span style=\"color: #f1f5f9; font-size: 12px; font-weight: 600;\">伐刀者战术终端 · 变量已同步</span></div><div style=\"display: flex; align-items: center; gap: 4px; font-size: 11px; color: #94a3b8;\"><span>[查看数据]</span><span style=\"color: #f87171;\">▾</span></div></summary><div style=\"padding: 10px 12px; border-top: 1px solid rgba(255, 255, 255, 0.08); background: rgba(9, 13, 20, 0.85);\"><div style=\"margin-bottom: 8px;\"><div style=\"font-size: 11px; font-weight: 600; color: #fbbf24; margin-bottom: 4px;\">◈ 状态推演解析</div><div style=\"font-size: 12px; line-height: 1.45; color: #cbd5e1; background: rgba(251, 191, 36, 0.06); border-left: 2px solid #f59e0b; padding: 5px 8px; border-radius: 0 4px 4px 0;\">$1</div></div><div><div style=\"font-size: 11px; font-weight: 600; color: #94a3b8; margin-bottom: 4px;\">⚙️ 变量补丁 (JSONPatch)</div><pre style=\"margin: 0; padding: 8px; background: #06090e; border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 4px; font-family: monospace; font-size: 11px; line-height: 1.4; color: #7dd3fc; max-height: 220px; overflow-y: auto; white-space: pre-wrap; word-break: break-all;\"><code>$2</code></pre></div><div style=\"margin-top: 6px; text-align: right; font-size: 9px; color: #475569; font-family: monospace;\">HAGUN ACADEMY // BLAZER TACTICAL INTERFACE</div></div></details></div>",
+    "trimStrings": [],
+    "placement": [2],
+    "disabled": false,
+    "markdownOnly": true,
+    "promptOnly": false,
+    "runOnEdit": true,
+    "substituteRegex": 0,
+    "minDepth": 0,
+    "maxDepth": 9999
+  },
+  {
+    "id": "e0b51684-257a-422a-a9f8-rakudai00002",
+    "scriptName": "[落第骑士]提示词修剪·清理历史变量",
+    "findRegex": "/<(?:UpdateVariable|updatevariable|update)>[\\s\\S]*?<\\/(?:UpdateVariable|updatevariable|update)>/gi",
+    "replaceString": "",
+    "trimStrings": [],
+    "placement": [2],
+    "disabled": false,
+    "markdownOnly": false,
+    "promptOnly": true,
+    "runOnEdit": false,
+    "substituteRegex": 0,
+    "minDepth": 1,
+    "maxDepth": 9999
+  }
+]
