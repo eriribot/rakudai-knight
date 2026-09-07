@@ -1,0 +1,294 @@
+{
+  "createdAt": "2026-09-07T08:24:10.627Z",
+  "scope": "离线 schema、页面纯函数、原文到导出同步与 EJS 模板渲染；不代表真实酒馆验收",
+  "dependencies": {
+    "zod": "4.1.12",
+    "ejs": "3.1.10",
+    "yaml": "2.8.1"
+  },
+  "total": 70,
+  "passed": 70,
+  "failed": 0,
+  "results": [
+    {
+      "name": "schema/init-factory-valid",
+      "passed": true
+    },
+    {
+      "name": "schema/init-yaml-equals-factory",
+      "passed": true
+    },
+    {
+      "name": "schema/multiple-skills-in-both-categories",
+      "passed": true
+    },
+    {
+      "name": "schema/reject-unknown-root",
+      "passed": true
+    },
+    {
+      "name": "schema/reject-unknown-player",
+      "passed": true
+    },
+    {
+      "name": "schema/reject-unknown-skill-field",
+      "passed": true
+    },
+    {
+      "name": "schema/reject-remove-fixed-root",
+      "passed": true
+    },
+    {
+      "name": "schema/reject-remove-fixed-nested",
+      "passed": true
+    },
+    {
+      "name": "schema/reject-volume-null",
+      "passed": true
+    },
+    {
+      "name": "schema/reject-volume-two",
+      "passed": true
+    },
+    {
+      "name": "schema/reject-chapter-invalid-enum",
+      "passed": true
+    },
+    {
+      "name": "schema/reject-future-event",
+      "passed": true
+    },
+    {
+      "name": "schema/reject-unbuilt-running",
+      "passed": true
+    },
+    {
+      "name": "schema/reject-unbuilt-ended",
+      "passed": true
+    },
+    {
+      "name": "schema/reject-unselected-chapter-running",
+      "passed": true
+    },
+    {
+      "name": "schema/reject-ikki-duplicate-npc",
+      "passed": true
+    },
+    {
+      "name": "schema/reject-bond-without-evidence",
+      "passed": true
+    },
+    {
+      "name": "schema/reject-dynamic-key-__proto__",
+      "passed": true
+    },
+    {
+      "name": "schema/reject-dynamic-key-constructor",
+      "passed": true
+    },
+    {
+      "name": "schema/reject-dynamic-key-prototype",
+      "passed": true
+    },
+    {
+      "name": "schema/reject-dynamic-key-甲/乙",
+      "passed": true
+    },
+    {
+      "name": "schema/reject-dynamic-key-甲~乙",
+      "passed": true
+    },
+    {
+      "name": "schema/accept-chapter-序章",
+      "passed": true
+    },
+    {
+      "name": "schema/accept-chapter-第一章",
+      "passed": true
+    },
+    {
+      "name": "schema/accept-chapter-第二章",
+      "passed": true
+    },
+    {
+      "name": "schema/accept-chapter-第三章",
+      "passed": true
+    },
+    {
+      "name": "schema/accept-chapter-第四章",
+      "passed": true
+    },
+    {
+      "name": "schema/accept-chapter-终章",
+      "passed": true
+    },
+    {
+      "name": "schema/sequential-build-player-mode-status",
+      "passed": true
+    },
+    {
+      "name": "schema/sequential-bond-evidence-before-stage",
+      "passed": true
+    },
+    {
+      "name": "migration/v2-preserves-filled-data-and-source",
+      "passed": true
+    },
+    {
+      "name": "migration/v3-idempotent",
+      "passed": true
+    },
+    {
+      "name": "migration/reject-unknown-field",
+      "passed": true
+    },
+    {
+      "name": "migration/reject-unknown-version",
+      "passed": true
+    },
+    {
+      "name": "page/extract-and-load-actual-functions",
+      "passed": true
+    },
+    {
+      "name": "page/user-draft-payload-to-controller-confirmed-state",
+      "passed": true
+    },
+    {
+      "name": "page/kurogane-draft-payload-to-controller-confirmed-state",
+      "passed": true
+    },
+    {
+      "name": "page/archive-v2-to-v5-preserves-input",
+      "passed": true
+    },
+    {
+      "name": "page/archive-v3-to-v5-preserves-input",
+      "passed": true
+    },
+    {
+      "name": "page/archive-v4-to-v5-preserves-input",
+      "passed": true
+    },
+    {
+      "name": "page/empty-ability-lists-remain-draft-until-controller-confirmation",
+      "passed": true
+    },
+    {
+      "name": "page/multiline-fullwidth-and-ascii-separators",
+      "passed": true
+    },
+    {
+      "name": "page/reject-ability-｜说明｜代价",
+      "passed": true
+    },
+    {
+      "name": "page/reject-ability-甲｜说明",
+      "passed": true
+    },
+    {
+      "name": "page/reject-ability-甲｜说明｜代价｜多余",
+      "passed": true
+    },
+    {
+      "name": "page/reject-ability-甲\\n甲",
+      "passed": true
+    },
+    {
+      "name": "page/reject-ability-__proto__",
+      "passed": true
+    },
+    {
+      "name": "page/reject-ability-prototype",
+      "passed": true
+    },
+    {
+      "name": "page/reject-ability-constructor",
+      "passed": true
+    },
+    {
+      "name": "page/reject-ability-甲/乙",
+      "passed": true
+    },
+    {
+      "name": "page/reject-ability-甲~乙",
+      "passed": true
+    },
+    {
+      "name": "page/rating-top-three-core-values-unchanged",
+      "passed": true
+    },
+    {
+      "name": "page/import-ignores-cached-rating",
+      "passed": true
+    },
+    {
+      "name": "page/draft-does-not-initialize-and-confirmed-request-continues-story",
+      "passed": true
+    },
+    {
+      "name": "export/valid-json-and-entry-map",
+      "passed": true
+    },
+    {
+      "name": "export/source-body-uid-9",
+      "passed": true
+    },
+    {
+      "name": "export/source-body-uid-11",
+      "passed": true
+    },
+    {
+      "name": "export/source-body-uid-12",
+      "passed": true
+    },
+    {
+      "name": "export/init-yaml-synchronized",
+      "passed": true
+    },
+    {
+      "name": "export/update-rules-synchronized",
+      "passed": true
+    },
+    {
+      "name": "export/preserve-existing-metadata-and-unrelated-entries",
+      "passed": true
+    },
+    {
+      "name": "component/generated-schema-and-guard-register-and-preserve-protected-fields",
+      "passed": true
+    },
+    {
+      "name": "ejs/source-ikki",
+      "passed": true
+    },
+    {
+      "name": "ejs/source-custom",
+      "passed": true
+    },
+    {
+      "name": "ejs/source-unselected",
+      "passed": true
+    },
+    {
+      "name": "ejs/source-missing",
+      "passed": true
+    },
+    {
+      "name": "ejs/export-ikki",
+      "passed": true
+    },
+    {
+      "name": "ejs/export-custom",
+      "passed": true
+    },
+    {
+      "name": "ejs/export-unselected",
+      "passed": true
+    },
+    {
+      "name": "ejs/export-missing",
+      "passed": true
+    }
+  ]
+}

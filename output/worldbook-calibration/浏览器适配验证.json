@@ -1,0 +1,55 @@
+{
+  "passed": 12,
+  "total": 12,
+  "runtime": "离线固定API语义模拟，未连接真实酒馆",
+  "results": [
+    {
+      "name": "消息iframe与scriptiframe都使用明确message接口并保留其他数据",
+      "passed": true
+    },
+    {
+      "name": "切swipe后旧凭据不能写入",
+      "passed": true
+    },
+    {
+      "name": "切聊天但变量相同后旧凭据不能写入",
+      "passed": true
+    },
+    {
+      "name": "楼层被删除后同位置重建后旧凭据不能写入",
+      "passed": true
+    },
+    {
+      "name": "正文被编辑后旧凭据不能写入",
+      "passed": true
+    },
+    {
+      "name": "追加用户消息后旧凭据不能写入",
+      "passed": true
+    },
+    {
+      "name": "不允许旧开局页修改已有后续助手楼层",
+      "passed": true
+    },
+    {
+      "name": "未导入新版伴随脚本时显示具体缺项",
+      "passed": true
+    },
+    {
+      "name": "没有MVU数据不自行伪造初始化",
+      "passed": true
+    },
+    {
+      "name": "旧异步API版本在写入前拒绝",
+      "passed": true
+    },
+    {
+      "name": "两个界面并发提交只允许一次落地",
+      "passed": true
+    },
+    {
+      "name": "伴随guard运行时保护：恢复章段后也拒绝关联未来事件",
+      "passed": true
+    }
+  ]
+}

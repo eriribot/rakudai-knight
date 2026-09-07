@@ -1,0 +1,71 @@
+
+#rk-orb,#rk-shell,#rk-wheel,#rk-wheel-curtain{box-sizing:border-box;font-family:"Microsoft YaHei UI","Noto Sans CJK SC",sans-serif;font-weight:400;font-size:14px;line-height:1.4;text-shadow:none;letter-spacing:normal}
+#rk-shell *,#rk-wheel *{box-sizing:border-box}
+#rk-orb{position:fixed;z-index:99990;width:68px;height:68px;padding:3px;background:#080808;color:#fff;border:9px solid transparent;border-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4IiBzaGFwZS1yZW5kZXJpbmc9ImNyaXNwRWRnZXMiPjxwYXRoIGQ9Ik04LDAgTDQwLDAgTDQwLDQgTDQ0LDQgTDQ0LDggTDQ4LDggTDQ4LDQwIEw0NCw0MCBMNDQsNDQgTDQwLDQ0IEw0MCw0OCBMOCw0OCBMOCw0NCBMNCw0NCBMNCw0MCBMMCw0MCBMMCw4IEw0LDggTDQsNCBMOCw0IFoiIGZpbGw9IiMwOTA5MDkiLz48cGF0aCBkPSJNOC4wLDEgTDQwLjAsMSBMNDAuMCw0LjUgTDQzLjUsNC41IEw0My41LDguMCBMNDcsOC4wIEw0Nyw0MC4wIEw0My41LDQwLjAgTDQzLjUsNDMuNSBMNDAuMCw0My41IEw0MC4wLDQ3IEw4LjAsNDcgTDguMCw0My41IEw0LjUsNDMuNSBMNC41LDQwLjAgTDEsNDAuMCBMMSw4LjAgTDQuNSw4LjAgTDQuNSw0LjUgTDguMCw0LjUgWiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjEuNiIvPjxwYXRoIGQ9Ik0xMC4wLDUgTDM4LjAsNSBMMzguMCw3LjUgTDQwLjUsNy41IEw0MC41LDEwLjAgTDQzLDEwLjAgTDQzLDM4LjAgTDQwLjUsMzguMCBMNDAuNSw0MC41IEwzOC4wLDQwLjUgTDM4LjAsNDMgTDEwLjAsNDMgTDEwLjAsNDAuNSBMNy41LDQwLjUgTDcuNSwzOC4wIEw1LDM4LjAgTDUsMTAuMCBMNy41LDEwLjAgTDcuNSw3LjUgTDEwLjAsNy41IFoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxLjYiLz48cGF0aCBkPSJNMTIuMCw5IEwzNi4wLDkgTDM2LjAsMTAuNSBMMzcuNSwxMC41IEwzNy41LDEyLjAgTDM5LDEyLjAgTDM5LDM2LjAgTDM3LjUsMzYuMCBMMzcuNSwzNy41IEwzNi4wLDM3LjUgTDM2LjAsMzkgTDEyLjAsMzkgTDEyLjAsMzcuNSBMMTAuNSwzNy41IEwxMC41LDM2LjAgTDksMzYuMCBMOSwxMi4wIEwxMC41LDEyLjAgTDEwLjUsMTAuNSBMMTIuMCwxMC41IFoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxLjYiLz48L3N2Zz4=") 16 stretch;display:flex;align-items:center;justify-content:center;cursor:pointer;user-select:none;touch-action:none;border-radius:0;box-shadow:3px 3px 0 #080808;outline:none}
+#rk-orb .crest{display:flex;flex-direction:column;align-items:center;gap:1px;line-height:1.15;pointer-events:none}
+#rk-orb .crest svg{display:block;width:27px;height:27px}
+#rk-orb .crest span{font-family:"Noto Serif CJK SC","Songti SC","SimSun",serif;font-size:12px;letter-spacing:2px;white-space:nowrap}
+#rk-orb:hover .crest,#rk-orb:focus-visible .crest{opacity:.72}
+#rk-orb:focus-visible{outline:2px solid #fff;outline-offset:4px}
+#rk-orb[aria-expanded="true"]{visibility:hidden;pointer-events:none}
+#rk-orb .b{position:absolute;top:-12px;right:-12px;min-width:20px;height:20px;padding:0 3px;display:none;background:#fff;color:#080808;border:2px solid #080808;font:bold 11px/16px Consolas,monospace;text-align:center;z-index:4;box-shadow:0 0 0 1px #fff}
+#rk-orb .tip{position:absolute;top:50%;transform:translateY(-50%);width:180px;padding:8px 10px;background:#080808;border:3px double #fff;box-shadow:0 0 0 2px #080808;color:#fff;font:12px/1.5 "Microsoft YaHei UI",sans-serif;display:none;pointer-events:none;z-index:3;text-align:left}
+#rk-orb .tip.on{display:block}#rk-orb .tip.side-l{right:calc(100% + 15px)}#rk-orb .tip.side-r{left:calc(100% + 15px)}
+#rk-orb .tip b{display:block;font-size:12px;color:#fff}#rk-orb .tip s{display:block;text-decoration:none;font-size:11px;color:#ccc;margin-top:3px}
+#rk-shell{position:fixed;z-index:99991;background:#080808;color:#fff;border:12px solid transparent;border-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4IiBzaGFwZS1yZW5kZXJpbmc9ImNyaXNwRWRnZXMiPjxwYXRoIGQ9Ik04LDAgTDQwLDAgTDQwLDQgTDQ0LDQgTDQ0LDggTDQ4LDggTDQ4LDQwIEw0NCw0MCBMNDQsNDQgTDQwLDQ0IEw0MCw0OCBMOCw0OCBMOCw0NCBMNCw0NCBMNCw0MCBMMCw0MCBMMCw4IEw0LDggTDQsNCBMOCw0IFoiIGZpbGw9IiMwOTA5MDkiLz48cGF0aCBkPSJNOC4wLDEgTDQwLjAsMSBMNDAuMCw0LjUgTDQzLjUsNC41IEw0My41LDguMCBMNDcsOC4wIEw0Nyw0MC4wIEw0My41LDQwLjAgTDQzLjUsNDMuNSBMNDAuMCw0My41IEw0MC4wLDQ3IEw4LjAsNDcgTDguMCw0My41IEw0LjUsNDMuNSBMNC41LDQwLjAgTDEsNDAuMCBMMSw4LjAgTDQuNSw4LjAgTDQuNSw0LjUgTDguMCw0LjUgWiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjEuNiIvPjxwYXRoIGQ9Ik0xMC4wLDUgTDM4LjAsNSBMMzguMCw3LjUgTDQwLjUsNy41IEw0MC41LDEwLjAgTDQzLDEwLjAgTDQzLDM4LjAgTDQwLjUsMzguMCBMNDAuNSw0MC41IEwzOC4wLDQwLjUgTDM4LjAsNDMgTDEwLjAsNDMgTDEwLjAsNDAuNSBMNy41LDQwLjUgTDcuNSwzOC4wIEw1LDM4LjAgTDUsMTAuMCBMNy41LDEwLjAgTDcuNSw3LjUgTDEwLjAsNy41IFoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxLjYiLz48cGF0aCBkPSJNMTIuMCw5IEwzNi4wLDkgTDM2LjAsMTAuNSBMMzcuNSwxMC41IEwzNy41LDEyLjAgTDM5LDEyLjAgTDM5LDM2LjAgTDM3LjUsMzYuMCBMMzcuNSwzNy41IEwzNi4wLDM3LjUgTDM2LjAsMzkgTDEyLjAsMzkgTDEyLjAsMzcuNSBMMTAuNSwzNy41IEwxMC41LDM2LjAgTDksMzYuMCBMOSwxMi4wIEwxMC41LDEyLjAgTDEwLjUsMTAuNSBMMTIuMCwxMC41IFoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxLjYiLz48L3N2Zz4=") 16 stretch;border-radius:0;box-shadow:6px 6px 0 rgba(0,0,0,.65);display:none;flex-direction:column;overflow:hidden;isolation:isolate}
+#rk-shell.on{display:flex}
+#rk-shell .bar{height:36px;min-height:36px;display:flex;align-items:center;gap:8px;padding:0 5px 5px;cursor:grab;user-select:none;touch-action:none;background:#080808;border-bottom:3px double #fff}
+#rk-shell.busy .bar{cursor:grabbing}#rk-shell.busy iframe{pointer-events:none}
+#rk-shell .crest-label{font:600 13px "Noto Serif CJK SC","Songti SC","SimSun",serif;letter-spacing:2px;display:flex;align-items:center;gap:7px;white-space:nowrap;color:#fff}
+#rk-shell .crest-label svg{width:16px;height:16px;flex:none}
+#rk-shell .bar-handle{flex:1;height:5px;max-width:35px;margin:auto;background:repeating-linear-gradient(90deg,#fff 0 2px,transparent 2px 5px);opacity:.5}
+#rk-shell .bar button{display:flex;align-items:center;justify-content:center;flex:none;min-width:28px;width:28px;height:28px;margin:0;padding:0;border:1px solid #ddd;border-radius:0;background:#080808;color:#fff;box-shadow:none;font:17px/1 Consolas,monospace;cursor:pointer}
+#rk-shell .bar button:is(:hover,:focus-visible){background:#fff;color:#000;outline:1px solid #fff;outline-offset:2px}
+#rk-shell iframe{display:block;flex:1;min-height:0;width:100%;border:0;background:#080808;color-scheme:dark}
+#rk-shell .rsz{position:absolute;right:0;bottom:0;width:22px;height:22px;cursor:nwse-resize;touch-action:none;z-index:10;background:repeating-linear-gradient(135deg,transparent 0 3px,#fff 3px 4px,transparent 4px 6px);clip-path:polygon(100% 0,100% 100%,0 100%)}
+#rk-shell.drawer .rsz{display:none}
+#rk-wheel-curtain{position:fixed;display:none;z-index:99992;background:rgba(0,0,0,.16);touch-action:none}
+#rk-wheel-curtain.on{display:block}
+#rk-wheel{position:fixed;z-index:99993;display:none;user-select:none;touch-action:manipulation;color:#fff;pointer-events:none;filter:drop-shadow(3px 4px 0 rgba(0,0,0,.6));background:transparent}
+#rk-wheel.on{display:block;animation:rk-wheel-open .14s ease-out}
+#rk-wheel .mono-wheel-svg{pointer-events:none}#rk-wheel .mono-sector,#rk-wheel .mono-core,#rk-wheel .mono-wheel-close{pointer-events:auto}
+#rk-wheel .mono-core{width:26%;height:26%;font-size:14px}
+#rk-wheel .mono-wheel-caption{color:#fff;background:#080808;border:3px double #fff;padding:7px 3px;top:80%;left:26%;width:48%;height:auto}
+#rk-wheel .mono-wheel-caption b{font-size:12px;letter-spacing:0}
+#rk-wheel .mono-wheel-close{position:absolute;top:103%;left:50%;transform:translateX(-50%);padding:4px 16px;min-height:30px;border:2px solid #fff;border-radius:0;background:#080808;color:#fff;font:12px/1.2 "Microsoft YaHei UI",sans-serif;cursor:pointer;white-space:nowrap}
+#rk-wheel .mono-wheel-close:is(:hover,:focus-visible){background:#fff;color:#080808;outline:1px solid #080808}
+@keyframes rk-wheel-open{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
+@media(prefers-reduced-motion:reduce){#rk-wheel.on{animation:none}}
+
+#rk-wheel .mono-wheel-svg{width:100%;height:auto;display:block;overflow:visible}
+#rk-wheel .mono-sector{cursor:pointer;outline:none;--sector-ink:#fff;--sector-bg:#080808}
+#rk-wheel .mono-sector-shape{fill:var(--sector-bg);stroke:#fff;stroke-width:2.8;vector-effect:non-scaling-stroke;stroke-linejoin:miter}
+#rk-wheel .mono-sector-icon{fill:var(--sector-ink);pointer-events:none}
+#rk-wheel .mono-sector-label{fill:var(--sector-ink);font:600 17px "Noto Serif CJK SC","Songti SC","SimSun",serif;text-anchor:middle;pointer-events:none;letter-spacing:1px}
+#rk-wheel .mono-sector-no{fill:var(--sector-ink);opacity:.6;font:9px Consolas,monospace;text-anchor:middle;pointer-events:none}
+#rk-wheel .mono-sector:is(:hover,:focus-visible){--sector-ink:#080808;--sector-bg:#fff}
+#rk-wheel .mono-sector:is(:hover,:focus-visible) .mono-sector-shape{stroke:#080808;stroke-width:2.8}
+#rk-wheel .mono-sector:active .mono-sector-shape{fill:#cfcfcf}
+#rk-wheel .mono-core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:94px;height:94px;padding:4px;display:flex;flex-direction:column;gap:2px;align-items:center;justify-content:center;z-index:2;background:#080808;color:#fff;border:12px solid transparent;border-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4IiBzaGFwZS1yZW5kZXJpbmc9ImNyaXNwRWRnZXMiPjxwYXRoIGQ9Ik04LDAgTDQwLDAgTDQwLDQgTDQ0LDQgTDQ0LDggTDQ4LDggTDQ4LDQwIEw0NCw0MCBMNDQsNDQgTDQwLDQ0IEw0MCw0OCBMOCw0OCBMOCw0NCBMNCw0NCBMNCw0MCBMMCw0MCBMMCw4IEw0LDggTDQsNCBMOCw0IFoiIGZpbGw9IiMwOTA5MDkiLz48cGF0aCBkPSJNOC4wLDEgTDQwLjAsMSBMNDAuMCw0LjUgTDQzLjUsNC41IEw0My41LDguMCBMNDcsOC4wIEw0Nyw0MC4wIEw0My41LDQwLjAgTDQzLjUsNDMuNSBMNDAuMCw0My41IEw0MC4wLDQ3IEw4LjAsNDcgTDguMCw0My41IEw0LjUsNDMuNSBMNC41LDQwLjAgTDEsNDAuMCBMMSw4LjAgTDQuNSw4LjAgTDQuNSw0LjUgTDguMCw0LjUgWiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjEuNiIvPjxwYXRoIGQ9Ik0xMC4wLDUgTDM4LjAsNSBMMzguMCw3LjUgTDQwLjUsNy41IEw0MC41LDEwLjAgTDQzLDEwLjAgTDQzLDM4LjAgTDQwLjUsMzguMCBMNDAuNSw0MC41IEwzOC4wLDQwLjUgTDM4LjAsNDMgTDEwLjAsNDMgTDEwLjAsNDAuNSBMNy41LDQwLjUgTDcuNSwzOC4wIEw1LDM4LjAgTDUsMTAuMCBMNy41LDEwLjAgTDcuNSw3LjUgTDEwLjAsNy41IFoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxLjYiLz48cGF0aCBkPSJNMTIuMCw5IEwzNi4wLDkgTDM2LjAsMTAuNSBMMzcuNSwxMC41IEwzNy41LDEyLjAgTDM5LDEyLjAgTDM5LDM2LjAgTDM3LjUsMzYuMCBMMzcuNSwzNy41IEwzNi4wLDM3LjUgTDM2LjAsMzkgTDEyLjAsMzkgTDEyLjAsMzcuNSBMMTAuNSwzNy41IEwxMC41LDM2LjAgTDksMzYuMCBMOSwxMi4wIEwxMC41LDEyLjAgTDEwLjUsMTAuNSBMMTIuMCwxMC41IFoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxLjYiLz48L3N2Zz4=") 16 stretch;font-family:"Noto Serif CJK SC","Songti SC","SimSun",serif;cursor:pointer;box-sizing:border-box;line-height:1.15}
+#rk-wheel .mono-core span{font-size:15px;letter-spacing:2px;white-space:nowrap}
+#rk-wheel .mono-aperture{width:34px;height:34px;flex:none;display:block}
+#rk-wheel .mono-core:is(:hover,:focus-visible){filter:invert(1);outline:1px solid #fff;outline-offset:1px}
+#rk-wheel .mono-wheel-caption{position:absolute;top:80%;left:30%;width:40%;text-align:center;line-height:1.65;color:#111;font-family:"Noto Serif CJK SC","Songti SC","SimSun",serif;pointer-events:none}
+#rk-wheel .mono-wheel-caption b{display:block;font-size:13px;font-weight:700;letter-spacing:.5px}
+#rk-wheel .mono-wheel-caption small{display:block;font:9px/1.6 Consolas,monospace;letter-spacing:1px}
+#rk-wheel .mono-core{width:26%;height:26%}#rk-wheel .mono-wheel-caption{color:#fff;background:#080808;top:80%;left:26%;width:48%;border:3px double #fff;padding:7px 3px}
+
+#rk-story-panel{flex:0 0 auto;max-height:42%;overflow:auto;border-bottom:3px double #fff;color:#eee;background:#080808;font-size:12px}
+#rk-story-panel summary{cursor:pointer;min-height:36px;padding:8px 6px;font-weight:700}
+#rk-story-panel .rk-story-content{padding:0 8px 8px}
+#rk-story-panel p{margin:4px 0;overflow-wrap:anywhere;line-height:1.5}
+#rk-story-panel label{display:flex;align-items:center;gap:8px;margin:8px 0}
+#rk-story-panel select,#rk-story-panel button{font:inherit;background:#080808;color:#fff;border:1px solid #aaa;border-radius:0;box-shadow:none;min-height:36px;padding:6px 8px;margin:0}
+#rk-story-panel .rk-story-actions{display:flex;gap:6px;flex-wrap:wrap}
+#rk-story-panel button:not(:disabled){cursor:pointer}
+#rk-story-panel button:not(:disabled):hover{background:#fff;color:#080808}
+#rk-story-panel :disabled{opacity:.4;cursor:not-allowed}
+#rk-story-panel :focus-visible{outline:2px solid #fff;outline-offset:2px}
+#rk-story-panel [data-story-hint]{color:#aaa}
+#rk-story-panel [data-story-status]{border-left:2px solid #aaa;padding-left:6px}
+@media(max-width:480px){#rk-story-panel{max-height:46%}#rk-story-panel .rk-story-actions button{flex:1 1 40%}}

@@ -1,0 +1,58 @@
+{
+  "passed": 13,
+  "total": 13,
+  "results": [
+    {
+      "name": "建档一次整体写入且采用页面分数、保留包装字段",
+      "passed": true
+    },
+    {
+      "name": "一辉模式为 F 且不重建一辉 NPC",
+      "passed": true
+    },
+    {
+      "name": "切聊天或 swipe 导致旧凭据不能提交",
+      "passed": true
+    },
+    {
+      "name": "其他更新抢先完成时不覆盖",
+      "passed": true
+    },
+    {
+      "name": "无效字段在写入前拒绝",
+      "passed": true
+    },
+    {
+      "name": "写入未落地时不给成功",
+      "passed": true
+    },
+    {
+      "name": "写入落地但响应失败：重试只回读不重写",
+      "passed": true
+    },
+    {
+      "name": "重复点击只有一个写入",
+      "passed": true
+    },
+    {
+      "name": "已确认场景不可被建档重置",
+      "passed": true
+    },
+    {
+      "name": "章段仅依序结束和开始，终章不跨卷",
+      "passed": true
+    },
+    {
+      "name": "模型父对象替换不能绕过系统和章段所有权",
+      "passed": true
+    },
+    {
+      "name": "待建档时模型无法代为初始化",
+      "passed": true
+    },
+    {
+      "name": "更新把stat_data置空、换成字符串或数组时恢复",
+      "passed": true
+    }
+  ]
+}

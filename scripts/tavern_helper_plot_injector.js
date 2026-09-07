@@ -1,18 +1,17 @@
 /**
- * 《落第骑士英雄谭》TRPG - 动态 EJS 拦截与剧情卷章注入综合脚本
+ * 《落第骑士英雄谭》TRPG - 动态剧情卷章注入脚本 (Tavern Helper / JS-Slash-Runner)
  * 
- * 运行环境：SillyTavern 卡内内嵌脚本（Tavern Helper / JS-Slash-Runner）
- * 核心功能：
+ * 核心原理：
  * 1. 监听 CHAT_COMPLETION_PROMPT_READY（出网前最后一微秒）
- * 2. 动态 EJS 拦截：就地解析世界书与提示词中的 <% if ... %> 语法，彻底消除报错并消除代码泄露
- * 3. 动态剧情卷章注入：读取当前 MVU 的 `场景.当前卷` 与 `场景.当前章`，内置第1卷～第19卷全剧脉络，在用户输入前精准注入当前卷章节点与阶段指引
+ * 2. 自动读取当前 MVU / 聊天变量中的 `场景.当前卷` 与 `场景.当前章`
+ * 3. 内置《落第骑士英雄谭》第1卷至第19卷（全19卷完结）全章节脉络字典
+ * 4. 自动匹配当前卷章并生成精简的情境与认知边界提示
+ * 5. 精准注入到最新一条【User Input】之前，让大模型在生成本轮回复时明确当前所处的具体卷章舞台，杜绝剧透与提前越级
  */
 (function () {
   'use strict';
 
-  // ==========================================
-  // 一、 全19卷 章节脉络字典
-  // ==========================================
+  // 1. 落第骑士英雄谭 全19卷 章节脉络字典
   const VOLUME_CHAPTER_ROADMAP = {
     1: {
       title: '第一卷：校内选拔战·初战篇',
@@ -209,9 +208,7 @@
     }
   };
 
-  // ==========================================
-  // 二、 读取 stat_data 变量
-  // ==========================================
+  // 2. 读取 stat_data 变量
   function getStatData() {
     let stat_data = null;
     try {
@@ -238,49 +235,7 @@
     return stat_data;
   }
 
-  // 判定是否为一辉主角
-  function checkIsIkki(stat_data) {
-    if (stat_data?.系统?.主角模式 === '黑铁一辉') return true;
-    try {
-      const userName = (window.SillyTavern && window.SillyTavern.getContext) 
-        ? (window.SillyTavern.getContext().name1 || '') 
-        : '';
-      if (userName.includes('一辉')) return true;
-    } catch (e) {}
-    return false;
-  }
-
-  // ==========================================
-  // 三、 核心模板解析处理器（就地替换 EJS）
-  // ==========================================
-  function renderEjsContent(text, isIkki) {
-    if (!text || typeof text !== 'string' || !text.includes('<%')) {
-      return text;
-    }
-
-    let processed = text;
-
-    if (window.EjsTemplate && typeof window.EjsTemplate.render === 'function') {
-      try {
-        const stat_data = { 系统: { 主角模式: isIkki ? '黑铁一辉' : '自定义角色' } };
-        return window.EjsTemplate.render(processed, { stat_data, isIkki });
-      } catch (err) {}
-    }
-
-    processed = processed.replace(
-      /<%\s*if\s*\(([\s\S]*?)\)\s*\{\s*%>([\s\S]*?)<%\s*\}\s*else\s*\{\s*%>([\s\S]*?)<%\s*\}\s*%>/g,
-      (match, condition, ifBlock, elseBlock) => {
-        return isIkki ? ifBlock.trim() : elseBlock.trim();
-      }
-    );
-
-    processed = processed.replace(/<%[\s\S]*?%>/g, '');
-    return processed;
-  }
-
-  // ==========================================
-  // 四、 动态剧情卷章解析与 User 消息注入
-  // ==========================================
+  // 3. 匹配当前卷章对应的情境摘要
   function resolveStageInfo(vol, rawChapter) {
     const volNum = parseInt(vol, 10) || 1;
     const volData = VOLUME_CHAPTER_ROADMAP[volNum];
@@ -294,6 +249,7 @@
       };
     }
 
+    // 精确或包含匹配章名
     let matchedName = chap;
     let summary = volData.chapters[chap] || '';
 
@@ -314,15 +270,20 @@
     };
   }
 
-  function injectPlotStageNotice(chatArray, stat_data) {
+  // 4. 核心注入逻辑：定位最新 User 消息并在其正文最前方注入卷章提示
+  function injectPlotStageNotice(chatArray) {
     if (!Array.isArray(chatArray) || chatArray.length === 0) return;
 
+    const stat_data = getStatData();
     const currentVol = stat_data?.场景?.当前卷 || 1;
     const currentChap = stat_data?.场景?.当前章 || '第一章';
 
     const stageInfo = resolveStageInfo(currentVol, currentChap);
+    
+    // 构造高内聚提示词 Banner
     const banner = `【当前剧情节点：${stageInfo.volumeTitle} · ${stageInfo.chapterName}】${stageInfo.summary ? `（${stageInfo.summary}）` : ''}\n- 阶段原则：严格遵循本章情境与当前人物认知边界，绝不抢先演绎未达章节的事件与胜负，不提前预支未来关系与承诺。`;
 
+    // 寻找最新一条用户消息（从后向前找 role === 'user'）
     let targetUserMsg = null;
     for (let i = chatArray.length - 1; i >= 0; i--) {
       const msg = chatArray[i];
@@ -334,58 +295,32 @@
 
     if (!targetUserMsg || typeof targetUserMsg.content !== 'string') return;
 
+    // 清理可能已有的历史注入标签（防重试或多轮污染）
     targetUserMsg.content = targetUserMsg.content.replace(/【当前剧情节点：[\s\S]*?阶段原则：[^\n]*\n\n?/g, '');
+
+    // 注入至 User Input 之前
     targetUserMsg.content = `${banner}\n\n${targetUserMsg.content}`;
-    console.log(`[LK-综合拦截器] 已在用户输入前注入剧情节点: [${stageInfo.volumeTitle} · ${stageInfo.chapterName}]`);
+
+    console.log(`[LK-剧情注入器] 成功在 User Input 前注入剧情锚点: [${stageInfo.volumeTitle} · ${stageInfo.chapterName}]`);
   }
 
-  // ==========================================
-  // 五、 消息队列综合拦截
-  // ==========================================
-  function processMessages(chatArray) {
-    if (!Array.isArray(chatArray) || chatArray.length === 0) return;
-
-    const stat_data = getStatData();
-    const isIkki = checkIsIkki(stat_data);
-
-    // 1. 就地解析清洗 EJS
-    let modifiedCount = 0;
-    for (const msg of chatArray) {
-      if (msg && typeof msg.content === 'string' && msg.content.includes('<%')) {
-        const before = msg.content;
-        msg.content = renderEjsContent(msg.content, isIkki);
-        if (msg.content !== before) {
-          modifiedCount++;
-        }
-      }
-    }
-
-    if (modifiedCount > 0) {
-      console.log(`[LK-综合拦截器] 成功清洗 ${modifiedCount} 处 EJS 模板！主角路由: [${isIkki ? '黑铁一辉' : '自定义角色'}]`);
-    }
-
-    // 2. 动态注入剧情卷章提示至最新 User Input 之前
-    injectPlotStageNotice(chatArray, stat_data);
-  }
-
+  // 5. 事件就绪处理器
   function onPromptReady(eventData) {
     try {
       if (!eventData) return;
       if (Array.isArray(eventData)) {
-        processMessages(eventData);
+        injectPlotStageNotice(eventData);
       } else if (Array.isArray(eventData.chat)) {
-        processMessages(eventData.chat);
+        injectPlotStageNotice(eventData.chat);
       } else if (Array.isArray(eventData.messages)) {
-        processMessages(eventData.messages);
+        injectPlotStageNotice(eventData.messages);
       }
     } catch (e) {
-      console.error('[LK-综合拦截器] 拦截执行异常:', e);
+      console.error('[LK-剧情注入器] 拦截执行异常:', e);
     }
   }
 
-  // ==========================================
-  // 六、 双总线注册
-  // ==========================================
+  // 6. 注册事件监听
   function register() {
     const readyEvent = (window.tavern_events && window.tavern_events.CHAT_COMPLETION_PROMPT_READY)
       || 'chat_completion_prompt_ready';
@@ -404,11 +339,8 @@
       }
     } catch (e) {}
 
-    console.log('[LK-综合拦截器] 已成功注册就绪监听（EJS 双分支解析 + 1~19卷动态剧情注入）！');
+    console.log('[LK-剧情注入器] 已成功注入就绪监听，将在用户输入前动态标记第1卷～第19卷剧情！');
   }
 
   register();
-  try {
-    getStatData();
-  } catch (e) {}
 })();
