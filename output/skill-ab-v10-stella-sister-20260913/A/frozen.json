@@ -1,0 +1,46 @@
+{
+  "status": "A 首轮已冻结",
+  "frozen_at_utc": "2026-09-13T08:30:41.862380+00:00",
+  "self_check": {
+    "checked_at_utc": "2026-09-13T08:30:41.862380+00:00",
+    "entries": 3,
+    "body_unicode_characters": 1053,
+    "body_cjk_characters": 934,
+    "evidence_facts": 26,
+    "exact_excerpt_checks": 81,
+    "json_template_fields_preserved": true,
+    "uid_matches_entry_key": true,
+    "markdown_and_json_content_match": true,
+    "source_bytes_match": true,
+    "record_hashes_match_query": true,
+    "query_matches": [
+      4,
+      2,
+      2,
+      0
+    ],
+    "library_init_to_check_seconds": 600.438,
+    "semantic_review": "Agent manually reviewed all final paragraphs against the already-read source context before freezing; not independent judging.",
+    "sillytavern_import_tested": false,
+    "input_tokens": null,
+    "output_tokens": null
+  },
+  "files": {
+    "worldbook.md": {
+      "sha256": "ae9afba59c70a35a7d46a533771a3537db1f738fc96dc0a1f95d9bb4c7f12135",
+      "bytes": 3689
+    },
+    "worldbook.json": {
+      "sha256": "69879ed449d318d4eccc00921a633f10efa7d42e80eab8e39234f7a8bae4e299",
+      "bytes": 7372
+    },
+    "evidence.json": {
+      "sha256": "da0cd0cfeba3e0e61c4cffe6f4af4616d403582190c4bf947fafaa8ccbbca8f9",
+      "bytes": 38477
+    },
+    "process.md": {
+      "sha256": "2d67ebb28fdcba1cfa5326776a8cb303062e8f701708a423980a2e108c458be4",
+      "bytes": 7309
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "schema": "blind-review-receipt/v1",
+  "recorded_by": "root",
+  "source": "独立核对员已完成盲评并在本任务最终回复；其未自行落盘，本文件由主代理据回复记录，不额外添加发现。",
+  "source_benchmark_sha256": "a7dc9bb1f8b2ac4541af3edb4ad31eb7d384808103dadcf000529b3684e59e7a",
+  "reviewer_scope": "X、Y各3条全部正文、20项冻结基准、表外事实、场景限制与台词归属",
+  "reviewer_unblinded": false,
+  "samples": {
+    "X": {
+      "covered": 19,
+      "partial": 1,
+      "omitted": 0,
+      "partial_points": [
+        {
+          "id": "F11",
+          "detail": "未写一辉不强行挣脱是担心伤到她"
+        }
+      ],
+      "unsupported_new_claims_detected": 0,
+      "source_contradictions_detected": 0,
+      "inference_as_direct_fact_detected": 0,
+      "appearance_misattribution_detected": 0,
+      "F20_identity_trap": "pass",
+      "F19_inference_label": "pass"
+    },
+    "Y": {
+      "covered": 19,
+      "partial": 1,
+      "omitted": 0,
+      "partial_points": [
+        {
+          "id": "F07",
+          "detail": "未写赴奎多兰出差计划"
+        }
+      ],
+      "unsupported_new_claims_detected": 0,
+      "source_contradictions_detected": 0,
+      "inference_as_direct_fact_detected": 0,
+      "appearance_misattribution_detected": 0,
+      "F20_identity_trap": "pass",
+      "F19_inference_label": "pass"
+    }
+  },
+  "conclusion": "两份均可用，本轮不能泛化整个技能可靠性。"
+}

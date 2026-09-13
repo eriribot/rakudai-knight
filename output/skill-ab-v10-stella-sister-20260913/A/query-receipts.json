@@ -1,0 +1,1343 @@
+[
+  {
+    "command": [
+      "C:\\Python314\\python.exe",
+      "-X",
+      "utf8",
+      "E:\\web\\落第\\output\\skill-ab-v10-stella-sister-20260913\\skills\\build-work-library\\scripts\\work_library.py",
+      "query",
+      "--project",
+      "E:\\web\\落第\\output\\skill-ab-v10-stella-sister-20260913\\A\\library",
+      "--query",
+      "露娜艾丝",
+      "--realm",
+      "canon",
+      "--continuity",
+      "novel-main",
+      "--as-of",
+      "10",
+      "--limit",
+      "10"
+    ],
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "matches": 4,
+      "records": [
+        {
+          "aliases": [
+            "露娜艾丝",
+            "露娜",
+            "露娜姊",
+            "史黛菈的姐姐"
+          ],
+          "continuity": "novel-main",
+          "evidence": [
+            {
+              "quote": "我本来也想见识一下史黛菈带来的男人有多少斤两，所以才装作没发现父王的企图",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 81558,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "他瞒着阿斯特蕾亚和露娜艾丝",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 65618,
+              "unit_id": "rakudai-v10-common/u000011"
+            },
+            {
+              "quote": "我原本准备好国营广播要来帮你的",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 81666,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "揪紧一辉的衣领，将他拖往房内",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 81312,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "确认无人察觉后关上窗户，拉上窗帘",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 81409,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "我们和奎多兰即将举行『战争』，一辉，我希望你能参加这场『战争』",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 87756,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "只有你一个人获胜没有任何意义",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 88835,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "你必须赢过自己的敌人，并且为法米利昂带来胜利",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 88858,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "奎多兰和法米利昂同样都是〈国际魔法骑士联盟加盟国〉",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 87871,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "不动用普通兵器与军队，由两国选出代表国家的〈魔法骑士〉进行决斗",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 88030,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "法米利昂与奎多兰当然也是在这项规则下进行战争",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 88484,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "我国和奎多兰正在争夺国境附近的天然气田",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 88617,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "两国赌上这块天然气田的所有权，每五年举行一次战争",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 88645,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "今年是选出五名〈魔法骑士〉代表来进行团体战",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 88689,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "总计五场比赛，获胜场数较多的一方获胜",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 88727,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "这可是直接贡献国家利益的机会",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 88989,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "最近三十年来，法米利昂一次都没有赢得战争",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 89024,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "要是你能解决这种窘况，就无人能再对你和史黛菈的婚约表示异议",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 89053,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "顽固的父王也一样呢",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 89093,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "这次国王──也就是我的父亲允许对方以『特别征召』的形式参加战争",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 92877,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "露娜艾丝小姐似乎从一个月前就不断亲自前来交涉──说是想借用这场战争，试试看黑铁这个人适不适合成为史黛菈殿下的夫婿",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 92963,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "事前却准备了一支收音麦克风，连接到皇都所有广播设备",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 89994,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "刚才的所有对话全都经由国营广播传到外头去了，这样就能省去麻烦，不需要对国民解释啦",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 90060,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "露娜艾丝设局取得席琉斯首肯",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 89441,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "法米利昂国王席琉斯·法米利昂以取得战争之胜利为前提，承认一辉·黑铁成为第二皇女史黛菈·法米利昂的夫婿",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 90261,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "不会有人反对的",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 90358,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "当然愿意。既然您希望史黛菈的夫婿达成这项任务，我就必定会为您带来胜利",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 89510,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "眼看奎多兰与法米利昂的战争将近",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 90936,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "以取得战争之胜利为前提",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 90275,
+              "unit_id": "rakudai-v10-common/u000016"
+            }
+          ],
+          "id": "lunaseyes-v10-event",
+          "kind": "event",
+          "known_from": 10,
+          "name": "露娜艾丝·法米利昂 / event",
+          "realm": "canon",
+          "status": "confirmed",
+          "body": "# 露娜艾丝：试探、战争条件与公开誓约\n\n她想见识史黛菈带来的男人有多少斤两，因此装作没发现父王企图，同时预备国营广播以备援助。一辉闯入她更衣的房间后，她将他拖入屋内，确认无人察觉再关窗拉帘。\n\n她给一辉出的题目是作为法米利昂代表参加与奎多兰的战争：赢过自己的敌人，而且为法米利昂带来胜利，只有个人获胜不够。两国依联盟条约以魔法骑士代表决斗处理纷争，不动用普通兵器与军队；每五年争夺一次国境天然气田所有权。今年五名代表各比一场，以胜场较多者获胜。\n\n她指出法米利昂最近三十年没有赢过；改变这一局面就能直接贡献国家利益，让包括父王在内的人无法再反对婚约。据约翰转述，她似乎从一个月前便不断亲自交涉，用战争考验一辉是否适合成为史黛菈夫婿；奎多兰国王已准许一辉特别征召参战。\n\n她预先准备的麦克风连接皇都所有广播设备，家庭会议对话通过国营广播传出。她取得席琉斯首肯，又当着国民宣告：国王以战争胜利为前提认可一辉成为史黛菈夫婿，国民表示支持。一辉已接受题目、承诺带来胜利；尚不能写成条件已履行。",
+          "source_path": "records/lunaseyes-v10-event.md",
+          "markdown_sha256": "af81b4f80a41f1cf764a2947740705ee449fca27a4ccbdd88d27b84bdd01a091"
+        },
+        {
+          "aliases": [
+            "露娜艾丝",
+            "露娜",
+            "露娜姊",
+            "史黛菈的姐姐"
+          ],
+          "continuity": "novel-main",
+          "evidence": [
+            {
+              "quote": "笨蛋，你在磨蹭什么？在那群家伙发现之前赶快进来",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 81240,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "哈哈大笑了起来",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 81531,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "很厉害嘛，小弟",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 81623,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "喂！不要动！又不是小孩子，给我老实点",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 82643,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "难怪能把那个肌肉笨蛋变成娇滴滴的女人",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 81639,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "好了，一辉，你说要让我们尽情试探你",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 87498,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "法米利昂皇国下任女王",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 81982,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "第一皇女──露娜艾丝·法米利昂",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 82001,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "我·第一皇女兼下任女王──露娜艾丝·法米利昂",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 88906,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "要是一有万一就出手帮助一辉",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 90020,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "露娜艾丝设局取得席琉斯首肯",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 89441,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "这样就能省去麻烦，不需要对国民解释啦",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 90082,
+              "unit_id": "rakudai-v10-common/u000016"
+            }
+          ],
+          "id": "lunaseyes-v10-manner",
+          "kind": "character",
+          "known_from": 10,
+          "name": "露娜艾丝·法米利昂 / manner",
+          "realm": "canon",
+          "status": "inference",
+          "body": "# 露娜艾丝：说话表现与行为概括\n\n直接可见：她会大笑、称一辉小弟或直接叫一辉，调侃史黛菈是肌肉笨蛋；会说“笨蛋，你在磨蹭什么？”“给我老实点！”等直截了当的命令。正式自我介绍或宣布条件时明确使用第一皇女、下任女王的身份。\n\n行为概括（inference）：从上述对白可把握她直率、会调侃、做事有主见的一面；从预备广播援助、设置胜利条件、取得父王首肯再向国民宣告，可以概括出她会预留援助手段、安排条件并借公开承诺推进事情。这些是对所见行为的归纳，不是对所有场合的绝对性格定论。",
+          "source_path": "records/lunaseyes-v10-manner.md",
+          "markdown_sha256": "d5d1380388c908ba38d952a740fedcbd85aa910c85ee54f74a8dade7172ffbfc"
+        },
+        {
+          "aliases": [
+            "露娜艾丝",
+            "露娜",
+            "露娜姊",
+            "史黛菈的姐姐"
+          ],
+          "continuity": "novel-main",
+          "evidence": [
+            {
+              "quote": "史黛菈的姊姊──露娜艾丝·法米利昂",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 65023,
+              "unit_id": "rakudai-v10-common/u000011"
+            },
+            {
+              "quote": "我正是你女友的姊姊，法米利昂皇国下任女王",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 81972,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "第一皇女──露娜艾丝·法米利昂",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 82001,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "露娜姊还没来吗",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 64707,
+              "unit_id": "rakudai-v10-common/u000011"
+            },
+            {
+              "quote": "露娜还窝在房间里",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 64802,
+              "unit_id": "rakudai-v10-common/u000011"
+            },
+            {
+              "quote": "露娜艾丝以悬赏令为物证，在众人聚集的餐厅里揭穿父亲·席琉斯的计画",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 83145,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "谁知道？母后，你认为呢？",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 87168,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "史黛菈的母亲·阿斯特蕾亚",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 81813,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "我·第一皇女兼下任女王──露娜艾丝·法米利昂就承认你与第二皇女──史黛菈·法米利昂的关系",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 88906,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "眼前的女子和阿斯特蕾亚一样，留着一头淡淡的桃色秀发",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 81827,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "鲜红色的双眸",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 81052,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "那张富含知性美的美丽容貌",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 81514,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "女子小巧的双峰包裹在做工细致的蕾丝布料里",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 80848,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "竟然在我更衣的时候闯进房间里",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 81714,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "她的身上还只穿着蕾丝质地的内衣",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 82191,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "这次我们将『战争』的前置工作都交给露娜，做为『继位』前的准备，所以她现在很忙啊～她说明天还要去奎多兰出差呢",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 64862,
+              "unit_id": "rakudai-v10-common/u000011"
+            }
+          ],
+          "id": "lunaseyes-v10-profile",
+          "kind": "character",
+          "known_from": 10,
+          "name": "露娜艾丝·法米利昂 / profile",
+          "realm": "canon",
+          "status": "confirmed",
+          "body": "# 露娜艾丝：身份、外貌与工作\n\n露娜艾丝·法米利昂是史黛菈的姐姐、法米利昂皇国第一皇女、下任女王，尚未继位。家人称她露娜，史黛菈称她露娜姊。父亲是席琉斯，母后是阿斯特蕾亚，妹妹史黛菈是第二皇女。\n\n淡淡的桃色秀发、鲜红双眸，容貌富有知性美；胸部小巧。初次遇见一辉时正在更衣，只穿蕾丝内衣，不能将这一幕当作固定日常装束。\n\n家人已把本次与奎多兰战争的前置工作交给她，作为继位准备。她因此忙于工作，并安排赴奎多兰出差。第十卷未给出确切年龄、身高、发长、惯常发型或常服；未明确其个人伐刀者能力。",
+          "source_path": "records/lunaseyes-v10-profile.md",
+          "markdown_sha256": "030f5a064d99e428bce90b530d76dd396cfa3499ea99da5e5a0c5d525f3c5933"
+        },
+        {
+          "aliases": [
+            "露娜艾丝",
+            "露娜",
+            "露娜姊",
+            "史黛菈的姐姐"
+          ],
+          "continuity": "novel-main",
+          "evidence": [
+            {
+              "quote": "露娜艾丝注视一辉左肩上的伤口",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 82361,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "地毯被血给",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 82482,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "先别管那个，把衣服脱了！我帮你包扎",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 82500,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "反正被人看个一、两下也不会死！等一下再穿",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 82708,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "露娜艾丝拿出一张纸交给他后，立刻解开了误会",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 83074,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "那张纸就是已经传遍大街小巷，用来通缉一辉的悬赏令",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 83107,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "露娜艾丝以悬赏令为物证，在众人聚集的餐厅里揭穿父亲·席琉斯的计画",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 83145,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "他走向坐在地上大哭的史黛菈，缓缓抱紧她缩成一团的背部",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 85228,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "给我跪好",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 85278,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "席琉斯正打算站起身，露娜艾丝立刻朝他头上来了一记后跟踢",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 85292,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "露娜姊原本就不反对我们交往",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 70853,
+              "unit_id": "rakudai-v10-common/u000012"
+            },
+            {
+              "quote": "我是说我不反对，但我也没说举双手赞成",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 87564,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "只要你达成条件",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 88898,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "奎多兰王国第一王子，兼代表团团长约翰",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 91912,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "他们各自身为两国的下任王位继承人，也是从小一起长大的玩伴",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 93736,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "这名大他一岁的女子从儿时就一直带领着自己",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 93918,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "两人同样就读于剑桥大学，当时的约翰不知世事，不论是课业或是私生活，正经的露娜艾丝都出手帮了约翰不少忙",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 93773,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "露娜艾丝曾经全力给了约翰一记巴掌",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 93873,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "我平时已经受到露娜艾丝小姐诸多关照",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 93685,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "正经的露娜艾丝",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 93806,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "从儿时就一直带领着自己，十分可靠",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 93927,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "这是约翰心目中的露娜艾丝",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 93952,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "他怎么也无法对露娜艾丝摆出强硬态度",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 93990,
+              "unit_id": "rakudai-v10-common/u000016"
+            }
+          ],
+          "id": "lunaseyes-v10-relationship",
+          "kind": "relationship",
+          "known_from": 10,
+          "name": "露娜艾丝·法米利昂 / relationship",
+          "realm": "canon",
+          "status": "confirmed",
+          "body": "# 露娜艾丝：家人与约翰\n\n她不反对史黛菈与一辉交往，却明确说不反对不等于举双手赞成，认可仍有条件。她坚持给一辉的肩伤包扎，比起血弄脏地毯和自己尚未穿好衣服，更先处理伤势；初见的半裸误会由悬赏令澄清。\n\n她以悬赏令揭穿父亲席琉斯驱逐一辉的计划；一辉拥抱、安慰史黛菈而父亲试图干涉时，她喝令父亲跪好，给了他一记后跟踢。\n\n约翰是奎多兰第一王子、下任王位继承人，与露娜艾丝从小一起长大。她大约翰一岁，两人同样就读于剑桥大学；她帮助过其课业与私生活，并曾全力打过他一巴掌。在约翰心目中，她从儿时起便带领着自己，正经、可靠，他很难向她摆出强硬态度。本卷并未说明两人是恋爱关系。",
+          "source_path": "records/lunaseyes-v10-relationship.md",
+          "markdown_sha256": "b187c3157ee1d3de0a945141198eaa20cb5a7c3176dc02d35c31b4690d89ba53"
+        }
+      ],
+      "truncated": false,
+      "authority": "current-markdown"
+    }
+  },
+  {
+    "command": [
+      "C:\\Python314\\python.exe",
+      "-X",
+      "utf8",
+      "E:\\web\\落第\\output\\skill-ab-v10-stella-sister-20260913\\skills\\build-work-library\\scripts\\work_library.py",
+      "query",
+      "--project",
+      "E:\\web\\落第\\output\\skill-ab-v10-stella-sister-20260913\\A\\library",
+      "--query",
+      "约翰",
+      "--realm",
+      "canon",
+      "--continuity",
+      "novel-main",
+      "--as-of",
+      "10",
+      "--limit",
+      "10"
+    ],
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "matches": 2,
+      "records": [
+        {
+          "aliases": [
+            "露娜艾丝",
+            "露娜",
+            "露娜姊",
+            "史黛菈的姐姐"
+          ],
+          "continuity": "novel-main",
+          "evidence": [
+            {
+              "quote": "我本来也想见识一下史黛菈带来的男人有多少斤两，所以才装作没发现父王的企图",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 81558,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "他瞒着阿斯特蕾亚和露娜艾丝",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 65618,
+              "unit_id": "rakudai-v10-common/u000011"
+            },
+            {
+              "quote": "我原本准备好国营广播要来帮你的",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 81666,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "揪紧一辉的衣领，将他拖往房内",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 81312,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "确认无人察觉后关上窗户，拉上窗帘",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 81409,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "我们和奎多兰即将举行『战争』，一辉，我希望你能参加这场『战争』",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 87756,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "只有你一个人获胜没有任何意义",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 88835,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "你必须赢过自己的敌人，并且为法米利昂带来胜利",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 88858,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "奎多兰和法米利昂同样都是〈国际魔法骑士联盟加盟国〉",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 87871,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "不动用普通兵器与军队，由两国选出代表国家的〈魔法骑士〉进行决斗",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 88030,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "法米利昂与奎多兰当然也是在这项规则下进行战争",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 88484,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "我国和奎多兰正在争夺国境附近的天然气田",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 88617,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "两国赌上这块天然气田的所有权，每五年举行一次战争",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 88645,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "今年是选出五名〈魔法骑士〉代表来进行团体战",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 88689,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "总计五场比赛，获胜场数较多的一方获胜",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 88727,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "这可是直接贡献国家利益的机会",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 88989,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "最近三十年来，法米利昂一次都没有赢得战争",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 89024,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "要是你能解决这种窘况，就无人能再对你和史黛菈的婚约表示异议",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 89053,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "顽固的父王也一样呢",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 89093,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "这次国王──也就是我的父亲允许对方以『特别征召』的形式参加战争",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 92877,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "露娜艾丝小姐似乎从一个月前就不断亲自前来交涉──说是想借用这场战争，试试看黑铁这个人适不适合成为史黛菈殿下的夫婿",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 92963,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "事前却准备了一支收音麦克风，连接到皇都所有广播设备",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 89994,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "刚才的所有对话全都经由国营广播传到外头去了，这样就能省去麻烦，不需要对国民解释啦",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 90060,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "露娜艾丝设局取得席琉斯首肯",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 89441,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "法米利昂国王席琉斯·法米利昂以取得战争之胜利为前提，承认一辉·黑铁成为第二皇女史黛菈·法米利昂的夫婿",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 90261,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "不会有人反对的",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 90358,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "当然愿意。既然您希望史黛菈的夫婿达成这项任务，我就必定会为您带来胜利",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 89510,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "眼看奎多兰与法米利昂的战争将近",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 90936,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "以取得战争之胜利为前提",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 90275,
+              "unit_id": "rakudai-v10-common/u000016"
+            }
+          ],
+          "id": "lunaseyes-v10-event",
+          "kind": "event",
+          "known_from": 10,
+          "name": "露娜艾丝·法米利昂 / event",
+          "realm": "canon",
+          "status": "confirmed",
+          "body": "# 露娜艾丝：试探、战争条件与公开誓约\n\n她想见识史黛菈带来的男人有多少斤两，因此装作没发现父王企图，同时预备国营广播以备援助。一辉闯入她更衣的房间后，她将他拖入屋内，确认无人察觉再关窗拉帘。\n\n她给一辉出的题目是作为法米利昂代表参加与奎多兰的战争：赢过自己的敌人，而且为法米利昂带来胜利，只有个人获胜不够。两国依联盟条约以魔法骑士代表决斗处理纷争，不动用普通兵器与军队；每五年争夺一次国境天然气田所有权。今年五名代表各比一场，以胜场较多者获胜。\n\n她指出法米利昂最近三十年没有赢过；改变这一局面就能直接贡献国家利益，让包括父王在内的人无法再反对婚约。据约翰转述，她似乎从一个月前便不断亲自交涉，用战争考验一辉是否适合成为史黛菈夫婿；奎多兰国王已准许一辉特别征召参战。\n\n她预先准备的麦克风连接皇都所有广播设备，家庭会议对话通过国营广播传出。她取得席琉斯首肯，又当着国民宣告：国王以战争胜利为前提认可一辉成为史黛菈夫婿，国民表示支持。一辉已接受题目、承诺带来胜利；尚不能写成条件已履行。",
+          "source_path": "records/lunaseyes-v10-event.md",
+          "markdown_sha256": "af81b4f80a41f1cf764a2947740705ee449fca27a4ccbdd88d27b84bdd01a091"
+        },
+        {
+          "aliases": [
+            "露娜艾丝",
+            "露娜",
+            "露娜姊",
+            "史黛菈的姐姐"
+          ],
+          "continuity": "novel-main",
+          "evidence": [
+            {
+              "quote": "露娜艾丝注视一辉左肩上的伤口",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 82361,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "地毯被血给",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 82482,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "先别管那个，把衣服脱了！我帮你包扎",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 82500,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "反正被人看个一、两下也不会死！等一下再穿",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 82708,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "露娜艾丝拿出一张纸交给他后，立刻解开了误会",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 83074,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "那张纸就是已经传遍大街小巷，用来通缉一辉的悬赏令",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 83107,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "露娜艾丝以悬赏令为物证，在众人聚集的餐厅里揭穿父亲·席琉斯的计画",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 83145,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "他走向坐在地上大哭的史黛菈，缓缓抱紧她缩成一团的背部",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 85228,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "给我跪好",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 85278,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "席琉斯正打算站起身，露娜艾丝立刻朝他头上来了一记后跟踢",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 85292,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "露娜姊原本就不反对我们交往",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 70853,
+              "unit_id": "rakudai-v10-common/u000012"
+            },
+            {
+              "quote": "我是说我不反对，但我也没说举双手赞成",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 87564,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "只要你达成条件",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 88898,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "奎多兰王国第一王子，兼代表团团长约翰",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 91912,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "他们各自身为两国的下任王位继承人，也是从小一起长大的玩伴",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 93736,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "这名大他一岁的女子从儿时就一直带领着自己",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 93918,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "两人同样就读于剑桥大学，当时的约翰不知世事，不论是课业或是私生活，正经的露娜艾丝都出手帮了约翰不少忙",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 93773,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "露娜艾丝曾经全力给了约翰一记巴掌",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 93873,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "我平时已经受到露娜艾丝小姐诸多关照",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 93685,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "正经的露娜艾丝",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 93806,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "从儿时就一直带领着自己，十分可靠",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 93927,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "这是约翰心目中的露娜艾丝",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 93952,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "他怎么也无法对露娜艾丝摆出强硬态度",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 93990,
+              "unit_id": "rakudai-v10-common/u000016"
+            }
+          ],
+          "id": "lunaseyes-v10-relationship",
+          "kind": "relationship",
+          "known_from": 10,
+          "name": "露娜艾丝·法米利昂 / relationship",
+          "realm": "canon",
+          "status": "confirmed",
+          "body": "# 露娜艾丝：家人与约翰\n\n她不反对史黛菈与一辉交往，却明确说不反对不等于举双手赞成，认可仍有条件。她坚持给一辉的肩伤包扎，比起血弄脏地毯和自己尚未穿好衣服，更先处理伤势；初见的半裸误会由悬赏令澄清。\n\n她以悬赏令揭穿父亲席琉斯驱逐一辉的计划；一辉拥抱、安慰史黛菈而父亲试图干涉时，她喝令父亲跪好，给了他一记后跟踢。\n\n约翰是奎多兰第一王子、下任王位继承人，与露娜艾丝从小一起长大。她大约翰一岁，两人同样就读于剑桥大学；她帮助过其课业与私生活，并曾全力打过他一巴掌。在约翰心目中，她从儿时起便带领着自己，正经、可靠，他很难向她摆出强硬态度。本卷并未说明两人是恋爱关系。",
+          "source_path": "records/lunaseyes-v10-relationship.md",
+          "markdown_sha256": "b187c3157ee1d3de0a945141198eaa20cb5a7c3176dc02d35c31b4690d89ba53"
+        }
+      ],
+      "truncated": false,
+      "authority": "current-markdown"
+    }
+  },
+  {
+    "command": [
+      "C:\\Python314\\python.exe",
+      "-X",
+      "utf8",
+      "E:\\web\\落第\\output\\skill-ab-v10-stella-sister-20260913\\skills\\build-work-library\\scripts\\work_library.py",
+      "query",
+      "--project",
+      "E:\\web\\落第\\output\\skill-ab-v10-stella-sister-20260913\\A\\library",
+      "--query",
+      "战争",
+      "--realm",
+      "canon",
+      "--continuity",
+      "novel-main",
+      "--as-of",
+      "10",
+      "--limit",
+      "10"
+    ],
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "matches": 2,
+      "records": [
+        {
+          "aliases": [
+            "露娜艾丝",
+            "露娜",
+            "露娜姊",
+            "史黛菈的姐姐"
+          ],
+          "continuity": "novel-main",
+          "evidence": [
+            {
+              "quote": "我本来也想见识一下史黛菈带来的男人有多少斤两，所以才装作没发现父王的企图",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 81558,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "他瞒着阿斯特蕾亚和露娜艾丝",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 65618,
+              "unit_id": "rakudai-v10-common/u000011"
+            },
+            {
+              "quote": "我原本准备好国营广播要来帮你的",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 81666,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "揪紧一辉的衣领，将他拖往房内",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 81312,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "确认无人察觉后关上窗户，拉上窗帘",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 81409,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "我们和奎多兰即将举行『战争』，一辉，我希望你能参加这场『战争』",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 87756,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "只有你一个人获胜没有任何意义",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 88835,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "你必须赢过自己的敌人，并且为法米利昂带来胜利",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 88858,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "奎多兰和法米利昂同样都是〈国际魔法骑士联盟加盟国〉",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 87871,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "不动用普通兵器与军队，由两国选出代表国家的〈魔法骑士〉进行决斗",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 88030,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "法米利昂与奎多兰当然也是在这项规则下进行战争",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 88484,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "我国和奎多兰正在争夺国境附近的天然气田",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 88617,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "两国赌上这块天然气田的所有权，每五年举行一次战争",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 88645,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "今年是选出五名〈魔法骑士〉代表来进行团体战",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 88689,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "总计五场比赛，获胜场数较多的一方获胜",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 88727,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "这可是直接贡献国家利益的机会",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 88989,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "最近三十年来，法米利昂一次都没有赢得战争",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 89024,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "要是你能解决这种窘况，就无人能再对你和史黛菈的婚约表示异议",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 89053,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "顽固的父王也一样呢",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 89093,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "这次国王──也就是我的父亲允许对方以『特别征召』的形式参加战争",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 92877,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "露娜艾丝小姐似乎从一个月前就不断亲自前来交涉──说是想借用这场战争，试试看黑铁这个人适不适合成为史黛菈殿下的夫婿",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 92963,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "事前却准备了一支收音麦克风，连接到皇都所有广播设备",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 89994,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "刚才的所有对话全都经由国营广播传到外头去了，这样就能省去麻烦，不需要对国民解释啦",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 90060,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "露娜艾丝设局取得席琉斯首肯",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 89441,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "法米利昂国王席琉斯·法米利昂以取得战争之胜利为前提，承认一辉·黑铁成为第二皇女史黛菈·法米利昂的夫婿",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 90261,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "不会有人反对的",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 90358,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "当然愿意。既然您希望史黛菈的夫婿达成这项任务，我就必定会为您带来胜利",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 89510,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "眼看奎多兰与法米利昂的战争将近",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 90936,
+              "unit_id": "rakudai-v10-common/u000016"
+            },
+            {
+              "quote": "以取得战争之胜利为前提",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 90275,
+              "unit_id": "rakudai-v10-common/u000016"
+            }
+          ],
+          "id": "lunaseyes-v10-event",
+          "kind": "event",
+          "known_from": 10,
+          "name": "露娜艾丝·法米利昂 / event",
+          "realm": "canon",
+          "status": "confirmed",
+          "body": "# 露娜艾丝：试探、战争条件与公开誓约\n\n她想见识史黛菈带来的男人有多少斤两，因此装作没发现父王企图，同时预备国营广播以备援助。一辉闯入她更衣的房间后，她将他拖入屋内，确认无人察觉再关窗拉帘。\n\n她给一辉出的题目是作为法米利昂代表参加与奎多兰的战争：赢过自己的敌人，而且为法米利昂带来胜利，只有个人获胜不够。两国依联盟条约以魔法骑士代表决斗处理纷争，不动用普通兵器与军队；每五年争夺一次国境天然气田所有权。今年五名代表各比一场，以胜场较多者获胜。\n\n她指出法米利昂最近三十年没有赢过；改变这一局面就能直接贡献国家利益，让包括父王在内的人无法再反对婚约。据约翰转述，她似乎从一个月前便不断亲自交涉，用战争考验一辉是否适合成为史黛菈夫婿；奎多兰国王已准许一辉特别征召参战。\n\n她预先准备的麦克风连接皇都所有广播设备，家庭会议对话通过国营广播传出。她取得席琉斯首肯，又当着国民宣告：国王以战争胜利为前提认可一辉成为史黛菈夫婿，国民表示支持。一辉已接受题目、承诺带来胜利；尚不能写成条件已履行。",
+          "source_path": "records/lunaseyes-v10-event.md",
+          "markdown_sha256": "af81b4f80a41f1cf764a2947740705ee449fca27a4ccbdd88d27b84bdd01a091"
+        },
+        {
+          "aliases": [
+            "露娜艾丝",
+            "露娜",
+            "露娜姊",
+            "史黛菈的姐姐"
+          ],
+          "continuity": "novel-main",
+          "evidence": [
+            {
+              "quote": "史黛菈的姊姊──露娜艾丝·法米利昂",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 65023,
+              "unit_id": "rakudai-v10-common/u000011"
+            },
+            {
+              "quote": "我正是你女友的姊姊，法米利昂皇国下任女王",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 81972,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "第一皇女──露娜艾丝·法米利昂",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 82001,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "露娜姊还没来吗",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 64707,
+              "unit_id": "rakudai-v10-common/u000011"
+            },
+            {
+              "quote": "露娜还窝在房间里",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 64802,
+              "unit_id": "rakudai-v10-common/u000011"
+            },
+            {
+              "quote": "露娜艾丝以悬赏令为物证，在众人聚集的餐厅里揭穿父亲·席琉斯的计画",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 83145,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "谁知道？母后，你认为呢？",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 87168,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "史黛菈的母亲·阿斯特蕾亚",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 81813,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "我·第一皇女兼下任女王──露娜艾丝·法米利昂就承认你与第二皇女──史黛菈·法米利昂的关系",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 88906,
+              "unit_id": "rakudai-v10-common/u000015"
+            },
+            {
+              "quote": "眼前的女子和阿斯特蕾亚一样，留着一头淡淡的桃色秀发",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 81827,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "鲜红色的双眸",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 81052,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "那张富含知性美的美丽容貌",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 81514,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "女子小巧的双峰包裹在做工细致的蕾丝布料里",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 80848,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "竟然在我更衣的时候闯进房间里",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 81714,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "她的身上还只穿着蕾丝质地的内衣",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 82191,
+              "unit_id": "rakudai-v10-common/u000014"
+            },
+            {
+              "quote": "这次我们将『战争』的前置工作都交给露娜，做为『继位』前的准备，所以她现在很忙啊～她说明天还要去奎多兰出差呢",
+              "source_sha256": "89a78d80d73e11df638468229f12e4ecc378733a6f5e5a2cd4485aaa85bf3074",
+              "start": 64862,
+              "unit_id": "rakudai-v10-common/u000011"
+            }
+          ],
+          "id": "lunaseyes-v10-profile",
+          "kind": "character",
+          "known_from": 10,
+          "name": "露娜艾丝·法米利昂 / profile",
+          "realm": "canon",
+          "status": "confirmed",
+          "body": "# 露娜艾丝：身份、外貌与工作\n\n露娜艾丝·法米利昂是史黛菈的姐姐、法米利昂皇国第一皇女、下任女王，尚未继位。家人称她露娜，史黛菈称她露娜姊。父亲是席琉斯，母后是阿斯特蕾亚，妹妹史黛菈是第二皇女。\n\n淡淡的桃色秀发、鲜红双眸，容貌富有知性美；胸部小巧。初次遇见一辉时正在更衣，只穿蕾丝内衣，不能将这一幕当作固定日常装束。\n\n家人已把本次与奎多兰战争的前置工作交给她，作为继位准备。她因此忙于工作，并安排赴奎多兰出差。第十卷未给出确切年龄、身高、发长、惯常发型或常服；未明确其个人伐刀者能力。",
+          "source_path": "records/lunaseyes-v10-profile.md",
+          "markdown_sha256": "030f5a064d99e428bce90b530d76dd396cfa3499ea99da5e5a0c5d525f3c5933"
+        }
+      ],
+      "truncated": false,
+      "authority": "current-markdown"
+    }
+  },
+  {
+    "command": [
+      "C:\\Python314\\python.exe",
+      "-X",
+      "utf8",
+      "E:\\web\\落第\\output\\skill-ab-v10-stella-sister-20260913\\skills\\build-work-library\\scripts\\work_library.py",
+      "query",
+      "--project",
+      "E:\\web\\落第\\output\\skill-ab-v10-stella-sister-20260913\\A\\library",
+      "--query",
+      "露娜艾丝",
+      "--realm",
+      "canon",
+      "--continuity",
+      "novel-main",
+      "--as-of",
+      "9",
+      "--limit",
+      "10"
+    ],
+    "exit_code": 0,
+    "result": {
+      "ok": true,
+      "matches": 0,
+      "records": [],
+      "truncated": false,
+      "authority": "current-markdown"
+    }
+  }
+]

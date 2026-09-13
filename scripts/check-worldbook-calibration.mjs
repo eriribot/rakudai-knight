@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
 import { createSchema, INITIAL_STATE, migrateV2 } from '../世界书规则/MVU/schema.mjs';
 import { applyOpening } from './rakudai-state-core.mjs';
+import { STORY_VOLUMES } from './rakudai-story-catalog.mjs';
 
 // 离线检查只读取维护源与导出；唯一产物为验证结果.json，不写聊天或修补被测实现。
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -41,9 +42,11 @@ for (const [name, mutate] of [
   ['remove-fixed-root', s => { delete s.玩家; }],
   ['remove-fixed-nested', s => { delete s.玩家.伐刀能力.招式; }],
   ['volume-null', s => { s.场景.当前卷 = null; }],
-  ['volume-two', s => { s.场景.当前卷 = 2; }],
+  ['volume-out-of-range', s => { s.场景.当前卷 = 20; }],
   ['chapter-invalid-enum', s => { s.场景.当前章 = '第五章'; }],
-  ['future-event', s => { s.场景.当前章 = '第一章'; s.场景.已发生事件.未来 = { 章段: '第四章', 结果: '已获胜', 参与者: [], 知情者: [] }; }],
+  ['future-event', s => { s.场景.当前章 = '第一章'; s.场景.已发生事件.未来 = { 卷号: 1, 章段: '第四章', 结果: '已获胜', 参与者: [], 知情者: [] }; }],
+  ['future-volume-event', s => { s.场景.当前章 = '终章'; s.场景.已发生事件.未来 = { 卷号: 2, 章段: '序章', 结果: '已发生', 参与者: [], 知情者: [] }; }],
+  ['event-without-volume', s => { s.场景.当前章 = '第一章'; s.场景.已发生事件.缺卷 = { 章段: '序章', 结果: '已发生', 参与者: [], 知情者: [] }; }],
   ['unbuilt-running', s => { s.场景.当前章 = '第一章'; s.场景.阶段 = '进行中'; }],
   ['unbuilt-ended', s => { s.场景.当前章 = '第一章'; s.场景.阶段 = '已结束'; }],
   ['unselected-chapter-running', s => { s.场景.阶段 = '进行中'; }],
@@ -57,6 +60,14 @@ for (const name of ['__proto__', 'constructor', 'prototype', '甲/乙', '甲~乙
 }
 for (const chapter of ['序章', '第一章', '第二章', '第三章', '第四章', '终章']) {
   check(`schema/accept-chapter-${chapter}`, () => valid(stateWith(s => { s.场景.当前章 = chapter; })));
+}
+for (const volume of STORY_VOLUMES) {
+  check(`schema/accept-volume-${volume.volume}-catalogue`, () => {
+    for (const chapter of volume.chapters) valid(stateWith(s => {
+      s.场景.当前卷 = volume.volume;
+      s.场景.当前章 = chapter.key;
+    }));
+  });
 }
 check('schema/sequential-build-player-mode-status', () => {
   const s = clone(INITIAL_STATE);
@@ -82,6 +93,7 @@ function oldState() {
 }
 check('migration/v2-preserves-filled-data-and-source', () => {
   const old = oldState(), before = clone(old), next = migrateV2(old, z);
+  assert.equal(next.系统.结构版本, 4);
   assert.deepEqual(old, before); assert.equal(next.玩家.姓名, '旧档玩家');
   assert.equal(next.玩家.角色简介, old.玩家.角色简介);
   assert.equal(next.场景.时间, '春假早晨'); assert.equal(next.场景.地点, '宿舍');
@@ -91,7 +103,7 @@ check('migration/v2-preserves-filled-data-and-source', () => {
   assert.equal(next.人际.史黛菈.好感, 25); assert.equal(next.人际.史黛菈.态度印象, '旧态度');
   assert.match(next.人际.史黛菈.变化依据, /切磋同道/);
 });
-check('migration/v3-idempotent', () => { const once = migrateV2(oldState(), z); assert.deepEqual(migrateV2(once, z), once); });
+check('migration/v4-idempotent', () => { const once = migrateV2(oldState(), z); assert.deepEqual(migrateV2(once, z), once); });
 check('migration/reject-unknown-field', () => { const old = oldState(); old.玩家.未知字段 = '不可静默吞掉'; assert.throws(() => migrateV2(old, z)); });
 check('migration/reject-unknown-version', () => assert.throws(() => migrateV2({ 系统: { 结构版本: 1 } }, z)));
 
@@ -133,6 +145,7 @@ for (const [mode, expected] of [['user', '自定义角色'], ['kurogane', '黑�
     const vars = clone(context.buildOpeningVariables(context.validateArchive(d)));
     const before = clone(INITIAL_STATE), payloadBefore = clone(vars);
     assert.equal(vars.系统.主角模式, expected); assert.equal(vars.系统.开局状态, '待建档');
+    assert.equal(vars.系统.结构版本, 4);
     assert.deepEqual(Object.keys(vars).sort(), ['场景', '玩家', '系统']);
     const confirmed = applyOpening(before, vars);
     valid(confirmed); assert.equal(confirmed.系统.开局状态, '已建档');
@@ -218,18 +231,34 @@ for (const [uid, name] of [[9, '黑铁一辉'], [11, '史黛菈·法米利昂'],
 }
 check('export/init-yaml-synchronized', () => assert.deepEqual(YAML.parse(entries['3'].content), INITIAL_STATE));
 check('export/update-rules-synchronized', () => assert.equal(entries['10'].content.trim().replaceAll('\r\n', '\n'), read('世界书规则/MVU/变量更新规则.txt').trim().replaceAll('\r\n', '\n')));
+check('export/legacy-plot-triggers-disabled', () => {
+  for (const id of [13, 15]) {
+    assert.equal(entries[id].disable, true);
+    assert.deepEqual(entries[id].key, []);
+    assert.deepEqual(entries[id].keysecondary, []);
+  }
+});
 check('export/preserve-existing-metadata-and-unrelated-entries', () => {
   const original = JSON.parse(read('output/worldbook-calibration/落第骑士英雄谭-修改前.json'));
-  const updatedIds = new Set([0, 3, 9, 10, 11, 12, 13, 15]);
+  const updatedIds = new Set([0, 1, 3, 9, 10, 11, 12, 13, 15]);
   for (const [id, old] of Object.entries(original.entries)) {
     if (!updatedIds.has(Number(id))) assert.deepEqual(entries[id], old);
-    else { const previous = { ...old }, current = { ...entries[id] }; delete previous.content; delete current.content; assert.deepEqual(current, previous); }
+    else {
+      const previous = { ...old }, current = { ...entries[id] };
+      delete previous.content; delete current.content;
+      if ([13, 15].includes(Number(id))) {
+        for (const key of ['disable', 'key', 'keysecondary']) { delete previous[key]; delete current[key]; }
+      }
+      assert.deepEqual(current, previous);
+    }
   }
 });
 check('component/generated-schema-and-guard-register-and-preserve-protected-fields', () => {
-  const script = JSON.parse(read('世界书规则/MVU/落第骑士-MVU-v3字段约束.json'));
+  const script = JSON.parse(read('世界书规则/MVU/落第骑士-MVU-v4字段约束.json'));
   assert.equal(script.type, 'script'); assert.equal(script.enabled, true);
   assert(script.id && script.name && script.content); assert.deepEqual(script.button.buttons, []);
+  assert.equal(script.id, '06117475-a08c-4d78-a886-3d26426c4b37');
+  assert.match(script.name, /v4/);
   const compiled = new vm.Script(script.content);
   const ready = [], listeners = [], cleanup = [];
   const surface = { SillyTavern: { getContext() { return {}; } }, addEventListener(name, callback) { cleanup.push({ name, callback }); } };
@@ -255,20 +284,44 @@ check('component/generated-schema-and-guard-register-and-preserve-protected-fiel
   assert.deepEqual(changed.stat_data.$internal, { display_data: {}, delta_data: {} });
   assert(cleanup.some(item => item.name === 'pagehide'));
 });
+// ST-Prompt-Template 1.15.15.2 exposes variables/getvar, not top-level stat_data.
+// Authority: zonde306/ST-Prompt-Template@4809884ae9bf797805c4845f6e0e265ccb3a8fd8,
+// src/function/ejs.ts:215-321 and src/function/variables.ts:414-499.
+// The installed EJS engine evaluates the real source; only the host variable reader is a fixture.
+function templateContext(variables, extra = {}) {
+  return { variables, getvar: key => key.split('.').reduce((value, part) => value?.[part], variables), ...extra };
+}
+const templateModes = [
+  ['with', {}],
+  ['destructured', { _with: false, strict: true, destructuredLocals: ['variables', 'getvar'] }],
+];
 for (const origin of ['source', 'export']) {
-  for (const [label, locals, ikki] of [
-    ['ikki', { stat_data: { 系统: { 主角模式: '黑铁一辉' } } }, true],
-    ['custom', { stat_data: { 系统: { 主角模式: '自定义角色' } } }, false],
-    ['unselected', { stat_data: { 系统: { 主角模式: '未选择' } } }, false],
-    ['missing', {}, false],
-  ]) check(`ejs/${origin}-${label}`, () => {
-    const text = origin === 'source' ? body('第一卷-世界书整理/人物条目/黑铁一辉.md') : entries['9'].content;
-    const rendered = ejs.render(text, locals);
-    assert(!rendered.includes('<%'));
-    assert.equal(rendered.includes('【当前身份路由：玩家即为黑铁一辉】'), ikki);
-    assert.equal(rendered.includes('【当前身份路由：自定义角色模式（一辉为独立 NPC）】'), !ikki);
-    if (!ikki) assert.match(rendered, /只处理建档确认，不生成一辉 NPC，也不开始剧情/);
-  });
+  for (const [engineMode, options] of templateModes) {
+    for (const [label, variables, ikki, extra] of [
+      ['ikki', { stat_data: { 系统: { 主角模式: '黑铁一辉', 开局状态: '已建档' } } }, true],
+      ['custom', { stat_data: { 系统: { 主角模式: '自定义角色', 开局状态: '已建档' } } }, false],
+      ['unbuilt', { stat_data: { 系统: { 主角模式: '未选择', 开局状态: '待建档' } } }, false],
+      ['missing', {}, false],
+      ['false-is-not-ikki', { stat_data: { 系统: { 主角模式: false } } }, false],
+      ['top-level-decoy', { stat_data: { 系统: { 主角模式: '自定义角色' } } }, false, { stat_data: { 系统: { 主角模式: '黑铁一辉' } } }],
+    ]) check(`ejs/${origin}-${engineMode}-${label}`, () => {
+      const text = origin === 'source' ? body('第一卷-世界书整理/人物条目/黑铁一辉.md') : entries['9'].content;
+      const rendered = ejs.render(text, templateContext(variables, extra), options);
+      assert(!rendered.includes('<%'));
+      assert.equal(rendered.includes('【当前身份路由：玩家即为黑铁一辉】'), ikki);
+      assert.equal(rendered.includes('【当前身份路由：自定义角色模式（一辉为独立 NPC）】'), !ikki);
+      if (!ikki) assert.match(rendered, /只处理建档确认，不生成一辉 NPC，也不开始剧情/);
+    });
+    check(`ejs/${origin}-${engineMode}-nested-condition`, () => {
+      const text = origin === 'source' ? body('第一卷-世界书整理/人物条目/黑铁一辉.md') : entries['9'].content;
+      const nested = `<% if (getvar('include')) { %>${text}<% if (getvar('inner')) { %>真分支<% } else { %>假分支<% } %><% } else { %>未启用条目<% } %>`;
+      const variables = { include: true, inner: false, stat_data: { 系统: { 主角模式: '黑铁一辉' } } };
+      const rendered = ejs.render(nested, templateContext(variables), options);
+      assert(rendered.includes('【当前身份路由：玩家即为黑铁一辉】'));
+      assert(rendered.includes('假分支')); assert(!rendered.includes('真分支'));
+      assert.equal(ejs.render(nested, templateContext({ include: false }), options), '未启用条目');
+    });
+  }
 }
 const failed = results.filter(result => !result.passed);
 const report = {

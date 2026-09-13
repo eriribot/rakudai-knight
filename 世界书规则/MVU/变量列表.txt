@@ -1,0 +1,20 @@
+<status_current_variable>
+<%
+// 只裁剪发给模型的副本；当前楼层的事件与结算历史原样保存。
+const rkCurrent = getvar('stat_data');
+const rkPromptState = rkCurrent && typeof rkCurrent === 'object' ? JSON.parse(JSON.stringify(rkCurrent)) : null;
+if (rkPromptState) {
+  delete rkPromptState.$internal;
+  // 本回复关系收据只用于代码防重，不占提示词；存档中的原件保留。
+  if (rkPromptState.系统) delete rkPromptState.系统.关系计分;
+  if (rkPromptState.场景) delete rkPromptState.场景.已发生事件;
+  if (rkPromptState.玩家 && rkPromptState.玩家.成长) {
+    delete rkPromptState.玩家.成长.记录;
+    delete rkPromptState.玩家.成长.境界;
+    delete rkPromptState.玩家.成长.境界依据;
+  }
+}
+%>
+<%- JSON.stringify(rkPromptState, null, 2) %>
+</status_current_variable>
+历史事件与成长明细仍在存档，省略不代表未发生，不重领奖励。觉醒只读玩家.魔人觉醒的true/false；魔力控制不等于魔力量。已有数字续算：日常友善回应属普通，新生好感/认可/防备缓和属中度，重大事件改变信任属重度；分数与印象一致，支援独立按协作成果记。同次训练逐目标按实际参与判定，身体随假想动作完成练习可申请体能，不因“脑海”二字漏项。成长按成果申请1—9999，每目标每完整回复合计不超9999，不凑满、不重领。全部有效变化同轮提交。

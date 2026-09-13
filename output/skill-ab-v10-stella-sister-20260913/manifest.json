@@ -1,0 +1,108 @@
+{
+  "created_at": "2026-09-13T08:17:08.929723+00:00",
+  "experiment": "Same novel volume, same task, two isolated native agents with inherited model settings",
+  "source": {
+    "original_path": "E:\\web\\落第\\落第骑士英雄谭 第十卷 gbk.txt",
+    "decoding": "gb18030",
+    "raw_sha256": "ef6e164713a7f8460fc4b2832bf291e354b72cb1c5031849532a9fe47775fd99",
+    "normalized_sha256": "a86214437dbd019cff4c59d1bbec45dd0ba2c6cd784ce167e89c4baea561bc66",
+    "normalization": "decode losslessly then CRLF/CR to LF; no corrections",
+    "characters": 102811,
+    "lines": 6363
+  },
+  "A": {
+    "skill": "build-work-library",
+    "revision": "612c51980549e179bb73ead699aa1c37680db08e",
+    "files": [
+      {
+        "path": "skills/build-work-library/SKILL.md",
+        "sha256": "5029fe765ca54ff1b7abd95fc4a47498be04ae0b509dbdfcab6ca7acf5b57b2e"
+      },
+      {
+        "path": "skills/build-work-library/agents/openai.yaml",
+        "sha256": "8a16d3171355b64ebef93e048b82138a43ebf9e957b1a2688ff104ba72e4a044"
+      },
+      {
+        "path": "skills/build-work-library/references/batching-and-routing.md",
+        "sha256": "869be65baa34b7022228379e4452c4f39ca880a565acb3e67c476c88891c3219"
+      },
+      {
+        "path": "skills/build-work-library/references/data-and-commands.md",
+        "sha256": "6a351363b45c85763d55eabc91ca3da79f49895583b1dda66c6a4846d8e2017d"
+      },
+      {
+        "path": "skills/build-work-library/references/research-and-media.md",
+        "sha256": "18a5bd3afb71361ce7c0112594c0692399b2249c2fda66a0faab7c67c76704ee"
+      },
+      {
+        "path": "skills/build-work-library/scripts/work_library.py",
+        "sha256": "1a1e44c572665ce7bd83496fd067db8ed5ce215faa7596864b678a907e06aeeb"
+      },
+      {
+        "path": "skills/build-work-library/tests/test_work_library.py",
+        "sha256": "89ff292f79312c1f81de817c3e3d0d3dea212fa2a7ff254571eceaa9a0644411"
+      },
+      {
+        "path": "skills/consult-tavernweave-library/SKILL.md",
+        "sha256": "683c0ae2c9b6c1f6a32d11e4e3e5b1c05ebfbe18f0b9e240fc6622636c0ef05d"
+      },
+      {
+        "path": "skills/consult-tavernweave-library/references/communication-and-guidance.md",
+        "sha256": "304ec5c075fa1536416d4c82f083f1a0789618078cc9a6ace1bb321466902cf0"
+      },
+      {
+        "path": "skills/consult-tavernweave-library/references/st-guides/A0_驾驭工程从零搭建检查单.md",
+        "sha256": "f934b2884a316f0d1d697f3c9a01dcda5526ecff991926a110a4b5ab869c8973"
+      },
+      {
+        "path": "skills/tavern-card-builder/SKILL.md",
+        "sha256": "04d22fc1cce49fa5b055aed6e778864e96c1bbae134f30c48aee0fbeb60f5b7f"
+      },
+      {
+        "path": "skills/tavern-card-builder/references/material-provenance.md",
+        "sha256": "fba5cc65eea1c6778dd5af007ebfb5cac6c1ae8d3f3108e36ef4986d74ee1cea"
+      },
+      {
+        "path": "skills/tavern-card-builder/references/lorebook-and-prompts.md",
+        "sha256": "1bd4783d329491d5cf8b317b389e1e2b9a6f8280269a8b905d8ac335420a715d"
+      },
+      {
+        "path": "skills/consult-tavernweave-library/scripts/query-library.mjs",
+        "sha256": "f07207235735572dcd6826f3850e45d0eb0e6354c688f5f031aaafee9203bacf"
+      },
+      {
+        "path": "skills/consult-tavernweave-library/references/route-map.json",
+        "sha256": "5b01f67c8b8001ed38f84e50d8e7aba8a6ccbff9a53a6d5759011640874d16c4"
+      },
+      {
+        "path": "skills/consult-tavernweave-library/references/library-manifest.json",
+        "sha256": "577c02fd47d4f49e1eaf535d89145137a64295b22cbf434feaece29d7394a12f"
+      },
+      {
+        "path": "skills/consult-tavernweave-library/assets/picker/catalog.json",
+        "sha256": "5c4c90960e6753136785bc7a372bdbd58eace68b4c224518ff58350f2110336c"
+      }
+    ]
+  },
+  "B": {
+    "skill": "character-visual-lore-dossier",
+    "files": [
+      {
+        "path": "references/appearance-schema-and-templates.md",
+        "sha256": "edf15c430313a63778dfc41e5da6940e7b97e9187f44c022f848d7ce11aab869"
+      },
+      {
+        "path": "references/case-studies-and-anti-patterns.md",
+        "sha256": "f04f954288f54da9a224a779ce21a7b3a33bfbfdc445e7efaeeab5cdbeebc700"
+      },
+      {
+        "path": "SKILL.md",
+        "sha256": "b82b936bbf86d5e293322f85065995916f580023d36abfc9c5a1aa5c3e315cf6"
+      }
+    ]
+  },
+  "scope": "Only supplied volume 10; no web research, other volumes or old lorebook content; no image capability tested",
+  "runtime_import_tested": false,
+  "token_usage": "not measured; do not infer from source character counts",
+  "preparation_note": "Supplemented the four deterministic router dependencies omitted from the initial minimal snapshot; this is experiment preparation, not an upstream skill defect."
+}

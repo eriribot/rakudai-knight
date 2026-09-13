@@ -1,0 +1,143 @@
+{
+  "characters": 102811,
+  "continuity": "novel-main",
+  "edition": "本次实验 inputs/volume10.utf8.txt；底本保留原有措辞与错误，LF 规范化",
+  "id": "rakudai-v10-common",
+  "kind": "local-text",
+  "phase": 10,
+  "phase_definition": "本样本只提供第十卷结束时的资料包，10 表示第十卷结束；不用于卷内早期状态回放。",
+  "provenance": "用户授权 A/B 实验的唯一事实输入；protocol.md 固定范围。不以技能示例或其他卷补充事实。",
+  "realm": "canon",
+  "registered_at": "2026-09-13T08:20:57.059414+00:00",
+  "rights": "仅在本次授权的 A 组目录内整理、核验，不声明再分发许可。",
+  "text_sha256": "a86214437dbd019cff4c59d1bbec45dd0ba2c6cd784ce167e89c4baea561bc66",
+  "title": "落第骑士英雄谭 第十卷（共同冻结文本）",
+  "units": [
+    {
+      "end": 5977,
+      "entry": 1,
+      "id": "u000001",
+      "start": 0,
+      "title": " ★☆★☆★☆轻小说文库(Www.WenKu8.com)☆★☆★☆★ "
+    },
+    {
+      "end": 11972,
+      "entry": 1,
+      "id": "u000002",
+      "start": 5977,
+      "title": " ★☆★☆★☆轻小说文库(Www.WenKu8.com)☆★☆★☆★ "
+    },
+    {
+      "end": 17950,
+      "entry": 1,
+      "id": "u000003",
+      "start": 11972,
+      "title": " ★☆★☆★☆轻小说文库(Www.WenKu8.com)☆★☆★☆★ "
+    },
+    {
+      "end": 23943,
+      "entry": 1,
+      "id": "u000004",
+      "start": 17950,
+      "title": " ★☆★☆★☆轻小说文库(Www.WenKu8.com)☆★☆★☆★ "
+    },
+    {
+      "end": 29908,
+      "entry": 1,
+      "id": "u000005",
+      "start": 23943,
+      "title": " ★☆★☆★☆轻小说文库(Www.WenKu8.com)☆★☆★☆★ "
+    },
+    {
+      "end": 35902,
+      "entry": 1,
+      "id": "u000006",
+      "start": 29908,
+      "title": " ★☆★☆★☆轻小说文库(Www.WenKu8.com)☆★☆★☆★ "
+    },
+    {
+      "end": 41900,
+      "entry": 1,
+      "id": "u000007",
+      "start": 35902,
+      "title": " ★☆★☆★☆轻小说文库(Www.WenKu8.com)☆★☆★☆★ "
+    },
+    {
+      "end": 47819,
+      "entry": 1,
+      "id": "u000008",
+      "start": 41900,
+      "title": " ★☆★☆★☆轻小说文库(Www.WenKu8.com)☆★☆★☆★ "
+    },
+    {
+      "end": 53785,
+      "entry": 1,
+      "id": "u000009",
+      "start": 47819,
+      "title": " ★☆★☆★☆轻小说文库(Www.WenKu8.com)☆★☆★☆★ "
+    },
+    {
+      "end": 59774,
+      "entry": 1,
+      "id": "u000010",
+      "start": 53785,
+      "title": " ★☆★☆★☆轻小说文库(Www.WenKu8.com)☆★☆★☆★ "
+    },
+    {
+      "end": 65774,
+      "entry": 1,
+      "id": "u000011",
+      "start": 59774,
+      "title": " ★☆★☆★☆轻小说文库(Www.WenKu8.com)☆★☆★☆★ "
+    },
+    {
+      "end": 71761,
+      "entry": 1,
+      "id": "u000012",
+      "start": 65774,
+      "title": " ★☆★☆★☆轻小说文库(Www.WenKu8.com)☆★☆★☆★ "
+    },
+    {
+      "end": 77756,
+      "entry": 1,
+      "id": "u000013",
+      "start": 71761,
+      "title": " ★☆★☆★☆轻小说文库(Www.WenKu8.com)☆★☆★☆★ "
+    },
+    {
+      "end": 83743,
+      "entry": 1,
+      "id": "u000014",
+      "start": 77756,
+      "title": " ★☆★☆★☆轻小说文库(Www.WenKu8.com)☆★☆★☆★ "
+    },
+    {
+      "end": 89721,
+      "entry": 1,
+      "id": "u000015",
+      "start": 83743,
+      "title": " ★☆★☆★☆轻小说文库(Www.WenKu8.com)☆★☆★☆★ "
+    },
+    {
+      "end": 95721,
+      "entry": 1,
+      "id": "u000016",
+      "start": 89721,
+      "title": " ★☆★☆★☆轻小说文库(Www.WenKu8.com)☆★☆★☆★ "
+    },
+    {
+      "end": 101679,
+      "entry": 1,
+      "id": "u000017",
+      "start": 95721,
+      "title": " ★☆★☆★☆轻小说文库(Www.WenKu8.com)☆★☆★☆★ "
+    },
+    {
+      "end": 102811,
+      "entry": 1,
+      "id": "u000018",
+      "start": 101679,
+      "title": " ★☆★☆★☆轻小说文库(Www.WenKu8.com)☆★☆★☆★ "
+    }
+  ]
+}

@@ -1,13 +1,13 @@
 {
-  "createdAt": "2026-09-07T08:24:10.627Z",
+  "createdAt": "2026-09-11T13:31:26.990Z",
   "scope": "离线 schema、页面纯函数、原文到导出同步与 EJS 模板渲染；不代表真实酒馆验收",
   "dependencies": {
     "zod": "4.1.12",
     "ejs": "3.1.10",
     "yaml": "2.8.1"
   },
-  "total": 70,
-  "passed": 70,
+  "total": 112,
+  "passed": 112,
   "failed": 0,
   "results": [
     {
@@ -47,7 +47,7 @@
       "passed": true
     },
     {
-      "name": "schema/reject-volume-two",
+      "name": "schema/reject-volume-out-of-range",
       "passed": true
     },
     {
@@ -56,6 +56,14 @@
     },
     {
       "name": "schema/reject-future-event",
+      "passed": true
+    },
+    {
+      "name": "schema/reject-future-volume-event",
+      "passed": true
+    },
+    {
+      "name": "schema/reject-event-without-volume",
       "passed": true
     },
     {
@@ -123,6 +131,82 @@
       "passed": true
     },
     {
+      "name": "schema/accept-volume-1-catalogue",
+      "passed": true
+    },
+    {
+      "name": "schema/accept-volume-2-catalogue",
+      "passed": true
+    },
+    {
+      "name": "schema/accept-volume-3-catalogue",
+      "passed": true
+    },
+    {
+      "name": "schema/accept-volume-4-catalogue",
+      "passed": true
+    },
+    {
+      "name": "schema/accept-volume-5-catalogue",
+      "passed": true
+    },
+    {
+      "name": "schema/accept-volume-6-catalogue",
+      "passed": true
+    },
+    {
+      "name": "schema/accept-volume-7-catalogue",
+      "passed": true
+    },
+    {
+      "name": "schema/accept-volume-8-catalogue",
+      "passed": true
+    },
+    {
+      "name": "schema/accept-volume-9-catalogue",
+      "passed": true
+    },
+    {
+      "name": "schema/accept-volume-10-catalogue",
+      "passed": true
+    },
+    {
+      "name": "schema/accept-volume-11-catalogue",
+      "passed": true
+    },
+    {
+      "name": "schema/accept-volume-12-catalogue",
+      "passed": true
+    },
+    {
+      "name": "schema/accept-volume-13-catalogue",
+      "passed": true
+    },
+    {
+      "name": "schema/accept-volume-14-catalogue",
+      "passed": true
+    },
+    {
+      "name": "schema/accept-volume-15-catalogue",
+      "passed": true
+    },
+    {
+      "name": "schema/accept-volume-16-catalogue",
+      "passed": true
+    },
+    {
+      "name": "schema/accept-volume-17-catalogue",
+      "passed": true
+    },
+    {
+      "name": "schema/accept-volume-18-catalogue",
+      "passed": true
+    },
+    {
+      "name": "schema/accept-volume-19-catalogue",
+      "passed": true
+    },
+    {
       "name": "schema/sequential-build-player-mode-status",
       "passed": true
     },
@@ -135,7 +219,7 @@
       "passed": true
     },
     {
-      "name": "migration/v3-idempotent",
+      "name": "migration/v4-idempotent",
       "passed": true
     },
     {
@@ -251,6 +335,10 @@
       "passed": true
     },
     {
+      "name": "export/legacy-plot-triggers-disabled",
+      "passed": true
+    },
+    {
       "name": "export/preserve-existing-metadata-and-unrelated-entries",
       "passed": true
     },
@@ -259,35 +347,115 @@
       "passed": true
     },
     {
-      "name": "ejs/source-ikki",
+      "name": "ejs/source-with-ikki",
       "passed": true
     },
     {
-      "name": "ejs/source-custom",
+      "name": "ejs/source-with-custom",
       "passed": true
     },
     {
-      "name": "ejs/source-unselected",
+      "name": "ejs/source-with-unbuilt",
       "passed": true
     },
     {
-      "name": "ejs/source-missing",
+      "name": "ejs/source-with-missing",
       "passed": true
     },
     {
-      "name": "ejs/export-ikki",
+      "name": "ejs/source-with-false-is-not-ikki",
       "passed": true
     },
     {
-      "name": "ejs/export-custom",
+      "name": "ejs/source-with-top-level-decoy",
       "passed": true
     },
     {
-      "name": "ejs/export-unselected",
+      "name": "ejs/source-with-nested-condition",
       "passed": true
     },
     {
-      "name": "ejs/export-missing",
+      "name": "ejs/source-destructured-ikki",
+      "passed": true
+    },
+    {
+      "name": "ejs/source-destructured-custom",
+      "passed": true
+    },
+    {
+      "name": "ejs/source-destructured-unbuilt",
+      "passed": true
+    },
+    {
+      "name": "ejs/source-destructured-missing",
+      "passed": true
+    },
+    {
+      "name": "ejs/source-destructured-false-is-not-ikki",
+      "passed": true
+    },
+    {
+      "name": "ejs/source-destructured-top-level-decoy",
+      "passed": true
+    },
+    {
+      "name": "ejs/source-destructured-nested-condition",
+      "passed": true
+    },
+    {
+      "name": "ejs/export-with-ikki",
+      "passed": true
+    },
+    {
+      "name": "ejs/export-with-custom",
+      "passed": true
+    },
+    {
+      "name": "ejs/export-with-unbuilt",
+      "passed": true
+    },
+    {
+      "name": "ejs/export-with-missing",
+      "passed": true
+    },
+    {
+      "name": "ejs/export-with-false-is-not-ikki",
+      "passed": true
+    },
+    {
+      "name": "ejs/export-with-top-level-decoy",
+      "passed": true
+    },
+    {
+      "name": "ejs/export-with-nested-condition",
+      "passed": true
+    },
+    {
+      "name": "ejs/export-destructured-ikki",
+      "passed": true
+    },
+    {
+      "name": "ejs/export-destructured-custom",
+      "passed": true
+    },
+    {
+      "name": "ejs/export-destructured-unbuilt",
+      "passed": true
+    },
+    {
+      "name": "ejs/export-destructured-missing",
+      "passed": true
+    },
+    {
+      "name": "ejs/export-destructured-false-is-not-ikki",
+      "passed": true
+    },
+    {
+      "name": "ejs/export-destructured-top-level-decoy",
+      "passed": true
+    },
+    {
+      "name": "ejs/export-destructured-nested-condition",
       "passed": true
     }
   ]

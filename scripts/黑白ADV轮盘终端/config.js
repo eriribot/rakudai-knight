@@ -39,7 +39,7 @@ export const CONFIG = {
     { id: 'bbs', label: '破军 BBS', icon: 'bbs' },
     { id: 'schedule', label: '选拔赛程', icon: 'schedule' },
     { id: 'gallery', label: '灵装画廊', icon: 'gallery' },
-    { id: 'worldbook', label: '世界观资料', icon: 'worldbook' },
+    { id: 'calendar', label: '学园校历', icon: 'calendar' },
     { id: 'settings', label: '终端设置', icon: 'settings' },
   ],
   

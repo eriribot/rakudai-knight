@@ -1,0 +1,438 @@
+/* Color-block status module. Kept inside the dossier; shell and wheel keep their theme. */
+#blazer-body.gba-status {
+  --gba-ink: #1b2748;
+  --gba-navy: #2b4773;
+  --gba-navy-light: #3d608b;
+  --gba-paper: #fff3d6;
+  --gba-paper-shade: #e9dcb9;
+  --gba-muted: #526076;
+  --gba-gold: #efbd4f;
+  --gba-teal: #319e8e;
+  --gba-teal-light: #82d1ad;
+  --gba-red: #c85b46;
+  --ink: var(--gba-ink);
+  --ink2: #35425b;
+  --muted: var(--gba-muted);
+  --card: var(--gba-paper);
+  --card2: var(--gba-paper-shade);
+  --hair: #82908f;
+  --sky: #205f79;
+  --crimson: var(--gba-red);
+  --press: var(--gba-paper-shade);
+  color: var(--gba-ink);
+  background: #223759;
+  padding: 2px 0 16px;
+  font-size: 13px;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+  scrollbar-color: var(--gba-gold) var(--gba-ink);
+  color-scheme: light;
+}
+
+#blazer-body.gba-status *,
+#blazer-body.gba-status *::before,
+#blazer-body.gba-status *::after {
+  box-sizing: border-box;
+}
+
+#blazer-body.gba-status .card1 {
+  margin: 12px 10px;
+  padding: 12px;
+  border: 2px solid var(--gba-ink);
+  border-radius: 0;
+  background: var(--gba-paper);
+  color: var(--gba-ink);
+  box-shadow: 2px 2px 0 #14203a;
+  min-width: 0;
+}
+
+#blazer-body.gba-status .ct {
+  background: var(--gba-navy);
+  color: var(--gba-paper);
+  border-bottom: 2px solid var(--gba-gold);
+  padding: 6px 9px;
+  margin: 12px 0 9px;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: .5px;
+}
+
+#blazer-body.gba-status .card1 > .ct:first-child {
+  margin: -12px -12px 12px;
+}
+
+#blazer-body.gba-status .card-avatar {
+  background: var(--gba-gold);
+  color: var(--gba-ink);
+  border: 2px solid var(--gba-ink);
+  box-shadow: none;
+}
+
+#blazer-body.gba-status .card-rank-badge {
+  display: inline-block;
+  vertical-align: middle;
+  min-width: 27px;
+  margin-left: 3px;
+  padding: 2px 5px;
+  border: 2px solid var(--gba-ink);
+  border-radius: 0;
+  background: var(--gba-gold);
+  color: var(--gba-ink);
+  font: 700 13px/1.3 var(--font-num);
+  text-align: center;
+  text-shadow: none;
+  white-space: nowrap;
+}
+
+/* 觉醒是独立布尔状态，使用文字和边框区分，不伪装成等级奖励。 */
+#blazer-body.gba-status .gba-awakening {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 10px 0;
+  padding: 7px 9px;
+  border: 1px solid #82908f;
+  background: var(--gba-paper-shade);
+  color: var(--gba-muted);
+  font-size: 12px;
+}
+
+#blazer-body.gba-status .gba-awakening strong {
+  color: var(--gba-ink);
+  font-weight: 700;
+}
+
+#blazer-body.gba-status .gba-awakening[data-awakened='true'] {
+  border-left: 4px solid var(--gba-red);
+}
+
+/* A navy field keeps the chart distinct from the paper explanation beneath it. */
+#blazer-body.gba-status .radar-container {
+  background: var(--gba-navy);
+  border: 2px solid var(--gba-ink);
+  padding: 12px 0;
+  min-width: 0;
+}
+
+#blazer-body.gba-status .radar-svg {
+  display: block;
+  width: min(100%, 320px);
+  max-height: none;
+  height: auto;
+  overflow: visible;
+}
+
+#blazer-body.gba-status .radar-web,
+#blazer-body.gba-status .radar-web-spoke,
+#blazer-body.gba-status .radar-spoke {
+  stroke: #91abc0;
+  stroke-width: 1;
+  stroke-opacity: .7;
+}
+
+#blazer-body.gba-status .radar-web { fill: none; }
+
+#blazer-body.gba-status .radar-polygon {
+  fill: var(--gba-teal);
+  fill-opacity: .72;
+  stroke: var(--gba-gold);
+  stroke-width: 2.2;
+  filter: none;
+}
+
+#blazer-body.gba-status .radar-point {
+  fill: var(--gba-paper);
+  stroke: var(--gba-ink);
+  stroke-width: 2;
+}
+
+#blazer-body.gba-status .radar-label {
+  fill: var(--gba-paper);
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 600;
+}
+
+#blazer-body.gba-status .radar-rank-badge {
+  fill: var(--gba-gold);
+  font: 700 12px var(--font-num);
+}
+
+#blazer-body.gba-status .radar-legend,
+#blazer-body.gba-status .gba-note {
+  color: var(--gba-muted);
+  font-size: 12px;
+  line-height: 1.65;
+  margin: 9px 0 0;
+}
+
+#blazer-body.gba-status .noble-art-block {
+  margin-top: 10px;
+  padding: 9px 10px;
+  border: 1px solid #a1a58f;
+  border-left: 4px solid var(--gba-teal);
+  border-radius: 0;
+  background: var(--gba-paper-shade);
+}
+
+#blazer-body.gba-status .noble-art-title {
+  color: var(--gba-ink);
+  font: 700 13px/1.6 var(--font-ui);
+  flex-wrap: wrap;
+}
+
+#blazer-body.gba-status .noble-art-desc {
+  color: var(--ink2);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+/* Native details provides one full-width, keyboard-operable contact control. */
+#blazer-body.gba-status .roster-list {
+  padding: 10px;
+  gap: 12px;
+}
+
+#blazer-body.gba-status details.roster-card {
+  display: block;
+  padding: 0;
+  margin: 0;
+  border: 2px solid var(--gba-ink);
+  border-radius: 0;
+  background: var(--gba-paper);
+  color: var(--gba-ink);
+  box-shadow: 2px 2px 0 #14203a;
+  cursor: auto;
+  min-width: 0;
+}
+
+#blazer-body.gba-status .gba-contact-summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 10px;
+  min-height: 68px;
+  background: var(--gba-navy);
+  color: var(--gba-paper);
+  list-style: none;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+#blazer-body.gba-status .gba-contact-summary::-webkit-details-marker { display: none; }
+#blazer-body.gba-status .gba-contact-summary::marker { content: ''; }
+
+#blazer-body.gba-status .gba-contact-summary:hover {
+  background: var(--gba-navy-light);
+}
+
+#blazer-body.gba-status .gba-contact-summary:focus-visible {
+  outline: 3px solid var(--gba-gold);
+  outline-offset: -3px;
+}
+
+#blazer-body.gba-status .gba-contact[open] > .gba-contact-summary {
+  border-bottom: 3px solid var(--gba-gold);
+}
+
+#blazer-body.gba-status .roster-ava {
+  width: 42px;
+  height: 44px;
+  flex: 0 0 42px;
+  border: 2px solid var(--gba-ink);
+  border-radius: 0;
+  background: var(--gba-gold);
+  color: var(--gba-ink);
+  font: 700 24px/1 var(--font-title);
+  box-shadow: none;
+}
+
+#blazer-body.gba-status .roster-info {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+#blazer-body.gba-status .roster-name {
+  color: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.7;
+}
+
+#blazer-body.gba-status .roster-device {
+  color: var(--ink2);
+  font-size: 12px;
+  line-height: 1.7;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+#blazer-body.gba-status .gba-contact-summary .roster-device {
+  color: #dae6e5;
+  margin-top: 3px;
+}
+
+#blazer-body.gba-status .gba-disclosure {
+  flex: 0 0 auto;
+  color: var(--gba-gold);
+  font: 700 12px/1.5 var(--font-ui);
+  text-align: center;
+}
+
+#blazer-body.gba-status .gba-disclosure::before {
+  content: '▸';
+  display: block;
+  font-size: 17px;
+  line-height: 1;
+}
+
+#blazer-body.gba-status .gba-contact[open] .gba-disclosure::before { content: '▾'; }
+
+#blazer-body.gba-status .gba-contact-body {
+  padding: 12px;
+  color: var(--gba-ink);
+  background: var(--gba-paper);
+  min-width: 0;
+}
+
+#blazer-body.gba-status .gba-contact-body > .roster-device + .roster-device {
+  margin-top: 6px;
+}
+
+#blazer-body.gba-status .gba-contact-body dl {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 7px 10px;
+  margin: 0;
+}
+
+#blazer-body.gba-status .gba-contact-body dt { color: var(--gba-muted); }
+#blazer-body.gba-status .gba-contact-body dd { margin: 0; min-width: 0; }
+
+/* Solid meters have a single light edge; neither value is indicated by color alone. */
+#blazer-body.gba-status .gba-bond-panel {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 2px solid #bcc1a7;
+}
+
+#blazer-body.gba-status .gba-metric {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 10px;
+  color: var(--gba-ink);
+  font-size: 12px;
+  margin: 9px 0 5px;
+}
+
+#blazer-body.gba-status .gba-metric strong,
+#blazer-body.gba-status .gba-metric b {
+  font: 700 15px/1.4 var(--font-num);
+  color: var(--gba-ink);
+}
+
+#blazer-body.gba-status .gba-meter {
+  height: 16px;
+  width: 100%;
+  border: 2px solid var(--gba-ink);
+  background: #c6c9b2;
+  overflow: hidden;
+}
+
+#blazer-body.gba-status .gba-meter > span {
+  display: block;
+  height: 100%;
+  min-width: 0;
+  max-width: 100%;
+  background: var(--gba-teal);
+  border-top: 3px solid var(--gba-teal-light);
+}
+
+#blazer-body.gba-status .gba-meter[data-kind='support'] > span {
+  background: #d59635;
+  border-top-color: #ffde83;
+}
+
+#blazer-body.gba-status .gba-support-track {
+  display: flex;
+  gap: 5px;
+  margin: 9px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+#blazer-body.gba-status .gba-support-track li {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 5px 2px;
+  border: 1px solid #8c967f;
+  background: var(--gba-paper-shade);
+  color: #53616c;
+  font: 700 13px/1.5 var(--font-num);
+  text-align: center;
+}
+
+#blazer-body.gba-status .gba-support-track li[data-achieved='true'] {
+  border-color: var(--gba-ink);
+  border-bottom: 3px solid var(--gba-gold);
+  padding-bottom: 3px;
+  background: var(--gba-navy);
+  color: var(--gba-paper);
+}
+
+#blazer-body.gba-status .gba-support-track small {
+  display: block;
+  font: 11px/1.4 var(--font-num);
+}
+
+#blazer-body.gba-status .gba-unknown {
+  color: var(--gba-muted);
+  font-size: 12px;
+  font-style: normal;
+}
+
+#blazer-body.gba-status .gba-romance-panel {
+  border-top: 2px solid var(--gba-red);
+  margin-top: 14px;
+  padding-top: 5px;
+}
+
+#blazer-body.gba-status .gba-romance-track {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+
+#blazer-body.gba-status .gba-romance-track li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 7px;
+  font-family: var(--font-ui);
+  font-size: 12px;
+}
+
+#blazer-body.gba-status .gba-romance-track li:last-child { grid-column: 1 / -1; }
+
+#blazer-body.gba-status .gba-romance-track li[data-achieved='true'] {
+  border-bottom: 1px solid var(--gba-ink);
+  border-left: 4px solid var(--gba-red);
+  padding-left: 4px;
+}
+
+@media (max-width: 350px) {
+  #blazer-body.gba-status .card1 { margin: 9px 7px; padding: 10px; }
+  #blazer-body.gba-status .card1 > .ct:first-child { margin: -10px -10px 10px; }
+  #blazer-body.gba-status .roster-list { padding: 8px 7px; gap: 10px; }
+  #blazer-body.gba-status .gba-contact-summary { padding: 9px 8px; gap: 7px; }
+  #blazer-body.gba-status .roster-ava { width: 36px; height: 40px; flex-basis: 36px; font-size: 21px; }
+  #blazer-body.gba-status .roster-name { font-size: 13px; }
+  #blazer-body.gba-status .gba-contact-body { padding: 10px; }
+}

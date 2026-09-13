@@ -1,0 +1,85 @@
+{
+  "status": "passed",
+  "mode": "offline-synthetic-fixture",
+  "source": {
+    "path": "output/chapter-v4/runtime-fixture-v4-initial.jsonl",
+    "bytes": 13622,
+    "sha256": "fee76ba53eb5154ca2acc0466166d99fbf900947e7576dacbfd1be6cc2756608"
+  },
+  "output": {
+    "path": "output/chapter-v4/迁移验收-v3.jsonl",
+    "bytes": 13611,
+    "sha256": "acb74dea3998c605a8de8647c2b71858a63834bd8b1391325f0f5a27a125b01e"
+  },
+  "target": {
+    "messageId": 0,
+    "swipeId": 0,
+    "jsonlLine": 2,
+    "statDataPointer": "/1/variables/0/stat_data",
+    "volume": 1,
+    "chapter": "终章",
+    "phase": "已结束",
+    "events": 1
+  },
+  "changes": [
+    {
+      "op": "replace",
+      "path": "/1/variables/0/stat_data/系统/结构版本",
+      "value": 3
+    },
+    {
+      "op": "remove",
+      "path": "/1/variables/0/stat_data/场景/已发生事件/测试记录/卷号"
+    }
+  ],
+  "expectedMigrationChanges": [
+    {
+      "op": "replace",
+      "path": "/系统/结构版本",
+      "value": 4
+    },
+    {
+      "op": "add",
+      "path": "/场景/已发生事件/测试记录/卷号",
+      "value": 1
+    }
+  ],
+  "hashes": {
+    "algorithm": "sha256 of JSON with recursively sorted object keys; array order preserved",
+    "beforeV4State": "ad1583176f405076d4aad1b90ee23bda7960a43230ed3fd5b6660584ed90b92b",
+    "fixtureV3State": "2450ab0c836bef8722280ce5facc3655c4d4c07745a0cfb1e8e55ca2081eb7e7",
+    "expectedAfterMigrationState": "ad1583176f405076d4aad1b90ee23bda7960a43230ed3fd5b6660584ed90b92b",
+    "beforeActiveWrapper": "45b84a4d789fa65ef04d508a33ee80c841b066f58dba534faae8da8fdd9fef74",
+    "fixtureActiveWrapper": "55bf4babaf3d3f81927b03cf7d3e2b042c79978db6d0b37f9f6858ba95120d8f",
+    "expectedAfterMigrationWrapper": "45b84a4d789fa65ef04d508a33ee80c841b066f58dba534faae8da8fdd9fef74"
+  },
+  "preserved": {
+    "headerBytes": true,
+    "chatMetadata": true,
+    "playerAndRelationships": true,
+    "otherMessagesAndSwipes": true,
+    "activeWrapperKeys": [
+      "display_data",
+      "initialized_lorebooks",
+      "stat_data",
+      "delta_data",
+      "schema"
+    ],
+    "wrapperFieldsOutsideStatData": true,
+    "explanation": "保留 display_data、delta_data、schema、initialized_lorebooks 及其他原包装；不手造或重置 MVU 元数据。"
+  },
+  "chatIdentity": {
+    "metadataChanged": false,
+    "explanation": "只使用新的输出文件名区分验收聊天，不改 chat_metadata.integrity、角色名或原生元数据；由原生导入流程创建独立聊天，导入后核对当前聊天。"
+  },
+  "acceptance": {
+    "runtimeChecked": false,
+    "steps": [
+      "原生导入为独立聊天后先确认活动状态仍是 v3",
+      "终端展示迁移差异；下载备份并核对 v3 状态哈希，刷新预览不写入",
+      "明确点击确认升级当前楼层",
+      "原生导出迁移后聊天，对照预期活动状态及完整包装哈希",
+      "人物、历史事件内容及其他回复页保持原样"
+    ]
+  }
+}

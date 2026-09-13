@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>落第騎士の英雄譚 — WORLD ATLAS</title>
+  
+  <!-- Leaflet 核心地图库 (支持本地离线与无网络环境) -->
+  <link rel="stylesheet" href="assets/leaflet/leaflet.css" />
+  <script src="assets/leaflet/leaflet.js"></script>
+  
+  <!-- 自定义二游级样式表 -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="atlas-app">
+    <!-- 底图视口 -->
+    <div id="map-viewport"></div>
+
+    <!-- 飘落樱花瓣粒子容器 -->
+    <div id="cherry-petals" class="cherry-petals-container"></div>
+
+    <!-- 顶部标题与状态栏 -->
+    <header class="atlas-header">
+      <div class="header-left">
+        <img src="https://eriribot.github.io/rakudai-knight/rakudai-logo.png"
+             class="brand-logo-img"
+             alt="落第騎士の英雄譚"
+             onerror="this.src='assets/rakudai-logo.png'" />
+      </div>
+
+      <div class="header-right">
+        <div id="status-pill" class="status-pill">
+          <!-- 动态填充当前区域、天气、日期 -->
+          <span class="status-icon">📍</span>
+          <span>當前區域：<strong>東京都 · 破軍學園</strong></span>
+          <span class="divider">|</span>
+          <span>☀️ 晴朗 24℃</span>
+          <span class="divider">|</span>
+          <span>📅 10月12日 (週六)</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- 左侧地图册抽屉 -->
+    <aside class="atlas-sidebar">
+      <!-- 搜索栏 -->
+      <div class="sidebar-search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="search-input" class="search-input" placeholder="搜索地名 / 建築 / 人物 / 事件..." />
+        <button class="search-filter-btn" title="筛选与图层设置">⚙️</button>
+      </div>
+
+      <!-- 地图册面板 -->
+      <div class="atlas-panel">
+        <div class="panel-header">
+          <div class="panel-title-row">
+            <div class="panel-title-left">
+              <span class="panel-icon">📖</span>
+              <span class="panel-title">地圖冊</span>
+              <span class="panel-subtitle">WORLD ATLAS</span>
+            </div>
+            <button id="btn-close-sidebar" class="panel-close-btn" title="收起地圖冊">✕</button>
+          </div>
+          <div class="panel-tagline">記錄這個世界的每一個舞台</div>
+        </div>
+
+        <!-- 分类列表 (滚动区) -->
+        <div id="atlas-scroll-area" class="atlas-scroll-area">
+          <!-- 由 data.js 动态渲染 -->
+        </div>
+
+        <!-- 底部角色名言 -->
+        <div class="sidebar-quote-card">
+          —— 俺は、君を守るために剣を振るう。それが、俺の英雄譚だ。
+        </div>
+      </div>
+    </aside>
+
+    <!-- 地图边缘方位提示 (还原概念图中的外部指引) -->
+    <div class="edge-indicator top-right" onclick="window.RakudaiAtlas?.updateState?.({ currentStatus: { region: '東北 · 巨門學園方面' } })">
+      至 宇都宮 · 東北方面 ↗
+    </div>
+    <div class="edge-indicator middle-right">
+      至 千葉方面 →
+    </div>
+    <div class="edge-indicator bottom-right" onclick="window.RakudaiAtlas?.updateState?.({ currentStatus: { region: '大阪灣岸 · 七星劍武祭' } })">
+      至 大阪 · 七星劍武祭 →
+    </div>
+
+    <!-- 右侧悬浮控制面板 -->
+    <div class="map-control-floating">
+      <button id="btn-toggle-sidebar" class="map-control-btn" title="折叠 / 展开地图册">📖</button>
+      <button id="btn-locate" class="map-control-btn" title="重置关东全景视角">🧭</button>
+      <button id="btn-zoom-in" class="map-control-btn" title="放大地图">➕</button>
+      <button id="btn-zoom-out" class="map-control-btn" title="缩小地图">➖</button>
+      <button id="btn-center-hagun" class="map-control-btn" title="聚焦破军学园">🎯</button>
+    </div>
+
+    <!-- 底部交互提示浮动胶囊 (对标圣地巡礼概念图) -->
+    <div class="bottom-interaction-pill">
+      拖動平移 · 滾輪縮放 · 點擊地點查看詳情
+    </div>
+
+    <!-- 底部状态栏与图例 -->
+    <footer class="atlas-footer">
+      <div class="footer-center-controls">
+        <!-- 比例尺 -->
+        <div class="scale-meter">
+          <span>0</span>
+          <div class="scale-bar"></div>
+          <span>20 km</span>
+        </div>
+
+        <!-- 交互图例 -->
+        <div class="legend-group">
+          <div class="legend-item" data-type="battle">
+            <span class="legend-icon battle">✕</span>
+            <span>戰鬥 / 事件地點</span>
+          </div>
+          <div class="legend-item" data-type="story">
+            <span class="legend-icon story">⭐</span>
+            <span>重要劇情地點</span>
+          </div>
+          <div class="legend-item" data-type="facility">
+            <span class="legend-icon facility">🏛️</span>
+            <span>設施 / 建築</span>
+          </div>
+          <div class="legend-item" data-type="nature">
+            <span class="legend-icon nature">🌲</span>
+            <span>自然 / 特殊地形</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-quote">
+        剣が生んだ出会いが、きっとどこかで、誰かの光になる——
+      </div>
+    </footer>
+
+    <!-- 地点交互详情抽屉 (Detail Modal) -->
+    <div id="detail-drawer" class="detail-drawer">
+      <!-- 动态注入选中的地点数据 -->
+    </div>
+  </div>
+
+  <!-- 数据源与业务脚本 -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

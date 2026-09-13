@@ -1,0 +1,22 @@
+{
+  "X": {
+    "arm": "A",
+    "original_files": {
+      "worldbook.md": "ae9afba59c70a35a7d46a533771a3537db1f738fc96dc0a1f95d9bb4c7f12135",
+      "worldbook.json": "69879ed449d318d4eccc00921a633f10efa7d42e80eab8e39234f7a8bae4e299",
+      "evidence.json": "da0cd0cfeba3e0e61c4cffe6f4af4616d403582190c4bf947fafaa8ccbbca8f9",
+      "process.md": "2d67ebb28fdcba1cfa5326776a8cb303062e8f701708a423980a2e108c458be4"
+    },
+    "blind_sha256": "929866342e5ab6b4f0e9284df9aefd14a9badfbf9b659825ff712af83d678b9c"
+  },
+  "Y": {
+    "arm": "B",
+    "original_files": {
+      "worldbook.md": "70c26aa0027c433a0373000aa21907712078e3e6047d5b6ac39c6aaff3913248",
+      "worldbook.json": "94bda0184f5f76086cbe46ba6af40c6da97ab6ba051b1c45b2332b92a50c7c11",
+      "evidence.json": "6500aea6d2d3f69173b64ad06f450f01d122a4499b05b403b4cec0772f85d393",
+      "process.md": "52b2b375f9e03da7504bac10a856106d6689ca02a2fc79d4ce68268b8f68ac52"
+    },
+    "blind_sha256": "2750c87a921fcb0548084f7f94685896fb5621a1606e9b691d6f1ee0691b6d49"
+  }
+}

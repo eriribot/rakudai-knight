@@ -1,0 +1,24 @@
+{
+  "checked_at_utc": "2026-09-13T08:30:41.862380+00:00",
+  "entries": 3,
+  "body_unicode_characters": 1053,
+  "body_cjk_characters": 934,
+  "evidence_facts": 26,
+  "exact_excerpt_checks": 81,
+  "json_template_fields_preserved": true,
+  "uid_matches_entry_key": true,
+  "markdown_and_json_content_match": true,
+  "source_bytes_match": true,
+  "record_hashes_match_query": true,
+  "query_matches": [
+    4,
+    2,
+    2,
+    0
+  ],
+  "library_init_to_check_seconds": 600.438,
+  "semantic_review": "Agent manually reviewed all final paragraphs against the already-read source context before freezing; not independent judging.",
+  "sillytavern_import_tested": false,
+  "input_tokens": null,
+  "output_tokens": null
+}

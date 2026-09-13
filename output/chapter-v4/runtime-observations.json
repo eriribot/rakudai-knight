@@ -1,0 +1,189 @@
+{
+  "recordType": "人工整理的脱敏实机观察记录",
+  "date": "2026-09-08",
+  "timezone": "Asia/Shanghai",
+  "source": {
+    "method": "root 通过 CUA 读取验收探针 DOM 及 SillyTavern 原生 prompt viewer，随后转交以下字段",
+    "transcription": "由协作代理按 root 转交字段整理；不是探针自动下载，也不是原始 HTTP 导出",
+    "scope": "独立合成验收副本",
+    "rawHttpBodySaved": false
+  },
+  "acceptanceStatus": {
+    "owner": "用户",
+    "status": "用户已叫停实机测试并接手验收",
+    "remainingChecksPassed": false,
+    "note": "仅记录已经观察到的事实；未覆盖项目不作通过结论。整理本文件后未新增研究、生成请求或测试。"
+  },
+  "snapshots": [
+    {
+      "observedLocalTime": "2026-09-08 18:36:40",
+      "sourceSurface": "验收探针 DOM 的只读 MVU 快照",
+      "floors": [
+        {
+          "messageId": 0,
+          "swipeId": 0,
+          "activeSlotMatchesMvu": true,
+          "system": {
+            "结构版本": 4,
+            "主角模式": "自定义角色"
+          },
+          "scene": {
+            "当前卷": 2,
+            "当前章": "序章",
+            "阶段": "未开始",
+            "时间": "测试日·下午",
+            "地点": "测试校舍"
+          },
+          "playerName": "验收员",
+          "eventVolumes": [1],
+          "wrapperFields": ["initialized_lorebooks", "schema", "stat_data"]
+        }
+      ]
+    },
+    {
+      "observedLocalTime": "2026-09-08 18:40:02",
+      "sourceSurface": "迁移验收聊天的只读快照",
+      "stage": "确认迁移之前",
+      "floors": [
+        {
+          "messageId": 0,
+          "system": {
+            "结构版本": 3
+          },
+          "eventVolumes": [null]
+        }
+      ]
+    },
+    {
+      "observedLocalTime": "2026-09-08 18:44:08",
+      "sourceSurface": "确认迁移并整页重载后的只读快照",
+      "stage": "root 已观察到确认迁移成功；本条为重载后的显示结果",
+      "floors": [
+        {
+          "messageId": 0,
+          "system": {
+            "结构版本": 4
+          },
+          "scene": {
+            "当前卷": 1,
+            "当前章": "终章",
+            "阶段": "已结束",
+            "时间": "测试日·上午",
+            "地点": "测试训练场",
+            "切入说明": "合成边界测试"
+          },
+          "playerName": "验收员",
+          "eventVolumes": [1],
+          "wrapperFields": ["initialized_lorebooks", "schema", "stat_data"]
+        }
+      ],
+      "reportedUnchanged": ["场景卷章及阶段", "时间", "地点", "切入说明", "玩家姓名", "包装字段名"],
+      "comparisonBoundary": "上述显示字段被报告保持；没有成功导出的完整包装全字段深比较证据。"
+    },
+    {
+      "observedLocalTime": "2026-09-08 18:46:42.629",
+      "sourceSurface": "验收探针 DOM 的只读 MVU 快照",
+      "assistantCount": 3,
+      "floors": [
+        { "messageId": 0, "swipeId": 0, "activeSlotMatchesMvu": true },
+        { "messageId": 2, "swipeId": 0, "activeSlotMatchesMvu": true },
+        { "messageId": 4, "swipeId": 0, "activeSlotMatchesMvu": true }
+      ],
+      "commonDisplayedState": {
+        "system": { "结构版本": 4, "主角模式": "自定义角色" },
+        "scene": { "当前卷": 2, "当前章": "序章", "阶段": "未开始" },
+        "playerName": "验收员",
+        "eventVolumes": [1],
+        "wrapperFields": ["initialized_lorebooks", "schema", "stat_data"]
+      }
+    }
+  ],
+  "nativePromptViewer": [
+    {
+      "observedLocalTime": "2026-09-08 18:37",
+      "timePrecision": "分钟",
+      "sourceSurface": "SillyTavern 原生 prompt viewer",
+      "assistantMessageId": 2,
+      "requestPurpose": "主聊天回复",
+      "promptCharacters": 14767,
+      "plotBlockCount": 1,
+      "plotTarget": { "volume": 2, "chapter": "序章", "phase": "未开始" },
+      "ejsMarkers": {
+        "RK_EJS_TRUE": true,
+        "RK_EJS_NESTED_OK": true,
+        "RK_EJS_CUSTOM": true,
+        "RK_EJS_FALSE_BAD": false,
+        "RK_EJS_NESTED_BAD": false,
+        "RK_EJS_IKKI": false
+      },
+      "hasRawEjsTags": false
+    }
+  ],
+  "requestMetadata": [
+    {
+      "recordedAtUTC": "2026-09-08T10:43:53.445Z",
+      "sourceSurface": "验收探针 DOM 中已收集的脱敏请求记录",
+      "requestPurpose": "故事神谕启动诊断",
+      "type": "unspecified",
+      "messageCount": 2,
+      "bodyBytes": 40152,
+      "plotBlockCount": 0,
+      "hasRawEjsTags": true
+    },
+    {
+      "recordedAtUTC": "2026-09-08T10:45:41.281Z",
+      "sourceSurface": "验收探针 DOM 中已收集的脱敏请求记录",
+      "requestPurpose": "主聊天回复",
+      "type": "normal",
+      "messageCount": 29,
+      "bodyBytes": 50308,
+      "plotBlockCount": 1,
+      "plotTarget": { "volume": 2, "chapter": "序章", "phase": "未开始" },
+      "ejsMarkers": {
+        "RK_EJS_TRUE": true,
+        "RK_EJS_NESTED_OK": true,
+        "RK_EJS_CUSTOM": true,
+        "RK_EJS_FALSE_BAD": false,
+        "RK_EJS_NESTED_BAD": false,
+        "RK_EJS_IKKI": false
+      },
+      "hasRawEjsTags": false
+    },
+    {
+      "recordedAtUTC": "2026-09-08T10:45:59.118Z",
+      "sourceSurface": "验收探针 DOM 中已收集的脱敏请求记录",
+      "requestPurpose": "后台请求",
+      "type": "unspecified",
+      "messageCount": 8,
+      "bodyBytes": 98667,
+      "plotBlockCount": 0,
+      "hasRawEjsTags": false
+    },
+    {
+      "recordedAtUTC": "2026-09-08T10:46:00.214Z",
+      "sourceSurface": "验收探针 DOM 中已收集的脱敏请求记录",
+      "requestPurpose": "故事神谕自动诊断",
+      "type": "unspecified",
+      "messageCount": 2,
+      "bodyBytes": 53437,
+      "plotBlockCount": 0,
+      "hasRawEjsTags": true,
+      "interpretationBoundary": "诊断引用的原文包含 EJS 标签；本条不是主聊天请求，不能据此判定主聊天 EJS 展开失败。"
+    }
+  ],
+  "probeStatus": {
+    "sourceSurface": "2026-09-08 18:46 的验收探针 DOM",
+    "fetchStillInstalled": true,
+    "fixtureMatched": true,
+    "fetchCalls": 42,
+    "matchedLocalRequests": 4,
+    "displayBoundary": "此前读到面板旧内容，不能据此断言请求漏记或 fetch 被替换；刷新后显示以上四条记录。"
+  },
+  "limitations": [
+    "没有保存原始 HTTP 完整 body；本文件只含 root 转交的脱敏字段。",
+    "现有时间戳不能证明两个请求在执行期间完全并发重叠；该并发场景仍未完成实机验收。",
+    "没有成功导出的完整 MVU 包装全字段深比较证据；字段名相同不等于包装内容逐字段相等。",
+    "仅观察到本文件列明的主请求与后台请求结果，不外推为所有扩展、生成类型和并发时序均通过。",
+    "用户已接手实机验收；剩余未验事项不标记通过。"
+  ]
+}

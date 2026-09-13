@@ -70,6 +70,7 @@ check(() => { const bad = json(fixture); bad.profile_key = 'kurogane'; const can
 check(() => {
   const payload = ctx.buildOpeningVariables(clean);
   assert.equal(payload.系统.开局状态, '待建档');
+  assert.equal(payload.系统.结构版本, 4);
   assert.equal(payload.玩家.登记等级, null);
   assert.equal(payload.玩家.综合初评.等级, 'B');
   assert.equal(Object.keys(payload.玩家.伐刀能力.招式).length, 2);
@@ -104,7 +105,7 @@ check(() => {
 check(() => {
   ctx.applySceneTemplate('training');
   assert.equal(node('opening-chapter').value, '第一章');
-  assert.equal(node('opening-time').value, '春假期间·上午');
+  assert.equal(node('opening-time').value, '西历 2013 年 4 月 5 日·春假·上午');
   assert.equal(node('opening-location').value, '破军学园·第三训练场');
   assert.equal(node('opening-scene-confirmed').checked, true);
   assert(node('opening-greeting').value.includes('第三训练场'));
@@ -115,16 +116,17 @@ check(() => {
   assert.equal(node('opening-chapter').value, '第一章');
   assert.equal(node('opening-scene-confirmed').checked, true);
 });
-function initialState() { return { 系统: { 结构版本: 3, 开局状态: '待建档', 主角模式: '未选择' }, 场景: { 当前卷: 1, 当前章: '待选择', 阶段: '未开始', 时间: '', 地点: '', 切入说明: '', 已发生事件: {} }, 玩家: {}, 人际: {} }; }
-let state, writes, captures, verifies, failNext, ambiguousNext, scopeValid;
+function initialState() { return { 系统: { 结构版本: 4, 开局状态: '待建档', 主角模式: '未选择' }, 场景: { 当前卷: 1, 当前章: '待选择', 阶段: '未开始', 时间: '', 地点: '', 切入说明: '', 已发生事件: {} }, 玩家: {}, 人际: {} }; }
+let state, writes, captures, verifies, failNext, ambiguousNext, scopeValid, replacementBlocked;
 let token;
 function setupController() {
-  state = initialState(); writes = 0; captures = 0; verifies = 0; failNext = false; ambiguousNext = false; scopeValid = true;
+  state = initialState(); writes = 0; captures = 0; verifies = 0; failNext = false; ambiguousNext = false; scopeValid = true; replacementBlocked = false;
   token = Object.freeze({ opaque: 'test-token' });
   ctx.window.RakudaiStateController = {
     async capture({ messageId }) { assert.equal(messageId, 0); captures++; return { state: json(state), token }; },
     async commitOpening(received, payload) {
       assert.equal(received, token);
+      assert.equal(payload.系统.结构版本, 4);
       if (!scopeValid) throw new Error('聊天已切换');
       if (failNext) { failNext = false; throw new Error('模拟写入失败'); }
       if (state.系统.开局状态 !== '已建档') {
@@ -132,6 +134,14 @@ function setupController() {
         state = { ...state, 系统: { ...json(payload.系统), 开局状态: '已建档' }, 玩家: json(payload.玩家), 场景: { ...state.场景, ...json(payload.场景), 阶段: '进行中' } };
       }
       if (ambiguousNext) { ambiguousNext = false; throw new Error('回读失败，写入结果待复核'); }
+      return { state: json(state) };
+    },
+    async replaceOpening(received, payload) {
+      assert.equal(received, token);
+      if (!scopeValid) throw new Error('聊天已切换');
+      if (replacementBlocked) throw new Error('已有后续消息，不能替换开局人物');
+      writes++;
+      state = { ...state, 系统: { ...json(payload.系统), 开局状态: '已建档' }, 玩家: json(payload.玩家), 场景: { ...state.场景, ...json(payload.场景), 阶段: '进行中' } };
       return { state: json(state) };
     },
     async verify(received) { assert.equal(received, token); verifies++; if (!scopeValid) throw new Error('聊天已切换'); return { state: json(state) }; },
@@ -169,6 +179,7 @@ function setupController() {
   node('opening-greeting').value += '我整理好衣领。'; ctx.editGreeting();
   check(() => { assert.equal(ctx.openingReceipt, null); assert.equal(node('opening-scene-confirmed').checked, false); assert(node('opening-message').value.includes('档案草稿')); });
   fill(); setupController(); state.系统.开局状态 = '已建档';
+  delete ctx.window.RakudaiStateController.replaceOpening; // 旧控制器仍明确提示更新。
   await ctx.enterGame();
   check(() => { assert.equal(writes, 0); assert(node('archive-feedback').textContent.includes('已经建档')); });
   fill(); setupController();
@@ -179,5 +190,84 @@ function setupController() {
   finishCapture({ state: initialState(), token });
   await inFlight;
   check(() => { assert.equal(writes, 0); assert(node('archive-feedback').textContent.includes('草稿已修改')); });
+  // 本地读取使用页面原函数；仅替身预设的 UI 填写与照片接口，不连接酒馆。
+  vm.runInContext(script.slice(script.indexOf('function applyOpeningDraft('), script.indexOf('function loadArchiveImage(')), ctx);
+  vm.runInContext(script.slice(script.indexOf('async function checkArchiveAvatar('), script.indexOf('function downloadArchiveBlob(')), ctx);
+  vm.runInContext(script.slice(script.indexOf('async function loadArchiveSlot('), script.indexOf('function arrangeShowcase(')), ctx);
+  ctx.loadPreset = key => { ctx.activeStartProfile = key; ctx.openingUiRevision++; ctx.openingReceipt = null; ctx.openingPendingAttempt = null; };
+  ctx.applyArchiveAvatar = () => {};
+  ctx.localStorage = { getItem: key => { assert.equal(key, ctx.ARCHIVE_KEY + 1); return JSON.stringify({ draft: fixture }); } };
+  ctx.window.confirm = () => true;
+  node('start-archive-dialog').open = false;
+  fill(); setupController(); state.系统.开局状态 = '已建档';
+  ctx.archiveFeedback('当前聊天已经建档，旧建档提示', true);
+  await ctx.loadArchiveSlot(1);
+  check(() => {
+    assert.equal(captures, 0); assert.equal(writes, 0);
+    assert.equal(node('input-name').value, fixture.profile.name);
+    assert.equal(node('archive-feedback').textContent, '');
+    assert(node('archive-local-feedback').textContent.includes('已读取档案槽'));
+  });
+  ctx.archiveFeedback('旧建档错误', true); ctx.window.confirm = () => false;
+  await ctx.loadArchiveSlot(1);
+  check(() => {
+    assert.equal(node('archive-feedback').textContent, '');
+    assert(node('archive-local-feedback').textContent.includes('取消'));
+    assert.equal(captures, 0); assert.equal(writes, 0);
+  });
+  fill(); setupController(); ctx.window.confirm = () => true;
+  ctx.window.RakudaiStateController.capture = () => new Promise(resolve => { captures++; finishCapture = resolve; });
+  const pendingBeforeRead = ctx.enterGame();
+  await ctx.loadArchiveSlot(1);
+  const readSuccess = node('archive-local-feedback').textContent;
+  check(() => assert(readSuccess.includes('已读取档案槽')));
+  finishCapture({ state: { ...initialState(), 系统: { 开局状态: '已建档' } }, token });
+  await pendingBeforeRead;
+  check(() => {
+    assert.equal(captures, 1); assert.equal(writes, 0);
+    assert.equal(node('archive-local-feedback').textContent, readSuccess);
+    assert.equal(node('archive-feedback').textContent, '');
+    assert.equal(node('opening-commit-button').disabled, false);
+  });
+  // 恢复表单已开始后的同步异常仍须显示，不能被自身递增的操作版本吞掉。
+  fill(); setupController();
+  const applyDraft = ctx.applyOpeningDraft;
+  ctx.applyOpeningDraft = () => { ctx.openingUiRevision++; throw new Error('模拟表单恢复失败'); };
+  await ctx.loadArchiveSlot(1);
+  ctx.applyOpeningDraft = applyDraft;
+  check(() => {
+    assert(node('archive-local-feedback').textContent.includes('恢复未完成'));
+    assert.equal(captures, 0); assert.equal(writes, 0);
+  });
+  // 读取有马风月只填表；明确确认后，回读结果才把本局黎恩替换为新人物。
+  const replacementDraft = json(fixture); replacementDraft.profile.name = '有马风月';
+  fill(); setupController(); state.系统.开局状态 = '已建档'; state.玩家.姓名 = '黎恩';
+  ctx.localStorage = { getItem: () => JSON.stringify({ draft: replacementDraft }) };
+  ctx.window.confirm = () => true;
+  await ctx.loadArchiveSlot(1);
+  check(() => {
+    assert.equal(node('input-name').value, '有马风月'); assert.equal(state.玩家.姓名, '黎恩');
+    assert.equal(captures, 0); assert.equal(writes, 0);
+  });
+  node('opening-scene-confirmed').checked = true;
+  ctx.window.confirm = message => { assert(message.includes('黎恩 → 有马风月')); return false; };
+  await ctx.enterGame();
+  check(() => { assert.equal(state.玩家.姓名, '黎恩'); assert.equal(writes, 0); assert.equal(ctx.openingReceipt, null); });
+  let replacementPrompts = 0;
+  ctx.window.confirm = () => { replacementPrompts++; return true; };
+  await ctx.enterGame();
+  check(() => {
+    assert.equal(state.玩家.姓名, '有马风月'); assert.equal(writes, 1);
+    assert.equal(ctx.openingReceipt.state.玩家.姓名, '有马风月'); assert.equal(ctx.openingReceipt.token, token);
+    assert(node('archive-feedback').textContent.includes('有马风月'));
+  });
+  await ctx.enterGame();
+  check(() => { assert.equal(writes, 1); assert.equal(replacementPrompts, 1); });
+  fill(replacementDraft); setupController(); state.系统.开局状态 = '已建档'; state.玩家.姓名 = '黎恩'; replacementBlocked = true;
+  await ctx.enterGame();
+  check(() => {
+    assert.equal(state.玩家.姓名, '黎恩'); assert.equal(writes, 0); assert.equal(ctx.openingReceipt, null);
+    assert(node('archive-feedback').textContent.includes('后续消息'));
+  });
   console.log(JSON.stringify({ checks, inlineScripts: scripts.length, uniqueIds: ids.length, status: 'pass', scope: 'offline page contracts; live runtime pending' }, null, 2));
 })().catch(error => { console.error(error); process.exitCode = 1; });

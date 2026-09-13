@@ -1,0 +1,12 @@
+{
+  "id": "rakudai-v10-common",
+  "kind": "local-text",
+  "title": "落第骑士英雄谭 第十卷（共同冻结文本）",
+  "realm": "canon",
+  "continuity": "novel-main",
+  "edition": "本次实验 inputs/volume10.utf8.txt；底本保留原有措辞与错误，LF 规范化",
+  "phase": 10,
+  "phase_definition": "本样本只提供第十卷结束时的资料包，10 表示第十卷结束；不用于卷内早期状态回放。",
+  "provenance": "用户授权 A/B 实验的唯一事实输入；protocol.md 固定范围。不以技能示例或其他卷补充事实。",
+  "rights": "仅在本次授权的 A 组目录内整理、核验，不声明再分发许可。"
+}

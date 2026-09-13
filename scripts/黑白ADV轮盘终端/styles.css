@@ -68,4 +68,44 @@
 #rk-story-panel :focus-visible{outline:2px solid #fff;outline-offset:2px}
 #rk-story-panel [data-story-hint]{color:#aaa}
 #rk-story-panel [data-story-status]{border-left:2px solid #aaa;padding-left:6px}
+#rk-story-panel [hidden]{display:none!important}
+#rk-story-panel .rk-story-box{margin:10px 0;padding:6px 8px;border:1px solid #777;min-width:0}
+#rk-story-panel .rk-story-box>summary{padding:5px 0;font-weight:600}
+#rk-story-panel h3{font:700 12px/1.5 "Microsoft YaHei UI",sans-serif;margin:3px 0 8px;color:#fff}
+#rk-story-panel form label{display:flex;flex-direction:column;align-items:stretch;gap:4px}
+#rk-story-panel input,#rk-story-panel textarea{font:inherit;line-height:1.5;background:#101010;color:#fff;border:1px solid #aaa;border-radius:0;box-shadow:none;padding:7px 8px;min-height:36px}
+#rk-story-panel input,#rk-story-panel textarea,#rk-story-panel select{min-width:0;max-width:100%;width:100%}
+#rk-story-panel textarea{resize:vertical;max-height:140px}
+#rk-story-panel .rk-story-check{display:flex;flex-direction:row;align-items:center;gap:8px}
+#rk-story-panel .rk-story-check input{appearance:auto;min-height:0;width:16px;height:16px;accent-color:#fff}
+#rk-story-panel pre{margin:8px 0;padding:8px;background:#111;color:#ddd;border:1px solid #444;white-space:pre-wrap;overflow-wrap:anywhere;max-height:180px;overflow:auto;font:11px/1.6 Consolas,"Microsoft YaHei UI",monospace;text-shadow:none}
+#rk-story-panel [data-story-route-summary]{padding:6px;border-left:2px solid #fff}
 @media(max-width:480px){#rk-story-panel{max-height:46%}#rk-story-panel .rk-story-actions button{flex:1 1 40%}}
+
+/* 副 API 忙碌状态同步到收起后的入口，减少动态效果时保留文字。 */
+#rk-orb[data-correction-busy="true"] .mono-aperture{animation:rk-correction-orbit 1.4s steps(8,end) infinite}
+@keyframes rk-correction-orbit{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){#rk-orb[data-correction-busy="true"] .mono-aperture{animation:none}}
+
+/* 酒馆右上角通知：独立于终端窗口，窄屏留边，给宿主顶栏留出空间。 */
+#rk-correction-notice,#rk-correction-notice *{box-sizing:border-box}
+#rk-correction-notice{position:fixed;z-index:99994;top:calc(64px + env(safe-area-inset-top,0px));right:max(16px,env(safe-area-inset-right,0px));width:380px;max-width:calc(100vw - 32px);max-height:calc(100vh - 88px);max-height:calc(100dvh - 88px);overflow-y:auto;overscroll-behavior:contain;display:grid;grid-template-columns:14px minmax(0,1fr) 28px;align-items:start;gap:10px;margin:0;padding:12px;background:#080808;color:#f5f5f5;border:3px double #ddd;box-shadow:4px 4px 0 rgba(0,0,0,.55);font:13px/1.5 "Microsoft YaHei UI","Noto Sans CJK SC",sans-serif;letter-spacing:normal;text-shadow:none;animation:rk-notice-enter .18s ease-out}
+#rk-correction-notice[hidden],#rk-correction-notice [hidden]{display:none!important}
+#rk-correction-notice .rk-notice-copy{min-width:0;overflow-wrap:anywhere}
+#rk-correction-notice strong{display:block;margin:0;font:700 14px/1.5 "Microsoft YaHei UI",sans-serif;color:#fff}
+#rk-correction-notice p{margin:4px 0;color:#ddd;font:inherit;white-space:pre-wrap}
+#rk-correction-notice small{display:block;color:#aaa;font:11px/1.5 Consolas,"Microsoft YaHei UI",monospace}
+#rk-correction-notice .rk-notice-glyph{width:12px;height:12px;margin-top:5px;border:2px solid currentColor}
+#rk-correction-notice[data-active="true"] .rk-notice-glyph{border-right-color:transparent;animation:rk-correction-orbit 1.2s steps(8,end) infinite}
+#rk-correction-notice[data-state="failed"] .rk-notice-glyph{border:0;width:auto;height:auto;margin-top:0;font-weight:900;font-size:18px}
+#rk-correction-notice[data-state="failed"] .rk-notice-glyph::before{content:'!'}
+#rk-correction-notice:is([data-state="applied"],[data-state="unchanged"]) .rk-notice-glyph{background:currentColor}
+#rk-correction-notice .rk-notice-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+#rk-correction-notice button{min-height:34px;margin:0;padding:5px 9px;max-width:100%;border:1px solid #aaa;border-radius:0;background:#171717;color:#fff;box-shadow:none;font:12px/1.5 "Microsoft YaHei UI",sans-serif;text-shadow:none;cursor:pointer;touch-action:manipulation}
+#rk-correction-notice button:not(:disabled):is(:hover,:focus-visible){background:#fff;color:#080808}
+#rk-correction-notice button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+#rk-correction-notice button:disabled{opacity:.45;cursor:default}
+#rk-correction-notice [data-notice-close]{padding:0;width:28px;min-height:28px;font:20px/1 Consolas,monospace}
+@keyframes rk-notice-enter{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:480px){#rk-correction-notice{right:8px;max-width:calc(100vw - 16px);gap:8px;padding:10px}#rk-correction-notice button{min-height:36px}}
+@media(prefers-reduced-motion:reduce){#rk-correction-notice{animation:none}#rk-correction-notice[data-active="true"] .rk-notice-glyph{animation:none;border-right-color:currentColor}}

@@ -1,0 +1,431 @@
+{
+  "ok": true,
+  "scope": "Offline catalogue structure and exact source-evidence validation; not semantic proof of every summary or real-host acceptance.",
+  "counts": {
+    "volumes": 19,
+    "chapters": 100,
+    "evidence": 300
+  },
+  "sources": [
+    {
+      "volume": 1,
+      "file": "落第骑士英雄谭 第一卷 gbk.txt",
+      "sha256": "caab7f49901f52244d39d8d290e73648ccd7771b2db210491b2eb2d789b47dcc",
+      "wholeFileGbkStrict": true,
+      "wholeFileDecodeError": null,
+      "lineDecodeErrors": [],
+      "knownSourceDefect": false,
+      "sourceChapters": 6,
+      "catalogueChapters": 6,
+      "excludedHeadings": [
+        {
+          "line": 7893,
+          "title": "后记"
+        },
+        {
+          "line": 7934,
+          "title": "插图"
+        }
+      ]
+    },
+    {
+      "volume": 2,
+      "file": "落第骑士英雄谭 第二卷 gbk.txt",
+      "sha256": "e0998b088bfcd4fde759d9ed1657e202c23a097eed6af8f6019de811fc518394",
+      "wholeFileGbkStrict": true,
+      "wholeFileDecodeError": null,
+      "lineDecodeErrors": [],
+      "knownSourceDefect": false,
+      "sourceChapters": 6,
+      "catalogueChapters": 6,
+      "excludedHeadings": [
+        {
+          "line": 7595,
+          "title": "后记"
+        },
+        {
+          "line": 7636,
+          "title": "插图"
+        }
+      ]
+    },
+    {
+      "volume": 3,
+      "file": "落第骑士英雄谭 第三卷 gbk.txt",
+      "sha256": "16a2988cea80411470449036cbb1deb3f6d3e4a4efdefbd131ba1be36ac3df35",
+      "wholeFileGbkStrict": true,
+      "wholeFileDecodeError": null,
+      "lineDecodeErrors": [],
+      "knownSourceDefect": false,
+      "sourceChapters": 6,
+      "catalogueChapters": 6,
+      "excludedHeadings": [
+        {
+          "line": 8921,
+          "title": "后记"
+        },
+        {
+          "line": 8968,
+          "title": "插图"
+        }
+      ]
+    },
+    {
+      "volume": 4,
+      "file": "落第骑士英雄谭 第四卷 gbk.txt",
+      "sha256": "2ba8315ab901963e6aca24bd40e68842565dda3dd1ca4346ae46bdc84c65bc02",
+      "wholeFileGbkStrict": true,
+      "wholeFileDecodeError": null,
+      "lineDecodeErrors": [],
+      "knownSourceDefect": false,
+      "sourceChapters": 6,
+      "catalogueChapters": 6,
+      "excludedHeadings": [
+        {
+          "line": 9037,
+          "title": "后记"
+        },
+        {
+          "line": 9074,
+          "title": "插图"
+        }
+      ]
+    },
+    {
+      "volume": 5,
+      "file": "落第骑士英雄谭 第五卷 gbk.txt",
+      "sha256": "88cdd381c162bd6a7de004ec76292e870a481e555ce2555385acb6ea7b159d35",
+      "wholeFileGbkStrict": true,
+      "wholeFileDecodeError": null,
+      "lineDecodeErrors": [],
+      "knownSourceDefect": false,
+      "sourceChapters": 6,
+      "catalogueChapters": 6,
+      "excludedHeadings": [
+        {
+          "line": 8353,
+          "title": "后记"
+        },
+        {
+          "line": 8390,
+          "title": "插图"
+        }
+      ]
+    },
+    {
+      "volume": 6,
+      "file": "落第骑士英雄谭 第六卷 gbk.txt",
+      "sha256": "50de4a6fbd365442e1109cbf80aa24127dbf531d3c389b9f1ff1049ca84243ca",
+      "wholeFileGbkStrict": true,
+      "wholeFileDecodeError": null,
+      "lineDecodeErrors": [],
+      "knownSourceDefect": false,
+      "sourceChapters": 5,
+      "catalogueChapters": 5,
+      "excludedHeadings": [
+        {
+          "line": 6842,
+          "title": "后记"
+        },
+        {
+          "line": 6881,
+          "title": "插图"
+        }
+      ]
+    },
+    {
+      "volume": 7,
+      "file": "落第骑士英雄谭 第七卷 gbk.txt",
+      "sha256": "35c57c87ae5707683ea363a7904573ef0683d8dd2676859862391dcbaae3d7f0",
+      "wholeFileGbkStrict": true,
+      "wholeFileDecodeError": null,
+      "lineDecodeErrors": [],
+      "knownSourceDefect": false,
+      "sourceChapters": 5,
+      "catalogueChapters": 5,
+      "excludedHeadings": [
+        {
+          "line": 6608,
+          "title": "后记"
+        },
+        {
+          "line": 6649,
+          "title": "插图"
+        }
+      ]
+    },
+    {
+      "volume": 8,
+      "file": "落第骑士英雄谭 第八卷 gbk.txt",
+      "sha256": "ae0b8116c5b9bf914464234907c218d133c99d59c35789d4bda9d1600ffd2648",
+      "wholeFileGbkStrict": true,
+      "wholeFileDecodeError": null,
+      "lineDecodeErrors": [],
+      "knownSourceDefect": false,
+      "sourceChapters": 5,
+      "catalogueChapters": 5,
+      "excludedHeadings": [
+        {
+          "line": 6334,
+          "title": "后记"
+        },
+        {
+          "line": 6449,
+          "title": "插图"
+        }
+      ]
+    },
+    {
+      "volume": 9,
+      "file": "落第骑士英雄谭 第九卷 gbk.txt",
+      "sha256": "04cc13a4000bbfdecb180f41ec47debab38a51b6d4f344b53f3e9b6f13117559",
+      "wholeFileGbkStrict": true,
+      "wholeFileDecodeError": null,
+      "lineDecodeErrors": [],
+      "knownSourceDefect": false,
+      "sourceChapters": 3,
+      "catalogueChapters": 3,
+      "excludedHeadings": [
+        {
+          "line": 7828,
+          "title": "后记"
+        },
+        {
+          "line": 7865,
+          "title": "插图"
+        }
+      ]
+    },
+    {
+      "volume": 10,
+      "file": "落第骑士英雄谭 第十卷 gbk.txt",
+      "sha256": "ef6e164713a7f8460fc4b2832bf291e354b72cb1c5031849532a9fe47775fd99",
+      "wholeFileGbkStrict": true,
+      "wholeFileDecodeError": null,
+      "lineDecodeErrors": [],
+      "knownSourceDefect": false,
+      "sourceChapters": 5,
+      "catalogueChapters": 5,
+      "excludedHeadings": [
+        {
+          "line": 6328,
+          "title": "后记"
+        },
+        {
+          "line": 6359,
+          "title": "插图"
+        }
+      ]
+    },
+    {
+      "volume": 11,
+      "file": "落第骑士英雄谭 第十一卷 gbk.txt",
+      "sha256": "08ae9cca492c3a53cb77fadfec86771a3e118cd9d35815cfdeb9d7cd87e09c5c",
+      "wholeFileGbkStrict": true,
+      "wholeFileDecodeError": null,
+      "lineDecodeErrors": [],
+      "knownSourceDefect": false,
+      "sourceChapters": 5,
+      "catalogueChapters": 5,
+      "excludedHeadings": [
+        {
+          "line": 7354,
+          "title": "后记"
+        },
+        {
+          "line": 7383,
+          "title": "插图"
+        }
+      ]
+    },
+    {
+      "volume": 12,
+      "file": "落第骑士英雄谭 第十二卷 gbk.txt",
+      "sha256": "7a424ab7595bdc34fd79f1815ee83a29dbc0e732b0d345cb1f8ed16285e8a608",
+      "wholeFileGbkStrict": true,
+      "wholeFileDecodeError": null,
+      "lineDecodeErrors": [],
+      "knownSourceDefect": false,
+      "sourceChapters": 6,
+      "catalogueChapters": 6,
+      "excludedHeadings": [
+        {
+          "line": 8877,
+          "title": "后记"
+        },
+        {
+          "line": 8916,
+          "title": "插图"
+        }
+      ]
+    },
+    {
+      "volume": 13,
+      "file": "落第骑士英雄谭 第十三卷 gbk.txt",
+      "sha256": "b7e3fefc49d46c93a3ab6f80668c3e4ae1225269890cfff5b2344b5d0e1582c2",
+      "wholeFileGbkStrict": true,
+      "wholeFileDecodeError": null,
+      "lineDecodeErrors": [],
+      "knownSourceDefect": false,
+      "sourceChapters": 6,
+      "catalogueChapters": 6,
+      "excludedHeadings": [
+        {
+          "line": 6489,
+          "title": "后记"
+        },
+        {
+          "line": 6514,
+          "title": "插图"
+        }
+      ]
+    },
+    {
+      "volume": 14,
+      "file": "落第骑士英雄谭 第十四卷 gbk.txt",
+      "sha256": "33b776377e44dc196739acb5516cc8e91c5c9dea80238ce09bbdf3927becf7fe",
+      "wholeFileGbkStrict": false,
+      "wholeFileDecodeError": {
+        "fileByteOffset": 141762,
+        "bytesHex": "e6",
+        "reason": "illegal multibyte sequence"
+      },
+      "lineDecodeErrors": [
+        {
+          "volume": 14,
+          "line": 5195,
+          "fileByteOffset": 141762,
+          "lineByteOffset": 28,
+          "bytesHex": "e6",
+          "reason": "illegal multibyte sequence"
+        }
+      ],
+      "knownSourceDefect": true,
+      "sourceChapters": 4,
+      "catalogueChapters": 4,
+      "excludedHeadings": [
+        {
+          "line": 6571,
+          "title": "后记"
+        },
+        {
+          "line": 6608,
+          "title": "插图"
+        }
+      ]
+    },
+    {
+      "volume": 15,
+      "file": "落第骑士英雄谭 第十五卷 gbk.txt",
+      "sha256": "47d716481762dd74935b051869aa6b5c0cd6342fe4e916705edfa805c99b5649",
+      "wholeFileGbkStrict": true,
+      "wholeFileDecodeError": null,
+      "lineDecodeErrors": [],
+      "knownSourceDefect": false,
+      "sourceChapters": 6,
+      "catalogueChapters": 6,
+      "excludedHeadings": [
+        {
+          "line": 6719,
+          "title": "后记"
+        },
+        {
+          "line": 6750,
+          "title": "插图"
+        }
+      ]
+    },
+    {
+      "volume": 16,
+      "file": "落第骑士英雄谭 第十六卷 gbk.txt",
+      "sha256": "47101969ec7a50982cd681eba045d7d6d52ccc811e2896a73677de6b92e5f4f0",
+      "wholeFileGbkStrict": true,
+      "wholeFileDecodeError": null,
+      "lineDecodeErrors": [],
+      "knownSourceDefect": false,
+      "sourceChapters": 5,
+      "catalogueChapters": 5,
+      "excludedHeadings": [
+        {
+          "line": 6972,
+          "title": "后记"
+        },
+        {
+          "line": 6999,
+          "title": "插图"
+        }
+      ]
+    },
+    {
+      "volume": 17,
+      "file": "落第骑士英雄谭 第十七卷 gbk.txt",
+      "sha256": "0de57971317d3721ed74c24371fdf9d4b3b1067b3122f1fd88906437cf6c050d",
+      "wholeFileGbkStrict": true,
+      "wholeFileDecodeError": null,
+      "lineDecodeErrors": [],
+      "knownSourceDefect": false,
+      "sourceChapters": 6,
+      "catalogueChapters": 6,
+      "excludedHeadings": [
+        {
+          "line": 7665,
+          "title": "后记"
+        },
+        {
+          "line": 7700,
+          "title": "插图"
+        }
+      ]
+    },
+    {
+      "volume": 18,
+      "file": "落第骑士英雄谭 第十八卷 gbk.txt",
+      "sha256": "c5770adcd59527b96c316a5093e22382909fd69b9c9e4b409c8eb033220702a6",
+      "wholeFileGbkStrict": true,
+      "wholeFileDecodeError": null,
+      "lineDecodeErrors": [],
+      "knownSourceDefect": false,
+      "sourceChapters": 4,
+      "catalogueChapters": 4,
+      "excludedHeadings": [
+        {
+          "line": 6471,
+          "title": "后记"
+        },
+        {
+          "line": 6504,
+          "title": "插图"
+        }
+      ]
+    },
+    {
+      "volume": 19,
+      "file": "落第骑士英雄谭 第十九卷 gbk.txt",
+      "sha256": "5b9b534cdec4419c51ae0b440cef1656a59974102f189c13ea299aa55a3ff2f2",
+      "wholeFileGbkStrict": true,
+      "wholeFileDecodeError": null,
+      "lineDecodeErrors": [],
+      "knownSourceDefect": false,
+      "sourceChapters": 5,
+      "catalogueChapters": 5,
+      "excludedHeadings": [
+        {
+          "line": 3,
+          "title": "前情提要"
+        },
+        {
+          "line": 7031,
+          "title": "后记"
+        },
+        {
+          "line": 7072,
+          "title": "插图"
+        }
+      ]
+    }
+  ],
+  "warnings": [
+    "Volume 14 is not valid whole-file GBK: L5195, file byte 141762, line byte 28, e6. Only strictly decodable lines are checked; the original source remains unchanged."
+  ],
+  "errors": []
+}

@@ -2,16 +2,24 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
-import { INITIAL_STATE } from '../世界书规则/MVU/schema.mjs';
+import assert from 'node:assert/strict';
+import { INITIAL_STATE, RELATIONSHIP_SCORING, GROWTH_RULES } from '../世界书规则/MVU/schema.mjs';
+import { inlineStoryCatalog, stripModuleSyntax } from './story-build.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const require = createRequire(path.join(root, 'output/worldbook-calibration/dev/package.json'));
 const YAML = require('yaml');
 const read = file => fs.readFileSync(path.join(root, file), 'utf8').replace(/\r\n/g, '\n');
 const target = '世界书规则/v0.3/导出/落第骑士英雄谭.json';
-const original = read(target);
-const book = JSON.parse(original);
-const before = structuredClone(book);
+// 组件模式仅构建字段约束；不读取、同步或导出整本世界书。
+const scriptOnly = process.argv.includes('--script-only');
+const original = scriptOnly ? '' : read(target);
+const book = scriptOnly ? null : JSON.parse(original);
+const before = scriptOnly ? null : structuredClone(book);
+const mvuOnly = process.argv.includes('--mvu-only');
+const withInit = process.argv.includes('--with-init');
+if (scriptOnly && (mvuOnly || withInit)) throw new Error('--script-only 不能与世界书/初始化同步选项合用');
+if (withInit && !mvuOnly) throw new Error('--with-init 仅能配合 --mvu-only，用于只同步规则与初始化');
 const mappings = [
   [9, '第一卷-世界书整理/人物条目/黑铁一辉.md', 'xml'],
   [11, '第一卷-世界书整理/人物条目/史黛菈·法米利昂.md', 'xml'],
@@ -27,11 +35,28 @@ function body(file, type) {
   if (matches.length !== 1) throw new Error(`${file} 正文边界不唯一`);
   return matches[0][1].trim();
 }
+let yaml;
+if (!scriptOnly) {
+if (mvuOnly) {
+  if (!book.entries[10] || book.entries[10].uid !== 10) throw new Error('缺少预期 MVU 更新规则 UID 10');
+  book.entries[10].content = body('世界书规则/MVU/变量更新规则.txt', 'text');
+  if (withInit) {
+    if (!book.entries[3] || book.entries[3].uid !== 3) throw new Error('缺少预期初始化 UID 3');
+    yaml = YAML.stringify(INITIAL_STATE, { lineWidth: 0 });
+    book.entries[3].content = yaml.trim();
+  }
+} else {
 for (const [id, file, type] of mappings) {
   if (!book.entries[id] || book.entries[id].uid !== id) throw new Error(`缺少预期 UID ${id}`);
   book.entries[id].content = body(file, type);
 }
-const yaml = YAML.stringify(INITIAL_STATE, { lineWidth: 0 });
+// 卷章概要由统一目录注入；旧场景正文留存，仅停用关键字触发。
+for (const id of [13, 15]) {
+  book.entries[id].disable = true;
+  book.entries[id].key = [];
+  book.entries[id].keysecondary = [];
+}
+yaml = YAML.stringify(INITIAL_STATE, { lineWidth: 0 });
 book.entries[3].content = yaml.trim();
 // 初始化条目的 disable 等宿主约定保持原值，不把禁用状态误改成常驻提示词。
 const additions = [
@@ -52,15 +77,69 @@ for (const [name, file, order] of additions) {
   }
   entry.content = body(file, 'body');
 }
+const plotAdditions = [
+  ['[剧情]第一卷.第二章', '世界书规则/v0.3/08_第二章场景.md', 102],
+  ['[剧情]第一卷.第三章', '世界书规则/v0.3/11_第三章场景.md', 103],
+  ['[剧情]第一卷.第四章', '世界书规则/v0.3/12_第四章场景.md', 104],
+  ['[剧情]第一卷.终章', '世界书规则/v0.3/13_终章场景.md', 105],
+];
+for (const [name, file, order] of plotAdditions) {
+  let entry = Object.values(book.entries).find(entry => entry.comment === name);
+  if (!entry) {
+    const uid = Math.max(...Object.values(book.entries).map(entry => entry.uid)) + 1;
+    entry = { ...structuredClone(book.entries[13]), uid, displayIndex: uid, comment: name, key: [], keysecondary: [], constant: false, disable: true, order };
+    book.entries[uid] = entry;
+  }
+  entry.content = body(file, 'body');
+  entry.disable = true;
+  entry.order = order;
+  entry.key = [];
+  entry.keysecondary = [];
+}
 // 仅纠正能力本质与招式被写成同一概念的短语，保留此条其他用户内容。
 book.entries[0].content = book.entries[0].content.replace('并以此为媒介行使异能〈伐刀绝技（Noble Arts）〉', '运用魔力施展伐刀能力，并将其发展为各具条件的伐刀技（Noble Arts）');
-const changed = Object.values(book.entries).filter(entry => JSON.stringify(entry) !== JSON.stringify(before.entries[entry.uid])).map(entry => ({ uid: entry.uid, name: entry.comment }));
-const rendered = JSON.stringify(book, null, 2) + '\n';
-const schemaSource = read('世界书规则/MVU/schema.mjs').replace(/^export /gm, '');
-const stateSource = read('scripts/rakudai-state-core.mjs').replace(/^export /gm, '');
+}
+// 提示词只发状态副本，不把事件正文及结算记录常驻重放；条目配置与ID保持。
+if (book.entries[8]?.comment !== '[MVU]变量列表') throw new Error('变量列表 UID 8 不符，未同步');
+book.entries[8].content = body('世界书规则/MVU/变量列表.txt', 'text');
+// 旧命名条目仍常驻会同时喂入相反的 G02 规则；保留原文归档，仅停用旧条目。
+const legacyFormats = Object.values(book.entries).filter(entry => entry.comment === '[MVU]变量更新格式');
+for (const entry of legacyFormats) entry.disable = true;
+const outputFormatName = '[MVU]变量输出格式';
+const outputFormatMatches = Object.entries(book.entries).filter(([, entry]) => entry.comment === outputFormatName);
+if (outputFormatMatches.length > 1) throw new Error('MVU 变量输出格式条目不唯一');
+let outputFormatKey, outputFormatEntry;
+if (outputFormatMatches.length) {
+  [outputFormatKey, outputFormatEntry] = outputFormatMatches[0];
+} else {
+  if (!book.entries[10] || book.entries[10].uid !== 10) throw new Error('缺少可复制配置的 MVU 更新规则 UID 10');
+  const uid = Math.max(...Object.values(book.entries).map(entry => entry.uid)) + 1;
+  outputFormatKey = String(uid);
+  outputFormatEntry = { ...structuredClone(book.entries[10]), uid, displayIndex: uid, comment: outputFormatName };
+  book.entries[outputFormatKey] = outputFormatEntry;
+}
+Object.assign(outputFormatEntry, {
+  content: body('世界书规则/MVU/变量输出格式.txt', 'text'),
+  order: 397, constant: true, disable: false,
+});
+if (mvuOnly) {
+  const unchanged = structuredClone(book);
+  unchanged.entries[10].content = before.entries[10].content;
+  unchanged.entries[8].content = before.entries[8].content;
+  for (const entry of legacyFormats) unchanged.entries[entry.uid].disable = before.entries[entry.uid].disable;
+  if (Object.hasOwn(before.entries, outputFormatKey)) unchanged.entries[outputFormatKey] = structuredClone(before.entries[outputFormatKey]);
+  else delete unchanged.entries[outputFormatKey];
+  if (withInit) unchanged.entries[3].content = before.entries[3].content;
+  assert.deepEqual(unchanged, before, withInit ? '--mvu-only --with-init 只允许改变 UID 3、UID 8、UID 10 的正文、停用旧格式条目及 MVU 输出格式条目' : '--mvu-only 只允许改变 UID 8、UID 10 的正文、停用旧格式条目及 MVU 输出格式条目');
+}
+}
+const changed = scriptOnly ? [] : Object.values(book.entries).filter(entry => JSON.stringify(entry) !== JSON.stringify(before.entries[entry.uid])).map(entry => ({ uid: entry.uid, name: entry.comment }));
+const rendered = scriptOnly ? '' : JSON.stringify(book, null, 2) + '\n';
+const schemaSource = stripModuleSyntax(read('世界书规则/MVU/schema.mjs'));
+const stateSource = stripModuleSyntax(read('scripts/rakudai-state-core.mjs'));
 const guardSource = read('scripts/rakudai-mvu-guard.js');
 const bridge = 'https://testingcf.jsdelivr.net/gh/StageDog/tavern_resource@dee97e8c3e24e1e75efe21141743e4b5c0af776e/dist/util/mvu_zod.js';
-const scriptContent = `${schemaSource}\n${stateSource}\n${guardSource}
+const scriptContent = `${inlineStoryCatalog()}\n${schemaSource}\n${stateSource}\n${guardSource}
 // 注册字段校验与写入责任保护；不自动转换旧楼层。
 $(async () => {
   let timer;
@@ -76,30 +155,36 @@ $(async () => {
     const schema = createSchema(z);
     registerMvuSchema(schema);
     installRakudaiMvuGuard(schema);
-    console.info('[落第 MVU v3] 已注册字段与第一卷范围约束（3.1.0，含框架元数据兼容与代码写入保护）；旧楼层须先迁移。');
+    console.info('[落第 MVU v4] 已注册第 1—19 卷目录与字段约束（4.0.0，${RELATIONSHIP_SCORING.version}）；旧分数保持，男U版本仅女性派生恋爱阶段，未知支援度待核定。');
   } catch (error) {
-    console.error('[落第 MVU v3] 注册失败，字段或写入保护未完全生效：', error);
+    console.error('[落第 MVU v4] 注册失败，字段或写入保护未完全生效：', error);
     if (typeof toastr !== 'undefined') toastr.error('落第 MVU 字段约束未完整注册，请查看脚本日志与安装说明。');
   } finally { clearTimeout(timer); }
 });
 `;
-const script = {
-  type: 'script', enabled: true, name: '落第骑士·MVU v3 字段与第一卷约束', id: '06117475-a08c-4d78-a886-3d26426c4b37', content: scriptContent,
-  info: '修订 3.1.0：兼容 MVU 临时 $internal，业务字段仍严格校验；系统、初评及卷章状态由界面代码管理。普通多楼层；需 MVU 与 Zod 4 酒馆助手。世界书 JSON 不会自动安装本脚本。不验证剧情真伪、不迁移旧楼层。桥接器按命令校验，不承诺整轮原子回滚。',
+const generatedScript = {
+  type: 'script', enabled: true, name: '落第骑士·MVU v4 字段与卷章约束 [G03/P02]', id: '06117475-a08c-4d78-a886-3d26426c4b37', content: scriptContent,
+  info: `修订 4.0.0 / R10 / G03：关系按真实回复分项结算，特殊背景不匹配关键词，失败项可重试；报错显示旧值、提交值、差值与原因。布尔魔人觉醒开启魔力量成长；A→A+1200、A+→S1600，每目标每回复最多${GROWTH_RULES.perReplyCap}、最多晋级一档，重复解析不重领。P02副API允许依据本局事实校正已有好感/支援最终值，经来源绑定解析、预览确认并回读保存。MVU01仅核对同一回复页的完整MVU块，块外正文与生图变化不使补丁失效。S01副API可校正场景卷章、阶段与切入说明，同轮沿用主结算推进记录，已切章不重复推进。E01兼容主回复通过场景或事件父对象提交本轮结果，逐项核对已保存值后才开放成长补漏。F01副API可核定六维、登记等级、觉醒、人物资料、关系数字与成长经验终值；主API规则保持，系统和结算收据由代码维护。普通好感从0累计，特殊背景初始值及旧分数保留；第1—19卷约束沿用。依赖MVU、酒馆助手Zod4和固定mvu_zod桥接；只启用一个v4约束，不自动迁移旧楼层。`,
   button: { enabled: false, buttons: [] }, data: {}, export_with: { data: false, button: false },
 };
+const scriptTarget = '世界书规则/MVU/落第骑士-MVU-v4字段约束.json';
+// 独立更新保留已导入脚本的身份、按钮、数据与未知字段，只替换生成内容和说明。
+const script = scriptOnly ? { ...JSON.parse(read(scriptTarget)), content: generatedScript.content, info: generatedScript.info } : generatedScript;
+if (script.id !== generatedScript.id) throw new Error('字段约束脚本 ID 不符，未生成');
 const outputs = new Map([
-  [target, rendered], ['世界书规则/MVU/[initvar]变量初始化.yaml', yaml],
-  ['世界书规则/MVU/落第骑士-MVU-v3字段约束.json', JSON.stringify(script, null, 2) + '\n'],
+  ...(!scriptOnly ? [[target, rendered], ...(!mvuOnly || withInit ? [['世界书规则/MVU/[initvar]变量初始化.yaml', yaml]] : [])] : []),
+  [scriptTarget, JSON.stringify(script, null, 2) + '\n'],
 ]);
 if (process.argv.includes('--write')) {
+  if (!scriptOnly && !mvuOnly) {
   const backup = path.join(root, 'output/worldbook-calibration/落第骑士英雄谭-修改前.json');
   fs.mkdirSync(path.dirname(backup), { recursive: true });
   if (!fs.existsSync(backup)) fs.writeFileSync(backup, original);
+  }
   for (const [file, text] of outputs) fs.writeFileSync(path.join(root, file), text);
   console.log(JSON.stringify({ written: [...outputs.keys()], changed }, null, 2));
 } else if (process.argv.includes('--check')) {
   const stale = [...outputs].filter(([file, text]) => !fs.existsSync(path.join(root, file)) || read(file) !== text).map(([file]) => file);
   if (stale.length) throw new Error(`产物不同步：${stale.join('、')}`);
-  console.log('世界书、初始化、伴随脚本均与作者源一致。');
+  console.log(scriptOnly ? '字段约束脚本与源文件一致；未读写世界书、三份 TXT 或初始化。' : mvuOnly ? 'MVU 更新规则、输出格式与伴随脚本均与作者源一致；' + (withInit ? '初始化已核对，其余条目未改写。' : '其余条目及初始化未改写。') : '世界书、初始化、伴随脚本均与作者源一致。');
 } else console.log(JSON.stringify({ mode: 'dry-run', changed, outputs: [...outputs.keys()] }, null, 2));

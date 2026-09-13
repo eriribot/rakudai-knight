@@ -1,10 +1,38 @@
 {
-  "passed": 12,
-  "total": 12,
+  "passed": 27,
+  "total": 27,
   "runtime": "离线固定API语义模拟，未连接真实酒馆",
   "results": [
     {
+      "name": "旧v4虽同为4.0.0也必须在建档前提示缺少觉醒schema，不写入存档",
+      "passed": true
+    },
+    {
       "name": "消息iframe与scriptiframe都使用明确message接口并保留其他数据",
+      "passed": true
+    },
+    {
+      "name": "仅有开局楼层时独立替换玩家，保留人际及其他回复页；重复建档仍拒绝",
+      "passed": true
+    },
+    {
+      "name": "真实聊天已有用户楼层或剧情事件时，不因助手列表仍只有楼层0而允许替换",
+      "passed": true
+    },
+    {
+      "name": "替换临写时新增楼层、换回复页或竞争改变量均拒绝，不能靠先前页面检查放行",
+      "passed": true
+    },
+    {
+      "name": "iframe自带SillyTavern getter且MVU稍后初始化时，等待本iframe并选择最外层宿主",
+      "passed": true
+    },
+    {
+      "name": "跨源top不可访问时继续使用同源parent，不让iframe代理掩盖宿主",
+      "passed": true
+    },
+    {
+      "name": "MVU等待失败时不读取或写入，恢复后可重新读取",
       "passed": true
     },
     {
@@ -13,6 +41,18 @@
     },
     {
       "name": "切聊天但变量相同后旧凭据不能写入",
+      "passed": true
+    },
+    {
+      "name": "当前 context 原地更换角色后旧凭据不能写入",
+      "passed": true
+    },
+    {
+      "name": "当前 context 原地更换群组后旧凭据不能写入",
+      "passed": true
+    },
+    {
+      "name": "当前 context 替换聊天数组但保留消息引用后旧凭据不能写入",
       "passed": true
     },
     {
@@ -36,6 +76,14 @@
       "passed": true
     },
     {
+      "name": "旧新约束同时启用时拒绝写入，避免两个 schema 互相抵触",
+      "passed": true
+    },
+    {
+      "name": "消息返回无效活动 swipe 时拒绝读取，不猜测默认槽",
+      "passed": true
+    },
+    {
       "name": "没有MVU数据不自行伪造初始化",
       "passed": true
     },
@@ -45,6 +93,18 @@
     },
     {
       "name": "两个界面并发提交只允许一次落地",
+      "passed": true
+    },
+    {
+      "name": "迁移只升级当前活动 swipe，保留另一回复页与 MVU 包装",
+      "passed": true
+    },
+    {
+      "name": "迁移预览后切换 swipe 或编辑正文时旧迁移凭据不能提交",
+      "passed": true
+    },
+    {
+      "name": "真实浏览器适配的迁移与跨卷只修改剧情字段，不重新派生旧人物或补默认性别",
       "passed": true
     },
     {

@@ -1,5 +1,5 @@
 /* =========================================================================
- * 落第骑士英雄谭 · 破军伐刀者智能终端 v1.3.0 MONO ADV
+ * 落第骑士英雄谭 · 破军伐刀者智能终端 MONO ADV（版本由构建注入）
  * 运行环境：TavernHelper 卡内脚本（script iframe）；UI 注入 ST 宿主 document
  * 结构：破军战术微光悬浮球(自由吸附) + 桌面浮动可拖拽终端(自由停靠与缩放) + 沙箱 iframe + MVU桥接
  * v1.3.0 更新：① 添加輪盤展開動畫 ② 終端打開時隱藏輪盤入口球 ③ 移除硬編碼測試數據
@@ -8,6 +8,12 @@
 
 (async function () {
   'use strict';
+  const BUILD_VERSION = /*__INJECT_VERSION__*/;
+  const RELATIONSHIP_SCORING = /*__INJECT_RELATIONSHIP_SCORING__*/;
+  const CORRECTION_RULES = /*__INJECT_CORRECTION_RULES__*/;
+  const CORRECTION_FORMAT = /*__INJECT_CORRECTION_FORMAT__*/;
+  const supportStage = /*__INJECT_SUPPORT_STAGE__*/;
+  const romanceStage = /*__INJECT_ROMANCE_STAGE__*/;
 
   function hostWindow() {
     try { if (window.parent && window.parent !== window && window.parent.document) return window.parent; }
@@ -24,7 +30,7 @@
     mode: 'floating', visible: false,
     host: null, iframe: null, blobUrl: null, orb: null, style: null,
     rect: null, orbPos: {x: 0, y: 0},
-    disposers: [], booted: false, mounting: null, destroyed: false, badge: 0,
+    disposers: [], booted: false, mounting: null, cancelMount: null, destroyed: false, badge: 0,
     wheel: null, wheelBackdrop: null, wheelOpen: false, focusBeforeWheel: null
   };
 
@@ -39,6 +45,8 @@
       return window.TavernHelper[name].bind(window.TavernHelper); } catch(_) {}
     return null;
   }
+
+  /*__INJECT_STATE_READER__*/
 
   const ORB_W = 68, ORB_H = 68;
 
@@ -187,12 +195,19 @@
     SS.orb.style.visibility = 'hidden';
     refreshStatePanel();
     if (!SS.booted) await mountPhone();
+    if (!SS.destroyed && SS.visible) {
+      emit({ type: 'show', reset: true, retainDisplay: true });
+      clearInterval(readTimer);
+      // 代码直写变量不一定产生 MVU 事件；只在终端展开时核对已保存数据。
+      readTimer = setInterval(() => emit({ type: 'poll' }), 1000);
+    }
   }
 
   function hide() {
     closeWheel(false);
     SS.host.classList.remove('on');
     SS.visible = false;
+    clearInterval(readTimer);
     SS.orb.style.visibility = '';
     try { SS.orb.focus({ preventScroll: true }); } catch (_) {}
   }
@@ -201,21 +216,39 @@
   function embeddedPhoneHtml() { return /*__INJECT_APP_HTML__*/; }
 
   async function mountVia(html, mode) {
+    if (SS.destroyed) throw new Error('终端已销毁，已取消挂载');
     const f = HD.createElement('iframe');
     f.setAttribute('title', '破军战术终端');
     SS.host.appendChild(f);
     SS.iframe = f;
     try {
       await new Promise((res, rej) => {
-        const to = setTimeout(() => rej(new Error(mode + ' 超时')), mode === 'blob' ? 3000 : 5000);
-        f.onload = () => { clearTimeout(to); res(); };
-        if (mode === 'blob') {
-          SS.blobUrl = URL.createObjectURL(new Blob([html], { type: 'text/html' }));
-          f.src = SS.blobUrl;
-        } else {
-          f.srcdoc = html;
+        let settled = false;
+        let timeout;
+        const finish = error => {
+          if (settled) return;
+          settled = true;
+          clearTimeout(timeout);
+          f.onload = null;
+          if (SS.cancelMount === cancel) SS.cancelMount = null;
+          error ? rej(error) : res();
+        };
+        const cancel = () => finish(new Error('终端已销毁，已取消挂载'));
+        SS.cancelMount = cancel;
+        timeout = setTimeout(() => finish(new Error(mode + ' 超时')), mode === 'blob' ? 3000 : 5000);
+        f.onload = () => finish();
+        try {
+          if (mode === 'blob') {
+            SS.blobUrl = URL.createObjectURL(new Blob([html], { type: 'text/html' }));
+            f.src = SS.blobUrl;
+          } else {
+            f.srcdoc = html;
+          }
+        } catch (error) {
+          finish(error);
         }
       });
+      if (SS.destroyed || SS.iframe !== f) throw new Error('终端已销毁或挂载已失效');
       const boot = f.contentWindow && f.contentWindow.RKBoot;
       if (typeof boot !== 'function') throw new Error('RKBoot 缺失（' + mode + '）');
       boot(makeBridge());
@@ -237,6 +270,7 @@
         catch (e1) { if (SS.destroyed) return; await mountVia(html, 'blob'); }
         if (!SS.destroyed) SS.booted = true;
       } catch (e) {
+        if (SS.destroyed) return;
         console.error('[Hagun-Mono-Terminal] Mount failed:', e);
         showOrbTip('终端未能加载', '收起后再次打开可重试；请查看浏览器控制台。');
       } finally { SS.mounting = null; }
@@ -245,22 +279,183 @@
   }
 
   /* 桥接对象 (Bridge) */
-  async function readStat() {
-    const service = window.RakudaiStateController;
-    if (!service || typeof service.capture !== 'function') throw new Error('剧情状态服务尚未就绪');
-    const captured = await service.capture();
-    return captured.state;
+  let terminalStateReader = null;
+  let generationPending = false;
+  function readSnapshot() {
+    if (!terminalStateReader) terminalStateReader = createTerminalStateReader((...args) => {
+      const read = fn('getChatMessages');
+      if (!read) throw new Error('酒馆助手的消息读取接口尚未就绪');
+      return read(...args);
+    }, () => {
+      const st = HW.SillyTavern || window.SillyTavern;
+      return st && typeof st.getContext === 'function' ? st.getContext() : null;
+    });
+    return terminalStateReader({ generating: generationPending });
   }
 
   const updateCbs = [];
+  let readTimer;
+  let rosterEditRevision = 0;
+  let rosterEditBusy = false;
   function emit(ev) {
+    if (ev?.reset && !['show', 'correction-applied'].includes(ev.type)) { rosterEditRevision++; correctionHostReset(ev.type); }
     updateCbs.forEach(cb => { try { cb(ev); } catch(_) {} });
+  }
+
+  function rosterSnapshotKey(state) {
+    return JSON.stringify(Object.fromEntries(['系统', '场景', '玩家', '人际'].map(key => [key, state[key]])));
+  }
+  async function editRoster(name, action, hidden, expectedSource, expectedState) {
+    if (rosterEditBusy) throw new Error('正在保存终端操作，请稍候。');
+    if (SS.destroyed || generationPending) throw new Error('生成期间只能查看名册，请在变量更新完成后操作。');
+    const controller = window.RakudaiStateController;
+    const guard = HW.__RK_MVU_GUARD_V4__ || window.__RK_MVU_GUARD_V4__;
+    if (!guard?.scheduleAndRoster || typeof controller?.setRosterHidden !== 'function') throw new Error('请同步更新并启用包含日程与名册功能的 MVU v4 字段约束脚本。');
+    if (action === 'delete' && (!guard?.rosterPermanentRemoval || typeof controller?.deleteRosterPerson !== 'function')) {
+      throw new Error('请同步更新并启用支持永久移除的 MVU v4 字段约束脚本。');
+    }
+    const revision = rosterEditRevision;
+    const snapshot = readSnapshot();
+    if (snapshot.pending || JSON.stringify(snapshot.source) !== JSON.stringify(expectedSource) ||
+        rosterSnapshotKey(snapshot.state) !== expectedState) throw new Error('名册来源或变量已变化，请刷新后再操作。');
+    rosterEditBusy = true;
+    try {
+      const captured = await controller.capture({ messageId: snapshot.source.messageId });
+      const latest = readSnapshot();
+      if (SS.destroyed || generationPending || revision !== rosterEditRevision ||
+          latest.pending || JSON.stringify(latest.source) !== JSON.stringify(expectedSource) ||
+          rosterSnapshotKey(latest.state) !== expectedState ||
+          rosterSnapshotKey(captured.state) !== expectedState) throw new Error('当前分支已变化，未修改名册，请重新读取。');
+      if (action === 'delete') await controller.deleteRosterPerson(captured.token, name);
+      else await controller.setRosterHidden(captured.token, name, hidden);
+      terminalStateReader?.clear();
+      emit({ type: 'roster-updated', reset: true, retainDisplay: true });
+    } finally { rosterEditBusy = false; }
+  }
+  function setRosterHidden(name, hidden, expectedSource, expectedState) {
+    return editRoster(name, 'visibility', hidden, expectedSource, expectedState);
+  }
+  function deleteRosterPerson(name, expectedSource, expectedState) {
+    return editRoster(name, 'delete', undefined, expectedSource, expectedState);
+  }
+
+  /*__INJECT_CORRECTION__*/
+
+  // 通知挂在酒馆宿主上，终端是否展开不影响状态；关闭通知也不会取消后台任务。
+  function installHostCorrectionNotice() {
+    const notice = HD.createElement('section');
+    notice.id = 'rk-correction-notice'; notice.hidden = true;
+    notice.setAttribute('aria-label', '副 API 处理通知');
+    notice.innerHTML = '<span class="rk-notice-glyph" aria-hidden="true"></span><div class="rk-notice-copy">' +
+      '<strong data-notice-stage></strong><p data-notice-message role="status" aria-live="polite" aria-atomic="true"></p>' +
+      '<small data-notice-attempt></small><div class="rk-notice-actions">' +
+      '<button type="button" data-notice-retry hidden>重试本轮</button><button type="button" data-notice-cancel hidden>取消处理</button>' +
+      '<button type="button" data-notice-settings>设置</button></div></div>' +
+      '<button type="button" data-notice-close aria-label="隐藏这条通知（不取消处理）" title="仅隐藏通知，不取消处理">×</button>';
+    HD.body.appendChild(notice);
+    const title = notice.querySelector('[data-notice-stage]'), message = notice.querySelector('[data-notice-message]');
+    const attempt = notice.querySelector('[data-notice-attempt]'), retry = notice.querySelector('[data-notice-retry]');
+    const cancel = notice.querySelector('[data-notice-cancel]'), settings = notice.querySelector('[data-notice-settings]');
+    const stages = { waiting: '等待本轮保存', reading: '读取本轮', requesting: '请求模型', retrying: '等待重试',
+      applying: '保存 MVU', verifying: '回读核对', applied: '已保存', unchanged: '无需更改', failed: '处理失败',
+      cancelled: '已取消', preview: '预览待确认' };
+    const activeStages = ['waiting', 'reading', 'requesting', 'retrying', 'applying', 'verifying'];
+    let latest = null, countdown = null, hideTimer = null, signature = '', dismissed = false, busy = false, action = 0;
+    const text = (node, value) => { if (node.textContent !== value) node.textContent = value; };
+    function paint() {
+      if (SS.destroyed) return;
+      const state = latest?.state || 'inactive', active = activeStages.includes(state);
+      notice.hidden = dismissed || !stages[state];
+      notice.setAttribute('data-state', state); notice.setAttribute('data-active', String(active));
+      text(title, '副 API · ' + (stages[state] || '状态更新'));
+      // 模型和接口返回的内容只能作为纯文本显示，不能进入宿主 HTML。
+      text(message, latest?.message || '正在处理本轮内容…');
+      const notes = [];
+      if (Number.isFinite(latest?.attempt) && latest.attempt > 0) notes.push('尝试 ' + latest.attempt +
+        (Number.isFinite(latest.maxAttempts) && latest.maxAttempts > 0 ? '/' + latest.maxAttempts : ''));
+      if (state === 'retrying' && Number.isFinite(latest?.retryAt)) {
+        const seconds = Math.max(0, Math.ceil((latest.retryAt - Date.now()) / 1000));
+        notes.push(seconds > 0 ? seconds + ' 秒后重试' : '即将重试');
+      }
+      text(attempt, notes.join(' · '));
+      retry.hidden = !latest?.canRetry; retry.disabled = busy || active;
+      cancel.hidden = !active; settings.textContent = state === 'preview' ? '查看预览' : '设置';
+    }
+    function refresh() {
+      latest = getCorrectionStatus();
+      const next = JSON.stringify([latest.state, latest.message, latest.attempt, latest.retryAt, latest.canRetry]);
+      if (next !== signature) {
+        signature = next; dismissed = false; clearTimeout(hideTimer);
+        // 成功与取消短暂提示后收起；错误与待确认预览保留，直到处理或手动关闭。
+        if (['applied', 'unchanged', 'cancelled'].includes(latest.state)) hideTimer = setTimeout(() => {
+          dismissed = true; paint();
+        }, 5000);
+      }
+      clearInterval(countdown); countdown = null;
+      if (latest.state === 'retrying' && Number.isFinite(latest.retryAt)) countdown = setInterval(paint, 1000);
+      paint();
+    }
+    async function openSettings(result) {
+      const expectedDraft = correctionDraft;
+      // show() 会懒加载 iframe；必须等 RKBoot 完成订阅、设置页渲染后再交付同一份预览。
+      await openPhoneApp('settings');
+      if (SS.destroyed || !SS.booted || !SS.visible) return;
+      // 挂载期间可能换轮、取消或生成另一份预览；旧结果不能重新启用应用按钮。
+      if (result?.count > 0 && expectedDraft && correctionDraft === expectedDraft && getCorrectionStatus().state === 'preview') {
+        emit({ type: 'correction-preview', result });
+      }
+    }
+    settings.onclick = () => { openSettings().catch(() => {}); };
+    notice.querySelector('[data-notice-close]').onclick = () => { dismissed = true; paint(); };
+    cancel.onclick = () => { action++; busy = false; cancelCorrection(); refresh(); };
+    retry.onclick = async () => {
+      if (busy || !latest?.canRetry) return;
+      const token = ++action; busy = true; paint();
+      try {
+        const result = await retryCorrection();
+        if (SS.destroyed || token !== action) return;
+        // 手动重试仍需用户检查补丁；自动任务自己完成写入，通知不重复调用 apply。
+        if (result && result.automatic !== true && typeof result.patch === 'string' && Number.isFinite(result.count)) {
+          await openSettings(result);
+        }
+        refresh();
+      } catch (error) {
+        if (SS.destroyed || token !== action) return;
+        refresh();
+        if (!['failed', 'cancelled'].includes(latest?.state)) {
+          latest = { state: 'failed', message: error?.message || '重试未能启动，请在设置中核对本轮状态。' };
+          dismissed = false; paint();
+        }
+      } finally { if (token === action) { busy = false; paint(); } }
+    };
+    const onUpdate = event => { if (event?.type === 'correction-status') refresh(); };
+    updateCbs.push(onUpdate); refresh();
+    SS.disposers.push(() => {
+      action++; clearInterval(countdown); clearTimeout(hideTimer);
+      const index = updateCbs.indexOf(onUpdate); if (index !== -1) updateCbs.splice(index, 1);
+      notice.remove();
+    });
   }
 
   function makeBridge() {
     return {
-      getStat: async () => readStat(),
-      onUpdate: (cb) => updateCbs.push(cb),
+      version: BUILD_VERSION,
+      relationshipRules: RELATIONSHIP_SCORING,
+      get contactBaselineVersion() { return (HW.__RK_MVU_GUARD_V4__ || window.__RK_MVU_GUARD_V4__)?.contactBaseline || null; },
+      growthRules: window.RakudaiStateController?.growthRules,
+      supportStage,
+      romanceStage,
+      correction: { getConfig: getCorrectionConfig, saveConfig: saveCorrectionConfig,
+        getStatus: getCorrectionStatus, getContext: getCorrectionInput, fetchModels: fetchCorrectionModels,
+        request: () => requestCorrection(), retry: retryCorrection, apply: applyCorrection, cancel: cancelCorrection },
+      getSnapshot: async () => readSnapshot(),
+      getStat: async () => readSnapshot().state,
+      setRosterHidden,
+      deleteRosterPerson,
+      onUpdate: (cb) => {
+        updateCbs.push(cb);
+        return () => { const index = updateCbs.indexOf(cb); if (index !== -1) updateCbs.splice(index, 1); };
+      },
       setOrbBadge: (n) => {
         const b = SS.orb && SS.orb.querySelector('.b');
         if (!b) return;
@@ -291,10 +486,31 @@
       try { const r = eon(ev, cb); r && r.stop && SS.disposers.push(() => r.stop()); } catch(_) {}
     }
 
-    safeOn(TE.VARIABLE_UPDATE_ENDED || 'mag_variable_update_ended', () => emit({ type: 'vars' }));
-    safeOn('mag_variable_update_ended_for_zod', () => emit({ type: 'vars' }));
-    safeOn(TE.GENERATION_ENDED || 'generation_ended', () => emit({ type: 'story-turn' }));
-    safeOn(TE.CHAT_CHANGED || 'chat_changed', () => emit({ type: 'chat' }));
+    wireAutomaticCorrection(safeOn, TE);
+
+    // 主生成开始前留下只读显示；新回复的 MVU 仍由框架独立结算。
+    if (TE.GENERATION_AFTER_COMMANDS) safeOn(TE.GENERATION_AFTER_COMMANDS, (type, options = {}, dryRun = false) => {
+      if (dryRun || options?.dryRun || ![undefined, null, '', 'normal', 'continue', 'regenerate', 'swipe'].includes(type)) return;
+      try { readSnapshot(); } catch (_) {}
+      generationPending = true;
+      try { readSnapshot(); } catch (_) {}
+      emit({ type: 'generation-start', reset: true, retainDisplay: true });
+      startAutomaticCorrection();
+    });
+    // 删楼层、切 swipe、编辑消息都使原显示失效；生成中也不能保留被回退的回复。
+    for (const name of ['CHAT_CHANGED', 'MESSAGE_SWIPED', 'MESSAGE_SWIPE_DELETED', 'MESSAGE_DELETED', 'MESSAGE_UPDATED', 'MESSAGE_EDITED', 'MESSAGE_RECEIVED', 'CHARACTER_FIRST_MESSAGE_SELECTED']) {
+      if (TE[name]) safeOn(TE[name], () => {
+        const clearDisplay = ['CHAT_CHANGED', 'CHARACTER_FIRST_MESSAGE_SELECTED', 'MESSAGE_EDITED',
+          'MESSAGE_SWIPED', 'MESSAGE_SWIPE_DELETED', 'MESSAGE_DELETED'].includes(name);
+        if (clearDisplay) terminalStateReader?.clear();
+        // 重 roll 的删除/切页事件不提前解除生成写锁。
+        if (name === 'CHAT_CHANGED' || name === 'CHARACTER_FIRST_MESSAGE_SELECTED') generationPending = false;
+        emit({ type: name, reset: true, retainDisplay: !clearDisplay });
+      });
+    }
+    for (const name of ['GENERATION_ENDED', 'GENERATION_STOPPED']) {
+      if (TE[name]) safeOn(TE[name], messageCount => { generationPending = false; endAutomaticCorrection(name === 'GENERATION_STOPPED', messageCount); emit({ type: 'story-turn', retainDisplay: true }); });
+    }
   }
 
   function onResize() {
@@ -307,6 +523,9 @@
   function destroy() {
     if (SS.destroyed) return;
     SS.destroyed = true;
+    if (SS.cancelMount) SS.cancelMount();
+    clearInterval(readTimer);
+    terminalStateReader?.clear(); terminalStateReader = null; generationPending = false;
     disposeStatePanel();
     updateCbs.length = 0;
     try { SS.wheel && SS.wheel.remove(); SS.wheelBackdrop && SS.wheelBackdrop.remove(); } catch (_) {}
@@ -324,6 +543,7 @@
   /*__INJECT_STATE_PANEL__*/
 
   buildDom();
+  installHostCorrectionNotice();
   buildStatePanel();
   bindDrag();
   wireEvents();
@@ -342,7 +562,7 @@
     });
   }
 
-  HW[SLOT] = { destroy, show, hide, toggle, recenter, toggleWheel, openApp: openPhoneApp, version: '1.3.0' };
+  HW[SLOT] = { destroy, show, hide, toggle, recenter, toggleWheel, openApp: openPhoneApp, version: BUILD_VERSION };
   try { HW.RKTacticalToggle = toggle; } catch(_) {}
 
   console.info('[Hagun-Blazer-Terminal] initialized');

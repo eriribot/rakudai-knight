@@ -1,0 +1,51 @@
+{
+  "第四卷_序章_雪国的街道.txt": {
+    "start_line": 3,
+    "end_line": 203,
+    "line_count": 201,
+    "char_count": 3231,
+    "header": "第四卷 序章 雪国的街道"
+  },
+  "第四卷_第一章_强化集训.txt": {
+    "start_line": 204,
+    "end_line": 2286,
+    "line_count": 2083,
+    "char_count": 35455,
+    "header": "第四卷 第一章 强化集训"
+  },
+  "第四卷_第二章_阴谋蠢动.txt": {
+    "start_line": 2287,
+    "end_line": 3845,
+    "line_count": 1559,
+    "char_count": 23698,
+    "header": "第四卷 第二章 阴谋蠢动"
+  },
+  "第四卷_第三章_晓，进军.txt": {
+    "start_line": 3846,
+    "end_line": 5884,
+    "line_count": 2039,
+    "char_count": 31853,
+    "header": "第四卷 第三章 晓，进军"
+  },
+  "第四卷_第四章_过早的决战.txt": {
+    "start_line": 5885,
+    "end_line": 8583,
+    "line_count": 2699,
+    "char_count": 39267,
+    "header": "第四卷 第四章 过早的决战"
+  },
+  "第四卷_终章_幕后黑手.txt": {
+    "start_line": 8584,
+    "end_line": 9036,
+    "line_count": 453,
+    "char_count": 7944,
+    "header": "第四卷 终章 幕后黑手（fixer）"
+  },
+  "第四卷_后记.txt": {
+    "start_line": 9037,
+    "end_line": 9078,
+    "line_count": 42,
+    "char_count": 986,
+    "header": "第四卷 后记"
+  }
+}
