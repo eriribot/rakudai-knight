@@ -1,58 +1,42 @@
-【Rakudai Kishi · Variable Output Format】
-This entry defines the output structure only. Follow [MVU]变量更新规则 for field permissions, update conditions, and scoring. Read actual previous values from the current branch state provided by [MVU]变量列表.
+【Rakudai · MVU Output Format / G04 / T01】
+Read the current branch state and follow [MVU]变量更新规则. Main and secondary APIs use the same business-field permissions; code manages identity metadata, derived stages and settlement receipts.
+End the narrative with exactly one <UpdateVariable> containing <Analysis> then <JSONPatch>, with all closing tags. Analysis is concise English: check scene, each growth target, affection and support separately, contact/profile facts and tournament changes. State old→final values or concrete no-change reasons; no major event is not a reason to skip everyday changes.
+JSONPatch is one complete JSON array. No fences, headings, comments, ellipses or escaped tags. Do not impose a word or operation limit that omits valid updates. Analysis alone does not save data.
 
-【Placement and Structure】
-End the narrative with exactly one literal <UpdateVariable> block: <Analysis> followed by <JSONPatch>, with all closing tags.
-Analysis: concise English. Check scene changes, each trained target and affected person. For affection and support separately, give actual old → delta → final (state any first-assessment baseline) or a factual no-change reason. Affection: reciprocal everyday friendliness=普通; new liking, appreciation or eased defenses=中度; major events reshaping trust=重度. Use the other person's response, not player intention; impression alone cannot replace a score. Anger or no major event does not cancel 普通/中度. "No stat changes" must not skip growth or people.
-JSONPatch: one valid JSON array with every required operation. Completeness takes priority over brevity: no self-imposed word, token, or operation-count limit may omit scores, evidence, events, or growth requests. No code fences, separate heading, comments, ellipses, placeholders, or escaped tags. Describing an update does not save it; submission does not prove runtime success.
+【Operations and Types】
+Paths start with /玩家, /场景 or /人际, never /stat_data. Use add for missing entries/parents, replace for existing values, remove for confirmed erroneous dynamic entries. Submit final values, not increments. Prefer changed child fields; when supplying an object, preserve unrelated existing data. Do not reset /系统, /玩家/性别, /玩家/综合初评, growth receipts or terminal roster visibility through parent replacements.
+Strings, null, {}, [], numbers and native true/false have different meanings. Names are stable non-empty keys without /, ~, __proto__, prototype or constructor. Framework $internal/display_data/delta_data are not business fields.
 
-【Paths and Operations】
-The variable container is stat_data. Patch paths begin with /系统, /玩家, /场景, or /人际. Do not prepend /stat_data.
-- replace: Update an existing writable path. Include op, path, and value. The value must be the final value, not the change amount.
-- add: Create a missing entry or optional field. Include op, path, and value; create missing parents first. For existing people, patch only the relevant child fields, preserving the rest of the object.
-- remove: Use only for corrective deletions permitted by the update rules. Include op and path; omit value.
-Use only this card’s defined fields and data types. An empty string means unspecified, null means unknown, an empty collection means no records, and booleans must be true/false. These are not interchangeable. Write numbers as JSON numbers, and booleans as native JSON booleans (true/false) without quotes or numbers (not "true" or 1/0). Names must be non-empty, must not contain / or ~, and must not be __proto__, prototype, or constructor.
+【Player and Abilities】
+/玩家/魔人觉醒 is native true/false only. No parallel realm flag; a confirmed awakening itself gives no experience. Main and secondary APIs may correct confirmed player data, /玩家/六维, /玩家/登记等级 and /玩家/成长/经验 final values.
+六维 keys: 攻击力, 防御力, 魔力量, 魔力控制, 体能, 运气. Grades: F,F+,E,E+,D,D+,C,C+,B,B+,A,A+,S; empty string means unconfirmed. 登记等级 uses F through A or null; it records actual registration, not automatic experience advancement.
+/玩家/伐刀能力 contains 能力系别, 能力本质, 共通限制, 招式. 能力系别 is empty or 体能强化系/自然干涉系/概念干涉系/因果干涉系. 招式 and /玩家/其他能力 map stable names to {说明:string,条件与代价:string,掌握状态:待确认|学习中|已掌握}. Use confirmed learning results; descriptions and method names are free text.
 
-【Ability Records】
-/玩家/伐刀能力/招式/<Name> and /玩家/其他能力/<Name> must use an object containing only 说明 (string), 条件与代价 (string), and 掌握状态 (待确认, 学习中, or 已掌握). For new entries, use "" for unspecified text and 待确认 for an unconfirmed status. Update existing abilities through their specific child fields, preserving other values. Write 学习中 or 已掌握 explicitly only when supported by confirmed learning results; compatibility handling never infers mastery from description text.
+【Growth】
+Create missing /玩家/成长 and /玩家/成长/申请 parents with {} before children. Each request has 来源事件, 目标, 经验, 成果; 类型 and 方式 are optional free-text descriptions. 来源事件 exactly matches an actual /场景/已发生事件 key saved before the request in this patch. 成果 is non-empty actual result text.
+目标 is 魔力控制, 体能 or 魔力量, or an array of these. 魔力量 growth requires 魔人觉醒:true. 经验 is a non-negative JSON integer or an equal-length array paired with target positions. A single number is the TOTAL across unique targets: [魔力控制,体能,魔力量] with 90 means 30 each. Divide evenly, assigning remainders in target order; duplicate targets use their first occurrence. An ineligible target does not donate its share to others.
+Use stable request names; code derives stable per-target names for arrays. One source result and target earns once, up to 9999 per target across the entire real assistant reply. No fixed category/method enum, time conversion or separate breakthrough approval. Actual control and body training may both qualify in one event; judge participation from facts, not words such as “mental” or “simulation”.
+New rewards use requests; explicit experience corrections use /玩家/成长/经验/<目标>. If both are submitted for a target, the final value wins and the request is receipted without a second addition. Experience is progress relative to the supplied current grade. Code repeatedly promotes while thresholds are met and preserves remainder, including old overflow with no new request. Do not write version/history/receipt fields or forge a new source to re-claim a result. Malformed requests remain pending locally; they do not invalidate other saved facts.
 
-【Event Records】
-/场景/已发生事件 is an object keyed by stable event names. Each event contains 卷号 (a JSON integer from 1 to 19; write 1 for 第一卷, never "第一卷" or "1"), 章段 (the exact stable string key from the currently injected chapter directory), 结果 (non-empty text describing the actual result in one or two sentences), 参与者 (an array of names), and 知情者 (an array of names). Follow the update rules for valid progress and who actually knows the result.
+【Scene, Events and Schedule】
+场景 fields: 当前卷 (integer 1—19), 当前章 (exact injected directory key), 阶段 (未开始|进行中|已结束), 时间, 地点, 切入说明 (strings). Follow actual completion markers. Main and secondary share one chapter advance per reply; do not finish the next chapter again during correction.
+已发生事件 maps stable names to {卷号:integer,章段:string,结果:non-empty string,参与者:string[],知情者:string[]}. Record the chapter where it happened, not a future chapter. Existing event names stay stable.
+日程 is optional and maps stable names to {类型:比赛|训练|约定|其他,日期:string,时间:string,地点:string,参与者:string[],状态:待定|已安排|进行中|已完成|已取消,说明:string}. 日期 is a real YYYY-MM-DD or empty. Plans and elapsed dates do not prove completion.
 
-【Optional Schedule and Roster Fields】
-/场景/日程 is an optional object keyed by stable schedule names. Each schedule object contains exactly these required fields: 类型 (比赛, 训练, 约定, or 其他), 日期 (an empty string or a valid calendar date in YYYY-MM-DD form), 时间 (string), 地点 (string), 参与者 (array of strings), 状态 (待定, 已安排, 进行中, 已完成, or 已取消), and 说明 (string). Follow [MVU]变量更新规则 for when each field may change.
-When /场景/日程 is absent, place an add operation creating that parent object with value {} before operations adding its children. When the parent exists, address only the relevant entry or field; do not replace the entire schedule object. The same parent-before-child order applies to other optional objects.
-/人际/<Name>/名册隐藏 is an optional native JSON boolean reserved for terminal user actions. Do not output operations that add, modify, or remove it, including through a parent-object replacement or deletion. Omit this field when creating a relationship entry.
-/系统/已删除人物 is an optional array of names managed only by the terminal's permanent-removal action. It belongs to the current message and active swipe, not the entire chat. Do not modify it or recreate its listed relationship entries from earlier messages; existing event references to those names remain valid. On rollback, use only the selected branch snapshot.
+【People】
+New /人际/<姓名> requires 关系:string,态度印象:string,好感:number|null,支援度:integer|null,羁绊阶段:未定|未建立|C|B|A|S,变化依据:string. Ordinary new no-change records start at 0/0 and 未建立; confirmed background may use its assessed final values. Existing values continue from their real baseline.
+Optional fields: 性别 (未知|男性|女性), 联系状态 (仅识别|已建立联系), 联系依据:string, 已加联系方式:boolean, 已知资料:{身份?,登记等级?,灵装?,已知能力?} with string children. Contact interaction and exchanged contact details are independent. Never recreate names in /系统/已删除人物.
+好感 is 0—1000; 支援度 is integer 0—320. Write justified final values and concise 变化依据. Ordinary friendliness, eased defenses and major trust changes are narrative guidance, not hard numeric tiers. No separate 好感突破依据 is required. Scores can be corrected up or down; each field remains independent. Code derives 羁绊阶段 and 恋爱阶段, which never invent actual relationship events. Do not write 名册隐藏.
 
-【First-encounter Roster Entries】
-Follow [MVU]变量更新规则 for registration, interaction, and scoring decisions. New /人际/<Name> objects require 关系, 态度印象, 好感, 支援度, 羁绊阶段, 变化依据. For an ordinary new person with no score change, use 好感:0, 支援度:0, 羁绊阶段:未建立, 变化依据:"". For actual changes, write the final score and its evidence. Established special relationships retain their one-time background assessment under the update rules; do not give them the ordinary zero default.
-- 联系状态: exactly 仅识别 or 已建立联系. This records reciprocal interaction, NOT exchanged contact details. The first mutual conversation or directed action qualifies under the update rules.
-- 联系依据: a string identifying both sides' actions; non-empty for 已建立联系, "" for 仅识别. Update a stale 关系 label in the same patch. These fields record interaction; they do not gate scoring or automatically grant affection.
-- 已加联系方式: an independent boolean for an available messaging/phone channel. A face-to-face conversation alone does not set it true; preserve an existing true.
-- 性别: 未知, 男性, or 女性. 已知资料: an object with string children 身份, 登记等级, 灵装, 已知能力. Put confirmed facts here even if already stated in 态度印象; omit unknowns.
-Ordinary first scores use 0 plus the current justified change, with no fixed 50 bonus. Existing numbers continue from their actual value; old null may use zero for current changes, but unreadable/missing old values may not. Explicitly submit non-empty 变化依据 before score operations in each JSONPatch; also submit 好感突破依据 for major changes or a first background assessment. Evidence may repeat earlier wording, but stored evidence alone does not count as a current submission. Each person’s 好感 and 支援度 settle independently once per actual assistant reply: submit one combined final value per field; a rejected field may retry with the same evidence, while a successful field must not be increased again. Existing characters need only changed or confirmed missing child fields, including contact facts from earlier in the current branch. Create a missing 已知资料 parent with {} before its children. Preserve unrelated data and scores; do not recreate permanently removed people or infer unknown facts. Write all needed corrections in JSONPatch, not only Analysis.
+【Tournament T01】
+/场景/选拔赛 is optional; create {} first, then business entries. Defaults: 版本:T01,赛季:破军学园选拔赛,状态:未开始,总轮次:20,代表名额:6,号池规模:288,模式:跟随系统,名册:{},比赛:{}. Use current system protagonist mode; do not set a separate player mode.
+名册/<ID>: {姓名:string,来源:正典|原创|玩家,参赛状态:参赛|退选|取消资格,初始战绩?:{截至轮次:integer,胜场:integer,败场:integer,积分?:integer,依据:non-empty string}}. Missing initial results mean unknown, not zero. Only confirmed unplayed records may start at zero with a factual basis.
+比赛/<ID>: {轮次:integer,甲方:rosterID,乙方:rosterID,日期:string,时间:string,地点:string,状态:待定|已安排|已完成|已取消,胜者?:rosterID,弃权方?:rosterID,甲赛前胜场?:integer,乙赛前胜场?:integer,依据:string}. Completed matches require actual winner and basis. Optional unknown values are omitted, not fabricated. The same pair cannot play twice in a season; each person plays at most once per round. Do not overlap baseline-covered rounds with new match records.
+Wins, points and rankings are derived from the ledger. Winner points = 10 + 10 × opponent's actual pre-match wins; loser gets 0. Never substitute round−1 for missing wins. Amend the same ID to correct a result; do not append a second scoring entry or write a preset original-story leaderboard.
 
-【Growth Requests and Read-only Results】
-Use /玩家/魔人觉醒 as the only awakening flag: a JSON boolean, never a string or a parallel realm field. Add it when absent, otherwise replace this child field on a newly confirmed awakening. Preserve existing true without repeating its evidence. Put true before a separately justified post-awakening growth request; the flag itself grants no reward.
-/玩家/成长 is an optional object. The model may submit only its 申请 entries; experience totals, settlement history, derived ratings, and all other fields inside 成长 are code-managed. /玩家/六维, /玩家/登记等级, and /玩家/综合初评 are not writable by the model. Submit an earned-experience request based on confirmed learning instead of patching totals or ratings.
-Create missing parents in order: only when /玩家/成长 is absent, add it with value {}; only when /玩家/成长/申请 is absent, add that object with value {}; then add the specific request under its stable request name. Never replace an existing parent or reset its other contents. Address an existing pending request by its original name when permitted by [MVU]变量更新规则; do not rename, duplicate, or recreate requests to claim the same activity again.
-Each G03 request (compatible with the G02 six-field shape) contains exactly these six required fields:
-- 来源事件: a non-empty string exactly matching the object key of the actual event in /场景/已发生事件. In the same JSONPatch, add or update the source event before submitting its request; describing the event only in Analysis does not save it.
-- 目标: 魔力控制 or 体能; 魔力量 is allowed only when /玩家/魔人觉醒 is the JSON boolean true.
-- 类型: 基础训练, 纠正训练, or 重大突破.
-- 经验: a JSON integer from 1 to 9999, reflecting actual improvement and the current rating’s distance to its promotion threshold; this is the requested award, not an accumulated total. Categories describe the result, without fixed numeric subranges or an automatic 9999 award.
-- 方式: 实际练习 or 意识模拟.
-- 成果: a non-empty string describing the actual learning result and its evidence.
-Do not include dates, durations, environments, multipliers, recovery flags, or extra fields in a G03 request. Preserve one settled award per source event and target. The 9999-experience cap applies to each target across the entire assistant reply, including all requests, commands, and repair parses. Code accumulates and deduplicates awards, permits at most one adjacent promotion per target per reply, and preserves overflow. Eligibility, result evaluation, and thresholds follow [MVU]变量更新规则.
-Preserve earned G01/G02 experience and settlement history. Do not automatically translate old time-based pending requests or grant retrospective awards. An unpaid source with a newly confirmed result this turn may be resubmitted using the same stable source and the complete six-field G03 shape; never mix old and new request fields.
-In Analysis, check each trained target separately with its source, actual participation/method, result, and award category/experience or factual ineligibility. A visualization-guided physical workout can earn 体能; actual control practice can separately earn 魔力控制 in the same event. Submit both eligible requests together. Completed effective practice can earn 基础训练 without a new technique or breakthrough. Pure imagined movement earns no 体能; 魔力控制 does not imply 魔力量 growth. A submitted request is not a saved settlement.
-
-【Format When Nothing Changes】
-Use [] only after checking player/scene, affection, support, and missing roster facts separately and finding no updates; otherwise write the required operations. This empty example assumes no interaction:
+【Empty Result】
+Only use [] after independently checking every relevant area and finding no factual updates:
 <UpdateVariable>
-<Analysis>No player/scene changes, interactions, or missing roster facts require updates.</Analysis>
-<JSONPatch>
-[]
-</JSONPatch>
+<Analysis>No scene, player, growth, relationship or tournament changes require updates.</Analysis>
+<JSONPatch>[]</JSONPatch>
 </UpdateVariable>

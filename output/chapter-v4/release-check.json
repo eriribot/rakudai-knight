@@ -1,8 +1,8 @@
 {
   "status": "failed",
-  "passed": 10,
+  "passed": 7,
   "total": 18,
-  "generatedAt": "2026-09-11T13:31:12.409Z",
+  "generatedAt": "2026-09-13T13:39:54.820Z",
   "runtime": {
     "checked": false,
     "status": "pending",
@@ -24,7 +24,7 @@
     },
     "releaseBuilder": {
       "path": "scripts/build-chapter-release.mjs",
-      "sha256": "a69919c3e2a8d630eb6acfc23aefbd270a88663582f4218efc65c63703ea5a86"
+      "sha256": "e44fa62cb50e3b8e3c495d16a7530ebe2acc91813a6b452d11b97808b64d89f0"
     },
     "original": {
       "path": "output/chapter-v4/runtime-original-card.json",
@@ -52,15 +52,15 @@
     },
     "worldbook": {
       "path": "世界书规则/v0.3/导出/落第骑士英雄谭.json",
-      "sha256": "9fd633c492404af2282e64ddc337034c3e3d7f95a9011bb28b50b30508bc0b7f"
+      "sha256": "7542558b2bf94f2e76b29125bf09274fab42bba629b682a69bde75eec02a7c8d"
     },
     "guard": {
       "path": "世界书规则/MVU/落第骑士-MVU-v4字段约束.json",
-      "sha256": "25b32d9170f22f4642efc176a4a7a44dab359eeab7bdd20f230670c8aca5f38b"
+      "sha256": "f7dcfdab67a61db13350ecf205e952443245801eebe6d707a218ad7eb81f3110"
     },
     "terminal": {
       "path": "scripts/酒馆助手脚本-小手机-黑白ADV轮盘版-v1.3.6.json",
-      "sha256": "0f2b1cbeffbcc4f192d7963bf53454a668905c1e1a4c828a5bc52a54740e96a7"
+      "sha256": "7bf02eca7838c4dff77028bbeb5019f485590afa227c660920716a73a7ce0a16"
     },
     "injector": {
       "path": "scripts/tavern_helper_ejs_injector.json",
@@ -68,11 +68,11 @@
     },
     "controller": {
       "path": "scripts/rakudai-state-controller.js",
-      "sha256": "41b80d37ec3d922d7ca3bd2cea05fdbf9566b9f85c83c712e90d0fe55e74595d"
+      "sha256": "9d42740382ca488a779972285f2690b9ae12a42aa13fca5ef10e4119ee575fc4"
     },
     "opening": {
       "path": "第一卷-世界书整理/开局页面/index.html",
-      "sha256": "78cf04e20640b61fbfad6d3da11dfe5e72cacde0508ba94ee426767684645c11"
+      "sha256": "e6ebcced15c4c6ccf3e2a6f89792434a7a1606d7f42e9635b86cbf9bee7cf487"
     },
     "prechange": {
       "path": "output/chapter-v4/prechange.zip",
@@ -80,11 +80,11 @@
     },
     "source:scripts/build-state-controller.mjs": {
       "path": "scripts/build-state-controller.mjs",
-      "sha256": "eca25fb52f8f76476184e98a8367e3d6e3f289863b96e957e93bdaf2513e4eb3"
+      "sha256": "2cd7b6f25f86ccca38c2247f71b8984a14dcd969eb5f4b9b9c28c80d123a8e3d"
     },
     "source:scripts/sync-worldbook-calibration.mjs": {
       "path": "scripts/sync-worldbook-calibration.mjs",
-      "sha256": "0d93233e2af2c062346b64a312a73a7ad734b3a46755c5712a893f9bc738c1d4"
+      "sha256": "28d3976737b22d655d11a5b15a9372d42a7359e87eea22815eb805a911404cb7"
     },
     "source:scripts/build-plot-injector.mjs": {
       "path": "scripts/build-plot-injector.mjs",
@@ -112,19 +112,19 @@
     },
     "source:世界书规则/MVU/schema.mjs": {
       "path": "世界书规则/MVU/schema.mjs",
-      "sha256": "76c83b39425c7eb50d6170cecf2add2338575287188bb17ff7be6be570cec914"
+      "sha256": "eb12e814b5b56f0303593f23e5f8e888a5dfcbe6cbff1eafe23e2061670a86f7"
     },
     "source:scripts/rakudai-state-core.mjs": {
       "path": "scripts/rakudai-state-core.mjs",
-      "sha256": "b32619dbfef852400b39926f8929f70277fdcf95eb136b22682c196941e7c81f"
+      "sha256": "8b0bbd044d08ef253b50812365121c1a71029e8d88bf74b2ec89b8a9570aeece"
     },
     "source:scripts/rakudai-state-browser.js": {
       "path": "scripts/rakudai-state-browser.js",
-      "sha256": "ffe0e3d464dfc730d4dbe4fd4572f9a3e5cdce5d6dafbc740f17e2e0f20b3903"
+      "sha256": "977170e7c225af2e27ab885e9b3aad46c8604682c5f65f3e5cbcb4b2242466aa"
     },
     "source:scripts/rakudai-mvu-guard.js": {
       "path": "scripts/rakudai-mvu-guard.js",
-      "sha256": "f59d22568e9170bd02e3c27095ff6e33427c2892acbdea817032cf430dbb02cf"
+      "sha256": "75c78a94b15545ece5826bd99f586852e488bbde8e22fa22256db4622de72ebb"
     },
     "source:scripts/rakudai-plot-runtime.js": {
       "path": "scripts/rakudai-plot-runtime.js",
@@ -136,23 +136,23 @@
     },
     "source:世界书规则/MVU/变量更新规则.txt": {
       "path": "世界书规则/MVU/变量更新规则.txt",
-      "sha256": "59b5dea860a0444abf4e41c0bc3f7cfc2df8f2bfbd24437819965a23868d629f"
+      "sha256": "3c869406aa7dcc4688135a25b4708e9903812fe03abe48760668cf8dd517ecea"
     },
     "source:世界书规则/MVU/[initvar]变量初始化.yaml": {
       "path": "世界书规则/MVU/[initvar]变量初始化.yaml",
-      "sha256": "af3b1b1cb2931ad10d7d43545892e332718294b8b10156528006af4de68dcb6d"
+      "sha256": "10b93166fc789ac9d8fc29614a89c64ea5da07dd021559d57fed978267089b9b"
     },
     "source:第一卷-世界书整理/人物条目/黑铁一辉.md": {
       "path": "第一卷-世界书整理/人物条目/黑铁一辉.md",
-      "sha256": "48ab7ffdedcf72f42e4b794d347e22b4068b2fcacf7fe129504c336d514e1bea"
+      "sha256": "de2272e4917af6c72471909f8df1592f23eabde76efe0495573418d5999053c3"
     },
     "source:第一卷-世界书整理/人物条目/史黛菈·法米利昂.md": {
       "path": "第一卷-世界书整理/人物条目/史黛菈·法米利昂.md",
-      "sha256": "7714a1a765787d999c3d57cad8d3b4d543b3946397241a6241356b70877cff5b"
+      "sha256": "fdf9fe1cbbd7247bdbecff6db614647159e45575c7296797966f13fdaa15395b"
     },
     "source:第一卷-世界书整理/人物条目/新宫寺黑乃.md": {
       "path": "第一卷-世界书整理/人物条目/新宫寺黑乃.md",
-      "sha256": "4ba339b575f5e735be41035259c113aee665a9aae96f44e9439705125147d0b8"
+      "sha256": "1ab51c35a1b8a403e07bf74dd1eda3e2d4d5f04fc2c6be35279052ffcdf343f0"
     },
     "source:世界书规则/v0.3/10_序章场景.md": {
       "path": "世界书规则/v0.3/10_序章场景.md",
@@ -172,11 +172,11 @@
     },
     "source:scripts/黑白ADV轮盘终端/bundle.mjs": {
       "path": "scripts/黑白ADV轮盘终端/bundle.mjs",
-      "sha256": "06a20bb3d10242a74ac9ba7a1efb52b21271e53e90ca230575426eaf427efd17"
+      "sha256": "56a03e7f40324f74b3c91554149ba9d30d0285c9da4887620fc42c88913971b7"
     },
     "source:scripts/黑白ADV轮盘终端/main.js": {
       "path": "scripts/黑白ADV轮盘终端/main.js",
-      "sha256": "8e3b530c6f080ef40b84a7fb4039067db9fdbd4005eb0b81cd100f1f1741a9af"
+      "sha256": "54bd2f13fa1ed3193eac75425412a28b6fd0be8bb1f28026b16963c5b09086f0"
     },
     "source:scripts/黑白ADV轮盘终端/state-reader.js": {
       "path": "scripts/黑白ADV轮盘终端/state-reader.js",
@@ -196,7 +196,7 @@
     },
     "source:scripts/黑白ADV轮盘终端/styles.css": {
       "path": "scripts/黑白ADV轮盘终端/styles.css",
-      "sha256": "e4a0422030b0fd158490a62da35e65f90873be6a1452f3790dd10d70c7c61f05"
+      "sha256": "3c7508dfa79d38f4d84f7dafe70a21d48e9d50accf4c11d2932ca97d7f2b2174"
     },
     "source:scripts/黑白ADV轮盘终端/terminal-app.html": {
       "path": "scripts/黑白ADV轮盘终端/terminal-app.html",
@@ -204,31 +204,31 @@
     },
     "source:scripts/黑白ADV轮盘终端/terminal-app.js": {
       "path": "scripts/黑白ADV轮盘终端/terminal-app.js",
-      "sha256": "4d1a2c292ef4b43edc5169cfc315d0688a03e077db401cce2dfef9e9a4edfd97"
+      "sha256": "67c692432e7d7039e80ccf5937fb1cb824f7e7a6af85d316bca82b721d6cc290"
     },
     "source:scripts/黑白ADV轮盘终端/terminal-controls.js": {
       "path": "scripts/黑白ADV轮盘终端/terminal-controls.js",
-      "sha256": "04582aeb52df64e05d5bce263d62be04bad8104868f582f7307784721a22d638"
+      "sha256": "1fa86b89f09316ec5b09179690f82f4ab2486bbf1a4425af3e89cebbd698a8c3"
     },
     "source:scripts/黑白ADV轮盘终端/terminal-app.css": {
       "path": "scripts/黑白ADV轮盘终端/terminal-app.css",
-      "sha256": "eaa2b27419b871cc82a59e186a66e3bac14b3496fa861e1bb54cb9e418a018d0"
+      "sha256": "67fe2cc17b753fd7be8dbb9bdebf7259688dee5fdedca1dbe48bcc93aa7ec15e"
     },
     "source:scripts/黑白ADV轮盘终端/terminal-theme.css": {
       "path": "scripts/黑白ADV轮盘终端/terminal-theme.css",
-      "sha256": "607fd6682143331d61a6db9c4b52c6a44e2ea589d4b6beade7297ddcd6410c51"
+      "sha256": "0674de6ab74853ea332b1f77da1ec2f9d1869e250e16bdd499e83b3a70722d10"
     },
     "source:scripts/黑白ADV轮盘终端/terminal-status.css": {
       "path": "scripts/黑白ADV轮盘终端/terminal-status.css",
-      "sha256": "7e2e75ea7d5ebb3c0ce909b2e7e5bb2ee210ac187879f182e3700724d23630cb"
+      "sha256": "26ded410a64f5f0bf1b84a91cafc6a8e632df41ee43aa0651c8375066fc8f9c8"
     },
     "source:scripts/黑白ADV轮盘终端/package.json": {
       "path": "scripts/黑白ADV轮盘终端/package.json",
-      "sha256": "0f537a40f10421a91efaf4ddc8611504b077ac3c4e368c9532edbe0a49541675"
+      "sha256": "e07baadc507e62736c0b648bccf41122f02a5cb93f9ca41c41cbafe70c308f81"
     },
     "source:scripts/黑白ADV轮盘终端/package-lock.json": {
       "path": "scripts/黑白ADV轮盘终端/package-lock.json",
-      "sha256": "9b20a307fa91637ef82eb4bc6c934713a09b6cb96083af71143e57bd07695d84"
+      "sha256": "f35e705a94cb93086fac85b879c6d04c68b984770e3f793a4ac59e126338ae95"
     }
   },
   "changes": [
@@ -453,50 +453,6 @@
       "authoringContentSha256": "40690cbb34dc03ba67b471810110db1e7aec7b57c4022ae63690857c1a830d28",
       "authoringSourceDiffersFromRelease": false
     },
-    "initialStateDrift": {
-      "differences": [
-        {
-          "path": "/系统/结构版本",
-          "before": 3,
-          "after": 4
-        },
-        {
-          "path": "/玩家/性别",
-          "before": {
-            "absent": true
-          },
-          "after": "男性"
-        }
-      ],
-      "explanation": "原实机卡缺省 玩家.性别；任务前源码与初始化已固定男性。完整卡同步既有源码基线，旧档迁移不补该字段。",
-      "archive": "output/chapter-v4/prechange.zip",
-      "members": [
-        {
-          "entry": "世界书规则/MVU/schema.mjs",
-          "sha256": "ee30bfb86945276f7c667979ae788b82c5ad076f64d1272f16390f90a2d5911b",
-          "evidence": [
-            {
-              "line": 135,
-              "text": "性别: '男性',"
-            },
-            {
-              "line": 165,
-              "text": "性别: z.literal('男性').default('男性'),"
-            }
-          ]
-        },
-        {
-          "entry": "世界书规则/MVU/[initvar]变量初始化.yaml",
-          "sha256": "ff8eee8a3dc24f391200066a7a7878082e7786b575b313e352d9f22793fe1527",
-          "evidence": [
-            {
-              "line": 14,
-              "text": "性别: 男性"
-            }
-          ]
-        }
-      ]
-    },
     "catalogue": {
       "volumes": 19,
       "nodes": 100,
@@ -628,7 +584,7 @@
     {
       "name": "仅三个指定脚本替换，组件内容一致且保留原运行时 ID",
       "passed": false,
-      "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n... Skipped lines\n\n  {\n    button: {\n      buttons: [],\n      enabled: true\n    },\n...\n      \"const AXES = ['攻击力', '防御力', '魔力量', '魔力控制', '体能', '运气'];\\n\" +\n-     '// 只转换含义明确的卷号写法，保存结果仍为数字；未知文本留给严格校验拒绝。\\n' +\n-     'function normalizeStoryVolume(value) {\\n' +\n-     \"  if (typeof value !== 'string') return value;\\n\" +\n-     '  const text = value.trim();\\n' +\n-     '  const numeric = text.match(/^(?:([1-9]|1[0-9])|第([1-9]|1[0-9])卷)$/);\\n' +\n-     '  if (numeric) return Number(numeric[1] || numeric[2]);\\n' +\n-     \"  const names = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二', '十三', '十四', '十五', '十六', '十七', '十八', '十九'];\\n\" +\n-     \"  const index = names.findIndex(name => text === '第' + name + '卷');\\n\" +\n-     '  return index < 0 ? value : index + 1;\\n' +\n-     '}\\n' +\n-     '// 描述兼容只补结构，不从说明文字推断掌握程度；有旧条目时保留已知资料。\\n' +\n-     'function normalizeSkillEntry(value, previous) {\\n' +\n-     \"  if (typeof value === 'string') value = { 说明: value };\\n\" +\n-     \"  if (!value || typeof value !== 'object' || Array.isArray(value)) return value;\\n\" +\n-     '  const next = { ...value };\\n' +\n-     \"  const old = previous && typeof previous === 'object' && !Array.isArray(previous) ? previous : {};\\n\" +\n-     \"  for (const field of ['说明', '条件与代价']) {\\n\" +\n-     '    const missing = next[field] === undefined;\\n' +\n-     \"    const blank = typeof next[field] === 'string' && !next[field].trim();\\n\" +\n-     '    if (missing || blank) {\\n' +\n-     \"      if (typeof old[field] === 'string' && old[field].trim()) next[field] = old[field];\\n\" +\n-     \"      else if (missing) next[field] = '';\\n\" +\n-     '    }\\n' +\n-     '  }\\n' +\n-     \"  const known = ['学习中', '已掌握'].includes(old.掌握状态);\\n\" +\n-     \"  if (next.掌握状态 === undefined || (next.掌握状态 === '待确认' && known)) {\\n\" +\n-     \"    next.掌握状态 = known ? old.掌握状态 : '待确认';\\n\" +\n-     '  }\\n' +\n-     '  return next;\\n' +\n-     '}\\n' +\n-     '// 本卡成长尺度，不是原作公布的经验公式。\\n' +\n-     'const GROWTH_RULES = {\\n' +\n-     \"  version: 'G02', costs: { F: 100, 'F+': 100, E: 150, 'E+': 150, D: 250, 'D+': 250, C: 400, 'C+': 400, B: 600, 'B+': 900 },\\n\" +\n-     '  perReplyCap: 24,\\n' +\n-     '  awards: { 基础训练: { min: 2, max: 6 }, 纠正训练: { min: 7, max: 12 }, 重大突破: { min: 13, max: 24 } },\\n' +\n-     '};\\n' +\n      '// 本卡关系计分配置；并非《火焰纹章》任一作品的官方公式。终端构建读取同一份配置。\\n' +\n      'const RELATIONSHIP_SCORING = {\\n' +\n+     \"  version: 'R06-关系第二版',\\n\" +\n+     '  affection: { min: 0, max: 1000, initial: 50, ordinaryMax: 2, majorMax: 5 },\\n' +\n-     \"  version: 'R08-首次联系核定',\\n\" +\n-     '  affection: {\\n' +\n-     '    min: 0, max: 1000, initial: 50,\\n' +\n-     '    ordinaryMin: 1, ordinaryMax: 5, mediumMin: 6, mediumMax: 10, majorMin: 11, majorMax: 20,\\n' +\n-     '    backgroundMin: 70, backgroundMax: 200,\\n' +\n-     '  },\\n' +\n      '  support: {\\n' +\n      '    min: 0, max: 320, initial: 0, ordinaryMin: 1, ordinaryMax: 5, mediumMin: 6, mediumMax: 10, majorMin: 10, majorMax: 15,\\n' +\n      \"    st"
+      "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n... Skipped lines\n\n  {\n    button: {\n      buttons: [],\n      enabled: true\n    },\n...\n      \"const GRADES = ['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E+', 'E', 'F+', 'F'];\\n\" +\n-     '// A+、S 只扩展实际六维的成长尺度，联盟登记与开局综合初评仍使用原量表。\\n' +\n-     \"const ATTRIBUTE_GRADES = ['S', 'A+', ...GRADES];\\n\" +\n-     \"const GROWTH_AXES = ['魔力控制', '体能', '魔力量'];\\n\" +\n      \"const AXES = ['攻击力', '防御力', '魔力量', '魔力控制', '体能', '运气'];\\n\" +\n-     '// 只转换含义明确的卷号写法，保存结果仍为数字；未知文本留给严格校验拒绝。\\n' +\n-     'function normalizeStoryVolume(value) {\\n' +\n-     \"  if (typeof value !== 'string') return value;\\n\" +\n-     '  const text = value.trim();\\n' +\n-     '  const numeric = text.match(/^(?:([1-9]|1[0-9])|第([1-9]|1[0-9])卷)$/);\\n' +\n-     '  if (numeric) return Number(numeric[1] || numeric[2]);\\n' +\n-     \"  const names = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二', '十三', '十四', '十五', '十六', '十七', '十八', '十九'];\\n\" +\n-     \"  const index = names.findIndex(name => text === '第' + name + '卷');\\n\" +\n-     '  return index < 0 ? value : index + 1;\\n' +\n-     '}\\n' +\n-     '// 描述兼容只补结构，不从说明文字推断掌握程度；有旧条目时保留已知资料。\\n' +\n-     'function normalizeSkillEntry(value, previous) {\\n' +\n-     \"  if (typeof value === 'string') value = { 说明: value };\\n\" +\n-     \"  if (!value || typeof value !== 'object' || Array.isArray(value)) return value;\\n\" +\n-     '  const next = { ...value };\\n' +\n-     \"  const old = previous && typeof previous === 'object' && !Array.isArray(previous) ? previous : {};\\n\" +\n-     \"  for (const field of ['说明', '条件与代价']) {\\n\" +\n-     '    const missing = next[field] === undefined;\\n' +\n-     \"    const blank = typeof next[field] === 'string' && !next[field].trim();\\n\" +\n-     '    if (missing || blank) {\\n' +\n-     \"      if (typeof old[field] === 'string' && old[field].trim()) next[field] = old[field];\\n\" +\n-     \"      else if (missing) next[field] = '';\\n\" +\n-     '    }\\n' +\n-     '  }\\n' +\n-     \"  const known = ['学习中', '已掌握'].includes(old.掌握状态);\\n\" +\n-     \"  if (next.掌握状态 === undefined || (next.掌握状态 === '待确认' && known)) {\\n\" +\n-     \"    next.掌握状态 = known ? old.掌握状态 : '待确认';\\n\" +\n-     '  }\\n' +\n-     '  return next;\\n' +\n-     '}\\n' +\n-     '// 本卡成长尺度，不是原作公布的经验公式。\\n' +\n-     'const GROWTH_RULES = {\\n' +\n-     \"  version: 'G03', costs: { F: 100, 'F+': 100, E: 150, 'E+': 150, D: 250, 'D+': 250, C: 400, 'C+': 400, B: 600, 'B+': 900, A: 1200, 'A+': 1600 },\\n\" +\n-     '  perReplyCap: 24,\\n' +\n-     '  awards: { 基础训练: { min: 2, max: 6 }, 纠正训练: { min: 7, max: 12 }, 重大突破: { min: 13, max: 24 } },\\n' +\n-     '};\\n' +\n      '// 本卡关系计分配置；并非《火焰纹章》任一作品的官方公式。终端构建读取同一份配置。\\n' +\n      'const RELATIONSHIP_SCORING = {\\n' +\n+     \"  version: 'R06-关系第二版',\\n\" +\n+     '  affection: { min: 0, max: 1000, initial: 50, ordinaryMax: 2, majorMax: 5 },\\n' +\n-     \"  version: 'R10-按回复分项结算',\\n\" +\n-     '  affection: {\\n' +\n-     '    min: 0, max: 1000, initial: 0,\\n' +\n-     '    ordinaryMin: 2, ordinaryMax: 10, mediumMin: 11, mediumMax: 20"
     },
     {
       "name": "只同步约定世界书字段，开局正则对应完整源页面",
@@ -661,83 +617,18 @@
     },
     {
       "name": "MVU 远程脚本逐字段保留，替换脚本未增加远程地址",
-      "passed": true,
-      "details": {
-        "mvu": [
-          "https://cdn.jsdelivr.net/gh/MagicalAstrogy/MagVarUpdate@61010dab47bc3a08a1b626320bf7fc8c9573eca4/artifact/bundle.js"
-        ],
-        "dependencies": [
-          {
-            "name": "落第骑士·卷章剧情注入器 v3.0.0",
-            "urls": []
-          },
-          {
-            "name": "落第骑士·黑白ADV轮盘终端 v1.3.6",
-            "urls": [
-              "http://www.w3.org/2000/svg"
-            ]
-          },
-          {
-            "name": "落第骑士·MVU v4 字段与卷章约束",
-            "urls": [
-              "https://testingcf.jsdelivr.net/gh/StageDog/tavern_resource@dee97e8c3e24e1e75efe21141743e4b5c0af776e/dist/util/mvu_zod.js"
-            ]
-          }
-        ]
-      }
+      "passed": false,
+      "error": "落第骑士·黑白ADV轮盘终端 v1.3.6 远程地址变化\n+ actual - expected\n\n  [\n    'http://www.w3.org/2000/svg',\n+   'https://example.com/v1',\n+   'https://example.com/v1。'\n  ]\n"
     },
     {
       "name": "人物关系配置与三项计分/派生函数保持原卡版本",
       "passed": false,
-      "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n... Skipped lines\n\n  {\n    affection: {\n+     backgroundMax: 200,\n+     backgroundMin: 70,\n      initial: 50,\n+     majorMax: 20,\n+     majorMin: 11,\n-     majorMax: 5,\n      max: 1000,\n+     mediumMax: 10,\n+     mediumMin: 6,\n      min: 0,\n+     ordinaryMax: 5,\n+     ordinaryMin: 1\n-     ordinaryMax: 2\n    },\n    romance: {\n      stages: [\n        {\n          min: 0,\n...\n    },\n+   version: 'R08-首次联系核定'\n-   version: 'R06-关系第二版'\n  }\n"
+      "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n... Skipped lines\n\n  {\n    affection: {\n+     backgroundMax: 200,\n+     backgroundMin: 70,\n+     decrease: {\n+       majorMax: 20,\n+       majorMin: 11,\n+       mediumMax: 10,\n+       mediumMin: 6,\n+       ordinaryMax: 5,\n+       ordinaryMin: 1\n+     },\n+     initial: 0,\n+     majorMax: 40,\n+     majorMin: 21,\n-     initial: 50,\n-     majorMax: 5,\n      max: 1000,\n+     mediumMax: 20,\n+     mediumMin: 11,\n      min: 0,\n+     ordinaryMax: 10,\n+     ordinaryMin: 2\n-     ordinaryMax: 2\n    },\n    romance: {\n      stages: [\n        {\n          min: 0,\n...\n    },\n+   version: 'R10-按回复分项结算'\n-   version: 'R06-关系第二版'\n  }\n"
     },
     {
       "name": "初始字段差异仅版本和任务前已有的男性基线，并记录归档证据",
-      "passed": true,
-      "details": {
-        "differences": [
-          {
-            "path": "/系统/结构版本",
-            "before": 3,
-            "after": 4
-          },
-          {
-            "path": "/玩家/性别",
-            "before": {
-              "absent": true
-            },
-            "after": "男性"
-          }
-        ],
-        "explanation": "原实机卡缺省 玩家.性别；任务前源码与初始化已固定男性。完整卡同步既有源码基线，旧档迁移不补该字段。",
-        "archive": "output/chapter-v4/prechange.zip",
-        "members": [
-          {
-            "entry": "世界书规则/MVU/schema.mjs",
-            "sha256": "ee30bfb86945276f7c667979ae788b82c5ad076f64d1272f16390f90a2d5911b",
-            "evidence": [
-              {
-                "line": 135,
-                "text": "性别: '男性',"
-              },
-              {
-                "line": 165,
-                "text": "性别: z.literal('男性').default('男性'),"
-              }
-            ]
-          },
-          {
-            "entry": "世界书规则/MVU/[initvar]变量初始化.yaml",
-            "sha256": "ff8eee8a3dc24f391200066a7a7878082e7786b575b313e352d9f22793fe1527",
-            "evidence": [
-              {
-                "line": 14,
-                "text": "性别: 男性"
-              }
-            ]
-          }
-        ]
-      }
+      "passed": false,
+      "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n... Skipped lines\n\n  {\n    '人际': {},\n    '场景': {\n      '切入说明': '',\n      '地点': '',\n...\n      '角色简介': '',\n-     '魔人觉醒': false\n    },\n    '系统': {\n      '主角模式': '未选择',\n      '开局状态': '待建档',\n      '结构版本': 4\n"
     },
     {
       "name": "合法 v3 迁移保留缺省性别与未重算的人物历史",
@@ -874,12 +765,13 @@
     },
     {
       "name": "正式卡不含合成验收数据，副本只含约定测试差异",
-      "passed": true
+      "passed": false,
+      "error": "验收副本须从第一卷真实卷末出发，只含指定合成事件\n+ actual - expected\n... Skipped lines\n\n  {\n    '人际': {},\n    '场景': {\n      '切入说明': '合成边界测试',\n      '地点': '测试训练场',\n...\n      '角色简介': '',\n-     '魔人觉醒': false\n    },\n    '系统': {\n      '主角模式': '自定义角色',\n      '开局状态': '已建档',\n      '结构版本': 4\n"
     },
     {
       "name": "终端导出与源码构建完全一致",
       "passed": false,
-      "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n... Skipped lines\n\n  {\n    button: {\n      buttons: [],\n      enabled: true\n    },\n...\n      '  romance: {\\n' +\n+     \"    stages: [{ stage: '路人', min: 0 }, { stage: '在意', min: 200 }, { stage: '暧昧', min: 500 }, { stage: '交往', min: 800 }, { stage: '生死相随', min:\"... 461857 more characters,\n-     \"    stages: [{ stage: '路人', min: 0 }, { stage: '在意', min: 200 }, { stage: '暧昧', min: 500 }, { stage: '交往', min: 800 }, { stage: '生死相随', min:\"... 832894 more characters,\n    data: {},\n    enabled: true,\n    id: 'ee190b2f-d2ba-44b4-9f1b-0695c07fefc5',\n+   info: 'v1.3.6：按绑定世界书完成标识自动顺序推进，卷末进入下一卷；终端按钮及折叠向前切入作为手动兜底。支持MVU v3→v4迁移预览与确认、聊天级剧情注入开关、世界书原文预览及实际条目/order来源。需同步更新v4约束与剧情注入器v3。人物与计分沿用既有规则；替换旧终端，只启用一个版本。 R07关系第三版：好感普通±1～5、强烈±6～10、重大±11～20，每人每轮最高±20；首次既定背景单独核定。 已同步事件卷号的字段级格式兼容；配合新版v4约束和MVU两个规则条目使用。 已同步能力说明简写及缺省描述的兼容规则。 G02成果成长：六维页仅显示经验条与最近收益/来源/依据，移除成长与能力复核表单。基础训练2—6、纠正训练7—12、重大突破13—24，每回复每项合计最多24；达标自动升相邻一档、保留余量。请同步启用G02字段约束并替换MVU变量更新规则和输出格式；旧经验与结算历史保留。 楼层名册修复：取消旧回复MVU显示缓存，回退/换swipe按当前分支重读，读取失败清空旧显示。保留移出与恢复，新增永久移除及当前楼层/回复确认；同步更新本版v4约束和两份MVU规则。 初见名册修复：本页已有有效人际时可只读展示部分档案，名册区分等待/未登记/移除，异常人物单独提示。训练经验显示2—6/7—12/13—24及每项24点上限；请同步约束与两份MVU规则。',\n-   info: 'v1.3.6：按绑定世界书完成标识自动顺序推进，卷末进入下一卷；终端按钮及折叠向前切入作为手动兜底。支持MVU v3→v4迁移预览与确认、聊天级剧情注入开关、世界书原文预览及实际条目/order来源。需同步更新v4约束与剧情注入器v3。人物与计分沿用既有规则；替换旧终端，只启用一个版本。',\n    name: '落第骑士·黑白ADV轮盘终端 v1.3.6',\n    type: 'script'\n  }\n"
+      "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n... Skipped lines\n\n  {\n    button: {\n      buttons: [],\n      enabled: true\n    },\n...\n      \"  version: 'G03', costs: { F: 100, 'F+': 100, E: 150, 'E+': 150, D: 250, 'D+': 250, C: 400, 'C+': 400, B: 600, 'B+': 900, A: 1200, 'A+': 1600 },\\n\" +\n+     '  perReplyCap: 24,\\n' +\n+     '  awards: { 基础训练: { min: 2, max: 6 }, 纠正训练: { min: 7, max: 12 }, 重大突破: { min: 13, max: 24 } },\\n' +\n-     '  perReplyCap: 9999,\\n' +\n-     '  // 类型说明成果性质；经验按本轮实际成长核定，不再用类型压低单次奖励。\\n' +\n-     '  awards: { 基础训练: { min: 1, max: 9999 }, 纠正训练: { min: 1, max: 9999 }, 重大突破: { min: 1, max: 9999 } },\\n' +\n      '};\\n' +\n      '// 本卡关系计分配置；并非《火焰纹章》任一作品的官方公式。终端构建读取同一份配置。\\n' +\n      'const RELATIONSHIP_SCORING = {\\n' +\n      \"  version: 'R10-按回复分项结算',\\n\" +\n      '  affection: {\\n' +\n...\n      '  support: {\\n' +\n+     '    min: 0, max: 320, initial: 0, ordinaryMin: 1, ordinaryMax: 5, mediumMin: 6, mediumMax: 10, majorMin: 10, majorMax: 15,\\n' +\n+     '    stages: ['... 910078 more characters,\n-     '    min: 0, max: 320, initial: 0, ordinaryMin: 1, ordinaryMax: 5, mediumMin: 6, mediumMax'... 1074507 more characters,\n    data: {},\n    enabled: true,\n    id: 'ee190b2f-d2ba-44b4-9f1b-0695c07fefc5',\n+   info: 'v1.3.6：新增布尔魔人觉醒、G03三项成长与A+/S；设置内可配置副API并手动预览/应用MVU补漏。密钥仅本次会话保存。按绑定世界书完成标识自动顺序推进，卷末进入下一卷；终端按钮及折叠向前切入作为手动兜底。支持MVU v3→v4迁移预览与确认、聊天级剧情注入开关、世界书原文预览及实际条目/order来源。需同步更新v4约束与剧情注入器v3。R10关系计分按回复分项保存收据，失败项可重试，数值上限保持；P02副API可校正已有好感和支援；替换旧终端，只启用一个版本。',\n+   name: '落第骑士·黑白ADV轮盘终端 v1.3.6',\n-   info: 'v1.3.10：成长每目标每条完整回复上限9999，保留晋级余量；好感按普通/中度/重度实际回应判断。F01副API通用业务校正：能力/人物/场景父对象合并、数组更新、动态条目删除、评级/经验终值与关系数字修正；取消80项限制，程序维护项略过不中断。E01事件父对象兼容保留；S01副API可校正场景卷章、阶段与切入说明，同轮主副结算不重复切章。MVU01副API只跟踪本轮MVU标签和变量保存，正文/生图刷新不取消，写入保留其它插件元数据。保留布尔魔人觉醒、G03三项成长与A+/S；副API支持拉取模型、自动读取本轮正文与事件、编辑内置提示词，自动校正与手动预览。处理提示位于酒馆右上角，支持重试和取消；密钥本机持久保存、重载恢复。按绑定世界书完成标识自动顺序推进，卷末进入下一卷；终端按钮及折叠向前切入作为手动兜底。支持MVU v3→v4迁移预览与确认、聊天级剧情注入开关、世界书原文预览及实际条目/order来源。本次需同时替换说明含F01的v4约束。R10关系计分按回复分项保存收据，失败项可重试，数值上限保持；P02副API可校正已有好感和支援；替换旧终端，只启用一个版本。',\n-   name: '落第骑士·黑白ADV轮盘终端 v1.3.10',\n    type: 'script'\n  }\n"
     },
     {
       "name": "控制器及开局源同步",
@@ -892,7 +784,7 @@
     {
       "name": "世界书与 MVU 生成源同步",
       "passed": false,
-      "error": "file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/sync-worldbook-calibration.mjs:172\r\n  if (stale.length) throw new Error(`产物不同步：${stale.join('、')}`);\r\n                          ^\r\n\r\nError: 产物不同步：世界书规则/v0.3/导出/落第骑士英雄谭.json、世界书规则/MVU/落第骑士-MVU-v4字段约束.json\r\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/sync-worldbook-calibration.mjs:172:27\r\n    at ModuleJob.run (node:internal/modules/esm/module_job:430:25)\r\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:655:26)\r\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)\r\n\r\nNode.js v25.6.0\r\n\n\n1 !== 0\n"
+      "error": "file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/sync-worldbook-calibration.mjs:188\r\n  if (stale.length) throw new Error(`产物不同步：${stale.join('、')}`);\r\n                          ^\r\n\r\nError: 产物不同步：世界书规则/v0.3/导出/落第骑士英雄谭.json\r\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/sync-worldbook-calibration.mjs:188:27\r\n    at ModuleJob.run (node:internal/modules/esm/module_job:430:25)\r\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:655:26)\r\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)\r\n\r\nNode.js v25.6.0\r\n\n\n1 !== 0\n"
     },
     {
       "name": "章节注入器生成源同步",

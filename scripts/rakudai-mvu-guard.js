@@ -132,28 +132,29 @@ function installRakudaiMvuGuard(schema) {
     const source = readReply(ctx, owner, matches[0].message_id);
     return source?.text === block ? source : null;
   }
-  // 识别“这次是否提交了依据”，而非要求依据换一句话。仅解析数据，不执行文本。
-  function relationshipSubmissions(content) {
+  // 从原补丁记录明确提交的最终数值；支持叶字段和父对象写法，主副共用。
+  function submittedFinals(content) {
     const blocks = [...replyMvuBlock(content).matchAll(/<JSONPatch>([\s\S]*?)<\/JSONPatch>/gi)];
-    if (blocks.length !== 1) return [];
+    const fields = [], growthFinalAxes = new Set(), growthGradeAxes = new Set();
+    if (blocks.length !== 1) return { fields, growthFinalAxes: [], growthGradeAxes: [] };
+    function inspect(parts, value) {
+      if (parts[0] === '人际' && parts.length === 3 && ['好感', '支援度'].includes(parts[2]) &&
+          (typeof value === 'number' && Number.isFinite(value) || value === null)) fields.push([JSON.stringify([parts[1], parts[2]]), value]);
+      if (parts.length === 4 && parts[0] === '玩家' && parts[1] === '成长' && parts[2] === '经验' && GROWTH_AXES.includes(parts[3])) growthFinalAxes.add(parts[3]);
+      if (parts.length === 3 && parts[0] === '玩家' && parts[1] === '六维' && GROWTH_AXES.includes(parts[2])) growthGradeAxes.add(parts[2]);
+      if (!value || typeof value !== 'object' || Array.isArray(value)) return;
+      for (const [key, child] of Object.entries(value)) if (!['__proto__', 'prototype', 'constructor'].includes(key)) inspect([...parts, key], child);
+    }
     try {
       const operations = JSON.parse(blocks[0][1].trim());
-      if (!Array.isArray(operations)) return [];
-      const fields = [];
-      for (const op of operations) {
-        if (!op || !['add', 'replace'].includes(op.op) || typeof op.path !== 'string') continue;
+      for (const op of Array.isArray(operations) ? operations : []) {
+        if (!op || !['add', 'replace'].includes(op.op) || typeof op.path !== 'string' || !op.path.startsWith('/')) continue;
         const parts = op.path.slice(1).split('/').map(part => part.replace(/~1/g, '/').replace(/~0/g, '~'));
-        if (parts[0] !== '人际' || !parts[1] || ['__proto__', 'prototype', 'constructor'].includes(parts[1])) continue;
-        for (const field of ['变化依据', '好感突破依据', '好感', '支援度']) {
-          const value = parts.length === 3 && parts[2] === field ? op.value :
-            parts.length === 2 && op.value && Object.hasOwn(op.value, field) ? op.value[field] : undefined;
-          const score = ['好感', '支援度'].includes(field);
-          if (score && (typeof value === 'number' && Number.isFinite(value) || value === null)) fields.push([JSON.stringify([parts[1], field]), value]);
-          else if (!score && typeof value === 'string' && value.trim()) fields.push([JSON.stringify([parts[1], field]), value.trim()]);
-        }
+        if (parts.some(part => !part || ['__proto__', 'prototype', 'constructor'].includes(part))) continue;
+        inspect(parts, op.value);
       }
-      return fields;
-    } catch (_) { return []; }
+    } catch (_) { /* 不猜测无效补丁中未明确提交的终值。 */ }
+    return { fields, growthFinalAxes: [...growthFinalAxes], growthGradeAxes: [...growthGradeAxes] };
   }
   const commandListener = Mvu.events.COMMAND_PARSED ? eventOn(Mvu.events.COMMAND_PARSED, (variables, commands, content) => {
     if (!variables || typeof variables !== 'object') return;
@@ -164,7 +165,10 @@ function installRakudaiMvuGuard(schema) {
         source = repairSession.source;
         repairSession.claimed = true;
       }
-      if (source) parsingSources.set(variables, { ...source, submittedFields: relationshipSubmissions(content) });
+      if (source) {
+        const finals = submittedFinals(content);
+        parsingSources.set(variables, { ...source, submittedFields: finals.fields, growthFinalAxes: finals.growthFinalAxes, growthGradeAxes: finals.growthGradeAxes });
+      }
     } catch (_) { /* 归属不明只保留本次计分与成长的旧值，其他事实字段仍可更新。 */ }
   }) : null;
   const listener = eventOn(Mvu.events.VARIABLE_UPDATE_ENDED, (variables, previous) => {
@@ -172,6 +176,7 @@ function installRakudaiMvuGuard(schema) {
     let scoreNotices = [];
     let contactChanges = [];
     let growthNotices = [];
+    let tournamentNotices = [];
     const internal = variables?.stat_data?.$internal;
     function rollback() {
       variables.stat_data = cloneState(previous.stat_data);
@@ -194,8 +199,10 @@ function installRakudaiMvuGuard(schema) {
       scoreNotices = enforceRelationshipScores(variables, previous, { replyKey, submittedFields: source?.submittedFields || [],
         relationshipCorrection: Boolean(replyKey && source?.relationshipCorrection === true), flexibleRepair });
       contactChanges = enforceRelationshipContact(variables, previous, { replyKey, flexibleRepair });
+      // 选拔赛只校验自身账本；坏比赛不回滚能力、人际或其它本轮事实。
+      tournamentNotices = enforceTournamentState(variables, previous);
       const scoreReceiptChanged = stateKey(variables.stat_data?.系统?.关系计分) !== stateKey(previous.stat_data?.系统?.关系计分);
-      growthNotices = enforceGrowthProgress(variables, previous, { replyKey, repairEventKeys: replyKey ? source.repairEventKeys || [] : [], flexibleRepair });
+      growthNotices = enforceGrowthProgress(variables, previous, { replyKey, repairEventKeys: replyKey ? source.repairEventKeys || [] : [], growthFinalAxes: source?.growthFinalAxes || [], growthGradeAxes: source?.growthGradeAxes || [] });
       const storyChanged = ['当前卷', '当前章', '阶段'].some(key => variables.stat_data?.场景?.[key] !== previous.stat_data?.场景?.[key]);
       const growthChanged = stateKey(variables.stat_data?.玩家?.成长) !== stateKey(previous.stat_data?.玩家?.成长);
       // 合法相邻推进和越权恢复后都校验事件位置，不能留下超前事件。
@@ -217,13 +224,18 @@ function installRakudaiMvuGuard(schema) {
       console.warn('[落第 MVU v4 关系计分] ' + message);
       if (typeof toastr !== 'undefined') toastr.warning(message, '关系计分检查');
     }
+    if (tournamentNotices.length) {
+      const message = tournamentNotices.join('\n');
+      console.warn('[落第 MVU 选拔赛] ' + message);
+      if (typeof toastr !== 'undefined') toastr.warning(message, '选拔赛记录检查');
+    }
     if (growthNotices.length) {
       const message = growthNotices.map(item => item.path + '：' + item.message).join('\n');
       console.info('[落第 MVU v4 成长结算] ' + message);
       if (typeof toastr !== 'undefined') toastr.info(message, '成长结算');
     }
   });
-  const marker = { version: '4.0.0', automaticStoryProgress: true, scheduleAndRoster: true, rosterPermanentRemoval: true, contactBaseline: 'C02', relationshipScoring: RELATIONSHIP_SCORING.version, growth: GROWTH_RULES.version, repair: 'P02', repairSource: 'MVU01', storyRepair: 'S01', flexibleRepair: 'F01', parseRepair };
+  const marker = { version: '4.0.0', automaticStoryProgress: true, scheduleAndRoster: true, rosterPermanentRemoval: true, contactBaseline: 'C02', relationshipScoring: RELATIONSHIP_SCORING.version, growth: GROWTH_RULES.version, settlement: 'G04', growthSettlement: 'G04', tournament: 'T01', repair: 'P02', repairSource: 'MVU01', storyRepair: 'S01', flexibleRepair: 'F01', parseRepair };
   H.__RK_MVU_GUARD_V4__ = marker;
   window.__RK_MVU_GUARD_V4__ = marker;
   try { if (window.parent) window.parent.__RK_MVU_GUARD_V4__ = marker; } catch (_) {}

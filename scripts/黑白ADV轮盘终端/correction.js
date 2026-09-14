@@ -21,8 +21,9 @@ const DEFAULT_CORRECTION_PROMPT = [
   '玩家资料、能力、六维、登记等级、成长经验，场景与事件，以及人物资料、好感和支援都可修正。已有数字提交最终值；当前变量已含主回复结算，同一成果不重复加分或发经验。',
   '分别核对好感与支援，不用态度印象代替数值变化。普通正向回应+2—10，新生轻微好感、认可或防备缓和+11—20，重大关系事件+21—40；校正错误旧分数可直接给正确终值，不受这些单轮参考区间限制。支援按实际协作判断。',
   '父对象可只写要改的键，代码会合并并保留省略字段；数组按最终内容更新。add/replace会按存在性适配，remove可删除过时能力、人物、事件等条目。新条目提供完整资料，能力也可用说明文字简写。',
-  '有效训练可通过成长申请结算：来源事件、目标、类型、经验、方式、成果。混合训练按实际魔力和身体参与分别申请；每目标每条回复合计最多9999。直接修正经验时给最终值，同轴申请不在这个终值上再加一次。',
-  '魔人觉醒使用JSON布尔true/false，可纠正错误状态。卷章按本轮已落实的完成事实修正，主回复已经推进时不重复结束下一章。'
+  '成长申请记录来源事件、目标、经验及实际成果，类型和方式可自由描述。目标可为数组：经验数组逐项对应；单个经验数是总量，按去重后的目标均分。魔力和身体均有实际参与时同步记录各项目；每目标每条回复最多9999。直接修正经验提交最终值，同轴申请不再叠加，达标后代码连续晋级并保留余量。',
+  '魔人觉醒使用JSON布尔true/false，可纠正错误状态。卷章按本轮已落实的完成事实修正，主回复已经推进时不重复结束下一章。',
+  '选拔赛写入场景/选拔赛的名册和比赛记录；同一比赛沿用ID修正。积分、排名、对手去重由代码计算，胜利按10+10×对手赛前胜场计分；未知场外战绩留空，不套用原著胜负。'
 ].join('\n');
 function correctionContext() { return (HW.SillyTavern || window.SillyTavern)?.getContext?.(); }
 function correctionChatKey() {
@@ -40,7 +41,7 @@ function saveCorrectionConfig(value) {
   cancelCorrection();
   const endpoint = String(value.endpoint || '').trim() ? normalizeCorrectionEndpoint(value.endpoint) : '';
   const model = String(value.model || '').trim(), maxTokens = Number(value.maxTokens);
-  if (model.length > 200 || !Number.isInteger(maxTokens) || maxTokens < 256 || maxTokens > 16000) throw new Error('模型名不能超过200字，输出上限为256—16000的整数。');
+  if (model.length > 200 || !Number.isInteger(maxTokens) || maxTokens < 256 || maxTokens > 30000) throw new Error('模型名不能超过200字，输出上限为256—30000的整数。');
   const prompt = String(value.prompt ?? getCorrectionConfig().prompt).trim();
   if (prompt.length > 12000) throw new Error('校正提示词不能超过12000字。');
   const nextKey = value.clearKey ? '' : String(value.apiKey || '').trim() || correctionKey;
@@ -134,8 +135,8 @@ function captureCorrection(checkingSettlement = false) {
   const ctx = correctionContext(), reply = correctionReply();
   if (!reply?.mvuBlock) throw new Error('当前回复没有完整且唯一的 UpdateVariable / JSONPatch，暂不校正。');
   const guard = HW.__RK_MVU_GUARD_V4__ || window.__RK_MVU_GUARD_V4__;
-  if (guard?.growth !== 'G03' || guard?.repair !== 'P02' || guard?.repairSource !== 'MVU01' || guard?.storyRepair !== 'S01' || guard?.flexibleRepair !== 'F01' || typeof guard.parseRepair !== 'function')
-    throw new Error('请同步启用说明含 F01 的 v4 约束脚本，以支持通用业务字段校正。');
+  if (guard?.growth !== 'G03' || guard?.repair !== 'P02' || guard?.repairSource !== 'MVU01' || guard?.storyRepair !== 'S01' || guard?.flexibleRepair !== 'F01' || guard?.growthSettlement !== 'G04' || guard?.tournament !== 'T01' || typeof guard.parseRepair !== 'function')
+    throw new Error('请同步启用说明含 G04 / T01 的 v4 约束脚本，以支持新成长结算与选拔赛记录。');
   const mvu = window.Mvu || HW.Mvu;
   if (typeof mvu?.getMvuData !== 'function' || typeof mvu.parseMessage !== 'function') throw new Error('MVU 解析接口尚未就绪。');
   const options = { type: 'message', message_id: reply.messageId };
@@ -230,7 +231,7 @@ function correctionInput(saved) {
   delete state.$internal;
   if (state.系统) delete state.系统.关系计分;
   if (state.场景) delete state.场景.已发生事件;
-  if (state.玩家?.成长) { delete state.玩家.成长.记录; delete state.玩家.成长.境界; delete state.玩家.成长.境界依据; }
+  if (state.玩家?.成长) { delete state.玩家.成长.记录; delete state.玩家.成长.回合结算; delete state.玩家.成长.境界; delete state.玩家.成长.境界依据; }
   return { source: '楼层 ' + saved.messageId + ' · 回复页 ' + (saved.swipeId + 1),
     text: saved.text.replace(/<UpdateVariable>[\s\S]*?<\/UpdateVariable>/gi, '').trim(), events, submittedRelations, submittedStory, storyBefore: saved.storyBefore, state };
 }
@@ -370,6 +371,10 @@ function correctionRules(state) {
   // 副校正不再拼入主模型的字段所有权禁令；旧设置中保存的同类禁令由本次权限声明覆盖。
   return 'F01校正权限以本次为准：允许修改玩家、场景、人际的业务字段及现有对象，不限于补建。系统/框架元数据、固定玩家性别、综合初评、已有关系派生阶段和成长自动记录由程序维护，混入补丁时自动略过，不影响其他修改。' +
     '保持现有schema字段名称、类型与范围：好感0—1000或null，支援0—320整数或null，觉醒只用true/false；卷章须属现有目录。' +
+    'G04成长申请：类型、方式用自由文字；目标可为单项或数组，经验数组逐项对应，单个经验数为总量并均分各目标，90分给三项目标各30；来源事件和成果按本轮实际事实记录，等级达标由代码连续结算。' +
+    'T01选拔赛保存于/场景/选拔赛，默认20轮6席。名册按稳定ID记录{姓名,来源:正典/原创/玩家,参赛状态:参赛/退选/取消资格}；未知场外战绩留空，确知时可填初始战绩{截至轮次,胜场,败场,积分?,依据}。' +
+    '比赛按稳定ID记录{轮次,甲方:名册ID,乙方:名册ID,日期,时间,地点,状态:待定/已安排/已完成/已取消,胜者?:名册ID,弃权方?:名册ID,甲赛前胜场?,乙赛前胜场?,依据}；同场纠错沿用ID，结束填胜者及结果依据。排期不等于完赛；双方不能相同、重复对战或同轮多赛。历史战绩与逐场记录不重叠。' +
+    '胜局积分=10+10×对手赛前胜场，败局不扣历史分；胜负、积分、排名由比赛记录推导，不写派生缓存、不补原著胜负。当前模式' + String(state?.系统?.主角模式 || '未选择') + '，本局事实始终优先。' +
     '已有值按最终结果纠正，无需为了通过校验重复提交变化依据；资料足够时可核定原null或缺失分数。只输出裸JSONPatch数组，支持add/replace/remove/copy/move/test，不输出Analysis或UpdateVariable标签。';
 }
 // 只重试请求阶段的临时连接故障；鉴权、格式、字段和保存错误交明确提示处理。
@@ -417,7 +422,7 @@ async function requestCorrection(automatic = false) {
     if (abort.signal.aborted || correctionJob !== abort) throw new Error('本次副 API 请求已取消。');
     ensureCorrectionCurrent(saved);
     const raw = typeof response === 'string' ? response : response?.content;
-    if (typeof raw !== 'string' || raw.length > 100000) throw new Error('副 API 未返回可用的补丁文本。');
+    if (typeof raw !== 'string' || raw.length > 300000) throw new Error('副 API 未返回可用的补丁文本。');
     let ops;
     try { ops = JSON.parse(raw.trim().replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '')); }
     catch (_) { throw new Error('副模型未返回完整 JSON 数组，请调整模型或输出上限后重试。'); }

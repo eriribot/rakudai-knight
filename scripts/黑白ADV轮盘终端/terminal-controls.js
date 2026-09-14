@@ -206,7 +206,7 @@ var correctionProgressUI = (function installCorrectionProgress() {
       '<p data-key-status></p>' +
       '<div class="rk-correction-model"><label>可用模型<select data-model-list aria-label="拉取到的模型"><option value="">可拉取，也可手动填写</option></select></label><button type="button" data-action="models">拉取模型</button></div>' +
       '<div class="rk-correction-fields"><label>模型名称<input data-field="model" type="text" autocomplete="off" spellcheck="false" placeholder="从上方选择或手动填写"></label>' +
-      '<label>输出上限<input data-field="maxTokens" type="number" min="256" max="16000" step="1" aria-label="最大输出 token"></label></div>' +
+      '<label>输出上限<input data-field="maxTokens" type="number" min="256" max="30000" step="1" aria-label="最大输出 token"></label></div>' +
       '<p data-model-status role="status" aria-live="polite">填好地址和密钥即可拉取模型，无需先保存。</p>' +
       '<details class="rk-correction-fold"><summary>本轮内容 · 自动读取</summary><p data-context-source></p>' +
       '<label>本轮正文<textarea data-context-text rows="6" readonly aria-label="自动读取的本轮正文"></textarea></label>' +

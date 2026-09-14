@@ -882,3 +882,26 @@ button {
 @media (prefers-reduced-motion: reduce) {
   .rk-correction-progress[data-active='true'] .rk-progress-glyph { animation: none; border-right-color: currentColor; }
 }
+
+/* 选拔赛使用现有黑白终端色板；表单在窄屏自动换行。 */
+.rk-t-panel, .rk-t-form { min-width: 0; overflow-wrap: anywhere; }
+.rk-t-actions { display: flex; flex-wrap: wrap; gap: 7px; margin: 10px 0; }
+.rk-t-panel button, .rk-t-form button { border: 1px solid var(--hair); border-radius: 0; padding: 7px 10px; min-height: 36px; color: var(--ink); background: var(--card2); font: inherit; cursor: pointer; }
+.rk-t-panel button:hover, .rk-t-form button:hover { border-color: var(--ink); }
+.rk-t-panel button:disabled, .rk-t-form button:disabled { opacity: .5; cursor: default; }
+.rk-t-form fieldset { border: 0; min-width: 0; margin: 0; padding: 0; }
+.rk-t-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr)); gap: 10px; }
+.rk-t-field { display: grid; gap: 5px; min-width: 0; margin: 9px 0; font-size: 12px; }
+.rk-t-field input, .rk-t-field select, .rk-t-field textarea { width: 100%; min-width: 0; box-sizing: border-box; padding: 8px; color: var(--ink); background: var(--card2); border: 1px solid var(--hair); border-radius: 0; font: inherit; }
+.rk-t-field textarea { resize: vertical; }
+.rk-t-panel :is(button, summary):focus-visible, .rk-t-form :is(input, select, textarea, button, summary):focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.rk-t-message { border-left: 3px solid var(--ink); padding: 7px 9px; background: var(--card2); }
+.rk-t-match { padding: 12px 0; border-bottom: 1px solid var(--hair); }
+.rk-t-match:last-child { border-bottom: 0; }
+.rk-t-match-head { display: flex; align-items: baseline; flex-wrap: wrap; justify-content: space-between; gap: 8px; font-size: 11px; }
+.rk-t-pair { font-weight: 700; line-height: 1.6; margin: 8px 0; }
+.rk-t-pair span { font-weight: 400; color: var(--muted); }
+.rk-t-table-wrap { width: 100%; overflow-x: auto; }
+.rk-t-table { width: 100%; border-collapse: collapse; font-size: 12px; text-align: left; }
+.rk-t-table :is(th, td) { padding: 9px 6px; border-bottom: 1px solid var(--hair); vertical-align: top; overflow-wrap: anywhere; }
+.rk-t-table small { display: block; color: var(--muted); font-weight: 400; margin-top: 4px; }

@@ -135,11 +135,12 @@ if (mvuOnly) {
 }
 const changed = scriptOnly ? [] : Object.values(book.entries).filter(entry => JSON.stringify(entry) !== JSON.stringify(before.entries[entry.uid])).map(entry => ({ uid: entry.uid, name: entry.comment }));
 const rendered = scriptOnly ? '' : JSON.stringify(book, null, 2) + '\n';
+const tournamentSource = stripModuleSyntax(read('scripts/rakudai-tournament.mjs'));
 const schemaSource = stripModuleSyntax(read('世界书规则/MVU/schema.mjs'));
 const stateSource = stripModuleSyntax(read('scripts/rakudai-state-core.mjs'));
 const guardSource = read('scripts/rakudai-mvu-guard.js');
 const bridge = 'https://testingcf.jsdelivr.net/gh/StageDog/tavern_resource@dee97e8c3e24e1e75efe21141743e4b5c0af776e/dist/util/mvu_zod.js';
-const scriptContent = `${inlineStoryCatalog()}\n${schemaSource}\n${stateSource}\n${guardSource}
+const scriptContent = `${inlineStoryCatalog()}\n${tournamentSource}\n${schemaSource}\n${stateSource}\n${guardSource}
 // 注册字段校验与写入责任保护；不自动转换旧楼层。
 $(async () => {
   let timer;
@@ -163,13 +164,13 @@ $(async () => {
 });
 `;
 const generatedScript = {
-  type: 'script', enabled: true, name: '落第骑士·MVU v4 字段与卷章约束 [G03/P02]', id: '06117475-a08c-4d78-a886-3d26426c4b37', content: scriptContent,
-  info: `修订 4.0.0 / R10 / G03：关系按真实回复分项结算，特殊背景不匹配关键词，失败项可重试；报错显示旧值、提交值、差值与原因。布尔魔人觉醒开启魔力量成长；A→A+1200、A+→S1600，每目标每回复最多${GROWTH_RULES.perReplyCap}、最多晋级一档，重复解析不重领。P02副API允许依据本局事实校正已有好感/支援最终值，经来源绑定解析、预览确认并回读保存。MVU01仅核对同一回复页的完整MVU块，块外正文与生图变化不使补丁失效。S01副API可校正场景卷章、阶段与切入说明，同轮沿用主结算推进记录，已切章不重复推进。E01兼容主回复通过场景或事件父对象提交本轮结果，逐项核对已保存值后才开放成长补漏。F01副API可核定六维、登记等级、觉醒、人物资料、关系数字与成长经验终值；主API规则保持，系统和结算收据由代码维护。普通好感从0累计，特殊背景初始值及旧分数保留；第1—19卷约束沿用。依赖MVU、酒馆助手Zod4和固定mvu_zod桥接；只启用一个v4约束，不自动迁移旧楼层。`,
+  type: 'script', enabled: true, name: '落第骑士·MVU v4 字段与卷章约束 [G04/T01]', id: '06117475-a08c-4d78-a886-3d26426c4b37', content: scriptContent,
+  info: `修订 4.0.0 / G04 / T01：选拔赛使用本局比赛账本派生战绩、积分与名次，错误比赛局部处理。主副 API 共用业务字段写入权；合法关系终值不再要求固定强度或另交突破依据。成长类型与方式自由文本，多目标总经验去重后均分，经验数组逐项目标对应；坏申请仅提示该项。每目标每完整回复最多${GROWTH_RULES.perReplyCap}经验，来源与收据防重复；经验达到门槛连续晋级并保留余量，经验终值与申请不重复相加。魔人觉醒仍用 true/false；系统及结算收据由代码维护。保留 G03/P02 兼容标记；MVU01 仅核对当前回复 MVU 块，S01 主副共用本轮剧情推进，F01 可校正业务字段。依赖 MVU、酒馆助手 Zod4 与固定 mvu_zod 桥接；只启用一个 v4 约束，不自动迁移旧楼层。`,
   button: { enabled: false, buttons: [] }, data: {}, export_with: { data: false, button: false },
 };
 const scriptTarget = '世界书规则/MVU/落第骑士-MVU-v4字段约束.json';
-// 独立更新保留已导入脚本的身份、按钮、数据与未知字段，只替换生成内容和说明。
-const script = scriptOnly ? { ...JSON.parse(read(scriptTarget)), content: generatedScript.content, info: generatedScript.info } : generatedScript;
+// 独立更新保留已导入脚本的身份、按钮、数据与未知字段，更新生成名称、内容和说明。
+const script = scriptOnly ? { ...JSON.parse(read(scriptTarget)), name: generatedScript.name, content: generatedScript.content, info: generatedScript.info } : generatedScript;
 if (script.id !== generatedScript.id) throw new Error('字段约束脚本 ID 不符，未生成');
 const outputs = new Map([
   ...(!scriptOnly ? [[target, rendered], ...(!mvuOnly || withInit ? [['世界书规则/MVU/[initvar]变量初始化.yaml', yaml]] : [])] : []),

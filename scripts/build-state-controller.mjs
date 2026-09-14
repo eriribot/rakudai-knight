@@ -4,6 +4,7 @@ import { inlineStoryCatalog, stripModuleSyntax } from './story-build.mjs';
 const read = path => fs.readFileSync(new URL(path, import.meta.url), 'utf8').replace(/\r\n/g, '\n');
 const bundle = '// GENERATED: node scripts/build-state-controller.mjs --write\n(function () {\n\"use strict\";\n' +
   inlineStoryCatalog() + '\n' +
+  stripModuleSyntax(read('./rakudai-tournament.mjs')) + '\n' +
   stripModuleSyntax(read('../世界书规则/MVU/schema.mjs')) + '\n' +
   stripModuleSyntax(read('./rakudai-state-core.mjs')) + '\n' +
   read('./rakudai-state-browser.js') + '\n})();\n';

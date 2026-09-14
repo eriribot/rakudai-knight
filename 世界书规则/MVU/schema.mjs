@@ -1,3 +1,4 @@
+import { createTournamentSchema } from '../../scripts/rakudai-tournament.mjs';
 import { getStoryVolume, resolveStoryChapter, storyPosition } from '../../scripts/rakudai-story-catalog.mjs';
 
 // 本卡 stat_data v4。纯 schema 工厂；不访问聊天、不自动迁移旧楼层。
@@ -38,6 +39,33 @@ export function normalizeSkillEntry(value, previous) {
   }
   return next;
 }
+// 多目标只是一种输入写法；拆出的稳定键与原来源事件共同用于去重。
+// 单个经验数是总量：先去重目标，再均分；除不尽的余数按目标顺序分配。
+export function normalizeGrowthRequests(value) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return value;
+  const result = {};
+  for (const [id, original] of Object.entries(value)) {
+    if (!original || typeof original !== 'object' || Array.isArray(original) || !Object.hasOwn(original, '经验')) { result[id] = original; continue; }
+    const rawTargets = Array.isArray(original.目标) ? original.目标 : typeof original.目标 === 'string' ? original.目标.split(/[、,，]/).map(axis => axis.trim()) : [];
+    const targets = [...new Set(rawTargets)];
+    const paired = Array.isArray(original.经验);
+    const valid = targets.length > 0 && targets.every(axis => GROWTH_AXES.includes(axis)) &&
+      (paired ? original.经验.length === rawTargets.length && original.经验.every(number => Number.isSafeInteger(number) && number >= 0) : Number.isSafeInteger(original.经验) && original.经验 >= 0);
+    if (!valid) { result[id] = original; continue; }
+    const base = paired ? 0 : Math.floor(original.经验 / targets.length), rest = paired ? 0 : original.经验 % targets.length;
+    const multiple = rawTargets.length > 1;
+    for (let i = 0; i < targets.length; i++) {
+      const axis = targets[i], derived = multiple ? id + '·' + axis : id;
+      // 遇到同名显式申请不覆盖它；两条最终仍按来源事件与目标去重。
+      if (derived !== id && Object.hasOwn(value, derived)) continue;
+      result[derived] = { ...original, 目标: axis,
+        经验: paired ? original.经验[rawTargets.indexOf(axis)] : base + (i < rest ? 1 : 0),
+        类型: original.类型 ?? '', 方式: original.方式 ?? '' };
+    }
+  }
+  return result;
+}
+
 // 本卡成长尺度，不是原作公布的经验公式。
 export const GROWTH_RULES = {
   version: 'G03', costs: { F: 100, 'F+': 100, E: 150, 'E+': 150, D: 250, 'D+': 250, C: 400, 'C+': 400, B: 600, 'B+': 900, A: 1200, 'A+': 1600 },
@@ -77,156 +105,50 @@ export function romanceStage(relation) {
   return stage;
 }
 
-// 数值保护与叙事判断分开：代码核对字段、范围、来源和收据，不用关键词判断关系真假。
-// 每人每字段在同一完整回复内合并结算一次；收据随楼层保存，换措辞不能再次领奖。
-export function enforceRelationshipScores(variables, previous, { replyKey = '', submittedFields = [], relationshipCorrection = false, flexibleRepair = false } = {}) {
-  const before = previous?.stat_data?.人际 || {};
-  const after = variables?.stat_data?.人际;
+// 主副 API 共用事实写入权：只检查数值、真实回复来源和最终值收据，不审核叙事强度。
+export function enforceRelationshipScores(variables, previous, { replyKey = '', submittedFields = [] } = {}) {
+  const before = previous?.stat_data?.人际 || {}, after = variables?.stat_data?.人际;
   const notices = [];
   if (!after || typeof after !== 'object' || Array.isArray(after)) return notices;
   const submitted = new Map(Array.isArray(submittedFields) ? submittedFields : []);
-  const flexible = Boolean(replyKey && flexibleRepair);
   const oldReceipt = previous?.stat_data?.系统?.关系计分;
-  // 新回复只有真正成功计分后才换收据，普通读档和失败解析不清理已成功记录。
   const receipt = replyKey && oldReceipt?.回合 === replyKey ? structuredClone(oldReceipt) : { 回合: replyKey, 人物: {} };
-  function sent(name, field, value) { return submitted.get(JSON.stringify([name, field])) === value; }
-  const cleanText = value => typeof value === 'string' ? value.trim() : '';
-  const finite = value => typeof value === 'number' && Number.isFinite(value);
-  const display = value => value === undefined ? '缺失' : value === null ? 'null' : JSON.stringify(value)?.slice(0, 80) ?? '无效';
   for (const [name, relation] of Object.entries(after)) {
     if (!relation || typeof relation !== 'object' || Array.isArray(relation)) continue;
     const old = before[name];
-    const evidence = cleanText(relation.变化依据);
-    const breakthrough = cleanText(relation.好感突破依据);
-    const priorBreakthrough = cleanText(old?.好感突破依据);
-    const evidenceSubmitted = sent(name, '变化依据', evidence) && Boolean(evidence);
-    const breakthroughSubmitted = sent(name, '好感突破依据', breakthrough) && Boolean(breakthrough);
-    const isInitialAffection = !old || old.好感 === null;
-    let attemptedScores = 0, acceptedScores = 0, acceptedBreakthrough = false;
-    function reject(field, explanation) {
-      if (old) {
-        // 缺失不等于null；拒绝一次错误写入不能把旧缺失值变成可从0重开的账。
-        if (Object.hasOwn(old, field)) relation[field] = old[field];
-        else delete relation[field];
-      } else if (field === '好感') relation[field] = null;
-      // 新人物的支援起点明确为0；失败后保留空账，让同回复只补交失败项。
-      else if (field === '支援度') relation[field] = RELATIONSHIP_SCORING.support.initial;
-      else delete relation[field];
-      notices.push({ path: '/人际/' + name + '/' + field, message: explanation });
-    }
-    if (!flexible && ['男性', '女性'].includes(old?.性别) && relation.性别 !== old.性别) {
-      reject('性别', '模型不能改写已确认性别来改变路线；明确纠错请由玩家使用变量编辑器。');
-    }
     for (const [field, config] of [['好感', RELATIONSHIP_SCORING.affection], ['支援度', RELATIONSHIP_SCORING.support]]) {
       const value = relation[field], prior = old?.[field];
       if (value === prior || (value == null && prior == null)) continue;
-      // 登记0不属于奖励；不要求为新建空账伪造互动，旧的缺失支援仍不能擅自补0。
-      if (field === '支援度' && !old && value === config.initial) continue;
-      if (field === '好感' && isInitialAffection && value === config.initial) continue;
-      attemptedScores++;
-      // 明确清回待核定也是一次终值校正，留下同回复收据，普通主解析不能把清空当成重新领奖。
-      if (flexible && value === null && sent(name, field, value)) {
-        receipt.人物[name] ??= {};
-        const done = receipt.人物[name][field];
-        receipt.人物[name][field] = { 旧值: done ? done.旧值 : finite(prior) ? prior : null, 新值: null };
-        variables.stat_data.系统.关系计分 = structuredClone(receipt);
-        acceptedScores++;
+      let reason = '';
+      if (value !== null && (typeof value !== 'number' || !Number.isFinite(value) || value < config.min || value > config.max || field === '支援度' && !Number.isInteger(value))) {
+        reason = field + '须为 ' + config.min + '—' + config.max + ' 的数字' + (field === '支援度' ? '整数' : '') + '，或 null 待核定';
+      } else if (!replyKey || !variables.stat_data?.系统) reason = '尚不能确认真实回复来源';
+      // 明确提交的是最终值，允许本轮纠错；不把补丁重放理解成再加一次分。
+      else if (receipt.人物?.[name]?.[field] && submitted.get(JSON.stringify([name, field])) !== value) reason = '本回复已计分；如需纠错请明确提交最终值';
+      if (reason) {
+        if (old && Object.hasOwn(old, field)) relation[field] = prior;
+        else relation[field] = field === '好感' ? null : 0;
+        notices.push({ path: '/人际/' + name + '/' + field, message: reason + '，已保留原分数。' });
         continue;
       }
-      const baseline = finite(prior) ? prior : (!old || field === '好感' && prior === null) ? config.initial : null;
-      const delta = finite(value) && baseline !== null ? value - baseline : null;
-      function rejectScore(reason) {
-        const change = delta === null ? '差值无法计算' : (prior == null ? '按0起点，' : '') + '差值' + (delta >= 0 ? '+' : '') + delta;
-        reject(field, '旧值' + display(prior) + ' → 提交' + display(value) + '（' + change + '）：' + reason + '；未修改原分数。');
-      }
-      if (!finite(value)) { rejectScore('分数必须是有限的JSON数字，不能由模型清空或写成文本'); continue; }
-      if (!flexible && field === '支援度' && old && !finite(prior)) {
-        rejectScore('旧支援起点尚未核定，不能用0或旧字母倒填，请在变量编辑器确认'); continue;
-      }
-      if (!flexible && field === '好感' && old && prior !== null && !finite(prior)) {
-        rejectScore('旧好感字段缺失或无效，不属于旧null可从0累计的情况，请先核定'); continue;
-      }
-      if (value < config.min || value > config.max || field === '支援度' && !Number.isInteger(value)) {
-        rejectScore(field + '必须在' + config.min + '—' + config.max + '之间' + (field === '支援度' ? '且为整数' : '')); continue;
-      }
-      if (!replyKey || !variables.stat_data?.系统) {
-        rejectScore('无法确认补丁所属的真实助手回复，请使用当前回复原文重新解析'); continue;
-      }
-      // 手动副API可纠正已有数字；权限来自绑定来源的代码通道，不能靠模型写字段自称纠错。
-      const correcting = (relationshipCorrection === true || flexible) && (flexible || finite(prior)) && sent(name, field, value);
-      if (receipt.人物?.[name]?.[field] && !correcting) {
-        const done = receipt.人物[name][field];
-        rejectScore('本回复的' + field + '已成功结算' + display(done.旧值) + '→' + done.新值 + '，不能追加或重算；其他失败字段可单独重试'); continue;
-      }
-      if (!flexible && !evidenceSubmitted) {
-        rejectScore('请在本次JSONPatch显式提交非空变化依据；允许与历史措辞相同，不能只沿用存档里的旧字段'); continue;
-      }
-      if (correcting) {
-        // 替换的是核定后的最终值，不再发一份奖励；允许调低误记支援，仍受总范围约束。
-        if (field === '好感') acceptedBreakthrough = breakthroughSubmitted;
-      } else if (field === '支援度') {
-        if (delta < 0 || delta > config.majorMax) {
-          rejectScore('支援只增不减，本回复合计最多+' + config.majorMax + '，请提交合并后的最终值'); continue;
-        }
-      } else {
-        const limits = delta < 0 ? config.decrease : config;
-        // 首次背景资格由明确的本局说明承担，不要求出现“青梅竹马”等硬编码词。
-        const initialBackground = isInitialAffection && value >= config.backgroundMin && value <= config.backgroundMax && breakthroughSubmitted;
-        const major = Math.abs(delta) > limits.mediumMax;
-        if (major && !breakthroughSubmitted) {
-          rejectScore('超过本回复常规' + (delta < 0 ? '减' : '增') + limits.mediumMax + '，须显式提交本次好感突破依据；首次背景70—200同样需要该依据'); continue;
-        }
-        if (Math.abs(delta) > limits.majorMax && !initialBackground) {
-          rejectScore('超过本回复最多' + (delta < 0 ? '减少' : '增加') + limits.majorMax + '；70—200背景核定仅适用于新人物或旧好感null，已有数字不能重置'); continue;
-        }
-        acceptedBreakthrough = major;
-      }
-      // 只记已成功字段；另一个字段失败后，可在同一回复沿用依据修正，不必换词。
       receipt.人物[name] ??= {};
       const done = receipt.人物[name][field];
-      // 更正本回复收据的最终值，保留第一次结算前的旧值（包括null），普通解析不能再加一遍。
-      receipt.人物[name][field] = { 旧值: done ? done.旧值 : finite(prior) ? prior : null, 新值: value };
+      receipt.人物[name][field] = { 旧值: done ? done.旧值 : typeof prior === 'number' && Number.isFinite(prior) ? prior : null, 新值: value };
       variables.stat_data.系统.关系计分 = structuredClone(receipt);
-      acceptedScores++;
     }
-    if (!flexible && !acceptedBreakthrough && breakthrough !== priorBreakthrough) {
-      if (old && Object.hasOwn(old, '好感突破依据')) relation.好感突破依据 = old.好感突破依据;
-      else delete relation.好感突破依据;
-    }
-    if (attemptedScores > 0 && acceptedScores === 0 && relation.变化依据 !== (old?.变化依据 ?? '')) {
-      relation.变化依据 = old?.变化依据 ?? '';
-      notices.push({ path: '/人际/' + name + '/变化依据', message: '本次未新增成功计分，保留上次依据；未成功字段可修正后重试，无需改写措辞。' });
-    }
-    // 副通道无需模型为已有终值重写剧情依据；空依据时只记录本次核定数字，满足存档结构。
-    if (flexible && !cleanText(relation.变化依据) &&
-        (acceptedScores > 0 || ['C', 'B', 'A', 'S'].includes(supportStage(relation.支援度)))) {
-      relation.变化依据 = '本轮副校正：' + ['好感', '支援度'].filter(field => finite(relation[field]) || relation[field] === null)
-        .map(field => field + ' ' + (relation[field] === null ? '待核定' : relation[field])).join('；') + '。';
-    }
-    if (flexible && relation.支援度 === null) relation.羁绊阶段 = '未定';
+    if (relation.支援度 === null) relation.羁绊阶段 = '未定';
     else if (typeof relation.支援度 === 'number') relation.羁绊阶段 = supportStage(relation.支援度);
-    else if (old && relation.羁绊阶段 !== old.羁绊阶段) {
-      relation.羁绊阶段 = old.羁绊阶段;
-      notices.push({ path: '/人际/' + name + '/羁绊阶段', message: '支援度尚未核定，保留旧阶段；模型不能直接提升字母。' });
-    } else if (!old && !['未定', '未建立'].includes(relation.羁绊阶段)) {
-      relation.羁绊阶段 = '未定';
-      notices.push({ path: '/人际/' + name + '/羁绊阶段', message: '新关系不能凭空授予字母阶段，请从已确认支援值累计。' });
-    }
-    // 计分或性别恢复后重新派生，不能留下本次被拒分数对应的高阶段。
     const romance = romanceStage(relation);
     if (romance !== null) relation.恋爱阶段 = romance;
-    else if (Object.hasOwn(relation, '恋爱阶段')) {
-      delete relation.恋爱阶段;
-      notices.push({ path: '/人际/' + name + '/恋爱阶段', message: '只有已确认女性且好感已计分的记录可以拥有恋爱阶段；当前记录不进入恋爱路线。' });
-    }
+    else delete relation.恋爱阶段;
   }
   return notices;
 }
 // 联系记录只维护互动状态和关系标签，不派生好感或作为计分前置条件。
 // 普通首次的0起点与实际变化由计分器处理，既定背景仍独立核定。
 export function enforceRelationshipContact(variables, previous, { replyKey = '', flexibleRepair = false } = {}) {
-  // 副校正允许修正误记的联系状态；普通主回复仍保留已确认联系。
-  if (replyKey && flexibleRepair) return [];
+  // 主副回复均可纠正联系事实，已确认内容无需另走人工审批。
+  if (replyKey) return [];
   const state = variables?.stat_data;
   const before = previous?.stat_data?.人际 || {};
   if (state?.系统?.结构版本 !== 4 || !state.人际 || typeof state.人际 !== 'object' || Array.isArray(state.人际)) return [];
@@ -285,32 +207,25 @@ function createStateSchema(z, version, { normalizeRelationships = true } = {}) {
   const record = value => z.record(key, value);
   // 字段级转换也覆盖框架逐字段、逐条事件应用 JSONPatch 的校验入口。
   const volumeNumber = z.preprocess(normalizeStoryVolume, z.number().int().min(1).max(19));
-  // G01 只用于读取旧档；旧分钟申请不自动折算，G02 的六字段成果申请继续兼容。
-  const legacyGrowthRequest = z.object({
-    来源事件: key, 日期: text, 目标: z.enum(['魔力控制', '体能']), 类型: z.enum(['基础训练', '纠正训练', '危机突破']),
-    环境: text, 现实分钟: z.number().int().min(1).max(1440), 有效分钟: z.number().int().min(1).max(1440000),
-    成果: text, 已确认: z.boolean(), 已恢复: z.boolean(),
-  }).strict();
-  const growthRequest = z.object({
-    来源事件: key, 目标: z.enum(GROWTH_AXES), 类型: z.enum(['基础训练', '纠正训练', '重大突破']),
-    // 超额值交给结算器截断，避免一个数值超额让整条实际事件保存失败。
-    经验: z.number().int().min(0), 方式: z.enum(['实际练习', '意识模拟']), 成果: text.min(1),
-  }).strict();
+  // 单条申请由结算器局部检查；未知/缺失数据保留待修正，不拖累其它状态更新。
+  const growthRequests = z.preprocess(normalizeGrowthRequests, record(z.unknown()));
   const growth = z.object({
     版本: z.enum(['G01', 'G02', 'G03']).optional(),
     // 经验允许保留晋级后的溢出，不能拿最高单档门槛当累计上限；旧档经验原样读取。
     经验: z.object({ 魔力控制: z.number().int().min(0).max(Number.MAX_SAFE_INTEGER), 体能: z.number().int().min(0).max(Number.MAX_SAFE_INTEGER), 魔力量: z.number().int().min(0).max(Number.MAX_SAFE_INTEGER).optional() }).strict().optional(),
-    申请: record(z.union([growthRequest, legacyGrowthRequest])).optional(),
+    申请: growthRequests.optional(),
     记录: record(z.object({
-      来源事件: key, 日期: text.optional(), 目标: z.enum(GROWTH_AXES), 类型: z.enum(['基础训练', '纠正训练', '危机突破', '重大突破']),
+      来源事件: key, 日期: text.optional(), 目标: z.enum(GROWTH_AXES), 类型: text,
       环境: text.optional(), 现实分钟: z.number().int().min(0).max(1440).optional(), 有效分钟: z.number().int().min(0).max(1440000).optional(),
       加速: z.boolean().optional(), 获得: z.number().int().min(0).max(Math.max(70, GROWTH_RULES.perReplyCap)), 活动指纹: text, 说明: text,
-      方式: z.enum(['实际练习', '意识模拟']).optional(), 成果: text.optional(), 回合: text.optional(),
+      方式: text.optional(), 成果: text.optional(), 回合: text.optional(),
     }).strict()).optional(),
     回合结算: z.object({
       标识: text,
       获得: z.object({ 魔力控制: z.number().int().min(0).max(GROWTH_RULES.perReplyCap), 体能: z.number().int().min(0).max(GROWTH_RULES.perReplyCap), 魔力量: z.number().int().min(0).max(GROWTH_RULES.perReplyCap).optional() }).strict(),
       已晋级: z.array(z.enum(GROWTH_AXES)).max(GROWTH_AXES.length),
+      // 终值重放也不能把同一份档内经验按晋级后的新档位再算一遍。
+      终值收据: z.partialRecord(z.enum(GROWTH_AXES), z.object({ 提交: text, 经验: z.number().int().min(0).max(Number.MAX_SAFE_INTEGER), 评级: z.enum(ATTRIBUTE_GRADES) }).strict()).optional(),
     }).strict().optional(),
     // 旧境界、环境与复核记录仅保留历史；绝不用于推断 /玩家/魔人觉醒。
     境界: z.enum(['未确认', '普通', '魔人']).optional(), 境界依据: text.optional(),
@@ -357,7 +272,7 @@ function createStateSchema(z, version, { normalizeRelationships = true } = {}) {
       时间: text, 地点: text, 切入说明: text.default(''),
       已发生事件: record(z.object({ ...(version === 4 ? { 卷号: volumeNumber } : {}), 章段: version === 3 ? z.enum(CHAPTERS.slice(1)) : text.min(1), 结果: text.min(1), 参与者: z.array(text.min(1)), 知情者: z.array(text.min(1)) }).strict()),
       // 可选字段兼容现有 v4 存档；未来约定不占用已发生事件。
-      ...(version === 4 ? { 日程: record(schedule).optional() } : {}),
+      ...(version === 4 ? { 日程: record(schedule).optional(), 选拔赛: createTournamentSchema(z).optional() } : {}),
     }).strict(),
     玩家: z.object({
       性别: z.literal('男性').default('男性'),
@@ -391,7 +306,6 @@ function createStateSchema(z, version, { normalizeRelationships = true } = {}) {
     }
     if (state.系统.主角模式 === '黑铁一辉' && Object.hasOwn(state.人际, '黑铁一辉')) issue(['人际', '黑铁一辉'], '一辉模式不能新建另一个一辉的人际记录');
     for (const [name, relation] of Object.entries(state.人际)) {
-      if (['C', 'B', 'A', 'S'].includes(relation.羁绊阶段) && !relation.变化依据.trim()) issue(['人际', name, '变化依据'], '已成立羁绊必须有本局依据');
       if (relation.恋爱阶段 !== undefined && romanceStage(relation) === null) issue(['人际', name, '恋爱阶段'], '只有已确认女性且好感为有效数值时才能派生恋爱阶段；男性、性别未知或好感待核定时不能预写。');
     }
   });
@@ -427,7 +341,11 @@ function createStateSchema(z, version, { normalizeRelationships = true } = {}) {
     const relations = Object.fromEntries(Object.entries(value.人际).map(([name, relation]) => {
       const stage = supportStage(relation?.支援度);
       const romance = romanceStage(relation);
-      return [name, stage !== '未定' || romance !== null ? { ...relation, ...(stage !== '未定' ? { 羁绊阶段: stage } : {}), ...(romance !== null ? { 恋爱阶段: romance } : {}) } : relation];
+      if (!relation || typeof relation !== 'object' || Array.isArray(relation)) return [name, relation];
+      const normalized = { ...relation, ...(relation.支援度 === null ? { 羁绊阶段: '未定' } : stage !== '未定' ? { 羁绊阶段: stage } : {}) };
+      if (romance !== null) normalized.恋爱阶段 = romance;
+      else delete normalized.恋爱阶段;
+      return [name, normalized];
     }));
     return { ...value, 人际: relations };
   }, root);

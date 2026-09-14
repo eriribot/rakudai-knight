@@ -1,5 +1,6 @@
+import { deriveTournament, prepareTournamentAction, suggestTournamentOpponents, createTournamentParticipant } from './rakudai-tournament.mjs';
 import { STORY_VOLUMES, getStoryVolume, resolveStoryChapter, storyPosition, nextStoryChapter, firstStoryChapter } from './rakudai-story-catalog.mjs';
-import { GROWTH_RULES, GROWTH_AXES, ATTRIBUTE_GRADES, normalizeSkillEntry } from '../世界书规则/MVU/schema.mjs';
+import { GROWTH_RULES, GROWTH_AXES, ATTRIBUTE_GRADES, normalizeSkillEntry, normalizeGrowthRequests } from '../世界书规则/MVU/schema.mjs';
 
 // 状态规则与运行时适配分开：本模块不访问宿主、不发送消息、不生成剧情。
 export const STATE_CHAPTERS = ['待选择', ...getStoryVolume(1).chapters.map(chapter => chapter.key)];
@@ -196,7 +197,7 @@ export function enforceStateOwnership(variables, previous, context = {}) {
     restore(after, '系统', before.系统, '/系统');
     if (!after.场景 || typeof after.场景 !== 'object' || Array.isArray(after.场景)) after.场景 = cloneState(before.场景);
     const repair = Boolean(context.replyKey && context.storyCorrection === true);
-    const flexible = Boolean(context.replyKey && context.flexibleRepair === true);
+    const flexible = Boolean(context.replyKey);
     if (!repair) restore(after.场景, '切入说明', before.场景.切入说明 ?? '', '/场景/切入说明');
     const repairDescription = repair && after.场景.切入说明 !== before.场景.切入说明 ? after.场景.切入说明 : undefined;
     const storyAccepted = repair ? acceptRepairStoryProgress(before, after, context.storyBefore) : acceptAutomaticStoryProgress(before, after);
@@ -215,7 +216,7 @@ export function enforceStateOwnership(variables, previous, context = {}) {
       if (!flexible && awakened || typeof after.玩家.魔人觉醒 !== 'boolean') {
         restore(after.玩家, '魔人觉醒', awakened, '/玩家/魔人觉醒');
       }
-      // 经绑定的副校正可核定已有评级；普通主回复仍通过成长结算修改六维。
+      // 主副回复均可保存已确认的实际评级；未绑定来源时保留旧数值。
       if (!flexible) {
         restore(after.玩家, '六维', before.玩家.六维, '/玩家/六维');
         restore(after.玩家, '登记等级', before.玩家.登记等级, '/玩家/登记等级');
@@ -229,7 +230,7 @@ export function enforceStateOwnership(variables, previous, context = {}) {
         for (const [name, skill] of Object.entries(skills)) {
           if (['__proto__', 'prototype', 'constructor'].includes(name)) continue;
           const original = originals && Object.hasOwn(originals, name) ? originals[name] : undefined;
-          skills[name] = normalizeSkillEntry(skill, flexible ? undefined : original);
+          skills[name] = normalizeSkillEntry(skill, original);
         }
       }
     }
@@ -246,7 +247,6 @@ export function enforceStateOwnership(variables, previous, context = {}) {
       for (const [name, relation] of Object.entries(after.人际)) {
         if (!relation || typeof relation !== 'object' || Array.isArray(relation)) continue;
         const original = before.人际?.[name];
-        if (flexible) continue;
         if (original && Object.hasOwn(original, '名册隐藏')) {
           restore(relation, '名册隐藏', original.名册隐藏, '/人际/' + name + '/名册隐藏');
         } else if (Object.hasOwn(relation, '名册隐藏')) {
@@ -290,135 +290,112 @@ function growthFingerprint(request, event) {
   return (hash >>> 0).toString(36);
 }
 function growthRequestValid(request) {
-  const fields = ['来源事件', '目标', '类型', '经验', '方式', '成果'];
-  return growthObject(request) && Object.keys(request).length === fields.length && fields.every(key => Object.hasOwn(request, key)) &&
-    growthName(request.来源事件) && GROWTH_AXES.includes(request.目标) &&
-    Object.hasOwn(GROWTH_RULES.awards, request.类型) && ['实际练习', '意识模拟'].includes(request.方式) &&
+  return growthObject(request) && growthName(request.来源事件) && GROWTH_AXES.includes(request.目标) &&
+    typeof request.类型 === 'string' && typeof request.方式 === 'string' &&
     Number.isSafeInteger(request.经验) && request.经验 >= 0 && typeof request.成果 === 'string' && !!request.成果.trim();
 }
 
-// 成果判断来自本轮剧情；代码只检查来源、去重与额度，不再用分钟或恢复条件计分。
-// replyKey 由宿主适配器根据解析原文定位活动助手回复页，不能由模型提供。
-export function enforceGrowthProgress(variables, previous, { replyKey = '', repairEventKeys = [], flexibleRepair = false } = {}) {
-  const before = previous?.stat_data, after = variables?.stat_data;
-  const notices = [];
+// 统一处理申请奖励与经验终值。结算不以类型/方式的措辞审批成果，也不限制每轮升档次数。
+export function enforceGrowthProgress(variables, previous, { replyKey = '', repairEventKeys = [], growthFinalAxes = [], growthGradeAxes = [] } = {}) {
+  const before = previous?.stat_data, after = variables?.stat_data, notices = [];
   if (before?.系统?.结构版本 !== 4 || before.系统.开局状态 !== '已建档' || !after?.玩家) return notices;
   const old = before.玩家.成长, incoming = after.玩家.成长;
   if (!old && incoming === undefined) return notices;
-  const growth = growthState(old);
-  const flexible = Boolean(replyKey && flexibleRepair);
-  // 副模型明确更正的是经验和评级的最终值；仍由下方记录本轮申请，不能重复相加或覆盖终值。
-  const correctedExperience = {}, correctedGrades = {};
-  if (flexible) for (const axis of GROWTH_AXES) {
-    const experience = incoming?.经验?.[axis];
-    if (Number.isSafeInteger(experience) && experience >= 0 && experience !== old?.经验?.[axis]) correctedExperience[axis] = experience;
-    if (after.玩家.六维?.[axis] !== before.玩家.六维?.[axis]) correctedGrades[axis] = after.玩家.六维[axis];
+  const growth = growthState(old), scoped = typeof replyKey === 'string' && !!replyKey;
+  const explicitFinal = new Set(growthFinalAxes), explicitGrades = new Set(growthGradeAxes);
+  const correctedExperience = {};
+  if (scoped) for (const axis of GROWTH_AXES) {
+    const value = incoming?.经验?.[axis];
+    if (Number.isSafeInteger(value) && value >= 0 && (value !== old?.经验?.[axis] || explicitFinal.has(axis))) correctedExperience[axis] = value;
   }
-  const proposed = growthObject(incoming?.申请) ? incoming.申请 : {};
+  const proposed = normalizeGrowthRequests(growthObject(incoming?.申请) ? incoming.申请 : growth.申请);
+  growth.申请 = cloneState(proposed);
   const events = after.场景.已发生事件 || {}, oldEvents = before.场景.已发生事件 || {};
-  function note(id, text) {
-    notices.push({ path: '/玩家/成长/申请/' + id, message: text });
-    growth.最近提示 = text;
-  }
-  const ownedFields = value => growthObject(value) ? Object.fromEntries(Object.entries(value).filter(([key]) => key !== '申请' && !(flexible && key === '经验'))) : {};
-  if (stateKey(ownedFields(incoming)) !== stateKey(ownedFields(old))) {
-    note('只读字段', '经验、评级、结算额度和历史由代码维护，已忽略模型直接改写。');
-  }
-  // 仅显式副 API 补漏传入：宿主已从同一真实回复的原始 JSONPatch 核对事件键。
-  // 这只放行本回复已保存但漏领的成果，不能新增额度、绕过收据去重或追授其他历史。
+  function note(id, message) { notices.push({ path: '/玩家/成长/申请/' + id, message }); growth.最近提示 = message; }
+  // 元数据和收据原样继承；经验终值是业务数据，主副 API 都可以明确校正。
+  const owned = value => growthObject(value) ? Object.fromEntries(Object.entries(value).filter(([key]) => !['申请', '经验'].includes(key))) : {};
+  if (stateKey(owned(incoming)) !== stateKey(owned(old))) note('结算收据', '版本与结算记录由代码维护，本次已保留原收据；其它字段继续更新。');
   const repairEvents = new Set(Array.isArray(repairEventKeys) ? repairEventKeys.filter(growthName) : []);
-  const scoped = typeof replyKey === 'string' && !!replyKey;
-  const sameReply = scoped && growth.回合结算?.标识 === replyKey;
-  const budget = sameReply ? cloneState(growth.回合结算) : { 标识: replyKey, 获得: {}, 已晋级: [] };
-  for (const axis of GROWTH_AXES) budget.获得[axis] ??= 0;
-  // 从本分支收据恢复额度，防止修复时回合汇总遗漏；历史楼层与其他 swipe 不合并。
-  if (scoped) {
-    for (const axis of GROWTH_AXES) {
-      const spent = Object.values(growth.记录).filter(row => row.回合 === replyKey && row.目标 === axis)
-        .reduce((sum, row) => sum + row.获得, 0);
-      budget.获得[axis] = Math.min(GROWTH_RULES.perReplyCap, Math.max(budget.获得[axis], spent));
+  const budget = scoped && growth.回合结算?.标识 === replyKey ? cloneState(growth.回合结算) : { 标识: replyKey, 获得: {}, 已晋级: [] };
+  for (const axis of GROWTH_AXES) {
+    const spent = scoped ? Object.values(growth.记录).filter(row => row.回合 === replyKey && row.目标 === axis).reduce((sum, row) => sum + row.获得, 0) : 0;
+    budget.获得[axis] = Math.min(GROWTH_RULES.perReplyCap, Math.max(budget.获得[axis] || 0, spent));
+  }
+  const finalInputs = new Map();
+  if (scoped) for (const axis of GROWTH_AXES) {
+    if (!explicitFinal.has(axis) && !explicitGrades.has(axis)) continue;
+    const signature = JSON.stringify([explicitFinal.has(axis) ? incoming?.经验?.[axis] : null, explicitGrades.has(axis) ? after.玩家.六维?.[axis] : null]);
+    finalInputs.set(axis, signature);
+    const receipt = budget.终值收据?.[axis];
+    if (receipt?.提交 === signature && before.玩家.六维?.[axis] === receipt.评级 && old?.经验?.[axis] === receipt.经验) {
+      after.玩家.六维[axis] = receipt.评级;
+      if (explicitFinal.has(axis)) correctedExperience[axis] = receipt.经验;
     }
   }
-  const touched = new Set();
   let settled = false;
   for (const [id, request] of Object.entries(proposed)) {
-    if (!growthName(id)) { note(id, '申请名称不合法，未结算。'); continue; }
+    if (!growthName(id)) { note(id, '申请名称无效，仅保留待修正。'); continue; }
     if (Object.hasOwn(growth.记录, id)) { delete growth.申请[id]; continue; }
-    const prior = growth.申请[id];
     if (!growthRequestValid(request)) {
-      // 旧申请保持可读但不会在安装新版时补发，也不让旧分钟申请占据新回复额度。
-      if (prior && stateKey(prior) === stateKey(request)) continue;
-      note(id, '请按来源事件、目标、类型、经验、方式、成果六字段提交；旧分钟申请不会自动折算。'); continue;
+      if (growthObject(old?.申请) && stateKey(old.申请[id]) === stateKey(request)) continue;
+      note(id, '此申请缺少有效来源事件、目标、非负整数经验或成果；多目标与经验数组须逐项对应。已保留待修正，其它更新照常保存。'); continue;
     }
-    if (!scoped) { note(id, '尚未确定这次解析所属的助手回复页，本次未结算成长；不会猜测楼层或扣除额度。'); continue; }
-    // 资格只读取同一楼层的原生布尔值，旧成长.境界、能力描述和经验多少都不能代替它。
-    // 未觉醒的申请不产生经验，也不会借保留的旧经验触发魔力量晋级。
-    if (request.目标 === '魔力量' && after.玩家.魔人觉醒 !== true) {
-      note(id, '魔人觉醒不是 true，魔力量仍为先天固定；本次未结算，也未改动既有经验和能力。'); continue;
-    }
-    const tier = GROWTH_RULES.awards[request.类型];
-    if (request.经验 < tier.min) { note(id, request.类型 + '申请经验应为 ' + tier.min + '～' + tier.max + '，请按实际成果修正。'); continue; }
+    if (!scoped) { note(id, '尚不能确认真实助手回复，本次保留申请，不猜测来源或扣除额度。'); continue; }
+    if (request.目标 === '魔力量' && after.玩家.魔人觉醒 !== true) { note(id, '魔人觉醒不是 true，魔力量申请暂不结算；其它目标照常结算。'); continue; }
     const event = Object.hasOwn(events, request.来源事件) ? events[request.来源事件] : null;
-    if (!growthObject(event) || typeof event.结果 !== 'string' || !event.结果.trim()) {
-      note(id, '对应事件结果尚未保存；请先写入同名已发生事件，再提交成长。'); continue;
-    }
-    const pos = storyPosition(event.卷号, event.章段);
-    // 主回复可能刚自动切到相邻章。补漏只允许已核对来源回看前一目录节点，
-    // 包括卷末到下一卷开头；不能借校正追回更早章节或手动跳过的训练。
-    const from = storyPosition(before.场景.当前卷, before.场景.当前章);
-    const earliest = from - (repairEvents.has(request.来源事件) ? 1 : 0);
-    if (pos < earliest || pos < 0 ||
-        pos > storyPosition(after.场景.当前卷, after.场景.当前章)) {
-      note(id, '只结算当前实际经历的章段；手动跳过或尚未到达的事件不补经验。'); continue;
+    if (!growthObject(event) || typeof event.结果 !== 'string' || !event.结果.trim()) { note(id, '来源事件结果尚未保存，已保留此申请待补；其它变量照常更新。'); continue; }
+    const pos = storyPosition(event.卷号, event.章段), from = storyPosition(before.场景.当前卷, before.场景.当前章);
+    if (pos < from - (repairEvents.has(request.来源事件) ? 1 : 0) || pos < 0 || pos > storyPosition(after.场景.当前卷, after.场景.当前章)) {
+      note(id, '来源不属于本轮实际经历的章段；保留待核对，不补造跳过的训练。'); continue;
     }
     const fingerprint = growthFingerprint(request, event);
-    const receipts = Object.values(growth.记录);
-    const duplicate = receipts.some(row => row.目标 === request.目标 && (row.来源事件 === request.来源事件 ||
-      row.活动指纹 === fingerprint || (oldEvents[row.来源事件] && growthFingerprint(request, oldEvents[row.来源事件]) === fingerprint)));
-    if (duplicate) {
-      delete growth.申请[id]; note(id, '同一成果已经结算，不能改名或重复解析再次领取。'); continue;
+    if (Object.values(growth.记录).some(row => row.目标 === request.目标 && (row.来源事件 === request.来源事件 || row.活动指纹 === fingerprint ||
+      oldEvents[row.来源事件] && growthFingerprint(request, oldEvents[row.来源事件]) === fingerprint))) {
+      delete growth.申请[id]; note(id, '同一来源成果与目标已经结算，不重复领取。'); continue;
     }
     if (!repairEvents.has(request.来源事件) && String(oldEvents[request.来源事件]?.结果 || '').replace(/\s+/g, '') === event.结果.replace(/\s+/g, '')) {
-      note(id, '本轮没有新增该事件的实际成果；旧档、回忆和跳过的活动不追授经验。'); continue;
+      note(id, '本轮未新增此来源的实际成果，旧活动不追授经验。'); continue;
     }
-    const rank = before.玩家.六维?.[request.目标], threshold = GROWTH_RULES.costs[rank];
-    if (!threshold && rank !== 'S') { note(id, '当前评级尚未确定，无法计算晋级；请先在变量中填写已确认的实际评级。'); continue; }
-    const eligible = request.目标 !== '体能' || request.方式 !== '意识模拟';
-    const requested = Math.min(request.经验, tier.max);
-    const award = eligible && threshold ? Math.min(requested, Math.max(0, GROWTH_RULES.perReplyCap - budget.获得[request.目标])) : 0;
-    growth.经验[request.目标] += award;
+    const rank = after.玩家.六维?.[request.目标];
+    if (!GROWTH_RULES.costs[rank] && rank !== 'S') { note(id, '此目标评级未知，申请保留待核定；其它目标继续。'); continue; }
+    // 经验终值与同源申请同时出现时，以终值为准，并保存零叠加收据防止下次补漏重领。
+    const finalProvided = Object.hasOwn(correctedExperience, request.目标);
+    const award = !finalProvided && rank !== 'S' ? Math.min(request.经验, Math.max(0, GROWTH_RULES.perReplyCap - budget.获得[request.目标])) : 0;
+    growth.经验[request.目标] = Math.min(Number.MAX_SAFE_INTEGER, growth.经验[request.目标] + award);
     budget.获得[request.目标] += award;
-    touched.add(request.目标);
-    let explanation = request.目标 + ' +' + award + '；' + request.类型 + '。';
-    if (!eligible) explanation += ' 纯意识模拟不产生肉身体能经验。';
-    else if (rank === 'S') explanation += ' 当前评级量表已封顶，保留剩余经验，不再继续累计或换算其他数值。';
-    else if (award < request.经验) explanation += ' 已按本回复单项 ' + GROWTH_RULES.perReplyCap + ' 点上限截断，超出部分不留待补发。';
-    growth.记录[id] = { 来源事件: request.来源事件, 目标: request.目标, 类型: request.类型,
-      方式: request.方式, 成果: request.成果, 获得: award, 活动指纹: fingerprint, 说明: explanation, 回合: replyKey };
-    delete growth.申请[id];
-    growth.最近提示 = explanation;
-    settled = true;
-  }
-  if (settled) {
-    const promotions = [];
-    for (const axis of touched) {
-      const rank = before.玩家.六维[axis], cost = GROWTH_RULES.costs[rank], index = ATTRIBUTE_GRADES.indexOf(rank);
-      if (!Object.hasOwn(correctedExperience, axis) && !Object.hasOwn(correctedGrades, axis) &&
-          !budget.已晋级.includes(axis) && cost && index > 0 && growth.经验[axis] >= cost) {
-        const nextRank = ATTRIBUTE_GRADES[index - 1];
-        after.玩家.六维[axis] = nextRank;
-        growth.经验[axis] -= cost;
-        budget.已晋级.push(axis);
-        const text = axis + '：' + rank + ' → ' + nextRank + '，剩余经验 ' + growth.经验[axis] + '。';
-        promotions.push(text);
-        const receipt = Object.values(growth.记录).findLast(row => row.回合 === replyKey && row.目标 === axis);
-        if (receipt) receipt.说明 += ' ' + text;
-      }
-    }
-    growth.回合结算 = budget;
-    if (promotions.length) growth.最近提示 += ' ' + promotions.join(' ');
+    let explanation = request.目标 + ' +' + award + (request.类型 ? '；' + request.类型 : '') + '。';
+    if (finalProvided) explanation += ' 本轮已明确经验最终值，此申请记为已处理，不再重复相加。';
+    else if (rank === 'S') explanation += ' 已到本卡量表顶档，保留原有余量。';
+    else if (award < request.经验) explanation += ' 按本轮此目标合计 ' + GROWTH_RULES.perReplyCap + ' 上限截断，超额不延后补领。';
+    growth.记录[id] = { 来源事件: request.来源事件, 目标: request.目标, 类型: request.类型, 方式: request.方式,
+      成果: request.成果, 获得: award, 活动指纹: fingerprint, 说明: explanation, 回合: replyKey };
+    delete growth.申请[id]; growth.最近提示 = explanation; settled = true;
   }
   Object.assign(growth.经验, correctedExperience);
+  // 评级发生明确校正后，经验按该新评级的当前档进度计算；没有新申请也修复旧档溢出。
+  const promotions = [];
+  if (scoped) for (const axis of GROWTH_AXES) {
+    if (axis === '魔力量' && after.玩家.魔人觉醒 !== true) continue;
+    const initialRank = after.玩家.六维?.[axis];
+    let rank = initialRank, index = ATTRIBUTE_GRADES.indexOf(rank), cost = GROWTH_RULES.costs[rank];
+    while (cost && index > 0 && growth.经验[axis] >= cost) {
+      growth.经验[axis] -= cost; rank = ATTRIBUTE_GRADES[--index]; cost = GROWTH_RULES.costs[rank];
+    }
+    if (rank === initialRank) continue;
+    after.玩家.六维[axis] = rank;
+    if (!budget.已晋级.includes(axis)) budget.已晋级.push(axis);
+    const text = axis + '：' + initialRank + ' → ' + rank + '，剩余经验 ' + growth.经验[axis] + '。';
+    promotions.push(text);
+    const receipt = Object.values(growth.记录).findLast(row => row.回合 === replyKey && row.目标 === axis);
+    if (receipt) receipt.说明 += ' ' + text;
+  }
+  for (const [axis, signature] of finalInputs) {
+    if (!ATTRIBUTE_GRADES.includes(after.玩家.六维?.[axis])) continue;
+    budget.终值收据 ??= {};
+    budget.终值收据[axis] = { 提交: signature, 经验: growth.经验[axis], 评级: after.玩家.六维[axis] };
+  }
+  if (settled || promotions.length || finalInputs.size) growth.回合结算 = budget;
+  if (promotions.length) growth.最近提示 = promotions.join(' ');
   after.玩家.成长 = growth;
   return notices;
 }
@@ -491,6 +468,10 @@ export function createStateController(adapter) {
   return Object.freeze({
     version: '4.0.0', get catalogue() { return cloneState(STORY_VOLUMES); }, capture, prepareMigration,
     get growthRules() { return cloneState(GROWTH_RULES); },
+    tournamentView: state => deriveTournament(state),
+    tournamentAction: (token, request) => commit(token, state => prepareTournamentAction(state, request)),
+    tournamentOpponents: (state, options) => suggestTournamentOpponents(state, options),
+    tournamentParticipant: (state, options) => createTournamentParticipant(state, options),
     commitMigration: token => commit(token, state => state, 'migration'),
     verify: async token => {
       const record = tokens.get(token);
