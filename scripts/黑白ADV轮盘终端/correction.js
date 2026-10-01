@@ -23,7 +23,7 @@ const DEFAULT_CORRECTION_PROMPT = [
   '父对象可只写要改的键，代码会合并并保留省略字段；数组按最终内容更新。add/replace会按存在性适配，remove可删除过时能力、人物、事件等条目。新条目提供完整资料，能力也可用说明文字简写。',
   '成长申请记录来源事件、目标、经验及实际成果，类型和方式可自由描述。目标可为数组：经验数组逐项对应；单个经验数是总量，按去重后的目标均分。魔力和身体均有实际参与时同步记录各项目；每目标每条回复最多9999。直接修正经验提交最终值，同轴申请不再叠加，达标后代码连续晋级并保留余量。',
   '魔人觉醒使用JSON布尔true/false，可纠正错误状态。卷章按本轮已落实的完成事实修正，主回复已经推进时不重复结束下一章。',
-  '选拔赛写入场景/选拔赛的名册和比赛记录；同一比赛沿用ID修正。积分、排名、对手去重由代码计算，胜利按10+10×对手赛前胜场计分；未知场外战绩留空，不套用原著胜负。'
+  '选拔赛只登记本局实际参赛者、安排和赛果；同一比赛沿用ID修正。程序按剧情日历推演场外背景并计算战绩、积分与排名；不抄写推演对局，不写初始战绩或赛前胜场。若本轮OC战胜珠雫等正典人物，按实际胜者登记，绝不能为迎合原著或背景推演改回败局。'
 ].join('\n');
 function correctionContext() { return (HW.SillyTavern || window.SillyTavern)?.getContext?.(); }
 function correctionChatKey() {
@@ -135,8 +135,8 @@ function captureCorrection(checkingSettlement = false) {
   const ctx = correctionContext(), reply = correctionReply();
   if (!reply?.mvuBlock) throw new Error('当前回复没有完整且唯一的 UpdateVariable / JSONPatch，暂不校正。');
   const guard = HW.__RK_MVU_GUARD_V4__ || window.__RK_MVU_GUARD_V4__;
-  if (guard?.growth !== 'G03' || guard?.repair !== 'P02' || guard?.repairSource !== 'MVU01' || guard?.storyRepair !== 'S01' || guard?.flexibleRepair !== 'F01' || guard?.growthSettlement !== 'G04' || guard?.tournament !== 'T01' || typeof guard.parseRepair !== 'function')
-    throw new Error('请同步启用说明含 G04 / T01 的 v4 约束脚本，以支持新成长结算与选拔赛记录。');
+  if (guard?.growth !== 'G03' || guard?.repair !== 'P02' || guard?.repairSource !== 'MVU01' || guard?.storyRepair !== 'S01' || guard?.flexibleRepair !== 'F01' || guard?.growthSettlement !== 'G04' || guard?.tournament !== 'T01' || guard?.tournamentEngine !== 'T02' || typeof guard.parseRepair !== 'function')
+    throw new Error('请同步启用说明含 G04 / T02 的 v4 约束脚本，以支持成长结算与选拔赛日期推演。');
   const mvu = window.Mvu || HW.Mvu;
   if (typeof mvu?.getMvuData !== 'function' || typeof mvu.parseMessage !== 'function') throw new Error('MVU 解析接口尚未就绪。');
   const options = { type: 'message', message_id: reply.messageId };
@@ -236,6 +236,16 @@ function correctionInput(saved) {
     text: saved.text.replace(/<UpdateVariable>[\s\S]*?<\/UpdateVariable>/gi, '').trim(), events, submittedRelations, submittedStory, storyBefore: saved.storyBefore, state };
 }
 function getCorrectionInput() { return correctionInput(captureCorrection()); }
+function correctionTournamentSummary(state) {
+  const view = stateService().tournamentView(state), calendar = view.calendar || {};
+  return { 引擎: view.engine, 背景预览: Boolean(view.virtual),
+    日历: { valid: calendar.valid, reason: calendar.reason, date: calendar.date?.key,
+      currentRound: calendar.currentRound, elapsedRound: calendar.elapsedRound, todayRound: calendar.todayRound,
+      nextRound: calendar.nextRound, suspended: calendar.suspended },
+    名册: view.roster.map(({ id, name, wins, losses, points, status, simulatedMatches }) => ({ id, name, wins, losses, points, status, simulatedMatches })),
+    待补提示: '玩家未登记的比赛保留待补；null 表示尚未确定，不能当作 0。程序背景仅供核对，本轮实际赛果优先，不得将背景批量写回比赛。',
+    警告: view.warnings || [] };
+}
 function correctionValue(state, parts) {
   let value = state;
   for (const part of parts) { if (!value || typeof value !== 'object' || !Object.hasOwn(value, part)) return undefined; value = value[part]; }
@@ -270,6 +280,16 @@ function normalizeCorrectionPatch(operations, state) {
     if (removing && parts.length === 1) return true;
     if (root === '玩家' && ['性别', '综合初评'].includes(field)) return true;
     if (root === '玩家' && field === '成长' && (removing && parts.length === 2 || parts.length >= 3 && !['经验', '申请'].includes(child))) return true;
+    if (root === '场景' && field === '选拔赛') {
+      if (removing && parts.length <= 3) return true;
+      const previousPerson = state.场景?.选拔赛?.名册?.[parts[3]];
+      if (removing && child === '名册' && parts.length === 4 && previousPerson &&
+          ['初始战绩', '入赛轮次', '退赛日期'].some(key => Object.hasOwn(previousPerson, key))) return true;
+      if (parts.length >= 3 && ['结束日期', '总分', '总积分', '积分', '排名', '积分榜', '排行榜', '胜场', '败场', '程序战况', '程序推演', '推演版本'].includes(child)) return true;
+      if (child === '名册' && parts.length >= 5 && (['初始战绩', '退赛日期', '胜场', '败场', '积分', '总分', '排名', '程序推演', '推演版本'].includes(parts[4]) ||
+          parts[4] === '入赛轮次' && Object.hasOwn(state.场景?.选拔赛?.名册 || {}, parts[3]))) return true;
+      if (child === '比赛' && parts.length >= 5 && ['甲赛前胜场', '乙赛前胜场', '积分', '程序推演', '推演版本'].includes(parts[4])) return true;
+    }
     // 新人物保留模型提供的初始占位；已有阶段由最终分数派生，忽略它不影响同批业务改动。
     return root === '人际' && parts.length >= 3 && ['恋爱阶段', '羁绊阶段'].includes(child) && Object.hasOwn(state.人际 || {}, field);
   }
@@ -299,6 +319,11 @@ function normalizeCorrectionPatch(operations, state) {
     return index;
   }
   function put(parts, value, mode = 'replace') {
+    // 不允许用 null/数组/文字替换赛制容器来间接擦掉只读历史和派生字段。
+    if (parts[0] === '场景' && parts[1] === '选拔赛' &&
+        (parts.length === 2 || parts.length <= 4 && ['名册', '比赛'].includes(parts[2])) && !object(value)) {
+      skipped.add(pointer(parts)); return;
+    }
     if (ignore(parts, value)) return;
     // 能力说明的文字简写也视为只改说明，避免省略的代价和掌握状态被清空。
     if (typeof value === 'string' && parts[0] === '玩家' &&
@@ -372,9 +397,10 @@ function correctionRules(state) {
   return 'F01校正权限以本次为准：允许修改玩家、场景、人际的业务字段及现有对象，不限于补建。系统/框架元数据、固定玩家性别、综合初评、已有关系派生阶段和成长自动记录由程序维护，混入补丁时自动略过，不影响其他修改。' +
     '保持现有schema字段名称、类型与范围：好感0—1000或null，支援0—320整数或null，觉醒只用true/false；卷章须属现有目录。' +
     'G04成长申请：类型、方式用自由文字；目标可为单项或数组，经验数组逐项对应，单个经验数为总量并均分各目标，90分给三项目标各30；来源事件和成果按本轮实际事实记录，等级达标由代码连续结算。' +
-    'T01选拔赛保存于/场景/选拔赛，默认20轮6席。名册按稳定ID记录{姓名,来源:正典/原创/玩家,参赛状态:参赛/退选/取消资格}；未知场外战绩留空，确知时可填初始战绩{截至轮次,胜场,败场,积分?,依据}。' +
-    '比赛按稳定ID记录{轮次,甲方:名册ID,乙方:名册ID,日期,时间,地点,状态:待定/已安排/已完成/已取消,胜者?:名册ID,弃权方?:名册ID,甲赛前胜场?,乙赛前胜场?,依据}；同场纠错沿用ID，结束填胜者及结果依据。排期不等于完赛；双方不能相同、重复对战或同轮多赛。历史战绩与逐场记录不重叠。' +
-    '胜局积分=10+10×对手赛前胜场，败局不扣历史分；胜负、积分、排名由比赛记录推导，不写派生缓存、不补原著胜负。当前模式' + String(state?.系统?.主角模式 || '未选择') + '，本局事实始终优先。' +
+    'T02日期结算沿用T01账本/场景/选拔赛，默认20轮6席。名册按稳定ID记录{姓名,来源:正典/原创/玩家,参赛状态:参赛/退选/取消资格}；只登记本局实际参赛者，初始战绩只读，禁止新增、修改或清除。新参赛者可按实际事实填入赛轮次，已有参赛者的入赛轮次不可修改；退赛日期及赛季结束日期完全由程序维护，只按事实修改参赛状态或赛季状态，不新增、改写或删除这些日期。' +
+    '比赛按稳定ID记录{轮次,甲方:名册ID,乙方:名册ID,日期,时间,地点,状态:待定/已安排/已完成/已取消,胜者?:名册ID,弃权方?:名册ID,依据}；同场纠错沿用ID，结束填实际胜者及结果依据。排期不等于完赛；双方不能相同、重复对战或同轮多赛。' +
+    '程序选拔赛摘要按场景/时间读取2013年赛程，场外背景默认沿正典走势、普通选手固定生成；当天排期不自动完赛，玩家缺场保留待补。只登记本轮实际事实，禁止把背景推演批量写回；本轮OC战胜珠雫等正典人物时据实登记，绝不能按原著或程序背景改回失败。' +
+    '胜局积分=10+10×对手赛前胜场，败局不扣历史分；赛前胜场、战绩、积分、排名、程序战况、程序推演及推演版本由代码控制，禁止写入。现存初始战绩是玩家手动接管旧档的只读基线，不与逐场记录重复。摘要null为未知，不是0。当前模式' + String(state?.系统?.主角模式 || '未选择') + '，本局事实始终优先。' +
     '已有值按最终结果纠正，无需为了通过校验重复提交变化依据；资料足够时可核定原null或缺失分数。只输出裸JSONPatch数组，支持add/replace/remove/copy/move/test，不输出Analysis或UpdateVariable标签。';
 }
 // 只重试请求阶段的临时连接故障；鉴权、格式、字段和保存错误交明确提示处理。
@@ -409,7 +435,7 @@ async function requestCorrection(automatic = false) {
     const response = await saved.ctx.ChatCompletionService.processRequest({ chat_completion_source: 'custom', custom_url: config.endpoint,
       custom_include_headers: JSON.stringify({ Authorization: correctionKey ? 'Bearer ' + correctionKey : '' }),
       model: config.model, messages: [{ role: 'system', content: system }, { role: 'user', content: JSON.stringify({
-        当前变量: state, 本轮正文: input.text, 本轮已发生事件: input.events, 本轮已提交人际更新: input.submittedRelations,
+        当前变量: state, 程序选拔赛: correctionTournamentSummary(state), 本轮正文: input.text, 本轮已发生事件: input.events, 本轮已提交人际更新: input.submittedRelations,
         本轮已提交进度: input.submittedStory, 主结算前场景: input.storyBefore,
         玩家补充说明: config.deviation, 最新回复楼层: saved.messageId, 当前回复页: saved.swipeId }) }],
       max_tokens: config.maxTokens, stream: false }, {}, true, abort.signal);

@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "outputWidth": 434,
+  "outputHeight": 580,
+  "characters": {
+    "nagi": { "sourceFile": "color/nagi.jpg", "window": [352, 80, 315, 500], "eye": [490, 238], "protect": [[473, 237], [508, 252], [498, 325]], "eyeTarget": 0.42 },
+    "kirihara": { "sourceFile": "color/kirihara.jpg", "window": [383, 46, 278, 454], "eye": [464, 227], "protect": [[435, 254], [505, 250], [463, 307]], "eyeTarget": 0.43, "eyeTargetX": 0.32 },
+    "kuraudo": { "sourceFile": "color/kuraudo.jpg", "window": [393, 107, 260, 439], "eye": [477, 307], "protect": [[448, 321], [541, 304], [485, 391]], "eyeTarget": 0.6, "eyeTargetX": 0.32 },
+    "renren": { "sourceFile": "color/renren.jpg", "window": [372, 56, 279, 430], "eye": [476, 230], "protect": [[437, 248], [527, 242], [473, 307]], "eyeTarget": 0.5, "eyeTargetX": 0.37 },
+    "misogi": { "sourceFile": "color/misogi.jpg", "window": [358, 202, 274, 410], "eye": [426, 389], "protect": [[400, 419], [484, 423], [437, 456]], "eyeTarget": 0.56, "eyeTargetX": 0.28 },
+    "kanata": { "sourceFile": "color/kanata.jpg", "window": [358, 169, 350, 381], "eye": [477, 349], "protect": [[440, 353], [510, 359], [455, 405]], "eyeTarget": 0.48, "eyeTargetX": 0.36 },
+    "nene": { "sourceFile": "nene-fullbody.jpg", "window": [139, 37, 164, 198], "eye": [218, 120], "protect": [[200, 119], [237, 107], [216, 156]], "eyeTarget": 0.43 },
+    "kurono": { "window": [148, 0, 338, 360], "eye": [320, 145], "protect": [[237, 143], [399, 143], [325, 231]], "eyeTarget": 0.43 },
+    "yuri": { "window": [208, 7, 207, 298], "eye": [310, 103], "protect": [[282, 95], [335, 99], [306, 153]], "eyeTarget": 0.38 }
+  }
+}

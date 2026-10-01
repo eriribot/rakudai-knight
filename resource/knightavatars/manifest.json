@@ -1,0 +1,639 @@
+{
+  "schemaVersion": 1,
+  "sourcePage": "https://ga.sbcr.jp/sp/cavalry/chara.html",
+  "requestedSource": "https://baike.baidu.com/item/落第骑士英雄谭/13212302",
+  "sourceNote": "百度页面被浏览安全政策阻止，改用独立的官方原始资料及具名角色介绍；GA彩色盾形人物与用户附图为同款系列。",
+  "shieldFrame": {
+    "file": "shield-frame.png",
+    "maskFile": "shield-mask.svg",
+    "width": 1085,
+    "height": 1450,
+    "aperture": {
+      "x": 0,
+      "y": 0,
+      "width": 100,
+      "height": 100
+    },
+    "provenance": "derived-imagegen-cutout",
+    "source": "user-provided-reference",
+    "notes": "使用内置 imagegen 从用户提供的绫辻绚濑参考提取透明盾边与底部花饰；不是官网原始空框。遮罩为对应轮廓的SVG。",
+    "imageUrl": ""
+  },
+  "characters": [
+    {
+      "id": "ikki",
+      "name": "黑铁一辉",
+      "aliases": [
+        "一辉",
+        "黑鐵一輝",
+        "一輝",
+        "黒鉄一輝",
+        "Ikki Kurogane"
+      ],
+      "file": "ikki.png",
+      "sourceUrl": "https://ga.sbcr.jp/sp/cavalry/img/chara01.png",
+      "sourcePage": "https://ga.sbcr.jp/sp/cavalry/chara.html",
+      "hasShieldFrame": true,
+      "sourceStyle": "novel-color-shield",
+      "sourceStatus": "original-shield",
+      "width": 172,
+      "height": 249,
+      "sha256": "c1aa07045f00041d0602657929990df12bfe5f0e211b90e5b0c6bb3f97c9bc7a",
+      "imageUrl": ""
+    },
+    {
+      "id": "stella",
+      "name": "史黛菈·法米利昂",
+      "aliases": [
+        "史黛菈",
+        "史黛拉",
+        "史黛拉·法米利昂",
+        "史黛菈·法米利昂",
+        "ステラ・ヴァーミリオン",
+        "Stella Vermillion"
+      ],
+      "file": "stella.png",
+      "sourceUrl": "https://ga.sbcr.jp/sp/cavalry/img/chara02.png",
+      "sourcePage": "https://ga.sbcr.jp/sp/cavalry/chara.html",
+      "hasShieldFrame": true,
+      "sourceStyle": "novel-color-shield",
+      "sourceStatus": "original-shield",
+      "width": 172,
+      "height": 249,
+      "sha256": "22e0a4ddd11c110e44f551e1e7094e110a333973ee22b2cb5108325f5cc3d38a",
+      "imageUrl": ""
+    },
+    {
+      "id": "shizuku",
+      "name": "黑铁珠雫",
+      "aliases": [
+        "珠雫",
+        "黑鐵珠雫",
+        "黒鉄珠雫",
+        "Shizuku Kurogane"
+      ],
+      "file": "shizuku.png",
+      "sourceUrl": "https://ga.sbcr.jp/sp/cavalry/img/chara03.png",
+      "sourcePage": "https://ga.sbcr.jp/sp/cavalry/chara.html",
+      "hasShieldFrame": true,
+      "sourceStyle": "novel-color-shield",
+      "sourceStatus": "original-shield",
+      "width": 172,
+      "height": 249,
+      "sha256": "76cd763eb54496c8a8d7e9bc8342c443e56be5a7887582e280a61ed164c7e8c6",
+      "imageUrl": ""
+    },
+    {
+      "id": "ayase",
+      "name": "绫辻绚濑",
+      "aliases": [
+        "绚濑",
+        "绫濑",
+        "绫辻绚瀬",
+        "綾辻絢瀨",
+        "綾辻絢瀬",
+        "絢瀨",
+        "絢瀬",
+        "Ayase Ayatsuji"
+      ],
+      "file": "ayase.png",
+      "sourceUrl": "https://ga.sbcr.jp/sp/cavalry/img/chara04.png",
+      "sourcePage": "https://ga.sbcr.jp/sp/cavalry/chara.html",
+      "hasShieldFrame": true,
+      "sourceStyle": "novel-color-shield",
+      "sourceStatus": "original-shield",
+      "width": 172,
+      "height": 249,
+      "sha256": "05d897307eae2cf1e9b68afa45e924717d825b505128758a8fa037ecdb645142",
+      "imageUrl": ""
+    },
+    {
+      "id": "toka",
+      "name": "东堂刀华",
+      "aliases": [
+        "刀华",
+        "東堂刀華",
+        "刀華",
+        "Toka Todo",
+        "Touka Toudou"
+      ],
+      "file": "toka.png",
+      "sourceUrl": "https://ga.sbcr.jp/sp/cavalry/img/chara05.png",
+      "sourcePage": "https://ga.sbcr.jp/sp/cavalry/chara.html",
+      "hasShieldFrame": true,
+      "sourceStyle": "novel-color-shield",
+      "sourceStatus": "original-shield",
+      "width": 172,
+      "height": 249,
+      "sha256": "186250c240708672366657fdf59bd417f0ffe130a332c11d436367cd22245463",
+      "imageUrl": ""
+    },
+    {
+      "id": "itsuki",
+      "name": "黑铁严",
+      "aliases": [
+        "黑鐵嚴",
+        "黒鉄厳",
+        "Kurogane Itsuki",
+        "Itsuki Kurogane"
+      ],
+      "file": "itsuki.png",
+      "sourceUrl": "https://ga.sbcr.jp/sp/cavalry/img/chara06.png",
+      "sourcePage": "https://ga.sbcr.jp/sp/cavalry/chara.html",
+      "hasShieldFrame": true,
+      "sourceStyle": "novel-color-shield",
+      "sourceStatus": "original-shield",
+      "width": 172,
+      "height": 249,
+      "sha256": "7022e2738e4f6a317be972e95da5f103f2e9f226f2e4f9e95ae400bdaf64298c",
+      "imageUrl": ""
+    },
+    {
+      "id": "ouma",
+      "name": "黑铁王马",
+      "aliases": [
+        "王马",
+        "黑鐵王馬",
+        "黒鉄王馬",
+        "王馬",
+        "Ouma Kurogane"
+      ],
+      "file": "ouma.png",
+      "sourceUrl": "https://ga.sbcr.jp/sp/cavalry/img/chara07.png",
+      "sourcePage": "https://ga.sbcr.jp/sp/cavalry/chara.html",
+      "hasShieldFrame": true,
+      "sourceStyle": "novel-color-shield",
+      "sourceStatus": "original-shield",
+      "width": 172,
+      "height": 249,
+      "sha256": "a6be886848dd32be84c17e1fb83ade6e6a6933d6a17ecd992251e3d2a9500e57",
+      "imageUrl": ""
+    },
+    {
+      "id": "edelweiss",
+      "name": "爱德怀斯",
+      "aliases": [
+        "愛德懷斯",
+        "艾德怀斯",
+        "艾德懷斯",
+        "Edelweiss",
+        "エーデルワイス"
+      ],
+      "file": "edelweiss.png",
+      "sourceUrl": "https://ga.sbcr.jp/sp/cavalry/img/chara08.png",
+      "sourcePage": "https://ga.sbcr.jp/sp/cavalry/chara.html",
+      "hasShieldFrame": true,
+      "sourceStyle": "novel-color-shield",
+      "sourceStatus": "original-shield",
+      "width": 172,
+      "height": 249,
+      "sha256": "3eecdd710e24eac22820c725f2305370b028dd0a993d0cd8cad88822d35a8b54",
+      "imageUrl": ""
+    },
+    {
+      "id": "yuudai",
+      "name": "诸星雄大",
+      "aliases": [
+        "諸星雄大",
+        "Yuudai Moroboshi",
+        "Yudai Moroboshi"
+      ],
+      "file": "yuudai.png",
+      "sourceUrl": "https://ga.sbcr.jp/sp/cavalry/img/chara09.png",
+      "sourcePage": "https://ga.sbcr.jp/sp/cavalry/chara.html",
+      "hasShieldFrame": true,
+      "sourceStyle": "novel-color-shield",
+      "sourceStatus": "original-shield",
+      "width": 172,
+      "height": 249,
+      "sha256": "48ecaae18cbbf038b6a5bdf483ad31742557dc482804cf919d0151ab9b0865ae",
+      "imageUrl": ""
+    },
+    {
+      "id": "nagi",
+      "name": "有栖院凪",
+      "aliases": [
+        "有栖院",
+        "爱丽丝",
+        "愛麗絲",
+        "艾莉丝",
+        "艾莉絲",
+        "Alice",
+        "Nagi Arisuin",
+        "有栖院 凪"
+      ],
+      "file": "nagi.png",
+      "sourceUrl": "https://ittoshura.com/img/b_chara04.png",
+      "sourcePage": "https://ittoshura.com/character/",
+      "hasShieldFrame": false,
+      "sourceStyle": "anime-monochrome-hexagon",
+      "sourceStatus": "missing-original-curved-shield",
+      "notes": "原始黑白徽章保留存档；显示头像改从 additionalSources 的官方彩色人物设定图裁切，避开文字和能力图表，使用精确盾口合成。原图没有曲边盾框。",
+      "width": 132,
+      "height": 165,
+      "sha256": "38b2d0097ce6fcfc873be87403241b5e6fb29ad4a3b583633d12fe8e5f04a084",
+      "imageUrl": "",
+      "displayFile": "prepared/nagi.png",
+      "preparation": {
+        "method": "closed-shield-region-face-aware-crop-v1",
+        "sourceFile": "color/nagi.jpg",
+        "sourceSha256": "8e2927a9f0974ea73f78546707f7d9eed7414ababec00bd89c4cf942279c7f12",
+        "crop": {
+          "left": 352,
+          "top": 80,
+          "width": 314,
+          "height": 378
+        },
+        "outputWidth": 434,
+        "outputHeight": 580,
+        "sha256": "d0941a3057192ac42689b48dad91a1e565164a8877e96071dc994a07181be5fd"
+      },
+      "additionalSources": [
+        {
+          "file": "color/nagi.jpg",
+          "sourceUrl": "https://ittoshura.com/character/chara_nagi.jpg",
+          "sourcePage": "https://ittoshura.com/character/",
+          "sourceStyle": "anime-color-character-sheet",
+          "width": 960,
+          "height": 700,
+          "sha256": "8e2927a9f0974ea73f78546707f7d9eed7414ababec00bd89c4cf942279c7f12"
+        }
+      ]
+    },
+    {
+      "id": "kirihara",
+      "name": "桐原静矢",
+      "aliases": [
+        "桐原靜矢",
+        "Shizuya Kirihara"
+      ],
+      "file": "kirihara.png",
+      "sourceUrl": "https://ittoshura.com/img/b_chara07.png",
+      "sourcePage": "https://ittoshura.com/character/",
+      "hasShieldFrame": false,
+      "sourceStyle": "anime-monochrome-hexagon",
+      "sourceStatus": "missing-original-curved-shield",
+      "notes": "原始黑白徽章保留存档；显示头像改从 additionalSources 的官方彩色人物设定图裁切，避开文字和能力图表，使用精确盾口合成。原图没有曲边盾框。",
+      "width": 132,
+      "height": 165,
+      "sha256": "d0b83a6c8da72f93e59185ecb149d45535cec423ea888335a1c0a70fbf2f88b2",
+      "imageUrl": "",
+      "displayFile": "prepared/kirihara.png",
+      "preparation": {
+        "method": "closed-shield-region-face-aware-crop-v1",
+        "sourceFile": "color/kirihara.jpg",
+        "sourceSha256": "5306893fbeb628c65cc7d6337a04e633c50d738e9781606c59b557106d4c76b2",
+        "crop": {
+          "left": 383,
+          "top": 86,
+          "width": 277,
+          "height": 333
+        },
+        "outputWidth": 434,
+        "outputHeight": 580,
+        "sha256": "8ab36d2b14f90ff1944a6bb5920ef4f4c3451aa1991f9f0b480d6a9819a2718d"
+      },
+      "additionalSources": [
+        {
+          "file": "color/kirihara.jpg",
+          "sourceUrl": "https://ittoshura.com/character/chara_kirihara.jpg",
+          "sourcePage": "https://ittoshura.com/character/",
+          "sourceStyle": "anime-color-character-sheet",
+          "width": 960,
+          "height": 700,
+          "sha256": "5306893fbeb628c65cc7d6337a04e633c50d738e9781606c59b557106d4c76b2"
+        }
+      ]
+    },
+    {
+      "id": "kuraudo",
+      "name": "仓敷藏人",
+      "aliases": [
+        "倉敷藏人",
+        "倉敷蔵人",
+        "Kuraudo Kurashiki",
+        "Claude Kurashiki"
+      ],
+      "file": "kuraudo.png",
+      "sourceUrl": "https://ittoshura.com/img/b_chara08.png",
+      "sourcePage": "https://ittoshura.com/character/",
+      "hasShieldFrame": false,
+      "sourceStyle": "anime-monochrome-hexagon",
+      "sourceStatus": "missing-original-curved-shield",
+      "notes": "原始黑白徽章保留存档；显示头像改从 additionalSources 的官方彩色人物设定图裁切，避开文字和能力图表，使用精确盾口合成。原图没有曲边盾框。",
+      "width": 132,
+      "height": 165,
+      "sha256": "7a9614a7cc9f96a77b593111b4afe1415166cb13949303fcb7ab4642109b5a46",
+      "imageUrl": "",
+      "displayFile": "prepared/kuraudo.png",
+      "preparation": {
+        "method": "closed-shield-region-face-aware-crop-v1",
+        "sourceFile": "color/kuraudo.jpg",
+        "sourceSha256": "6452d69614259e0dfcb0934c7aa71e51dc68c245389ce8fc8056d27e159dcb89",
+        "crop": {
+          "left": 394,
+          "top": 118,
+          "width": 259,
+          "height": 312
+        },
+        "outputWidth": 434,
+        "outputHeight": 580,
+        "sha256": "b0a9adff8ca91165bc10c10690d3093a9b37c5fe892611751b34279bcbfb0b90"
+      },
+      "additionalSources": [
+        {
+          "file": "color/kuraudo.jpg",
+          "sourceUrl": "https://ittoshura.com/character/chara_kuraudo.jpg",
+          "sourcePage": "https://ittoshura.com/character/",
+          "sourceStyle": "anime-color-character-sheet",
+          "width": 960,
+          "height": 700,
+          "sha256": "6452d69614259e0dfcb0934c7aa71e51dc68c245389ce8fc8056d27e159dcb89"
+        }
+      ]
+    },
+    {
+      "id": "renren",
+      "name": "兔丸恋恋",
+      "aliases": [
+        "兔丸戀戀",
+        "兎丸恋々",
+        "兔丸恋々",
+        "恋恋",
+        "戀戀",
+        "Renren Tomaru"
+      ],
+      "file": "renren.png",
+      "sourceUrl": "https://ittoshura.com/img/b_chara09.png",
+      "sourcePage": "https://ittoshura.com/character/",
+      "hasShieldFrame": false,
+      "sourceStyle": "anime-monochrome-hexagon",
+      "sourceStatus": "missing-original-curved-shield",
+      "notes": "原始黑白徽章保留存档；显示头像改从 additionalSources 的官方彩色人物设定图裁切，避开文字和能力图表，使用精确盾口合成。原图没有曲边盾框。",
+      "width": 132,
+      "height": 165,
+      "sha256": "bd6e3cf79c49c4ba727d99b15b474093a4b59a46a21dfe1371c8f6d835fbdfa8",
+      "imageUrl": "",
+      "displayFile": "prepared/renren.png",
+      "preparation": {
+        "method": "closed-shield-region-face-aware-crop-v1",
+        "sourceFile": "color/renren.jpg",
+        "sourceSha256": "3e6ab182e894ff71a49ff0cc11f0cadcf14860caf9ead37e2ea439bbe8efc7eb",
+        "crop": {
+          "left": 373,
+          "top": 64,
+          "width": 278,
+          "height": 335
+        },
+        "outputWidth": 434,
+        "outputHeight": 580,
+        "sha256": "4036aeca55a4d6482dee15cfe07be7c0b1db5b0ed859ef9956ed046075c067f3"
+      },
+      "additionalSources": [
+        {
+          "file": "color/renren.jpg",
+          "sourceUrl": "https://ittoshura.com/character/chara_renren.jpg",
+          "sourcePage": "https://ittoshura.com/character/",
+          "sourceStyle": "anime-color-character-sheet",
+          "width": 960,
+          "height": 700,
+          "sha256": "3e6ab182e894ff71a49ff0cc11f0cadcf14860caf9ead37e2ea439bbe8efc7eb"
+        }
+      ]
+    },
+    {
+      "id": "misogi",
+      "name": "御祓泡沫",
+      "aliases": [
+        "御祓泡沫",
+        "御祓 泡沫",
+        "御禊泡沫",
+        "泡沫",
+        "Utakata Misogi"
+      ],
+      "file": "misogi.png",
+      "sourceUrl": "https://ittoshura.com/img/b_chara10.png",
+      "sourcePage": "https://ittoshura.com/character/",
+      "hasShieldFrame": false,
+      "sourceStyle": "anime-monochrome-hexagon",
+      "sourceStatus": "missing-original-curved-shield",
+      "notes": "原始黑白徽章保留存档；显示头像改从 additionalSources 的官方彩色人物设定图裁切，避开文字和能力图表，使用精确盾口合成。原图没有曲边盾框。",
+      "width": 132,
+      "height": 165,
+      "sha256": "7d44d9cac526cd240df3a796da92b33dd4df609264c1af19fe0ea5cfdc2a2dd9",
+      "imageUrl": "",
+      "displayFile": "prepared/misogi.png",
+      "preparation": {
+        "method": "closed-shield-region-face-aware-crop-v1",
+        "sourceFile": "color/misogi.jpg",
+        "sourceSha256": "b44da9dffa8d56d21f8cbbff18424298275fd3060ec6ce51ebbba2caa0e8696a",
+        "crop": {
+          "left": 358,
+          "top": 202,
+          "width": 273,
+          "height": 329
+        },
+        "outputWidth": 434,
+        "outputHeight": 580,
+        "sha256": "c089284134efc40f4c73e764c1227cde08f8b83d8569c0f7b08806347593d091"
+      },
+      "additionalSources": [
+        {
+          "file": "color/misogi.jpg",
+          "sourceUrl": "https://ittoshura.com/character/chara_misogi.jpg",
+          "sourcePage": "https://ittoshura.com/character/",
+          "sourceStyle": "anime-color-character-sheet",
+          "width": 960,
+          "height": 700,
+          "sha256": "b44da9dffa8d56d21f8cbbff18424298275fd3060ec6ce51ebbba2caa0e8696a"
+        }
+      ]
+    },
+    {
+      "id": "kanata",
+      "name": "贵德原彼方",
+      "aliases": [
+        "貴德原彼方",
+        "貴徳原彼方",
+        "彼方",
+        "Kanata Totokubara"
+      ],
+      "file": "kanata.png",
+      "sourceUrl": "https://ittoshura.com/img/b_chara11.png",
+      "sourcePage": "https://ittoshura.com/character/",
+      "hasShieldFrame": false,
+      "sourceStyle": "anime-monochrome-hexagon",
+      "sourceStatus": "missing-original-curved-shield",
+      "notes": "原始黑白徽章保留存档；显示头像改从 additionalSources 的官方彩色人物设定图裁切，避开文字和能力图表，使用精确盾口合成。原图没有曲边盾框。",
+      "width": 132,
+      "height": 165,
+      "sha256": "74098af66c42931ad749b24aa6609c2fae4c4c3942b72ad5cbc555ec8cd84f3d",
+      "imageUrl": "",
+      "displayFile": "prepared/kanata.png",
+      "preparation": {
+        "method": "closed-shield-region-face-aware-crop-v1",
+        "sourceFile": "color/kanata.jpg",
+        "sourceSha256": "6a61bd289170efeb4cc0113965600c90e93eb4cfb025e99988a06b98895ab2ef",
+        "crop": {
+          "left": 364,
+          "top": 169,
+          "width": 317,
+          "height": 381
+        },
+        "outputWidth": 434,
+        "outputHeight": 580,
+        "sha256": "4eaa2086607fe091f09a87a493199257e0f25b7c0e3820899b2dcdb83c0d68cf"
+      },
+      "additionalSources": [
+        {
+          "file": "color/kanata.jpg",
+          "sourceUrl": "https://ittoshura.com/character/chara_kanata.jpg",
+          "sourcePage": "https://ittoshura.com/character/",
+          "sourceStyle": "anime-color-character-sheet",
+          "width": 960,
+          "height": 700,
+          "sha256": "6a61bd289170efeb4cc0113965600c90e93eb4cfb025e99988a06b98895ab2ef"
+        }
+      ]
+    },
+    {
+      "id": "nene",
+      "name": "西京宁音",
+      "aliases": [
+        "西京寧音",
+        "西京 寧音",
+        "宁音",
+        "寧音",
+        "Nene Saikyo",
+        "Nene Saikyou",
+        "Saikyou Nene"
+      ],
+      "file": "nene.jpg",
+      "sourceUrl": "https://img.animatetimes.com/news/visual/2015/1445575387_1_28_59e14b91f2e17a313f6f43a8de2c151d.jpg",
+      "sourcePage": "https://www.animatetimes.com/tag/details.php?id=5494",
+      "hasShieldFrame": false,
+      "sourceStyle": "anime-color-closeup",
+      "sourceStatus": "missing-original-curved-shield",
+      "notes": "近景原图保留存档；显示合成使用 Bangumi 西京寧音具名角色页的单人动画图，脸与发型构图更完整；这是社区角色页素材，不标为官方素材。",
+      "width": 640,
+      "height": 360,
+      "sha256": "3d244e0535205ca75e57a73a946f665e9da88bd15c1e4f852fa130e116faafdf",
+      "imageUrl": "",
+      "displayFile": "prepared/nene.png",
+      "preparation": {
+        "method": "closed-shield-region-face-aware-crop-v1",
+        "sourceFile": "nene-fullbody.jpg",
+        "sourceSha256": "b0ad65368e183fe4d67ceb9bd4b07eba73cfc515ba63891635cfc5eda975a3a0",
+        "crop": {
+          "left": 139,
+          "top": 37,
+          "width": 159,
+          "height": 192
+        },
+        "outputWidth": 434,
+        "outputHeight": 580,
+        "sha256": "b50ffc1deef39c0760c5bb75be8b086eb110ffc235344e35dc5d4898449af775"
+      },
+      "additionalSources": [
+        {
+          "file": "nene-fullbody.jpg",
+          "sourceUrl": "https://lain.bgm.tv/r/400/pic/crt/l/19/f2/35961_crt_dvBpb.jpg?r=1443890477",
+          "sourcePage": "https://bgm.tv/character/35961",
+          "sourceStyle": "anime-color-single-character",
+          "width": 400,
+          "height": 273,
+          "sha256": "b0ad65368e183fe4d67ceb9bd4b07eba73cfc515ba63891635cfc5eda975a3a0"
+        }
+      ]
+    },
+    {
+      "id": "kurono",
+      "name": "新宫寺黑乃",
+      "aliases": [
+        "新宮寺黑乃",
+        "新宮寺黒乃",
+        "黑乃",
+        "黒乃",
+        "Kurono Shinguji",
+        "Kurono Shinguuji"
+      ],
+      "file": "kurono.jpg",
+      "sourceUrl": "https://img.animatetimes.com/news/visual/2015/1443762625_1_10_5f3afcb6135721b0c53d7cabf7d70fc2.jpg",
+      "sourcePage": "https://www.animatetimes.com/tag/details.php?id=5494",
+      "hasShieldFrame": false,
+      "sourceStyle": "anime-color-closeup",
+      "sourceStatus": "missing-original-curved-shield",
+      "notes": "AnimateTimes 具名角色介绍中的彩色动画单人图，原图无盾形；终端以衍生盾框呈现，原图不改。",
+      "width": 640,
+      "height": 360,
+      "sha256": "8e2c35bfa606a3cd5f69601530e1bd600d55f3b68add2650c384ad9df11c5999",
+      "imageUrl": "",
+      "displayFile": "prepared/kurono.png",
+      "preparation": {
+        "method": "closed-shield-region-face-aware-crop-v1",
+        "sourceFile": "kurono.jpg",
+        "sourceSha256": "8e2c35bfa606a3cd5f69601530e1bd600d55f3b68add2650c384ad9df11c5999",
+        "crop": {
+          "left": 171,
+          "top": 0,
+          "width": 299,
+          "height": 360
+        },
+        "outputWidth": 434,
+        "outputHeight": 580,
+        "sha256": "ad28a366fa0686f5a1669e1dff3d375b15fbc4df42561515b8a997bef6cbc197"
+      }
+    },
+    {
+      "id": "yuri",
+      "name": "折木有里",
+      "aliases": [
+        "有里",
+        "Yuri Oreki",
+        "折木 有里"
+      ],
+      "file": "yuri.jpg",
+      "sourceUrl": "https://img.animatetimes.com/news/visual/2015/1444211000_1_10_2c97958f3ed0153aabd8ec53b8020a5b.jpg",
+      "sourcePage": "https://www.animatetimes.com/tag/details.php?id=5494",
+      "hasShieldFrame": false,
+      "sourceStyle": "anime-color-closeup",
+      "sourceStatus": "missing-original-curved-shield",
+      "notes": "AnimateTimes 具名角色介绍中的彩色动画单人图，原图无盾形；终端以衍生盾框呈现，原图不改。",
+      "width": 640,
+      "height": 360,
+      "sha256": "66b106f61567a9e8c6bb16df8301909a5b284bd65db0842ff9c744f7cd7239c1",
+      "imageUrl": "",
+      "displayFile": "prepared/yuri.png",
+      "preparation": {
+        "method": "closed-shield-region-face-aware-crop-v1",
+        "sourceFile": "yuri.jpg",
+        "sourceSha256": "66b106f61567a9e8c6bb16df8301909a5b284bd65db0842ff9c744f7cd7239c1",
+        "crop": {
+          "left": 208,
+          "top": 7,
+          "width": 206,
+          "height": 248
+        },
+        "outputWidth": 434,
+        "outputHeight": 580,
+        "sha256": "1dc9497f5bcad73cacd0b819fc04d38e5e0f357e58c53916bb2505decdfb8722"
+      }
+    }
+  ],
+  "missingPortraits": [
+    {
+      "name": "日下部加加美",
+      "aliases": [
+        "日下部加々美"
+      ],
+      "status": "no-verified-portrait"
+    },
+    {
+      "name": "绫辻海斗",
+      "aliases": [
+        "綾辻海斗"
+      ],
+      "status": "no-verified-portrait"
+    }
+  ]
+}

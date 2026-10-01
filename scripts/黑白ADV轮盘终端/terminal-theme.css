@@ -78,6 +78,21 @@ button:focus-visible,[role=button]:focus-visible{outline:2px solid var(--ink);ou
 .noble-art-title{font:600 14px/1.55 var(--font-title);gap:5px}.noble-art-desc{line-height:1.8;font-size:12px}
 .roster-list{padding:0 12px;gap:10px}.roster-card{padding:10px;border:1px solid var(--ink);border-radius:0;box-shadow:2px 2px 0 var(--hair)}
 .roster-card:hover{background:var(--card2)}.roster-ava,.lime-avatar{border-radius:0;border:1px solid var(--ink);background:var(--ink);color:var(--screen);font-family:var(--font-title);font-size:21px}
+.roster-ava.rk-knight-avatar{position:relative;width:60px;height:80px;flex:0 0 60px;border:0;background:transparent;box-shadow:none;overflow:hidden;color:var(--ink)}
+.roster-ava.rk-knight-avatar--compact{width:56px;height:74px;flex-basis:56px}
+.rk-knight-avatar .rk-avatar-initial{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:var(--card2);border:1px solid var(--hair);color:var(--ink);font-size:24px}
+.rk-knight-avatar .rk-avatar-canvas{position:absolute;left:50%;top:50%;width:100%;height:100%;transform:translate(-50%,-50%)}
+.rk-knight-avatar .rk-avatar-portrait{position:absolute;inset:0}
+.rk-knight-avatar .rk-avatar-portrait--masked{mask-size:100% 100%;mask-repeat:no-repeat;-webkit-mask-size:100% 100%;-webkit-mask-repeat:no-repeat}
+.rk-knight-avatar .rk-avatar-image,.rk-knight-avatar .rk-avatar-frame{position:absolute;display:block;width:100%;height:100%;inset:0;object-fit:contain;pointer-events:none}
+.rk-knight-avatar--plain .rk-avatar-image{left:10%;top:18%;width:80%;height:66%;object-fit:cover;object-position:center 25%;clip-path:polygon(0 0,22% 4%,50% 0,78% 4%,100% 0,100% 42%,92% 64%,74% 85%,50% 100%,26% 85%,8% 64%,0 42%)}
+.rk-knight-avatar--plain .rk-avatar-portrait--masked .rk-avatar-image{clip-path:none}
+.rk-knight-avatar .rk-avatar-frame{z-index:1;filter:invert(1)}
+:root[data-rk-theme="light"] .rk-knight-avatar .rk-avatar-frame{filter:invert(0)}
+.rk-knight-avatar.rk-avatar-ready .rk-avatar-initial{display:none}
+.rk-knight-avatar.rk-avatar-failed .rk-avatar-image,.rk-knight-avatar.rk-avatar-failed .rk-avatar-frame{display:none}
+.rk-knight-avatar.rk-avatar-failed .rk-avatar-initial{display:flex}
+.lime-chat-profile{display:flex;align-items:center;gap:10px}
 .roster-name-row{flex-wrap:wrap;gap:4px}.roster-name{font-size:12px}.roster-rank{border-radius:0;background:var(--ink);color:var(--screen);border:1px solid var(--ink)}
 .lime-row{padding:14px 12px;border-bottom:1px solid var(--hair)}.lime-name{font-size:13px}.lime-time{font-size:10px}.lime-last{font-size:11px}.lime-row:hover{background:var(--card2)}
 #lime-body:has(.chat-body){display:flex;flex-direction:column;overflow:hidden}#lime-body .chat-body{flex:1}#lime-body .tactical-actions-bar,#lime-body .chat-compose{flex:none}

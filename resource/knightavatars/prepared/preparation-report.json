@@ -1,0 +1,114 @@
+{
+  "method": "closed-shield-region-face-aware-crop-v1",
+  "frameSha256": "022c0636808ed39c5804a24c3f90335867d8ca99c2d6d701f8f6c0b7b4caae99",
+  "maskArea": 866460,
+  "shieldBounds": {
+    "left": 21,
+    "top": 44,
+    "width": 393,
+    "height": 472
+  },
+  "outputWidth": 434,
+  "outputHeight": 580,
+  "characters": [
+    {
+      "id": "nagi",
+      "sourceFile": "color/nagi.jpg",
+      "crop": {
+        "left": 352,
+        "top": 80,
+        "width": 314,
+        "height": 378
+      },
+      "displayFile": "prepared/nagi.png"
+    },
+    {
+      "id": "kirihara",
+      "sourceFile": "color/kirihara.jpg",
+      "crop": {
+        "left": 383,
+        "top": 86,
+        "width": 277,
+        "height": 333
+      },
+      "displayFile": "prepared/kirihara.png"
+    },
+    {
+      "id": "kuraudo",
+      "sourceFile": "color/kuraudo.jpg",
+      "crop": {
+        "left": 394,
+        "top": 118,
+        "width": 259,
+        "height": 312
+      },
+      "displayFile": "prepared/kuraudo.png"
+    },
+    {
+      "id": "renren",
+      "sourceFile": "color/renren.jpg",
+      "crop": {
+        "left": 373,
+        "top": 64,
+        "width": 278,
+        "height": 335
+      },
+      "displayFile": "prepared/renren.png"
+    },
+    {
+      "id": "misogi",
+      "sourceFile": "color/misogi.jpg",
+      "crop": {
+        "left": 358,
+        "top": 202,
+        "width": 273,
+        "height": 329
+      },
+      "displayFile": "prepared/misogi.png"
+    },
+    {
+      "id": "kanata",
+      "sourceFile": "color/kanata.jpg",
+      "crop": {
+        "left": 364,
+        "top": 169,
+        "width": 317,
+        "height": 381
+      },
+      "displayFile": "prepared/kanata.png"
+    },
+    {
+      "id": "nene",
+      "sourceFile": "nene-fullbody.jpg",
+      "crop": {
+        "left": 139,
+        "top": 37,
+        "width": 159,
+        "height": 192
+      },
+      "displayFile": "prepared/nene.png"
+    },
+    {
+      "id": "kurono",
+      "sourceFile": "kurono.jpg",
+      "crop": {
+        "left": 171,
+        "top": 0,
+        "width": 299,
+        "height": 360
+      },
+      "displayFile": "prepared/kurono.png"
+    },
+    {
+      "id": "yuri",
+      "sourceFile": "yuri.jpg",
+      "crop": {
+        "left": 208,
+        "top": 7,
+        "width": 206,
+        "height": 248
+      },
+      "displayFile": "prepared/yuri.png"
+    }
+  ]
+}

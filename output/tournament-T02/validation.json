@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 1,
+  "deliveryMode": "component",
+  "engine": "T02",
+  "storageVersion": "T01",
+  "terminalVersion": "1.3.11",
+  "date": "2026-09-30",
+  "artifacts": [
+    {
+      "file": "scripts/酒馆助手脚本-小手机-黑白ADV轮盘版-v1.3.11.json",
+      "sha256": "6b11dc443c394c68c87b9a6c91a050654c28d83871b6f8fdbc5b75baa15f0945",
+      "previousFile": "scripts/酒馆助手脚本-小手机-黑白ADV轮盘版-v1.3.10.json",
+      "previousSha256": "844849314b8e0094480bb64d45cbdf1907d39b7e05ad2007f17e5261b2ae4abd",
+      "id": "ee190b2f-d2ba-44b4-9f1b-0695c07fefc5",
+      "unchangedIdentityEnabledButtonsData": true,
+      "exportPolicy": "added explicit false flags for empty data/buttons to match helper export schema"
+    },
+    {
+      "file": "世界书规则/MVU/落第骑士-MVU-v4字段约束.json",
+      "sha256": "1472e5b57ce3b74d540cbc8e98f59f6502317f2ca259535db13a73f1a1ae32c3",
+      "previousFile": "世界书规则/MVU/落第骑士-MVU-v4字段约束.json",
+      "previousSha256": "9c3415024c63e9213d30fd263715381fba2bf315e13f912010c902b6bae7a69c",
+      "id": "06117475-a08c-4d78-a886-3d26426c4b37",
+      "unchangedIdentityEnabledButtonsData": true,
+      "exportPolicy": "preserved"
+    }
+  ],
+  "sources": [
+    {
+      "file": "scripts/rakudai-tournament.mjs",
+      "sha256": "03eeba2c3c5609d15abd92364bf841de17845c480a73cb43d8abafc86707d45e",
+      "previousSha256": "7b007d4a8beb9eb992f1e18073634d452035168b0e0b3523a4cdc554ea356508"
+    },
+    {
+      "file": "scripts/rakudai-tournament-calendar.mjs",
+      "sha256": "b6df2265a4e9ad3eea78c55a4579430aea9488155abe6e8e98e32aa77816384e",
+      "previousSha256": null
+    },
+    {
+      "file": "scripts/rakudai-tournament-background.mjs",
+      "sha256": "a1681a2557fbdef3e359ecc1fbaba87ced21d09ebe817b9fc611592c45468733",
+      "previousSha256": null
+    },
+    {
+      "file": "scripts/story/tournament-calendar-2013.json",
+      "sha256": "2ca96d90684dd40d8fae4a26180adaf45c190d68280543edf4f6557f6dde7be1",
+      "previousSha256": null
+    },
+    {
+      "file": "scripts/黑白ADV轮盘终端/terminal-app.js",
+      "sha256": "476d255f9c0c2516591009c916d7caa032b58469c4a74c7114e0bc5666b4a736",
+      "previousSha256": "91e1fb38b0cb0d0bf7c680cd3f40265790f1e4a3a99dd6f08c625a79eef4499f"
+    },
+    {
+      "file": "scripts/黑白ADV轮盘终端/correction.js",
+      "sha256": "ccb0cf9f38d6534d585570ded237cb1f29b6a0b272ef402b3b3a4df8a94a9a8b",
+      "previousSha256": "722335051f5b93b00ddf8fa0d58a17ae2f3f78c60559b746d26841d2b1df0cf2"
+    }
+  ],
+  "tests": {
+    "newRegression": {
+      "passed": 51,
+      "total": 51,
+      "calendar": 10,
+      "core": 29,
+      "guardEvent": 4,
+      "uiAndCorrection": 8
+    },
+    "packaging": {
+      "passed": 9,
+      "total": 9
+    },
+    "shell": {
+      "passed": 9,
+      "total": 9
+    },
+    "componentSchema": {
+      "passed": 2,
+      "total": 2
+    },
+    "controllerSourceParity": true,
+    "gitDiffCheck": true
+  },
+  "legacyTests": {
+    "allGreen": false,
+    "stateV4": {
+      "passed": 20,
+      "total": 23,
+      "baseline": "same three failures observed before this repair"
+    },
+    "stateReader": {
+      "passed": 6,
+      "total": 9,
+      "baseline": "Source and test normalized SHA-256 match git HEAD; unchanged pre-existing failures"
+    },
+    "statePanel": {
+      "passed": 0,
+      "total": 11,
+      "reason": "test fixture lacks generationPending",
+      "baseline": "Source and test normalized SHA-256 match git HEAD; unchanged pre-existing fixture failure"
+    },
+    "smoke": {
+      "passed": 24,
+      "total": 30,
+      "baseline": "Ran identical smoke tests with tracked modules/raw sources/artifacts loaded from git HEAD 8531d88 using a temporary preload and ESM loader: both HEAD and working tree 24/30, exactly the same six failed names",
+      "failedNames": [
+        "当前页无MVU时不回退到旧页或旧楼层",
+        "空名册不预填四人或世界书人物",
+        "空 MVU 槽错误仍保留来源，并清除上一个槽的人物",
+        "好感未计分与真实零分分开呈现，不替旧阶段倒填支援值",
+        "重复启动及销毁均移除旧订阅",
+        "事件历史逐条显示所属卷，旧缺卷事件提示迁移且文本仍转义"
+      ]
+    },
+    "newFailuresDetected": false
+  },
+  "acceptance": {
+    "date": "2013-05-29",
+    "defaultShizuku": "9-0",
+    "actual": "Player OC wins R9 against Shizuku",
+    "result": "Shizuku 8-1, actual match 90 points, player total remains unknown if R1-8 missing",
+    "oldCheckpoint": "If confirmed Shizuku pre-match wins=5, preserve 60 points and leave earlier missing matches unknown"
+  },
+  "componentContract": {
+    "stableIDs": true,
+    "existingEnabledButtonsDataPreserved": true,
+    "fullCardRepacked": false,
+    "wholeWorldbookRepacked": false
+  },
+  "live": {
+    "tested": false,
+    "realChatWrites": 0,
+    "pending": [
+      "Import replacement terminal and guard into SillyTavern",
+      "Replace four relevant rules text entries per QUICKSTART",
+      "Verify real current-branch scene date and actual result display"
+    ]
+  },
+  "rawTestEvidence": "test-output.json",
+  "baselineCommit": "8531d88885d8d250dd1e2a0a081306daf34c3630"
+}

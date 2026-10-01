@@ -250,6 +250,24 @@
   box-shadow: none;
 }
 
+#blazer-body.gba-status .roster-ava.rk-knight-avatar {
+  width: 60px;
+  height: 80px;
+  flex-basis: 60px;
+  border: 0;
+  background: transparent;
+  color: var(--gba-ink);
+}
+
+#blazer-body.gba-status .rk-avatar-initial {
+  background: var(--gba-gold);
+  color: var(--gba-ink);
+  border: 2px solid var(--gba-ink);
+}
+
+/* 名册标题始终是深蓝色；只提高复用黑色盾边的对比，不改人物色彩。 */
+#blazer-body.gba-status .rk-avatar-frame { filter: invert(1); }
+
 #blazer-body.gba-status .roster-info {
   flex: 1 1 auto;
   min-width: 0;

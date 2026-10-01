@@ -4,6 +4,7 @@ import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 import { parse } from 'parse5';
 import sourceMap from 'source-map-js';
+import { buildKnightAvatarCatalog } from './knight-avatars.mjs';
 import { GROWTH_RULES, RELATIONSHIP_SCORING, supportStage, romanceStage } from '../../世界书规则/MVU/schema.mjs';
 
 export const directory = path.dirname(fileURLToPath(import.meta.url));
@@ -73,6 +74,7 @@ function mappedSource(filename, version) {
 
 function buildApp(version) {
   let html = read('terminal-app.html');
+  const knightAvatars = buildKnightAvatarCatalog();
   const appModules = ['terminal-app.js', 'terminal-controls.js'];
   const cssModules = ['terminal-app.css', 'terminal-theme.css', 'terminal-status.css'];
   const seen = new Set();
@@ -92,6 +94,7 @@ function buildApp(version) {
     if (/<\/script(?:\s|\/|>)|<!--|<script(?:\s|\/|>)/i.test(raw)) throw new Error(file + ' 含会改变 HTML script 解析状态的文本');
     const builder = mappedSource(file, version);
     builder.append(raw, file);
+    if (file === 'terminal-app.js') builder.append('\nvar RK_KNIGHT_AVATARS = ' + jsString(knightAvatars) + ';\n');
     return '<script>' + builder.finish().code + '</script>';
   });
   for (const file of [...appModules, ...cssModules]) if (!seen.has(file)) throw new Error('页面未引入模块：' + file);
@@ -132,8 +135,8 @@ export function buildTerminal() {
   const artifact = {
     type: 'script', enabled: true, name: '落第骑士·黑白ADV轮盘终端 v' + version,
     id: 'ee190b2f-d2ba-44b4-9f1b-0695c07fefc5', content: built.code,
-    info: 'v' + version + ' / G04 / T01：成长类型与方式自由填写，多目标单经验为总量均分，经验数组逐项对应；每目标每完整回复上限' + GROWTH_RULES.perReplyCap + '，连续晋级并保留余量。主副API共用业务修正与数字终值，坏成长申请局部提示。选拔赛按本局名册和比赛记录重算战绩与积分，学园圈、赛程、排名和日历共用账本，未知战绩不补原著胜负；同场纠错不重复发分，拒绝重复对手和同轮多赛。副API输出上限30000，等待本轮主MVU保存后自动处理，只核对MVU标签与变量，正文/生图刷新不取消。酒馆右上角显示处理和重试状态，密钥本机持久保存。保留原生布尔觉醒、G03/P02、F01、S01和MVU01兼容能力。需同步替换说明含G04/T01的v4约束与三份MVU TXT；只启用一份终端和约束，不重打整卡或整本世界书。',
-    button: { enabled: true, buttons: [] }, data: {},
+    info: 'v' + version + ' / G04 / T02：成长类型与方式自由填写，多目标单经验为总量均分，经验数组逐项对应；每目标每完整回复上限' + GROWTH_RULES.perReplyCap + '，连续晋级并保留余量。主副API共用业务修正与数字终值，坏成长申请局部提示。选拔赛读取2013年剧情日历，合并固定背景推演与实际赛果统一计分；OC实际获胜优先于正典走势，玩家缺场待补；学园圈与赛程显示推演来源，日历保留实际比赛；同场纠错不重复发分，拒绝重复对手和同轮多赛。副API输出上限30000，等待本轮主MVU保存后自动处理，只核对MVU标签与变量，正文/生图刷新不取消。酒馆右上角显示处理和重试状态，密钥本机持久保存。保留原生布尔觉醒、G03/P02、F01、S01和MVU01兼容能力。需同步替换说明含G04/T02的v4约束与三份MVU TXT；只启用一份终端和约束，不重打整卡或整本世界书。',
+    button: { enabled: true, buttons: [] }, data: {}, export_with: { data: false, button: false },
   };
   return { artifact, html, map: built.map, version };
 }

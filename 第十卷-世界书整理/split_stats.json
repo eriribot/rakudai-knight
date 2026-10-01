@@ -1,0 +1,50 @@
+[
+  {
+    "file": "第十卷_序章_来自地狱的蜘蛛.txt",
+    "title": "序章 来自地狱的蜘蛛",
+    "start_line": 3,
+    "end_line": 85,
+    "line_count": 83,
+    "char_count": 872
+  },
+  {
+    "file": "第十卷_第一章_庆典结束之后.txt",
+    "title": "第一章 庆典结束之后",
+    "start_line": 86,
+    "end_line": 1930,
+    "line_count": 1845,
+    "char_count": 24035
+  },
+  {
+    "file": "第十卷_第二章_深海魔女与白衣骑士.txt",
+    "title": "第二章 〈深海魔女〉与〈白衣骑士〉",
+    "start_line": 1931,
+    "end_line": 2369,
+    "line_count": 439,
+    "char_count": 5198
+  },
+  {
+    "file": "第十卷_第三章_法米利昂皇国.txt",
+    "title": "第三章 法米利昂皇国",
+    "start_line": 2370,
+    "end_line": 5642,
+    "line_count": 3273,
+    "char_count": 38085
+  },
+  {
+    "file": "第十卷_第四章_惨剧开幕.txt",
+    "title": "第四章 惨剧开幕",
+    "start_line": 5643,
+    "end_line": 6327,
+    "line_count": 685,
+    "char_count": 8517
+  },
+  {
+    "file": "第十卷_后记.txt",
+    "title": "后记",
+    "start_line": 6328,
+    "end_line": 6358,
+    "line_count": 31,
+    "char_count": 499
+  }
+]

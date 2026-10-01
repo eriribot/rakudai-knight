@@ -1,0 +1,20 @@
+[
+  {
+    "file": "scripts/酒馆助手脚本-小手机-黑白ADV轮盘版-v1.3.11.json",
+    "sha256": "6b11dc443c394c68c87b9a6c91a050654c28d83871b6f8fdbc5b75baa15f0945",
+    "previousFile": "scripts/酒馆助手脚本-小手机-黑白ADV轮盘版-v1.3.10.json",
+    "previousSha256": "844849314b8e0094480bb64d45cbdf1907d39b7e05ad2007f17e5261b2ae4abd",
+    "id": "ee190b2f-d2ba-44b4-9f1b-0695c07fefc5",
+    "unchangedIdentityEnabledButtonsData": true,
+    "exportPolicy": "added explicit false flags for empty data/buttons to match helper export schema"
+  },
+  {
+    "file": "世界书规则/MVU/落第骑士-MVU-v4字段约束.json",
+    "sha256": "1472e5b57ce3b74d540cbc8e98f59f6502317f2ca259535db13a73f1a1ae32c3",
+    "previousFile": "世界书规则/MVU/落第骑士-MVU-v4字段约束.json",
+    "previousSha256": "9c3415024c63e9213d30fd263715381fba2bf315e13f912010c902b6bae7a69c",
+    "id": "06117475-a08c-4d78-a886-3d26426c4b37",
+    "unchangedIdentityEnabledButtonsData": true,
+    "exportPolicy": "preserved"
+  }
+]

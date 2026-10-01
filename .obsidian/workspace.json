@@ -1,0 +1,215 @@
+{
+  "main": {
+    "id": "586b8455377e10a9",
+    "type": "split",
+    "children": [
+      {
+        "id": "bc68055f802358a8",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "df10fbcad984cb29",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "第四卷-世界书整理/人物条目/平贺玲泉.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "平贺玲泉"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "f95efb0f9fd47e3d",
+    "type": "split",
+    "children": [
+      {
+        "id": "a2e7def9ab79cbee",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "56de266b2069f7fc",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
+            }
+          },
+          {
+            "id": "16dfde4013736d93",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
+            }
+          },
+          {
+            "id": "0f27d485d5a8394c",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-bookmark",
+              "title": "书签"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "8cac25ac75d3bf31",
+    "type": "split",
+    "children": [
+      {
+        "id": "0e7b63d733bc85bd",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "bb7dd526f47f2a16",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "反向链接"
+            }
+          },
+          {
+            "id": "21785105cdf79615",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "出链"
+            }
+          },
+          {
+            "id": "e8ca605132af893c",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          },
+          {
+            "id": "c8b40620a2bbee25",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "添加笔记属性"
+            }
+          },
+          {
+            "id": "0c1e349de3d3fdd8",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "大纲"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false,
+      "bases:新建数据库": false
+    }
+  },
+  "active": "df10fbcad984cb29",
+  "lastOpenFiles": [
+    "人物仔细考究/恶之华_艾茵_Ein.md",
+    "人物仔细考究/不转杀手_多多良幽衣_菲亚.md",
+    "人物仔细考究",
+    "scratch/vol13_nassim_fight.txt",
+    "scratch/get_v13_fight.py",
+    "scratch/real_file.txt",
+    "scratch/get_nassim_fight.py",
+    "scratch/found_passage_2.txt",
+    "scratch/found_passage_1.txt",
+    "scratch/save_passages.py",
+    "scratch/found_passage.txt",
+    "scratch/save_sea_king.py",
+    "resource/knightavatars/color/kanata.jpg",
+    "resource/knightavatars/color/misogi.jpg",
+    "resource/knightavatars/color/renren.jpg",
+    "resource/knightavatars/color/kuraudo.jpg",
+    "resource/knightavatars/color/kirihara.jpg",
+    "resource/knightavatars/color/nagi.jpg",
+    "resource/knightavatars/prepared/contact-sheet.png",
+    "resource/knightavatars/prepared/yuri.png",
+    "resource/knightavatars/prepared/kurono.png",
+    "resource/knightavatars/prepared/nene.png",
+    "resource/knightavatars/README.md",
+    "第八卷-世界书整理/人物条目/浅木椛.md"
+  ]
+}

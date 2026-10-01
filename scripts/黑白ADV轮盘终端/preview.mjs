@@ -46,14 +46,23 @@ function makeSamples() {
   const highest = JSON.parse(JSON.stringify(numeric));
   highest.人际.协作教员乙.好感 = 1000;
   highest.人际.协作教员乙.变化依据 = '虚拟样本：女性好感达到生死相随门槛。';
-  return { numeric, legacy, highest };
+  const avatars = JSON.parse(JSON.stringify(numeric));
+  avatars.人际 = {};
+  ['史黛菈·法米利昂', '绫辻绚濑', '有栖院凪', '御祓泡沫', '西京宁音', '原创同行'].forEach((name, index) => {
+    avatars.人际[name] = {
+      关系: '离线演示中登记的同伴', 态度印象: '仅用于比较盾形头像与首字回退，不代表本局关系。',
+      好感: 100, 支援度: 80, 羁绊阶段: supportStage(80), 已加联系方式: index % 2 === 0,
+    };
+  });
+  return { numeric, legacy, highest, avatars };
 }
 
 function previewRuntime() {
   const frame = document.getElementById('preview-frame');
   const frameWrap = document.getElementById('preview-frame-wrap');
   const status = document.getElementById('preview-status');
-  let selected = 'numeric';
+  const query = new URLSearchParams(window.location.search);
+  let selected = ['numeric', 'highest', 'legacy', 'empty', 'avatars'].includes(query.get('sample')) ? query.get('sample') : 'numeric';
   let theme = 'dark';
   let app = null;
   const subscribers = new Set();
@@ -62,6 +71,7 @@ function previewRuntime() {
     highest: '虚拟上限样本：女性好感 1000 显示生死相随；男性同为 1000 仍只展示好感和支援。',
     legacy: '虚拟旧记录：好感为 null，支援度缺失或 null；原 C / A 仅作为旧字母显示，分数保持待核定。',
     empty: '虚拟第 8 楼的另一回复槽未保存 MVU：应清空此前人物，显示当前槽未就绪，不借用上一回复。',
+    avatars: '虚拟头像样本：史黛菈和绚濑保留原版盾形全图；有栖院、泡沫与宁音使用独立定位的彩色合成头像，按真实盾口裁切；原创同行保留首字。可在手机首页打开 LIME 比较通讯录。',
   };
   function source() {
     return { chatId: 'offline-preview', messageId: selected === 'legacy' ? 6 : 8,
@@ -122,8 +132,8 @@ function previewRuntime() {
         openStoryControls() { status.textContent = '离线预览不执行建档或剧情写入。'; },
       },
     });
-    app.openApp('blazer');
-    app.switchBlazerTab('roster');
+    if (selected === 'avatars' && query.get('view') === 'lime') app.openApp('lime');
+    else { app.openApp('blazer'); app.switchBlazerTab('roster'); }
     updateDescription();
   });
   updateDescription();
@@ -157,6 +167,7 @@ iframe{display:block;width:100%;height:min(760px,80vh);min-height:420px;border:0
 <button type="button" data-sample="highest" aria-pressed="false">女性好感 1000</button>
 <button type="button" data-sample="legacy" aria-pressed="false">旧 null · 待核定</button>
 <button type="button" data-sample="empty" aria-pressed="false">另一回复 · 空槽</button></div>
+<div class="controls"><button type="button" data-sample="avatars" aria-pressed="false">盾形头像</button></div>
 <div class="controls" aria-label="预览显示条件">
 <button type="button" data-theme="dark" aria-pressed="true">黑色外壳</button><button type="button" data-theme="light" aria-pressed="false">白色外壳</button>
 <label>容器宽度 <select id="preview-width"><option value="320">320 px</option><option value="420" selected>420 px</option><option value="560">560 px</option></select></label></div>

@@ -235,7 +235,7 @@ function installRakudaiMvuGuard(schema) {
       if (typeof toastr !== 'undefined') toastr.info(message, '成长结算');
     }
   });
-  const marker = { version: '4.0.0', automaticStoryProgress: true, scheduleAndRoster: true, rosterPermanentRemoval: true, contactBaseline: 'C02', relationshipScoring: RELATIONSHIP_SCORING.version, growth: GROWTH_RULES.version, settlement: 'G04', growthSettlement: 'G04', tournament: 'T01', repair: 'P02', repairSource: 'MVU01', storyRepair: 'S01', flexibleRepair: 'F01', parseRepair };
+  const marker = { version: '4.0.0', automaticStoryProgress: true, scheduleAndRoster: true, rosterPermanentRemoval: true, contactBaseline: 'C02', relationshipScoring: RELATIONSHIP_SCORING.version, growth: GROWTH_RULES.version, settlement: 'G04', growthSettlement: 'G04', tournament: 'T01', tournamentEngine: 'T02', repair: 'P02', repairSource: 'MVU01', storyRepair: 'S01', flexibleRepair: 'F01', parseRepair };
   H.__RK_MVU_GUARD_V4__ = marker;
   window.__RK_MVU_GUARD_V4__ = marker;
   try { if (window.parent) window.parent.__RK_MVU_GUARD_V4__ = marker; } catch (_) {}

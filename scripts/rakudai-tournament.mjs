@@ -1,4 +1,7 @@
-// T01：选拔赛只保存名册与逐场事实；积分每次从记录重算，不写累加缓存。
+import { TOURNAMENT_CANON, identifyTournamentPlayer, seedTournamentRoster, projectTournamentBackground } from './rakudai-tournament-background.mjs';
+import { tournamentCalendar, parseTournamentDate } from './rakudai-tournament-calendar.mjs';
+
+// T01兼容存档 / T02引擎：实际账本与日期背景投影合并后统一重算。
 // 本模块无宿主、网络和 schema 依赖，可同时用于 MVU 校验与终端视图。
 export const TOURNAMENT_VERSION = 'T01';
 const tournamentStates = ['未开始', '进行中', '已结束'];
@@ -12,7 +15,7 @@ const copy = value => structuredClone(value);
 const natural = value => Number.isSafeInteger(value) && value >= 0;
 const nonblank = value => typeof value === 'string' && Boolean(value.trim());
 const fixtures = { 1: '桐原静矢', 9: '兔丸恋恋', 11: '绫辻绚濑', 20: '东堂刀华' };
-const canon = ['黑铁一辉', '史黛菈·法米利昂', '东堂刀华', '黑铁珠雫', '贵德原彼方', '叶暮牡丹', '叶暮桔梗', '有栖院凪', '兔丸恋恋', '碎城雷', '绫辻绚濑', '桐原静矢', '桃谷武士', '管茂信'];
+const canon = TOURNAMENT_CANON;
 
 // 仅补容器和显示默认值，不猜比赛、初始胜场、初始积分或命定胜负。
 export function normalizeTournament(value) {
@@ -27,16 +30,20 @@ export function normalizeTournament(value) {
   next.模式 = '跟随系统';
   next.名册 ??= {};
   next.比赛 ??= {};
+  // 派生缓存绝不是计分输入；读档、主副API和手动入口统一清理。
+  for (const key of ['积分', '排名', '榜单']) delete next[key];
   if (object(next.名册)) for (const entry of Object.values(next.名册)) {
     if (!object(entry)) continue;
     entry.来源 ??= '原创';
     entry.参赛状态 ??= '参赛';
+    for (const key of ['胜场', '败场', '积分', '排名', '程序推演', '推演版本']) delete entry[key];
     // null 是显式清除旧基线；省略字段仍由操作入口保留旧值。
     if (entry.初始战绩 === null) delete entry.初始战绩;
   }
   if (object(next.比赛)) for (const entry of Object.values(next.比赛)) {
     if (!object(entry)) continue;
     entry.状态 ??= '待定';
+    for (const key of ['积分', '排名', '程序推演', '推演版本']) delete entry[key];
     for (const key of ['日期', '时间', '地点', '依据']) entry[key] ??= '';
     // 表单的未填可选项不是一个空 ID，也不是零胜。
     for (const key of ['胜者', '弃权方', '甲赛前胜场', '乙赛前胜场']) if (entry[key] === '' || entry[key] === null) delete entry[key];
@@ -50,6 +57,8 @@ function tournamentIssues(tournament) {
   if (tournament.版本 !== TOURNAMENT_VERSION) add('选拔赛版本应为 T01');
   if (!nonblank(tournament.赛季)) add('赛季名称不能为空');
   if (!tournamentStates.includes(tournament.状态)) add('选拔赛状态无效');
+  if (tournament.结束日期 !== undefined && !parseTournamentDate(tournament.结束日期)) add('赛季结束日期无效');
+  if (tournament.一辉拘押 !== undefined && typeof tournament.一辉拘押 !== 'boolean') add('一辉拘押须为明确布尔事实');
   if (!Number.isSafeInteger(tournament.总轮次) || tournament.总轮次 < 1) add('总轮次须为正整数');
   if (!Number.isSafeInteger(tournament.代表名额) || tournament.代表名额 < 1) add('代表名额须为正整数');
   if (!Number.isSafeInteger(tournament.号池规模) || tournament.号池规模 < 2) add('号池规模须至少为 2');
@@ -60,6 +69,9 @@ function tournamentIssues(tournament) {
     if (!nonblank(person.姓名)) add(`名册 ${id} 缺少姓名`);
     if (!sources.includes(person.来源)) add(`名册 ${id} 来源无效`);
     if (!participantStates.includes(person.参赛状态)) add(`名册 ${id} 参赛状态无效`);
+    if (id.startsWith('__rk_bg_')) add(`名册 ${id} 使用了程序保留ID`);
+    if (person.入赛轮次 !== undefined && (!Number.isInteger(person.入赛轮次) || person.入赛轮次 < 1 || person.入赛轮次 > tournament.总轮次)) add(`名册 ${id} 入赛轮次无效`);
+    if (person.退赛日期 !== undefined && !parseTournamentDate(person.退赛日期)) add(`名册 ${id} 退赛日期无效`);
     const baseline = person.初始战绩;
     if (baseline !== undefined) {
       if (!object(baseline)) { add(`名册 ${id} 初始战绩必须是对象`); continue; }
@@ -75,6 +87,7 @@ function tournamentIssues(tournament) {
   }
   const pairs = new Set(), occupied = new Set();
   for (const [id, match] of Object.entries(tournament.比赛)) {
+    if (id.startsWith('__rk_bg_')) add(`比赛 ${id} 使用了程序保留ID；请另登记真实比赛`);
     if (!nonblank(id) || unsafeKeys.has(id)) add('比赛 ID 无效');
     if (!object(match)) { add(`比赛 ${id} 必须是对象`); continue; }
     if (!Number.isSafeInteger(match.轮次) || match.轮次 < 1 || match.轮次 > tournament.总轮次) add(`比赛 ${id} 轮次超出赛季范围`);
@@ -105,6 +118,7 @@ function tournamentIssues(tournament) {
       if (occupied.has(key)) add(`比赛 ${id} 同一选手同轮有多个对局`);
       occupied.add(key);
       const baseline = tournament.名册[participantId]?.初始战绩;
+      if (match.轮次 < (tournament.名册[participantId]?.入赛轮次 || 1)) add(`比赛 ${id} 早于 ${participantId} 的入赛轮次`);
       if (baseline && match.轮次 <= baseline.截至轮次) add(`比赛 ${id} 与 ${participantId} 的初始战绩覆盖轮次重叠`);
     }
   }
@@ -115,9 +129,9 @@ function tournamentIssues(tournament) {
 export function createTournamentSchema(z) {
   const count = () => z.number().int().min(0).max(Number.MAX_SAFE_INTEGER);
   const baseline = z.object({ 截至轮次: count(), 胜场: count(), 败场: count(), 积分: count().optional(), 依据: z.string().min(1) }).passthrough();
-  const participant = z.object({ 姓名: z.string().min(1), 来源: z.enum(sources), 参赛状态: z.enum(participantStates), 初始战绩: baseline.optional() }).passthrough();
+  const participant = z.object({ 姓名: z.string().min(1), 来源: z.enum(sources), 参赛状态: z.enum(participantStates), 入赛轮次: count().optional(), 退赛日期: z.string().optional(), 初始战绩: baseline.optional() }).passthrough();
   const match = z.object({ 轮次: count(), 甲方: z.string().min(1), 乙方: z.string().min(1), 日期: z.string(), 时间: z.string(), 地点: z.string(), 状态: z.enum(matchStates), 胜者: z.string().optional(), 弃权方: z.string().optional(), 甲赛前胜场: count().optional(), 乙赛前胜场: count().optional(), 依据: z.string() }).passthrough();
-  return z.preprocess(normalizeTournament, z.object({ 版本: z.literal(TOURNAMENT_VERSION), 赛季: z.string().min(1), 状态: z.enum(tournamentStates), 总轮次: count(), 代表名额: count(), 号池规模: count(), 模式: z.literal('跟随系统'), 名册: z.record(z.string(), participant), 比赛: z.record(z.string(), match) }).passthrough().superRefine((value, ctx) => {
+  return z.preprocess(normalizeTournament, z.object({ 版本: z.literal(TOURNAMENT_VERSION), 赛季: z.string().min(1), 状态: z.enum(tournamentStates), 总轮次: count(), 代表名额: count(), 号池规模: count(), 模式: z.literal('跟随系统'), 一辉拘押: z.boolean().optional(), 名册: z.record(z.string(), participant), 比赛: z.record(z.string(), match) }).passthrough().superRefine((value, ctx) => {
     const messages = [...tournamentIssues(value), ...calculateTournament(value).conflicts];
     for (const message of new Set(messages)) ctx.addIssue({ code: 'custom', message });
   }));
@@ -191,11 +205,29 @@ function calculateTournament(tournament) {
 export function deriveTournament(stateOrTournament) {
   const state = stateOrTournament?.stat_data || stateOrTournament;
   const directLedger = object(state) && ['版本', '名册', '比赛', '赛季'].some(key => own(state, key));
-  const raw = state?.场景 ? state.场景.选拔赛 : directLedger ? state : null;
+  const stored = state?.场景 ? state.场景.选拔赛 : directLedger ? state : null;
+  const clock = tournamentCalendar(state);
+  const virtual = !stored && clock.valid && Boolean(state?.玩家?.姓名?.trim()) && state?.系统?.主角模式 !== '未选择';
+  const raw = stored || (virtual ? {} : null);
   if (!raw) return { version: TOURNAMENT_VERSION, exists: false, tournament: null, mode: state?.系统?.主角模式 || '未选择', playerId: null, roster: [], matches: [], leaderboard: [], eligible: [], ties: [], qualificationTie: false, usedOpponents: {}, warnings: [], complete: false, rankingLabel: '仅据已记录积分' };
-  const tournament = normalizeTournament(raw), issues = tournamentIssues(tournament);
+  let tournament = normalizeTournament(raw);
+  const issues = tournamentIssues(tournament);
   if (issues.length) return { version: TOURNAMENT_VERSION, exists: true, tournament, mode: state?.系统?.主角模式 || '未选择', playerId: null, roster: [], matches: [], leaderboard: [], eligible: [], ties: [], qualificationTie: false, usedOpponents: {}, warnings: issues, complete: false, rankingLabel: '账本格式待修正' };
-  const result = calculateTournament(tournament);
+  identifyTournamentPlayer(state, tournament);
+  // 无有效日期时保留纯账本行为；不能悄悄用现实日期生成赛果。
+  if (clock.valid) tournament = seedTournamentRoster(state, tournament);
+  const projection = projectTournamentBackground(state, tournament);
+  const result = calculateTournament(projection.ledger);
+  result.roster = result.roster.filter(row => projection.visibleIds.includes(row.id));
+  for (const row of result.roster) {
+    row.projectedWithdrawalRound = projection.stoppedRounds?.[row.id] ?? null;
+    row.projectedWithdrawal = row.status === '参赛' && row.projectedWithdrawalRound !== null;
+    if (row.projectedWithdrawal) row.status = '退选';
+    row.simulatedMatches = projection.simulatedCounts[row.id] || 0;
+    row.player = row.source === '玩家';
+    row.pendingRounds = projection.pendingRounds[row.id] || [];
+    if (row.pendingRounds.length) { row.wins = null; row.losses = null; row.points = null; row.complete = false; }
+  }
   const mode = state?.系统?.主角模式 || '未选择';
   const player = result.roster.find(row => row.source === '玩家') || result.roster.find(row => row.name === state?.玩家?.姓名);
   // 同积分并列；ID 只稳定显示顺序，不拿胜场或名字暗定代表席位。
@@ -212,20 +244,70 @@ export function deriveTournament(stateOrTournament) {
   const cutoff = tournament.代表名额;
   const qualificationTie = eligible.length > cutoff && eligible[cutoff - 1].recordedPoints === eligible[cutoff].recordedPoints;
   const complete = tournament.状态 === '已结束' && result.roster.length >= tournament.号池规模 && result.roster.every(row => row.complete && (row.status !== '参赛' || row.throughRound === tournament.总轮次)) && !result.conflicts.length;
-  const warnings = [...result.conflicts];
+  const warnings = [...result.conflicts, ...projection.warnings];
+  if (virtual) warnings.push('当前存档尚无比赛账本：正在显示日期背景预览，玩家旧战绩待补；登记实际赛果时建立本局账本。');
   if (result.roster.some(row => !row.complete)) warnings.push('记录不完整：未知场外战绩未补成零胜，缺少赛前胜场的胜局积分待补。');
   if (!complete) warnings.push('排行榜仅据已记录积分，不据此自动宣布完整排名或代表资格。');
   if (qualificationTie) warnings.push('代表席位边界同分：暂列并列，须由本局附加赛或已确认规则决出，不按 ID 或胜场擅定。');
-  return { version: TOURNAMENT_VERSION, exists: true, tournament, mode, playerId: player?.id || null, ...result, leaderboard, eligible, ties, qualificationTie, warnings, complete, rankingLabel: complete ? '完整赛季账本排名' : '仅据已记录积分' };
+  return { version: TOURNAMENT_VERSION, engine: 'T02', exists: true, virtual, projected: projection.active, calendar: projection.calendar,
+    tournament, mode, playerId: player?.id || null, ...result, leaderboard, eligible, ties, qualificationTie, warnings,
+    complete: complete && !projection.active, rankingLabel: projection.active ? '本局记录＋程序场外推演（非全校完整榜）' : complete ? '完整赛季账本排名' : '仅据已记录积分' };
+}
+
+export function tournamentPromptSummary(state) {
+  const view = deriveTournament(state);
+  return { 版本: 'T02', 日期: view.calendar?.date?.key || null, 当前场次: view.calendar?.currentRound ?? null,
+    已过排期: view.calendar?.elapsedRound ?? null, 停赛: view.calendar?.suspended || false,
+    名册: view.roster.map(row => ({ ID: row.id, 姓名: row.name, 胜场: row.wins, 败场: row.losses, 积分: row.points,
+      已记录胜场: row.recordedWins, 已记录积分: row.recordedPoints, 推演场数: row.simulatedMatches || 0, 待补场次: row.pendingRounds || [] })),
+    说明: '本摘要只读；实际赛果优先。只提交参赛者与实际比赛，不能把推演摘要写回初始战绩或赛前胜场。' };
 }
 
 // 非法赛制更新只恢复选拔赛子树；其他剧情、成长与人际更新继续保留。
 export function enforceTournamentState(variables, previous) {
   const scene = variables?.stat_data?.场景;
-  if (!scene || !own(scene, '选拔赛')) return [];
-  const next = normalizeTournament(scene.选拔赛);
+  if (!scene) return [];
+  const old = previous?.stat_data?.场景?.选拔赛;
+  const notices = [];
+  if (!own(scene, '选拔赛')) {
+    if (old) { scene.选拔赛 = copy(old); notices.push('选拔赛：已恢复被移除的本局账本。'); }
+    else if (tournamentCalendar(variables.stat_data).valid && variables.stat_data?.玩家?.姓名?.trim() && variables.stat_data?.系统?.主角模式 !== '未选择') scene.选拔赛 = {};
+    else return [];
+  }
+  let next = normalizeTournament(scene.选拔赛);
+  if (object(next)) {
+    maintainTournamentEnd(next, old, variables.stat_data);
+    for (const [key, fallback] of Object.entries({ 版本: 'T01', 总轮次: 20, 代表名额: 6, 号池规模: 288, 模式: '跟随系统' })) next[key] = old?.[key] ?? fallback;
+    for (const field of ['名册', '比赛']) if (object(next[field]) && object(old?.[field])) {
+      for (const [id, record] of Object.entries(old[field])) if (!own(next[field], id)) {
+        next[field][id] = copy(record);
+        notices.push(`选拔赛：已保留被省略的${field} ${id}；取消比赛请明确标记已取消。`);
+      }
+    }
+  }
+  if (object(next?.名册)) for (const [id, person] of Object.entries(next.名册)) {
+    if (!object(person)) continue;
+    const prior = old?.名册?.[id]?.初始战绩;
+    if (JSON.stringify(person.初始战绩) !== JSON.stringify(prior)) notices.push(`选拔赛：${id} 的初始战绩只接受旧档沿用或终端手动补录，已略过AI改写。`);
+    if (prior) person.初始战绩 = copy(prior); else delete person.初始战绩;
+    const previousPerson = old?.名册?.[id];
+    if (previousPerson) {
+      if (person.入赛轮次 !== previousPerson.入赛轮次) notices.push(`选拔赛：${id} 已有入赛轮次由终端维护，已恢复AI改写。`);
+      if (previousPerson.入赛轮次 === undefined) delete person.入赛轮次;
+      else person.入赛轮次 = previousPerson.入赛轮次;
+    }
+    maintainTournamentExit(person, previousPerson, variables.stat_data);
+  }
+  if (object(next?.比赛)) for (const [id, match] of Object.entries(next.比赛)) {
+    if (!object(match)) continue;
+    retainTournamentCheckpoints(match, old?.比赛?.[id]);
+  }
   const issues = tournamentIssues(next);
-  if (!issues.length) issues.push(...calculateTournament(next).conflicts);
+  if (!issues.length) {
+    identifyTournamentPlayer(variables.stat_data, next);
+    if (tournamentCalendar(variables.stat_data).valid) next = seedTournamentRoster(variables.stat_data, next);
+    issues.push(...deriveTournament({ ...variables.stat_data, 场景: { ...scene, 选拔赛: next } }).conflicts || []);
+  }
   if (issues.length) {
     const old = previous?.stat_data?.场景;
     if (old && own(old, '选拔赛')) scene.选拔赛 = copy(old.选拔赛);
@@ -233,12 +315,13 @@ export function enforceTournamentState(variables, previous) {
     return [...new Set(issues)].map(message => `选拔赛：${message}；本次仅恢复选拔赛记录。`);
   }
   scene.选拔赛 = next;
-  return [];
+  scene.选拔赛.程序战况 = tournamentPromptSummary(variables.stat_data);
+  return notices;
 }
 
 export function createTournamentParticipant(state, { name = '', source = '原创', id = '' } = {}) {
   const sourceState = state?.stat_data || state;
-  const tournament = sourceState?.场景?.选拔赛 || sourceState;
+  const tournament = sourceState?.场景 ? deriveTournament(sourceState).tournament : sourceState;
   const roster = tournament?.名册 || {};
   if (!sources.includes(source)) throw new Error('参赛者来源无效');
   let nextId = id;
@@ -248,16 +331,42 @@ export function createTournamentParticipant(state, { name = '', source = '原创
   return { id: nextId, participant: { 姓名: name.trim() || `未命名选手 ${nextId}`, 来源: source, 参赛状态: '参赛' } };
 }
 
+function maintainTournamentExit(person, before, state) {
+  if (person.参赛状态 === '参赛') { delete person.退赛日期; return; }
+  const date = before?.参赛状态 && before.参赛状态 !== '参赛' ? before.退赛日期 : parseTournamentDate(state?.场景?.时间)?.key;
+  if (date) person.退赛日期 = date; else delete person.退赛日期;
+}
+
+function maintainTournamentEnd(tournament, before, state) {
+  if (tournament.状态 !== '已结束') { delete tournament.结束日期; return; }
+  const date = before?.状态 === '已结束' ? before.结束日期 : parseTournamentDate(state?.场景?.时间)?.key;
+  if (date) tournament.结束日期 = date; else delete tournament.结束日期;
+}
+
+// 赛前历史绑定到参赛者和轮次；交换甲乙不能把另一人的胜场继承过来。
+function retainTournamentCheckpoints(match, before, supplied = null) {
+  for (const [side, field] of [['甲方', '甲赛前胜场'], ['乙方', '乙赛前胜场']]) {
+    delete match[field];
+    if (supplied && own(supplied, field)) { match[field] = supplied[field]; continue; }
+    if (before?.轮次 !== match.轮次) continue;
+    const oldField = before.甲方 === match[side] ? '甲赛前胜场' : before.乙方 === match[side] ? '乙赛前胜场' : null;
+    if (oldField && before[oldField] !== undefined) match[field] = before[oldField];
+  }
+}
+
 // 只建议下一场，不改动名册、不写预设胜负。原著锚点若与本局记录冲突就让位。
 export function suggestTournamentOpponents(state, { participantId, round } = {}) {
   const view = deriveTournament(state);
   if (!view.exists || !view.roster.length) return { anchorId: null, candidates: [], warnings: ['请先登记选拔赛与参赛者。'] };
   const id = participantId || view.playerId, person = view.roster.find(row => row.id === id);
-  if (!person || person.status !== '参赛' || !Number.isInteger(round) || round < 1 || round > view.tournament.总轮次) return { anchorId: null, candidates: [], warnings: ['请选择参赛者和有效轮次。'] };
-  const occupied = new Set(view.matches.filter(match => ['已安排', '已完成'].includes(match.状态) && match.轮次 === round).flatMap(match => [match.甲方, match.乙方]));
+  const available = row => row && view.tournament.名册[row.id].参赛状态 === '参赛' &&
+    round >= (view.tournament.名册[row.id].入赛轮次 || 1) && (row.projectedWithdrawalRound === null || round <= row.projectedWithdrawalRound);
+  if (!available(person) || !Number.isInteger(round) || round < 1 || round > view.tournament.总轮次) return { anchorId: null, candidates: [], warnings: ['请选择参赛者和有效轮次。'] };
+  const actual = Object.values(view.tournament.比赛).filter(match => ['已安排', '已完成'].includes(match.状态));
+  const occupied = new Set(actual.filter(match => match.轮次 === round).flatMap(match => [match.甲方, match.乙方]));
   if (occupied.has(id)) return { anchorId: null, candidates: [], warnings: ['该选手本轮已有对局，请查看或修正原比赛。'] };
-  const used = new Set(view.usedOpponents[id] || []);
-  const candidates = view.roster.filter(row => row.id !== id && row.status === '参赛' && !occupied.has(row.id) && !used.has(row.id)).map(row => ({ id: row.id, name: row.name, source: row.source, reason: '本轮可安排，现有记录未重复对战' }));
+  const used = new Set(actual.filter(match => [match.甲方, match.乙方].includes(id)).map(match => match.甲方 === id ? match.乙方 : match.甲方));
+  const candidates = view.roster.filter(row => row.id !== id && available(row) && !occupied.has(row.id) && !used.has(row.id)).map(row => ({ id: row.id, name: row.name, source: row.source, reason: '本轮可安排，实际记录未重复对战；可覆盖背景预设' }));
   const anchorName = view.mode === '黑铁一辉' && person.name === '黑铁一辉' ? fixtures[round] : null;
   const anchor = anchorName ? candidates.find(row => row.name === anchorName) : null;
   const warnings = [];
@@ -273,28 +382,38 @@ export function prepareTournamentAction(state, request) {
   const next = copy(state);
   if (request.action === 'initialize') {
     if (next.场景.选拔赛) throw new Error('本局已有选拔赛，请修改现有赛季记录');
-    next.场景.选拔赛 = normalizeTournament({ 赛季: request.season || '破军学园选拔赛' });
+    next.场景.选拔赛 = seedTournamentRoster(state, normalizeTournament({ 赛季: request.season || '破军学园选拔赛' }));
   } else {
-    if (!next.场景.选拔赛) throw new Error('请先初始化选拔赛');
-    const t = normalizeTournament(next.场景.选拔赛);
+    if (!next.场景.选拔赛 && !tournamentCalendar(state).valid) throw new Error('请先确认2013年剧情日期或初始化选拔赛');
+    const t = seedTournamentRoster(state, normalizeTournament(next.场景.选拔赛 || {}));
     if (['upsertParticipant', 'upsertMatch', 'cancelMatch'].includes(request.action) && (!nonblank(request.id) || unsafeKeys.has(request.id))) throw new Error('记录 ID 不能为空或保留名称');
     if (request.action === 'upsertParticipant') {
       if (!object(request.participant)) throw new Error('请填写参赛者资料');
-      t.名册[request.id] = { ...(t.名册[request.id] || {}), ...copy(request.participant) };
+      const before = t.名册[request.id];
+      t.名册[request.id] = { ...(before || {}), ...copy(request.participant) };
+      maintainTournamentExit(t.名册[request.id], before, state);
     } else if (request.action === 'upsertMatch') {
       if (!object(request.match)) throw new Error('请填写比赛资料');
-      t.比赛[request.id] = { ...(t.比赛[request.id] || {}), ...copy(request.match) };
+      const before = t.比赛[request.id];
+      t.比赛[request.id] = { ...(before || {}), ...copy(request.match) };
+      retainTournamentCheckpoints(t.比赛[request.id], before, request.match);
     } else if (request.action === 'cancelMatch') {
       if (!own(t.比赛, request.id)) throw new Error('没有找到该比赛');
       t.比赛[request.id].状态 = '已取消';
-    } else if (request.action === 'setStatus') t.状态 = request.status;
+    } else if (request.action === 'setStatus') {
+      const before = copy(t);
+      t.状态 = request.status;
+      maintainTournamentEnd(t, before, state);
+    }
+    else if (request.action === 'setDetained') t.一辉拘押 = request.detained;
     else throw new Error('未知选拔赛操作');
     next.场景.选拔赛 = t;
   }
   const checked = normalizeTournament(next.场景.选拔赛);
   const issues = tournamentIssues(checked);
-  if (!issues.length) issues.push(...calculateTournament(checked).conflicts);
+  if (!issues.length) issues.push(...deriveTournament({ ...next, 场景: { ...next.场景, 选拔赛: checked } }).conflicts || []);
   if (issues.length) throw new Error([...new Set(issues)].join('；'));
   next.场景.选拔赛 = checked;
+  next.场景.选拔赛.程序战况 = tournamentPromptSummary(next);
   return next;
 }

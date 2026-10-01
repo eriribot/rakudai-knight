@@ -1,0 +1,393 @@
+{
+  "tests": [
+    {
+      "name": "calendar",
+      "exitCode": 0,
+      "output": "通过：中文与连字符完整日期沿用剧情日历解析口径\n通过：严格拒绝非法日期，并正确处理闰年与世纪规则\n通过：开幕前、默认首战及一辉晚一天互不混淆\n通过：黄金周首尾均停赛，保持两场进度直到五月七日\n通过：六月泳池与第十一场相邻剧情不会机械每三日加场\n通过：拘押只改一辉第十七至十九场，不改全校或首战\n通过：终战当天只到待赛，次日才将第二十场列为已过排期\n通过：未知日期与赛季外年份明确待确认，不使用现实时间或查看月份\n通过：时间文字、状态本体与stat_data包装一致，调用不修改输入\n通过：各日期轨均为二十场，黄金周无排期且日期严格递增\n选拔赛日历检查完成：10 项通过。\n"
+    },
+    {
+      "name": "tournament",
+      "exitCode": 0,
+      "output": "通过：无账本按日期预览正典和玩家，开幕两组首战相差一天\n通过：黄金周不增场，五月二十九日主要正典已打九场\n通过：原创或一辉玩家始终不自动产生已完成战果与积分\n通过：无账本直接登记玩家R9胜珠雫：珠雫8-1，本场90分，玩家总分仍待补\n通过：真实败绩在后续日期重算时保留，不恢复成全胜\n通过：同ID重放不重复加分，取消后原场槽不会被背景比赛复活\n通过：真实及背景对局不重复对手，建议也排除已战对手\n通过：已安排的真实比赛保留待赛状态，不被场外结果覆盖\n通过：稳定种子可重复，新增名册不重掷已有选手的背景比赛\n通过：手动初始战绩可接管正典背景，AI不能重写、移除或注入基线\n通过：AI删除带有手动基线的名册条目不能绕过基线保护\n通过：AI删除整个账本会恢复，其他玩家事实仍保留\n通过：坏比赛只局部恢复选拔赛，不回滚玩家字段与剧情时间\n通过：未来日期即使存为已完成也不提前计分，到比赛日真实结果才生效\n通过：分支日期回退重新计算，不写原状态且未来真实比赛不污染过去\n通过：无有效公历日期的旧T01仍能正常计算真实首轮10分\n通过：AI写派生胜场积分或赛前缓存不会篡改程序重算结果\n通过：真实Zod拒绝保留生成ID、同选手同轮重复与非法初始战绩\n通过：手动退选保留退选前九场投影，日期前进后不再追加比赛\n通过：取消过的对手组合不阻止后续轮次正典对局，但取消原槽仍保留\n通过：AI不能提前、推迟或删除既有入赛轮次，也不能给既有人物注入轮次\n通过：首战虚拟待赛不堵一辉对手建议，真实已安排仍会阻止重复安排\n通过：推演中已经退场的人物不再作为后续对手或被安排选手\n通过：手动、AI和真实schema均拒绝早于入赛轮次的已安排或已完成比赛\n通过：人工赛前五胜接管R9为60分，不补造珠雫早期比赛，后续重算保留该分数\n通过：未来日期的人工赛前胜场不会提前抑制既有背景历史\n通过：人工和AI交换甲乙按人物继承赛前五胜，换对手或轮次不会继承旧快照\n通过：结束赛季保存日期并冻结九场背景，重新进行中才恢复日期推进\n通过：AI冒充玩家来源不能抢玩家身份，也不能让正典背景消失\n选拔赛回归检查：29/29 项通过。\n"
+    },
+    {
+      "name": "guard",
+      "exitCode": 0,
+      "output": "✔ installed guard exposes T02 and initializes a dated T01 ledger with a program summary through ENDED (31.0359ms)\n✔ the real ENDED handler accepts OC victory: Shizuku becomes 8–1 and the actual ninth match awards 90 (22.005ms)\n✔ ENDED rejects AI totals, generated flags, pre-match wins, and forged baselines without changing the real winner (27.803ms)\n✔ an invalid real match restores only the tournament subtree and preserves unrelated facts from the same update (23.3771ms)\nℹ tests 4\nℹ suites 0\nℹ pass 4\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 108.6203\n"
+    },
+    {
+      "name": "stateBaseline",
+      "exitCode": 1,
+      "output": {
+        "total": 23,
+        "passed": 20,
+        "failed": 3,
+        "results": [
+          {
+            "name": "19 卷所有真实目录节点均可通过 v4 组合校验",
+            "passed": true
+          },
+          {
+            "name": "拒绝错误卷号类型、目录不存在卷与不属于该卷的章节",
+            "passed": false,
+            "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\ntrue !== false\n\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/check-state-v4.mjs:63:104\n    at check (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/check-state-v4.mjs:49:47)\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/check-state-v4.mjs:62:7"
+          },
+          {
+            "name": "目录的明确别名可归一，其余近似章节不自动猜测",
+            "passed": true
+          },
+          {
+            "name": "跨卷保留历史事件，但未来卷与本卷未来节点都不得记为已发生",
+            "passed": true
+          },
+          {
+            "name": "第十六卷的终章Ⅱ按原文排列在序章之前，不按名称推断顺序",
+            "passed": true
+          },
+          {
+            "name": "事件卷号必填，错误组合与未知业务字段不能混入 v4",
+            "passed": true
+          },
+          {
+            "name": "合法 v3 候选只升级结构与为事件补卷一，保留人物和 $internal",
+            "passed": true
+          },
+          {
+            "name": "版本仍为 v3 的布尔觉醒开关在迁移候选中原样保留，不改原档",
+            "passed": true
+          },
+          {
+            "name": "混合旧档拒绝非布尔觉醒值与其他未知玩家字段",
+            "passed": true
+          },
+          {
+            "name": "v3 卷二、未知字段与非 v3/v4 来源不自动修复或迁移",
+            "passed": true
+          },
+          {
+            "name": "合法旧人物阶段与缺省字段在迁移预览、实际提交及后续切章中原样保留",
+            "passed": false,
+            "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n... Skipped lines\n\n  {\n    '伐刀能力': {\n      '共通限制': '',\n      '招式': {},\n      '能力本质': '',\n...\n    '性格关键词': '',\n+   '成长': {\n+     '最近提示': '已切入新场景；跳过的事件不补算经验，待结算申请已取消。',\n+     '版本': 'G03',\n+     '申请': {},\n+     '经验': {\n+       '体能': 0,\n+       '魔力控制': 0,\n+       '魔力量': 0\n+     },\n+     '记录': {}\n+   },\n    '战斗风格': '',\n    '所属': '',\n    '登记等级': null,\n    '综合初评': {\n      '分数': null,\n\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/check-state-v4.mjs:142:10\n    at async check (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/check-state-v4.mjs:49:41)\n    at async file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/check-state-v4.mjs:129:1"
+          },
+          {
+            "name": "关闭关系归一仅供页面事务；默认 MVU schema 仍按当前计分规则派生",
+            "passed": true
+          },
+          {
+            "name": "capture 对旧楼层明确要求迁移；预览不写入、不改变当前活动槽",
+            "passed": true
+          },
+          {
+            "name": "迁移凭据不能被剧情按钮偷偷提交，普通凭据不能用作迁移",
+            "passed": true
+          },
+          {
+            "name": "确认迁移后重复点击与响应丢失重试只落地一次",
+            "passed": true
+          },
+          {
+            "name": "迁移预览后切分支或包装被并发更新均拒绝覆盖",
+            "passed": true
+          },
+          {
+            "name": "迁移写入未落地不能给成功回执",
+            "passed": true
+          },
+          {
+            "name": "全部 18 个卷边界按真实末章进入下一卷首节点，保留旧卷事件",
+            "passed": true
+          },
+          {
+            "name": "只有真实卷末且已结束才能换卷，第十九卷终章没有下一卷",
+            "passed": true
+          },
+          {
+            "name": "所有卷内下一章按目录前进，只重置阶段",
+            "passed": true
+          },
+          {
+            "name": "手动向前切入只定位，不补造中间事件、人物或能力",
+            "passed": false,
+            "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n... Skipped lines\n\n  {\n    '伐刀能力': {\n      '共通限制': '',\n      '招式': {},\n      '能力本质': '',\n...\n    '性格关键词': '',\n+   '成长': {\n+     '最近提示': '已切入新场景；跳过的事件不补算经验，待结算申请已取消。',\n+     '版本': 'G03',\n+     '申请': {},\n+     '经验': {\n+       '体能': 0,\n+       '魔力控制': 0,\n+       '魔力量': 0\n+     },\n+     '记录': {}\n+   },\n    '战斗风格': '',\n    '所属': '',\n    '登记等级': null,\n    '综合初评': {\n      '分数': null,\n\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/check-state-v4.mjs:213:61\n    at check (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/check-state-v4.mjs:49:47)\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/check-state-v4.mjs:208:7"
+          },
+          {
+            "name": "手动切入拒绝后退、原节点、无效目标及未确认的时间地点说明",
+            "passed": true
+          },
+          {
+            "name": "guard 保留页面写入责任，恢复的是原卷章而非固定卷一",
+            "passed": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "terminal",
+      "exitCode": 1,
+      "output": "\n> hagun-mono-terminal@1.3.11 test\n> node tournament-ui-test.mjs && node packaging-test.mjs && node state-reader-test.mjs && node state-panel-test.mjs && node smoke-test.mjs && node shell-test.mjs\n\n✔ the complete terminal source compiles in memory without exporting artifacts (109.063ms)\n✔ unknown history leads with pending labels, while projected results are visibly read-only (2.9094ms)\n✔ new match follows the current calendar slot; synthetic results cannot prefill a persisted match (1.4385ms)\n✔ date, player mode, and name invalidate both UI and host snapshots and block stale drafts (1.9179ms)\n✔ manual old-save repair remains available; entry round and detention require explicit input (1.45ms)\n✔ correction can accept an OC victory while rejecting direct and nested derived score changes (1.5134ms)\n✔ correction protects existing entry rounds and core-owned withdrawal dates even through parent objects (0.884ms)\n✔ correction leaves the core-owned season end date read-only while accepting season status changes (0.8293ms)\nℹ tests 8\nℹ suites 0\nℹ pass 8\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 123.9565\n{\n  \"evidence\": \"parse5 HTML解析 → 实际完整脚本V8编译；独立源映射消费；未连接真实酒馆\",\n  \"passed\": 9,\n  \"total\": 9,\n  \"results\": [\n    {\n      \"name\": \"旧包直接编译通过，但完整宿主HTML解析后稳定复现两段SyntaxError\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"新包在HTML宿主中只产生一个未截断的完整脚本\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"实际JSON交付物经反序列化、宿主HTML及内页入口仍还原完整页面\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"HTML闭合标签、大小写、注释、中文、反斜杠及行分隔符往返保持原值\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"打包页面包含当前维护的全部 JS 与 CSS 模块，没有滞留旧版源码\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"交付脚本中注入的关系函数可独立执行，共享新上限且不缺闭包依赖\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"主壳与注入模块的真实生成位置可映射回原文件行\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"内页真实script文本不trim：源映射与原文件行一致且来源名明确\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"打包保留原脚本身份与按钮数据，不另建第二个运行实例\",\n      \"passed\": true\n    }\n  ]\n}\n{\n  \"evidence\": \"离线 VM 执行真实读取模块；未运行真实酒馆\",\n  \"passed\": 6,\n  \"total\": 9,\n  \"checks\": [\n    {\n      \"name\": \"删除后续楼层后读取被恢复楼层的当前回复槽\",\n      \"passed\": false,\n      \"error\": \"AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\\n+ actual - expected\\n\\n  {\\n+   characterId: null,\\n    chatId: 'chat-a',\\n+   groupId: null,\\n    messageId: 0,\\n    swipeCount: 2,\\n    swipeId: 1\\n  }\\n\\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-reader-test.mjs:46:10\\n    at check (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-reader-test.mjs:34:9)\\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-reader-test.mjs:38:1\\n    at ModuleJob.run (node:internal/modules/esm/module_job:430:25)\\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:655:26)\\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)\"\n    },\n    {\n      \"name\": \"当前页为空不借同楼其他页或旧楼，并保留空槽来源\",\n      \"passed\": false,\n      \"error\": \"AssertionError [ERR_ASSERTION]: Missing expected exception.\\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-reader-test.mjs:52:10\\n    at check (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-reader-test.mjs:34:9)\\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-reader-test.mjs:49:1\\n    at ModuleJob.run (node:internal/modules/esm/module_job:430:25)\\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:655:26)\\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)\"\n    },\n    {\n      \"name\": \"MVU 延迟写入当前空槽后，下一次读取即可取得\",\n      \"passed\": false,\n      \"error\": \"AssertionError [ERR_ASSERTION]: The input did not match the regular expression /尚无 MVU/. Input:\\n\\n'Error: 当前回复及此前助手楼层都没有可显示的 MVU 数据'\\n\\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-reader-test.mjs:61:10\\n    at check (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-reader-test.mjs:34:9)\\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-reader-test.mjs:59:1\\n    at ModuleJob.run (node:internal/modules/esm/module_job:430:25)\\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:655:26)\\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)\"\n    },\n    {\n      \"name\": \"最新用户消息后仍读取最新助手楼层\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"编辑旧楼不会把独立终端切成历史预览\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"回复页标识缺失或越界时拒绝猜测第一个槽\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"复用同一个读取函数时，每次取得当前上下文，不缓存旧聊天\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"来源和变量由一次读取取得，切换回复后同步改变\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"读取及修改返回快照均不会写入楼层槽，且不暴露 MVU 临时包装\",\n      \"passed\": true\n    }\n  ]\n}\n"
+    },
+    {
+      "name": "buildParity",
+      "exitCode": 0,
+      "output": "共享状态控制器与来源同步。\n"
+    }
+  ],
+  "additional": [
+    {
+      "name": "statePanel",
+      "exitCode": 1,
+      "output": {
+        "total": 11,
+        "passed": 0,
+        "failed": 11,
+        "runtime": "真实 state-panel 事件与控制器，parse5 DOM 替身；没有模型调用",
+        "results": [
+          {
+            "name": "目录公开副本不能改写控制器的真实目录",
+            "passed": false,
+            "error": "ReferenceError: generationPending is not defined\n    at updatePanelActions (evalmachine.<anonymous>:55:51)\n    at Object.buildStatePanel (evalmachine.<anonymous>:296:34)\n    at fixture (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:78:131)\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:88:13\n    at check (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:13:47)\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:87:7\n    at ModuleJob.run (node:internal/modules/esm/module_job:430:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:655:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)"
+          },
+          {
+            "name": "第六卷显示实际目录；阶段按钮按结束、下一章、开始依次写入",
+            "passed": false,
+            "error": "ReferenceError: generationPending is not defined\n    at updatePanelActions (evalmachine.<anonymous>:55:51)\n    at Object.buildStatePanel (evalmachine.<anonymous>:296:34)\n    at fixture (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:78:131)\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:91:13\n    at check (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:13:47)\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:90:7"
+          },
+          {
+            "name": "卷末进入下一卷先打开确认表单，未填场景不写入，确认后采用真实首节点",
+            "passed": false,
+            "error": "ReferenceError: generationPending is not defined\n    at updatePanelActions (evalmachine.<anonymous>:55:51)\n    at Object.buildStatePanel (evalmachine.<anonymous>:296:34)\n    at fixture (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:78:131)\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:100:13\n    at check (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:13:47)\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:99:7"
+          },
+          {
+            "name": "手动切入默认折叠；选项只含当前节点之后的卷章",
+            "passed": false,
+            "error": "ReferenceError: generationPending is not defined\n    at updatePanelActions (evalmachine.<anonymous>:55:51)\n    at Object.buildStatePanel (evalmachine.<anonymous>:296:34)\n    at fixture (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:78:131)\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:110:13\n    at check (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:13:47)\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:109:7"
+          },
+          {
+            "name": "轮询不抹掉输入；并发状态变化后旧表单凭据拒绝写入并保留草稿",
+            "passed": false,
+            "error": "ReferenceError: generationPending is not defined\n    at updatePanelActions (evalmachine.<anonymous>:55:51)\n    at Object.buildStatePanel (evalmachine.<anonymous>:296:34)\n    at fixture (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:78:131)\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:120:13\n    at check (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:13:47)\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:119:7"
+          },
+          {
+            "name": "迁移显示具体差异与下载入口，只有确认升级才写当前活动槽",
+            "passed": false,
+            "error": "ReferenceError: generationPending is not defined\n    at updatePanelActions (evalmachine.<anonymous>:55:51)\n    at Object.buildStatePanel (evalmachine.<anonymous>:296:34)\n    at fixture (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:78:131)\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:128:13\n    at check (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:13:47)\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:126:7"
+          },
+          {
+            "name": "错误 v3 存档不能给出伪迁移候选，也不开放剧情按钮",
+            "passed": false,
+            "error": "ReferenceError: generationPending is not defined\n    at updatePanelActions (evalmachine.<anonymous>:55:51)\n    at Object.buildStatePanel (evalmachine.<anonymous>:296:34)\n    at fixture (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:78:131)\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:139:13\n    at check (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:13:47)\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:137:7"
+          },
+          {
+            "name": "注入预览只读，正文作为纯文本显示；开关只调用注入器设置",
+            "passed": false,
+            "error": "ReferenceError: generationPending is not defined\n    at updatePanelActions (evalmachine.<anonymous>:55:51)\n    at Object.buildStatePanel (evalmachine.<anonymous>:296:34)\n    at fixture (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:78:131)\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:142:13\n    at check (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:13:47)\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:141:7"
+          },
+          {
+            "name": "注入器缺失明确提示，旧预览不会冒充当前结果",
+            "passed": false,
+            "error": "ReferenceError: generationPending is not defined\n    at updatePanelActions (evalmachine.<anonymous>:55:51)\n    at Object.buildStatePanel (evalmachine.<anonymous>:296:34)\n    at fixture (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:78:131)\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:152:13\n    at check (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:13:47)\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:151:7"
+          },
+          {
+            "name": "切聊天会清理旧表单与凭据；晚到读取不能覆盖新聊天",
+            "passed": false,
+            "error": "ReferenceError: generationPending is not defined\n    at updatePanelActions (evalmachine.<anonymous>:55:51)\n    at Object.buildStatePanel (evalmachine.<anonymous>:296:34)\n    at fixture (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:78:131)\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:155:13\n    at check (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:13:47)\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:154:7"
+          },
+          {
+            "name": "销毁面板会注销现有刷新回调，收起期间轮询不额外读取",
+            "passed": false,
+            "error": "ReferenceError: generationPending is not defined\n    at updatePanelActions (evalmachine.<anonymous>:55:51)\n    at Object.buildStatePanel (evalmachine.<anonymous>:296:34)\n    at fixture (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:78:131)\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:162:13\n    at check (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:13:47)\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/state-panel-test.mjs:161:7"
+          }
+        ]
+      }
+    },
+    {
+      "name": "smoke",
+      "exitCode": 1,
+      "output": {
+        "evidence": "离线 Node VM 执行真实读取和界面函数；未进行酒馆实机或浏览器布局验收",
+        "passed": 24,
+        "total": 30,
+        "results": [
+          {
+            "name": "无需建档写入guard即可读当前楼层；显示不会写入存档",
+            "passed": true
+          },
+          {
+            "name": "用户消息后的读取仍指向最新助手当前页",
+            "passed": true
+          },
+          {
+            "name": "当前页无MVU时不回退到旧页或旧楼层",
+            "passed": false,
+            "error": "AssertionError [ERR_ASSERTION]: The input did not match the regular expression /尚无 MVU/. Input:\n\n'Error: 当前回复及此前助手楼层都没有可显示的 MVU 数据'\n\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:88:10\n    at check (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:11:15)\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:86:7"
+          },
+          {
+            "name": "swipe、回滚与换聊天读取各自的已存数据",
+            "passed": true
+          },
+          {
+            "name": "空名册不预填四人或世界书人物",
+            "passed": false,
+            "error": "AssertionError [ERR_ASSERTION]: The input did not match the regular expression /尚无/. Input:\n\n'<div class=\"card1\" role=\"status\">当前楼层 MVU 的“人际”尚未登记人物。首次见面且身份已确认的人物，即使好感没有变化也应登记。<p class=\"gba-note\">当前助手回复页</p></div>'\n\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:101:10\n    at async check (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:11:9)\n    at async file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:99:1"
+          },
+          {
+            "name": "教官测试特例：仅已确认学生显示学生，黑乃和宁音各按实际关系",
+            "passed": true
+          },
+          {
+            "name": "任意OC不根据所属自动赋予师生关系",
+            "passed": true
+          },
+          {
+            "name": "已知资料逐项补充，遗漏项不从原作补齐",
+            "passed": true
+          },
+          {
+            "name": "旧记录无已知资料依旧显示；null好感不当作0或自动晋级",
+            "passed": true
+          },
+          {
+            "name": "一辉模式中不显示另一个一辉，自定义模式可以显示",
+            "passed": true
+          },
+          {
+            "name": "人物名、资料长文本和HTML符号作为文字保留",
+            "passed": true
+          },
+          {
+            "name": "六维 B+ 与 B 有不同数值，未知等级不会落成零分",
+            "passed": true
+          },
+          {
+            "name": "雷达缺失一维时只画五个已知点，不伪造闭合完整六维",
+            "passed": true
+          },
+          {
+            "name": "资料未变而来源换楼、换回复或换聊天时，来源和展开状态仍刷新",
+            "passed": true
+          },
+          {
+            "name": "同一次快照优先于旧桥接读法，UI 不向玩家显示聊天内部标识",
+            "passed": true
+          },
+          {
+            "name": "空 MVU 槽错误仍保留来源，并清除上一个槽的人物",
+            "passed": false,
+            "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ null\n- {\n-   chatId: 'test-chat',\n-   messageId: 6,\n-   swipeCount: 2,\n-   swipeId: 1\n- }\n\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:192:10\n    at async check (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:11:9)\n    at async file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:186:1"
+          },
+          {
+            "name": "人物用原生详情展开，当前槽内记住展开，旧卡迟到 toggle 不污染新槽",
+            "passed": true
+          },
+          {
+            "name": "好感未计分与真实零分分开呈现，不替旧阶段倒填支援值",
+            "passed": false,
+            "error": "AssertionError [ERR_ASSERTION]: The input did not match the regular expression /未计分/. Input:\n\n'好感待核定请更新并启用按互动累计的 MVU v4 字段约束脚本，取消普通初始50。支援度待核定起点支援阶段待核定（原记录：S）旧字母不折算为分数；确认起点后再累计。性别尚未记录，暂不显示恋爱阶段。'\n\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:220:10\n    at check (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:11:15)\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:216:7"
+          },
+          {
+            "name": "支援阶段取共享规则函数，临界值正确且不受旧字母和好感替代",
+            "passed": true
+          },
+          {
+            "name": "旧好感 100 保持原数值，只占新上限十分之一，不被展示成满级",
+            "passed": true
+          },
+          {
+            "name": "女性恋爱阶段逐个阈值按好感派生，旧字段和支援 S 不替代数值",
+            "passed": true
+          },
+          {
+            "name": "男性好感满值仍保留支援 S，但不显示恋爱阶段或伪造的恋爱字段",
+            "passed": true
+          },
+          {
+            "name": "未记录性别不根据姓名或满好感猜测恋爱资格，女性 null 不猜阶段",
+            "passed": true
+          },
+          {
+            "name": "相同人物换回复槽后只显示该槽性别和进度，回退不继承未来阶段",
+            "passed": true
+          },
+          {
+            "name": "数据不变的轮询不重绘，数据保存后更新当前名册",
+            "passed": true
+          },
+          {
+            "name": "分支切换先清空；旧异步读取不能覆盖新分支",
+            "passed": true
+          },
+          {
+            "name": "重复启动及销毁均移除旧订阅",
+            "passed": false,
+            "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n2 !== 1\n\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:326:68\n    at async check (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:11:9)\n    at async file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:323:1"
+          },
+          {
+            "name": "剧情页显示全部合法卷数，未知卷号不伪装成卷一",
+            "passed": true
+          },
+          {
+            "name": "事件历史逐条显示所属卷，旧缺卷事件提示迁移且文本仍转义",
+            "passed": false,
+            "error": "AssertionError [ERR_ASSERTION]: The input did not match the regular expression /第1卷 · 终章/. Input:\n\n`<div class=\"card1 rk-t-panel\"><div class=\"ct\">本局选拔赛</div><p>主、副 API 和手动登记共用本局实际比赛记录。</p><div class=\"rk-t-actions\"><button type=\"button\" data-rk-t-action=\"new-match\">登记比赛</button><button type=\"button\" data-rk-t-action=\"new-participant\">登记参赛者</button><button type=\"button\" data-rk-t-action=\"initialize\">建立本局选拔赛</button></div><div class=\"gba-note\" role=\"status\"><p>选拔赛组件尚未连接，请更新配套脚本。</p></div></div><details class=\"card1\"><summary>当前剧情 · 第16卷 · 序章 · 进行中</summary><p>时间未确认 · 地点未确认</p><button type=\"button\" onclick=\"openStoryControls()\">展开剧情控制</button></details><div class=\"card1\"><div class=\"ct\">其他日程与约定</div>尚无其他已确定日期的日程。<p><button type=\"button\" onclick=\"openApp('calendar')\">打开手机日历</button></p></div><details class=\"card1\"><summary>已发生事件 · 3 条</summary><div class=\"noble-art-block\"><div class=\"noble-art-title\">旧卷记录</div><div class=\"noble-art-desc\">保留的本局事件</div></div><div class=\"noble-art-block\"><div class=\"noble-art-title\">本卷记录</div><div class=\"noble-art-desc\">&lt;img src=x&gt;</div></div><div class=\"noble-art-block\"><div class=\"noble-art-title\">待升级事件</div><div class=\"noble-art-desc\">旧数据</div></div></details>`\n\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:349:10\n    at async check (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:11:9)\n    at async file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:341:1"
+          },
+          {
+            "name": "实际导出脚本与所有维护源码逐字一致",
+            "passed": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "shell",
+      "exitCode": 0,
+      "output": {
+        "total": 9,
+        "passed": 9,
+        "runtime": "执行主壳真实函数与事件接线；使用离线 DOM/计时器替身，未连接酒馆",
+        "results": [
+          {
+            "name": "主壳实例与内嵌桥接均采用当前构建版本",
+            "passed": true
+          },
+          {
+            "name": "展开启动轮询，重复展开不叠加，收起停止后可重新展开",
+            "passed": true
+          },
+          {
+            "name": "分支变动清空旧名册，主回复更新保留只读展示等待 MVU",
+            "passed": true
+          },
+          {
+            "name": "pagehide销毁会注销宿主事件、停止轮询且不再向旧页面推送",
+            "passed": true
+          },
+          {
+            "name": "srcdoc挂载中销毁立即取消timeout与onload，晚到回调不boot",
+            "passed": true
+          },
+          {
+            "name": "load已回调但尚未继续boot时销毁，仍不创建旧桥接",
+            "passed": true
+          },
+          {
+            "name": "正常srcdoc挂载仅boot一次且释放挂载等待资源",
+            "passed": true
+          },
+          {
+            "name": "srcdoc超时仍按原策略回退blob，blob可成功挂载",
+            "passed": true
+          },
+          {
+            "name": "blob回退挂载中销毁同样取消等待且不再显示加载失败通知",
+            "passed": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "diff",
+      "exitCode": 0,
+      "output": "warning: in the working copy of 'scripts/build-state-controller.mjs', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'scripts/rakudai-mvu-guard.js', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'scripts/rakudai-state-controller.js', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'scripts/rakudai-tournament.mjs', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'scripts/story-build.mjs', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'scripts/sync-worldbook-calibration.mjs', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'scripts/黑白ADV轮盘终端/QUICKSTART.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'scripts/黑白ADV轮盘终端/README.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'scripts/黑白ADV轮盘终端/bundle.mjs', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'scripts/黑白ADV轮盘终端/correction.js', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'scripts/黑白ADV轮盘终端/package-lock.json', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'scripts/黑白ADV轮盘终端/terminal-app.js', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of '世界书规则/MVU/变量列表.txt', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of '世界书规则/MVU/变量更新规则.txt', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of '世界书规则/MVU/变量输出格式.txt', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of '世界书规则/MVU/落第骑士-MVU-v4字段约束.json', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of '世界书规则/选拔战赛制考据与合理化重构.txt', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of '第一卷-世界书整理/开局页面/index.html', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of '第一卷-世界书整理/开局页面/正则替换文本.txt', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of '第三卷-世界书整理/01_卷内时间线.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of '第二卷-世界书整理/01_卷内时间线.md', LF will be replaced by CRLF the next time Git touches it\n"
+    }
+  ]
+}

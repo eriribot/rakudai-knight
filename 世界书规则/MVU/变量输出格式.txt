@@ -1,4 +1,4 @@
-【Rakudai · MVU Output Format / G04 / T01】
+【Rakudai · MVU Output Format / G04 / T02】
 Read the current branch state and follow [MVU]变量更新规则. Main and secondary APIs use the same business-field permissions; code manages identity metadata, derived stages and settlement receipts.
 End the narrative with exactly one <UpdateVariable> containing <Analysis> then <JSONPatch>, with all closing tags. Analysis is concise English: check scene, each growth target, affection and support separately, contact/profile facts and tournament changes. State old→final values or concrete no-change reasons; no major event is not a reason to skip everyday changes.
 JSONPatch is one complete JSON array. No fences, headings, comments, ellipses or escaped tags. Do not impose a word or operation limit that omits valid updates. Analysis alone does not save data.
@@ -28,11 +28,11 @@ New /人际/<姓名> requires 关系:string,态度印象:string,好感:number|nu
 Optional fields: 性别 (未知|男性|女性), 联系状态 (仅识别|已建立联系), 联系依据:string, 已加联系方式:boolean, 已知资料:{身份?,登记等级?,灵装?,已知能力?} with string children. Contact interaction and exchanged contact details are independent. Never recreate names in /系统/已删除人物.
 好感 is 0—1000; 支援度 is integer 0—320. Write justified final values and concise 变化依据. Ordinary friendliness, eased defenses and major trust changes are narrative guidance, not hard numeric tiers. No separate 好感突破依据 is required. Scores can be corrected up or down; each field remains independent. Code derives 羁绊阶段 and 恋爱阶段, which never invent actual relationship events. Do not write 名册隐藏.
 
-【Tournament T01】
+【Tournament T02 / T01 storage compatibility】
 /场景/选拔赛 is optional; create {} first, then business entries. Defaults: 版本:T01,赛季:破军学园选拔赛,状态:未开始,总轮次:20,代表名额:6,号池规模:288,模式:跟随系统,名册:{},比赛:{}. Use current system protagonist mode; do not set a separate player mode.
-名册/<ID>: {姓名:string,来源:正典|原创|玩家,参赛状态:参赛|退选|取消资格,初始战绩?:{截至轮次:integer,胜场:integer,败场:integer,积分?:integer,依据:non-empty string}}. Missing initial results mean unknown, not zero. Only confirmed unplayed records may start at zero with a factual basis.
-比赛/<ID>: {轮次:integer,甲方:rosterID,乙方:rosterID,日期:string,时间:string,地点:string,状态:待定|已安排|已完成|已取消,胜者?:rosterID,弃权方?:rosterID,甲赛前胜场?:integer,乙赛前胜场?:integer,依据:string}. Completed matches require actual winner and basis. Optional unknown values are omitted, not fabricated. The same pair cannot play twice in a season; each person plays at most once per round. Do not overlap baseline-covered rounds with new match records.
-Wins, points and rankings are derived from the ledger. Winner points = 10 + 10 × opponent's actual pre-match wins; loser gets 0. Never substitute round−1 for missing wins. Amend the same ID to correct a result; do not append a second scoring entry or write a preset original-story leaderboard.
+名册/<ID>: {姓名:string,来源:正典|原创|玩家,参赛状态:参赛|退选|取消资格,入赛轮次?:integer(1..20)}. Preserve legacy 初始战绩 but never create or change it via AI; only the user's manual recovery form may do so.
+比赛/<ID>: {轮次:integer,甲方:rosterID,乙方:rosterID,日期:string,时间:string,地点:string,状态:待定|已安排|已完成|已取消,胜者?:rosterID,弃权方?:rosterID,依据:string}. Completed matches require actual winner and basis. Never write 甲赛前胜场/乙赛前胜场 or computed totals. The same pair cannot play twice; each person plays at most once per round. Do not overlap baseline-covered rounds. Cancel via 状态:已取消; do not delete the ledger or old matches.
+S01 reads 场景/时间. T02 merges actual results with deterministic background matches and computes points = 10 + 10 × opponent pre-match wins. Actual OC victories override canon expectations. 玩家 unknown matches are never simulated. 程序战况, derived points/rankings and __rk_bg_ IDs are read-only; do not persist the background projection. 一辉拘押?:boolean is a factual flag enabling his R17–19 delayed dates only when detention actually happened. Amend the same match ID for corrections.
 
 【Empty Result】
 Only use [] after independently checking every relevant area and finding no factual updates:
@@ -40,3 +40,5 @@ Only use [] after independently checking every relevant area and finding no fact
 <Analysis>No scene, player, growth, relationship or tournament changes require updates.</Analysis>
 <JSONPatch>[]</JSONPatch>
 </UpdateVariable>
+
+退赛日期 and 结束日期 are code-owned cutoffs, never write or remove them. Change 参赛状态 / 状态 by actual facts; the engine captures the scene date. Existing 入赛轮次 is protected; only manual terminal correction can revise it. 来源=玩家 is resolved uniquely from 系统/主角模式 and 玩家/姓名.
