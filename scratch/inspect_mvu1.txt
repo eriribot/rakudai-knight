@@ -1,0 +1,105 @@
+﻿=== File 1 Entry [3] [initvar]������ʼ�� ===
+ϵͳ:
+  �ṹ�汾: 4
+  ����״̬: ������
+  ����ģʽ: δѡ��
+����:
+  ��ǰ��: 1
+  ��ǰ��: ��ѡ��
+  �׶�: δ��ʼ
+  ʱ��: ""
+  �ص�: ""
+  ����˵��: ""
+  �ѷ����¼�: {}
+���:
+  �Ա�: ����
+  ����: ""
+  �Ը�ؼ���: ""
+  ���·��: ""
+  ����: ""
+  ������װ: ""
+  ��ɫ���: ""
+  ս�����: ""
+  ��������:
+    ����ϵ��: ""
+    ��������: ""
+    ��ͨ����: ""
+    ��ʽ: {}
+  ��������: {}
+  ��ά:
+    ������: ""
+    ������: ""
+    ħ����: ""
+    ħ������: ""
+    ����: ""
+    ����: ""
+  �ۺϳ���:
+    ����汾: R05-��һ��
+    ����: null
+    �ȼ�: null
+    �ⶨ�Ǽǵȼ�: null
+    ����״̬: ����д��ά
+    ����д��:
+      - ������
+      - ������
+      - ħ����
+      - ħ������
+  �Ǽǵȼ�: null
+�˼�: {}
+
+----------------------------------------
+
+=== File 1 Entry [8] [MVU]�����б� ===
+<status_current_variable>
+<%
+const rkCurrent = getvar('stat_data');
+const rkPromptState = rkCurrent && typeof rkCurrent === 'object' ? JSON.parse(JSON.stringify(rkCurrent)) : null;
+if (rkPromptState) {
+  delete rkPromptState.$internal;
+  if (rkPromptState.ϵͳ) delete rkPromptState.ϵͳ.��ϵ�Ʒ�;
+  if (rkPromptState.����) delete rkPromptState.����.�ѷ����¼�;
+  if (rkPromptState.��� && rkPromptState.���.�ɳ�) {
+    delete rkPromptState.���.�ɳ�.��¼;
+    delete rkPromptState.���.�ɳ�.�غϽ���;
+    delete rkPromptState.���.�ɳ�.����;
+    delete rkPromptState.���.�ɳ�.��������;
+  }
+}
+%>
+<%- JSON.stringify(rkPromptState, null, 2) %>
+</status_current_variable>
+��ʷ�¼��������ϸ���ڴ浵��ʡ�Բ�����δ���������ظ��콱������������ʵȨ�ޣ�����д����ֵ����ϵ��ʱ��ʵ�ʻ�Ӧ���£�֧Ԯ����������ֻ�����.ħ�˾��ѵ�true/false���ɳ�����/��ʽ������������Ŀ�굥�������������֣��������������Ӧ��ÿĿ��ÿ�����ظ���������9999���ﵽ�ż������������������������о�����ֵ��ͬĿ�����벻�ظ���ӡ�ѡ������������������˱��ǣ�δ֪��ǰʤ�����£����Ų�������������ɴ������㡣
+
+----------------------------------------
+
+=== File 1 Entry [10] [MVU]�������¹��� ===
+�������ʿ �� �������¹��� v4 / G04 / T01��
+�ȶ�����֧��ֵ���ٺ˶Ա�����ʵ���ύ����ֵ�����־��顢����趨���ѱ������������ԭ��Ĭ�������ģ�ͼ��䣻��ǿ�ƻ�ԭʤ������ϵ������������ʱ���������������Ҿ����ж������ġ�̨�ʣ��ƻ���Ԥ�治�ǳ�����ɡ�
+���� API ����ҵ���ֶ�Ȩ�ޡ����ظ�ÿ�����м�鳡�����ɳ��������򻥶�����ĺø���֧Ԯ����ϵ���ϼ�ѡ������ʵ��ʵ�ʱ仯�����ύ�����ȸ� API ��������ѡ�����û���ش��¼���û������ɳ����Թ��ճ��˼ʱ仯����©�����Ծ�ʹ�õ�ǰ���졢¥��ͻظ�ҳ��������ͬһ�ɹ���
+
+���������ֶΡ�
+�ѽ������ؽ�������������Ϊ []���ɿ���ҳ��ɽ�����һ��ģʽ�����ͬ�� NPC���̶��ֶμ��������ͼ������ʽ��
+����ά�� /ϵͳ��/���/�Ա�/���/�ۺϳ�����/���/�ɳ� �İ汾/��¼/�غϽ�����վݡ�/�˼�/<����>/�������أ��Լ����Ԫ���ݣ�ģ�͸���ҵ����ʵ�������ø��Ǹ����������վݡ�/ϵͳ/��ɾ������ ���֧���棬���Ӿ������ؽ��������
+������ϡ���������ά����ʽ�Ǽǵȼ����ɳ���������ֵ���˼����ϼ��������ɰ���ȷ����ʵ�������������ն�������ͨ��д����Ҷ�ֶΣ��ϲ����ж���ʱ����δ�ᵽ�����ϡ��������¼����˼��еĴ�����Ŀ����ɾ�����볡����ʱʧЧ������ɾ����
+
+����������������ѡ�
+����������������ϵ���������ʡ���ͨ���ơ���ʽ������ϵ��Ϊ�ջ�����ǿ��ϵ/��Ȼ����ϵ/�������ϵ/�������ϵ������������������������չ�����������������ʽ�����Ʊ���˵������������ۡ�����״̬������״̬Ϊ��ȷ��/ѧϰ��/�����ա�������ʵ��ѧϰ��Ӧ�á�����������£��������ɣ���ƾ��ʽ���ƻ�ԭ��δ�������������ա�
+��άΪ����������������ħ������ħ�����ơ����ܡ�������ʵ�ʵ�λ����ʵ���棻���óɳ�����������ɸ���ά����ʱǿ����ƣ�ͻ�����д�������С���ʽ�Ǽ�/��������ʱ�ɸĵǼǵȼ��������ۺϳ����Ա�����ʷ����ͳһ HP/MP/AP/SP������ԭ����������������������֡�
+Ψһ���ѿ���Ϊ /���/ħ�˾��ѣ������� JSON true/false��ȱ�ֶΰ� false��������ȷ���Ѳ��� true����ǿɰ���ʵ������true �󲻷���ע����Ѿ��£����Ծɳɳ����硢��š�����������������������أ����ѱ���������顣
+
+���ɳ���ͳһ���㡿
+<% if (getv
+
+----------------------------------------
+
+=== File 1 Entry [30] [MVU]�������¸�ʽ ===
+��Rakudai �� MVU Output Format / G04 / T01��
+Read the current branch state and follow [MVU]�������¹���. Main and secondary APIs use the same business-field permissions; code manages identity metadata, derived stages and settlement receipts.
+End the narrative with exactly one <UpdateVariable> containing <Analysis> then <JSONPatch>, with all closing tags. Analysis is concise English: check scene, each growth target, affection and support separately, contact/profile facts and tournament changes. State old��final values or concrete no-change reasons; no major event is not a reason to skip everyday changes.
+JSONPatch is one complete JSON array. No fences, headings, comments, ellipses or escaped tags. Do not impose a word or operation limit that omits valid updates. Analysis alone does not save data.
+
+��Operations and Types��
+Paths start with /���, /���� or /�˼�, never /stat_data. Use add for missing entries/parents, replace for existing values, remove for confirmed erroneous dynamic entries. Submit final 
+
+----------------------------------------
+

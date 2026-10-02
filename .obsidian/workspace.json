@@ -11,14 +11,10 @@
             "id": "df10fbcad984cb29",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "第四卷-世界书整理/人物条目/平贺玲泉.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "平贺玲泉"
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "关系图谱"
             }
           }
         ]
@@ -185,20 +181,44 @@
       "bases:新建数据库": false
     }
   },
-  "active": "df10fbcad984cb29",
+  "active": "56de266b2069f7fc",
   "lastOpenFiles": [
-    "人物仔细考究/恶之华_艾茵_Ein.md",
-    "人物仔细考究/不转杀手_多多良幽衣_菲亚.md",
-    "人物仔细考究",
-    "scratch/vol13_nassim_fight.txt",
-    "scratch/get_v13_fight.py",
-    "scratch/real_file.txt",
-    "scratch/get_nassim_fight.py",
-    "scratch/found_passage_2.txt",
-    "scratch/found_passage_1.txt",
-    "scratch/save_passages.py",
-    "scratch/found_passage.txt",
-    "scratch/save_sea_king.py",
+    "第十六卷-世界书整理/人物条目/播磨天童_大炎_天导众教主与天丛云剑.md",
+    "第十六卷-世界书整理/人物条目/诸星雄大_浪速之星_盲点刺击与斗神杯备战.md",
+    "第十六卷-世界书整理/设定条目/仓敷藏人双短刀八岐大蛇与火山碎屑流天衣无缝.md",
+    "第十六卷-世界书整理/设定条目/特别征召制度与日本治安战.md",
+    "第十六卷-世界书整理/03_出场人物索引.md",
+    "第十六卷-世界书整理/02_章节索引.md",
+    "第十六卷-世界书整理/01_卷内时间线.md",
+    "第十六卷-世界书整理/00_整合说明.md",
+    "第十五卷-世界书整理/人物条目/亚伯拉罕_卡特_超人.md",
+    "第十五卷-世界书整理/设定条目/史黛菈超度觉醒与死灵游戏破除.md",
+    "第十五卷-世界书整理/设定条目/水色世界与死者复生改写因果.md",
+    "第十五卷-世界书整理/设定条目/自噬作用与剑神领域.md",
+    "第十五卷-世界书整理/03_出场人物索引.md",
+    "第十五卷-世界书整理/02_章节索引.md",
+    "第十五卷-世界书整理/01_卷内时间线.md",
+    "第十五卷-世界书整理/00_整合说明.md",
+    "第十六卷-世界书整理/设定条目",
+    "第十六卷-世界书整理/第十六卷_终章Ⅱ_思乡.txt",
+    "第十六卷-世界书整理/第十六卷_第二章_剑士杀手VS浪速之星.txt",
+    "第十六卷-世界书整理/第十六卷_第三章_大炎.txt",
+    "第十六卷-世界书整理/第十六卷_第一章_众劲敌的此刻.txt",
+    "第十六卷-世界书整理/第十六卷_序章_深渊熅火.txt",
+    "第十六卷-世界书整理/第十六卷_后记.txt",
+    "第十六卷-世界书整理/人物条目",
+    "第十六卷-世界书整理/split_stats.json",
+    "第十六卷-世界书整理",
+    "第十四卷-世界书整理/设定条目/艾莉丝倒戈与法国秘密案件浴血十字架.md",
+    "第十四卷-世界书整理/03_出场人物索引.md",
+    "第十四卷-世界书整理/02_章节索引.md",
+    "第十四卷-世界书整理/01_卷内时间线.md",
+    "第十四卷-世界书整理/00_整合说明.md",
+    "第十三卷-世界书整理/设定条目/超空蚀与魔人神经生理极限.md",
+    "第十三卷-世界书整理/03_出场人物索引.md",
+    "第十三卷-世界书整理/02_章节索引.md",
+    "第十三卷-世界书整理/01_卷内时间线.md",
+    "第十三卷-世界书整理/00_整合说明.md",
     "resource/knightavatars/color/kanata.jpg",
     "resource/knightavatars/color/misogi.jpg",
     "resource/knightavatars/color/renren.jpg",
@@ -208,8 +228,6 @@
     "resource/knightavatars/prepared/contact-sheet.png",
     "resource/knightavatars/prepared/yuri.png",
     "resource/knightavatars/prepared/kurono.png",
-    "resource/knightavatars/prepared/nene.png",
-    "resource/knightavatars/README.md",
-    "第八卷-世界书整理/人物条目/浅木椛.md"
+    "resource/knightavatars/prepared/nene.png"
   ]
 }

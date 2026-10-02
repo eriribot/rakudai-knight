@@ -1,0 +1,61 @@
+{
+  "volume": "第十六卷",
+  "source_file": "落第骑士英雄谭 第十六卷 gbk.txt",
+  "total_lines": 7003,
+  "chapters": [
+    {
+      "file": "第十六卷_终章Ⅱ_思乡.txt",
+      "title": "终章Ⅱ 思乡",
+      "start_line": 3,
+      "end_line": 317,
+      "line_count": 315,
+      "char_count": 3725,
+      "md5": "e75d9eae8ee447011319b3fe55cc16e4"
+    },
+    {
+      "file": "第十六卷_序章_深渊熅火.txt",
+      "title": "序章 深渊熅火",
+      "start_line": 318,
+      "end_line": 368,
+      "line_count": 51,
+      "char_count": 389,
+      "md5": "561317eac6b90b2d1db9ef90332c9062"
+    },
+    {
+      "file": "第十六卷_第一章_众劲敌的此刻.txt",
+      "title": "第一章 众劲敌的此刻",
+      "start_line": 369,
+      "end_line": 1983,
+      "line_count": 1615,
+      "char_count": 19005,
+      "md5": "f9c98797612089c75f9db7eb049e08be"
+    },
+    {
+      "file": "第十六卷_第二章_剑士杀手VS浪速之星.txt",
+      "title": "第二章 〈剑士杀手〉VS〈浪速之星〉",
+      "start_line": 1984,
+      "end_line": 4082,
+      "line_count": 2099,
+      "char_count": 26865,
+      "md5": "9658034a5142aa0d85ac92a6f6e78cdf"
+    },
+    {
+      "file": "第十六卷_第三章_大炎.txt",
+      "title": "第三章 〈大炎〉",
+      "start_line": 4083,
+      "end_line": 6971,
+      "line_count": 2889,
+      "char_count": 34371,
+      "md5": "b6efede0dbcd064830fa42d5cc13bf34"
+    },
+    {
+      "file": "第十六卷_后记.txt",
+      "title": "后记",
+      "start_line": 6972,
+      "end_line": 7003,
+      "line_count": 32,
+      "char_count": 740,
+      "md5": "9ee462899f74dd3846bbabd6c1e82697"
+    }
+  ]
+}

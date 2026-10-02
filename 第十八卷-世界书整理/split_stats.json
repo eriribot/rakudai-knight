@@ -1,0 +1,52 @@
+{
+  "volume": "第十八卷",
+  "source_file": "落第骑士英雄谭 第十八卷 gbk.txt",
+  "total_lines": 6508,
+  "chapters": [
+    {
+      "file": "第十八卷_序章_所谓正义，所谓邪恶.txt",
+      "title": "序章 所谓正义，所谓邪恶",
+      "start_line": 3,
+      "end_line": 521,
+      "line_count": 519,
+      "char_count": 6131,
+      "md5": "f24f88c0271652bac5e5e033a5caa973"
+    },
+    {
+      "file": "第十八卷_第一章_〈烈风剑帝〉VS〈超人(Thehero)〉.txt",
+      "title": "第一章 〈烈风剑帝〉VS〈超人(Thehero)〉",
+      "start_line": 522,
+      "end_line": 2352,
+      "line_count": 1831,
+      "char_count": 19303,
+      "md5": "f1433f6548c6b9cb467921d1dec96b0c"
+    },
+    {
+      "file": "第十八卷_第二章_屠尽三千世界之鸦.txt",
+      "title": "第二章 屠尽三千世界之鸦",
+      "start_line": 2353,
+      "end_line": 4785,
+      "line_count": 2433,
+      "char_count": 26357,
+      "md5": "a85171c5062586b8b56319154801807f"
+    },
+    {
+      "file": "第十八卷_第三章_圣母史黛菈.txt",
+      "title": "第三章 圣母史黛菈",
+      "start_line": 4786,
+      "end_line": 6470,
+      "line_count": 1685,
+      "char_count": 18531,
+      "md5": "9dd68cc7e250420cb42d80f90921bb31"
+    },
+    {
+      "file": "第十八卷_后记.txt",
+      "title": "后记",
+      "start_line": 6471,
+      "end_line": 6508,
+      "line_count": 38,
+      "char_count": 708,
+      "md5": "f80bfdfa3e4904f59d4f1bb578594e70"
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "volume": "第十七卷",
+  "source_file": "落第骑士英雄谭 第十七卷 gbk.txt",
+  "total_lines": 7704,
+  "chapters": [
+    {
+      "file": "第十七卷_间章_波纹逐渐扩散.txt",
+      "title": "间章 波纹逐渐扩散",
+      "start_line": 3,
+      "end_line": 195,
+      "line_count": 193,
+      "char_count": 2300,
+      "md5": "076c57879b2454585b796ce3dda8c5ad"
+    },
+    {
+      "file": "第十七卷_第四章_恩宠的力量.txt",
+      "title": "第四章 恩宠的力量",
+      "start_line": 196,
+      "end_line": 1696,
+      "line_count": 1501,
+      "char_count": 17232,
+      "md5": "c1bff028331389e4c140ca76be0b5e4e"
+    },
+    {
+      "file": "第十七卷_第五章_命运锁链.txt",
+      "title": "第五章 命运锁链",
+      "start_line": 1697,
+      "end_line": 2861,
+      "line_count": 1165,
+      "char_count": 13176,
+      "md5": "4519a38c83e5aef0f88a01e35f476d78"
+    },
+    {
+      "file": "第十七卷_第六章_两场大战·首都保卫战.txt",
+      "title": "第六章 两场大战·首都保卫战",
+      "start_line": 2862,
+      "end_line": 5200,
+      "line_count": 2339,
+      "char_count": 25828,
+      "md5": "2136cbbf8cee2b6576d6e175b7a30be4"
+    },
+    {
+      "file": "第十七卷_第七章_两场大战·〈大炎〉讨伐战.txt",
+      "title": "第七章 两场大战·〈大炎〉讨伐战",
+      "start_line": 5201,
+      "end_line": 7664,
+      "line_count": 2464,
+      "char_count": 25020,
+      "md5": "ee51d93fdcaef98921d9a4ef47144e3f"
+    },
+    {
+      "file": "第十七卷_后记.txt",
+      "title": "后记",
+      "start_line": 7665,
+      "end_line": 7704,
+      "line_count": 40,
+      "char_count": 734,
+      "md5": "a41f3bcc348932f51ea28c61e0fc9eff"
+    }
+  ]
+}

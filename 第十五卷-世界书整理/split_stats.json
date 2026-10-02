@@ -1,0 +1,70 @@
+{
+  "volume": "第十五卷",
+  "source_file": "落第骑士英雄谭 第十五卷 gbk.txt",
+  "total_lines": 6754,
+  "chapters": [
+    {
+      "file": "第十五卷_间章_遗言.txt",
+      "title": "间章 遗言",
+      "start_line": 3,
+      "end_line": 47,
+      "line_count": 45,
+      "char_count": 337,
+      "md5": "8729b56c3e50927a3d4181986ad48922"
+    },
+    {
+      "file": "第十五卷_第二十二章_剑神.txt",
+      "title": "第二十二章 剑神",
+      "start_line": 48,
+      "end_line": 1978,
+      "line_count": 1931,
+      "char_count": 22857,
+      "md5": "0f2210cee7e0ece2fd83e55a2c6b7267"
+    },
+    {
+      "file": "第十五卷_第二十三章_法米利昂的怒火.txt",
+      "title": "第二十三章 法米利昂的怒火",
+      "start_line": 1979,
+      "end_line": 2609,
+      "line_count": 631,
+      "char_count": 7688,
+      "md5": "3674d2a8210757be99b97f11fff7fa79"
+    },
+    {
+      "file": "第十五卷_第二十四章_遗骸洒泪.txt",
+      "title": "第二十四章 遗骸洒泪",
+      "start_line": 2610,
+      "end_line": 4892,
+      "line_count": 2283,
+      "char_count": 23623,
+      "md5": "904f1452d678ad2b4ab6efcb19680c91"
+    },
+    {
+      "file": "第十五卷_第二十五章_胜负已分，在那之后…….txt",
+      "title": "第二十五章 胜负已分，在那之后……",
+      "start_line": 4893,
+      "end_line": 6633,
+      "line_count": 1741,
+      "char_count": 17711,
+      "md5": "789bd5865dfed791ef30719a8826a5e3"
+    },
+    {
+      "file": "第十五卷_终章_正义从天而降.txt",
+      "title": "终章 正义从天而降",
+      "start_line": 6634,
+      "end_line": 6718,
+      "line_count": 85,
+      "char_count": 1016,
+      "md5": "5e083d01622453c917544e4b37825c97"
+    },
+    {
+      "file": "第十五卷_后记.txt",
+      "title": "后记",
+      "start_line": 6719,
+      "end_line": 6754,
+      "line_count": 36,
+      "char_count": 598,
+      "md5": "0dccab7b723db8a7834d6971d5bd93b2"
+    }
+  ]
+}

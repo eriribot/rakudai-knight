@@ -1,0 +1,911 @@
+[
+  {
+    "index": 0,
+    "comment": "第一卷 破军学园的落第骑士",
+    "keys": [],
+    "len": 2976,
+    "constant": false,
+    "order": 100,
+    "preview": " <章节剧情> 章节标题: \"第一卷 破军学园的落第骑士\" 详细剧情: \"伐刀者黑铁一辉因魔力值极低且遭受家族打压而留级，被戏称为『落第骑士』。在破军学园的新学期，他因宿舍分配错误，意外撞见异国公主史"
+  },
+  {
+    "index": 1,
+    "comment": "<章节列表>",
+    "keys": [],
+    "len": 366,
+    "constant": true,
+    "order": 1000,
+    "preview": "<章节列表>  第一卷 破军学园的落第骑士 第二卷 绫辻一刀流的继承与羁绊 第三卷 珠雫的挑战与雷切的闪光 短篇 秘密追踪采访与伐刀者的日常 第四卷 阴谋蠢动与比翼之战 第五卷 祭典的乐声与全员到齐 "
+  },
+  {
+    "index": 2,
+    "comment": "第二卷 绫辻一刀流的继承与羁绊",
+    "keys": [],
+    "len": 3057,
+    "constant": false,
+    "order": 101,
+    "preview": "<tag_name_1> <章节剧情> 章节标题: \"第二卷 绫辻一刀流的继承与羁绊\" 详细剧情: \"少女绫辻绚濑背负着沉重的过往，两年前其父‘最后武士’绫辻海斗在决斗中败于仓敷藏人，导致道场易主，海"
+  },
+  {
+    "index": 3,
+    "comment": "第三卷 珠雫的挑战与雷切的闪光",
+    "keys": [],
+    "len": 2745,
+    "constant": false,
+    "order": 102,
+    "preview": "<章节剧情> 章节标题: \"第三卷 珠雫的挑战与雷切的闪光\" 详细剧情: \"黑铁珠雫为了追随并守护唯一给予她正确引导的兄长一辉，在校内选拔战中挑战破军学园最强的学生会长——〈雷切〉东堂刀华。两人在激烈"
+  },
+  {
+    "index": 4,
+    "comment": "第四卷 阴谋蠢动与比翼之战",
+    "keys": [],
+    "len": 3421,
+    "constant": false,
+    "order": 104,
+    "preview": "<章节剧情>   章节标题: \"第四卷 阴谋蠢动与比翼之战\"   详细剧情: \"破军新闻社长加加美发现晓学园潜入七校的阴谋，却遭室友有栖院凪（艾莉丝）背后袭击禁锢。艾莉丝虽身为杀手组织《解放军》的卧底"
+  },
+  {
+    "index": 5,
+    "comment": "短篇 秘密追踪采访与伐刀者的日常",
+    "keys": [],
+    "len": 2835,
+    "constant": false,
+    "order": 103,
+    "preview": "<章节剧情> 章节标题: \"短篇 秘密追踪采访与伐刀者的日常\" 详细剧情: \"日下部加加美作为新闻部记者，为了挖掘破军学园顶尖选手的真实一面，展开了针对『红莲皇女』史黛菈·法米利昂以及『深海魔女』黑铁"
+  },
+  {
+    "index": 6,
+    "comment": "第五卷 序章 祭典的乐声与全员到齐",
+    "keys": [],
+    "len": 3791,
+    "constant": false,
+    "order": 105,
+    "preview": "<章节剧情>   章节标题: \"第五卷 祭典的乐声与全員到齊\"   详细剧情: \"随着七星剑武祭开幕在即，日本国内因月影总理设立‘国立晓学园’而引发巨大的政治动荡与舆论分歧。支持派与反对派僵持不下，使"
+  },
+  {
+    "index": 7,
+    "comment": "第六卷 诸神黄昏的序曲",
+    "keys": [],
+    "len": 3114,
+    "constant": false,
+    "order": 106,
+    "preview": "<章节剧情>   章节标题: \"第六卷 诸神黄昏的序曲\"   详细剧情: \"随着第七星剑武祭第二轮的仓促开启，整场大赛被卷入一股由金钱与阴谋交织的洪流。史黛菈以压倒性的火神之力横扫B区，导致赛程被激进"
+  },
+  {
+    "index": 8,
+    "comment": "第七卷 间章与喧闹的医务室",
+    "keys": [],
+    "len": 3549,
+    "constant": false,
+    "order": 108,
+    "preview": "<章节剧情>   章节标题: \"第七卷 间章与喧闹的医务室\"   详细剧情: \"在七星剑武祭的第二天，黑铁一辉以惊人的‘一刀罗刹’在0.8秒内击败了前届亚军城之崎白夜，创下大赛纪录。然而，这一招对一辉"
+  },
+  {
+    "index": 9,
+    "comment": "第零卷 起點與日常的小插曲",
+    "keys": [],
+    "len": 3477,
+    "constant": false,
+    "order": 107,
+    "preview": "<章节剧情> 章节标题: \"第零卷 起點與日常的小插曲\" 详细剧情: \"本作收錄了《落第騎士英雄譚》世界觀下多個重要時間節點的番外故事。從公主史黛菈初次接觸日本HENTAI文化的誤會，到妹妹珠雫在哥哥"
+  },
+  {
+    "index": 10,
+    "comment": "第八卷 为了不后悔而战：双龙相克与宿命的终焉",
+    "keys": [],
+    "len": 3660,
+    "constant": false,
+    "order": 109,
+    "preview": "<章节剧情>   章节标题: \"第八卷 为了不后悔而战：双龙相克与宿命的终焉\"   详细剧情: \"随着七星剑武祭进入准决赛，黑铁珠雫为了替兄长一辉扫清障碍，决定牺牲自己的职业生涯对紫乃宫天音发动奇袭。"
+  },
+  {
+    "index": 11,
+    "comment": "第九卷 战魂高昂 与 约定之刻",
+    "keys": [],
+    "len": 2929,
+    "constant": false,
+    "order": 110,
+    "preview": "<章节剧情>   章节标题: \"第九卷 战魂高昂 与 约定之刻\"   详细剧情: \"七星剑武祭决赛前夕，黑铁一辉在重伤昏迷后奇迹般苏醒。面对拥有‘龙神附身’、实力深不可测的史黛菈，一辉在诸星雄大、东堂"
+  },
+  {
+    "index": 12,
+    "comment": "第十卷 来自地狱的蜘蛛与庆典之后",
+    "keys": [],
+    "len": 3639,
+    "constant": false,
+    "order": 111,
+    "preview": "<章节剧情>   章节标题: \"第十卷 来自地狱的蜘蛛与庆典之后\"   详细剧情: \"随着第六十二届七星剑武祭以黑铁一辉的获胜落下帷幕，大阪迎来了短暂的平静。然而，在东南亚的丛林深处，操纵着千人偶的〈"
+  },
+  {
+    "index": 13,
+    "comment": "第十一卷 虚伪的宣战与乾涸的死神",
+    "keys": [],
+    "len": 3538,
+    "constant": false,
+    "order": 112,
+    "preview": "<章节剧情>   章节标题: \"第十一卷 虚伪的宣战与乾涸的死神\"   详细剧情: \"为了应对潜伏的罪犯〈傀儡王〉欧尔·格尔，黑铁一辉随同露娜艾丝、史黛菈前往邻国奎多兰。然而，这竟是欧尔·格尔设下的陷"
+  },
+  {
+    "index": 14,
+    "comment": "第十二卷 法米利昂的觉醒与抉择",
+    "keys": [],
+    "len": 3772,
+    "constant": false,
+    "order": 123,
+    "preview": "<章节剧情> 章节标题: \"第十二卷 法米利昂的觉醒与抉择\" 详细剧情: \"随着奎多兰军在傀儡王欧尔·格尔的操纵下入侵法米利昂，第一皇女露娜艾丝洞察到父亲席琉斯的温情决策将导致毁灭性牺牲，毅然前往敌营"
+  },
+  {
+    "index": 15,
+    "comment": "第十三卷 维尔米昂的决战与英雄的回响",
+    "keys": [],
+    "len": 3833,
+    "constant": false,
+    "order": 114,
+    "preview": "<章节剧情>   章节标题: \"第十三卷 维尔米昂的决战与英雄的回响\"   详细剧情: \"随着奎多兰对法米利昂宣战，双方在王都路榭尔展开了关乎国家存亡的五对五代表战。然而，战争的阴云早已在国境线上蔓延"
+  },
+  {
+    "index": 16,
+    "comment": "第十四卷 宿命的交响与超越的恶鬼",
+    "keys": [],
+    "len": 3211,
+    "constant": false,
+    "order": 115,
+    "preview": "<章节剧情> 章节标题: \"第十四卷 宿命的交响与超越的恶鬼\" 详细剧情: \"随着奎多兰与法米利昂的战争进入最终阶段，战场被分割为多个关键对决。曾为宿敌的泷泽黑乃与西京宁音在梅雨夜的告别揭示了强者分歧"
+  },
+  {
+    "index": 17,
+    "comment": "第十五卷 剑神降临与终焉之火",
+    "keys": [],
+    "len": 3547,
+    "constant": false,
+    "order": 116,
+    "preview": "<章节剧情> 章节标题: \"第十五卷 剑神降临与终焉之火\" 详细剧情: \"在法米利昂皇国与奎多兰王国的决战进入最终阶段之际，〈落第骑士〉黑铁一辉为了守护爱人与国家，面临了最为惨烈的死斗。他首先独自留下"
+  },
+  {
+    "index": 18,
+    "comment": "第十六卷 思乡与序章 深渊熅火",
+    "keys": [],
+    "len": 4214,
+    "constant": false,
+    "order": 117,
+    "preview": "<章节剧情> 章节标题: \"第十六卷 思乡与序章 深渊熅火\" 详细剧情: \"随着傀儡王欧尔·格尔引发的战争在红莲皇女史黛菈、落第骑士黑铁一辉、不转杀手多多良幽衣以及夜叉姬西京宁音的奋战下画上句点，法米"
+  },
+  {
+    "index": 19,
+    "comment": "第十七卷 命运的锁链与大炎的陨落",
+    "keys": [],
+    "len": 3505,
+    "constant": false,
+    "order": 118,
+    "preview": "<章节剧情> 章节标题: \"第十七卷 命运的锁链与大炎的陨落\" 详细剧情: \"贵德原彼方在福冈处理育幼院迁徙与居民矛盾时，惊悉自称播磨天童的老人竟是从联盟监狱逃脱的极度危险罪犯〈大炎〉。此时，东堂刀华"
+  },
+  {
+    "index": 20,
+    "comment": "第十八卷 正义的伪装与暴风的觉醒",
+    "keys": [],
+    "len": 2876,
+    "constant": false,
+    "order": 119,
+    "preview": "<章节剧情> 章节标题: \"第十八卷 正义的伪装与暴风的觉醒\" 详细剧情: \"随着恐怖组织〈解放军〉的瓦解，世界权力平衡被打破。美利坚合众国旗下的超能力部队〈PSYON〉在〈大教授〉爱兰兹的策划下，突"
+  },
+  {
+    "index": 21,
+    "comment": "第十九卷 划破黑暗的极光",
+    "keys": [],
+    "len": 3027,
+    "constant": false,
+    "order": 120,
+    "preview": "<章节剧情> 章节标题: \"第十九卷 划破黑暗的极光\" 详细剧情: \"〈大教授〉卡尔·爱兰兹为达成创造‘完美人类’的野心，绑架了史黛菈并试图抹除其人格。濒死的黑铁一辉在珠雫的救治下苏醒，与王马、刀华、"
+  },
+  {
+    "index": 22,
+    "comment": "黑铁一辉\n",
+    "keys": [],
+    "len": 3349,
+    "constant": false,
+    "order": 100,
+    "preview": "  \"name\": \"黑铁一辉\", \"Ikki Kurogane\", \"くろがね いっき\",   \"alias\": [     \"落第骑士 (Worst One)\",     \"无冕剑王 (Anoth"
+  },
+  {
+    "index": 23,
+    "comment": "史黛菈·法米利昂\n",
+    "keys": [],
+    "len": 3525,
+    "constant": false,
+    "order": 100,
+    "preview": "  \"name\": \"史黛菈·法米利昂\", \"Stella Vermillion\", \"ステラ・ヴァーミリオン\",   \"alias\": [     \"红莲皇女\",     \"天才骑士\",     \""
+  },
+  {
+    "index": 24,
+    "comment": "黑铁珠雫\n",
+    "keys": [],
+    "len": 3661,
+    "constant": false,
+    "order": 100,
+    "preview": "  \"name\": \"黑铁珠雫\", \"Kurogane Shizuku\", \"くろがね しずく\",   \"alias\": [     \"深海魔女 (Lorelei)\",     \"掌管生死的少女\", "
+  },
+  {
+    "index": 25,
+    "comment": "有栖院凪\n",
+    "keys": [],
+    "len": 3531,
+    "constant": false,
+    "order": 100,
+    "preview": "  \"name\": \"有栖院凪\", \"Arisuin Nagi\", \"ありすいん なぎ\",   \"alias\": [     \"黑蔷薇 (Black Sonia)\",     \"黑影杀手\",     "
+  },
+  {
+    "index": 26,
+    "comment": "绫辻绚濑\n",
+    "keys": [],
+    "len": 3172,
+    "constant": false,
+    "order": 100,
+    "preview": "  \"name\": \"绫辻绚濑\", \"Ayatsuji Ayase\", \"あやつじ あやせ\",   \"alias\": [     \"最后武士之女\",     \"绫辻一刀流继承者\",     \"大和抚子"
+  },
+  {
+    "index": 27,
+    "comment": "桐原静矢\n",
+    "keys": [],
+    "len": 2296,
+    "constant": false,
+    "order": 100,
+    "preview": "{   \"name\": \"桐原静矢\", \"Kirihara Shizuya\", \"きりはら しずや\",   \"alias\": [     \"猎人 (Hunter)\",     \"首席生\",     \""
+  },
+  {
+    "index": 28,
+    "comment": "东堂刀华\n",
+    "keys": [],
+    "len": 3384,
+    "constant": false,
+    "order": 100,
+    "preview": "  \"name\": \"东堂刀华\", \"Touka Toudou\", \"とうどう とうか\",   \"alias\": [     \"雷切 (Raikiri)\",     \"最强学生会长\"   ],   \""
+  },
+  {
+    "index": 29,
+    "comment": "兔丸恋恋\n",
+    "keys": [],
+    "len": 2969,
+    "constant": false,
+    "order": 100,
+    "preview": "  \"name\": \"兔丸恋恋\", \"Renren Tomaru\", \"とまる れんれん\",   \"alias\": [     \"速度中毒 (Runner's High)\",     \"学生会行政\" "
+  },
+  {
+    "index": 30,
+    "comment": "碎城雷\n",
+    "keys": [],
+    "len": 2488,
+    "constant": false,
+    "order": 100,
+    "preview": "\"name\": \"碎城雷\", \"Ikazuchi Saijou\", \"さいじょう いかづち\",   \"alias\": [     \"破城舰 (Destroyer)\",     \"学生会书记\"   ],"
+  },
+  {
+    "index": 31,
+    "comment": "御祓泡沫\n",
+    "keys": [],
+    "len": 2669,
+    "constant": false,
+    "order": 100,
+    "preview": "\"name\": \"御祓泡沫\", \"Utakata Misogi\", \"みそぎ うたかた\",   \"alias\": [     \"无法观测 (Fifty-Fifty)\",     \"泡沫君\",     "
+  },
+  {
+    "index": 32,
+    "comment": "贵德原彼方\n",
+    "keys": [],
+    "len": 3087,
+    "constant": false,
+    "order": 100,
+    "preview": "  \"name\": \"贵德原彼方\",\"Toutokubara Kanata\", \"とうとくばら かなた\"   \"alias\": [     \"腥红淑女 (Scharlach Frau)\",     \""
+  },
+  {
+    "index": 33,
+    "comment": "日下部加加美\n",
+    "keys": [],
+    "len": 3139,
+    "constant": false,
+    "order": 100,
+    "preview": "  \"name\": \"日下部加加美\", \"Kagami Kusakabe\", \"くさかべ かがみ\",   \"alias\": [     \"加加美酱 (Kagamin)\",     \"新闻部创始人\", "
+  },
+  {
+    "index": 34,
+    "comment": "叶暮牡丹 & 叶暮桔梗\n",
+    "keys": [],
+    "len": 2883,
+    "constant": false,
+    "order": 100,
+    "preview": "  \"name\": \"叶暮牡丹 & 叶暮桔梗\", \"Hagure Botan & Hagure Kikyo\", \"はぐれ ぼたん & はぐれ ききょう\",   \"alias\": [     \"叶暮姐妹"
+  },
+  {
+    "index": 35,
+    "comment": "西京宁音\n",
+    "keys": [],
+    "len": 3804,
+    "constant": false,
+    "order": 100,
+    "preview": "  \"name\": \"西京宁音\", \"Nene Saikyo\", \"さいきょう ねね\",   \"alias\": [     \"夜叉姬 (Yaksha Princess)\",     \"重力魔女\"   "
+  },
+  {
+    "index": 36,
+    "comment": "新宫寺黑乃\n",
+    "keys": [],
+    "len": 3749,
+    "constant": false,
+    "order": 100,
+    "preview": "  \"name\": \"新宫寺黑乃\", \"Kurono Shinguuji\", \"しんぐうじ くろの\",   \"alias\": [     \"世界时钟 (World Clock)\",     \"小黑 ("
+  },
+  {
+    "index": 37,
+    "comment": "折木有里\n",
+    "keys": [],
+    "len": 3500,
+    "constant": false,
+    "order": 100,
+    "preview": "  \"name\": \"折木有里\", \"Yuuri Oreki\", \"おれき ゆうり\",   \"alias\": [     \"死亡宣告 (Jolly Roger)\",     \"小有里 (Yuri-ch"
+  },
+  {
+    "index": 38,
+    "comment": "黑铁严\n",
+    "keys": [],
+    "len": 3019,
+    "constant": false,
+    "order": 100,
+    "preview": "  \"name\": \"黑铁严\",\"Itsuki Kurogane\", \"くろがね いつき\"   \"alias\": [     \"铁血 (Tekketsu)\",     \"黑铁当家\"   ],   \"a"
+  },
+  {
+    "index": 39,
+    "comment": "黑铁龙马\n",
+    "keys": [],
+    "len": 2642,
+    "constant": false,
+    "order": 100,
+    "preview": "\"name\": \"黑铁龙马\",\"Ryouma Kurogane\", \"くろがね りゅうま\"   \"alias\": [     \"武士龙马 (Samurai Ryouma)\",     \"大英雄 (Gr"
+  },
+  {
+    "index": 40,
+    "comment": "仓敷藏人\n",
+    "keys": [],
+    "len": 2471,
+    "constant": false,
+    "order": 100,
+    "preview": "\"name\": \"仓敷藏人\",\"Kurashiki Kuraudo\", \"くらしき くらうど\"   \"alias\": [     \"剑士杀手 (Sword Killer)\",     \"剑士吞噬者 ("
+  },
+  {
+    "index": 41,
+    "comment": "诸星雄大\n",
+    "keys": [],
+    "len": 3263,
+    "constant": false,
+    "order": 100,
+    "preview": "{   \"name\": \"诸星雄大\",\"Yuudai Moroboshi\", \"もろぼし ゆうだい\",   \"alias\": [     \"浪速之星 (Star of Naniwa)\",     \"七"
+  },
+  {
+    "index": 42,
+    "comment": "城之崎白夜\n",
+    "keys": [],
+    "len": 2277,
+    "constant": false,
+    "order": 100,
+    "preview": "{   \"name\": \"城之崎白夜\",\"Byakuya Jougasaki\", \"じょうがさき びゃくや\",   \"alias\": [     \"天眼 (Clairvoyant)\",     \"上届"
+  },
+  {
+    "index": 43,
+    "comment": "浅木椛\n",
+    "keys": [],
+    "len": 2999,
+    "constant": false,
+    "order": 100,
+    "preview": "  \"name\": \"浅木椛\",\"Momiji Asagi\", \"あさぎ もみじ\"   \"alias\": [     \"鬼火 (Onibi)\",     \"小椛\"   ],   \"appearance"
+  },
+  {
+    "index": 44,
+    "comment": "药师雾子\n",
+    "keys": [],
+    "len": 3540,
+    "constant": false,
+    "order": 100,
+    "preview": "  \"name\": \"药师雾子\",\"Kiriko Yakushi\", \"やくし きりこ\"   \"alias\": [     \"白衣骑士 (White Robed Knight)\"   ],   \"ap"
+  },
+  {
+    "index": 45,
+    "comment": "鹤屋美琴\n",
+    "keys": [],
+    "len": 3093,
+    "constant": false,
+    "order": 100,
+    "preview": "  \"name\": \"鹤屋美琴\",\"Mikoto Tsuruya\", \"つるや みこと\"   \"alias\": [     \"冰霜冷笑 (The Icy Laughter)\",     \"Mikoto"
+  },
+  {
+    "index": 46,
+    "comment": "加我恋司\n",
+    "keys": [],
+    "len": 2794,
+    "constant": false,
+    "order": 100,
+    "preview": "{   \"name\": \"加我恋司\",\"Renji Kaga\", \"かが れんじ\"   \"alias\": [     \"钢铁狂熊 (Panzer Grizzly)\",     \"北海道的英雄\",   "
+  },
+  {
+    "index": 47,
+    "comment": "黑铁王马\n",
+    "keys": [],
+    "len": 3227,
+    "constant": false,
+    "order": 100,
+    "preview": "  \"name\": \"黑铁王马\",\"Kurogane Ouma\", \"くろがね おうま\"   \"alias\": [     \"烈风剑帝\",     \"剑帝\",     \"黑铁家的长男\"   ],   "
+  },
+  {
+    "index": 48,
+    "comment": "多多良幽衣\n",
+    "keys": [],
+    "len": 3656,
+    "constant": false,
+    "order": 100,
+    "preview": "  \"name\": \"多多良幽衣\",\"Yui Tatara\", \"たたら ゆい\",   \"alias\": [     \"不转 (Unturning)\",     \"菲亚 (Vier)\",     \"小"
+  },
+  {
+    "index": 49,
+    "comment": "紫乃宫天音\n",
+    "keys": [],
+    "len": 3771,
+    "constant": false,
+    "order": 100,
+    "preview": "{   \"name\": \"紫乃宫天音\", \"Shinomiya Amane\", \"しのみや あまね\",   \"alias\": [     \"天宫紫音 (Shion Amamiya)\",     \"厄运"
+  },
+  {
+    "index": 50,
+    "comment": "莎拉·布拉德莉莉\n",
+    "keys": [],
+    "len": 3831,
+    "constant": false,
+    "order": 100,
+    "preview": "  \"name\": \"莎拉·布拉德莉莉\",\"Sara Bloodlily\", \"サラ・ブラッドリリー\",   \"alias\": [     \"染血达芬奇 (Bloody Da Vinci)\",    "
+  },
+  {
+    "index": 51,
+    "comment": "平贺玲泉\n",
+    "keys": [],
+    "len": 3138,
+    "constant": false,
+    "order": 100,
+    "preview": "\"name\": \"平贺玲泉\",\"Hiraga Reisen\", \"ひらが れいせん\"   \"alias\": [     \"小丑 (Pierrot)\",     \"提线木偶\",     \"晓学园代表\" "
+  },
+  {
+    "index": 52,
+    "comment": "风祭凛奈\n",
+    "keys": [],
+    "len": 3875,
+    "constant": false,
+    "order": 100,
+    "preview": "  \"name\": \"风祭凛奈\",\"Rinna Kazamatsuri\", \"かざまつり りんな\"   \"alias\": [     \"魔兽使 (Beast Tamer)\",     \"撕裂剑姬\", "
+  },
+  {
+    "index": 53,
+    "comment": "月影獏牙\n",
+    "keys": [],
+    "len": 3198,
+    "constant": false,
+    "order": 100,
+    "preview": "\"name\": \"月影獏牙\",\"Tsukikage Bakuga\", \"つきかげ ばくが\"   \"alias\": [     \"日本内阁总理大臣\",     \"晓学园理事长\",     \"前破军学园理"
+  },
+  {
+    "index": 54,
+    "comment": "华伦斯坦\n",
+    "keys": [],
+    "len": 2916,
+    "constant": false,
+    "order": 100,
+    "preview": "\"name\": \"华伦斯坦\",\"Wallenstein\", \"ヴァレンシュタイン\"   \"alias\": [     \"独腕剑圣\",     \"十二使徒\",     \"瓦伦斯坦\",     \"一臂剑士"
+  },
+  {
+    "index": 55,
+    "comment": "爱德怀斯\n",
+    "keys": [],
+    "len": 3667,
+    "constant": false,
+    "order": 100,
+    "preview": "  \"name\": \"爱德怀斯\",\"Edelweiss\", \"エーデルワイス\"   \"alias\": [     \"比翼\",     \"世界最强剑士\",     \"世界最邪恶犯罪者\",     \"布伦"
+  },
+  {
+    "index": 56,
+    "comment": "南乡寅次郎\n",
+    "keys": [],
+    "len": 2748,
+    "constant": false,
+    "order": 100,
+    "preview": "\"name\": \"南乡寅次郎\",\"Torajirou Nangou\", \"なんごう とらじろう\"   \"alias\": [     \"斗神\",     \"无缺\",     \"现役最高龄魔法骑士\",  "
+  },
+  {
+    "index": 57,
+    "comment": "诸星小梅\n",
+    "keys": [],
+    "len": 1751,
+    "constant": false,
+    "order": 100,
+    "preview": "\"name\": \"诸星小梅\",\"Koume Moroboshi\", \"もろぼし こうめ\"   \"alias\": [     \"小梅\",     \"‘一等星’看板娘\"   ],   \"appearanc"
+  },
+  {
+    "index": 58,
+    "comment": "夏洛特‧科黛\n",
+    "keys": [],
+    "len": 1937,
+    "constant": false,
+    "order": 100,
+    "preview": "\"name\": \"夏洛特‧科黛\",\"Charlotte Cordé\", \"シャルロット・コルデー\"   \"alias\": [     \"风祭的专属女仆\",     \"忠实的隶属者\",     \"中二发"
+  },
+  {
+    "index": 59,
+    "comment": "亚当斯·歌德亚\n",
+    "keys": [],
+    "len": 2205,
+    "constant": false,
+    "order": 100,
+    "preview": "\"name\": \"亚当斯·歌德亚\",\"Adams Goetia\", \"アダムス・ゴエチア\"   \"alias\": [     \"暴君 (Tyrant)\",     \"解放军首领\",     \"三大魔人"
+  },
+  {
+    "index": 60,
+    "comment": "奥尔·高卢\n",
+    "keys": [],
+    "len": 2886,
+    "constant": false,
+    "order": 100,
+    "preview": "{   \"name\": \"奥尔·高卢\", \"Or-Gaule\", \"オル=ゴール\"   \"alias\": [     \"傀儡王\",     \"奥尔雷斯·高卢 (真名)\",     \"解放军十二使徒之一"
+  },
+  {
+    "index": 61,
+    "comment": "纳西姆·萨利姆\n",
+    "keys": [],
+    "len": 2899,
+    "constant": false,
+    "order": 100,
+    "preview": "\"name\": \"纳西姆·萨利姆\",\"Naseem Al-Salem\", \"ナジーム・アル・セーレム\"   \"alias\": [     \"沙漠死神 (Haboob)\",     \"史上最强佣兵\", "
+  },
+  {
+    "index": 62,
+    "comment": "亞瑟·布萊特",
+    "keys": [],
+    "len": 2352,
+    "constant": false,
+    "order": 100,
+    "preview": "{   \"name\": \"亚瑟·布莱特\",\"Arthur Bright\", \"アーサー・ブライト\"   \"alias\": [     \"白须公 (Lord Whitebeard)\",     \"国际魔"
+  },
+  {
+    "index": 63,
+    "comment": "诺曼·克里德\n",
+    "keys": [],
+    "len": 2130,
+    "constant": false,
+    "order": 100,
+    "preview": "{   \"name\": \"诺曼·克里德\",\"Norman Creed\", \"ノーマン・クリード\"   \"alias\": [     \"翼之宰相 (Winged Chancellor)\",     \"国"
+  },
+  {
+    "index": 64,
+    "comment": "艾莉丝·阿斯卡里德\n",
+    "keys": [],
+    "len": 2358,
+    "constant": false,
+    "order": 100,
+    "preview": "{   \"name\": \"艾莉丝·阿斯卡里德\",\"Iris Ascarid\", \"アイリス・アスカリド\"   \"alias\": [     \"黑骑士 (Black Knight)\",     \"KOK"
+  },
+  {
+    "index": 65,
+    "comment": "卡罗·贝托尼\n",
+    "keys": [],
+    "len": 1595,
+    "constant": false,
+    "order": 100,
+    "preview": "\"name\": \"卡罗·贝托尼\",\"Carlo Bettoni\", \"カルロ・ベットーニ\"   \"alias\": [     \"海王\",     \"意大利最强骑士\",     \"史上最强水术士\"   "
+  },
+  {
+    "index": 66,
+    "comment": "亚伯拉罕·卡特\n",
+    "keys": [],
+    "len": 1469,
+    "constant": false,
+    "order": 100,
+    "preview": "\"name\": \"亚伯拉罕·卡特\",\"Abraham Carter\", \"アブラハム・カーター\"   \"alias\": [     \"超人 (Superman)\",     \"同盟最强魔人\",    "
+  },
+  {
+    "index": 67,
+    "comment": "福小莉\n",
+    "keys": [],
+    "len": 3569,
+    "constant": false,
+    "order": 100,
+    "preview": "  \"name\": \"福小莉\",\"Fu Xiaoli\", \"フー・シャオリー\"   \"alias\": [     \"饕餮 (Taotie)\",     \"四仙之一\",     \"神龙寺的天才\"   ]"
+  },
+  {
+    "index": 68,
+    "comment": "席琉斯·法米利昂\n",
+    "keys": [],
+    "len": 1670,
+    "constant": false,
+    "order": 100,
+    "preview": "{   \"name\": \"席琉斯·法米利昂\",\"Sirius Vermillion\", \"シリウス・ヴァーミリオン\"   \"alias\": [     \"红莲狂狮\",     \"法米利昂皇帝\",   "
+  },
+  {
+    "index": 69,
+    "comment": "阿斯特蕾亚·法米利昂\n",
+    "keys": [],
+    "len": 1626,
+    "constant": false,
+    "order": 100,
+    "preview": "{   \"name\": \"阿斯特蕾亚·法米利昂\",\"Astrea Vermillion\", \"アストレア・ ヴァーミリオン\"   \"alias\": [     \"法米利昂王后\",     \"真正的家庭"
+  },
+  {
+    "index": 70,
+    "comment": "露娜艾丝·法米利昂\n",
+    "keys": [],
+    "len": 2895,
+    "constant": false,
+    "order": 100,
+    "preview": "  \"name\": \"露娜艾丝·法米利昂\",\"Lunaeyes Vermillion\", \"ルナアイズ・ ヴァーミリオン\"   \"alias\": [     \"法米利昂第一皇女\",     \"露娜\","
+  },
+  {
+    "index": 71,
+    "comment": "堤米特·格莱希\n",
+    "keys": [],
+    "len": 2675,
+    "constant": false,
+    "order": 100,
+    "preview": "  \"name\": \"堤米特·格莱希\",\"Tilmitt Gracie\", \"ティルミット・グレイシー\"   \"alias\": [     \"未知\"   ],   \"appearance\": {   "
+  },
+  {
+    "index": 72,
+    "comment": "米利雅莉亚·雷吉\n",
+    "keys": [],
+    "len": 2739,
+    "constant": false,
+    "order": 100,
+    "preview": "  \"name\": \"米利雅莉亚·雷吉\",\"Miriallia Régie\", \"ミリアリア・レジー\"   \"alias\": [     \"未知\"   ],   \"appearance\": {    "
+  },
+  {
+    "index": 73,
+    "comment": "约翰·克里斯多夫·冯·柯布兰德\n",
+    "keys": [],
+    "len": 3181,
+    "constant": false,
+    "order": 100,
+    "preview": "  \"name\": \"约翰·克里斯多夫·冯·柯布兰德\",\"Johann Cristoph von Collbrand\", \"ヨハン・クリストフ・フォン・コルブランド\"   \"alias\": [    "
+  },
+  {
+    "index": 74,
+    "comment": "尤里\n",
+    "keys": [],
+    "len": 2396,
+    "constant": false,
+    "order": 100,
+    "preview": "  \"name\": \"尤里\",\"Yuuri\", \"ゆうり\"   \"alias\": [     \"艾莉丝的至交好友\",     \"尤里酱\"   ],   \"appearance\": {     \"gen"
+  },
+  {
+    "index": 75,
+    "comment": "微笑\n",
+    "keys": [],
+    "len": 1888,
+    "constant": false,
+    "order": 100,
+    "preview": "\"name\": \"微笑\",\"Bishou\", \"ビショウ\"   \"alias\": [     \"微笑\",     \"比肖\",     \"解放军使徒\"   ],   \"appearance\": {   "
+  },
+  {
+    "index": 76,
+    "comment": "卡尔·爱兰兹\n",
+    "keys": [],
+    "len": 1437,
+    "constant": false,
+    "order": 100,
+    "preview": "\"name\": \"卡尔·爱兰兹\",\"Carl Islands\", \"カール・アイランズ\"   \"alias\": [     \"大教授 (Grand Professor)\",     \"艾兰兹博士\", "
+  },
+  {
+    "index": 77,
+    "comment": "艾因·阿布格伦德\n",
+    "keys": [],
+    "len": 3616,
+    "constant": false,
+    "order": 100,
+    "preview": "  \"name\": \"艾因·阿布格伦德\",\"Ein Abgrund\", \"アイン・アブグルン\"   \"alias\": [     \"恶之华 (Dirty Rose)\",     \"脏玫瑰\",     "
+  },
+  {
+    "index": 78,
+    "comment": "B·B\n",
+    "keys": [],
+    "len": 1929,
+    "constant": false,
+    "order": 100,
+    "preview": "{   \"name\": \"B·B\", \"Big Baby\", \"ビッグ・ベイビー\"   \"alias\": [     \"BB\",     \"巨婴\",     \"克莱德兰代表成员\"   ],   \"ap"
+  },
+  {
+    "index": 79,
+    "comment": "落第骑士英雄谭-世界观总纲",
+    "keys": [],
+    "len": 751,
+    "constant": true,
+    "order": 500,
+    "preview": "<core_concept_rakudai_kishi> - entry_content:     世界观基石:       - 核心设定: 本世界是一个现代科技与超自然能力共存的位面,其中被称为\"伐"
+  },
+  {
+    "index": 80,
+    "comment": "世界核心",
+    "keys": [],
+    "len": 3889,
+    "constant": true,
+    "order": 800,
+    "preview": "<rakudai_kishi_world_bible> 世界核心:   基本概念: 一个科技与超自然能力并存的现代世界,其中被称为“伐刀者”的极少数人类能够将灵魂物质化为武器,并运用被称为“魔力”的异"
+  },
+  {
+    "index": 81,
+    "comment": "戰力與勢力",
+    "keys": [],
+    "len": 3434,
+    "constant": true,
+    "order": 500,
+    "preview": "<world_building_rules> world_system_construction:   core_directive:     description: 构建一个逻辑严密、层级分明的《"
+  },
+  {
+    "index": 82,
+    "comment": "文風",
+    "keys": [],
+    "len": 2492,
+    "constant": true,
+    "order": 100,
+    "preview": "<writing style> # 生成正文内容必须严格遵守如下文风要求  文体定位: 日式热血王道战斗恋爱轻小说 (Japanese Nekketsu Battle Romance Light No"
+  },
+  {
+    "index": 83,
+    "comment": "日常與支線任務模板",
+    "keys": [],
+    "len": 2093,
+    "constant": true,
+    "order": 100,
+    "preview": "<quest_system_integration> quest_architecture:   core_philosophy:     description: 构建一个多层级的任务驱动系统，模拟"
+  },
+  {
+    "index": 84,
+    "comment": "后宮與近親結婚",
+    "keys": [],
+    "len": 1415,
+    "constant": true,
+    "order": 100,
+    "preview": "<world_setting_adjustment> logic_foundation:   core_concept: \"魔导优生学与灵魂共鸣 (Magical Eugenics & Soul Re"
+  },
+  {
+    "index": 85,
+    "comment": "原创角色(OC)生成与战力构建协议",
+    "keys": [],
+    "len": 3107,
+    "constant": true,
+    "order": 100,
+    "preview": "<original_character_protocol> # 原创角色(OC)生成与战力构建协议 # 适用范围: 支线任务NPC / 比赛对手 / 日常互动对象 / 潜在后宫成员  generato"
+  },
+  {
+    "index": 86,
+    "comment": "[initvar]变量初始化",
+    "keys": [],
+    "len": 422,
+    "constant": true,
+    "order": 100,
+    "preview": "world:   date: \"新学期伊始\"   location: \"破军学园正门\"   weather: \"晴朗\" player:   is_determined: false   name: \""
+  },
+  {
+    "index": 87,
+    "comment": "[mvu_update]变量更新规则",
+    "keys": [],
+    "len": 2717,
+    "constant": true,
+    "order": 100,
+    "preview": "--- 变量更新规则:   world:     date:       check:         - 随剧情推进自然变更日期与时间段（早晨/午休/放学后/深夜）。         - 需体现学园"
+  },
+  {
+    "index": 88,
+    "comment": "变量列表",
+    "keys": [],
+    "len": 96,
+    "constant": true,
+    "order": 100,
+    "preview": "--- <status_current_variable> {{format_message_variable::stat_data}} </status_current_variable> "
+  },
+  {
+    "index": 89,
+    "comment": "[mvu_update]变量输出格式",
+    "keys": [],
+    "len": 1145,
+    "constant": true,
+    "order": 100,
+    "preview": "--- 变量输出格式:   rule:     - you should output the update analysis and the actual update commands in th"
+  },
+  {
+    "index": 90,
+    "comment": "[logic]通用关系系统",
+    "keys": [],
+    "len": 1638,
+    "constant": true,
+    "order": 101,
+    "preview": "--- <%_   // 这里没有具体的if判断，因为这是一套通用规则，适用于任何出现在场景中的角色   // AI 会读取 relationships 变量中的分数，并应用以下对应的反应模式 _%>"
+  },
+  {
+    "index": 91,
+    "comment": "[logic]动态世界驱动",
+    "keys": [],
+    "len": 985,
+    "constant": true,
+    "order": 100,
+    "preview": "--- <%_ if (getvar('player.is_determined') === false) { _%> <game_start_sequence> priority: HIGHEST "
+  },
+  {
+    "index": 92,
+    "comment": "统合叙事控制协议 (通用型)",
+    "keys": [],
+    "len": 1913,
+    "constant": true,
+    "order": 5000,
+    "preview": "<unified_narrative_control_protocol> # 统合叙事控制协议 (通用型) # 系统原则: 本协议是驱动剧情发展的最高指令集。它定义了两种互补的叙事模式, 并通过一套严"
+  },
+  {
+    "index": 93,
+    "comment": "[logic]主线支线穿插",
+    "keys": [],
+    "len": 1213,
+    "constant": true,
+    "order": 100,
+    "preview": "--- <%_   // 获取当前活跃任务的数量和类型   const quests = getvar('story.active_quests') || {};   const questKeys "
+  },
+  {
+    "index": 94,
+    "comment": "Entry_94",
+    "keys": [],
+    "len": 0,
+    "constant": false,
+    "order": 100,
+    "preview": ""
+  },
+  {
+    "index": 95,
+    "comment": "Entry_95",
+    "keys": [],
+    "len": 0,
+    "constant": false,
+    "order": 100,
+    "preview": ""
+  },
+  {
+    "index": 96,
+    "comment": "方案一: 概念置换模式",
+    "keys": [],
+    "len": 842,
+    "constant": true,
+    "order": 9999,
+    "preview": "<narrative_mode_selection> # 方案一: 概念置换模式 (Replacement Mode) # 适用场景: 您想体验原作剧情,但主角是\"我\"(您的OC)。 # 核心逻辑: "
+  },
+  {
+    "index": 97,
+    "comment": "方案二: 平行存在模式",
+    "keys": [],
+    "len": 1077,
+    "constant": true,
+    "order": 9999,
+    "preview": "<narrative_mode_selection> # 方案二: 平行存在模式 (Parallel/Coexistence Mode) # 适用场景: 您是转校生/第三方势力,想与黑铁一辉、史黛菈等"
+  },
+  {
+    "index": 98,
+    "comment": "标准输出格式定义",
+    "keys": [],
+    "len": 1758,
+    "constant": true,
+    "order": 1000,
+    "preview": "<output_structure_definition> instruction: \"你的每一次回复都必须由<maintext>、<overall>、<UpdateVariable>和<Status"
+  },
+  {
+    "index": 99,
+    "comment": "章节剧情处理系统",
+    "keys": [],
+    "len": 957,
+    "constant": true,
+    "order": 800,
+    "preview": "---  # 章节剧情处理系统  ## 触发条件 仅当接收到 `<章节剧情>...</章节剧情>` 标签时激活。  ## 核心原则 1. **尊重玩家选择**: 玩家行动优先级高于预设剧情 2. **"
+  },
+  {
+    "index": 100,
+    "comment": "好感度变化机制",
+    "keys": [],
+    "len": 559,
+    "constant": true,
+    "order": 302,
+    "preview": "<好感度变化机制> 触发时机： 重要事件/场景结束时（如约会、任务、重要对话后）。 重大情节转折后（如拯救、背叛、深度共情）。 一段持续互动（如共同旅行、密集相处）结束后，依整体氛围评估。 变化幅度限"
+  }
+]

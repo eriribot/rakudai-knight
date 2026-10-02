@@ -1,0 +1,61 @@
+{
+  "volume": "第十九卷",
+  "source_file": "落第骑士英雄谭 第十九卷 gbk.txt",
+  "total_lines": 7076,
+  "chapters": [
+    {
+      "file": "第十九卷_间章_遭囚的皇女.txt",
+      "title": "间章 遭囚的皇女",
+      "start_line": 1,
+      "end_line": 182,
+      "line_count": 182,
+      "char_count": 3235,
+      "md5": "b0ab1d2b3f6e0adaf61eab9f6a57e48e"
+    },
+    {
+      "file": "第十九卷_第四章_划破黑暗.txt",
+      "title": "第四章 划破黑暗",
+      "start_line": 183,
+      "end_line": 2065,
+      "line_count": 1883,
+      "char_count": 24505,
+      "md5": "67f49e59e1b216d67ddf3ddf17a9d20f"
+    },
+    {
+      "file": "第十九卷_第五章_大教授.txt",
+      "title": "第五章 〈大教授〉",
+      "start_line": 2066,
+      "end_line": 4060,
+      "line_count": 1995,
+      "char_count": 27402,
+      "md5": "d032e60f750b5e47cbe0ad07c992aeb9"
+    },
+    {
+      "file": "第十九卷_第六章_最爱，也是最强的劲敌.txt",
+      "title": "第六章 最爱，也是最强的劲敌",
+      "start_line": 4061,
+      "end_line": 6373,
+      "line_count": 2313,
+      "char_count": 30696,
+      "md5": "061e6c5d9bdfb434e221662a36bb34a8"
+    },
+    {
+      "file": "第十九卷_终章_背负憧憬的意义.txt",
+      "title": "终章 背负憧憬的意义",
+      "start_line": 6374,
+      "end_line": 7030,
+      "line_count": 657,
+      "char_count": 10410,
+      "md5": "8fb22277f696d9bea0ce35f452d44f20"
+    },
+    {
+      "file": "第十九卷_后记.txt",
+      "title": "后记",
+      "start_line": 7031,
+      "end_line": 7076,
+      "line_count": 46,
+      "char_count": 1553,
+      "md5": "3716d5a57c95f624881595cb2c84fe99"
+    }
+  ]
+}
