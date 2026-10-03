@@ -10,10 +10,12 @@
   <link rel="stylesheet" href="actors.css">
   <link rel="stylesheet" href="stella-frames.css">
   <link rel="stylesheet" href="ikki-unified.css">
+  <link rel="stylesheet" href="media.css">
 
 
   <script defer src="battle.js"></script>
   <script defer src="actors.js"></script>
+  <script defer src="media.js"></script>
   <script defer src="app.js"></script>
 </head>
 <body>
@@ -38,6 +40,12 @@
       </div>
       <div class="impact" id="impact" aria-hidden="true"></div><div class="float-layer" id="float-layer" aria-hidden="true"></div>
       <div class="cutin" id="cutin" aria-hidden="true"><small>ITTO SHURA</small><strong>一刀修羅</strong><span>將所有可能，賭在這一瞬。</span></div>
+      <section class="shura-intro" id="shura-intro" aria-label="一刀修羅發動動畫" hidden>
+        <div class="shura-heading"><span>ITTO SHURA</span><h2>一刀修羅</h2></div>
+        <div class="shura-visual" id="shura-visual"></div>
+        <p class="shura-caption">將所有可能，賭在這一瞬。</p>
+        <button id="shura-skip" class="shura-skip">略過動畫 <span>→</span></button>
+      </section>
 
       <article class="fighter player" aria-label="黑鐵一輝狀態">
         <div class="fighter-top"><span class="rank">F</span><div><small>落第騎士 · WORST ONE</small><h2>黑鐵一輝</h2></div><span class="fighter-side">PLAYER</span></div>
@@ -62,9 +70,11 @@
         <aside class="end-panel"><button class="end-turn" id="end-turn"><span>結束回合</span><small>END TURN <kbd>SPACE</kbd></small><b>→</b></button><p id="end-hint">對手將執行預告行動</p><button id="discard-pile" class="pile"><span class="pile-icon">▱</span>棄牌堆 <b id="discard-count">0</b></button><button class="autoplay" id="autoplay">▷ 演示連招</button></aside>
       </div>
     </section>
-    <footer class="bottom-bar"><span class="demo-note"><i></i>概念試玩 · 演示數值</span><span class="bottom-caption">讀懂對手。掌握節奏。超越極限。</span><button id="restart">↻ 重新開局 <kbd>R</kbd></button></footer>
+    <footer class="bottom-bar"><span class="demo-note"><i></i>概念試玩 · 演示數值</span><span class="music-status" id="music-status">點擊後播放音樂</span><button id="restart">↻ 重新開局 <kbd>R</kbd></button></footer>
     <div class="result-overlay" id="result" role="dialog" aria-modal="true" aria-labelledby="result-title" hidden><div class="result-card"><span class="eyebrow" id="result-eyebrow">DUEL COMPLETE</span><h2 id="result-title">勝負已分</h2><p id="result-copy"></p><div class="result-stats" id="result-stats"></div><button id="play-again">再戰一場 <span>→</span></button></div></div>
   </main>
+  <audio id="bgm-normal" src="assets/bgm1.mp3" preload="metadata" loop></audio>
+  <audio id="bgm-shura" src="assets/let's_go_ahead.mp3" preload="metadata"></audio>
   <dialog id="modal"><button class="modal-close" id="modal-close" aria-label="關閉">×</button><div id="modal-content"></div></dialog>
 </body>
 </html>

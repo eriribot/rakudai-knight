@@ -1,0 +1,314 @@
+{
+  "volume": 15,
+  "epub": "39688/[台版]落第骑士英雄谭 15.epub",
+  "images": [
+    {
+      "member": "OEBPS/Images/logo.png",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-15/logo.png",
+      "sha256": "482250fa7dd25e5d80393e0989417ec02bd596a0bd1334693c07bae766a865d5",
+      "width": 1016,
+      "height": 263,
+      "references": []
+    },
+    {
+      "member": "OEBPS/Images/logo2.png",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-15/logo2.png",
+      "sha256": "b916babe9fcd013413413adf09e2c0401ef2d26a653d5999afc7c8c9c134c5e6",
+      "width": 1294,
+      "height": 263,
+      "references": []
+    },
+    {
+      "member": "OEBPS/Images/001.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-15/001.jpg",
+      "sha256": "12d4e89377a589f7a142d5d874ab766595dab03e07b67a57dfb8d6d8ca0e9dd0",
+      "width": 834,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/cover.xhtml",
+          "line": 12,
+          "before": "封面",
+          "after": ""
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/002.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-15/002.jpg",
+      "sha256": "5c5c0cb66f91d29d5ae00f17e69db14ddf110acb355a65ab0fa8ed30dea75b77",
+      "width": 796,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/illus00.xhtml",
+          "line": 12,
+          "before": "彩页",
+          "after": ""
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/003.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-15/003.jpg",
+      "sha256": "9816e9b57c42d9437f7dde1e59d61d2af975fd227c30ee375e599aed10e8c623",
+      "width": 1592,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/illus01.xhtml",
+          "line": 17,
+          "before": "彩页\n  \n\nif(navigator.userAgent.toLowerCase().match(\"edge\")){\ndocument.onreadystatechange=function(){if(document.readyState==\"interactive\"){f=function(n){return document.getElementsByClassName(n)[0]};f('change').remove();x=f('change-image').classList;x.add('change-image-show');x.remove('change-image');}}}",
+          "after": ""
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/003_.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-15/003_.jpg",
+      "sha256": "5a2b3e724b271b2ae5036f0382a4a48d8dd3f9bfd8b75c82c6c47cd2069bffd9",
+      "width": 1200,
+      "height": 1592,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/illus01.xhtml",
+          "line": 16,
+          "before": "彩页\n  \n\nif(navigator.userAgent.toLowerCase().match(\"edge\")){\ndocument.onreadystatechange=function(){if(document.readyState==\"interactive\"){f=function(n){return document.getElementsByClassName(n)[0]};f('change').remove();x=f('change-image').classList;x.add('change-image-show');x.remove('change-image');}}}",
+          "after": ""
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/004.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-15/004.jpg",
+      "sha256": "75dc1db0adbf947d526b92d4ef98c3962f79a68bbd381f08d2c952315a31edb9",
+      "width": 1592,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/illus02.xhtml",
+          "line": 17,
+          "before": "彩页\n  \n\nif(navigator.userAgent.toLowerCase().match(\"edge\")){\ndocument.onreadystatechange=function(){if(document.readyState==\"interactive\"){f=function(n){return document.getElementsByClassName(n)[0]};f('change').remove();x=f('change-image').classList;x.add('change-image-show');x.remove('change-image');}}}",
+          "after": ""
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/004_.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-15/004_.jpg",
+      "sha256": "94f80d03ad07cd39afb47424cc0a69aeacbf6ac80e79f1d18a3efe745813193b",
+      "width": 1200,
+      "height": 1592,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/illus02.xhtml",
+          "line": 16,
+          "before": "彩页\n  \n\nif(navigator.userAgent.toLowerCase().match(\"edge\")){\ndocument.onreadystatechange=function(){if(document.readyState==\"interactive\"){f=function(n){return document.getElementsByClassName(n)[0]};f('change').remove();x=f('change-image').classList;x.add('change-image-show');x.remove('change-image');}}}",
+          "after": ""
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/005.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-15/005.jpg",
+      "sha256": "2bf99f6921aa4fc0acee3847e7defd8195851d2d2735973f4c1f90e6ac1443a7",
+      "width": 1592,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/illus03.xhtml",
+          "line": 17,
+          "before": "彩页\n  \n\nif(navigator.userAgent.toLowerCase().match(\"edge\")){\ndocument.onreadystatechange=function(){if(document.readyState==\"interactive\"){f=function(n){return document.getElementsByClassName(n)[0]};f('change').remove();x=f('change-image').classList;x.add('change-image-show');x.remove('change-image');}}}",
+          "after": ""
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/005_.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-15/005_.jpg",
+      "sha256": "499ecd1dabfb47db8dca93cc9e3bc414a8918592cf7841abd2c79cab211767e8",
+      "width": 1200,
+      "height": 1592,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/illus03.xhtml",
+          "line": 16,
+          "before": "彩页\n  \n\nif(navigator.userAgent.toLowerCase().match(\"edge\")){\ndocument.onreadystatechange=function(){if(document.readyState==\"interactive\"){f=function(n){return document.getElementsByClassName(n)[0]};f('change').remove();x=f('change-image').classList;x.add('change-image-show');x.remove('change-image');}}}",
+          "after": ""
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/006.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-15/006.jpg",
+      "sha256": "af4ee109ca64b5252b7ad6ad250940d90d1bc63236e149e8e34de67797d0cb53",
+      "width": 796,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/illus04.xhtml",
+          "line": 12,
+          "before": "彩页",
+          "after": ""
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/007.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-15/007.jpg",
+      "sha256": "92cdb0231d63834069588f9c6520d242ebb3c7085f9ee88f7c5159d37120678e",
+      "width": 796,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/Chapter001.xhtml",
+          "line": 400,
+          "before": "〈黑骑士〉艾莉丝•格尔难以招架，惨遭击倒！\n\n〈黑骑士〉以耐打着称，在A级联盟比赛中也很难见到她被人击倒！\n\n这个F级骑士根本强得见鬼啊！\n\n〈黑骑士〉成大字形倒地，血泊逐渐朝四周扩散！\n\n一个人类流出这么大量的鲜血。一看就知道伤势严重！这场对决这么早就要定胜负了！？』",
+          "after": "「喂喂喂喂，米莉妳看到了吗？世界第四根本拿他没办法啊！」\n\n「啊哈哈……果然，米莉跟大家就算实力再翻个几倍，都赢不了啦。」\n\n『驸马爷！你真行啊！』\n\n『一辉太棒了──！』\n\n法米利昂的众人紧盯转播。见到一辉以高超剑术技压〈黑骑士〉，不禁为他大声叫好。"
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/008.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-15/008.jpg",
+      "sha256": "62a41cd0aec3488717121a3d5a2dc7413eb54af6487ba662845b5a656a5d0087",
+      "width": 796,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/Chapter001.xhtml",
+          "line": 1034,
+          "before": "欧尔•格尔听了，歪了歪头──\n\n\n\n「我当然有感觉呀──她那么好玩。」\n\n\n\n嘴角几乎勾上耳际，露出狰狞的笑容。",
+          "after": "「妳想想？情同骨肉？还是叫做手足之情？这东西真不可思议。我用〈提线人偶Marionette〉随意杀人的时候，姊姊透过丝线回传的感觉最令人舒畅了。我们果然是家人啊。可是她现在没了丝线的命令，却能做出那种选择……姊姊真的和以前一样，最温柔了。温柔到这种地步，我简直想测试一下，看看她到底多喜欢我了呢，啊哈。」\n\n「人渣……」\n\n史黛菈气得咬牙切齿，过于激愤的狂怒几乎令她痛苦。\n\n欧尔•格尔仍然愉快地嗤笑：\n\n「嗯，我也这么觉得喔。」"
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/009.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-15/009.jpg",
+      "sha256": "aab272ff9d107e43007b61008c00d6d90dea2e1edc80eeaa5b59e929c7a0f968",
+      "width": 796,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/Chapter001.xhtml",
+          "line": 1870,
+          "before": "仔细一想……自从那场惨剧以来，自己不曾安稳入眠。\n\n她一闭上眼，就会重回那间染血的教堂内，不断残杀父母、好友。\n\n艾莉丝•阿斯卡里德将之视为自己的罪，只为杀死弟弟，为亲友报仇雪恨；艾莉丝•格尔却在最后一刻回想起自己真正的心愿，为了那双小手，誓言奋战到底。她的两种人生全都以失败告终。\n\n但她尽力了。\n\n是他让自己卯足了全力。",
+          "after": "她能肯定，自己做到了。\n\n所以──\n\n\n\n（对不起……姊姊努力过了……可是，还是……赢不了他…………）"
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/010.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-15/010.jpg",
+      "sha256": "e36741a3914458b7086f62b2a8558076beef7b6a9b708587ab28dcc8f67c822a",
+      "width": 796,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/Chapter002.xhtml",
+          "line": 226,
+          "before": "「现在自己的家乡出大事了，不懂也得懂呢！」\n\n故乡的危机成了契机，正值成长期的资质迅速开花结果。\n\n米利雅莉亚活用敏锐的双眼，一一找出〈提线人偶〉的中继站。\n\n步枪型灵装接连发射漆弹，将目标告知众人。\n\n席格娜率领法米利昂军──与〈联盟军〉的士兵联手，按照记号束缚中继站。奎多兰国民接二连三脱离欧尔•格尔的魔法操控。",
+          "after": "「史黛菈殿下！这些人就交给我们！」\n\n「请史黛菈殿下去对付欧尔•格尔！将这场愚蠢战争的元凶一刀两断！！」\n\n史黛菈前方的所有障碍一扫而空。\n\n欧尔•格尔见到眼前的景象，赫然想起〈黑骑士〉曾经从路榭尔带走史黛菈一行人，愤恨地咂舌。\n\n「我懂了，是〈白翼宰相诺曼〉的〈苍天之门Divine gate〉……！姊姊那个时候会在奎多兰，原来是为了设下传送门……！」"
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/011.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-15/011.jpg",
+      "sha256": "f273782f581fcd74e70c0d2a015b6554c163ec8f1850d6d6ea5615c546d6a461",
+      "width": 796,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/Chapter003.xhtml",
+          "line": 622,
+          "before": "一辉在欧尔•格尔有所反应之前，朝他肩上一蹬，将剑抽离头盖骨，拉开距离。\n\n「操纵自己的尸体吗？这能力还真令人伤脑筋。」\n\n「啊哈，对呀。对一辉来说又更棘手一点呢。」\n\n现在的欧尔•格尔和姊姊艾莉丝一样，刀伤无法取他性命。\n\n「我听到广播了，你打倒世界排行第四的骑士了呢。哎呀，好强好强。我没想到一辉居然有办法打赢姊姊。机会难得，让我做个优胜者采访吧。你现在和我一样都是杀人凶手了，感觉如何呀？」",
+          "after": "「糟透了。」\n\n「啊哈，你倒是不否认自己和我一样啊。」\n\n「这是事实。」\n\n一辉面对欧尔•格尔直截了当的挑衅，仍旧面不改色。\n\n「我和阿斯卡里德小姐都是为了贯彻骑士道Ego，自己选择了战斗。最后的结果和责任自然会回归到自己身上。」"
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/012.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-15/012.jpg",
+      "sha256": "1ef04011383f4e72bac8fba3dfd8f6945911165bdb1c83162e6a92e3444c8266",
+      "width": 796,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/Chapter003.xhtml",
+          "line": 1366,
+          "before": "群众眼见光热随时都会爆炸，混乱逃窜。\n\n混沌不明的情绪震动空气，传来一阵阵动荡。\n\n这一切都为欧尔•格尔带来无上的愉悦。\n\n但是──\n\n「可是……！可是啊！还没完！还不够！你们平常笑得比我更开心！我也想和你们一样，露出最美好的笑容，开怀大笑啊！」",
+          "after": "对，就像村人为自己庆祝生日的时候。\n\n自己还没笑得像他们一样开心。\n\n这太不公平了。\n\n既然每个人都有权利获得幸福，自己也想笑，笑得跟他们一样灿烂夺目。\n\n那眼前的惨状显然不够悽惨。"
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/013.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-15/013.jpg",
+      "sha256": "89436b5e7ccda3bb47f8d37f43c8346ce610b5694d8cf70540afb10e3b475441",
+      "width": 796,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/Chapter003.xhtml",
+          "line": 1800,
+          "before": "「妳真的做得到这种事！？」\n\n「不然我怎么会这么冷静？」\n\n她的话十分有说服力。\n\n珠雫是当真打算复活一辉。\n\n「史黛菈同学，听好了。我一定会救活哥哥，只有我才做得到。而妳也一样，有些事只有妳做得到。」",
+          "after": "珠雫说着，睁开双眼，瞪向前方的尸体。\n\n「奎多兰的王子分明已经将那家伙的头撞得粉碎，现在却完全恢复原状。但史黛菈砍伤的躯干部分大多只用废铁补强。我的〈水色世界〉能够完全治癒人体，而那个人渣的〈死灵游戏〉只是强行将四散的肢体连接在一起，勉强活动。换句话说──」\n\n「他没办法操作化成灰的躯体，对吧？」\n\n不需要珠雫指点，史黛菈早就察觉这一点。\n\n〈傀儡王〉的操纵技术再精巧，也无法操纵灰烬。"
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/014.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-15/014.jpg",
+      "sha256": "59ceab06f17ef2935a2c49336ed46b34422f70fc6119f35442b42125ead99fe3",
+      "width": 796,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/Chapter003.xhtml",
+          "line": 2354,
+          "before": "手脚不断拍打、死命抵抗。\n\n甚至灌注所有剩余魔力，想要抵挡〈燃天焚地龙王炎〉。\n\n但一切无济于事。\n\n毕竟火焰的中心──〈妃龙罪剑〉贯穿了他的胸口。\n\n欧尔•格尔终究无力抵挡大剑迸发的光热，肉体惨遭火焰吞噬，指尖、脚尖开始渐渐化为黑炭、碎成灰烬。",
+          "after": "「这、这太过分了！大家总是联合起来想要消灭我！我又不是自愿变成恶棍！可以的话我也想生在光明那一边啊！为什么谁都不肯帮我啊啊啊啊啊啊啊！」\n\n史黛菈听着欧尔•格尔的惨叫，答道：\n\n「你的遭遇……的确是很悲惨。」\n\n他扭曲的心灵，无法理解那些理所当然的幸福，更不被他人接纳。\n\n他就带着这样的内心诞生在世上。"
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/015.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-15/015.jpg",
+      "sha256": "3df2fb872a73c3866c6bc32b64866a91b62fd31efd1a9974b37bec0b4af0d606",
+      "width": 796,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/Chapter004.xhtml",
+          "line": 482,
+          "before": "「史黛菈同学也听清楚了。哥哥的确非常惹人怜爱，但我不许妳拖着哥哥做色色的事。哥哥现在的身体变得那么幼小，那种事会带来很大的负担。妳敢玩什么〈深夜的一刀修罗〉，我就到社群网站上分享这件大丑闻。」\n\n「才不会！妳把我当成什么了！」\n\n「就是只色慾旺盛的母猴子，一整年都在对哥哥发情。」\n\n「我原封不动的把整句话还给妳！」\n\n「对了，如果是在我合体的时候做就没关系。到时怀上的孩子就不一定有史黛菈同学的基因呢。」",
+          "after": "「一辉！你妹妹简直吓死人！要怎么养才会养得这么扭曲！」\n\n一辉中学时就已经离家，这个问题问他，他也不知道。\n\n虽说自己离家本身就是原因。\n\n「哥哥现在可是重伤病患，身体整整残缺了三成，所以才再三叮咛不能乱来。请两位谨记在心。」\n\n「嗯，我明白了。我绝对不会勉强自己。」"
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/016.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-15/016.jpg",
+      "sha256": "d53b3ded648508e6245895bb8715a0cbb64db6f265a0107fd0561b8d52e4f01c",
+      "width": 796,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/Chapter005.xhtml",
+          "line": 94,
+          "before": "立起的金发、足以隐藏表情的护目镜。这个男人正是──\n\n\n\n「〈PSYON〉队长……〈超人The hero〉亚伯拉罕•卡特。」\n\n\n\n他是世界最大军事大国美利坚合众国内，首屈一指的最强〈超能力者〉。",
+          "after": "对方不但人数占上风，〈PSYON〉最强战力还亲自到场，随意抵抗只会危险倍增。\n\n晄三确认状况，让女儿等人退下。\n\n亚伯拉罕无声无息地降落在晄三面前，隔着护目镜凝视五人，开口说道。\n\n他的语气不带一丝情感，彷彿机械声响──"
+        }
+      ]
+    }
+  ],
+  "mentions": [
+    {
+      "xhtml": "OEBPS/Text/Chapter001.xhtml",
+      "line": 1153,
+      "text": "史黛菈对上〈饕餮〉一战时，一辉始终相信失去自信的史黛菈•法米利昂，所以自己也想像他一样。"
+    }
+  ]
+}

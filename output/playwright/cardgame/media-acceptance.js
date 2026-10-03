@@ -1,0 +1,67 @@
+async (page) => {
+  const errors=[], failures=[];
+  page.on('pageerror',error=>errors.push(error.message));
+  page.on('response',response=>{if(response.status()>=400)failures.push(response.status()+' '+response.url());});
+  const assert=(ok,text)=>{if(!ok)throw Error(text);};
+  const ready=()=>page.waitForFunction(()=>window.Cardgame?.assetsReady);
+  const settled=()=>page.waitForFunction(()=>!Cardgame.busy);
+  const intro=()=>page.waitForFunction(()=>BattleMedia.state.introActive && document.querySelector('#shura-visual img')?.naturalWidth===498);
+  const music=()=>page.evaluate(()=>({state:BattleMedia.state,normal:{paused:document.getElementById('bgm-normal').paused,time:document.getElementById('bgm-normal').currentTime,duration:document.getElementById('bgm-normal').duration},shura:{paused:document.getElementById('bgm-shura').paused,time:document.getElementById('bgm-shura').currentTime,duration:document.getElementById('bgm-shura').duration}}));
+  const playShura=()=>page.locator('.card[data-id="shura"]').click();
+  await page.setViewportSize({width:1440,height:900});
+  await page.goto('http://127.0.0.1:4177/');await ready();
+  assert((await music()).normal.paused,'Music played before interaction');
+  await page.locator('.card[data-id="guard"]').click();await settled();
+  await page.waitForFunction(()=>!document.getElementById('bgm-normal').paused && document.getElementById('bgm-normal').currentTime>0.1);
+  const normal=await music();
+  await page.keyboard.press('r');
+  const start=Date.now();await playShura();await intro();
+  assert(await page.locator('#enemy-hp').textContent()==='72','Visible damage happened during intro');
+  assert(await page.locator('#end-turn').isDisabled(),'Actions not locked during intro');
+  let m=await music();assert(m.normal.paused&&!m.shura.paused&&m.state.mode==='shura','Exclusive Shura BGM failed');
+  await page.screenshot({path:'output/playwright/cardgame/shura-intro-desktop.png'});
+  const firstGif=await page.locator('#shura-visual img').getAttribute('src');
+  await settled();const elapsed=Date.now()-start;
+  assert(elapsed>=2250,'Intro did not complete a full loop');
+  const result=await page.evaluate(()=>Cardgame.state);
+  assert(result.player.hp===42&&result.enemy.hp===48&&result.energy===1,'Shura damage/cost incorrect');
+  assert(!(await music()).shura.paused,'Theme stopped before battle continued');
+
+  await page.keyboard.press('r');
+  m=await music();assert(m.state.mode==='normal'&&m.shura.paused&&m.normal.time<1,'Restart did not reset music');
+  await playShura();await intro();
+  assert(await page.locator('#shura-visual img').getAttribute('src')!==firstGif,'GIF was not given a fresh instance');
+  await page.keyboard.press('r');
+  await page.waitForTimeout(2600);
+  assert(await page.evaluate(()=>Cardgame.state.player.hp===48&&Cardgame.state.enemy.hp===72&&!Cardgame.busy&&!BattleMedia.state.introActive),'Restart leaked old intro or damage');
+
+  await page.getByRole('button',{name:'關閉音樂與音效',exact:true}).click();
+  await playShura();await intro();
+  m=await music();assert(m.normal.paused&&m.shura.paused&&!m.state.enabled,'Mute failed during Shura');
+  await page.getByRole('button',{name:'略過動畫 →',exact:true}).click();await settled();
+  assert(await page.evaluate(()=>Cardgame.state.enemy.hp===48),'Skipping did not apply exactly one attack');
+  await page.keyboard.press('r');m=await music();assert(m.normal.paused&&m.shura.paused&&!m.state.enabled,'Reset lost mute preference');
+  await page.getByRole('button',{name:'開啟音樂與音效',exact:true}).click();
+  await page.waitForFunction(()=>!document.getElementById('bgm-normal').paused);
+
+  await playShura();await intro();await page.keyboard.press('Escape');await settled();
+  await page.evaluate(()=>{const track=document.getElementById('bgm-shura');track.currentTime=track.duration-.15;});
+  await page.waitForFunction(()=>BattleMedia.state.mode==='normal'&&!document.getElementById('bgm-normal').paused);
+  await page.keyboard.press('r');
+  await page.setViewportSize({width:390,height:844});
+  await playShura();await intro();
+  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Mobile horizontal overflow');
+  await page.screenshot({path:'output/playwright/cardgame/shura-intro-mobile.png',fullPage:true});
+  await page.getByRole('button',{name:'略過動畫 →',exact:true}).click();await settled();
+  await page.keyboard.press('r');
+  await page.emulateMedia({reducedMotion:'reduce'});await playShura();await settled();
+  assert(await page.evaluate(()=>Cardgame.state.enemy.hp===48&&!BattleMedia.state.introActive),'Reduced motion stalled Shura');
+  await page.emulateMedia({reducedMotion:'no-preference'});
+  await page.goto('file:///E:/web/%E8%90%BD%E7%AC%AC/cardgame/index.html');await ready();
+  await playShura();await intro();await page.keyboard.press('Escape');await settled();
+  assert(await page.evaluate(()=>Cardgame.state.enemy.hp===48),'Offline GIF fallback failed');
+  await page.goto('http://127.0.0.1:4177/');await ready();await page.setViewportSize({width:1440,height:900});
+  assert(errors.length===0,'JS errors: '+errors.join(';'));
+  assert(failures.length===0,'Asset failures: '+failures.join(';'));
+  return {ok:true,normalDuration:normal.normal.duration,shuraDuration:normal.shura.duration,fullActivationMs:elapsed,cancel:'passed',mute:'passed',skip:'passed',trackEnd:'passed',mobile:'passed',reducedMotion:'passed',offline:'passed',errors,failures};
+}

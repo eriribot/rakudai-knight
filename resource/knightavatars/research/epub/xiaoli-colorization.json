@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "id": "xiaoli",
+  "name": "福小莉",
+  "assetType": "ai-colorized-verified-novel-illustration",
+  "mode": "built-in",
+  "tool": "image_gen__imagegen",
+  "intent": "edit",
+  "useCase": "identity-preserve",
+  "transparentBackground": false,
+  "identityBasis": "使用者提供原圖與姓名；已對照第12卷具名場景、相邻插圖與第18卷明確髮膚色文字。只提交第12卷EPUB原圖上色。",
+  "finalPrompt": "Use case: identity-preserve.\nAsset type: colorized derivative of a novel illustration for a character portrait library.\nInput image 1 is the sole EDIT TARGET: the existing black-and-white novel illustration of Fu Xiaoli (福小莉). Add color to this exact illustration, keeping the original drawing, framing, proportions, and composition.\n\nColor guidance supported by the novel: long BLACK hair and a naturally darker brown complexion; WHITE institutional clothing with straps. Use a gentle warm medium-to-deep brown skin tone with subtle soft highlights and restrained natural shading on the already exposed face, neck, hand, and legs. Render the long hair deep neutral black, with restrained cool charcoal highlights preserving each original strand and highlight contour. Neutral deep brown irises are an artistic choice because her ordinary iris color is unspecified. Keep the outfit bright white with soft cool gray shadows, straps and collar dark charcoal gray, and the existing chest chain neutral steel gray. These strap and iris colors are neutral artistic choices, not an official palette.\n\nPreserve every identity and drawing invariant: her original face shape, large eyes, eyebrows, small gentle smile, nose, bang shapes, all long flowing hair contours, head and shoulder tilt, raised hand pose, exact original clothing coverage, wide sleeves, seams, each existing strap, the original dark neck collar, and each link of the existing chain. Do not redesign the face, hair, body, outfit, or pose; this is line-art colorization only. Keep the original white backdrop and scattered fragments as shown. Retain the original © Won signature at its original upper right position. Preserve the existing crop and portrait aspect ratio.\n\nAvoid exaggerated yellow or red skin, heavy cosmetics, stereotypes, ethnicity inference, glossy photorealism, newly invented jewelry, extra characters, new restraints or foot chains or iron balls outside the original frame, added objects, extensions of the drawing, shield frames, decorative borders, webpage UI, headings, or additional lettering. The background must remain opaque.",
+  "inputs": [
+    {
+      "path": "resource/knightavatars/novel/xiaoli-original.jpg",
+      "width": 796,
+      "height": 1200,
+      "mode": "RGB",
+      "sha256": "d5e1b37955a7991df069c8a257e2aaea22acfb5b75b2151dc5ac817740e1b634",
+      "role": "only-edit-target",
+      "sourceType": "verified-local-epub-monochrome-illustration",
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 12.epub",
+      "sourceMember": "OEBPS/Images/014.jpg",
+      "bytesUnchanged": true
+    }
+  ],
+  "preservedUserImage": {
+    "path": "resource/knightavatars/research/user-supplied/xiaoli-original.png",
+    "equivalentEvidenceBackup": "resource/knightavatars/research/user-supplied/xiaoli-reference-original.png",
+    "userAttachmentPath": "C:/Users/eriri/AppData/Local/Temp/codex-clipboard-3c84be8a-a20b-4463-ac45-fc6930b43234.png",
+    "width": 805,
+    "height": 1199,
+    "mode": "RGB",
+    "sha256": "a235f4aae8152b58d0955736011e3b254d48054e3bdd89ac2f93ca663ee1cc3c",
+    "role": "preserved-source-not-submitted-to-generation",
+    "note": "使用者版本與EPUB原圖分別保留、分別記錄哈希。"
+  },
+  "output": {
+    "path": "resource/knightavatars/color/xiaoli-colorized.png",
+    "width": 1021,
+    "height": 1540,
+    "mode": "RGB",
+    "sha256": "f70d802636e5e9bca239c9f40d9cff3b68ce9206f8e1bdd5afac6a696c562b83"
+  },
+  "generatedOriginal": "C:/Users/eriri/.codex/generated_images/01a101c7-f9d8-74f0-b0e3-ffbfe75ca2e2/exec-0e973d7a-974b-43d8-9b2d-a63a576c43af.png",
+  "paletteEvidence": {
+    "hair": {
+      "status": "canonical-novel-text",
+      "chosen": "黑色長髮與克制冷灰亮部",
+      "sourceEpub": "39688/落第骑士英雄谭 - 18.epub",
+      "sourceMember": "OEBPS/Text/chapter4.xhtml",
+      "line": 211,
+      "excerpt": "一名肤色黝黑的黑发女孩",
+      "identityLine": 222
+    },
+    "skin": {
+      "status": "canonical-novel-text-with-artistic-tone-choice",
+      "chosen": "自然暖棕，中等偏深，柔和高光與陰影；具體棕色深淺與色相是藝術選色",
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 12.epub",
+      "sourceMember": "OEBPS/Text/Chapter003.xhtml",
+      "line": 1389,
+      "excerpt": "女孩的皮肤与发色偏深",
+      "identityLine": 1404,
+      "note": "第18卷211行另明寫膚色黝黑。沒有依名稱、國籍、族裔或刻板印象推導膚色或改動五官。"
+    },
+    "clothes": {
+      "status": "canonical-novel-text-and-verified-illustration",
+      "chosen": "白囚衣，柔冷灰陰影；保留原寬袖、縫線、束帶、黑頸扣環與胸前鎖鏈",
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 12.epub",
+      "sourceMember": "OEBPS/Text/Chapter003.xhtml",
+      "line": 1389,
+      "excerpt": "全身穿着附有束带的白囚衣",
+      "illustrationMember": "OEBPS/Images/014.jpg"
+    },
+    "naturalEyeColor": {
+      "status": "unknown-neutral-artistic-choice",
+      "chosen": "中性深棕虹膜",
+      "note": "常態瞳色未核實，不標為原著或官方設定。"
+    },
+    "strapsAndMetal": {
+      "status": "unknown-neutral-artistic-choice",
+      "chosen": "束帶與頸環深炭灰；金屬鏈中性鋼灰",
+      "note": "保留原圖深色關係，具體色彩沒有已核實官方彩圖參照。"
+    }
+  },
+  "visualReview": {
+    "passed": true,
+    "observed": [
+      "保持原臉輪廓、眼鼻眉和小幅輕笑；長髮輪廓、瀏海、頭肩傾角與抬手姿勢一致。",
+      "髮色為黑，原露出部位為柔和暖棕膚色；原髮絲明暗線與高光保留。",
+      "白囚衣保持原覆蓋範圍、寬袖、縫線與束帶位置；原黑頸扣環與胸前鎖鏈仍在。",
+      "背景保持不透明白底與原碎片；右上角 © Won 原署名仍在。",
+      "沒有添加盾框、網站介面、其他人物、未在圖中顯示的腳鐐鐵球或新服飾。"
+    ],
+    "limitations": "內置生成式编辑會放大和重繪線條，不聲稱逐像素保留原線稿。此為AI上色衍生圖，不是官方原生彩圖；膚色細部色相、常態瞳色、束帶與金屬細色不標為官方設計。"
+  },
+  "preservedOriginal": "resource/knightavatars/novel/xiaoli-original.jpg",
+  "identityEvidence": "resource/knightavatars/research/epub/xiaoli-evidence.json",
+  "scope": "只保存上色圖和來源配色記錄；manifest、裁盾配置及終端集成由主代理維護。"
+}

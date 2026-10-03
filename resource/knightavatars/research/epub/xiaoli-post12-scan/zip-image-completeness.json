@@ -1,0 +1,90 @@
+[
+  {
+    "id": "tw-13",
+    "epub": "39688/[台版]落第骑士英雄谭 13.epub",
+    "indexedImageCount": 20,
+    "zipImageCount": 21,
+    "notIndexed": [
+      {
+        "member": "OEBPS/Images/note.png",
+        "size": [
+          48,
+          48
+        ]
+      }
+    ]
+  },
+  {
+    "id": "tw-14",
+    "epub": "39688/[台版]落第骑士英雄谭 14.epub",
+    "indexedImageCount": 21,
+    "zipImageCount": 22,
+    "notIndexed": [
+      {
+        "member": "OEBPS/Images/note.png",
+        "size": [
+          48,
+          48
+        ]
+      }
+    ]
+  },
+  {
+    "id": "tw-15",
+    "epub": "39688/[台版]落第骑士英雄谭 15.epub",
+    "indexedImageCount": 21,
+    "zipImageCount": 22,
+    "notIndexed": [
+      {
+        "member": "OEBPS/Images/note.png",
+        "size": [
+          48,
+          48
+        ]
+      }
+    ]
+  },
+  {
+    "id": "tw-16",
+    "epub": "39688/[台版]落第骑士英雄谭 16.epub",
+    "indexedImageCount": 21,
+    "zipImageCount": 22,
+    "notIndexed": [
+      {
+        "member": "OEBPS/Images/note.png",
+        "size": [
+          48,
+          48
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cn-16",
+    "epub": "39688/落第骑士英雄谭 - 16.epub",
+    "indexedImageCount": 16,
+    "zipImageCount": 16,
+    "notIndexed": []
+  },
+  {
+    "id": "cn-17",
+    "epub": "39688/落第骑士英雄谭 - 17.epub",
+    "indexedImageCount": 16,
+    "zipImageCount": 16,
+    "notIndexed": []
+  },
+  {
+    "id": "cn-18",
+    "epub": "39688/落第骑士英雄谭 - 18.epub",
+    "indexedImageCount": 17,
+    "zipImageCount": 17,
+    "notIndexed": []
+  },
+  {
+    "id": "cn-19",
+    "epub": "39688/落第骑士英雄谭 - 19.epub",
+    "indexedImageCount": 16,
+    "zipImageCount": 16,
+    "notIndexed": []
+  }
+]

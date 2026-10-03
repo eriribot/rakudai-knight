@@ -23,6 +23,7 @@
     "rai": {"sourceFile": "novel/rai-colorized.png", "levelEyes": [[387, 719], [632, 568]], "window": [405, 180, 920, 1240], "eye": [824, 815], "protect": [[681, 815], [968, 815], [819, 1036], [775, 1136]], "eyeTarget": 0.55, "eyeTargetX": 0.46},
     "momiji": {"levelEyes": [[220, 1243], [306, 1170]], "window": [410, 830, 440, 590], "eye": [569, 1090], "protect": [[512, 1090], [625, 1090], [549, 1172], [531, 1187], [489, 1149], [512, 1135]], "eyeTarget": 0.5, "eyeTargetX": 0.36},
     "byakuya": {"levelEyes": [[495, 872], [587, 789]], "window": [840, 660, 480, 670], "eye": [1035, 979], "protect": [[973, 979], [1097, 979], [1021, 1090], [1000, 1112], [1195, 725]], "eyeTarget": 0.55, "eyeTargetX": 0.4},
-    "mikoto": {"sourceFile": "color/mikoto-colorized.png", "window": [163, 0, 765, 1129], "eye": [580, 517], "protect": [[442, 514], [723, 517], [580, 715], [577, 818]], "eyeTarget": 0.51, "eyeTargetX": 0.54}
+    "mikoto": {"sourceFile": "color/mikoto-colorized.png", "window": [163, 0, 765, 1129], "eye": [580, 517], "protect": [[442, 514], [723, 517], [580, 715], [577, 818]], "eyeTarget": 0.51, "eyeTargetX": 0.54},
+    "xiaoli": {"sourceFile":"color/xiaoli-colorized.png","levelEyes":[[493,197],[653,248]],"window":[326,43,552,753],"eye":[613,348],"protect":[[529,348],[697,348],[625,452],[627,512],[641,559]],"eyeTarget":0.46,"eyeTargetX":0.52}
   }
 }

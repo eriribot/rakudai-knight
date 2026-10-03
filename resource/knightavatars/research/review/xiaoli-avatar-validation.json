@@ -1,0 +1,395 @@
+{
+  "schemaVersion": 1,
+  "scope": "Independent read-only inspection; only this review report is written. No remote upload or URL retest performed.",
+  "source": {
+    "file": "novel/xiaoli-original.jpg",
+    "sourceEpub": "39688/[台版]落第骑士英雄谭 12.epub",
+    "member": "OEBPS/Images/014.jpg",
+    "epubExactBytesMatch": true,
+    "sourceSha256": "d5e1b37955a7991df069c8a257e2aaea22acfb5b75b2151dc5ac817740e1b634",
+    "manifestSourceShaMatches": true,
+    "aiInputShaMatches": true,
+    "aiInputFileMatchesManifest": true
+  },
+  "colorization": {
+    "mode": "built-in",
+    "outputFile": "resource/knightavatars/color/xiaoli-colorized.png",
+    "outputShaMatchesRecord": true,
+    "outputShaMatchesPreparation": true,
+    "preparationSourceFileMatchesOutput": true,
+    "aiDerivativeNotOfficialNativeColor": true,
+    "eyesPaletteUnverifiedMarkedArtistic": true,
+    "preparedFile": "prepared/xiaoli.png",
+    "preparedShaMatchesManifest": true
+  },
+  "regression": {
+    "baselineFile": "research/review/pre-xiaoli-baseline.json",
+    "priorCharacterCount": 30,
+    "characters": [
+      {
+        "id": "ikki",
+        "displayFileMatchesBaseline": true,
+        "bytesShaMatchesBaseline": true,
+        "imageUrlMatchesBaseline": true,
+        "preparedShaMatchesManifest": true
+      },
+      {
+        "id": "stella",
+        "displayFileMatchesBaseline": true,
+        "bytesShaMatchesBaseline": true,
+        "imageUrlMatchesBaseline": true,
+        "preparedShaMatchesManifest": true
+      },
+      {
+        "id": "shizuku",
+        "displayFileMatchesBaseline": true,
+        "bytesShaMatchesBaseline": true,
+        "imageUrlMatchesBaseline": true,
+        "preparedShaMatchesManifest": true
+      },
+      {
+        "id": "ayase",
+        "displayFileMatchesBaseline": true,
+        "bytesShaMatchesBaseline": true,
+        "imageUrlMatchesBaseline": true,
+        "preparedShaMatchesManifest": true
+      },
+      {
+        "id": "toka",
+        "displayFileMatchesBaseline": true,
+        "bytesShaMatchesBaseline": true,
+        "imageUrlMatchesBaseline": true,
+        "preparedShaMatchesManifest": true
+      },
+      {
+        "id": "itsuki",
+        "displayFileMatchesBaseline": true,
+        "bytesShaMatchesBaseline": true,
+        "imageUrlMatchesBaseline": true,
+        "preparedShaMatchesManifest": true
+      },
+      {
+        "id": "ouma",
+        "displayFileMatchesBaseline": true,
+        "bytesShaMatchesBaseline": true,
+        "imageUrlMatchesBaseline": true,
+        "preparedShaMatchesManifest": true
+      },
+      {
+        "id": "edelweiss",
+        "displayFileMatchesBaseline": true,
+        "bytesShaMatchesBaseline": true,
+        "imageUrlMatchesBaseline": true,
+        "preparedShaMatchesManifest": true
+      },
+      {
+        "id": "yuudai",
+        "displayFileMatchesBaseline": true,
+        "bytesShaMatchesBaseline": true,
+        "imageUrlMatchesBaseline": true,
+        "preparedShaMatchesManifest": true
+      },
+      {
+        "id": "nagi",
+        "displayFileMatchesBaseline": true,
+        "bytesShaMatchesBaseline": true,
+        "imageUrlMatchesBaseline": true,
+        "preparedShaMatchesManifest": true
+      },
+      {
+        "id": "kirihara",
+        "displayFileMatchesBaseline": true,
+        "bytesShaMatchesBaseline": true,
+        "imageUrlMatchesBaseline": true,
+        "preparedShaMatchesManifest": true
+      },
+      {
+        "id": "kuraudo",
+        "displayFileMatchesBaseline": true,
+        "bytesShaMatchesBaseline": true,
+        "imageUrlMatchesBaseline": true,
+        "preparedShaMatchesManifest": true
+      },
+      {
+        "id": "renren",
+        "displayFileMatchesBaseline": true,
+        "bytesShaMatchesBaseline": true,
+        "imageUrlMatchesBaseline": true,
+        "preparedShaMatchesManifest": true
+      },
+      {
+        "id": "misogi",
+        "displayFileMatchesBaseline": true,
+        "bytesShaMatchesBaseline": true,
+        "imageUrlMatchesBaseline": true,
+        "preparedShaMatchesManifest": true
+      },
+      {
+        "id": "kanata",
+        "displayFileMatchesBaseline": true,
+        "bytesShaMatchesBaseline": true,
+        "imageUrlMatchesBaseline": true,
+        "preparedShaMatchesManifest": true
+      },
+      {
+        "id": "nene",
+        "displayFileMatchesBaseline": true,
+        "bytesShaMatchesBaseline": true,
+        "imageUrlMatchesBaseline": true,
+        "preparedShaMatchesManifest": true
+      },
+      {
+        "id": "kurono",
+        "displayFileMatchesBaseline": true,
+        "bytesShaMatchesBaseline": true,
+        "imageUrlMatchesBaseline": true,
+        "preparedShaMatchesManifest": true
+      },
+      {
+        "id": "yuri",
+        "displayFileMatchesBaseline": true,
+        "bytesShaMatchesBaseline": true,
+        "imageUrlMatchesBaseline": true,
+        "preparedShaMatchesManifest": true
+      },
+      {
+        "id": "iris",
+        "displayFileMatchesBaseline": true,
+        "bytesShaMatchesBaseline": true,
+        "imageUrlMatchesBaseline": true,
+        "preparedShaMatchesManifest": true
+      },
+      {
+        "id": "uri",
+        "displayFileMatchesBaseline": true,
+        "bytesShaMatchesBaseline": true,
+        "imageUrlMatchesBaseline": true,
+        "preparedShaMatchesManifest": true
+      },
+      {
+        "id": "or_gaule",
+        "displayFileMatchesBaseline": true,
+        "bytesShaMatchesBaseline": true,
+        "imageUrlMatchesBaseline": true,
+        "preparedShaMatchesManifest": true
+      },
+      {
+        "id": "wallenstein",
+        "displayFileMatchesBaseline": true,
+        "bytesShaMatchesBaseline": true,
+        "imageUrlMatchesBaseline": true,
+        "preparedShaMatchesManifest": true
+      },
+      {
+        "id": "kiriko",
+        "displayFileMatchesBaseline": true,
+        "bytesShaMatchesBaseline": true,
+        "imageUrlMatchesBaseline": true,
+        "preparedShaMatchesManifest": true
+      },
+      {
+        "id": "sara",
+        "displayFileMatchesBaseline": true,
+        "bytesShaMatchesBaseline": true,
+        "imageUrlMatchesBaseline": true,
+        "preparedShaMatchesManifest": true
+      },
+      {
+        "id": "rinna",
+        "displayFileMatchesBaseline": true,
+        "bytesShaMatchesBaseline": true,
+        "imageUrlMatchesBaseline": true,
+        "preparedShaMatchesManifest": true
+      },
+      {
+        "id": "ein",
+        "displayFileMatchesBaseline": true,
+        "bytesShaMatchesBaseline": true,
+        "imageUrlMatchesBaseline": true,
+        "preparedShaMatchesManifest": true
+      },
+      {
+        "id": "rai",
+        "displayFileMatchesBaseline": true,
+        "bytesShaMatchesBaseline": true,
+        "imageUrlMatchesBaseline": true,
+        "preparedShaMatchesManifest": true
+      },
+      {
+        "id": "momiji",
+        "displayFileMatchesBaseline": true,
+        "bytesShaMatchesBaseline": true,
+        "imageUrlMatchesBaseline": true,
+        "preparedShaMatchesManifest": true
+      },
+      {
+        "id": "byakuya",
+        "displayFileMatchesBaseline": true,
+        "bytesShaMatchesBaseline": true,
+        "imageUrlMatchesBaseline": true,
+        "preparedShaMatchesManifest": true
+      },
+      {
+        "id": "mikoto",
+        "displayFileMatchesBaseline": true,
+        "bytesShaMatchesBaseline": true,
+        "imageUrlMatchesBaseline": true,
+        "preparedShaMatchesManifest": true
+      }
+    ],
+    "shieldFrameConfigMatchesBaseline": true
+  },
+  "delivery": {
+    "xiaoliImageUrlBlank": true,
+    "remoteAssetVerifiedUploaded": false,
+    "remoteNote": "Root reports the prospective prepared/xiaoli.png URL currently returns 404. This independent review does not repeat network checks and does not assert that the image has been uploaded."
+  },
+  "visualReview": {
+    "passed": true,
+    "fullColorObserved": [
+      "Natural warm brown complexion; dark black long hair with restrained charcoal highlights.",
+      "Original face proportions, bangs, large eyes, small smile and raised hand pose preserved visually.",
+      "White institutional outfit retains original coverage, wide sleeves, seams, straps, dark collar and chest chain.",
+      "Original opaque white background and fragments retained; © Won remains at the upper right."
+    ],
+    "portraitObserved": [
+      "Both eyes, nose, small smile, chin, dark collar and upper chest chain visible inside the upright shield.",
+      "No visible transparent gaps within the portrait opening and no other characters."
+    ],
+    "limitation": "AI colorization is a derivative and redraws/rescales lines; this does not claim pixel-identical original line art. Exact skin tone, iris, straps and steel colors are artistic choices."
+  },
+  "pixels": {
+    "fullMaskArea": 866460,
+    "preparedSize": [
+      434,
+      580
+    ],
+    "preparedMode": "RGBA",
+    "corePixels": 136234,
+    "coreAlphaBelow255": 0,
+    "coreAlphaZero": 0,
+    "outsideMaskAlphaDifferencePixels": 0,
+    "outsideMaskVisibleRGBDifferencePixels": 0,
+    "visuallyReviewedLandmarks": [
+      {
+        "name": "left-eye",
+        "point": [
+          165,
+          163
+        ],
+        "shieldCoreAlpha": 255,
+        "portraitAlpha": 255
+      },
+      {
+        "name": "right-eye",
+        "point": [
+          290,
+          163
+        ],
+        "shieldCoreAlpha": 255,
+        "portraitAlpha": 255
+      },
+      {
+        "name": "nose",
+        "point": [
+          216,
+          206
+        ],
+        "shieldCoreAlpha": 255,
+        "portraitAlpha": 255
+      },
+      {
+        "name": "smile",
+        "point": [
+          217,
+          250
+        ],
+        "shieldCoreAlpha": 255,
+        "portraitAlpha": 255
+      },
+      {
+        "name": "chin",
+        "point": [
+          232,
+          299
+        ],
+        "shieldCoreAlpha": 255,
+        "portraitAlpha": 255
+      },
+      {
+        "name": "collar-and-upper-chain",
+        "point": [
+          239,
+          336
+        ],
+        "shieldCoreAlpha": 255,
+        "portraitAlpha": 255
+      }
+    ],
+    "configuredProtectedPoints": [
+      {
+        "source": [
+          529,
+          348
+        ],
+        "output": [
+          161,
+          173
+        ],
+        "shieldCoreAlpha": 255,
+        "portraitAlpha": 255
+      },
+      {
+        "source": [
+          697,
+          348
+        ],
+        "output": [
+          290,
+          173
+        ],
+        "shieldCoreAlpha": 255,
+        "portraitAlpha": 255
+      },
+      {
+        "source": [
+          625,
+          452
+        ],
+        "output": [
+          235,
+          252
+        ],
+        "shieldCoreAlpha": 255,
+        "portraitAlpha": 255
+      },
+      {
+        "source": [
+          627,
+          512
+        ],
+        "output": [
+          237,
+          298
+        ],
+        "shieldCoreAlpha": 255,
+        "portraitAlpha": 255
+      },
+      {
+        "source": [
+          641,
+          559
+        ],
+        "output": [
+          247,
+          334
+        ],
+        "shieldCoreAlpha": 255,
+        "portraitAlpha": 255
+      }
+    ],
+    "eyeRotationDegrees": -17.679680977438853,
+    "horizontalEyeLineResidualSourcePixels": 7.105427357601002e-15
+  },
+  "passed": true
+}

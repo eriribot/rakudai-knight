@@ -102,6 +102,7 @@ check('已补入小说头像集合的姓名对应独立完整 PNG，保留来源
     ['momiji', ['浅木椛', '淺木椛', '浅桦', '淺樺']],
     ['byakuya', ['城之崎白夜']],
     ['mikoto', ['鹤屋美琴', '鶴屋美琴', 'Mikoto Tsuruya']],
+    ['xiaoli', ['福小莉', 'Fu Xiaoli', 'Xiaoli Fu']],
   ];
   const files = new Set(), sources = new Set();
   for (const [id, names] of characters) {

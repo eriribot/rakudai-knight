@@ -1,0 +1,159 @@
+{
+  "schemaVersion": 1,
+  "id": "xiaoli",
+  "name": "福小莉",
+  "aliases": [
+    "Fu Xiaoli",
+    "〈饕餮〉福小莉"
+  ],
+  "sourceImage": {
+    "file": "novel/xiaoli-original.jpg",
+    "width": 796,
+    "height": 1200,
+    "sha256": "d5e1b37955a7991df069c8a257e2aaea22acfb5b75b2151dc5ac817740e1b634",
+    "sourceEpub": "39688/[台版]落第骑士英雄谭 12.epub",
+    "member": "OEBPS/Images/014.jpg",
+    "bytesUnchanged": true
+  },
+  "userSuppliedImage": {
+    "file": "research/user-supplied/xiaoli-reference-original.png",
+    "width": 805,
+    "height": 1199,
+    "sha256": "a235f4aae8152b58d0955736011e3b254d48054e3bdd89ac2f93ca663ee1cc3c",
+    "comparisonNote": "目視核驗，與第12卷014.jpg為同一幅Won插圖；用原版EPUB圖片保存出版來源，使用者版本另外保留。"
+  },
+  "imageIdentityStatus": "verified-local-epub-illustration",
+  "identityEvidence": [
+    {
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 12.epub",
+      "xhtml": "OEBPS/Text/Chapter003.xhtml",
+      "imageTagLine": 1399,
+      "member": "OEBPS/Images/014.jpg",
+      "identityLine": 1404,
+      "identityExcerpt": "「福小莉！？」",
+      "fullNameLine": 1412,
+      "fullNameExcerpt": "〈饕餮〉福小莉。"
+    },
+    {
+      "sourceEpub": "39688/落第骑士英雄谭 - 18.epub",
+      "xhtml": "OEBPS/Text/chapter4.xhtml",
+      "imageTagLine": 215,
+      "member": "OEBPS/Images/190226.jpg",
+      "identityLine": 222,
+      "identityExcerpt": "〈饕餮〉福小莉。"
+    }
+  ],
+  "evidence": [
+    {
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 12.epub",
+      "xhtml": "OEBPS/Text/Chapter003.xhtml",
+      "line": 1389,
+      "claim": "年輕少女，髮色與膚色較深；白囚衣束帶、赤腳、腳銬鐵球",
+      "excerpt": "女孩的皮肤与发色偏深，全身穿着附有束带的白囚衣，打赤脚，脚上还铐着铁球。"
+    },
+    {
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 12.epub",
+      "xhtml": "OEBPS/Text/Chapter003.xhtml",
+      "line": 1416,
+      "claim": "手上囚具皮帶具有強行扯壞的痕跡",
+      "excerpt": "那应该是囚具的皮带，上头还有强行扯坏的痕迹。"
+    },
+    {
+      "sourceEpub": "39688/落第骑士英雄谭 - 18.epub",
+      "xhtml": "OEBPS/Text/chapter4.xhtml",
+      "line": 211,
+      "claim": "明確黑髮、較深膚色，並非依國籍或族裔推測",
+      "excerpt": "一名肤色黝黑的黑发女孩，从爱德怀斯身后冒出来。",
+      "identityLine": 222
+    },
+    {
+      "sourceEpub": "39688/落第骑士英雄谭 - 19.epub",
+      "xhtml": "OEBPS/Text/chapter5.xhtml",
+      "line": 3170,
+      "claim": "後期再次明寫较深膚色，這段換成中華風裝束，不應改動本次第12卷囚衣線稿",
+      "excerpt": "那是一名肤色黝黑，中华风打扮的女孩，爱兰兹认得她。",
+      "identityLine": 3179,
+      "identityExcerpt": "〈饕餮〉福小莉。"
+    }
+  ],
+  "paletteBoundary": {
+    "hair": {
+      "status": "canonical-novel-text",
+      "value": "黑色長髮；保留黑白插圖中的髮形、瀏海走向與亮部，不能由角色國籍推斷色彩。"
+    },
+    "skin": {
+      "status": "canonical-novel-text-with-artistic-tone-choice",
+      "value": "較深／黝黑膚色；具體棕色色相與深淺没有已核實官方彩色參照，任何細部色碼只屬本次上色選擇。"
+    },
+    "naturalEyeColor": {
+      "status": "unknown",
+      "note": "22本本地EPUB姓名附近的上下文檢索未找到福小莉的明確常態瞳色；第12卷630、758、759、992行紅色雙眸等指史黛菈，不可套用。上色若採深棕或深灰，必須視為中性藝術補色。"
+    },
+    "clothes": {
+      "status": "canonical-novel-text-and-verified-illustration",
+      "value": "白囚衣，深色束帶，胸前鎖鏈；具体束帶與金屬色無已核實官方彩色參照。不得換成紅黑道袍或民族服飾。"
+    },
+    "newTraitsForbidden": [
+      "不要改動原五官或根據民族刻板印象誇張鼻唇與臉型",
+      "不要憑名稱、國籍或角色職業推導瞳色",
+      "不要把後期中華風服裝倒灌進第12卷囚衣插圖"
+    ]
+  },
+  "searchScope": {
+    "localEpubsTextSearched": 22,
+    "textSearchMethod": "福小莉／小莉具名段落以及前後7個非空文本段落外貌關鍵詞；另直接核驗第12卷初登場插圖前後文字。",
+    "colorSheetsVisuallyChecked": [
+      "tw-11",
+      "tw-12",
+      "tw-13",
+      "cn-18",
+      "cn-19"
+    ],
+    "verifiedColorPortraitFound": false,
+    "limitNote": "仅在所列5本彩頁及具名文本範圍內沒有找到；不宣稱已檢查網路全部官方出版資料。",
+    "post12IllustrationScan": {
+      "report": "research/epub/xiaoli-post12-scan/findings.json",
+      "volumes": [
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "epubCount": 8,
+      "verifiedIllustrations": 1,
+      "verifiedOfficialColorIllustrations": 0
+    }
+  },
+  "note": "本檔只整理證據，不修改世界書。原著髮膚色個體描寫成立，具體色彩上色應以文字相對明暗與原線稿為限；AI上色結果不得稱為官方彩圖。",
+  "alternativeIllustrations": [
+    {
+      "volume": 18,
+      "epub": "39688/落第骑士英雄谭 - 18.epub",
+      "member": "OEBPS/Images/190226.jpg",
+      "file": "resource/knightavatars/novel/xiaoli-vol18-original.jpg",
+      "width": 1120,
+      "height": 1600,
+      "sha256": "285689368c9c5e4599a63a3e548dd6bea507ad1d34315bb4c547bf0e14f34257",
+      "bytesUnchanged": true,
+      "style": "official-monochrome-illustration",
+      "characters": [
+        "福小莉",
+        "爱德怀斯"
+      ],
+      "xiaoliPosition": "左側，中華風服裝、深色長髮、雙圓紋髮飾，從愛德懷斯身旁探出。",
+      "identityEvidence": {
+        "xhtml": "OEBPS/Text/chapter4.xhtml",
+        "imageTagLine": 215,
+        "descriptionLine": 211,
+        "descriptionExcerpt": "一名肤色黝黑的黑发女孩，从爱德怀斯身后冒出来。",
+        "clothesLine": 219,
+        "clothesExcerpt": "她穿着中华风格的服装，看似个性活泼。",
+        "identityLine": 222,
+        "identityExcerpt": "〈饕餮〉福小莉。"
+      }
+    }
+  ]
+}

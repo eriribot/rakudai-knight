@@ -16,12 +16,12 @@
 ```json
 "file": "nene.jpg",
 "displayFile": "prepared/nene.png",
-"imageUrl": "https://你的图床域名/knightavatars/nene.png"
+"imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/nene.png"
 ```
 
 `sourceUrl` 和 `sourcePage` 记录原始出处，不是填写图床的地方。`shield-mask.svg` 保持内联，无须上传。
 
-填完地址后，在 `scripts/黑白ADV轮盘终端` 目录执行 `node build.js`，重新导入生成的 v1.3.11 JSON。执行 `node preview.mjs` 可更新离线预览。当前 `imageUrl` 均留空，继续展示本地素材；填写后构建不会下载图床图片，而是直接保留地址。
+填完地址后，在 `scripts/黑白ADV轮盘终端` 目录执行 `node build.js`，重新导入生成的 v1.3.11 JSON。执行 `node preview.mjs` 可更新离线预览。原有30个人物与共用盾框的 `imageUrl` 已填写 GitHub Pages 地址，基底为 `https://eriribot.github.io/rakudai-knight/resource/knightavatars/`。人物有 `displayFile` 时使用 `prepared/` 图片；原版盾形头像与共用盾框使用根层图片。这31张原有图片均已检查HTTP 200、PNG格式及与本地逐字节一致，记录见 [图床检查](./research/review/github-pages-avatar-check.json)。新增福小莉尚未上传，`imageUrl` 留空，构建先内联 [prepared/xiaoli.png](./prepared/xiaoli.png)；上传后再填写该人物地址。站点根路径没有首页，404不影响图片直链。构建不会下载图床图片，而是直接保留地址；将单项地址留空可恢复该项的本地内联预览。
 
 百度百科页面的浏览被网站安全政策阻止。这批图片改从独立的官方页面取得；GA 文库的彩色盾形图与提供的绫辻绚濑参考图属于同一套素材。
 
@@ -64,17 +64,17 @@
 
 ## 算法裁切与合成
 
-二十一张补框头像位于 `prepared/`，均为 434 × 580 透明 PNG。先从盾框 alpha 像素取最大的封闭透明区域作为盾口，排除外侧和花饰小孔；再使用每人的人工核验人物区域、眼部位置和脸部保护点，搜索等比例裁切窗口。合成图完整显示，人物不再被运行时二次缩放。暗亮主题只改变独立框层的颜色，不反转人物。
+二十二张补框头像位于 `prepared/`，均为 434 × 580 透明 PNG。先从盾框 alpha 像素取最大的封闭透明区域作为盾口，排除外侧和花饰小孔；再使用每人的人工核验人物区域、眼部位置和脸部保护点，搜索等比例裁切窗口。合成图完整显示，人物不再被运行时二次缩放。暗亮主题只改变独立框层的颜色，不反转人物。
 
 艾莉丝第11卷旗袍彩图以及新补四人的倾斜构图先调平眼线后裁切。凛奈的一侧眼睛被眼罩遮住，该定位点取眼罩覆盖的眼位中心，记录在 `orientation.landmarkNote`；未补画被遮住的眼睛。艾茵群像中的双眼倾角约46度，核实后仅对她配置 `maxLevelDegrees: 47`，其他人物仍默认45度核验范围。旋转后的候选裁切还须用不透明源像素覆盖整个盾口，并留出4像素重采样安全边，排除旋转产生的透明三角。`avatar-fit.json` 的 `levelEyes` 使用原图坐标，`window`、`eye` 与 `protect` 使用旋转后的画布坐标；清单 `preparation.orientation` 记录角度、画布尺寸及裁切坐标空间。原始小说 JPG 保留不变。
 
-[contact-sheet.png](./prepared/contact-sheet.png) 是二十一人效果一览；[novel-contact-sheet.png](./prepared/novel-contact-sheet.png) 单独展示十一名使用 EPUB 小说插图的人物；[latest-contact-sheet.png](./prepared/latest-contact-sheet.png) 展示碎城雷、浅木椛、城之崎白夜和已有的诸星雄大。美琴使用用户提供的黑白人物图，不列入 EPUB 插图联系表。不要把效果一览当作人物头像上传。[preparation-report.json](./prepared/preparation-report.json) 记录实际裁切窗口与输出尺寸，清单的 `preparation` 记录源图和合成图哈希。
+[contact-sheet.png](./prepared/contact-sheet.png) 是二十二人效果一览；[novel-contact-sheet.png](./prepared/novel-contact-sheet.png) 单独展示十二名使用 EPUB 小说插图的人物；[latest-contact-sheet.png](./prepared/latest-contact-sheet.png) 展示碎城雷、浅木椛、城之崎白夜和已有的诸星雄大。美琴使用用户提供的黑白人物图，不列入 EPUB 插图联系表。不要把效果一览当作人物头像上传。[preparation-report.json](./prepared/preparation-report.json) 记录实际裁切窗口与输出尺寸，清单的 `preparation` 记录源图和合成图哈希。
 
 维护脚本：`scripts/黑白ADV轮盘终端/prepare-avatars.mjs`，定位配置：同目录 `avatar-fit.json`。重新裁切需 Node.js 与 sharp；已有本地 sharp 时执行 `node prepare-avatars.mjs`，也可用 `--sharp-module <已安装的sharp模块路径>` 指向工作区提供的依赖。正常构建直接读取已生成的 PNG，无须执行此脚本。
 
 ## 小说人物补充
 
-前十一人的原始图片位元组由本地 EPUB 提取，存于 `novel/`；鹤屋美琴的黑白头像由用户提供，原始截图保留在研究素材目录。人物对应核对正文、具名图片与衣装，依据在 [character-evidence.json](./research/epub/character-evidence.json)。这十二人原图没有盾框，已按相同算法裁出各自的脸与头发，避开版面文字和旁边人物的脸部。
+十二人的原始图片位元组由本地 EPUB 提取，存于 `novel/`；鹤屋美琴的黑白头像由用户提供，原始截图保留在研究素材目录。人物对应核对正文、具名图片与衣装，依据在 [character-evidence.json](./research/epub/character-evidence.json)。这十三人原图没有盾框，已按相同算法裁出各自的脸与头发，避开版面文字和旁边人物的脸部。
 
 | 人物 | 原始图档来源 | 上传图床的完整合成图 |
 | --- | --- | --- |
@@ -90,6 +90,7 @@
 | 浅木椛 | 台版第9卷 `OEBPS/Images/003.jpg`，左下黑长发紫蝴蝶结少女 | [prepared/momiji.png](./prepared/momiji.png) |
 | 城之崎白夜 | 台版第9卷 `OEBPS/Images/003.jpg`，左半中间黑发眼镜男子 | [prepared/byakuya.png](./prepared/byakuya.png) |
 | 鹤屋美琴 | 用户提供的具名黑白头像，**灰金发 AI 上色衍生图** | [prepared/mikoto.png](./prepared/mikoto.png) |
+| 福小莉 | 台版第12卷 `OEBPS/Images/014.jpg`，与用户图片同幅的**黑白原图 AI 上色衍生图** | [prepared/xiaoli.png](./prepared/xiaoli.png) |
 
 凛奈使用内置 imagegen 上色：[novel/rinna-original.jpg](./novel/rinna-original.jpg) 保留第5卷黑白原档，[novel/rinna-colorized.png](./novel/rinna-colorized.png) 是编辑结果。淡粉红发与红褐眼色参考第18卷具名场景的头脸裁片，深红礼服依据第5卷正文；蝴蝶结深红属于本次上色选择。清单标明 `ai-colorized-derivative`，不视为官方原生彩图。[上色记录](./research/epub/rinna-colorization.json) 保存完整提示词、输入来源、输出尺寸和哈希。
 
@@ -99,7 +100,9 @@
 
 鹤屋美琴使用用户提供的黑白人物图，以内置 imagegen 上色。灰金色头发依据用户给出的描述，并与第5卷尾声正文核对；眼色与制服颜色尚无官方彩图核实，标为本次上色选择。原截图与 [color/mikoto-colorized.png](./color/mikoto-colorized.png) 上色结果分别保留，不把来源标成已核实的小说插图，也不把生成图标成官方原生彩图。[上色记录](./research/epub/mikoto-colorization.json) 保存完整提示词、输入来源和哈希。图床上传使用 [prepared/mikoto.png](./prepared/mikoto.png)。
 
-目前共有 **30个人物头像 + 1张共用盾框，共31个图床文件**：九张原版盾形 PNG 与二十一张 `prepared/` PNG。研究联系表、小说原彩图、旧徽章、扫描索引不作为终端图床头像上传。
+福小莉的用户图片与第12卷 `OEBPS/Images/014.jpg` 为同幅人物插图；[novel/xiaoli-original.jpg](./novel/xiaoli-original.jpg) 保留 EPUB 原始位元组，[research/user-supplied/xiaoli-original.png](./research/user-supplied/xiaoli-original.png) 保留用户图片。第12卷正文描述肤色与发色偏深，第18卷第四章进一步写为肤色黝黑的黑发女孩并具名福小莉，因此本次使用黑长发与自然较深棕肤，保留白囚衣、束带、锁链和原图结构。深棕眼色属于本次中性上色选择，未标成官方设定。[color/xiaoli-colorized.png](./color/xiaoli-colorized.png) 是内置 imagegen 上色衍生图；原图 `© Won` 署名保留，[上色记录](./research/epub/xiaoli-colorization.json) 保存完整提示词、原始来源与哈希。上传使用 [prepared/xiaoli.png](./prepared/xiaoli.png)，新增人物 `imageUrl` 留空，等待上传后填写。
+
+目前共有 **31个人物头像 + 1张共用盾框，共32个图床文件**：九张原版盾形 PNG 与二十二张 `prepared/` PNG；新增福小莉待上传，原有31个远端文件继续使用已核验地址。研究联系表、小说原彩图、旧徽章、扫描索引不作为终端图床头像上传。
 
 有栖院凪的 Alice 与后期 Iris 均曾被译作“艾莉丝”。裸 `艾莉丝／艾莉絲` 不绑定人物图片，保留姓名首字；请使用 `有栖院凪`、`有栖院艾莉丝` 或 `艾莉丝·阿斯卡里德`、`艾莉丝·格尔`、完整三段姓名。`Alice`、`爱丽丝／愛麗絲` 仍绑定凪；`Iris Ascarid`、`Iris Gaule` 绑定后期艾莉丝。裸 `黑骑士／黑騎士` 同样不作姓名替代，可使用 `黑骑士艾莉丝`。这里只消歧头像，原有聊天人物名不会被自动改写。
 

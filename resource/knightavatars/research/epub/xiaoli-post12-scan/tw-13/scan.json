@@ -1,0 +1,326 @@
+{
+  "volume": 13,
+  "epub": "39688/[台版]落第骑士英雄谭 13.epub",
+  "images": [
+    {
+      "member": "OEBPS/Images/logo.png",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-13/logo.png",
+      "sha256": "482250fa7dd25e5d80393e0989417ec02bd596a0bd1334693c07bae766a865d5",
+      "width": 1016,
+      "height": 263,
+      "references": []
+    },
+    {
+      "member": "OEBPS/Images/001.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-13/001.jpg",
+      "sha256": "362b15f02afecd2d700aaf5c4b62e0a5bdfed07dd6d9a8471652ee8a26eb6eff",
+      "width": 796,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/cover.xhtml",
+          "line": 12,
+          "before": "封面",
+          "after": ""
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/002.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-13/002.jpg",
+      "sha256": "a2b53f2b41d29cdfacf2a544978bfb7b7e07e597dc6f680be8081e66166e7e1b",
+      "width": 796,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/illus00.xhtml",
+          "line": 12,
+          "before": "彩页",
+          "after": ""
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/003.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-13/003.jpg",
+      "sha256": "c426bb1642c6aefa93f0122fd9a2557eeb6f582a50adf9a6ca7a651ef06446b6",
+      "width": 1674,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/illus01.xhtml",
+          "line": 17,
+          "before": "彩页\n  \n\nif(navigator.userAgent.toLowerCase().match(\"edge\")){\ndocument.onreadystatechange=function(){if(document.readyState==\"interactive\"){f=function(n){return document.getElementsByClassName(n)[0]};f('change').remove();x=f('change-image').classList;x.add('change-image-show');x.remove('change-image');}}}",
+          "after": ""
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/003_.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-13/003_.jpg",
+      "sha256": "d5433df8e16dc70e863b6ade0f3d86cef2cee93a7e63816d056556277b22c9ab",
+      "width": 1200,
+      "height": 1674,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/illus01.xhtml",
+          "line": 16,
+          "before": "彩页\n  \n\nif(navigator.userAgent.toLowerCase().match(\"edge\")){\ndocument.onreadystatechange=function(){if(document.readyState==\"interactive\"){f=function(n){return document.getElementsByClassName(n)[0]};f('change').remove();x=f('change-image').classList;x.add('change-image-show');x.remove('change-image');}}}",
+          "after": ""
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/004.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-13/004.jpg",
+      "sha256": "05cbc99c5aa0fc168fb978c77242de943fa7ab43207f6376f00ebf0f56a908f9",
+      "width": 1674,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/illus02.xhtml",
+          "line": 17,
+          "before": "彩页\n  \n\nif(navigator.userAgent.toLowerCase().match(\"edge\")){\ndocument.onreadystatechange=function(){if(document.readyState==\"interactive\"){f=function(n){return document.getElementsByClassName(n)[0]};f('change').remove();x=f('change-image').classList;x.add('change-image-show');x.remove('change-image');}}}",
+          "after": ""
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/004_.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-13/004_.jpg",
+      "sha256": "e817064f089b763c1f2d88dfc2be35cb683e4e1887a0d152b2f2447583602cf4",
+      "width": 1200,
+      "height": 1674,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/illus02.xhtml",
+          "line": 16,
+          "before": "彩页\n  \n\nif(navigator.userAgent.toLowerCase().match(\"edge\")){\ndocument.onreadystatechange=function(){if(document.readyState==\"interactive\"){f=function(n){return document.getElementsByClassName(n)[0]};f('change').remove();x=f('change-image').classList;x.add('change-image-show');x.remove('change-image');}}}",
+          "after": ""
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/005.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-13/005.jpg",
+      "sha256": "7aa97b85908fb173243ebd33a73867594a8ae79b93075651789af2672d8a0f61",
+      "width": 1674,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/illus03.xhtml",
+          "line": 17,
+          "before": "彩页\n  \n\nif(navigator.userAgent.toLowerCase().match(\"edge\")){\ndocument.onreadystatechange=function(){if(document.readyState==\"interactive\"){f=function(n){return document.getElementsByClassName(n)[0]};f('change').remove();x=f('change-image').classList;x.add('change-image-show');x.remove('change-image');}}}",
+          "after": ""
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/005_.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-13/005_.jpg",
+      "sha256": "d14b4c0b4c4eab1c5ac16456c65b00fe1987339535745774559ed51879735cf9",
+      "width": 1200,
+      "height": 1674,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/illus03.xhtml",
+          "line": 16,
+          "before": "彩页\n  \n\nif(navigator.userAgent.toLowerCase().match(\"edge\")){\ndocument.onreadystatechange=function(){if(document.readyState==\"interactive\"){f=function(n){return document.getElementsByClassName(n)[0]};f('change').remove();x=f('change-image').classList;x.add('change-image-show');x.remove('change-image');}}}",
+          "after": ""
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/006.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-13/006.jpg",
+      "sha256": "dd02cc39a48e4fd6edb87da3e0af216eabbf04a88b2f9e0d1c43c710f3e1d521",
+      "width": 796,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/illus04.xhtml",
+          "line": 12,
+          "before": "彩页",
+          "after": ""
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/007.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-13/007.jpg",
+      "sha256": "9b7e5b28861dc76dd565d52b16d4a370aa049d9c6081c1eaf98dae97aa7dd765",
+      "width": 796,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/Chapter001.xhtml",
+          "line": 71,
+          "before": "「宁音老师你在跟谁说话呀！？那边没有人！」\n「呃、喔喔，这边这个才是史黛菈呀。妾身搞错惹……欸，奇怪？史黛菈是五胞胎吗？」\n「问题根本严重到不行嘛！」\n史黛菈高声尖叫，宁音则是无视史黛菈的焦虑，呵呵大笑。\n场面非常热闹。\n不过，并不只是史黛菈、宁音身边特别热闹。\n国葬会场──中央公园内摆满酒水，国民各自带来的食材制作成各种料理，会场各处把酒言欢，喧闹不休。\n尤其是篝火四周。\n乐队在篝火旁演奏着欢快的乐曲，人群则是随着音乐舞动身体。\n会场有一段楼梯通往公园外围的步道，黑铁一辉坐在阶梯上俯瞰下方的喧嚷，不禁一阵苦笑。",
+          "after": "「……完全没有葬礼的感觉。」\n他淡淡地自言自语，然而──\n「小子，我国国葬看起来很稀奇吗？」\n楼梯上方的步道传来说话声。\n一辉十分熟悉这道嗓音，他回过头去。\n「岳父……！」\n「谁是你岳父！」\n一名脸上蓄有红胡的中年男人气得直跳脚。他正是史黛菈的父亲，法米利昂皇国现任国王──\n席琉斯•法米利昂。\n席琉斯愤恨地驳回一辉的称呼，一屁股坐在楼梯的最上层，举起酒瓶仰头一灌。\n接着他一口吐出满是酒味的气息──"
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/008.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-13/008.jpg",
+      "sha256": "ac4ad85a06c00c475914fc71f5305de14fc8d06ba709d601f6d75efd9095d3a5",
+      "width": 796,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/Chapter002.xhtml",
+          "line": 580,
+          "before": "纳希姆极度缺氧，导致脸色瘀血发绀。\n无数刺穿痕迹遍布全身。双眼、双耳、鼻孔──全身所有的孔洞汩汩流出鲜血，显然是内脏破裂导致血液逆流。\n微血管大量破裂使得双眼赤红充血，两颗眼珠偏向诡异的方向，无法聚焦。\n他已经死了。\n卡罗经历无数死境，亲眼目睹数人死去，所以他很清楚──\n一个人类伤势如此凄惨，根本不可能存活。\n不、他即使勉强苟延残喘，也完全无法动弹。\n他只能昏厥，等待死亡降临。\n卡罗确实给予纳西姆迎头痛击。\n这些攻击肯定足以致命。",
+          "after": "但是──\n眼前的敌人──〈沙漠死神〉却毫不在乎。\n不、他甚至十分享受这一切。\n他享受着这场战争、这场打斗，甚至是濒临死境的自己。\n充血涣散的双眼里仍然保有杀意之火。他露出利牙，战斗的愉悦还高高挂在脣角。\n纳西姆的模样让卡罗深深明白一件事。\n他的想法就跟众多士兵相去不远。\n他们对上的──不是人类。\n这个男人会以人类的身分，以人类该有的死法死去？\n他们根本无法想像那种稀松平常的场景。\n这个男人即便被砍下脑袋都不会停止战斗。"
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/009.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-13/009.jpg",
+      "sha256": "aff354fd462227c5aa84081957175bf81c412b234945a7a72a359e2d2d4f13ab",
+      "width": 796,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/Chapter003.xhtml",
+          "line": 161,
+          "before": "「妾身正要这么说呢！」\n宁音说着，单齿木屐奋力踏向柏油路面。\n紧接着，周遭的重力登时攀升，极大的重量压上四周，彷佛整片天空掉下来似的。\n伐刀绝技──〈地缚阵〉。\n纳西姆席卷一空的地面发出一阵地鸣声，随即塌陷。\n宁音施加的压力大约是地球重力的一百倍。\n这股重力比她当初用来镇压〈晓学园〉时多上十倍。\n然而──\n〈沙漠死神〉承受如此重压却无动于衷，他在胸前敲响拳头。\n「假如你的小家伙被这么轻轻压一下，就像踩扁的青蛙一样软趴趴，火热的千年之恋也会瞬间冷到冰点呢。」",
+          "after": "「……我们都很满意彼此，是吧？」\n「是呀。小朋友们也都赶回家了，何不直接开始？就让我们好好享受大人的时间吧。」\n此语一落，双方同时行动。两名〈魔人〉的全力一击互相冲撞。\n铁扇与拳头接触的刹那，双方灌注的庞大魔力化为漆黑冲击波，向外扩散。\n这一击造成的破坏比方才的龙卷风与重力波有过之而无不及。\n『这、这是！SHIT！这下完蛋了！冲击波强到无人机都过不去……！魔力光又太强，摄影机又照不出什么鬼！啥都看不到……！！这真的是人类之间的战斗吗？简直就是〈默示录之日apocalypsis〉啊！』\n两波强大魔力带来毁灭，涂改整个世界。\n路榭尔正门原本的所在地闪耀漆黑极光，转播摄影机根本无法拍摄两人的身影。\n另一方面──\n纳西姆的〈化骸尘暴〉将其他四名法米利昂代表抛飞到一千五百公尺的高空中。\n〈红莲皇女〉史黛菈•法米利昂率先采取行动。"
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/010.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-13/010.jpg",
+      "sha256": "b0cd6f0962269fff9198cba9178c07479a8e75ccc6d0ad38cfb8809e51e547af",
+      "width": 796,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/Chapter003.xhtml",
+          "line": 393,
+          "before": "「……你竟敢、竟敢这么做！杀了大家还嫌不够，甚至还玩弄大家的尊严……！不可原谅，我绝对不会放过你！」\n阿斯卡里德一反平时的平静，秀丽的脸庞因愤怒而扭曲。\n欧尔•格尔却毫无悔意──\n「那你想怎么做呢？艾莉丝姐姐。」\n他这么问道。白皙的双脚前后摇晃，语气可说是天真无邪。\n这个问题简直多此一举。\n……她早已决定自己的答案。\n艾莉丝•格尔正是为了这一天，为了这个答案活到现在。\n「我今天会在这里杀死你……！然后终结这一切！从那一天到现在所有的惨剧，全都在此告一段落！我不会再让你伤害任何人！！」\n艾莉丝怒吼着，同时全身喷发紫色魔力，犹如火焰熊熊燃烧。",
+          "after": "魔力光芒化作漆黑铠甲笼罩全身，显现在她全身上下。\n〈无敌甲胄〉。\n操纵〈不屈〉概念，全〈联盟〉最坚硬的防御之力。\n「……嘿欸。」\n欧尔•格尔眯起异色双瞳。\n「啊哈　啊哈　真伤脑筋。史黛莅、露娜艾丝，还有艾莉丝姐姐，怎么有这么多好玩的玩具，让我好难挑喔。」\n他高高勾起嘴角，脣边彷佛被小刀划开似的。\n「那就开打吧，姐姐。这次就让我们姐弟两人，继续那一场〈浴血十字架La Croix Sanglante〉吧。」\n\n于是……最后一人──〈不转杀手〉多多良幽衣也面对着自己的宿敌。\n路榭尔王城中有一座玫瑰园。杀害双亲、姐妹，更对雇主──〈解放军〉下杀手的叛徒──〈恶之华Dirty Rose〉艾茵，正在玫瑰园中的庭园桌前歇息。"
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/011.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-13/011.jpg",
+      "sha256": "81ea6a6333732ef807000e53741164264619219cc4a222e7f67a982a8c84d2e7",
+      "width": 796,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/Chapter003.xhtml",
+          "line": 665,
+          "before": "因为──\n『现在还在战争、打斗还在继续，你怎么把自己的灵装收起来了！？』\n她居然做出如此破天荒的举动。\n『她、她该不会、打算空手接下〈黄金战车〉的〈蹄铄王道〉！？她疯了吗──！这么做太乱来了！直接用肉身挡在以高速奔驰的骑兵面前，下场可想而知！不过──她现在后悔也来不及啦！！』\n敌人主动收起武器。\n约翰──应该说操纵他的〈傀儡王〉不会放过这千载难逢的好机会！\n「〈蹄铄王道〉！」\n『〈黄金战车〉有如离弦之箭冲刺上前！直线冲向毫无防备的敌人！』\n金色骑兵伸出骑兵枪，在空中笔直奔驰。\n枪尖直指史黛菈的心脏。",
+          "after": "而史黛菈却迟迟没有伸手拿剑。\n她摆出架势，打算空手抓住迎面而来的枪尖。\n──这决定实在是异想天开，鲁莽得出乎意料。\n不会有步兵敢正面承受骑兵冲锋。\n更别说约翰的能力是「道路」。\n这股霸道之力能踏碎前方所有障碍，不断迈进。\n其能力会以概念的形式扭转因果，甚至能将史黛菈的臂力化作虚无。\n这才是天经地义。\n然而──\n（什么天经地义！跟我无关……！）\n史黛菈开始回想。"
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/012.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-13/012.jpg",
+      "sha256": "e12c65e2edeeca26fe2029139e47cb4777e13048809ffc4e533fb0ac77f944c6",
+      "width": 796,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/Chapter004.xhtml",
+          "line": 135,
+          "before": "「也难怪嘛。你最讨厌这种攻击了呢。」\n艾茵看穿多多良在虚张声势。\n「菲亚，你的反射能力确实强大。但是伐刀者的魔力有限，任何能力都无法长时间使用，你的反射也不例外。所以呢，菲亚，你总是依赖敏锐的反射神经，只在冲击发生的瞬间发动反射。也就是说──你没办法应付这种缓慢加压的攻击，是不是？」\n「啧！」\n艾茵点出的真相。\n正中多多良的弱点。\n多多良的「反射」很难应付艾茵这种一步步逼近的攻势。\n这样一来她就无法看穿力道、速度的最高点，抓不到时机施展「反射」。\n但是──\n「给你猜中又怎么了？这藤蔓慢到有剩，根本不需要动用伐刀绝技！我只用〈掠地蜈蚣〉就能砍成一堆碎枝！」",
+          "after": "没错。\n艾茵的确看透自己的弱点。\n但说到底，这种慢悠悠的攻击原本就不需要「反射」。\n她只要砍断所有蔓延而来的藤蔓，抵达艾茵身边就够了！\n多多良正要转换对策，此时她的耳边──\n──一阵锐利的破风声呼啸而过。\n「──！呃……！」\n荆棘藤蔓如鞭子般扫来。\n逐渐逼近的荆棘绒毯忽然抬起一条藤蔓，飞向多多良的颈部，像是要一鞭劈下她的头。\n多多良以听觉察觉杀意接近，紧急发动〈完全反射〉，平安挡下攻击。然而──\n──多多良脸上浮现更深的焦躁。"
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/013.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-13/013.jpg",
+      "sha256": "d029c65e49fe0b6c780ff473c38357543e594d2c957f625f12a225c341a91c95",
+      "width": 796,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/Chapter004.xhtml",
+          "line": 689,
+          "before": "假如我能贯彻自己的处境……我搞不好还能稍微自豪一下，总算度过了这么个狗屎般的人生。』\n菲亚答道，忽然心里一阵难为情。自己到底在说什么？\n……不能让老姐顺水推舟。\n现在必须让艾茵放弃消除自己的人格。\n菲亚重新打定主意，再次瞪向艾茵，然而──\n\n『是吗……很棒呢♪』\n\n她见到艾茵的神情，顿时哑口无言。\n艾茵露出菲亚从未见过的欣喜神色，彷佛获得了救赎……",
+          "after": "『那你可不能死在下周的「遴选」里。你要成为一个专业人士活下去，活过每一个瞬间……不然这脸就丢大了。所以……菲亚，你不可以输。即便对上已经彻底改变的我，你也绝对不能输──』\n「……废话，用不着你说。」\n\n◆◇◆◇◆\n\n遥远过往的回忆。\n多多良对着已经逝去的景仰对象低喃，扬起苦笑。\n当时要是能这么回答她就好了。\n心头充斥无法挽回的后悔。\n但是，在那之后过了五年，她的决心终于对得起当时向艾茵说过的志向。\n『唔喔！〈不转〉多多良幽衣撑着灵装，摇摇晃晃地站起来了！她似乎硬吃了超重的一击，这下子还能打吗！？』"
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/014.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-13/014.jpg",
+      "sha256": "b469531e91edc285e260b74eff34aa0c7e79a05be9316f6c2dc3613ee897c936",
+      "width": 796,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/Chapter004.xhtml",
+          "line": 808,
+          "before": "〈戳刺青竹〉获得〈幽狱世界树〉的养分，力量比之前有过之而无不及。\n就如同〈多嘴郁金香〉与玫瑰野兽，多多良无法以反射弹开竹枪──一时之间血沫横飞，某样物体被竹林抛上天空。\n那是多多良的左手，她的左手被扯了下来。\n「这下──……！？」\n胜负已定。\n然而多多良下一秒就颠覆艾茵的自负。\n多多良劈开竹林，通过了重重障碍直冲过来。\n不过〈戳刺青竹〉扯下了她的一只手，还削去了她的侧腹、大腿、单边耳跟头发，遍体鳞伤。\n\n『第三点是浪费「余力」。菲亚，你保留太多余力了。我们要追求的并非帅气弹开对手的攻击，也不是俐落地回避攻势，而是以刀刃确实斩断目标的性命。既然如此，不需要勉强弹开攻击，更不需要保留余力。我们可以更惊险一点，只稍微改变攻击角度，避免自己死在对方手上就可以了。』",
+          "after": "多多良不可能完全弹开〈幽狱世界树〉的攻击。\n因此她只稍微让竹枪偏移轨道。\n避免对方猎取自己的性命。\n话虽如此，代价实在太大了。\n她的双脚只是勉强黏在身体上，神经已断。\n竹枪削断右耳时似乎戳伤头部，右眼已经看不见了。\n她勉强保住性命。\n身体却宛若死人。\n全身上下只剩下右手能动。\n但是──\n『肌肉、骨头，对方要什么就给他什么。我们是杀手，不需要赢得光鲜亮丽──我们只要确实获胜，只需要确保自己达成目标。』"
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/015.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-13/015.jpg",
+      "sha256": "5aecbc0c7cc2eb731a7c60627f5c7203a0c52d686eea4ebac0de6d4e4a80b4cf",
+      "width": 796,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/Chapter005.xhtml",
+          "line": 260,
+          "before": "欧尔•格尔见状，改变攻势。\n丝线斩击不够沉重。\n纯粹的锋利无法穿透敌人的重甲。\n那么──就利用重量。\n〈机械降神Deus ex machina〉。\n这项伐刀绝技能以丝线连结四周的结构体，制作出庞大的人偶。\n欧尔•格尔将拉开的丝线当成弓弦，将结构体连结为箭，一箭射出。\n喷水池的石像、电线杆、教堂的尖塔、整栋民房。\n重达数吨的质量搭配绷紧的丝线，速度如同枪炮。\n其威力远远高过战车大炮数十倍。",
+          "after": "然而──\n「────」\n〈黑骑士〉并未止步。\n石像、电线杆、尖塔、民房接连飞来──\n她以身体接下所有瓦砾炮弹，无畏地向前迈进。\n那非比寻常的防御力宛如坚不可摧的要塞。她挡下欧尔•格尔的所有攻击，一次又一次逼近他。\n大战斧一再劈砍。\n欧尔•格尔利用蜘蛛丝接连闪避，但是──\n「咿！」\n劈砍掀起的风压划破他的左臂皮肤，击碎周遭的建筑物。\n欧尔•格尔见识到这幅景象，也不得不体认到一件事。"
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/016.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-13/016.jpg",
+      "sha256": "ebf98eaf5c44e2cfae91f64f73c33c1243b8a88450dd37d915f033c9aefd2f73",
+      "width": 796,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/Chapter006.xhtml",
+          "line": 49,
+          "before": "「咦！？」\n队长一惊，回头看了看少女。\n丹达利昂代替队长走上前。\n他一脸疑惑地俯视少女，问道：\n「你怎么会在这？雾子医师上哪去了？」\n少女的翠色眼眸回视丹达利昂，答道：\n「不久前日本爆发『逃狱事件』，〈世界时钟World Clock〉、〈雷切〉前往镇压，老师必须前去支援她们，暂时无法离开日本。我是老师的直传弟子，所以我说服他们，让我代替老师前来贵国支援。」\n惹人怜爱的娇小脸庞淡淡一笑，脸上毫无所惧，信心十足。\n\n「请放心。我黑铁珠雫一定比任何人适任这份职责。」",
+          "after": ""
+        }
+      ]
+    }
+  ],
+  "mentions": [
+    {
+      "xhtml": "OEBPS/Text/Chapter001.xhtml",
+      "line": 128,
+      "text": "〈饕餮〉即将击杀史黛菈之际，〈比翼〉爱德怀斯正要上前相助，却遭到一辉出手阻挠。这一切全都是事实，一辉百口莫辩。"
+    },
+    {
+      "xhtml": "OEBPS/Text/Chapter002.xhtml",
+      "line": 722,
+      "text": "因为这是她在与〈饕餮〉的战斗中，千辛万苦寻得的自我。"
+    },
+    {
+      "xhtml": "OEBPS/Text/Chapter002.xhtml",
+      "line": 777,
+      "text": "你与〈饕餮〉对决时，谁也不愿相信你的时候，只有一辉坚信着你。"
+    },
+    {
+      "xhtml": "OEBPS/Text/Chapter003.xhtml",
+      "line": 679,
+      "text": "〈饕餮〉福小莉。"
+    },
+    {
+      "xhtml": "OEBPS/Text/summary.xhtml",
+      "line": 20,
+      "text": "史黛菈经历〈魔人〉饕餮一战，终于踏入〈觉醒〉境界。她以坚定不移的自我改写命运，为了挽救姐姐露娜艾丝的感情以及两国国民，她再次挑战〈傀儡王〉欧尔•格尔率领的凶恶〈魔人〉！"
+    }
+  ]
+}

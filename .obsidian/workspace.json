@@ -11,10 +11,14 @@
             "id": "df10fbcad984cb29",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "关系图谱"
+              "type": "markdown",
+              "state": {
+                "file": "人物仔细考究/福小莉.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "福小莉"
             }
           }
         ]
@@ -181,8 +185,33 @@
       "bases:新建数据库": false
     }
   },
-  "active": "56de266b2069f7fc",
+  "active": "df10fbcad984cb29",
   "lastOpenFiles": [
+    "resource/knightavatars/research/epub/xiaoli-vol18-colorization.json",
+    "resource/knightavatars/color/xiaoli-vol18-colorized.png",
+    "scratch/xiaoli-entry-abilities/ability-evidence.md",
+    "scratch/xiaoli-entry-later-evidence.md",
+    "resource/knightavatars/research/epub/xiaoli-entry-profile-search.json",
+    "scratch/xiaoli-entry-profile-scan.py",
+    "scratch/xiaoli-entry-abilities/vol13-Chapter003.xhtml.txt",
+    "scratch/xiaoli-entry-abilities/vol12-Chapter005.xhtml.txt",
+    "scratch/xiaoli-entry-abilities/vol12-Chapter004.xhtml.txt",
+    "scratch/xiaoli-entry-abilities/vol12-Chapter003.xhtml.txt",
+    "scratch/xiaoli-entry-abilities",
+    "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-13/title.txt",
+    "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-13/summary.txt",
+    "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-13/postscript.txt",
+    "resource/knightavatars/research/epub/xiaoli-post12-scan/README.md",
+    "resource/knightavatars/novel/xiaoli-vol18-original.jpg",
+    "resource/knightavatars/research/epub/xiaoli-post12-scan/vol19-candidate-detail.jpg",
+    "resource/knightavatars/research/epub/xiaoli-post12-scan/vol18-xiaoli-detail.jpg",
+    "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-19-small-ornament-girl-crop.png",
+    "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-16-note.png",
+    "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-15/note.png",
+    "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-14/note.png",
+    "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-13/note.png",
+    "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-19-group-upper-crop.png",
+    "人物仔细考究/福小莉.md",
     "第十六卷-世界书整理/人物条目/播磨天童_大炎_天导众教主与天丛云剑.md",
     "第十六卷-世界书整理/人物条目/诸星雄大_浪速之星_盲点刺击与斗神杯备战.md",
     "第十六卷-世界书整理/设定条目/仓敷藏人双短刀八岐大蛇与火山碎屑流天衣无缝.md",
@@ -199,35 +228,10 @@
     "第十五卷-世界书整理/02_章节索引.md",
     "第十五卷-世界书整理/01_卷内时间线.md",
     "第十五卷-世界书整理/00_整合说明.md",
-    "第十六卷-世界书整理/设定条目",
-    "第十六卷-世界书整理/第十六卷_终章Ⅱ_思乡.txt",
-    "第十六卷-世界书整理/第十六卷_第二章_剑士杀手VS浪速之星.txt",
-    "第十六卷-世界书整理/第十六卷_第三章_大炎.txt",
-    "第十六卷-世界书整理/第十六卷_第一章_众劲敌的此刻.txt",
-    "第十六卷-世界书整理/第十六卷_序章_深渊熅火.txt",
-    "第十六卷-世界书整理/第十六卷_后记.txt",
-    "第十六卷-世界书整理/人物条目",
-    "第十六卷-世界书整理/split_stats.json",
-    "第十六卷-世界书整理",
     "第十四卷-世界书整理/设定条目/艾莉丝倒戈与法国秘密案件浴血十字架.md",
     "第十四卷-世界书整理/03_出场人物索引.md",
     "第十四卷-世界书整理/02_章节索引.md",
     "第十四卷-世界书整理/01_卷内时间线.md",
-    "第十四卷-世界书整理/00_整合说明.md",
-    "第十三卷-世界书整理/设定条目/超空蚀与魔人神经生理极限.md",
-    "第十三卷-世界书整理/03_出场人物索引.md",
-    "第十三卷-世界书整理/02_章节索引.md",
-    "第十三卷-世界书整理/01_卷内时间线.md",
-    "第十三卷-世界书整理/00_整合说明.md",
-    "resource/knightavatars/color/kanata.jpg",
-    "resource/knightavatars/color/misogi.jpg",
-    "resource/knightavatars/color/renren.jpg",
-    "resource/knightavatars/color/kuraudo.jpg",
-    "resource/knightavatars/color/kirihara.jpg",
-    "resource/knightavatars/color/nagi.jpg",
-    "resource/knightavatars/prepared/contact-sheet.png",
-    "resource/knightavatars/prepared/yuri.png",
-    "resource/knightavatars/prepared/kurono.png",
-    "resource/knightavatars/prepared/nene.png"
+    "第十四卷-世界书整理/00_整合说明.md"
   ]
 }

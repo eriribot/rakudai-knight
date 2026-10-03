@@ -378,6 +378,34 @@
         "height": 918
       },
       "displayFile": "prepared/mikoto.png"
+    },
+    {
+      "id": "xiaoli",
+      "sourceFile": "color/xiaoli-colorized.png",
+      "crop": {
+        "left": 346,
+        "top": 180,
+        "width": 512,
+        "height": 616
+      },
+      "displayFile": "prepared/xiaoli.png",
+      "orientation": {
+        "method": "level-eye-line",
+        "sourceEyes": [
+          [
+            493,
+            197
+          ],
+          [
+            653,
+            248
+          ]
+        ],
+        "rotationDegrees": -17.679680977438853,
+        "rotatedWidth": 1440,
+        "rotatedHeight": 1777,
+        "cropSpace": "after-rotation"
+      }
     }
   ]
 }

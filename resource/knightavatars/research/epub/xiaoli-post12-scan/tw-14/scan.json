@@ -1,0 +1,308 @@
+{
+  "volume": 14,
+  "epub": "39688/[台版]落第骑士英雄谭 14.epub",
+  "images": [
+    {
+      "member": "OEBPS/Images/logo.png",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-14/logo.png",
+      "sha256": "482250fa7dd25e5d80393e0989417ec02bd596a0bd1334693c07bae766a865d5",
+      "width": 1016,
+      "height": 263,
+      "references": []
+    },
+    {
+      "member": "OEBPS/Images/logo2.png",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-14/logo2.png",
+      "sha256": "b916babe9fcd013413413adf09e2c0401ef2d26a653d5999afc7c8c9c134c5e6",
+      "width": 1294,
+      "height": 263,
+      "references": []
+    },
+    {
+      "member": "OEBPS/Images/001.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-14/001.jpg",
+      "sha256": "7921ef489cb951dbcca3222eba2b3dddca0ea9b38b5c97af0766cb5bac391479",
+      "width": 1175,
+      "height": 1776,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/cover.xhtml",
+          "line": 12,
+          "before": "封面",
+          "after": ""
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/002.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-14/002.jpg",
+      "sha256": "2967a9b1605b2f3a0eaf4af775b960e37f5764918f19f746f069c27ecaf5ee03",
+      "width": 794,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/illus00.xhtml",
+          "line": 12,
+          "before": "彩页",
+          "after": ""
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/003.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-14/003.jpg",
+      "sha256": "357715a2d5073a0cad2d4fb54f6dfad4235b54f911682a4b4f2b9273c79dabc5",
+      "width": 1580,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/illus01.xhtml",
+          "line": 17,
+          "before": "彩页\n  \n\nif(navigator.userAgent.toLowerCase().match(\"edge\")){\ndocument.onreadystatechange=function(){if(document.readyState==\"interactive\"){f=function(n){return document.getElementsByClassName(n)[0]};f('change').remove();x=f('change-image').classList;x.add('change-image-show');x.remove('change-image');}}}",
+          "after": ""
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/003_.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-14/003_.jpg",
+      "sha256": "07633c177db2e9b403fbf1b2ad98fd2aa22711a056ff251543ad4136379f2250",
+      "width": 1580,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/illus01.xhtml",
+          "line": 16,
+          "before": "彩页\n  \n\nif(navigator.userAgent.toLowerCase().match(\"edge\")){\ndocument.onreadystatechange=function(){if(document.readyState==\"interactive\"){f=function(n){return document.getElementsByClassName(n)[0]};f('change').remove();x=f('change-image').classList;x.add('change-image-show');x.remove('change-image');}}}",
+          "after": ""
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/004.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-14/004.jpg",
+      "sha256": "a60dbecbc2743ac6d3619e7249849a1600794c30c8b8e6b4d7abdcb063d13fbb",
+      "width": 1580,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/illus02.xhtml",
+          "line": 17,
+          "before": "彩页\n  \n\nif(navigator.userAgent.toLowerCase().match(\"edge\")){\ndocument.onreadystatechange=function(){if(document.readyState==\"interactive\"){f=function(n){return document.getElementsByClassName(n)[0]};f('change').remove();x=f('change-image').classList;x.add('change-image-show');x.remove('change-image');}}}",
+          "after": ""
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/004_.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-14/004_.jpg",
+      "sha256": "8a346eac2300d4b112bd84b66244721a36e33c6a8f6f0669261834042b4e2aef",
+      "width": 1200,
+      "height": 1580,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/illus02.xhtml",
+          "line": 16,
+          "before": "彩页\n  \n\nif(navigator.userAgent.toLowerCase().match(\"edge\")){\ndocument.onreadystatechange=function(){if(document.readyState==\"interactive\"){f=function(n){return document.getElementsByClassName(n)[0]};f('change').remove();x=f('change-image').classList;x.add('change-image-show');x.remove('change-image');}}}",
+          "after": ""
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/005.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-14/005.jpg",
+      "sha256": "07998ab12db06c95768d875521659b5ebccec5df6fc6f9c6e3d3051dd3cc7e75",
+      "width": 1580,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/illus03.xhtml",
+          "line": 17,
+          "before": "彩页\n  \n\nif(navigator.userAgent.toLowerCase().match(\"edge\")){\ndocument.onreadystatechange=function(){if(document.readyState==\"interactive\"){f=function(n){return document.getElementsByClassName(n)[0]};f('change').remove();x=f('change-image').classList;x.add('change-image-show');x.remove('change-image');}}}",
+          "after": ""
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/005_.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-14/005_.jpg",
+      "sha256": "ca0e37fdb598559a5ab722ad63fd82acfe40ae933abc8783946c0c8013a4b85b",
+      "width": 1580,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/illus03.xhtml",
+          "line": 16,
+          "before": "彩页\n  \n\nif(navigator.userAgent.toLowerCase().match(\"edge\")){\ndocument.onreadystatechange=function(){if(document.readyState==\"interactive\"){f=function(n){return document.getElementsByClassName(n)[0]};f('change').remove();x=f('change-image').classList;x.add('change-image-show');x.remove('change-image');}}}",
+          "after": ""
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/006.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-14/006.jpg",
+      "sha256": "77d4dfc78dc70081b03387f83a8a84b198f7155fcd0607e3aa142118545272b7",
+      "width": 796,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/illus04.xhtml",
+          "line": 12,
+          "before": "彩页",
+          "after": ""
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/007.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-14/007.jpg",
+      "sha256": "6aaf9384b1812ea2bafc0e0ad5163337b4bfab12ed2498d9e5d17529108c2ebb",
+      "width": 833,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/Chapter001.xhtml",
+          "line": 97,
+          "before": "宁音俯视着眼前的她，心如刀割。\n「……你够了。我、我才不想用这种方式，看到你低头……」\n她以为，两人始终望着相同的目标前进。\n如今她们即将就此分歧，再无交错的一日。\n宁音感到遗憾、辛酸──\n「…………混蛋……」\n难忍的呜咽与泪水化作梅雨珠露，从紧咬的脣瓣与眼角缓缓淌下。\n\n──翌日。\n〈世界时钟〉泷泽黑乃，正式宣布从KOK引退。",
+          "after": ""
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/008.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-14/008.jpg",
+      "sha256": "50b6ec56b2c7713852d5296ebcbcebbbb3efe798b2e2df840f8bdb384d32d877",
+      "width": 833,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/Chapter002.xhtml",
+          "line": 625,
+          "before": "沙尘飞散，光流掩去的色彩重现，视野逐渐清晰。\n于是，一切暴露在阳光下。\n魔怪立于化为沙漠的路榭尔大地。\n『Un、Unbelievable──！！〈沙漠死神〉怎么会变成那副德行！？』\n纳西姆的模样只能用妖形怪状来形容。\n他的身体整整胀大两圈，全身肌肉如岩石般隆起，甚至撑破衣服与皮肤；肌肉色泽转黑，呈现黑曜石般的光泽。\n脸部肌肉与皮肤完全剥落，双眼溶解，彷佛一具焦尸。\n然而看似骷髅的头骨却长出水牛角，身后张开一对蝙蝠翅膀，腰间生出一条尾巴，有如爬虫类般缓缓蠕动。\n这副狰狞容貌难以称之为「人」──\n『这、这简直是──恶魔Demon啊！！』",
+          "after": "主播脑内一团混乱，搞不懂纳西姆施展了什么样的〈伐刀绝技〉。\n但是宁音一看──\n（不对……）\n她马上就看穿，纳西姆的变身绝非〈伐刀绝技〉使然。\n她关注的重点不在于纳西姆面目全非的肉体。\n而是脸孔。\n眼窝没了眼球。\n徒留两颗空洞。\n空洞深处散发金光。\n宛如将炙热的地狱业火关进恶魔外表的火炉内。\n这股魔力光辉比刚才的纳西姆强上一个层级。"
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/009.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-14/009.jpg",
+      "sha256": "bca0773a828433dcb0ec00fe6e850b1265de69d84d7a8a245ed5f2bee8103387",
+      "width": 833,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/Chapter002.xhtml",
+          "line": 978,
+          "before": "「嘻嘻、嘻、呃────啊啊啊啊啊啊啊啊啊啊啊啊啊！！！！」\n下一秒，宁音全身喷发夹杂艳红的漆黑魔力。\n魔力洪流直上云霄。宁音身处于洪流之中，身体开始产生变化。\n她的右肩。超重力魔力编织出手臂，取代失去的右手；\n她的双眸。眼白染得一片汙浊漆黑，虹膜如焰火般灿烂生辉；\n她的头部。一对利角穿破额肉长了出来。\n如此妖异的模样，用「恶鬼」来形容更加贴切──\n「来吧……！！」\n「啊啊啊啊啊啊啊啊────────！！！！」\n怪物之间正式展开厮杀。",
+          "after": "◆◇◆◇◆\n\n宁音握紧超重力凝聚而成的右手，迈步狂奔。\n她不做任何虚招，以全身力道殴打纳西姆。\n纳西姆也出招反击。\n激昂的魔力贯注于左手。他彷佛拉弓似地收紧左手，看准宁音冲刺的时机出拳。\n两人同时击出的左拳与右拳使劲碰撞。\n冲击登时撕裂空气。\n气流散向四方，在周遭的沙漠上掀起一波波沙浪。\n沙浪高达数十公尺。\n冲击力道如此庞大，两名魔人仍在沙漠中心屹立不摇。"
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/010.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-14/010.jpg",
+      "sha256": "abb0ea37abfde40b4546283bed51c5f2fadf68ed986623d8e15e8c22dc885caa",
+      "width": 833,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/Chapter002.xhtml",
+          "line": 1257,
+          "before": "「嗯哼、哈、啊哈哈哈哈哈哈、哈哈哈哈哈──！！！！」\n\n『唔……………………』\n主播，以及停下声援的法米利昂国民见到宁音判若两人的诡异模样，终于明白了。\n那只恶鬼和他们认识的宁音完全不同。\n他们谁也说不出半句话。\n只能眼睁睁地看着宁音一边狂笑，一边凌虐脸色惨绿的纳西姆。\n宁音本人亦同。\n朦胧的意识从无边黑暗中逐渐浮起，她在脑海中静静凝视自己异样的姿态。",
+          "after": "◆◇◆◇◆\n\n好热。\n她每揍一拳，脑中便火花四散，脊髓一阵酥麻。\n酥麻囤积在下腹，隐隐作痛，令人难耐。\n麻痒化作黏滑蜜液，无止尽地涌出。\n脑浆融化了似的。\n太爽了。\n「哈哈哈！哈、啊……嗯嗯──！！」\n纳西姆的脸孔歪斜扭曲。\n夹杂魔力的血液一再喷溅。"
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/011.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-14/011.jpg",
+      "sha256": "9f12cdfbcfd7070e391c7e3c923161b206d181f053e6c954351d4e9a7c031815",
+      "width": 833,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/Chapter003.xhtml",
+          "line": 95,
+          "before": "◆◇◆◇◆\n\n这一天，日本警察厅长官日崎来到京都警察医院。\n有人想见见〈夜叉姬〉。\n这名人物拜访日崎，提出这个要求。他这次正是为此而来。\n不过──\n「这、这是……这到底是怎么回事！？」\n日崎被带到〈夜叉姬〉的病房内，顿时一阵错愕。\n这间病房一点都不像收容受伤罪犯用的场所，反而是招待贵宾用的VIP房。房内约有十坪大，装潢、摆设之精致，彷佛来到了金碧辉煌的高级饭店套房。宁音靠坐在单人房的按摩椅上，哼着歌享受指甲彩绘服务。\n她怎么看都不像个受缚的罪犯，反而过得非常舒适。",
+          "after": "「署长！这是在干什么！？〈夜叉姬〉怎么会独占警察医院的VIP病房，坐在按摩椅上看电视，还一边做那个什么……涂指甲啊！？」\n「长官，那叫做指甲彩绘。」\n「我没在问这个！给我解释一下！」\n日崎揪着负责带路的下鸭警察署署长，要求解释状况。\n秃头瘦弱的署长一脸为难，正要开口：\n「啊、叔叔～我托你买的那个，你买来了吗？」\n宁音出声唤道。署长从日崎身上移开视线，面向宁音。\n「当然买来了。」\n他讨好似地笑了笑，朝这名比自己女儿幼小的小女孩露出光秃秃的头顶，鞠躬了好几次。\n「京福堂的金锷，请用。」\n「喔喔，就是这个。说到配茶的点心就会想到这个呢。听说要一大早去排队才买得到呢。谢啰！叔叔也吃一个吧？」"
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/012.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-14/012.jpg",
+      "sha256": "82e91ca268c61b26dedb2db6e529cafb667004d9fa26d41d4c3b8cecd61472a4",
+      "width": 833,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/Chapter003.xhtml",
+          "line": 753,
+          "before": "「──、────、──────」\n枪声连响。\n黑乃无情地扣下〈思维女神〉的扳机。\n冲击从口中一路贯穿下体，宁音身体猛地痉挛。\n身体抽搐了片刻后，瘫软松弛。\n下体流出小便，沿着脚趾尖滴落擂台。\n宁音的惨状令黑乃越发厌恶，抛开宁音的头发。\n她并未抵抗。\n宁音的身体彷佛成了「物体」，无力地倒地，第三次遭到击倒。\n同时，这场战斗确定由黑乃取胜。",
+          "after": "◆◇◆◇◆\n\n在那之后──\n西京宁音醒来时已经接近日落，她昏迷了整整半天。\n「……………………啊。」\n眼前一片朦胧。宁音望向四周，这才明白，自己被人搬到类似保健室的房间，放在病床上。\n并且，她也明白那场胜负的结果。\n「……我、输了啊…………」\n她感觉不太真实。\n毕竟自己从来没败给别人。\n不过，有一个景象深刻烙印在记忆里。"
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/013.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-14/013.jpg",
+      "sha256": "c9ef517bda08578c8df5d97c96fb179da263d73443e6c1b6210d7d2b2f46ba7f",
+      "width": 833,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/Chapter003.xhtml",
+          "line": 964,
+          "before": "至死方休。\n就如同眼前的男人。\n（怎么能让小黑见到这副糗样……！）\n他并没有操控力量，而是迷失在力量之中。\n真让黑乃见到这模样，别说是憧憬，她只会心生无奈。\n这可不成。\n那自己该怎么做？\n她还想不到具体方法。\n但是方向已定。\n首先──",
+          "after": "就先解决眼前这个沉迷于力量的傻蛋……！\n「来吧，魅惑众生！〈嫣红凤〉！！」\n独留的左臂伸向前方，呼唤曾经毁坏的灵魂之名。\n她的灵魂回应了呼唤，化作单面铁扇显现于手。\n宁音举起闪烁不清的灵装，再次面对纳西姆。\n〈沙漠死神〉见状──\n「……哼哼、哈哈哈哈哈！」\n高声嘲笑。\n\n◆◇◆◇◆"
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/014.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-14/014.jpg",
+      "sha256": "3698db64a8a20f9a27140ca0897fbe6a990cf082685e93e569381993f5aa2add",
+      "width": 833,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/Chapter004.xhtml",
+          "line": 336,
+          "before": "半闭的眼睑深处，那对虹彩和自己一样，左右异色。\n分别同时继承父母双方的瞳色。\n『他的眼睛和我一样……』\n年幼的艾莉丝透过眼睛，感受到血缘的羁绊。\n同一时间……婴儿或许也有着相同的感受。\n『啊唔、啊啊。』\n欧尔雷斯一见到艾莉丝，顿时止住哭声。\n他聪明地睁开眼睑，像是想仔细瞧瞧艾莉丝的脸，还无法顺利行动的双手缓缓抓握。\n他像是想抓些什么。\n艾莉丝缓缓伸出手，只见那细小柔软的手指轻柔地握住艾莉丝的指头──",
+          "after": "『呀啊。』\n『啊，他……笑了。』\n『呵呵，他似乎很喜欢姐姐呀。』\n『艾莉丝，你从今天起要当姐姐了，要好好保护欧尔雷斯喔。』\n妈妈转告自己，成为姐姐应尽的责任。\n年幼的自己还不明白这是什么意思。\n她甚至只是隐约感觉到会多一个家人，母亲要她保护弟弟，她不知道该不该答应。\n不过──\n这只握住自己手指的聪明小手──\n上头传达淡淡的意志，对方确实在寻求自己──\n她觉得他非常……非常惹人怜爱──"
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/015.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-14/015.jpg",
+      "sha256": "2647017b0380a392b2f7c756c83ccd8843db1417e277789783694716241689f6",
+      "width": 833,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/Chapter004.xhtml",
+          "line": 563,
+          "before": "多多良隐约满意地咧嘴一笑。\n乌黑甚于夜的刀刃就贴在她的颈子上。\n这是黑铁一辉的灵装〈阴铁〉。\n〈阴铁〉的刀刃轻压多多良的颈部皮肤。\n他的力道控制得恰到好处。刀刃只要再多拉一分，恐怕会直接割开脖子。\n「明明是我先有动作，你的刀却来得比我深入啊。看来我误会了，我还以为你和女朋友你侬我侬，松懈了不少。」\n「误会能解开真是太好了。我希望这一刀也只是一场误会。」\n「嘻嘻，表情不用那么可怕啦。」\n一辉瞥了一眼电锯，多多良随即放下武器。\n她开始解释自己为何忽然行凶。",
+          "after": "「我想确认一下，你现在有没有办法马上作战。」\n「马上……？」\n今天升起的太阳西沉之时，战争才会开打。\n距离开战还有半天以上。\n她怎么会说「马上」？\n多多良对一辉说：\n「就是现在马上。我现在要去杀个人，得借助你的帮忙。」\n多多良忽然提出如此危险的请求，一辉不禁瞪大双眼，回问：\n「你说杀人，要杀谁……？」\n「〈黑骑士〉艾莉丝•阿斯卡里德。」\n「──！？」"
+        }
+      ]
+    },
+    {
+      "member": "OEBPS/Images/016.jpg",
+      "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-14/016.jpg",
+      "sha256": "c915b36d253b6691dc2452f6c960650c5d15dca0f7cf1f60ef44fef1f2109137",
+      "width": 833,
+      "height": 1200,
+      "references": [
+        {
+          "xhtml": "OEBPS/Text/Chapter004.xhtml",
+          "line": 781,
+          "before": "他们是骑士。\n\n「我将以我的最弱最强，在此阻断你的骑士道！」\n\n那就该以剑一决雌雄。\n他不会让她追上史黛菈。\n一辉以架势暗示自己的意图。\n敌人立于同一块大地，却身处不同的道路。他直率又犀利的目光，凝视着和自己对等的敌人。\n「～～～～～～！」\n他的视线，彻底拯救了艾莉丝。",
+          "after": "自己理应遭世上所有人唾弃、憎恨，这名青年却愿意认同自己，将自己视为对等的敌人。\n感谢从胸口涌现，几乎塞满了心头，化作泪水溢出眼眶。\n感激的话语不由得涌上口中。\n「…………谢、谢──唔！」\n艾莉丝无法道出自己的感激。\n她吞下感谢，笔直瞪视一辉。\n谢谢。\n这句话多么讨喜。\n希望对方原谅可悲的自己，只是在撒娇。\n自己怎么能说出这种话？\n他是如此堂堂正正，愿意做为「敌人」正视自己。"
+        }
+      ]
+    }
+  ],
+  "mentions": []
+}

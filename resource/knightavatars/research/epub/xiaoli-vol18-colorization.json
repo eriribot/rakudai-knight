@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "id": "xiaoli",
+  "name": "福小莉",
+  "variant": "volume-18-chinese-outfit",
+  "assetType": "ai-colorized-verified-novel-illustration-crop",
+  "mode": "built-in",
+  "tool": "image_gen__imagegen",
+  "intent": "edit",
+  "useCase": "identity-preserve",
+  "transparentBackground": false,
+  "userRequestDateLocal": "2026-10-04",
+  "timeZone": "Asia/Taipei",
+  "finalPrompt": "Use case: identity-preserve.\nPrimary request: colorize the existing volume-18 Fu Xiaoli (福小莉) illustration crop. The user specifies that BOTH existing round money/coin hair ornaments are GOLD.\nInput image 1 is the only EDIT TARGET. Preserve this exact crop, drawing, line work, proportions, face, lively open-mouth smile, large bright eyes, hair silhouette, head tilt, raised overlapping arms, and all garment folds. Do not expand or recompose the picture.\nInput image 2 is PALETTE REFERENCE ONLY: the earlier AI-colorized volume-12 portrait of the same girl. Borrow only the restrained warm medium/deep brown skin and neutral black hair palette; do not copy its pose, prison clothing, chains, body framing, or expression.\n\nColor image 1 as a polished anime/light-novel illustration with original soft tonal shading. Keep her long hair BLACK with subtle cool charcoal highlights. Keep her complexion naturally warm brown, consistent with reference 2, preserving the original facial features. Use neutral deep brown irises as a restrained artistic choice. Her Chinese-style mandarin-collar garment remains ivory-white with soft warm gray shadows; retain the two visible frog fasteners, wide sleeves, and the paired decorative bands at the sleeve edge, using understated warm-gold detail where the original ornamental linework already exists.\nThe two existing coin-like ornaments are the focus: one broad elliptical disc at upper right and one nearly edge-on disc at upper left, partially clipped by the frame. Render BOTH as warm metallic GOLD with gentle highlights and shaded gold relief. Preserve their exact sizes, positions, perspective, border contours, and original engraved geometric/character line patterns. Do not invent or rewrite lettering, add currency symbols, coin holes, red tassels, or extra jewelry.\nKeep the original pale backdrop and simple shaded texture. Preserve the existing partial white/silver-clad figure at the right edge with pale neutral tones; do not turn that fragment into Fu Xiaoli's skin or black hair, and do not invent a new face or extend its body.\nThis is COLORIZATION ONLY. Do not redraw, age up, change clothing coverage, reshape facial features, smooth away line details, add objects, crop differently, create a shield frame, add webpage UI, headings, new lettering, or a new watermark. Keep the background opaque.",
+  "inputs": [
+    {
+      "path": "resource/knightavatars/research/epub/xiaoli-post12-scan/vol18-xiaoli-detail.jpg",
+      "role": "only-edit-target",
+      "width": 605,
+      "height": 1165,
+      "mode": "RGB",
+      "sha256": "8870beced694dc569a9ba14fc255a2639f640857f0b9c3115fdb24f81828da8e",
+      "sourceType": "verified-local-epub-illustration-research-crop"
+    },
+    {
+      "path": "resource/knightavatars/color/xiaoli-colorized.png",
+      "role": "palette-reference-only",
+      "width": 1021,
+      "height": 1540,
+      "mode": "RGB",
+      "sha256": "f70d802636e5e9bca239c9f40d9cff3b68ce9206f8e1bdd5afac6a696c562b83",
+      "sourceType": "previous-ai-colorized-derivative-not-official-color-reference"
+    }
+  ],
+  "originalIllustration": {
+    "path": "resource/knightavatars/novel/xiaoli-vol18-original.jpg",
+    "sourceEpub": "39688/落第骑士英雄谭 - 18.epub",
+    "member": "OEBPS/Images/190226.jpg",
+    "width": 1120,
+    "height": 1600,
+    "sha256": "285689368c9c5e4599a63a3e548dd6bea507ad1d34315bb4c547bf0e14f34257",
+    "bytesUnchanged": true,
+    "identityLocation": "OEBPS/Text/chapter4.xhtml:215 插圖；222 具名福小莉",
+    "researchCrop": {
+      "left": 0,
+      "top": 425,
+      "width": 605,
+      "height": 1165
+    }
+  },
+  "output": {
+    "path": "resource/knightavatars/color/xiaoli-vol18-colorized.png",
+    "width": 904,
+    "height": 1740,
+    "mode": "RGB",
+    "sha256": "1ccc1dce1ca2dc5f1c5e26aed6da58e57c6966fb91507cce9c24405081aa298d"
+  },
+  "generatedOriginal": "C:/Users/eriri/.codex/generated_images/01a0f24c-ee73-7d13-b9a0-705cba6f6f64/exec-ac62c9ac-5b07-4632-8d2c-39984b0b9458.png",
+  "paletteEvidence": {
+    "hair": {
+      "status": "canonical-novel-text",
+      "chosen": "黑長髮",
+      "source": "第18卷第四章 chapter4.xhtml:211"
+    },
+    "skin": {
+      "status": "canonical-novel-text-with-artistic-tone-choice",
+      "chosen": "自然暖棕、偏深，延續上一版衍生上色；具體色階未有官方彩色參照",
+      "source": "第18卷第四章 chapter4.xhtml:211"
+    },
+    "coinOrnaments": {
+      "status": "user-specified-color",
+      "chosen": "兩枚金錢飾片均為金色；保留原線紋、邊圈與透視",
+      "note": "按使用者本次指定上色，沒有藉此宣稱已找到官方彩頁。"
+    },
+    "chineseOutfit": {
+      "status": "illustration-structure-with-artistic-color-choice",
+      "chosen": "象牙白衣服、柔灰陰影、克制金色盤扣和袖緣線紋",
+      "note": "立領、盤扣、寬袖與袖紋依原圖；配色是衍生選色。"
+    },
+    "iris": {
+      "status": "artistic-color-choice-not-verified-canon",
+      "chosen": "中性深棕，與之前AI上色保持一致"
+    },
+    "partialEdelweiss": {
+      "status": "preserved-source-fragment-with-neutral-color-choice",
+      "chosen": "白色衣甲、銀灰陰影",
+      "note": "保留右側既有裁切，不新造臉或身體。"
+    }
+  },
+  "validation": {
+    "status": "passed-visual-review",
+    "reviewed": [
+      "兩枚金飾片位置與透視",
+      "原邊圈與刻纹未增寫新文字",
+      "黑長髮與較深膚色",
+      "開口笑、眼睛與頭部姿態",
+      "立領、兩道盤扣、寬袖與袖紋",
+      "右側愛德衣甲片段與小莉配色分開",
+      "保持原裁切與不透明背景"
+    ],
+    "reviewers": [
+      "root",
+      "xiaoli_entry_later_personality"
+    ]
+  },
+  "consumption": {
+    "status": "saved-standalone-variant",
+    "note": "新增第18卷上色素材，沒有覆寫第12卷上色、盾形頭像、圖床URL或人物正典詞條。"
+  }
+}

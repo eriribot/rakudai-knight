@@ -1,0 +1,1647 @@
+[
+  {
+    "id": "cn-18",
+    "volume": 18,
+    "epub": "39688/落第骑士英雄谭 - 18.epub",
+    "images": [
+      {
+        "member": "OEBPS/Images/190214.jpg",
+        "width": 1061,
+        "height": 1600,
+        "sha256": "2edfdd7b8c276dc0e78c333bae6da9f1a55aebc20ae9894b9a40278c2b10ca81",
+        "colorFraction": 0.5126,
+        "references": [
+          {
+            "xhtml": "OEBPS/Text/Cover.xhtml",
+            "alt": "",
+            "before": "封面",
+            "after": ""
+          }
+        ],
+        "file": "resource/knightavatars/research/epub/images/2edfdd7b8c276dc0e78c.jpg",
+        "extractedFile": "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-18/190214.jpg",
+        "imageTagContexts": [
+          {
+            "xhtml": "OEBPS/Text/Cover.xhtml",
+            "imageTagLine": 12,
+            "context": [
+              {
+                "line": 6,
+                "text": "封面"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "member": "OEBPS/Images/190215.jpg",
+        "width": 1061,
+        "height": 1600,
+        "sha256": "c96b73c648f3834dfa8c4e591d2d719d1de0c00cea80a939dfd903568af3178e",
+        "colorFraction": 0.4201,
+        "references": [
+          {
+            "xhtml": "OEBPS/Text/chapter0.xhtml",
+            "alt": "",
+            "before": "插图",
+            "after": ""
+          }
+        ],
+        "file": "resource/knightavatars/research/epub/images/c96b73c648f3834dfa8c.jpg",
+        "extractedFile": "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-18/190215.jpg",
+        "imageTagContexts": [
+          {
+            "xhtml": "OEBPS/Text/chapter0.xhtml",
+            "imageTagLine": 13,
+            "context": [
+              {
+                "line": 6,
+                "text": "插图"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "member": "OEBPS/Images/190216.jpg",
+        "width": 2121,
+        "height": 1600,
+        "sha256": "a0db6b06d8bda0460310ac6173c71ec5615a3f9c22c05ab013733559a6558c33",
+        "colorFraction": 0.704,
+        "references": [
+          {
+            "xhtml": "OEBPS/Text/chapter0.xhtml",
+            "alt": "",
+            "before": "插图",
+            "after": ""
+          }
+        ],
+        "file": "resource/knightavatars/research/epub/images/a0db6b06d8bda0460310.jpg",
+        "extractedFile": "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-18/190216.jpg",
+        "imageTagContexts": [
+          {
+            "xhtml": "OEBPS/Text/chapter0.xhtml",
+            "imageTagLine": 18,
+            "context": [
+              {
+                "line": 6,
+                "text": "插图"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "member": "OEBPS/Images/190217.jpg",
+        "width": 2121,
+        "height": 1600,
+        "sha256": "b855371ddcda9394df415d2f336dae28bec50ec815c9f314b1514ba054292522",
+        "colorFraction": 0.3772,
+        "references": [
+          {
+            "xhtml": "OEBPS/Text/chapter0.xhtml",
+            "alt": "",
+            "before": "插图",
+            "after": ""
+          }
+        ],
+        "file": "resource/knightavatars/research/epub/images/b855371ddcda9394df41.jpg",
+        "extractedFile": "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-18/190217.jpg",
+        "imageTagContexts": [
+          {
+            "xhtml": "OEBPS/Text/chapter0.xhtml",
+            "imageTagLine": 23,
+            "context": []
+          }
+        ]
+      },
+      {
+        "member": "OEBPS/Images/190218.jpg",
+        "width": 2121,
+        "height": 1600,
+        "sha256": "1ece4043d39124d4d43cfffc8ec22914533a6c9c25cbfa534f5913c85e1bf1ee",
+        "colorFraction": 0.8772,
+        "references": [
+          {
+            "xhtml": "OEBPS/Text/chapter0.xhtml",
+            "alt": "",
+            "before": "插图",
+            "after": ""
+          }
+        ],
+        "file": "resource/knightavatars/research/epub/images/1ece4043d39124d4d43c.jpg",
+        "extractedFile": "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-18/190218.jpg",
+        "imageTagContexts": [
+          {
+            "xhtml": "OEBPS/Text/chapter0.xhtml",
+            "imageTagLine": 28,
+            "context": []
+          }
+        ]
+      },
+      {
+        "member": "OEBPS/Images/190219.jpg",
+        "width": 1061,
+        "height": 1600,
+        "sha256": "7ff86f075dcb6c1679aa0c926e692a0bebf044ff224b78330d6c5726e89df58c",
+        "colorFraction": 0.7279,
+        "references": [
+          {
+            "xhtml": "OEBPS/Text/chapter0.xhtml",
+            "alt": "",
+            "before": "",
+            "after": ""
+          }
+        ],
+        "file": "resource/knightavatars/research/epub/images/7ff86f075dcb6c1679aa.jpg",
+        "extractedFile": "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-18/190219.jpg",
+        "imageTagContexts": [
+          {
+            "xhtml": "OEBPS/Text/chapter0.xhtml",
+            "imageTagLine": 33,
+            "context": []
+          }
+        ]
+      },
+      {
+        "member": "OEBPS/Images/190220.jpg",
+        "width": 1120,
+        "height": 1600,
+        "sha256": "b4385d0f6963fac880ba9824df35b95ac1c7f3c0401fce186772e2baea483a49",
+        "colorFraction": 0.0,
+        "references": [
+          {
+            "xhtml": "OEBPS/Text/chapter1.xhtml",
+            "alt": "",
+            "before": "───「救命」。 电话另一头指定的地点，正巧就是自己的目的地。 王马加紧脚步，穿越阿尔卑斯山，抵达已经毁坏的〈解放军〉据点。 他犀利的眼神环顾周遭一圈，除了自己，没看到任何人。",
+            "after": "来电的人究竟在哪？ 而王马的疑惑─── 「我等您、很久了……」 声音给了他解答。"
+          }
+        ],
+        "extractedFile": "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-18/190220.jpg",
+        "imageTagContexts": [
+          {
+            "xhtml": "OEBPS/Text/chapter1.xhtml",
+            "imageTagLine": 671,
+            "context": [
+              {
+                "line": 661,
+                "text": "电话另一头指定的地点，正巧就是自己的目的地。"
+              },
+              {
+                "line": 664,
+                "text": "王马加紧脚步，穿越阿尔卑斯山，抵达已经毁坏的〈解放军〉据点。"
+              },
+              {
+                "line": 667,
+                "text": "他犀利的眼神环顾周遭一圈，除了自己，没看到任何人。"
+              },
+              {
+                "line": 675,
+                "text": "来电的人究竟在哪？"
+              },
+              {
+                "line": 678,
+                "text": "而王马的疑惑───"
+              },
+              {
+                "line": 681,
+                "text": "「我等您、很久了……」"
+              },
+              {
+                "line": 684,
+                "text": "声音给了他解答。"
+              },
+              {
+                "line": 687,
+                "text": "声音源头就在身旁，但那场所空无一人。"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "member": "OEBPS/Images/190221.jpg",
+        "width": 1120,
+        "height": 1600,
+        "sha256": "0e59d79771636e9c141eb0c9701c14c1f2f6a0aae140677e7063a8444ba183f6",
+        "colorFraction": 0.0,
+        "references": [
+          {
+            "xhtml": "OEBPS/Text/chapter2.xhtml",
+            "alt": "",
+            "before": "大麻余烟，暂时要亚伯拉罕停手，无奈地耸了耸肩。 「先不提月影是超能力者，总裁，你区区一个普通人，竟然能抵挡亚伯的洗脑这么久，说实话，我很吃惊。」 「…… 老美的臭小鬼、少瞧不起人…… 我可是亲身经历那场战争…… 这点折磨…… 算个屁啊……」",
+            "after": "「啊啊啊，真是够了，老年人怎么都这么顽固？算了，反正我们只要看到日本首相投降，就算是达成最基本的目的。你差不多该放弃了吧？嗯？再挣扎只是白费力气呀。」 爱兰兹的视线从濒死的晄三，移向月影，问道。 月影不如晄三老迈，却也筋疲力尽了。他抬起头，"
+          }
+        ],
+        "extractedFile": "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-18/190221.jpg",
+        "imageTagContexts": [
+          {
+            "xhtml": "OEBPS/Text/chapter2.xhtml",
+            "imageTagLine": 86,
+            "context": [
+              {
+                "line": 76,
+                "text": "爱兰兹呼出大麻余烟，暂时要亚伯拉罕停手，无奈地耸了耸肩。"
+              },
+              {
+                "line": 79,
+                "text": "「先不提月影是超能力者，总裁，你区区一个普通人，竟然能抵挡亚伯的洗脑这么久，说实话，我很吃惊。」"
+              },
+              {
+                "line": 82,
+                "text": "「…… 老美的臭小鬼、少瞧不起人…… 我可是亲身经历那场战争…… 这点折磨…… 算个屁啊……」"
+              },
+              {
+                "line": 90,
+                "text": "「啊啊啊，真是够了，老年人怎么都这么顽固？算了，反正我们只要看到日本首相投降，就算是达成最基本的目的。你差不多该放弃了吧？嗯？再挣扎只是白费力气呀。」"
+              },
+              {
+                "line": 93,
+                "text": "爱兰兹的视线从濒死的晄三，移向月影，问道。"
+              },
+              {
+                "line": 96,
+                "text": "月影不如晄三老迈，却也筋疲力尽了。他抬起头，反问道："
+              },
+              {
+                "line": 99,
+                "text": "「Mr. 爱兰兹……」"
+              },
+              {
+                "line": 102,
+                "text": "「什么事？」"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "member": "OEBPS/Images/190222.jpg",
+        "width": 1120,
+        "height": 1600,
+        "sha256": "1b40b5bd798e3686e6ff979b484eeb984d7b081d7882d994c068665aad2400af",
+        "colorFraction": 0.0,
+        "references": [
+          {
+            "xhtml": "OEBPS/Text/chapter2.xhtml",
+            "alt": "",
+            "before": "（这家伙没有看着我……！） 对方必须意识到亚伯拉罕，〈催眠术〉才能发挥效果。 不然他无法进入心智深处。 王马现在已经对亚伯拉罕没半点兴趣。",
+            "after": "谁会刻意注意路边的石子？ 「……！」 下一秒，〈预知未来〉让亚伯拉罕看见一秒后的未来。 自己已经身首异处。"
+          }
+        ],
+        "extractedFile": "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-18/190222.jpg",
+        "imageTagContexts": [
+          {
+            "xhtml": "OEBPS/Text/chapter2.xhtml",
+            "imageTagLine": 2185,
+            "context": [
+              {
+                "line": 2175,
+                "text": "对方必须意识到亚伯拉罕，〈催眠术〉才能发挥效果。"
+              },
+              {
+                "line": 2178,
+                "text": "不然他无法进入心智深处。"
+              },
+              {
+                "line": 2181,
+                "text": "王马现在已经对亚伯拉罕没半点兴趣。"
+              },
+              {
+                "line": 2189,
+                "text": "谁会刻意注意路边的石子？"
+              },
+              {
+                "line": 2192,
+                "text": "「……！」"
+              },
+              {
+                "line": 2195,
+                "text": "下一秒，〈预知未来〉让亚伯拉罕看见一秒后的未来。"
+              },
+              {
+                "line": 2198,
+                "text": "自己已经身首异处。"
+              },
+              {
+                "line": 2201,
+                "text": "糟了。"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "member": "OEBPS/Images/190223.jpg",
+        "width": 1120,
+        "height": 1600,
+        "sha256": "29890864083b97f7c399b63bee759f4fca52e5780c23361ac25bdbbfb3c14830",
+        "colorFraction": 0.0,
+        "references": [
+          {
+            "xhtml": "OEBPS/Text/chapter3.xhtml",
+            "alt": "",
+            "before": "他将监视镜头拉近，得出确切的答案。 黑乃的伤痕处处喷血； 脸上留有殴打痕迹； 西装紧黏着炭化的肌肉，显然是烧伤；",
+            "after": "锐利的撕裂伤，深而见骨。 这些伤口───怎么看都是经过战斗而受伤。 『难、难不成你这家伙───！！』 阿普顿观察完黑乃的伤势，当下得出一个可怕的可能性。"
+          }
+        ],
+        "extractedFile": "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-18/190223.jpg",
+        "imageTagContexts": [
+          {
+            "xhtml": "OEBPS/Text/chapter3.xhtml",
+            "imageTagLine": 1775,
+            "context": [
+              {
+                "line": 1765,
+                "text": "黑乃的伤痕处处喷血；"
+              },
+              {
+                "line": 1768,
+                "text": "脸上留有殴打痕迹；"
+              },
+              {
+                "line": 1771,
+                "text": "西装紧黏着炭化的肌肉，显然是烧伤；"
+              },
+              {
+                "line": 1779,
+                "text": "锐利的撕裂伤，深而见骨。"
+              },
+              {
+                "line": 1782,
+                "text": "这些伤口───怎么看都是经过战斗而受伤。"
+              },
+              {
+                "line": 1785,
+                "text": "『难、难不成你这家伙───！！』"
+              },
+              {
+                "line": 1788,
+                "text": "阿普顿观察完黑乃的伤势，当下得出一个可怕的可能性。"
+              },
+              {
+                "line": 1791,
+                "text": "而且───"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "member": "OEBPS/Images/190224.jpg",
+        "width": 1120,
+        "height": 1600,
+        "sha256": "29808fa3d5e63222f4ea0dc631c23d55adf3972d229c0481764d27f50d47c177",
+        "colorFraction": 0.0,
+        "references": [
+          {
+            "xhtml": "OEBPS/Text/chapter3.xhtml",
+            "alt": "",
+            "before": "宁音比谁都懂黑乃，所以─── 「好，包在我身上。小黑最仰仗的那些学生也在，妾身跟其他人会帮你搞定这场战争！」 ◆◇◆◇◆ 空中发生大爆炸。",
+            "after": "〈企业号〉成了一团火球。侵略东京湾的太平洋舰队将士见状，当场惊愕。 「阿普顿提督居然───！！」 「怎么了！？到底发生什么事？快报告！」 「是、是陨石！陨石直接命中〈企业号〉！」"
+          }
+        ],
+        "extractedFile": "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-18/190224.jpg",
+        "imageTagContexts": [
+          {
+            "xhtml": "OEBPS/Text/chapter3.xhtml",
+            "imageTagLine": 2593,
+            "context": [
+              {
+                "line": 2583,
+                "text": "「好，包在我身上。小黑最仰仗的那些学生也在，妾身跟其他人会帮你搞定这场战争！」"
+              },
+              {
+                "line": 2586,
+                "text": "◆◇◆◇◆"
+              },
+              {
+                "line": 2589,
+                "text": "空中发生大爆炸。"
+              },
+              {
+                "line": 2597,
+                "text": "〈企业号〉成了一团火球。侵略东京湾的太平洋舰队将士见状，当场惊愕。"
+              },
+              {
+                "line": 2600,
+                "text": "「阿普顿提督居然───！！」"
+              },
+              {
+                "line": 2603,
+                "text": "「怎么了！？到底发生什么事？快报告！」"
+              },
+              {
+                "line": 2606,
+                "text": "「是、是陨石！陨石直接命中〈企业号〉！」"
+              },
+              {
+                "line": 2609,
+                "text": "「蠢货！怎么可能这么刚好掉颗陨石下来！那是〈夜叉姬〉的〈霸道天星〉！她从法米利昂回到日本了！」"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "member": "OEBPS/Images/190225.jpg",
+        "width": 1120,
+        "height": 1600,
+        "sha256": "c9c7a5e6e86bb0b2f6b115e467e26d9d1ac3f0785f7cb458a612dfb9d1f2cbb4",
+        "colorFraction": 0.0,
+        "references": [
+          {
+            "xhtml": "OEBPS/Text/chapter3.xhtml",
+            "alt": "",
+            "before": "他不会思考，不妨碍听令。 西日本战力刚抵达前线，体力多得有剩，本想继续追击撤退的敌军，严却制止了他们。 「传令，不需要追击。」 「您确定？现在战况有利我方，属下觉得现在是个好机会，可以削减敌人的实力。」",
+            "after": "现在多少减少敌军人数，下次作战会轻松一些。 敌人现在败走，不是更应该趁胜追击？ 严的秘书官问道，但严摇了摇头。 「───卫星并未确认敌军增援，应该不会有第三波攻击。更何况，我方这次伤亡较多，现在应该专注治疗伤者。」"
+          }
+        ],
+        "extractedFile": "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-18/190225.jpg",
+        "imageTagContexts": [
+          {
+            "xhtml": "OEBPS/Text/chapter3.xhtml",
+            "imageTagLine": 3612,
+            "context": [
+              {
+                "line": 3602,
+                "text": "西日本战力刚抵达前线，体力多得有剩，本想继续追击撤退的敌军，严却制止了他们。"
+              },
+              {
+                "line": 3605,
+                "text": "「传令，不需要追击。」"
+              },
+              {
+                "line": 3608,
+                "text": "「您确定？现在战况有利我方，属下觉得现在是个好机会，可以削减敌人的实力。」"
+              },
+              {
+                "line": 3616,
+                "text": "现在多少减少敌军人数，下次作战会轻松一些。"
+              },
+              {
+                "line": 3619,
+                "text": "敌人现在败走，不是更应该趁胜追击？"
+              },
+              {
+                "line": 3622,
+                "text": "严的秘书官问道，但严摇了摇头。"
+              },
+              {
+                "line": 3625,
+                "text": "「───卫星并未确认敌军增援，应该不会有第三波攻击。更何况，我方这次伤亡较多，现在应该专注治疗伤者。」"
+              },
+              {
+                "line": 3628,
+                "text": "严说着，手抚上脚边的柏油，发动伐刀绝技。"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "member": "OEBPS/Images/190226.jpg",
+        "width": 1120,
+        "height": 1600,
+        "sha256": "285689368c9c5e4599a63a3e548dd6bea507ad1d34315bb4c547bf0e14f34257",
+        "colorFraction": 0.0,
+        "references": [
+          {
+            "xhtml": "OEBPS/Text/chapter4.xhtml",
+            "alt": "",
+            "before": "他失去力量与地位之后，前往异国教剑。这名少女，正是他的学生。 ◆◇◆◇◆ 「喔喔，这位老爷爷就是〈斗神〉吗？听说除了我以外，只有你让〈大老师〉倒地过！久仰久仰！」 一名肤色黝黑的黑发女孩，从爱德怀斯身后冒出来。女孩的容貌和爱德怀斯正好相反。",
+            "after": "她穿着中华风格的服装，看似个性活泼。 日前在爱德贝格，〈红莲皇女〉曾以挑战爱德怀斯的权利为赌注，对付这个女孩。她是中华大陆引以为傲的仙人（与〈魔人〉同义），〈饕餮〉福小莉。 眼前这名传说中的斗士，曾在小莉的故乡───神龙寺主办的〈斗神杯〉大"
+          }
+        ],
+        "extractedFile": "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-18/190226.jpg",
+        "imageTagContexts": [
+          {
+            "xhtml": "OEBPS/Text/chapter4.xhtml",
+            "imageTagLine": 215,
+            "context": [
+              {
+                "line": 205,
+                "text": "◆◇◆◇◆"
+              },
+              {
+                "line": 208,
+                "text": "「喔喔，这位老爷爷就是〈斗神〉吗？听说除了我以外，只有你让〈大老师〉倒地过！久仰久仰！」"
+              },
+              {
+                "line": 211,
+                "text": "一名肤色黝黑的黑发女孩，从爱德怀斯身后冒出来。女孩的容貌和爱德怀斯正好相反。"
+              },
+              {
+                "line": 219,
+                "text": "她穿着中华风格的服装，看似个性活泼。"
+              },
+              {
+                "line": 222,
+                "text": "日前在爱德贝格，〈红莲皇女〉曾以挑战爱德怀斯的权利为赌注，对付这个女孩。她是中华大陆引以为傲的仙人（与〈魔人〉同义），〈饕餮〉福小莉。"
+              },
+              {
+                "line": 225,
+                "text": "眼前这名传说中的斗士，曾在小莉的故乡───神龙寺主办的〈斗神杯〉大闹一场，以外人身份抱走冠军。小莉好奇心十足，想要靠近南乡。"
+              },
+              {
+                "line": 228,
+                "text": "不过，爱德怀斯出手制止了她。"
+              },
+              {
+                "line": 231,
+                "text": "───你的事等一会再说。爱德怀斯以行动告诫小莉，接着告诉南乡自己的来意与经过。"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "member": "OEBPS/Images/190227.jpg",
+        "width": 1120,
+        "height": 1600,
+        "sha256": "4af29a5f321fe5253109ee4266ff9f3a8e7530c82950abda59348caa164e0f0a",
+        "colorFraction": 0.0,
+        "references": [
+          {
+            "xhtml": "OEBPS/Text/chapter4.xhtml",
+            "alt": "",
+            "before": "也许有人看了报导内容，会勾起他的恐怖记忆。 但也因为有人恐惧战乱，这场狂欢非常适合作为压轴报导，为战乱做个总结。 「第二学期初的大特辑很丰富喔。我采访了很多战争英雄呢。」 「哎呀，你什么时候开始采访了？」",
+            "after": "「现在，我用了能力在各个地方采访中。你看那边，海江田先生那里也有一个『我』。」 有栖院顺着加加美的手指看去。 挤满人的干道中间，海江田正手拿烧酒杯，脸颊泛红，加加美正拿着录音器材对着他。 不，不只那里。"
+          }
+        ],
+        "extractedFile": "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-18/190227.jpg",
+        "imageTagContexts": [
+          {
+            "xhtml": "OEBPS/Text/chapter4.xhtml",
+            "imageTagLine": 418,
+            "context": [
+              {
+                "line": 408,
+                "text": "但也因为有人恐惧战乱，这场狂欢非常适合作为压轴报导，为战乱做个总结。"
+              },
+              {
+                "line": 411,
+                "text": "「第二学期初的大特辑很丰富喔。我采访了很多战争英雄呢。」"
+              },
+              {
+                "line": 414,
+                "text": "「哎呀，你什么时候开始采访了？」"
+              },
+              {
+                "line": 422,
+                "text": "「现在，我用了能力在各个地方采访中。你看那边，海江田先生那里也有一个『我』。」"
+              },
+              {
+                "line": 425,
+                "text": "有栖院顺着加加美的手指看去。"
+              },
+              {
+                "line": 428,
+                "text": "挤满人的干道中间，海江田正手拿烧酒杯，脸颊泛红，加加美正拿着录音器材对着他。"
+              },
+              {
+                "line": 431,
+                "text": "不，不只那里。"
+              },
+              {
+                "line": 434,
+                "text": "眼前所及之处，都看得见加加美的身影。"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "member": "OEBPS/Images/190228.jpg",
+        "width": 1120,
+        "height": 1600,
+        "sha256": "8453fb517c19c582166f846a66756f6257cc54686b09a979ce3faf65cdd8164c",
+        "colorFraction": 0.0,
+        "references": [
+          {
+            "xhtml": "OEBPS/Text/chapter4.xhtml",
+            "alt": "",
+            "before": "一辉紧闭双眼，神色苍白地想辩解。 刀华见状，温柔地摸了摸一辉的头。 「我大概想像得到。你说自己是黑铁一辉，却没人相信，对不对？我知道黑铁同学不是来女澡堂偷窥的，你又不是那种色狼。」 「东堂学姐……」",
+            "after": "「不过你变得这么小，也难怪绫辻同学不相信你。你怎么会变成这样？」 「其、其实是因为───」 一辉告诉刀华，自己在法米利昂的遭遇。 压低音量，只让刀华听见。"
+          }
+        ],
+        "extractedFile": "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-18/190228.jpg",
+        "imageTagContexts": [
+          {
+            "xhtml": "OEBPS/Text/chapter4.xhtml",
+            "imageTagLine": 1149,
+            "context": [
+              {
+                "line": 1139,
+                "text": "刀华见状，温柔地摸了摸一辉的头。"
+              },
+              {
+                "line": 1142,
+                "text": "「我大概想像得到。你说自己是黑铁一辉，却没人相信，对不对？我知道黑铁同学不是来女澡堂偷窥的，你又不是那种色狼。」"
+              },
+              {
+                "line": 1145,
+                "text": "「东堂学姐……」"
+              },
+              {
+                "line": 1153,
+                "text": "「不过你变得这么小，也难怪绫辻同学不相信你。你怎么会变成这样？」"
+              },
+              {
+                "line": 1156,
+                "text": "「其、其实是因为───」"
+              },
+              {
+                "line": 1159,
+                "text": "一辉告诉刀华，自己在法米利昂的遭遇。"
+              },
+              {
+                "line": 1162,
+                "text": "压低音量，只让刀华听见。"
+              },
+              {
+                "line": 1165,
+                "text": "刀华听完，点头表示明白。"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "member": "OEBPS/Images/190229.jpg",
+        "width": 1120,
+        "height": 1600,
+        "sha256": "12a8e3b4ed03e3ee5339271e6686e9978cd6fe3809499186ffc75be85077f0eb",
+        "colorFraction": 0.0,
+        "references": [
+          {
+            "xhtml": "OEBPS/Text/chapter4.xhtml",
+            "alt": "",
+            "before": "一辉渴求心爱少女的双唇，闭上双眼。 下一秒，刮起一阵风。 这阵风，异于方才抚过两人的舒适微风。 那是蕴藏魔力的漆黑狂风。",
+            "after": "一辉猛地睁开眼。 他的眼前─── 〈PSYON〉的亚伯拉罕───他从身后扣住史黛菈。 「──────！」"
+          }
+        ],
+        "extractedFile": "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-18/190229.jpg",
+        "imageTagContexts": [
+          {
+            "xhtml": "OEBPS/Text/chapter4.xhtml",
+            "imageTagLine": 2342,
+            "context": [
+              {
+                "line": 2332,
+                "text": "下一秒，刮起一阵风。"
+              },
+              {
+                "line": 2335,
+                "text": "这阵风，异于方才抚过两人的舒适微风。"
+              },
+              {
+                "line": 2338,
+                "text": "那是蕴藏魔力的漆黑狂风。"
+              },
+              {
+                "line": 2346,
+                "text": "一辉猛地睁开眼。"
+              },
+              {
+                "line": 2349,
+                "text": "他的眼前───"
+              },
+              {
+                "line": 2352,
+                "text": "〈PSYON〉的亚伯拉罕───他从身后扣住史黛菈。"
+              },
+              {
+                "line": 2355,
+                "text": "「──────！」"
+              },
+              {
+                "line": 2358,
+                "text": "史黛菈马上想显现灵装。"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "member": "OEBPS/Images/190230.jpg",
+        "width": 1131,
+        "height": 1600,
+        "sha256": "0b89e0399cf030ca380dc75c3d2a7b11dc7f3c274bff16704a8094aa1cbba8a6",
+        "colorFraction": 0.6836,
+        "references": [
+          {
+            "xhtml": "OEBPS/Text/chapter0.xhtml",
+            "alt": "",
+            "before": "",
+            "after": ""
+          }
+        ],
+        "file": "resource/knightavatars/research/epub/images/0b89e0399cf030ca380d.jpg",
+        "extractedFile": "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-18/190230.jpg",
+        "imageTagContexts": [
+          {
+            "xhtml": "OEBPS/Text/chapter0.xhtml",
+            "imageTagLine": 38,
+            "context": []
+          }
+        ]
+      }
+    ],
+    "nameOccurrences": [
+      {
+        "xhtml": "OEBPS/Text/chapter4.xhtml",
+        "line": 222,
+        "text": "日前在爱德贝格，〈红莲皇女〉曾以挑战爱德怀斯的权利为赌注，对付这个女孩。她是中华大陆引以为傲的仙人（与〈魔人〉同义），〈饕餮〉福小莉。"
+      },
+      {
+        "xhtml": "OEBPS/Text/chapter4.xhtml",
+        "line": 225,
+        "text": "眼前这名传说中的斗士，曾在小莉的故乡───神龙寺主办的〈斗神杯〉大闹一场，以外人身份抱走冠军。小莉好奇心十足，想要靠近南乡。"
+      },
+      {
+        "xhtml": "OEBPS/Text/chapter4.xhtml",
+        "line": 231,
+        "text": "───你的事等一会再说。爱德怀斯以行动告诫小莉，接着告诉南乡自己的来意与经过。"
+      },
+      {
+        "xhtml": "OEBPS/Text/chapter4.xhtml",
+        "line": 258,
+        "text": "接着，他的目光移到小莉身上。这女孩从刚才开始，就在爱德怀斯身后，双眼发亮。"
+      },
+      {
+        "xhtml": "OEBPS/Text/chapter4.xhtml",
+        "line": 261,
+        "text": "「那边的小丫头刚才说什么〈大老师〉，你八成是〈饕餮〉福小莉，是吧？传说〈饕餮〉是个强悍的〈破戒僧〉，结果却是个可爱小姑娘。」"
+      },
+      {
+        "xhtml": "OEBPS/Text/chapter4.xhtml",
+        "line": 270,
+        "text": "小莉用力抱拳一礼。南乡见状，不禁苦笑。"
+      },
+      {
+        "xhtml": "OEBPS/Text/chapter4.xhtml",
+        "line": 273,
+        "text": "他回绝兴匆匆的小莉，问了爱德怀斯："
+      },
+      {
+        "xhtml": "OEBPS/Text/chapter4.xhtml",
+        "line": 291,
+        "text": "「齁齁齁，小莉，老朽猜猜，你就是个傻瓜，对吧？」"
+      },
+      {
+        "xhtml": "OEBPS/Text/chapter4.xhtml",
+        "line": 309,
+        "text": "但跟小莉讲道理，小莉也听不进去，爱德怀斯无计可施，才带着她过来。"
+      },
+      {
+        "xhtml": "OEBPS/Text/chapter4.xhtml",
+        "line": 336,
+        "text": "这个名叫「小莉」的女孩，一如〈破戒僧〉传闻，完全不在乎国族立场，是个随心所欲的武术家。她愿意跟随爱德怀斯，倒是让人心神一振。"
+      },
+      {
+        "xhtml": "OEBPS/Text/chapter4.xhtml",
+        "line": 1876,
+        "text": "南乡、爱德怀斯、小莉披荆斩棘，砍杀〈超人〉亚伯拉罕，终于抵达一条长廊，前方就通往基地最深处。"
+      },
+      {
+        "xhtml": "OEBPS/Text/chapter4.xhtml",
+        "line": 1882,
+        "text": "〈念力〉把小莉的惯用手扭向内侧。她用另一手强行把手臂折回来，并以从史黛菈那偷来的〈龙的代谢能力〉，治好手臂。"
+      },
+      {
+        "xhtml": "OEBPS/Text/chapter4.xhtml",
+        "line": 1888,
+        "text": "爱德怀斯在小莉身旁奔跑着。她的伤不像小莉那么严重，但她以剩余魔力编织的甲胄，原本强度直逼灵装，现在却东缺西少，白皙肌肤也处处渗出血丝。"
+      },
+      {
+        "xhtml": "OEBPS/Text/chapter4.xhtml",
+        "line": 1930,
+        "text": "「小莉，麻烦你了。」"
+      },
+      {
+        "xhtml": "OEBPS/Text/chapter4.xhtml",
+        "line": 1936,
+        "text": "〈饕餮〉现在拥有〈红莲皇女〉的能力，轻易就能打破这道墙。"
+      },
+      {
+        "xhtml": "OEBPS/Text/chapter4.xhtml",
+        "line": 1939,
+        "text": "小莉让自己的手甲灵装〈蛮鬼〉附上青蓝焰火。"
+      },
+      {
+        "xhtml": "OEBPS/Text/chapter4.xhtml",
+        "line": 1975,
+        "text": "小莉听南乡称呼王座的尸体为〈暴君〉，兴匆匆地跑了过去。"
+      },
+      {
+        "xhtml": "OEBPS/Text/chapter4.xhtml",
+        "line": 1987,
+        "text": "爱德怀斯配合南乡的步伐，慢慢走到王座前，并且回答小莉的疑问。"
+      },
+      {
+        "xhtml": "OEBPS/Text/chapter4.xhtml",
+        "line": 2044,
+        "text": "爱德怀斯和小莉马上面向敌人，摆出架势。"
+      },
+      {
+        "xhtml": "OEBPS/Text/chapter4.xhtml",
+        "line": 2053,
+        "text": "她很清楚，假如直接开战，先不提自己跟小莉，南乡已经重伤又疲惫，肯定会丧命。"
+      },
+      {
+        "xhtml": "OEBPS/Text/chapter4.xhtml",
+        "line": 2146,
+        "text": "爱德怀斯和小莉这么认为。"
+      }
+    ]
+  },
+  {
+    "id": "cn-19",
+    "volume": 19,
+    "epub": "39688/落第骑士英雄谭 - 19.epub",
+    "images": [
+      {
+        "member": "OEBPS/Images/196506.jpg",
+        "width": 796,
+        "height": 1200,
+        "sha256": "1e7ee74650fe12c3a1e71f0cca767f1860637d7270c60d021bf172664f5fd777",
+        "colorFraction": 0.4002,
+        "references": [
+          {
+            "xhtml": "OEBPS/Text/Cover.xhtml",
+            "alt": "",
+            "before": "封面",
+            "after": ""
+          }
+        ],
+        "file": "resource/knightavatars/research/epub/images/1e7ee74650fe12c3a1e7.jpg",
+        "extractedFile": "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-19/196506.jpg",
+        "imageTagContexts": [
+          {
+            "xhtml": "OEBPS/Text/Cover.xhtml",
+            "imageTagLine": 12,
+            "context": [
+              {
+                "line": 6,
+                "text": "封面"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "member": "OEBPS/Images/196507.jpg",
+        "width": 796,
+        "height": 1200,
+        "sha256": "ac99c5dff9c529cf8cc361c724d992654c15a80a66f251fbfddec9e6adf7e466",
+        "colorFraction": 0.3255,
+        "references": [
+          {
+            "xhtml": "OEBPS/Text/chapter0.xhtml",
+            "alt": "",
+            "before": "插图",
+            "after": ""
+          }
+        ],
+        "file": "resource/knightavatars/research/epub/images/ac99c5dff9c529cf8cc3.jpg",
+        "extractedFile": "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-19/196507.jpg",
+        "imageTagContexts": [
+          {
+            "xhtml": "OEBPS/Text/chapter0.xhtml",
+            "imageTagLine": 13,
+            "context": [
+              {
+                "line": 6,
+                "text": "插图"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "member": "OEBPS/Images/196508.jpg",
+        "width": 1592,
+        "height": 1200,
+        "sha256": "d4f1a7fbff8ee362c3e9d285f469c40b76f712cf8b426cf0df06553e26c619b3",
+        "colorFraction": 0.8789,
+        "references": [
+          {
+            "xhtml": "OEBPS/Text/chapter0.xhtml",
+            "alt": "",
+            "before": "插图",
+            "after": ""
+          }
+        ],
+        "file": "resource/knightavatars/research/epub/images/d4f1a7fbff8ee362c3e9.jpg",
+        "extractedFile": "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-19/196508.jpg",
+        "imageTagContexts": [
+          {
+            "xhtml": "OEBPS/Text/chapter0.xhtml",
+            "imageTagLine": 18,
+            "context": [
+              {
+                "line": 6,
+                "text": "插图"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "member": "OEBPS/Images/196509.jpg",
+        "width": 1592,
+        "height": 1200,
+        "sha256": "598394bb5863d72959d1c0529e8faef6e4fd7c1396cf4f3e02214a0fc41d5bc5",
+        "colorFraction": 0.0924,
+        "references": [
+          {
+            "xhtml": "OEBPS/Text/chapter0.xhtml",
+            "alt": "",
+            "before": "插图",
+            "after": ""
+          }
+        ],
+        "file": "resource/knightavatars/research/epub/images/598394bb5863d72959d1.jpg",
+        "extractedFile": "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-19/196509.jpg",
+        "imageTagContexts": [
+          {
+            "xhtml": "OEBPS/Text/chapter0.xhtml",
+            "imageTagLine": 23,
+            "context": []
+          }
+        ]
+      },
+      {
+        "member": "OEBPS/Images/196510.jpg",
+        "width": 1592,
+        "height": 1200,
+        "sha256": "d94fc700230af4b239702cdaa609b870b48d113e95d1db8cd10810d6442da028",
+        "colorFraction": 0.4891,
+        "references": [
+          {
+            "xhtml": "OEBPS/Text/chapter0.xhtml",
+            "alt": "",
+            "before": "插图",
+            "after": ""
+          }
+        ],
+        "file": "resource/knightavatars/research/epub/images/d94fc700230af4b23970.jpg",
+        "extractedFile": "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-19/196510.jpg",
+        "imageTagContexts": [
+          {
+            "xhtml": "OEBPS/Text/chapter0.xhtml",
+            "imageTagLine": 28,
+            "context": []
+          }
+        ]
+      },
+      {
+        "member": "OEBPS/Images/196511.jpg",
+        "width": 796,
+        "height": 1200,
+        "sha256": "f4f0f3d4294207d87c4deb2121f475d413921407d71a99fab5d5ede1a154de40",
+        "colorFraction": 0.6975,
+        "references": [
+          {
+            "xhtml": "OEBPS/Text/chapter0.xhtml",
+            "alt": "",
+            "before": "",
+            "after": ""
+          }
+        ],
+        "file": "resource/knightavatars/research/epub/images/f4f0f3d4294207d87c4d.jpg",
+        "extractedFile": "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-19/196511.jpg",
+        "imageTagContexts": [
+          {
+            "xhtml": "OEBPS/Text/chapter0.xhtml",
+            "imageTagLine": 33,
+            "context": []
+          }
+        ]
+      },
+      {
+        "member": "OEBPS/Images/196512.jpg",
+        "width": 796,
+        "height": 1200,
+        "sha256": "ef2d12116a0a8f554241f586756ef4c61c7051021c755ab6aa989dda70fafb15",
+        "colorFraction": 0.0,
+        "references": [
+          {
+            "xhtml": "OEBPS/Text/chapter3.xhtml",
+            "alt": "",
+            "before": "不过──他的判断却是轻忽史黛菈的安危。 一辉说什么都无法接受严的决断── 「──放开我。」 眼下这种状况，旁人要他别去，他不可能乖乖遵从。",
+            "after": "对一辉而言，史黛菈无可取代。 因此，一辉不多费唇舌，杀气涌向阻挡去路的两人。 一辉充血的双眼喷发如热焰的杀气，语气一反常态。 在场所有人已经明了，这句话等于最后通牒。"
+          }
+        ],
+        "extractedFile": "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-19/196512.jpg",
+        "imageTagContexts": [
+          {
+            "xhtml": "OEBPS/Text/chapter3.xhtml",
+            "imageTagLine": 331,
+            "context": [
+              {
+                "line": 321,
+                "text": "一辉说什么都无法接受严的决断──"
+              },
+              {
+                "line": 324,
+                "text": "「──放开我。」"
+              },
+              {
+                "line": 327,
+                "text": "眼下这种状况，旁人要他别去，他不可能乖乖遵从。"
+              },
+              {
+                "line": 335,
+                "text": "对一辉而言，史黛菈无可取代。"
+              },
+              {
+                "line": 338,
+                "text": "因此，一辉不多费唇舌，杀气涌向阻挡去路的两人。"
+              },
+              {
+                "line": 341,
+                "text": "一辉充血的双眼喷发如热焰的杀气，语气一反常态。"
+              },
+              {
+                "line": 344,
+                "text": "在场所有人已经明了，这句话等于最后通牒。"
+              },
+              {
+                "line": 347,
+                "text": "两人一旦拒绝，一辉会当场拔刀，用实力让两人放行。"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "member": "OEBPS/Images/196513.jpg",
+        "width": 796,
+        "height": 1200,
+        "sha256": "b3b4c8a85f353e715b817799bcb695af7d4af89b59f2137af916c867c619a503",
+        "colorFraction": 0.0,
+        "references": [
+          {
+            "xhtml": "OEBPS/Text/chapter3.xhtml",
+            "alt": "",
+            "before": "绝对不可能…… 『──你无法承受自己的罪，受不了罪恶感，擅自捏造自己的记忆。』 『不是……』 『──史黛菈・法米利昂，是你杀死了所有人。』",
+            "after": "『不对！不对不对不对不对──！』 她嘶吼着，几乎要吼出血来，想抹去脑内的声音。 接着，奔跑。 铆足全速，不顾泪水模糊了视野。"
+          }
+        ],
+        "extractedFile": "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-19/196513.jpg",
+        "imageTagContexts": [
+          {
+            "xhtml": "OEBPS/Text/chapter3.xhtml",
+            "imageTagLine": 1043,
+            "context": [
+              {
+                "line": 1033,
+                "text": "『──你无法承受自己的罪，受不了罪恶感，擅自捏造自己的记忆。』"
+              },
+              {
+                "line": 1036,
+                "text": "『不是……』"
+              },
+              {
+                "line": 1039,
+                "text": "『──史黛菈・法米利昂，是你杀死了所有人。』"
+              },
+              {
+                "line": 1047,
+                "text": "『不对！不对不对不对不对──！』"
+              },
+              {
+                "line": 1050,
+                "text": "她嘶吼着，几乎要吼出血来，想抹去脑内的声音。"
+              },
+              {
+                "line": 1053,
+                "text": "接着，奔跑。"
+              },
+              {
+                "line": 1056,
+                "text": "铆足全速，不顾泪水模糊了视野。"
+              },
+              {
+                "line": 1059,
+                "text": "只要逃到恶梦的某个角落，就能从恶梦苏醒吗？"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "member": "OEBPS/Images/196514.jpg",
+        "width": 796,
+        "height": 1200,
+        "sha256": "f8914163b80f55ff891cef66dd2f2a318f707d1719de12cc9a8accbf040eb618",
+        "colorFraction": 0.0,
+        "references": [
+          {
+            "xhtml": "OEBPS/Text/chapter3.xhtml",
+            "alt": "",
+            "before": "即察觉，那阵歪斜并非双眼产生错觉。 简直像是整个世界往〈龙爪〉倾斜了似的。 〈断月天龙爪・真打〉，正是压缩再压缩的空气之刃，甚至让世界的比重随之失控。 「原来如此…… 王马同学，你和我一样，都是自然干涉系的伐刀者，当然能吸纳同性质的力量。」",
+            "after": "「我讨厌依赖自己以外的力量，不过──那群人偶不值得见识我的剑术，这么做正好，可以早点收拾它们。」 王马批判道，挥动〈真打〉。 〈真打〉完全解放威力，甚至能从地表在月球表面划下斩痕。 过去对付过王马的亚伯拉罕，早已透过〈心电感应〉，将资讯分享"
+          }
+        ],
+        "extractedFile": "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-19/196514.jpg",
+        "imageTagContexts": [
+          {
+            "xhtml": "OEBPS/Text/chapter3.xhtml",
+            "imageTagLine": 2478,
+            "context": [
+              {
+                "line": 2468,
+                "text": "简直像是整个世界往〈龙爪〉倾斜了似的。"
+              },
+              {
+                "line": 2471,
+                "text": "〈断月天龙爪・真打〉，正是压缩再压缩的空气之刃，甚至让世界的比重随之失控。"
+              },
+              {
+                "line": 2474,
+                "text": "「原来如此…… 王马同学，你和我一样，都是自然干涉系的伐刀者，当然能吸纳同性质的力量。」"
+              },
+              {
+                "line": 2482,
+                "text": "「我讨厌依赖自己以外的力量，不过──那群人偶不值得见识我的剑术，这么做正好，可以早点收拾它们。」"
+              },
+              {
+                "line": 2485,
+                "text": "王马批判道，挥动〈真打〉。"
+              },
+              {
+                "line": 2488,
+                "text": "〈真打〉完全解放威力，甚至能从地表在月球表面划下斩痕。"
+              },
+              {
+                "line": 2491,
+                "text": "过去对付过王马的亚伯拉罕，早已透过〈心电感应〉，将资讯分享给所有亚伯拉罕，它们见到王马的动作，随即采取最高警戒。"
+              },
+              {
+                "line": 2494,
+                "text": "敌人的行动等同于退缩。王马见状，更是深感无趣，冷哼一声──"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "member": "OEBPS/Images/196515.jpg",
+        "width": 796,
+        "height": 1200,
+        "sha256": "c73e8ff7d9c83ccbaccf34a0c63105d037b086777404c22fbac77afcf83e4b41",
+        "colorFraction": 0.0,
+        "references": [
+          {
+            "xhtml": "OEBPS/Text/chapter4.xhtml",
+            "alt": "",
+            "before": "笑声带着喜色，听起来却不是爱兰兹的声音。 那是更年轻的男子嗓音。 一辉并没有听错── 「一辉，你果然很像我。」",
+            "after": "逐渐崩解的〈达尔文〉之中，出现一个年轻男人，长相和一辉如出一辙。 ◆◇◆◇◆ 「也难怪〈达尔文〉赢不了你，果不其然，我得亲自跟你交手。」 〈达尔文〉化作冰霜，逐渐塌毁，而肉块之中出现一名白衣男子，像极了一辉。"
+          }
+        ],
+        "extractedFile": "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-19/196515.jpg",
+        "imageTagContexts": [
+          {
+            "xhtml": "OEBPS/Text/chapter4.xhtml",
+            "imageTagLine": 974,
+            "context": [
+              {
+                "line": 964,
+                "text": "那是更年轻的男子嗓音。"
+              },
+              {
+                "line": 967,
+                "text": "一辉并没有听错──"
+              },
+              {
+                "line": 970,
+                "text": "「一辉，你果然很像我。」"
+              },
+              {
+                "line": 978,
+                "text": "逐渐崩解的〈达尔文〉之中，出现一个年轻男人，长相和一辉如出一辙。"
+              },
+              {
+                "line": 981,
+                "text": "◆◇◆◇◆"
+              },
+              {
+                "line": 984,
+                "text": "「也难怪〈达尔文〉赢不了你，果不其然，我得亲自跟你交手。」"
+              },
+              {
+                "line": 987,
+                "text": "〈达尔文〉化作冰霜，逐渐塌毁，而肉块之中出现一名白衣男子，像极了一辉。"
+              },
+              {
+                "line": 990,
+                "text": "但说像，也只是面孔像，还是有其他不同之处。"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "member": "OEBPS/Images/196516.jpg",
+        "width": 796,
+        "height": 1200,
+        "sha256": "d83d7fca83ee739c555c7a4f3e0b68749addc081339cbaaeae1d21807acf2290",
+        "colorFraction": 0.0,
+        "references": [
+          {
+            "xhtml": "OEBPS/Text/chapter4.xhtml",
+            "alt": "",
+            "before": "兄长！你这家伙，别想活着回去！」 紧接着，她随着怒火，施展刀刃上的魔法。 （糟了……！！） 爱兰兹同为水术士，当然想打断她的魔法，然而〈灵装〉是魔力的结晶，等同使用者的灵魂，魔力传导率无与伦比，高明如爱兰兹，也不可能在慢一步的状况下抵挡──",
+            "after": "「〈胭红六花〉──！！」 珠雫的伐刀绝技从心脏上的〈宵时雨〉，瞬间冰冻爱兰兹的全身血液。心脏长出鲜血冰柱，撕裂肌肉，击碎骨骼，刺出全身，如同一片片鲜红花瓣── 「散华！！！！」 翻转，珠雫汽化爱兰兹的部分冷冻血液。"
+          }
+        ],
+        "extractedFile": "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-19/196516.jpg",
+        "imageTagContexts": [
+          {
+            "xhtml": "OEBPS/Text/chapter4.xhtml",
+            "imageTagLine": 2394,
+            "context": [
+              {
+                "line": 2384,
+                "text": "紧接着，她随着怒火，施展刀刃上的魔法。"
+              },
+              {
+                "line": 2387,
+                "text": "（糟了……！！）"
+              },
+              {
+                "line": 2390,
+                "text": "爱兰兹同为水术士，当然想打断她的魔法，然而〈灵装〉是魔力的结晶，等同使用者的灵魂，魔力传导率无与伦比，高明如爱兰兹，也不可能在慢一步的状况下抵挡──"
+              },
+              {
+                "line": 2398,
+                "text": "「〈胭红六花〉──！！」"
+              },
+              {
+                "line": 2402,
+                "text": "珠雫的伐刀绝技从心脏上的〈宵时雨〉，瞬间冰冻爱兰兹的全身血液。心脏长出鲜血冰柱，撕裂肌肉，击碎骨骼，刺出全身，如同一片片鲜红花瓣──"
+              },
+              {
+                "line": 2405,
+                "text": "「散华！！！！」"
+              },
+              {
+                "line": 2408,
+                "text": "翻转，珠雫汽化爱兰兹的部分冷冻血液。"
+              },
+              {
+                "line": 2411,
+                "text": "物质瞬间膨胀，爱兰兹的体内发生蒸汽爆炸，随即爆裂。"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "member": "OEBPS/Images/196517.jpg",
+        "width": 796,
+        "height": 1200,
+        "sha256": "76299c1279bdfde727b168316d2732f2b1d01d075a61bc6438e4acebe0267e6f",
+        "colorFraction": 0.0,
+        "references": [
+          {
+            "xhtml": "OEBPS/Text/chapter4.xhtml",
+            "alt": "",
+            "before": "「〈暴龙咆吼（Bahamut Soul）〉！！！！」 灼热化为强光，以史黛菈为中心迸发。 在这狭小的地下密闭空间，无处可逃。 光与热吞噬一切，燃烧殆尽，不留尘埃，甚至连同上方的废矿坑与山脉一口气炸飞，化作光柱，烧灼夜空的云朵。",
+            "after": ""
+          }
+        ],
+        "extractedFile": "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-19/196517.jpg",
+        "imageTagContexts": [
+          {
+            "xhtml": "OEBPS/Text/chapter4.xhtml",
+            "imageTagLine": 3033,
+            "context": [
+              {
+                "line": 3023,
+                "text": "灼热化为强光，以史黛菈为中心迸发。"
+              },
+              {
+                "line": 3026,
+                "text": "在这狭小的地下密闭空间，无处可逃。"
+              },
+              {
+                "line": 3029,
+                "text": "光与热吞噬一切，燃烧殆尽，不留尘埃，甚至连同上方的废矿坑与山脉一口气炸飞，化作光柱，烧灼夜空的云朵。"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "member": "OEBPS/Images/196518.jpg",
+        "width": 796,
+        "height": 1200,
+        "sha256": "fb371332a33bd23e7b233d67d1ec7ddea63904c33e1ad03b70c8af6695218d10",
+        "colorFraction": 0.0,
+        "references": [
+          {
+            "xhtml": "OEBPS/Text/chapter5.xhtml",
+            "alt": "",
+            "before": "现这身〈超度觉醒〉的姿态。 史黛菈当时靠着强韧的精神力，操控〈超度觉醒〉原本难以控制的凶暴，将〈超度觉醒〉化作可用的招数之一。 如今爱兰兹掌握了史黛菈的大脑，他也可以动用〈超度觉醒〉。 爱兰兹见到一辉的骤变，因应状况，当场打出最强的杀手锏。",
+            "after": "他一个发力，打算将一辉连同身后的珠雫劈成两半。 但是── （推、推不动……！？） 爱兰兹动用〈超度觉醒〉的力量，〈妃龙罪剑〉仍旧分文不动。"
+          }
+        ],
+        "extractedFile": "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-19/196518.jpg",
+        "imageTagContexts": [
+          {
+            "xhtml": "OEBPS/Text/chapter5.xhtml",
+            "imageTagLine": 535,
+            "context": [
+              {
+                "line": 525,
+                "text": "史黛菈当时靠着强韧的精神力，操控〈超度觉醒〉原本难以控制的凶暴，将〈超度觉醒〉化作可用的招数之一。"
+              },
+              {
+                "line": 528,
+                "text": "如今爱兰兹掌握了史黛菈的大脑，他也可以动用〈超度觉醒〉。"
+              },
+              {
+                "line": 531,
+                "text": "爱兰兹见到一辉的骤变，因应状况，当场打出最强的杀手锏。"
+              },
+              {
+                "line": 539,
+                "text": "他一个发力，打算将一辉连同身后的珠雫劈成两半。"
+              },
+              {
+                "line": 542,
+                "text": "但是──"
+              },
+              {
+                "line": 545,
+                "text": "（推、推不动……！？）"
+              },
+              {
+                "line": 548,
+                "text": "爱兰兹动用〈超度觉醒〉的力量，〈妃龙罪剑〉仍旧分文不动。"
+              },
+              {
+                "line": 551,
+                "text": "黑刃与金剑僵持不动。"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "member": "OEBPS/Images/196519.jpg",
+        "width": 796,
+        "height": 1200,
+        "sha256": "233c928d8b979895396692af9eb4a4a9a21c80dbaf2a97d08c2cb4ab6212a6dd",
+        "colorFraction": 0.0,
+        "references": [
+          {
+            "xhtml": "OEBPS/Text/chapter5.xhtml",
+            "alt": "",
+            "before": "类。」 「……！」 爱兰兹的〈燃天焚地龙王炎〉仍固定于空中，而下一刹那，他看见人影。 虚空之中浮现些微轮廓，看似蜃影。那是身高超过三十米，手持巨大双剑的女武神（Valkyrja）。女武神伫立于爱德怀斯身后，接下从天而降的〈燃天焚地龙王炎〉。",
+            "after": "「这、这是……」 爱兰兹随即明白，那尊女武神没有实体。 没错，那是幻影。 如同黑铁一辉施展〈追影〉时，出现影子慢于本体的现象。施术者之于因果的强大引力，引发超常现象，而世界为了事后弥补现象，呈现了这道幻影。"
+          }
+        ],
+        "extractedFile": "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-19/196519.jpg",
+        "imageTagContexts": [
+          {
+            "xhtml": "OEBPS/Text/chapter5.xhtml",
+            "imageTagLine": 1788,
+            "context": [
+              {
+                "line": 1778,
+                "text": "「……！」"
+              },
+              {
+                "line": 1781,
+                "text": "爱兰兹的〈燃天焚地龙王炎〉仍固定于空中，而下一刹那，他看见人影。"
+              },
+              {
+                "line": 1784,
+                "text": "虚空之中浮现些微轮廓，看似蜃影。那是身高超过三十米，手持巨大双剑的女武神（Valkyrja）。女武神伫立于爱德怀斯身后，接下从天而降的〈燃天焚地龙王炎〉。"
+              },
+              {
+                "line": 1792,
+                "text": "「这、这是……」"
+              },
+              {
+                "line": 1795,
+                "text": "爱兰兹随即明白，那尊女武神没有实体。"
+              },
+              {
+                "line": 1798,
+                "text": "没错，那是幻影。"
+              },
+              {
+                "line": 1801,
+                "text": "如同黑铁一辉施展〈追影〉时，出现影子慢于本体的现象。施术者之于因果的强大引力，引发超常现象，而世界为了事后弥补现象，呈现了这道幻影。"
+              },
+              {
+                "line": 1804,
+                "text": "爱德怀斯的「强制力」呈现于肉眼，就是这副模样。她曾以这招单枪匹马制服〈联盟〉、〈同盟〉两支军队，并且在落入爱兰兹的陷阱时，一一砍飞随地盘塌陷的瓦砾。这正是〈比翼〉爱德怀斯的杀手锏，其名为──"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "member": "OEBPS/Images/196520.jpg",
+        "width": 796,
+        "height": 1200,
+        "sha256": "caf62f1b1e83d396fdef9c8278218abdf51395e096fdf9c7477db95289663457",
+        "colorFraction": 0.0,
+        "references": [
+          {
+            "xhtml": "OEBPS/Text/chapter5.xhtml",
+            "alt": "",
+            "before": "所以无须一辉多说，史黛菈已经得知了前因后果。 她对于大家，感谢是说也说不完。 「我这次欠珠雫的可多了，感觉有点可怕。」 「哈哈哈，不过，这次若不是有珠雫在…… 真不知道事情会怎么发展。我们一起努力报答她。」",
+            "after": "「结果我们两个人都对你妹妹抬不起头呢。」 不过，史黛菈现在倒是很珍惜这份关系。 她好想赶快见到大家，向他们道谢。 是那些珍贵的好友，保住了自己。所以──"
+          }
+        ],
+        "extractedFile": "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-19/196520.jpg",
+        "imageTagContexts": [
+          {
+            "xhtml": "OEBPS/Text/chapter5.xhtml",
+            "imageTagLine": 2665,
+            "context": [
+              {
+                "line": 2655,
+                "text": "她对于大家，感谢是说也说不完。"
+              },
+              {
+                "line": 2658,
+                "text": "「我这次欠珠雫的可多了，感觉有点可怕。」"
+              },
+              {
+                "line": 2661,
+                "text": "「哈哈哈，不过，这次若不是有珠雫在…… 真不知道事情会怎么发展。我们一起努力报答她。」"
+              },
+              {
+                "line": 2669,
+                "text": "「结果我们两个人都对你妹妹抬不起头呢。」"
+              },
+              {
+                "line": 2672,
+                "text": "不过，史黛菈现在倒是很珍惜这份关系。"
+              },
+              {
+                "line": 2675,
+                "text": "她好想赶快见到大家，向他们道谢。"
+              },
+              {
+                "line": 2678,
+                "text": "是那些珍贵的好友，保住了自己。所以──"
+              },
+              {
+                "line": 2681,
+                "text": "「见到他们之前──要先解决那家伙。」"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "member": "OEBPS/Images/196521.jpg",
+        "width": 1592,
+        "height": 1200,
+        "sha256": "5c8dd57ae804f269821b521352d448536a239638da0fb384190b3c079a8a469a",
+        "colorFraction": 0.0,
+        "references": [
+          {
+            "xhtml": "OEBPS/Text/chapter6.xhtml",
+            "alt": "",
+            "before": "接着，她缓缓来到一辉身边，倚着他，重新拥抱他的手臂。 交叠的影子，踏着同宽的脚步，走向相同的方向。 只有今天，慢慢地，一步一步走。 而两人共同前往的前方，恰似他们的未来，是一片无边无际，开阔又明朗的蓝天。",
+            "after": ""
+          }
+        ],
+        "extractedFile": "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-19/196521.jpg",
+        "imageTagContexts": [
+          {
+            "xhtml": "OEBPS/Text/chapter6.xhtml",
+            "imageTagLine": 1002,
+            "context": [
+              {
+                "line": 992,
+                "text": "交叠的影子，踏着同宽的脚步，走向相同的方向。"
+              },
+              {
+                "line": 995,
+                "text": "只有今天，慢慢地，一步一步走。"
+              },
+              {
+                "line": 998,
+                "text": "而两人共同前往的前方，恰似他们的未来，是一片无边无际，开阔又明朗的蓝天。"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "nameOccurrences": [
+      {
+        "xhtml": "OEBPS/Text/chapter1.xhtml",
+        "line": 46,
+        "text": "卡尔・爱兰兹贪图史黛菈的身体，想要达成自己的野心，创造「完美的人类」。他利用美国军事顾问的地位，煽动〈同盟〉进攻，全是为了得到她。但是在〈比翼〉爱德怀斯、〈斗神〉南乡寅次郎、〈饕餮〉福小莉进攻美军基地之际，由于基地自爆，真相随三人一同深埋地底。"
+      },
+      {
+        "xhtml": "OEBPS/Text/chapter5.xhtml",
+        "line": 988,
+        "text": "「你真的变弱了──还记得你我于爱德贝格交手时的事吗？当时我要前去阻止小莉，帮助史黛菈，你却阻止了我。当时的你面临绝境，依旧相信史黛菈的强大。」"
+      },
+      {
+        "xhtml": "OEBPS/Text/chapter5.xhtml",
+        "line": 1760,
+        "text": "「这招数另有一个名号，叫做〈麒麟功〉。虽然名号不同，但同样都是透过超高度的专注力，在短时间提尽自己的一切。换句话说，这是技巧，而非能力。我当然做得到，这并不稀奇。更何况…… 我的能力和一辉、小莉完全不同。」"
+      },
+      {
+        "xhtml": "OEBPS/Text/chapter5.xhtml",
+        "line": 1763,
+        "text": "〈落第骑士〉黑铁一辉透过〈一刀修罗〉，让他原有的「强化体能」能力效果倍增；〈饕餮〉福小莉则是以〈麒麟功〉，强化从史黛菈身上复制来的龙之力。"
+      },
+      {
+        "xhtml": "OEBPS/Text/chapter5.xhtml",
+        "line": 3179,
+        "text": "〈饕餮〉福小莉。她本该和爱德怀斯一起活埋于地底。"
+      },
+      {
+        "xhtml": "OEBPS/Text/chapter5.xhtml",
+        "line": 3182,
+        "text": "「福小莉！你为什么会在这里……！」"
+      },
+      {
+        "xhtml": "OEBPS/Text/chapter5.xhtml",
+        "line": 3185,
+        "text": "扬声器发出声音。小莉抱了抱拳，答道："
+      },
+      {
+        "xhtml": "OEBPS/Text/chapter5.xhtml",
+        "line": 3200,
+        "text": "自欧尔・格尔失控开始，爱兰兹的阴谋加速世界陷入混乱。爱德怀斯不属于任何一方，与其让她来打倒爱兰兹，不如让福小莉出马，更能圆融地收拾这场混乱。她确实是个合适人选。不过，本人闻言──"
+      },
+      {
+        "xhtml": "OEBPS/Text/chapter5.xhtml",
+        "line": 3215,
+        "text": "小莉举起拳头，拳上裹着手甲型灵装〈蛮鬼〉。"
+      },
+      {
+        "xhtml": "OEBPS/Text/chapter5.xhtml",
+        "line": 3227,
+        "text": "小莉头脑不好，实力却曾经胜过史黛菈。"
+      },
+      {
+        "xhtml": "OEBPS/Text/chapter5.xhtml",
+        "line": 3236,
+        "text": "容纳脑髓的巨大容器周遭，设置了数个小型容器，里面装着亚伯拉罕。而爱兰兹还来不及启动它们，小莉已经运用〈缩地法〉，瞬间将爱兰兹纳入拳头的攻击范围──"
+      },
+      {
+        "xhtml": "OEBPS/Text/chapter5.xhtml",
+        "line": 3244,
+        "text": "〈蛮鬼〉能够吞食他人魔力，取得能力。小莉在拳头附上从史黛菈手上抢来的龙焰，一记崩拳，打向密闭容器厚重的特制玻璃。"
+      },
+      {
+        "xhtml": "OEBPS/Text/chapter5.xhtml",
+        "line": 3262,
+        "text": "「进化」魔法的确强大，能够改变爱兰兹的生物组织，但不适合在战斗中使用，所以他对复一辉的时候，才需要让〈达尔文〉出战，争取时间。更别说小莉招数众多，根本不管用。"
+      },
+      {
+        "xhtml": "OEBPS/Text/chapter5.xhtml",
+        "line": 3274,
+        "text": "小莉举起另一支手，将〈蛮鬼〉轰进脑髓。"
+      },
+      {
+        "xhtml": "OEBPS/Text/chapter5.xhtml",
+        "line": 3280,
+        "text": "小莉的拳头深深刺进上皮组织，龙焰随即喷发，瞬间吞没脑髓。"
+      },
+      {
+        "xhtml": "OEBPS/Text/chapter5.xhtml",
+        "line": 3292,
+        "text": "不过，小莉并不可怜他。"
+      },
+      {
+        "xhtml": "OEBPS/Text/chapter5.xhtml",
+        "line": 3394,
+        "text": "严也接到美国方面的联系，〈大教授〉失控，想动用美国的核武，但是〈饕餮〉福小莉阻止了他。"
+      },
+      {
+        "xhtml": "OEBPS/Text/chapter5.xhtml",
+        "line": 3421,
+        "text": "「是，除了日本，这次〈同盟〉同时展开侵略，有许多加盟国受害。只因为对手太强大，不能强硬追究责任，等于白白挨打。当然，我国也有许多声音表达愤怒──但实际上，〈同盟〉鸽派表示，〈同盟〉旗下的斗士〈饕餮〉讨伐了〈大教授〉，认定这次战争要归咎于〈大教授〉，以及一部分追随他的政治家失控，并非出自〈大国同盟〉整体协议，企图规避责任，而我方很难否定他们。凌晨的会议最后定调，〈联盟〉方将同意鸽派的说法，逼迫鹰派引咎辞职，以防止战火继续扩大。」"
+      },
+      {
+        "xhtml": "OEBPS/Text/chapter5.xhtml",
+        "line": 3424,
+        "text": "「福小莉啊。她年纪轻轻，竟然能击败〈大教授〉，了不起啊。多亏她的表现，我方也比较容易订定『妥协点』。」"
+      },
+      {
+        "xhtml": "OEBPS/Text/chapter5.xhtml",
+        "line": 3433,
+        "text": "虽然设计整个计谋的人并非福小莉，而是她背后的〈比翼〉爱德怀斯，以及将爱德怀斯派往日本的〈白胡公〉。不过这部分有点离题，严刻意不提。"
+      }
+    ]
+  }
+]

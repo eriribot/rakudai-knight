@@ -17,7 +17,7 @@
     "provenance": "derived-imagegen-cutout",
     "source": "user-provided-reference",
     "notes": "使用内置 imagegen 从用户提供的绫辻绚濑参考提取透明盾边与底部花饰；不是官网原始空框。遮罩为对应轮廓的SVG。",
-    "imageUrl": ""
+    "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/shield-frame.png"
   },
   "characters": [
     {
@@ -39,7 +39,7 @@
       "width": 172,
       "height": 249,
       "sha256": "c1aa07045f00041d0602657929990df12bfe5f0e211b90e5b0c6bb3f97c9bc7a",
-      "imageUrl": ""
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/ikki.png"
     },
     {
       "id": "stella",
@@ -61,7 +61,7 @@
       "width": 172,
       "height": 249,
       "sha256": "22e0a4ddd11c110e44f551e1e7094e110a333973ee22b2cb5108325f5cc3d38a",
-      "imageUrl": ""
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/stella.png"
     },
     {
       "id": "shizuku",
@@ -81,7 +81,7 @@
       "width": 172,
       "height": 249,
       "sha256": "76cd763eb54496c8a8d7e9bc8342c443e56be5a7887582e280a61ed164c7e8c6",
-      "imageUrl": ""
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/shizuku.png"
     },
     {
       "id": "ayase",
@@ -105,7 +105,7 @@
       "width": 172,
       "height": 249,
       "sha256": "05d897307eae2cf1e9b68afa45e924717d825b505128758a8fa037ecdb645142",
-      "imageUrl": ""
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/ayase.png"
     },
     {
       "id": "toka",
@@ -126,7 +126,7 @@
       "width": 172,
       "height": 249,
       "sha256": "186250c240708672366657fdf59bd417f0ffe130a332c11d436367cd22245463",
-      "imageUrl": ""
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/toka.png"
     },
     {
       "id": "itsuki",
@@ -146,7 +146,7 @@
       "width": 172,
       "height": 249,
       "sha256": "7022e2738e4f6a317be972e95da5f103f2e9f226f2e4f9e95ae400bdaf64298c",
-      "imageUrl": ""
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/itsuki.png"
     },
     {
       "id": "ouma",
@@ -167,7 +167,7 @@
       "width": 172,
       "height": 249,
       "sha256": "a6be886848dd32be84c17e1fb83ade6e6a6933d6a17ecd992251e3d2a9500e57",
-      "imageUrl": ""
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/ouma.png"
     },
     {
       "id": "edelweiss",
@@ -188,7 +188,7 @@
       "width": 172,
       "height": 249,
       "sha256": "3eecdd710e24eac22820c725f2305370b028dd0a993d0cd8cad88822d35a8b54",
-      "imageUrl": ""
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/edelweiss.png"
     },
     {
       "id": "yuudai",
@@ -207,7 +207,7 @@
       "width": 172,
       "height": 249,
       "sha256": "48ecaae18cbbf038b6a5bdf483ad31742557dc482804cf919d0151ab9b0865ae",
-      "imageUrl": ""
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/yuudai.png"
     },
     {
       "id": "nagi",
@@ -233,7 +233,7 @@
       "width": 132,
       "height": 165,
       "sha256": "38b2d0097ce6fcfc873be87403241b5e6fb29ad4a3b583633d12fe8e5f04a084",
-      "imageUrl": "",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/nagi.png",
       "displayFile": "prepared/nagi.png",
       "preparation": {
         "method": "closed-shield-region-face-aware-crop-v1",
@@ -278,7 +278,7 @@
       "width": 132,
       "height": 165,
       "sha256": "d0b83a6c8da72f93e59185ecb149d45535cec423ea888335a1c0a70fbf2f88b2",
-      "imageUrl": "",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kirihara.png",
       "displayFile": "prepared/kirihara.png",
       "preparation": {
         "method": "closed-shield-region-face-aware-crop-v1",
@@ -325,7 +325,7 @@
       "width": 132,
       "height": 165,
       "sha256": "7a9614a7cc9f96a77b593111b4afe1415166cb13949303fcb7ab4642109b5a46",
-      "imageUrl": "",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kuraudo.png",
       "displayFile": "prepared/kuraudo.png",
       "preparation": {
         "method": "closed-shield-region-face-aware-crop-v1",
@@ -374,7 +374,7 @@
       "width": 132,
       "height": 165,
       "sha256": "bd6e3cf79c49c4ba727d99b15b474093a4b59a46a21dfe1371c8f6d835fbdfa8",
-      "imageUrl": "",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/renren.png",
       "displayFile": "prepared/renren.png",
       "preparation": {
         "method": "closed-shield-region-face-aware-crop-v1",
@@ -422,7 +422,7 @@
       "width": 132,
       "height": 165,
       "sha256": "7d44d9cac526cd240df3a796da92b33dd4df609264c1af19fe0ea5cfdc2a2dd9",
-      "imageUrl": "",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/misogi.png",
       "displayFile": "prepared/misogi.png",
       "preparation": {
         "method": "closed-shield-region-face-aware-crop-v1",
@@ -469,7 +469,7 @@
       "width": 132,
       "height": 165,
       "sha256": "74098af66c42931ad749b24aa6609c2fae4c4c3942b72ad5cbc555ec8cd84f3d",
-      "imageUrl": "",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kanata.png",
       "displayFile": "prepared/kanata.png",
       "preparation": {
         "method": "closed-shield-region-face-aware-crop-v1",
@@ -519,7 +519,7 @@
       "width": 640,
       "height": 360,
       "sha256": "3d244e0535205ca75e57a73a946f665e9da88bd15c1e4f852fa130e116faafdf",
-      "imageUrl": "",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/nene.png",
       "displayFile": "prepared/nene.png",
       "preparation": {
         "method": "closed-shield-region-face-aware-crop-v1",
@@ -568,7 +568,7 @@
       "width": 640,
       "height": 360,
       "sha256": "8e2c35bfa606a3cd5f69601530e1bd600d55f3b68add2650c384ad9df11c5999",
-      "imageUrl": "",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kurono.png",
       "displayFile": "prepared/kurono.png",
       "preparation": {
         "method": "closed-shield-region-face-aware-crop-v1",
@@ -603,7 +603,7 @@
       "width": 640,
       "height": 360,
       "sha256": "66b106f61567a9e8c6bb16df8301909a5b284bd65db0842ff9c744f7cd7239c1",
-      "imageUrl": "",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/yuri.png",
       "displayFile": "prepared/yuri.png",
       "preparation": {
         "method": "closed-shield-region-face-aware-crop-v1",
@@ -648,7 +648,7 @@
       "width": 1544,
       "height": 2048,
       "sha256": "62596a7bd0668571cb1f43faa364ac089ed73edc7ebe7ec91e5c289f28bcd867",
-      "imageUrl": "",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/iris.png",
       "identityEvidence": "research/epub/character-evidence.json#iris",
       "imageVariant": "white-green-qipao",
       "displayFile": "prepared/iris.png",
@@ -702,7 +702,7 @@
       "width": 1592,
       "height": 1200,
       "sha256": "75cf138d6b93c6c596ec1eb9286d602f86124601262554198d32bb15199580b6",
-      "imageUrl": "",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/uri.png",
       "identityEvidence": "research/epub/character-evidence.json#uri",
       "displayFile": "prepared/uri.png",
       "preparation": {
@@ -740,7 +740,7 @@
       "width": 1592,
       "height": 1200,
       "sha256": "75dc1db0adbf947d526b92d4ef98c3962f79a68bbd381f08d2c952315a31edb9",
-      "imageUrl": "",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/or_gaule.png",
       "identityEvidence": "research/epub/character-evidence.json#or_gaule",
       "imageVariant": "childhood-memory",
       "displayFile": "prepared/or_gaule.png",
@@ -776,7 +776,7 @@
       "width": 1592,
       "height": 1200,
       "sha256": "75dc1db0adbf947d526b92d4ef98c3962f79a68bbd381f08d2c952315a31edb9",
-      "imageUrl": "",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/wallenstein.png",
       "identityEvidence": "research/epub/character-evidence.json#wallenstein",
       "displayFile": "prepared/wallenstein.png",
       "preparation": {
@@ -811,7 +811,7 @@
       "width": 2352,
       "height": 1776,
       "sha256": "2ae42c80bff67c163408cf2773437aad3b70ffd5da3f7fbd7a814452838bd344",
-      "imageUrl": "",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kiriko.png",
       "identityEvidence": "research/epub/character-evidence.json#kiriko",
       "displayFile": "prepared/kiriko.png",
       "preparation": {
@@ -863,7 +863,7 @@
       "width": 2353,
       "height": 1654,
       "sha256": "b82d80e24674d1509072e01e4ca77eebfefb65c2aec482eab15ab6d872972cf1",
-      "imageUrl": "",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/sara.png",
       "identityEvidence": "research/epub/character-evidence.json#sara",
       "displayFile": "prepared/sara.png",
       "preparation": {
@@ -917,7 +917,7 @@
       "width": 700,
       "height": 1000,
       "sha256": "a4d646adeb9caa9d328173fe7dc2aa3ccfc59e31338bfb1199d5409c26072355",
-      "imageUrl": "",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/rinna.png",
       "identityEvidence": "research/epub/character-evidence.json#rinna",
       "colorization": {
         "type": "ai-colorized-derivative",
@@ -981,7 +981,7 @@
       "width": 1674,
       "height": 1200,
       "sha256": "05cbc99c5aa0fc168fb978c77242de943fa7ab43207f6376f00ebf0f56a908f9",
-      "imageUrl": "",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/ein.png",
       "identityEvidence": "research/epub/character-evidence.json#ein",
       "displayFile": "prepared/ein.png",
       "preparation": {
@@ -1034,7 +1034,7 @@
       "width": 1061,
       "height": 1600,
       "sha256": "522938ed04fd940dc5d2c6465b4f377b527736a8b4df7418e26954301b6908ef",
-      "imageUrl": "",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/rai.png",
       "identityEvidence": "research/epub/character-evidence.json#rai",
       "colorization": {
         "type": "ai-colorized-derivative",
@@ -1098,7 +1098,7 @@
       "width": 2352,
       "height": 1776,
       "sha256": "8eb2923f55025f48385de5dd4afe20de9b9311dbebc26e00b042e84e357d9652",
-      "imageUrl": "",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/momiji.png",
       "identityEvidence": "research/epub/character-evidence.json#momiji",
       "aliasNotes": {
         "浅桦/淺樺": "用户在本次对话中使用的简称，仅用于头像匹配；标准姓名为浅木椛。"
@@ -1155,7 +1155,7 @@
       "width": 2352,
       "height": 1776,
       "sha256": "8eb2923f55025f48385de5dd4afe20de9b9311dbebc26e00b042e84e357d9652",
-      "imageUrl": "",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/byakuya.png",
       "identityEvidence": "research/epub/character-evidence.json#byakuya",
       "displayFile": "prepared/byakuya.png",
       "preparation": {
@@ -1207,7 +1207,7 @@
       "width": 483,
       "height": 1212,
       "sha256": "2c3f93e72e8fbdf40f6e90819710888f10a7b7631fa52e84f36b36d0b10fcf75",
-      "imageUrl": "",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/mikoto.png",
       "identityEvidence": "research/epub/character-evidence.json#mikoto",
       "colorization": {
         "type": "ai-colorized-derivative",
@@ -1230,6 +1230,66 @@
         "outputWidth": 434,
         "outputHeight": 580,
         "sha256": "b5492b71cefe1ff9864d624920fd9c71d70d14c3bf70f2e4aea207da9dcde1f8"
+      }
+    },
+    {
+      "id": "xiaoli",
+      "name": "福小莉",
+      "aliases": [
+        "Fu Xiaoli",
+        "Xiaoli Fu"
+      ],
+      "file": "novel/xiaoli-original.jpg",
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 12.epub",
+      "sourceMember": "OEBPS/Images/014.jpg",
+      "sourceUrl": "",
+      "sourcePage": "",
+      "hasShieldFrame": false,
+      "sourceStyle": "novel-monochrome-illustration",
+      "sourceStatus": "verified-local-epub-ai-colorized",
+      "width": 796,
+      "height": 1200,
+      "sha256": "d5e1b37955a7991df069c8a257e2aaea22acfb5b75b2151dc5ac817740e1b634",
+      "imageUrl": "",
+      "identityEvidence": "research/epub/character-evidence.json#xiaoli",
+      "colorization": {
+        "type": "ai-colorized-derivative",
+        "mode": "built-in",
+        "file": "color/xiaoli-colorized.png",
+        "record": "research/epub/xiaoli-colorization.json",
+        "note": "第12卷原黑白插图上色。第18卷明写黑发与黝黑肤色；具体棕色深浅、常态瞳色和束带色为艺术配色，非官方原生彩图。保留原白囚衣、束带及胸前锁链。"
+      },
+      "displayFile": "prepared/xiaoli.png",
+      "preparation": {
+        "method": "closed-shield-region-face-aware-crop-v1",
+        "sourceFile": "color/xiaoli-colorized.png",
+        "sourceSha256": "f70d802636e5e9bca239c9f40d9cff3b68ce9206f8e1bdd5afac6a696c562b83",
+        "crop": {
+          "left": 346,
+          "top": 180,
+          "width": 512,
+          "height": 616
+        },
+        "outputWidth": 434,
+        "outputHeight": 580,
+        "sha256": "5f3c93fd459017ec6d0c3b3ab376eafa581cde16e341118e3a85d03289e87548",
+        "orientation": {
+          "method": "level-eye-line",
+          "sourceEyes": [
+            [
+              493,
+              197
+            ],
+            [
+              653,
+              248
+            ]
+          ],
+          "rotationDegrees": -17.679680977438853,
+          "rotatedWidth": 1440,
+          "rotatedHeight": 1777,
+          "cropSpace": "after-rotation"
+        }
       }
     }
   ],

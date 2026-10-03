@@ -1,0 +1,333 @@
+{
+  "scope": "Local EPUB volume 16, both editions; volume 17. Images reviewed visually and against XHTML scene references.",
+  "candidateCount": 0,
+  "findings": [
+    {
+      "id": "tw-16",
+      "epub": "39688/[台版]落第骑士英雄谭 16.epub",
+      "zipRasterCount": 22,
+      "indexedBitmapCount": 21,
+      "independentSvgCount": 0,
+      "inlineSvgDocuments": [],
+      "notIndexed": [
+        {
+          "member": "OEBPS/Images/note.png",
+          "size": [
+            48,
+            48
+          ],
+          "sha256": "4ec290907f26764d966a42709c281818fb20b53a6b309479cf9fc5f98c2c6f10",
+          "visualFinding": "48×48 red square bearing 注; decorative footnote button, no person"
+        }
+      ],
+      "keywords": [],
+      "xiaoliIllustrationCount": 0,
+      "status": "no-xiaoli-illustration-identified-in-this-local-edition",
+      "visualReview": "Every image shown in the all-images contact sheet; color captions and the potentially ambiguous long-black-haired volume17 woman inspected at full size. Contexts agree with other named characters.",
+      "originalImageCopiesSha256Validated": true,
+      "inventoryFile": "16-17-inventory.json",
+      "contactSheet": "resource/knightavatars/research/epub/xiaoli-post12-scan/tw-16-all-images.jpg",
+      "uniqueBasePageCount": 16,
+      "additionalRotatedCopies": [
+        "OEBPS/Images/003_.jpg",
+        "OEBPS/Images/004_.jpg",
+        "OEBPS/Images/005_.jpg"
+      ],
+      "decorativeBitmaps": [
+        "OEBPS/Images/logo.png",
+        "OEBPS/Images/logo2.png",
+        "OEBPS/Images/note.png"
+      ]
+    },
+    {
+      "id": "cn-16",
+      "epub": "39688/落第骑士英雄谭 - 16.epub",
+      "zipRasterCount": 16,
+      "indexedBitmapCount": 16,
+      "independentSvgCount": 0,
+      "inlineSvgDocuments": [
+        "OEBPS/Text/chapter0.xhtml",
+        "OEBPS/Text/chapter1.xhtml",
+        "OEBPS/Text/chapter3.xhtml",
+        "OEBPS/Text/chapter4.xhtml",
+        "OEBPS/Text/chapter5.xhtml",
+        "OEBPS/Text/Cover.xhtml"
+      ],
+      "notIndexed": [],
+      "keywords": [],
+      "xiaoliIllustrationCount": 0,
+      "status": "no-xiaoli-illustration-identified-in-this-local-edition",
+      "visualReview": "Every image shown in the all-images contact sheet; color captions and the potentially ambiguous long-black-haired volume17 woman inspected at full size. Contexts agree with other named characters.",
+      "originalImageCopiesSha256Validated": true,
+      "inventoryFile": "16-17-inventory.json",
+      "contactSheet": "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-16-all-images.jpg"
+    },
+    {
+      "id": "cn-17",
+      "epub": "39688/落第骑士英雄谭 - 17.epub",
+      "zipRasterCount": 16,
+      "indexedBitmapCount": 16,
+      "independentSvgCount": 0,
+      "inlineSvgDocuments": [
+        "OEBPS/Text/chapter0.xhtml",
+        "OEBPS/Text/chapter2.xhtml",
+        "OEBPS/Text/chapter3.xhtml",
+        "OEBPS/Text/chapter4.xhtml",
+        "OEBPS/Text/chapter5.xhtml",
+        "OEBPS/Text/Cover.xhtml"
+      ],
+      "notIndexed": [],
+      "keywords": [],
+      "xiaoliIllustrationCount": 0,
+      "status": "no-xiaoli-illustration-identified-in-this-local-edition",
+      "visualReview": "Every image shown in the all-images contact sheet; color captions and the potentially ambiguous long-black-haired volume17 woman inspected at full size. Contexts agree with other named characters.",
+      "originalImageCopiesSha256Validated": true,
+      "inventoryFile": "16-17-inventory.json",
+      "contactSheet": "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-17-all-images.jpg",
+      "falsePositiveExcluded": {
+        "member": "OEBPS/Images/140446.jpg",
+        "imageTag": {
+          "xhtml": "OEBPS/Text/chapter4.xhtml",
+          "line": 1826
+        },
+        "namedSceneAnchor": {
+          "xhtml": "OEBPS/Text/chapter4.xhtml",
+          "line": 1780,
+          "excerpt": "这名女子站在战车上方，黑色的长卷发随海风飘曳。她就是 C 级骑士，折木有里。"
+        },
+        "result": "折木有里, not 福小莉"
+      }
+    }
+  ],
+  "volume16Comparison": {
+    "exactSharedSha256Count": 0,
+    "visualPairCount": 16,
+    "pairs": [
+      {
+        "twMember": "OEBPS/Images/001.jpg",
+        "cnMember": "OEBPS/Images/137115.jpg",
+        "twSize": [
+          1175,
+          1776
+        ],
+        "cnSize": [
+          796,
+          1200
+        ],
+        "sameSha256": false,
+        "visualStatus": "same composition and character scene, checked in parallel contact sheets"
+      },
+      {
+        "twMember": "OEBPS/Images/002.jpg",
+        "cnMember": "OEBPS/Images/137116.jpg",
+        "twSize": [
+          1000,
+          1508
+        ],
+        "cnSize": [
+          796,
+          1200
+        ],
+        "sameSha256": false,
+        "visualStatus": "same composition and character scene, checked in parallel contact sheets"
+      },
+      {
+        "twMember": "OEBPS/Images/003.jpg",
+        "cnMember": "OEBPS/Images/137117.jpg",
+        "twSize": [
+          1594,
+          1200
+        ],
+        "cnSize": [
+          1594,
+          1200
+        ],
+        "sameSha256": false,
+        "visualStatus": "same composition and character scene, checked in parallel contact sheets"
+      },
+      {
+        "twMember": "OEBPS/Images/004.jpg",
+        "cnMember": "OEBPS/Images/137118.jpg",
+        "twSize": [
+          1594,
+          1200
+        ],
+        "cnSize": [
+          1594,
+          1200
+        ],
+        "sameSha256": false,
+        "visualStatus": "same composition and character scene, checked in parallel contact sheets"
+      },
+      {
+        "twMember": "OEBPS/Images/005.jpg",
+        "cnMember": "OEBPS/Images/137119.jpg",
+        "twSize": [
+          1594,
+          1200
+        ],
+        "cnSize": [
+          1594,
+          1200
+        ],
+        "sameSha256": false,
+        "visualStatus": "same composition and character scene, checked in parallel contact sheets"
+      },
+      {
+        "twMember": "OEBPS/Images/006.jpg",
+        "cnMember": "OEBPS/Images/137120.jpg",
+        "twSize": [
+          1175,
+          1776
+        ],
+        "cnSize": [
+          796,
+          1200
+        ],
+        "sameSha256": false,
+        "visualStatus": "same composition and character scene, checked in parallel contact sheets"
+      },
+      {
+        "twMember": "OEBPS/Images/007.jpg",
+        "cnMember": "OEBPS/Images/137121.jpg",
+        "twSize": [
+          1000,
+          1406
+        ],
+        "cnSize": [
+          854,
+          1200
+        ],
+        "sameSha256": false,
+        "visualStatus": "same composition and character scene, checked in parallel contact sheets"
+      },
+      {
+        "twMember": "OEBPS/Images/008.jpg",
+        "cnMember": "OEBPS/Images/137122.jpg",
+        "twSize": [
+          1000,
+          1406
+        ],
+        "cnSize": [
+          854,
+          1200
+        ],
+        "sameSha256": false,
+        "visualStatus": "same composition and character scene, checked in parallel contact sheets"
+      },
+      {
+        "twMember": "OEBPS/Images/009.jpg",
+        "cnMember": "OEBPS/Images/137123.jpg",
+        "twSize": [
+          1000,
+          1406
+        ],
+        "cnSize": [
+          854,
+          1200
+        ],
+        "sameSha256": false,
+        "visualStatus": "same composition and character scene, checked in parallel contact sheets"
+      },
+      {
+        "twMember": "OEBPS/Images/010.jpg",
+        "cnMember": "OEBPS/Images/137124.jpg",
+        "twSize": [
+          1000,
+          1406
+        ],
+        "cnSize": [
+          854,
+          1200
+        ],
+        "sameSha256": false,
+        "visualStatus": "same composition and character scene, checked in parallel contact sheets"
+      },
+      {
+        "twMember": "OEBPS/Images/011.jpg",
+        "cnMember": "OEBPS/Images/137125.jpg",
+        "twSize": [
+          1000,
+          1406
+        ],
+        "cnSize": [
+          854,
+          1200
+        ],
+        "sameSha256": false,
+        "visualStatus": "same composition and character scene, checked in parallel contact sheets"
+      },
+      {
+        "twMember": "OEBPS/Images/012.jpg",
+        "cnMember": "OEBPS/Images/137126.jpg",
+        "twSize": [
+          1000,
+          1406
+        ],
+        "cnSize": [
+          854,
+          1200
+        ],
+        "sameSha256": false,
+        "visualStatus": "same composition and character scene, checked in parallel contact sheets"
+      },
+      {
+        "twMember": "OEBPS/Images/013.jpg",
+        "cnMember": "OEBPS/Images/137127.jpg",
+        "twSize": [
+          1000,
+          1406
+        ],
+        "cnSize": [
+          854,
+          1200
+        ],
+        "sameSha256": false,
+        "visualStatus": "same composition and character scene, checked in parallel contact sheets"
+      },
+      {
+        "twMember": "OEBPS/Images/014.jpg",
+        "cnMember": "OEBPS/Images/137128.jpg",
+        "twSize": [
+          1000,
+          1406
+        ],
+        "cnSize": [
+          854,
+          1200
+        ],
+        "sameSha256": false,
+        "visualStatus": "same composition and character scene, checked in parallel contact sheets"
+      },
+      {
+        "twMember": "OEBPS/Images/015.jpg",
+        "cnMember": "OEBPS/Images/137129.jpg",
+        "twSize": [
+          1000,
+          1406
+        ],
+        "cnSize": [
+          854,
+          1200
+        ],
+        "sameSha256": false,
+        "visualStatus": "same composition and character scene, checked in parallel contact sheets"
+      },
+      {
+        "twMember": "OEBPS/Images/016.jpg",
+        "cnMember": "OEBPS/Images/137130.jpg",
+        "twSize": [
+          1000,
+          1406
+        ],
+        "cnSize": [
+          854,
+          1200
+        ],
+        "sameSha256": false,
+        "visualStatus": "same composition and character scene, checked in parallel contact sheets"
+      }
+    ],
+    "note": "16 base illustrations/cover/contents match visually; encodings and some resolutions differ. The Taiwanese package adds three rotated color-page versions and three decorative bitmaps; these are not additional character illustrations."
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "reviewerTask": "xiaoli_illustration_independent",
+  "scope": "Independent visual review of all 16 extracted bitmap images in local volume 19 EPUB, full-size review of concluding group illustration, and comparison with verified volume 18 Xiaoli design.",
+  "method": "Read-only source ZIP inspection; visual review of complete contact sheet and relevant original images; deterministic research crop only. No AI edits, avatar substitution, or manifest changes.",
+  "volume18Comparison": {
+    "epub": "39688/落第骑士英雄谭 - 18.epub",
+    "imageMember": "OEBPS/Images/190226.jpg",
+    "file": "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-18/190226.jpg",
+    "visibleFeatures": [
+      "long dark hair",
+      "dark skin rendered as screentone",
+      "paired circular hair ornaments",
+      "Chinese-style garment with frog buttons",
+      "standing beside Edelweiss"
+    ],
+    "assessment": "Consistent with parent-verified Xiaoli scene and textual identification in chapter4; useful official monochrome appearance reference."
+  },
+  "volume19": {
+    "epub": "39688/落第骑士英雄谭 - 19.epub",
+    "bitmapCount": 16,
+    "reviewedFiles": [
+      "196506.jpg",
+      "196507.jpg",
+      "196508.jpg",
+      "196509.jpg",
+      "196510.jpg",
+      "196511.jpg",
+      "196512.jpg",
+      "196513.jpg",
+      "196514.jpg",
+      "196515.jpg",
+      "196516.jpg",
+      "196517.jpg",
+      "196518.jpg",
+      "196519.jpg",
+      "196520.jpg",
+      "196521.jpg"
+    ],
+    "verifiedXiaoliIllustrations": [],
+    "conclusion": "No volume 19 image could be positively identified as depicting Fu Xiaoli. This is a finding of no verified identification, not proof that every tiny or partially obscured figure excludes her.",
+    "groupIllustration": {
+      "imageMember": "OEBPS/Images/196521.jpg",
+      "width": 1592,
+      "height": 1200,
+      "sha256": "5c8dd57ae804f269821b521352d448536a239638da0fb384190b3c079a8a469a",
+      "xhtml": "OEBPS/Text/chapter6.xhtml",
+      "imageTagLine": 1002,
+      "textContext": "Concluding wedding/group illustration after the final prose; nearby prose does not name Xiaoli or provide a caption listing all pictured characters.",
+      "candidateReview": {
+        "boundsXYXY": [
+          850,
+          55,
+          975,
+          270
+        ],
+        "visibleFeatures": [
+          "long wavy dark hair",
+          "medical/nurse-like collar and body",
+          "IV stand next to figure",
+          "no paired circular Xiaoli hair ornaments",
+          "no visible matching dark-skin screentone"
+        ],
+        "assessment": "Reject as an identified Xiaoli candidate. Medical clothing and IV stand correspond to the nurse character visual design. This review does not claim a text-caption identification of that nurse.",
+        "evidenceLevel": "Visual exclusion of proposed candidate; no character-name caption at image."
+      },
+      "studyCrop": "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-19-group-upper-crop.png",
+      "studyCropBoundsXYXY": [
+        780,
+        20,
+        1140,
+        470
+      ],
+      "additionalCandidateReview": {
+        "boundsXYXY": [
+          807,
+          301,
+          922,
+          463
+        ],
+        "studyCrop": "resource/knightavatars/research/epub/xiaoli-post12-scan/cn-19-small-ornament-girl-crop.png",
+        "studyCropBoundsXYXY": [
+          800,
+          290,
+          942,
+          468
+        ],
+        "visibleFeatures": [
+          "light-to-mid grayscale short/curled hair",
+          "large pale beret-like or wrapped head silhouette",
+          "face partly obscured by hair and horizontal marking",
+          "simple central bow or tie under a western-style collar",
+          "no clearly visible matching paired circular longevity-pattern hair ornaments",
+          "no clear continuous Chinese frog-button row"
+        ],
+        "assessment": "Insufficient and visually conflicting evidence for Xiaoli. Could resemble another character such as Sara, but this review does not assert that alternative identification from a small unlabeled figure.",
+        "comparison": "Verified 18 image Xiaoli has continuous dark long hair, darker skin screentone, and two clearly separate circular patterned hair ornaments; these distinguishing traits cannot be established in the candidate.",
+        "evidenceLevel": "Unconfirmed candidate; do not promote to high-confidence Xiaoli on current source evidence."
+      }
+    },
+    "otherImages": "The remaining cover, color pages, and monochrome scenes have no independently recognized Xiaoli depiction in this review. They were visually inventoried; no positive Xiaoli result should be inferred from her textual appearance in chapter5."
+  },
+  "textAnchors": [
+    {
+      "xhtml": "OEBPS/Text/chapter5.xhtml",
+      "line": 3179,
+      "meaning": "Fu Xiaoli appears in the Karl laboratory confrontation in prose."
+    },
+    {
+      "xhtml": "OEBPS/Text/chapter6.xhtml",
+      "line": 939,
+      "meaning": "Wedding preparations mention Sara and cake arrangements; no image roster provided."
+    },
+    {
+      "xhtml": "OEBPS/Text/chapter6.xhtml",
+      "line": 945,
+      "meaning": "Wedding attendance of Fiia is mentioned; this does not identify Xiaoli in illustration."
+    },
+    {
+      "xhtml": "OEBPS/Text/chapter6.xhtml",
+      "line": 998,
+      "meaning": "Last prose before the final group illustration; no Xiaoli name in final chapter."
+    }
+  ],
+  "recommendation": "Keep volume18 image 190226 as confirmed official Xiaoli illustration. Do not add volume19 group photo to verified Xiaoli list without additional explicit source evidence."
+}

@@ -601,6 +601,33 @@
       "colorizationRecord": "research/epub/mikoto-colorization.json",
       "detailedEvidence": "research/epub/mikoto-evidence.json",
       "displayVariant": "用户提供黑白人物图的AI上色盾形头像；眼睛和制服为未核实官方颜色的中性补色。"
+    },
+    {
+      "id": "xiaoli",
+      "name": "福小莉",
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 12.epub",
+      "imageMember": "OEBPS/Images/014.jpg",
+      "evidence": [
+        {
+          "xhtml": "OEBPS/Text/Chapter003.xhtml",
+          "location": "第12卷；XHTML第1389行",
+          "excerpt": "女孩的皮肤与发色偏深，全身穿着附有束带的白囚衣"
+        },
+        {
+          "xhtml": "OEBPS/Text/Chapter003.xhtml",
+          "location": "第12卷；插图第1399行后第1404行具名",
+          "excerpt": "「福小莉！？」"
+        },
+        {
+          "sourceEpub": "39688/落第骑士英雄谭 - 18.epub",
+          "xhtml": "OEBPS/Text/chapter4.xhtml",
+          "location": "第18卷第4章；XHTML第211行，222行具名",
+          "excerpt": "一名肤色黝黑的黑发女孩，从爱德怀斯身后冒出来。"
+        }
+      ],
+      "detailedEvidence": "research/epub/xiaoli-evidence.json",
+      "colorizationRecord": "research/epub/xiaoli-colorization.json",
+      "displayVariant": "第12卷黑白插图AI上色；黑发与较深肤色有原文依据，精确棕色、常态瞳色、束带与金属配色为艺术补色。"
     }
   ]
 }
