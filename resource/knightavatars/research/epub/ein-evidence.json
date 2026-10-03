@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "id": "ein",
+  "name": "艾茵·阿伯伦特",
+  "recommendedAliases": [
+    "艾茵",
+    "艾茵·阿伯倫特",
+    "艾茵•阿伯伦特",
+    "恶之华",
+    "惡之華",
+    "一号",
+    "Ein",
+    "Dirty Rose"
+  ],
+  "aliasNotes": {
+    "Ein": "第13卷 Chapter004.xhtml 第486行的 ruby 注音；对应〈一号〉，不是外部百科拼法推定。",
+    "Dirty Rose": "第12卷 Chapter005.xhtml 第71行的 ruby 注音；对应〈恶之华〉。",
+    "艾因": "本次第12–13卷未核到该写法，不自动加入别名。",
+    "Abgrund": "本次限定本地第12–13卷未核到拉丁姓氏拼法，不将其声称为EPUB直接证据。"
+  },
+  "manifestCheck": {
+    "existingId": null,
+    "existingName": null,
+    "note": "核验时主manifest没有ein、艾茵、艾因或阿伯伦特记录；建议新增稳定id为ein。未修改主manifest。"
+  },
+  "characterIdentity": {
+    "gender": "female",
+    "genderEvidence": "正文以她、姐姐称呼艾茵；童年回忆称她为少女。",
+    "relationship": "与多多良幽衣同出〈暗狱之家〉；姐姐是组织〈姐妹〉关系，不能据此断言血缘亲姐妹。",
+    "portraitForm": "第13卷代表战时的人形女性，深紫长发、黑色高领礼服；服装胸前开口、腰侧交叉带。",
+    "formBoundary": "该彩色头像候选是战前/人形状态。Chapter004.xhtml第316、330行另描述以全魔力喂养灵装后出现〈幽狱世界树〉；不把树形态当成这张人像的常态。",
+    "visualBoundary": "画中头顶与侧边尖状轮廓只记作发型/轮廓，正文第12–13卷未核实为身体长角，不新增角的设定。"
+  },
+  "sourceEpub": "39688/[台版]落第骑士英雄谭 13.epub",
+  "imageMember": "OEBPS/Images/004.jpg",
+  "imageXhtml": "OEBPS/Text/illus02.xhtml",
+  "imageReferenceLine": 17,
+  "alternateImageMembers": ["OEBPS/Images/004_.jpg"],
+  "researchFile": "resource/knightavatars/research/epub/images/05cbc99c5aa0fc168fb9.jpg",
+  "imageWidth": 1674,
+  "imageHeight": 1200,
+  "imageSha256": "05cbc99c5aa0fc168fb978c77242de943fa7ab43207f6376f00ebf0f56a908f9",
+  "subjectPosition": "左半群像右侧，金发角色的下方；深紫长发、黑色高领礼服女性。",
+  "faceRegionForInspection": {"left": 620, "top": 475, "right": 740, "bottom": 635},
+  "faceRegionNote": "仅用于定位核验，最终盾形裁切由主代理另行确定。",
+  "colorImageTextMapping": {
+    "visibleText": "奎多蘭 vs 法米利昂／代表戰開打。",
+    "note": "这张彩页没有艾茵的具名个人台词，不能仅靠该群像标题认人。身份由同卷具名正文位置的两张单人黑白图及一致服装建立。"
+  },
+  "identityEvidence": [
+    {
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 12.epub",
+      "xhtml": "OEBPS/Text/Chapter005.xhtml",
+      "line": 71,
+      "location": "第十四章 法米利昂之战；代表战敌方名单",
+      "excerpt": "〈恶之华〉艾茵•阿伯伦特。",
+      "supports": "全名及称号；原文ruby另给Dirty Rose。"
+    },
+    {
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 12.epub",
+      "xhtml": "OEBPS/Text/Chapter001.xhtml",
+      "line": 185,
+      "location": "第十章 皇族的职责；多多良目送艾茵离开",
+      "excerpt": "她的姐姐",
+      "supports": "女性称呼及多多良眼中的姐姐关系；同章第170–171行已点名艾茵。"
+    },
+    {
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 13.epub",
+      "xhtml": "OEBPS/Text/Chapter004.xhtml",
+      "line": 486,
+      "location": "第十七章 不转杀手；多多良/菲亚的童年回忆",
+      "excerpt": "稍稍年长的少女",
+      "supports": "女性童年身份；该段称〈一号〉，ruby注音Ein，后文继续明确点名艾茵。"
+    },
+    {
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 13.epub",
+      "xhtml": "OEBPS/Text/Chapter004.xhtml",
+      "line": 138,
+      "location": "第十七章 不转杀手；012.jpg在第135行，正文对战双方在第16行具名",
+      "excerpt": "艾茵的确看透自己的弱点。",
+      "supports": "012.jpg单人是艾茵；正文描述她从断臂长出荆棘，对应图中枝蔓。图中长发、高领、胸前开口、腰侧交叉带与004.jpg候选一致。"
+    },
+    {
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 13.epub",
+      "xhtml": "OEBPS/Text/Chapter004.xhtml",
+      "line": 687,
+      "location": "第十七章 不转杀手；013.jpg在第689行",
+      "excerpt": "艾茵露出菲亚从未见过的欣喜神色",
+      "supports": "013.jpg单人笑脸在插图前被直接点名艾茵，给出第二身份锚点。其长发、高领服装与012.jpg、004.jpg一致。"
+    }
+  ],
+  "corroboratingImageMembers": [
+    {
+      "member": "OEBPS/Images/012.jpg",
+      "xhtml": "OEBPS/Text/Chapter004.xhtml",
+      "imageLine": 135,
+      "width": 796,
+      "height": 1200,
+      "inspectionFile": "resource/knightavatars/research/epub/scratch-ein/tw-13-012.jpg",
+      "depiction": "具名对战位置的艾茵人形单人图，手边有树枝/荆棘。"
+    },
+    {
+      "member": "OEBPS/Images/013.jpg",
+      "xhtml": "OEBPS/Text/Chapter004.xhtml",
+      "imageLine": 689,
+      "width": 796,
+      "height": 1200,
+      "inspectionFile": "resource/knightavatars/research/epub/scratch-ein/tw-13-013.jpg",
+      "depiction": "插图前直接点名艾茵的笑脸近景；图像本身没有台词文字，相关台词在紧接的XHTML正文。"
+    }
+  ],
+  "confidence": "verified-local-epub-text-anchored-visual-crossmatch",
+  "scope": "仅使用本地第12–13卷正文及插图；未采用Fandom、社区图或外部人物设定。"
+}

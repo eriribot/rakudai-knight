@@ -109,6 +109,275 @@
         "height": 248
       },
       "displayFile": "prepared/yuri.png"
+    },
+    {
+      "id": "iris",
+      "sourceFile": "novel/iris.jpg",
+      "crop": {
+        "left": 955,
+        "top": 179,
+        "width": 571,
+        "height": 686
+      },
+      "displayFile": "prepared/iris.png",
+      "orientation": {
+        "method": "level-eye-line",
+        "sourceEyes": [
+          [
+            1046,
+            299
+          ],
+          [
+            1174,
+            342
+          ]
+        ],
+        "rotationDegrees": -18.56913073103783,
+        "rotatedWidth": 2116,
+        "rotatedHeight": 2433,
+        "cropSpace": "after-rotation"
+      }
+    },
+    {
+      "id": "uri",
+      "sourceFile": "novel/uri.jpg",
+      "crop": {
+        "left": 256,
+        "top": 233,
+        "width": 469,
+        "height": 564
+      },
+      "displayFile": "prepared/uri.png"
+    },
+    {
+      "id": "or_gaule",
+      "sourceFile": "novel/or-gaule-wallenstein.jpg",
+      "crop": {
+        "left": 146,
+        "top": 92,
+        "width": 619,
+        "height": 744
+      },
+      "displayFile": "prepared/or_gaule.png"
+    },
+    {
+      "id": "wallenstein",
+      "sourceFile": "novel/or-gaule-wallenstein.jpg",
+      "crop": {
+        "left": 1061,
+        "top": 35,
+        "width": 419,
+        "height": 504
+      },
+      "displayFile": "prepared/wallenstein.png"
+    },
+    {
+      "id": "kiriko",
+      "sourceFile": "novel/kiriko.jpg",
+      "crop": {
+        "left": 1541,
+        "top": 240,
+        "width": 749,
+        "height": 900
+      },
+      "displayFile": "prepared/kiriko.png",
+      "orientation": {
+        "method": "level-eye-line",
+        "sourceEyes": [
+          [
+            1712,
+            492
+          ],
+          [
+            1986,
+            599
+          ]
+        ],
+        "rotationDegrees": -21.331189529861557,
+        "rotatedWidth": 2837,
+        "rotatedHeight": 2510,
+        "cropSpace": "after-rotation"
+      }
+    },
+    {
+      "id": "sara",
+      "sourceFile": "novel/sara.jpg",
+      "crop": {
+        "left": 600,
+        "top": 1260,
+        "width": 599,
+        "height": 720
+      },
+      "displayFile": "prepared/sara.png",
+      "orientation": {
+        "method": "level-eye-line",
+        "sourceEyes": [
+          [
+            659,
+            416
+          ],
+          [
+            767,
+            519
+          ]
+        ],
+        "rotationDegrees": -43.64253415546939,
+        "rotatedWidth": 2844,
+        "rotatedHeight": 2821,
+        "cropSpace": "after-rotation"
+      }
+    },
+    {
+      "id": "rinna",
+      "sourceFile": "novel/rinna-colorized.png",
+      "crop": {
+        "left": 310,
+        "top": 370,
+        "width": 817,
+        "height": 982
+      },
+      "displayFile": "prepared/rinna.png",
+      "orientation": {
+        "method": "level-eye-line",
+        "sourceEyes": [
+          [
+            356,
+            740
+          ],
+          [
+            628,
+            817
+          ]
+        ],
+        "rotationDegrees": -15.806193600678467,
+        "landmarkNote": "左点是眼罩覆盖的眼位中心，未推定被遮住瞳孔的外观。",
+        "rotatedWidth": 1421,
+        "rotatedHeight": 1723,
+        "cropSpace": "after-rotation"
+      }
+    },
+    {
+      "id": "ein",
+      "sourceFile": "novel/ein.jpg",
+      "crop": {
+        "left": 755,
+        "top": 920,
+        "width": 259,
+        "height": 312
+      },
+      "displayFile": "prepared/ein.png",
+      "orientation": {
+        "method": "level-eye-line",
+        "sourceEyes": [
+          [
+            693,
+            517
+          ],
+          [
+            726,
+            551
+          ]
+        ],
+        "rotationDegrees": -45.85509739626672,
+        "rotatedWidth": 2027,
+        "rotatedHeight": 2037,
+        "cropSpace": "after-rotation"
+      }
+    },
+    {
+      "id": "rai",
+      "sourceFile": "novel/rai-colorized.png",
+      "crop": {
+        "left": 455,
+        "top": 416,
+        "width": 835,
+        "height": 1004
+      },
+      "displayFile": "prepared/rai.png",
+      "orientation": {
+        "method": "level-eye-line",
+        "sourceEyes": [
+          [
+            387,
+            719
+          ],
+          [
+            632,
+            568
+          ]
+        ],
+        "rotationDegrees": 31.646629792759,
+        "rotatedWidth": 1693,
+        "rotatedHeight": 1776,
+        "cropSpace": "after-rotation"
+      }
+    },
+    {
+      "id": "momiji",
+      "sourceFile": "novel/byakuya-momiji.jpg",
+      "crop": {
+        "left": 411,
+        "top": 856,
+        "width": 439,
+        "height": 528
+      },
+      "displayFile": "prepared/momiji.png",
+      "orientation": {
+        "method": "level-eye-line",
+        "sourceEyes": [
+          [
+            220,
+            1243
+          ],
+          [
+            306,
+            1170
+          ]
+        ],
+        "rotationDegrees": 40.32583628886923,
+        "rotatedWidth": 2942,
+        "rotatedHeight": 2876,
+        "cropSpace": "after-rotation"
+      }
+    },
+    {
+      "id": "byakuya",
+      "sourceFile": "novel/byakuya-momiji.jpg",
+      "crop": {
+        "left": 841,
+        "top": 660,
+        "width": 479,
+        "height": 576
+      },
+      "displayFile": "prepared/byakuya.png",
+      "orientation": {
+        "method": "level-eye-line",
+        "sourceEyes": [
+          [
+            495,
+            872
+          ],
+          [
+            587,
+            789
+          ]
+        ],
+        "rotationDegrees": 42.05595365001238,
+        "rotatedWidth": 2936,
+        "rotatedHeight": 2894,
+        "cropSpace": "after-rotation"
+      }
+    },
+    {
+      "id": "mikoto",
+      "sourceFile": "color/mikoto-colorized.png",
+      "crop": {
+        "left": 164,
+        "top": 53,
+        "width": 764,
+        "height": 918
+      },
+      "displayFile": "prepared/mikoto.png"
     }
   ]
 }

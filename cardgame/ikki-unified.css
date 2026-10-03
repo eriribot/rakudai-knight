@@ -1,0 +1,115 @@
+@charset "UTF-8";
+
+/*
+ * Unified Ikki artwork. Load AFTER actors.css and any historical Ikki styles.
+ * The head and body always come from the same complete drawing.
+ * Old separated-head nodes may remain in saved markup, but are never displayed.
+ *
+ * Idle source: 1024 x 1536.
+ * Main alpha > 16 bounds: [57,28,1006,1510), including the extended sword.
+ * Both shoes occupy x=57..672 below y=1380, giving a stance center x=364.5.
+ * The front sole reaches y=1509; the rear foot is higher due to perspective.
+ */
+:is(.combat-stage .actor-ikki, .ikki-frame-thumbnail) {
+  --ikki-ground-offset: calc(var(--actor-height) * .004);
+  --ikki-idle-anchor-x: 364.5;
+  --ikki-idle-anchor-y: 1509;
+}
+
+:is(.combat-stage .actor-ikki, .ikki-frame-thumbnail) .actor-head {
+  display: none;
+}
+
+/* Whole-figure fallback for every pose; old motion art can never leak through. */
+:is(.combat-stage .actor-ikki, .ikki-frame-thumbnail)[data-pose] .actor-sprite {
+  inset: auto;
+  left: calc(50% - var(--actor-height) * var(--ikki-idle-anchor-x) / 1536);
+  bottom: calc(var(--ikki-ground-offset) - var(--actor-height) * (1536 - var(--ikki-idle-anchor-y)) / 1536);
+  width: calc(var(--actor-height) * 1024 / 1536);
+  height: var(--actor-height);
+  margin: 0;
+  background-image: url('assets/ikki-unified-profile.png');
+  background-size: 100% 100%;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  clip-path: none;
+  transform: none;
+  animation: none;
+}
+
+/*
+ * Unified motion source: 1536 x 1024. Whole-character frames, including heads.
+ * Cell rectangles use the measured main alpha component plus edge allowance.
+ * All six component rectangles are separated; no head masks or inter-frame
+ * exclusion polygons are needed. Head, hair, sleeves and sword stay together.
+ * Feet anchors use both shoes' footprint in the last 25 px of the main shape.
+ *
+ * pose     crop x,y,w,h         feet x,y
+ * walk-a   46,11,461,490        228,496
+ * walk-b   621,12,387,488       761,496
+ * walk-c   1070,11,435,487      1265,490
+ * windup   88,513,352,498       269,1006
+ * slash    529,567,588,428      745,989
+ * guard    1150,521,363,491     1278,1008
+ *
+ * Contract for live actors and thumbnails:
+ * --ikki-unit is one source pixel as a CSS length;
+ * --ikki-frame-w / --ikki-frame-h are source-pixel numbers.
+ */
+:is(.combat-stage .actor-ikki, .ikki-frame-thumbnail) {
+  --ikki-frame-scale: 1;
+  --ikki-unit: calc(var(--actor-height) * var(--ikki-frame-scale) / 480);
+}
+
+:is(.combat-stage .actor-ikki, .ikki-frame-thumbnail)[data-pose="walk-a"] {
+  --ikki-src-x: 46; --ikki-src-y: 11;
+  --ikki-frame-w: 461; --ikki-frame-h: 490;
+  --ikki-anchor-x: 228; --ikki-anchor-y: 496;
+}
+
+:is(.combat-stage .actor-ikki, .ikki-frame-thumbnail)[data-pose="walk-b"] {
+  --ikki-src-x: 621; --ikki-src-y: 12;
+  --ikki-frame-w: 387; --ikki-frame-h: 488;
+  --ikki-anchor-x: 761; --ikki-anchor-y: 496;
+}
+
+:is(.combat-stage .actor-ikki, .ikki-frame-thumbnail)[data-pose="walk-c"] {
+  --ikki-src-x: 1070; --ikki-src-y: 11;
+  --ikki-frame-w: 435; --ikki-frame-h: 487;
+  --ikki-anchor-x: 1265; --ikki-anchor-y: 490;
+}
+
+:is(.combat-stage .actor-ikki, .ikki-frame-thumbnail)[data-pose="windup"] {
+  --ikki-src-x: 88; --ikki-src-y: 513;
+  --ikki-frame-w: 352; --ikki-frame-h: 498;
+  --ikki-anchor-x: 269; --ikki-anchor-y: 1006;
+}
+
+:is(.combat-stage .actor-ikki, .ikki-frame-thumbnail)[data-pose="slash"] {
+  --ikki-src-x: 529; --ikki-src-y: 567;
+  --ikki-frame-w: 588; --ikki-frame-h: 428;
+  --ikki-anchor-x: 745; --ikki-anchor-y: 989;
+}
+
+:is(.combat-stage .actor-ikki, .ikki-frame-thumbnail)[data-pose="guard"] {
+  --ikki-src-x: 1150; --ikki-src-y: 521;
+  --ikki-frame-w: 363; --ikki-frame-h: 491;
+  --ikki-anchor-x: 1278; --ikki-anchor-y: 1008;
+}
+
+:is(.combat-stage .actor-ikki, .ikki-frame-thumbnail):is([data-pose="walk-a"], [data-pose="walk-b"], [data-pose="walk-c"], [data-pose="windup"], [data-pose="slash"], [data-pose="guard"]) .actor-sprite {
+  inset: auto;
+  left: calc(50% - var(--ikki-unit) * (var(--ikki-anchor-x) - var(--ikki-src-x)));
+  bottom: calc(var(--ikki-ground-offset) - var(--ikki-unit) * (var(--ikki-src-y) + var(--ikki-frame-h) - var(--ikki-anchor-y)));
+  width: calc(var(--ikki-unit) * var(--ikki-frame-w));
+  height: calc(var(--ikki-unit) * var(--ikki-frame-h));
+  margin: 0;
+  background-image: url('assets/ikki-unified-motion.png');
+  background-size: calc(var(--ikki-unit) * 1536) calc(var(--ikki-unit) * 1024);
+  background-position: calc(var(--ikki-unit) * var(--ikki-src-x) * -1) calc(var(--ikki-unit) * var(--ikki-src-y) * -1);
+  background-repeat: no-repeat;
+  clip-path: none;
+  animation: none;
+  transform: none;
+}
+

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "ikki-profile-ep05.jpg",
+  "sourceUrl": "https://ittoshura.com/story/img/onair_p05_6.jpg",
+  "sourcePage": "https://ittoshura.com/story/epsode5.html",
+  "width": 620,
+  "height": 349,
+  "sha256": "18cf2916e60b44fb8c8a0df6aa4bb2688d0fc5c93f84637726845a7439b3ffd7",
+  "originalBytesUnchanged": true,
+  "visuallyInspected": true,
+  "selectedAfterReview": "All 72 official episode gallery stills, episodes 1-12.",
+  "scene": "Ikki at left looks screen-right toward Stella. Quiet closed-mouth profile; ordinary skin and dark hair with slight ambient pink light.",
+  "limitation": "Crown touches the original upper frame boundary; no missing hair is reconstructed.",
+  "cssCrop": {
+    "x": 111,
+    "y": 1,
+    "width": 177,
+    "height": 183,
+    "neckAnchor": {
+      "x": 174,
+      "y": 183
+    },
+    "silhouettePointCount": 168
+  },
+  "alternatives": [
+    {
+      "file": "ikki-web/ikki-ep12-05-blue-sword-profile.jpg",
+      "reason": "True right-facing battle profile but strong blue glow and cropped hair."
+    },
+    {
+      "file": "ikki-web/ikki-ep04-03-gentle-three-quarter.jpg",
+      "reason": "Gentle rightward three-quarter face but sunset color and left hair clipped."
+    }
+  ]
+}

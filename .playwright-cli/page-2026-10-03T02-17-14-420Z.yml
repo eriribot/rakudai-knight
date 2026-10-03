@@ -1,0 +1,150 @@
+- main [ref=e2]:
+  - generic [ref=e3]:
+    - link "重新開啟一刀之間" [ref=e4] [cursor=pointer]:
+      - /url: ./index.html
+      - generic [ref=e5]: 斬
+      - generic [ref=e6]:
+        - text: 落第騎士英雄譚
+        - generic [ref=e7]: CHIVALRY OF A FAILED KNIGHT
+    - generic [ref=e8]:
+      - generic [ref=e9]: "01"
+      - text: 破軍學園
+      - generic [ref=e11]: /
+      - text: 模擬戰
+    - navigation "展示工具" [ref=e12]:
+      - generic [ref=e13]: CONCEPT DEMO
+      - button "開啟音效" [ref=e14] [cursor=pointer]: ♪
+      - button "玩法說明" [ref=e15] [cursor=pointer]: "?"
+      - button "切換全螢幕" [ref=e16] [cursor=pointer]: ⛶
+  - region "一輝與史黛菈的戰場" [ref=e17]:
+    - img "暮色中的破軍學園訓練競技場"
+    - generic [ref=e18]:
+      - text: SWORD, WILL & DESTINY
+      - heading "一刀之間" [level=1] [ref=e19]
+      - paragraph [ref=e20]: 以最弱之名，挑戰最強。
+    - generic [ref=e21]:
+      - generic [ref=e23]: ROUND 01
+      - generic [ref=e25]: 你的回合
+    - generic [ref=e26]:
+      - generic [ref=e27]: ⌁
+      - generic [ref=e28]:
+        - generic [ref=e29]: 對手意圖 INTENT
+        - strong [ref=e30]: 烈焰斬
+        - paragraph [ref=e31]: 回合結束時造成 8 點傷害。
+      - generic [ref=e32]: "8"
+    - generic [ref=e34]: VS
+    - generic:
+      - img "黑鐵一輝的動畫風格戰鬥小人"
+      - img "史黛菈的動畫風格戰鬥小人"
+    - generic [aria-hidden]:
+      - generic: ITTO SHURA
+      - strong: 一刀修羅
+      - text: 將所有可能，賭在這一瞬。
+    - article "黑鐵一輝狀態" [ref=e35]:
+      - generic [ref=e36]:
+        - generic [ref=e37]: F
+        - generic [ref=e38]:
+          - text: 落第騎士 · WORST ONE
+          - heading "黑鐵一輝" [level=2] [ref=e39]
+        - generic [ref=e40]: PLAYER
+      - generic [ref=e41]:
+        - generic [ref=e42]:
+          - text: 體力 48
+          - emphasis [ref=e43]: / 48
+        - generic [ref=e44]: ◇ 格擋 0
+      - meter "一輝體力" [ref=e45]
+      - generic [ref=e47]: 劍術的極致，不由天賦決定。
+    - article "史黛菈狀態" [ref=e50]:
+      - generic [ref=e51]:
+        - generic [ref=e52]: A
+        - generic [ref=e53]:
+          - text: 紅蓮皇女 · CRIMSON PRINCESS
+          - heading "史黛菈・法米利昂" [level=2] [ref=e54]
+        - generic [ref=e55]: RIVAL
+      - generic [ref=e56]:
+        - generic [ref=e57]:
+          - text: 體力 72
+          - emphasis [ref=e58]: / 72
+        - generic [ref=e59]: ◇ 格擋 0
+      - meter "史黛菈體力" [ref=e60]
+      - generic [ref=e62]: 赤色的劍鋒，燃盡一切猶疑。
+    - status [ref=e65]: 先看她的下一招，再決定你的第一劍。
+  - region "出牌區" [ref=e66]:
+    - generic [ref=e67]:
+      - generic [ref=e68]:
+        - generic [ref=e70]: 選擇你的招式
+        - emphasis [ref=e71]: 5 張手牌
+      - generic [ref=e72]:
+        - text: 懸停查看 · 點擊出牌
+        - generic [ref=e73]: 1–6
+    - generic [ref=e74]:
+      - complementary [ref=e75]:
+        - generic [ref=e76]:
+          - generic [ref=e77]: "3"
+          - emphasis [ref=e78]: / 3
+        - strong [ref=e79]: 行動點
+        - generic [ref=e80]: ACTION POINTS
+        - button "▱ 抽牌堆 5" [ref=e85] [cursor=pointer]:
+          - generic [ref=e86]: ▱
+          - text: 抽牌堆
+          - generic [ref=e87]: "5"
+      - generic "手牌" [ref=e89]:
+        - button "看破，0 行動點。抽 1 張牌。本回合下一張攻擊牌傷害 +4。" [ref=e90] [cursor=pointer]:
+          - generic [ref=e91]: "0"
+          - heading "看破" [level=3] [ref=e93]
+          - generic [ref=e94]: 洞察
+          - generic [ref=e95]: 抽 1 張牌。本回合下次攻擊 +4。
+          - generic [ref=e97]:
+            - generic [ref=e98]: INSIGHT
+            - generic [ref=e99]: "1"
+        - button "受身，1 行動點。獲得 8 點格擋。" [ref=e100] [cursor=pointer]:
+          - generic [ref=e101]: "1"
+          - heading "受身" [level=3] [ref=e103]
+          - generic [ref=e104]: 防禦
+          - generic [ref=e105]: 獲得 8 點格擋。
+          - generic [ref=e106]:
+            - generic [ref=e107]: DEFENSE
+            - generic [ref=e108]: "2"
+        - button "返擊，1 行動點。造成 6 點傷害。若已有格擋，改為 12 點。" [ref=e109] [cursor=pointer]:
+          - generic [ref=e110]: "1"
+          - heading "返擊" [level=3] [ref=e112]
+          - generic [ref=e113]: 連攜
+          - generic [ref=e114]: 造成 6 點傷害。已有格擋時，改為 12。
+          - generic [ref=e115]:
+            - generic [ref=e116]: COUNTER
+            - generic [ref=e117]: "3"
+        - button "斬擊，1 行動點。造成 7 點傷害。" [ref=e118] [cursor=pointer]:
+          - generic [ref=e119]: "1"
+          - heading "斬擊" [level=3] [ref=e121]
+          - generic [ref=e122]: 攻擊
+          - generic [ref=e123]: 造成 7 點傷害。
+          - generic [ref=e124]:
+            - generic [ref=e125]: INTETSU
+            - generic [ref=e126]: "4"
+        - button "一刀修羅，2 行動點。造成 24 點傷害。失去 6 點生命。本場戰鬥移除。" [ref=e127] [cursor=pointer]:
+          - generic [ref=e128]: "2"
+          - heading "一刀修羅" [level=3] [ref=e130]
+          - generic [ref=e131]: 終結
+          - generic [ref=e132]: 造成 24 點傷害。自損 6 體力。本場移除。
+          - generic [ref=e134]:
+            - generic [ref=e135]: ITTO SHURA
+            - generic [ref=e136]: "5"
+      - complementary [ref=e137]:
+        - button "結束回合 END TURN SPACE →" [ref=e138] [cursor=pointer]:
+          - text: 結束回合
+          - generic [ref=e139]:
+            - text: END TURN
+            - generic [ref=e140]: SPACE
+          - generic [ref=e141]: →
+        - paragraph [ref=e142]: 對手將造成 8 點傷害
+        - button "▱ 棄牌堆 0" [ref=e143] [cursor=pointer]:
+          - generic [ref=e144]: ▱
+          - text: 棄牌堆
+          - generic [ref=e145]: "0"
+        - button "▷ 演示連招" [ref=e146] [cursor=pointer]
+  - generic [ref=e147]:
+    - generic [ref=e148]: 概念试玩 · 演示數值
+    - generic [ref=e150]: 讀懂對手。掌握節奏。超越極限。
+    - button "↻ 重新開局 R" [ref=e151] [cursor=pointer]:
+      - text: ↻ 重新開局
+      - generic [ref=e152]: R

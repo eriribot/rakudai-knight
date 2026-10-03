@@ -1,0 +1,213 @@
+{
+  "schemaVersion": 1,
+  "review": "Four new knight avatars: source identity bytes, hashes, closed shield pixels, existing 13 regression",
+  "scope": "Read-only production inspection; only this review report is written",
+  "sources": {
+    "newCharacters": [
+      {
+        "id": "kiriko",
+        "archivedFile": "novel/kiriko.jpg",
+        "sourceEpub": "39688/[台版]落第骑士英雄谭 05.epub",
+        "sourceMember": "OEBPS/Images/004.jpg",
+        "archivedBytes": 789804,
+        "epubExactBytesMatch": true,
+        "archivedShaMatchesManifest": true,
+        "preparedSourceFile": "novel/kiriko.jpg",
+        "preparedSourceShaMatches": true,
+        "preparedFile": "prepared/kiriko.png",
+        "preparedShaMatches": true,
+        "eyeLineResidualSourcePixels": 0,
+        "rotationDegrees": -21.331189529861557,
+        "sourceStyle": "novel-color-illustration"
+      },
+      {
+        "id": "sara",
+        "archivedFile": "novel/sara.jpg",
+        "sourceEpub": "39688/[台版]落第骑士英雄谭 06.epub",
+        "sourceMember": "OEBPS/Images/005.jpg",
+        "archivedBytes": 728474,
+        "epubExactBytesMatch": true,
+        "archivedShaMatchesManifest": true,
+        "preparedSourceFile": "novel/sara.jpg",
+        "preparedSourceShaMatches": true,
+        "preparedFile": "prepared/sara.png",
+        "preparedShaMatches": true,
+        "eyeLineResidualSourcePixels": 0,
+        "rotationDegrees": -43.64253415546939,
+        "sourceStyle": "novel-color-illustration"
+      },
+      {
+        "id": "rinna",
+        "archivedFile": "novel/rinna-original.jpg",
+        "sourceEpub": "39688/[台版]落第骑士英雄谭 05.epub",
+        "sourceMember": "OEBPS/Images/007.jpg",
+        "archivedBytes": 210468,
+        "epubExactBytesMatch": true,
+        "archivedShaMatchesManifest": true,
+        "preparedSourceFile": "novel/rinna-colorized.png",
+        "preparedSourceShaMatches": true,
+        "preparedFile": "prepared/rinna.png",
+        "preparedShaMatches": true,
+        "eyeLineResidualSourcePixels": 0,
+        "rotationDegrees": -15.806193600678467,
+        "sourceStyle": "novel-monochrome-illustration",
+        "derivativeType": "ai-colorized-derivative",
+        "derivativeIsOfficialColorIllustration": false,
+        "derivativeDeclarationMatches": true,
+        "colorizationRecordExists": true
+      },
+      {
+        "id": "ein",
+        "archivedFile": "novel/ein.jpg",
+        "sourceEpub": "39688/[台版]落第骑士英雄谭 13.epub",
+        "sourceMember": "OEBPS/Images/004.jpg",
+        "archivedBytes": 790667,
+        "epubExactBytesMatch": true,
+        "archivedShaMatchesManifest": true,
+        "preparedSourceFile": "novel/ein.jpg",
+        "preparedSourceShaMatches": true,
+        "preparedFile": "prepared/ein.png",
+        "preparedShaMatches": true,
+        "eyeLineResidualSourcePixels": 3.552713678800501e-15,
+        "rotationDegrees": -45.85509739626672,
+        "sourceStyle": "novel-color-illustration"
+      }
+    ],
+    "regression": {
+      "basis": "captured current-manifest/file SHA baseline; no Git HEAD comparison",
+      "baselineFile": "research/review/prepared-baseline-13-before-new4.json",
+      "count": 13,
+      "characters": [
+        {
+          "id": "nagi",
+          "shaMatchesCapturedBaseline": true,
+          "shaMatchesCurrentManifest": true
+        },
+        {
+          "id": "kirihara",
+          "shaMatchesCapturedBaseline": true,
+          "shaMatchesCurrentManifest": true
+        },
+        {
+          "id": "kuraudo",
+          "shaMatchesCapturedBaseline": true,
+          "shaMatchesCurrentManifest": true
+        },
+        {
+          "id": "renren",
+          "shaMatchesCapturedBaseline": true,
+          "shaMatchesCurrentManifest": true
+        },
+        {
+          "id": "misogi",
+          "shaMatchesCapturedBaseline": true,
+          "shaMatchesCurrentManifest": true
+        },
+        {
+          "id": "kanata",
+          "shaMatchesCapturedBaseline": true,
+          "shaMatchesCurrentManifest": true
+        },
+        {
+          "id": "nene",
+          "shaMatchesCapturedBaseline": true,
+          "shaMatchesCurrentManifest": true
+        },
+        {
+          "id": "kurono",
+          "shaMatchesCapturedBaseline": true,
+          "shaMatchesCurrentManifest": true
+        },
+        {
+          "id": "yuri",
+          "shaMatchesCapturedBaseline": true,
+          "shaMatchesCurrentManifest": true
+        },
+        {
+          "id": "iris",
+          "shaMatchesCapturedBaseline": true,
+          "shaMatchesCurrentManifest": true
+        },
+        {
+          "id": "uri",
+          "shaMatchesCapturedBaseline": true,
+          "shaMatchesCurrentManifest": true
+        },
+        {
+          "id": "or_gaule",
+          "shaMatchesCapturedBaseline": true,
+          "shaMatchesCurrentManifest": true
+        },
+        {
+          "id": "wallenstein",
+          "shaMatchesCapturedBaseline": true,
+          "shaMatchesCurrentManifest": true
+        }
+      ]
+    }
+  },
+  "pixels": {
+    "maskMethod": "independent flood-fill from known interior point; source alpha<16; resized monochrome single-channel",
+    "maskArea": 866460,
+    "maskChannels": 1,
+    "characters": [
+      {
+        "id": "kiriko",
+        "size": [
+          434,
+          580
+        ],
+        "coreAlphaBelow255": 0,
+        "coreAlphaZero": 0,
+        "outsideAlphaDifferencePixels": 0,
+        "outsideVisibleRGBDifferencePixels": 0,
+        "flowerHoleExtraAlphaPixels": 0,
+        "portraitAlphaPixels": 139296,
+        "colorPixels": 131256
+      },
+      {
+        "id": "sara",
+        "size": [
+          434,
+          580
+        ],
+        "coreAlphaBelow255": 0,
+        "coreAlphaZero": 0,
+        "outsideAlphaDifferencePixels": 0,
+        "outsideVisibleRGBDifferencePixels": 0,
+        "flowerHoleExtraAlphaPixels": 0,
+        "portraitAlphaPixels": 139296,
+        "colorPixels": 124137
+      },
+      {
+        "id": "rinna",
+        "size": [
+          434,
+          580
+        ],
+        "coreAlphaBelow255": 0,
+        "coreAlphaZero": 0,
+        "outsideAlphaDifferencePixels": 0,
+        "outsideVisibleRGBDifferencePixels": 0,
+        "flowerHoleExtraAlphaPixels": 0,
+        "portraitAlphaPixels": 139296,
+        "colorPixels": 134189
+      },
+      {
+        "id": "ein",
+        "size": [
+          434,
+          580
+        ],
+        "coreAlphaBelow255": 0,
+        "coreAlphaZero": 0,
+        "outsideAlphaDifferencePixels": 0,
+        "outsideVisibleRGBDifferencePixels": 0,
+        "flowerHoleExtraAlphaPixels": 0,
+        "portraitAlphaPixels": 139296,
+        "colorPixels": 94709
+      }
+    ]
+  },
+  "passed": true
+}

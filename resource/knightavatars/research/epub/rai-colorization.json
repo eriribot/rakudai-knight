@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "id": "rai",
+  "name": "碎城雷",
+  "assetType": "ai-colorized-user-supplied-novel-portrait",
+  "mode": "built-in",
+  "tool": "image_gen__imagegen",
+  "intent": "edit",
+  "useCase": "identity-preserve",
+  "transparentBackground": false,
+  "identityBasis": "碎城雷由用户指定，并与第9卷007.jpg及第7卷具名PROFILE核对；rai为本地稳定ID。",
+  "finalPrompt": "Use case: identity-preserve.\nAsset type: colorized light-novel portrait of Saijou Rai / 碎城雷 for a companion avatar.\nPrimary request: colorize ONLY Image 1, the existing black-and-white novel drawing. Add color inside the existing illustration; keep the novel artist's line art, exact facial structure, pose, expression and composition. This is a color edit, not an anime redesign or a new portrait.\nInput images: Image 1 is the ONLY edit target, a 507×621 grayscale crop of a buzz-cut male student leaning diagonally, with a tense expression, sweat marks and a white jacket with black piping. Image 2 is ONLY a palette reference from the anime. Borrow its dark gray buzz-cut hair, natural skin color, dark irises, white uniform and dark inner high collar. Do not copy Image 2's upright pose, calm expression, anime facial proportions, garment geometry, certificate, UI, thumbnail border, text or background.\nScene/backdrop: retain Image 1's gray-white background and every existing scene outline. The partial neighboring person at the far right remains exactly the same cropped silhouette, in neutral gray colors; do not add a face, invent missing anatomy, or introduce a complete second character.\nSubject invariants: preserve the target's buzz-cut hairline and head shape, sharply drawn eyebrows, narrow eyes, nose, tilted mouth, visible teeth, strained expression and sweat marks. Preserve his diagonal head and shoulders, the original uniform folds, black piping, lapel/collar outlines and dark high-collared inner garment. Do not straighten his posture or change his eyes or mouth to match the anime.\nColor palette: dark charcoal-gray buzz cut; natural light skin; very dark brown/black pupils and irises; white outer uniform with its original black piping; dark charcoal inner high-collar clothing. The anime's muted brown/taupe lapel color may be applied only if an already enclosed corresponding lapel/inner facing region exists in the novel drawing; never create new panels, seams or lapels to imitate the anime. Keep white areas white and preserve all original shadows, hatching and printed tones.\nStyle/medium: preserve the monochrome novel's drawing style and ink contours, with restrained flat color and subtle shading. No anime-style redrawing, no change of identity, no smoothing away the original tense expression.\nConstraints: keep the same portrait crop boundaries and aspect ratio. Opaque background, no transparency. No shield frame, no text, no added logo or watermark, no UI, no certificate, no additional props. Do not alter the line-art scene or invent any new pose. Colorize Image 1 while keeping its original facial details and uniform structure.",
+  "inputs": [
+    {
+      "path": "resource/knightavatars/novel/rai-original.png",
+      "userAttachmentPath": "C:/Users/eriri/AppData/Local/Temp/codex-clipboard-3ed5662e-4fa2-4de2-83ce-f580f54b57b8.png",
+      "width": 507,
+      "height": 621,
+      "mode": "RGB",
+      "sha256": "c34b989c39847bd04f5f69e3628d35b1a3128c4294e3a8631cc0ba594df52acd",
+      "byteIdenticalToAttachment": true,
+      "role": "only-edit-target",
+      "sourceType": "user-supplied-novel-line-art",
+      "note": "用户提供的第9卷007.jpg小说头像裁片，原byte保留；完整EPUB原始JPG另存rai-original.jpg，二者SHA分别记录。",
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 09.epub",
+      "sourceMember": "OEBPS/Images/007.jpg"
+    },
+    {
+      "path": "resource/knightavatars/research/user-supplied/rai-anime-reference.png",
+      "userAttachmentPath": "C:/Users/eriri/AppData/Local/Temp/codex-clipboard-b363ab2c-67f8-449e-9daf-ede14036a89d.png",
+      "width": 412,
+      "height": 250,
+      "mode": "RGB",
+      "sha256": "d287777368fc0bfee61abf49c938bf4625900003f82202e15b5ce7a44505a7e0",
+      "byteIdenticalToAttachment": true,
+      "role": "anime-color-palette-only",
+      "sourceType": "user-supplied-anime-screenshot",
+      "note": "仅参考寸头、肤色、深色瞳孔和制服颜色。参考图内的脸型、姿势、表情、奖状、UI、文字及服装新结构不作为生成内容。按原byte保存。"
+    }
+  ],
+  "output": {
+    "path": "resource/knightavatars/novel/rai-colorized.png",
+    "width": 1133,
+    "height": 1388,
+    "mode": "RGB",
+    "sha256": "73fee756e7be1c0ae8befd0bc4049db6c144465be8512f36d5d593d3387940ea"
+  },
+  "generatedOriginal": "C:/Users/eriri/.codex/generated_images/01a0f276-5081-76d1-a56c-983c63c75001/exec-40d266c0-376f-4a57-8d8c-5a2ac1644ca0.png",
+  "visualReview": {
+    "passed": true,
+    "observed": [
+      "保留小说寸头和发际线、脸形、原眉眼和嘴部咬牙表情、汗滴。",
+      "保持原来的斜向头肩构图与制服轮廓。",
+      "头发为深灰、皮肤为自然肤色、眼睛为深色。",
+      "白制服、黑滚边、深色高领内衣保留；未新增动画棕褐襟片结构。",
+      "右侧邻近人物仍为原来裁断的部分灰色轮廓，没有新增完整脸部。",
+      "背景保持灰白不透明，没有奖状、UI、文字、盾框或新姿势。"
+    ],
+    "limitations": "内置生成式编辑会重绘/放大线条，不声称与用户原线稿逐像素完全一致；本图为AI上色衍生图，不标为官方原生彩图。"
+  },
+  "preservedOriginal": "resource/knightavatars/novel/rai-original.png",
+  "scope": "保存用户两张输入、AI上色结果及记录；主清单另保存完整EPUB原图，供来源校验和后续裁盾。",
+  "identityEvidence": "resource/knightavatars/research/epub/character-evidence.json#rai",
+  "epubOriginal": {
+    "path": "resource/knightavatars/novel/rai-original.jpg",
+    "sourceEpub": "39688/[台版]落第骑士英雄谭 09.epub",
+    "sourceMember": "OEBPS/Images/007.jpg",
+    "sha256": "522938ed04fd940dc5d2c6465b4f377b527736a8b4df7418e26954301b6908ef"
+  }
+}

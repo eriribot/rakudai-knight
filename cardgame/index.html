@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#101722">
+  <title>落第騎士英雄譚 · 一刀之間</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="card-art.css">
+  <link rel="stylesheet" href="actors.css">
+  <link rel="stylesheet" href="stella-frames.css">
+  <link rel="stylesheet" href="ikki-unified.css">
+
+
+  <script defer src="battle.js"></script>
+  <script defer src="actors.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <main class="game" id="game">
+    <header class="topbar">
+      <a class="brand" href="./index.html" aria-label="重新開啟一刀之間"><span class="brand-mark">斬</span><span>落第騎士英雄譚<small>CHIVALRY OF A FAILED KNIGHT</small></span></a>
+      <div class="location"><span class="gold">01</span><span class="divider"></span>破軍學園<span class="location-sep">/</span>模擬戰</div>
+      <nav class="tools" aria-label="展示工具"><a class="reference-link" href="references.html">素材對照 ↗</a><a class="reference-link motion-link" href="motion.html">動作預覽 ↗</a><button id="sound" class="icon-btn" aria-label="開啟音效" title="開啟音效">♪</button><button id="help" class="icon-btn" aria-label="玩法說明" title="玩法說明">?</button><button id="fullscreen" class="icon-btn" aria-label="切換全螢幕" title="全螢幕">⛶</button></nav>
+    </header>
+
+    <section class="arena" id="arena" aria-label="一輝與史黛菈的戰場">
+      <div class="arena-art" role="img" aria-label="暮色中的破軍學園訓練競技場"></div>
+      <div class="arena-shade"></div><div class="arena-grain"></div>
+      <div class="embers" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="scene-heading"><span class="eyebrow">SWORD, WILL & DESTINY</span><h1>一刀之間</h1><p>以最弱之名，挑戰最強。</p></div>
+      <div class="round"><span class="round-line"></span><span id="turn-label">ROUND 01</span><span class="round-line"></span><small id="phase-label">你的回合</small></div>
+      <div class="intent" id="intent" aria-live="polite"><span class="intent-icon" id="intent-icon">⌁</span><div><small>對手意圖 <span>INTENT</span></small><strong id="intent-name">烈焰斬</strong><p id="intent-description">回合結束時，造成 8 點傷害</p></div><b id="intent-amount">8</b></div>
+      <div class="duel-mark" aria-hidden="true"><span>VS</span></div>
+      <div class="combat-stage" id="combat-stage">
+        <div class="actor actor-ikki" id="actor-player" role="img" aria-label="黑鐵一輝：完整側身戰鬥人物" data-pose="idle"><div class="actor-shadow"></div><div class="actor-sprite"></div><div class="actor-aura"></div></div>
+        <div class="actor actor-stella" id="actor-enemy" role="img" aria-label="史黛菈的動畫風格戰鬥小人" data-pose="idle"><div class="actor-shadow"></div><div class="actor-sprite"></div><div class="actor-aura"></div></div>
+      </div>
+      <div class="impact" id="impact" aria-hidden="true"></div><div class="float-layer" id="float-layer" aria-hidden="true"></div>
+      <div class="cutin" id="cutin" aria-hidden="true"><small>ITTO SHURA</small><strong>一刀修羅</strong><span>將所有可能，賭在這一瞬。</span></div>
+
+      <article class="fighter player" aria-label="黑鐵一輝狀態">
+        <div class="fighter-top"><span class="rank">F</span><div><small>落第騎士 · WORST ONE</small><h2>黑鐵一輝</h2></div><span class="fighter-side">PLAYER</span></div>
+        <div class="hp-label"><span>體力 <b id="player-hp">48</b><em>/ 48</em></span><span class="block-stat">◇ 格擋 <b id="player-block">0</b></span></div>
+        <div class="hp-track" role="meter" aria-label="一輝體力" aria-valuemin="0" aria-valuemax="48" aria-valuenow="48" id="player-meter"><span id="player-hp-fill"></span></div>
+        <div class="trait"><span class="trait-dot"></span><span id="player-trait">劍術的極致，不由天賦決定。</span></div>
+      </article>
+      <article class="fighter enemy" aria-label="史黛菈狀態">
+        <div class="fighter-top"><span class="rank">A</span><div><small>紅蓮皇女 · CRIMSON PRINCESS</small><h2>史黛菈・法米利昂</h2></div><span class="fighter-side">RIVAL</span></div>
+        <div class="hp-label"><span>體力 <b id="enemy-hp">72</b><em>/ 72</em></span><span class="block-stat">◇ 格擋 <b id="enemy-block">0</b></span></div>
+        <div class="hp-track" role="meter" aria-label="史黛菈體力" aria-valuemin="0" aria-valuemax="72" aria-valuenow="72" id="enemy-meter"><span id="enemy-hp-fill"></span></div>
+        <div class="trait"><span class="trait-dot"></span><span>赤色的劍鋒，燃盡一切猶疑。</span></div>
+      </article>
+      <div class="battle-message" id="battle-message" role="status">先看她的下一招，再決定你的第一劍。</div>
+    </section>
+
+    <section class="command-zone" aria-label="出牌區">
+      <div class="hand-caption"><span><i></i> <b id="hand-title">選擇你的招式</b><em id="hand-count">5 張手牌</em></span><span class="hand-tip">懸停查看 · 點擊出牌 <kbd>1–6</kbd></span></div>
+      <div class="command-content">
+        <aside class="energy-panel"><div class="energy-orb"><span id="energy">3</span><em>/ <span id="max-energy">3</span></em></div><strong>行動點</strong><small>ACTION POINTS</small><div class="energy-pips" id="energy-pips"><i></i><i></i><i></i></div><button id="draw-pile" class="pile"><span class="pile-icon">▱</span>抽牌堆 <b id="draw-count">5</b></button></aside>
+        <div class="hand-wrap"><div class="hand" id="hand" aria-label="手牌"></div></div>
+        <aside class="end-panel"><button class="end-turn" id="end-turn"><span>結束回合</span><small>END TURN <kbd>SPACE</kbd></small><b>→</b></button><p id="end-hint">對手將執行預告行動</p><button id="discard-pile" class="pile"><span class="pile-icon">▱</span>棄牌堆 <b id="discard-count">0</b></button><button class="autoplay" id="autoplay">▷ 演示連招</button></aside>
+      </div>
+    </section>
+    <footer class="bottom-bar"><span class="demo-note"><i></i>概念試玩 · 演示數值</span><span class="bottom-caption">讀懂對手。掌握節奏。超越極限。</span><button id="restart">↻ 重新開局 <kbd>R</kbd></button></footer>
+    <div class="result-overlay" id="result" role="dialog" aria-modal="true" aria-labelledby="result-title" hidden><div class="result-card"><span class="eyebrow" id="result-eyebrow">DUEL COMPLETE</span><h2 id="result-title">勝負已分</h2><p id="result-copy"></p><div class="result-stats" id="result-stats"></div><button id="play-again">再戰一場 <span>→</span></button></div></div>
+  </main>
+  <dialog id="modal"><button class="modal-close" id="modal-close" aria-label="關閉">×</button><div id="modal-content"></div></dialog>
+</body>
+</html>

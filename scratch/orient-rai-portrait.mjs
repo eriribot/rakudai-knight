@@ -1,0 +1,16 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {createRequire} from 'node:module';
+const sharp=createRequire(import.meta.url)('C:/Users/eriri/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/sharp');
+const root=path.resolve('resource/knightavatars');
+const source=path.join(root,'novel/rai-colorized.png'), meta=await sharp(source).metadata();
+const eyes=[[387,719],[632,568]];
+const degrees=-Math.atan2(eyes[1][1]-eyes[0][1],eyes[1][0]-eyes[0][0])*180/Math.PI;
+const {data,info}=await sharp(source).rotate(degrees,{background:{r:0,g:0,b:0,alpha:0}}).ensureAlpha().raw().toBuffer({resolveWithObject:true});
+const t=degrees*Math.PI/180,c=Math.cos(t),s=Math.sin(t);
+const map=([x,y])=>[c*(x-meta.width/2)-s*(y-meta.height/2)+info.width/2,s*(x-meta.width/2)+c*(y-meta.height/2)+info.height/2].map(Math.round);
+const result={sourceEyes:eyes,degrees,dimensions:[info.width,info.height],eyes:eyes.map(map),eye:map([509,644]),mouth:map([621,834]),chin:map([636,943]),window:[420,260,820,1120]};
+const [left,top,width,height]=result.window;
+await sharp(data,{raw:{width:info.width,height:info.height,channels:4}}).extract({left,top,width,height}).resize({width:520}).png().toFile(path.join(root,'research/review/rai-upright-study.png'));
+fs.writeFileSync(path.join(root,'research/review/rai-landmark-study.json'),JSON.stringify(result,null,2)+'\n');
+console.log(JSON.stringify(result,null,2));

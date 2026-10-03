@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "researchedOn": "2026-10-03",
+  "scope": "后期人物头像的公开来源交叉参考；研究素材，不是主头像清单",
+  "identity": {
+    "character": "艾莉丝·格尔／艾莉丝·阿斯卡里德",
+    "latinNames": ["Iris Ascarid", "Iris Gaule"],
+    "japaneseNames": ["アイリス・アスカリッド", "アイリス・ゴール"],
+    "title": "黑骑士／Black Knight",
+    "distinction": "此人物不是有栖院凪（Nagi Arisuin，昵称 Alice）。",
+    "localAnchor": "第十四卷-世界书整理/03_出场人物索引.md:13",
+    "fandomIdentitySource": "https://rakudai-kishi.fandom.com/wiki/Iris_Ascarid",
+    "identityReadMethod": "公开搜索索引文本；当前正文抓取返回 402，未宣称读取到当前网页全文",
+    "epubEvidence": "本记录没有自行完成 EPUB 插图编号或卷次映射；本地 EPUB 核验由主任务单独记录。"
+  },
+  "assets": [
+    {
+      "file": "iris-ln-news-author-interview.jpg",
+      "character": "艾莉丝·格尔／Iris Ascarid",
+      "sourceType": "primary_author_interview",
+      "sourcePage": "https://ln-news.com/articles/118370",
+      "sourceTitle": "独占インタビュー「ラノベの素」 海空りく先生『落第騎士の英雄譚』",
+      "sourcePublishedOn": "2023-12-15",
+      "imageUrl": "https://assets.ln-news.com/images/medias/08d17d17075f4d8790c9b2b0fa4b1ddc.jpg",
+      "width": 600,
+      "height": 433,
+      "color": true,
+      "originalShieldFrame": false,
+      "composition": "左下黑铁一辉、右侧史黛菈、中间黑色全身甲胄及蓝光面罩；艾莉丝是中间的武装人物。",
+      "identityEvidence": "作者访谈正文点名黑骑士 Iris Ascarid，图片旁注也直接点名同一角色。",
+      "evidenceStatus": "已下载并视觉核验；具名作者访谈附小说彩图；可作为艾莉丝武装形态的可靠参考。",
+      "fandomCrossReference": "https://rakudai-kishi.fandom.com/wiki/Ikki_Kurogane_and_Stella_Vermillion_vs_Ascarid",
+      "fandomIndexedFileTitle": "LN Vol 10 Color Illustration 2.jpg",
+      "volumeMappingStatus": "卷十彩插二来自 Fandom 搜索索引的文件标题交叉参考；未以此记录声称 EPUB 插图编号已核验。",
+      "suitableUse": "武装头像候选；素颜头像应另用已核验的裸露面容插图。"
+    },
+    {
+      "file": "iris-mywaifulist.png",
+      "character": "艾莉丝·格尔／Iris Ascarid",
+      "sourceType": "community_rehost_scan_candidate",
+      "sourcePage": "https://mywaifulist.moe/waifu/iris-ascarid",
+      "imageUrl": "https://thicc-uwu.mywaifulist.moe/waifus/21454/5fca0b8f02c9d7077b9aacf18a3526d83a82b2a65ccd6432a1c7b03530e5d551_thumb.png?width=600",
+      "width": 400,
+      "height": 571,
+      "color": true,
+      "originalShieldFrame": false,
+      "composition": "灰白短发、红蓝异色眼、白色衣装及绿色花纹的女性；左下存在日文排版文字。",
+      "identityEvidence": "来源图片位于具名 Iris Ascarid 页面；可见特征与 Fandom 公开人物索引一致。",
+      "evidenceStatus": "已下载并视觉核验；社区用户提交的扫描候选，原始官方图片出处及 EPUB 卷次尚未在本记录核验。",
+      "fandomCrossReference": "https://rakudai-kishi.fandom.com/wiki/Iris_Ascarid/Image_Gallery",
+      "suitableUse": "供本地小说插图比对；不能仅依据社区头像认定精确卷次或官方原图来源。"
+    },
+    {
+      "file": "lunaeyes-mywaifulist.jpeg",
+      "character": "露娜爱丝·法米利昂／Lunaeyes Vermillion",
+      "sourceType": "community_rehost_scan_candidate",
+      "sourcePage": "https://mywaifulist.moe/waifu/lunaeyes-vermillion",
+      "imageUrl": "https://thicc-uwu.mywaifulist.moe/waifus/35289/8640667796b8bae8325698f89f81e85a1f458b36b1b8e87fc7c080a9856792bc_thumb.jpeg?width=600",
+      "width": 400,
+      "height": 285,
+      "color": true,
+      "originalShieldFrame": false,
+      "composition": "粉色头发及粉色眼睛的面部近景。",
+      "identityEvidence": "来源图片位于具名 Lunaeyes Vermillion 页面；Fandom 搜索索引明确她是史黛菈的姐姐与第一皇女。",
+      "evidenceStatus": "已下载并视觉核验；社区扫描候选，未核验精确官方原图或 EPUB 插图编号。",
+      "fandomCrossReference": "https://rakudai-kishi.fandom.com/wiki/Lunaeyes_Vermillion",
+      "suitableUse": "供本地小说彩图的面部识别比对。"
+    },
+    {
+      "file": "sara-mywaifulist.jpg",
+      "character": "莎拉·布拉德莉莉／Sara Bloodlily",
+      "sourceType": "community_rehost_scan_candidate",
+      "sourcePage": "https://mywaifulist.moe/waifu/sara-bloodlily",
+      "imageUrl": "https://thicc-uwu.mywaifulist.moe/waifus/43414/81f421c15a62479d960f9281672156dab6201b4201e8920d1d40922edb03ad42_thumb.jpg?width=600",
+      "width": 400,
+      "height": 400,
+      "color": true,
+      "originalShieldFrame": false,
+      "composition": "金色头发、红蓝挑染、金褐色眼睛的面部近景。",
+      "identityEvidence": "来源图片位于具名 Sara Bloodlily 页面；可见发色与 Fandom 公开人物索引一致。",
+      "evidenceStatus": "已下载并视觉核验；社区扫描候选，未核验精确官方原图或 EPUB 插图编号。",
+      "fandomCrossReference": "https://rakudai-kishi.fandom.com/wiki/Sara_Bloodlily/Image_Gallery",
+      "suitableUse": "供本地小说彩图的面部识别比对。"
+    },
+    {
+      "file": "kiriko-mywaifulist.png",
+      "character": "药师雾子／Kiriko Yakushi",
+      "sourceType": "community_rehost_scan_candidate",
+      "sourcePage": "https://mywaifulist.moe/waifu/kiriko-yakushi",
+      "imageUrl": "https://thicc-uwu.mywaifulist.moe/waifus/35293/f82e3aee4142ce4445ab77fa423d2bef30c5fa90729fb203bcd42be38f2eddcd_thumb.png?width=600",
+      "width": 400,
+      "height": 457,
+      "color": true,
+      "originalShieldFrame": false,
+      "composition": "绿色短发、浅绿色眼睛，身穿白衣、手托下颌的上半身。",
+      "identityEvidence": "来源图片位于具名 Kiriko Yakushi 页面；可见发色、白衣与 Fandom 公开人物索引一致。",
+      "evidenceStatus": "已下载并视觉核验；社区扫描候选，未核验精确官方原图或 EPUB 插图编号。",
+      "fandomCrossReference": "https://rakudai-kishi.fandom.com/wiki/Kiriko_Yakushi/Image_Gallery",
+      "suitableUse": "供本地小说彩图的面部识别比对。"
+    }
+  ],
+  "fandomAccess": {
+    "publicSearchIndexAvailable": true,
+    "readableGallery": "https://rakudai-kishi.fandom.com/wiki/Fu_Xiaoli/Image_Gallery",
+    "readableGalleryNotes": "本次公开网页工具可读取图库文字及三张既有图片链；它们为卷九、十二、十八的黑白插图，不作为彩色头像交付。",
+    "unavailableOrRestrictedPages": [
+      {
+        "url": "https://rakudai-kishi.fandom.com/wiki/Iris_Ascarid",
+        "result": "公开搜索索引可读；正文抓取返回 402。"
+      },
+      {
+        "url": "https://rakudai-kishi.fandom.com/wiki/Iris_Ascarid/Image_Gallery",
+        "result": "公开搜索索引可读；正文抓取返回 402 或 robots 限制；常规 HTTP 读取出现 Cloudflare 挑战，未解决或绕过。"
+      },
+      {
+        "url": "https://rakudai-kishi.fandom.com/wiki/Yui_Tatara/Image_Gallery",
+        "result": "公开搜索索引可读；正文抓取受限。本记录没有取得幽衣原图。"
+      },
+      {
+        "url": "https://rakudai-kishi.fandom.com/wiki/Lunaeyes_Vermillion/Image_Gallery",
+        "result": "正文抓取受限；身份信息来自人物页面的公开搜索索引。"
+      },
+      {
+        "url": "https://rakudai-kishi.fandom.com/wiki/Sara_Bloodlily/Image_Gallery",
+        "result": "公开搜索索引可读；正文抓取返回 402 或工具限制。"
+      },
+      {
+        "url": "https://rakudai-kishi.fandom.com/wiki/Kiriko_Yakushi/Image_Gallery",
+        "result": "公开搜索索引可读；正文抓取受限。"
+      }
+    ],
+    "browserStatus": "正常 Chrome 阅读尝试因浏览器 request-header policy 无法加载而失败，未完成任何图库 UI 阅读。"
+  },
+  "deliveryBoundary": "仅保存原始参考图及来源。未裁切、重画、修改主 manifest 或修改终端 UI。"
+}

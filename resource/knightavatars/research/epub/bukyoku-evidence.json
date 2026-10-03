@@ -1,0 +1,220 @@
+{
+  "schemaVersion": 1,
+  "note": "仅记录本地小说身份、原图成员与定位；碎城雷属于破军，浅木椛与城之崎白夜属于武曲。像素范围是目视近似定位，不是已验收头像裁切。",
+  "characters": [
+    {
+      "id": "rai",
+      "name": "碎城雷",
+      "aliases": [
+        "碎城",
+        "破城舰",
+        "破城艦",
+        "Destroyer",
+        "IKADSUCHI SAIJO"
+      ],
+      "profileRomanizedName": "IKADSUCHI SAIJO",
+      "affiliation": "破军学园",
+      "volume": 9,
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 09.epub",
+      "imageMember": "OEBPS/Images/007.jpg",
+      "width": 1061,
+      "height": 1600,
+      "sha256": "522938ed04fd940dc5d2c6465b4f377b527736a8b4df7418e26954301b6908ef",
+      "imageColorStatus": "original-monochrome",
+      "imageIdentityNote": "与用户图1精确相同的小说原图；左上寸头男子为碎城雷，右侧为兔丸恋恋，左下为御祓泡沫。",
+      "facePosition": "原图左上；头部约 x=20–450，y=70–570（1061×1600像素坐标，供定位）。",
+      "userReference": "C:/Users/eriri/AppData/Local/Temp/codex-clipboard-3ed5662e-4fa2-4de2-83ce-f580f54b57b8.png",
+      "evidence": [
+        {
+          "xhtml": "OEBPS/Text/Chapter000.xhtml",
+          "location": "段落起于 XHTML 第 56 行；第十四章 战魂高昂；具名容貌",
+          "excerpt": "那是一名身材壮硕，恍若岩石的高大男子，名为碎城雷。"
+        },
+        {
+          "xhtml": "OEBPS/Text/Chapter000.xhtml",
+          "location": "段落起于 XHTML 第 112 行；第十四章 战魂高昂；007.jpg场景中的对话对象",
+          "excerpt": "「……兔丸认为黑铁会获胜？」"
+        }
+      ],
+      "namedProfile": {
+        "volume": 7,
+        "sourceEpub": "39688/[台版]落第骑士英雄谭 07.epub",
+        "imageMember": "OEBPS/Images/011.jpg",
+        "width": 1000,
+        "height": 1507,
+        "sha256": "dc651d665c4a1c182d88dc8311eb0438ffdbf31fcb43c1cc28e2f8f7a8c7e176",
+        "evidence": [
+          {
+            "xhtml": "OEBPS/Text/Chapter001.xhtml",
+            "location": "段落起于 XHTML 第 553 行；人物PROFILE具名",
+            "excerpt": "碎城雷IKADSUCHI SAIJO"
+          },
+          {
+            "xhtml": "OEBPS/Text/Chapter001.xhtml",
+            "location": "段落起于 XHTML 第 558 行；人物PROFILE别称",
+            "excerpt": "称号：破城舰Destroyer"
+          },
+          {
+            "xhtml": "OEBPS/Text/Chapter001.xhtml",
+            "location": "段落起于 XHTML 第 559 行；人物PROFILE身份",
+            "excerpt": "人物简介：学生会书记"
+          }
+        ]
+      }
+    },
+    {
+      "id": "momiji",
+      "name": "浅木椛",
+      "aliases": [
+        "淺木椛",
+        "浅木",
+        "鬼火",
+        "MOMIJI ASAGI",
+        "Momiji Asagi",
+        "Asagi Momiji"
+      ],
+      "profileRomanizedName": "MOMIJI ASAGI",
+      "userSpelling": "浅桦",
+      "nameNote": "本地小说正文和具名PROFILE均为“浅木椛”；“浅桦”是本次用户简称，不能作为完整正名。现有词条“浅木红叶”属于项目已有异译，未在本地EPUB确认。",
+      "affiliation": "武曲学园",
+      "volume": 9,
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 09.epub",
+      "imageMember": "OEBPS/Images/003.jpg",
+      "width": 2352,
+      "height": 1776,
+      "sha256": "8eb2923f55025f48385de5dd4afe20de9b9311dbebc26e00b042e84e357d9652",
+      "imageColorStatus": "original-color",
+      "imageIdentityNote": "与用户图3相同的第9卷群像；左下紫色大蝴蝶结、长黑发、紫色眼睛、脸贴OK绷的女生为浅木椛。身份可与第8卷具名PROFILE外貌对照。",
+      "facePosition": "原图左下；头部含蝴蝶结约 x=0–600，y=800–1360（2352×1776像素坐标，供定位）。",
+      "userReference": "C:/Users/eriri/AppData/Local/Temp/codex-clipboard-42e726d7-c275-497c-a75e-590c3f707601.png",
+      "evidence": [
+        {
+          "xhtml": "OEBPS/Text/Chapter000.xhtml",
+          "location": "段落起于 XHTML 第 311 行；第十四章 战魂高昂；武曲代表具名",
+          "excerpt": "〈天眼〉城之崎白夜、〈鬼火〉浅木椛。"
+        }
+      ],
+      "appearanceEvidence": {
+        "sourceEpub": "39688/[台版]落第骑士英雄谭 05.epub",
+        "evidence": [
+          {
+            "xhtml": "OEBPS/Text/Chapter001.xhtml",
+            "location": "段落起于 XHTML 第 624 行；第一章 全国的劲敌们；完整姓名",
+            "excerpt": "她同样也是武曲学园三年级•浅木椛。"
+          },
+          {
+            "xhtml": "OEBPS/Text/Chapter001.xhtml",
+            "location": "段落起于 XHTML 第 624 行；第一章 全国的劲敌们；女生容貌",
+            "excerpt": "脸颊贴着OK绷，眼神宛如少年般俏皮。"
+          }
+        ]
+      },
+      "namedProfile": {
+        "volume": 8,
+        "sourceEpub": "39688/[台版]落第骑士英雄谭 08.epub",
+        "imageMember": "OEBPS/Images/009.jpg",
+        "width": 927,
+        "height": 1398,
+        "sha256": "f078f6a02b787d0d250b00899446b77c10518f52eaed03b34355ffae738cbf6d",
+        "evidence": [
+          {
+            "xhtml": "OEBPS/Text/Chapter001.xhtml",
+            "location": "段落起于 XHTML 第 600 行；人物PROFILE具名",
+            "excerpt": "浅木椛MOMIJI ASAGI"
+          },
+          {
+            "xhtml": "OEBPS/Text/Chapter001.xhtml",
+            "location": "段落起于 XHTML 第 602 行；人物PROFILE身份",
+            "excerpt": "隶属：武曲学园三年级"
+          },
+          {
+            "xhtml": "OEBPS/Text/Chapter001.xhtml",
+            "location": "段落起于 XHTML 第 605 行；人物PROFILE别称",
+            "excerpt": "称号：鬼火"
+          }
+        ]
+      }
+    },
+    {
+      "id": "byakuya",
+      "name": "城之崎白夜",
+      "aliases": [
+        "城之崎",
+        "白夜",
+        "天眼",
+        "BYAKUYA JOGASAKI",
+        "Byakuya Jogasaki",
+        "Jogasaki Byakuya"
+      ],
+      "profileRomanizedName": "BYAKUYA JOGASAKI",
+      "nameNote": "第7卷具名PROFILE的姓氏罗马字为JOGASAKI；现有词条中的Jonosaki Byakuya未得到该EPUB支持，本次仅记录差异。",
+      "affiliation": "武曲学园",
+      "volume": 9,
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 09.epub",
+      "imageMember": "OEBPS/Images/003.jpg",
+      "width": 2352,
+      "height": 1776,
+      "sha256": "8eb2923f55025f48385de5dd4afe20de9b9311dbebc26e00b042e84e357d9652",
+      "imageColorStatus": "original-color",
+      "imageIdentityNote": "与用户图3相同的第9卷群像；浅木椛上方、诸星雄大下方的黑发戴眼镜男子为城之崎白夜，与第7卷具名PROFILE吻合。",
+      "facePosition": "原图左半中部；头部约 x=300–840，y=500–1030（2352×1776像素坐标，供定位）。",
+      "userReference": "C:/Users/eriri/AppData/Local/Temp/codex-clipboard-42e726d7-c275-497c-a75e-590c3f707601.png",
+      "evidence": [
+        {
+          "xhtml": "OEBPS/Text/Chapter000.xhtml",
+          "location": "段落起于 XHTML 第 311 行；第十四章 战魂高昂；武曲代表具名",
+          "excerpt": "〈天眼〉城之崎白夜、〈鬼火〉浅木椛。"
+        }
+      ],
+      "appearanceEvidence": {
+        "sourceEpub": "39688/[台版]落第骑士英雄谭 05.epub",
+        "evidence": [
+          {
+            "xhtml": "OEBPS/Text/Chapter001.xhtml",
+            "location": "段落起于 XHTML 第 624 行；第一章 全国的劲敌们；完整姓名",
+            "excerpt": "他就是武曲学园三年级•城之崎白夜；"
+          },
+          {
+            "xhtml": "OEBPS/Text/Chapter001.xhtml",
+            "location": "段落起于 XHTML 第 624 行；第一章 全国的劲敌们；男生容貌",
+            "excerpt": "配戴眼镜的男学生，身上的制服一丝不苟"
+          }
+        ]
+      },
+      "namedProfile": {
+        "volume": 7,
+        "sourceEpub": "39688/[台版]落第骑士英雄谭 07.epub",
+        "imageMember": "OEBPS/Images/015.jpg",
+        "width": 1000,
+        "height": 1507,
+        "sha256": "27799c640a5d873930a84a51884d1d9ee5a0e3a108cbc951e67f156bd96c8c58",
+        "evidence": [
+          {
+            "xhtml": "OEBPS/Text/Chapter002.xhtml",
+            "location": "段落起于 XHTML 第 1145 行；人物PROFILE具名",
+            "excerpt": "城之崎白夜BYAKUYA JOGASAKI"
+          },
+          {
+            "xhtml": "OEBPS/Text/Chapter002.xhtml",
+            "location": "段落起于 XHTML 第 1147 行；人物PROFILE身份",
+            "excerpt": "隶属：武曲学园三年级"
+          },
+          {
+            "xhtml": "OEBPS/Text/Chapter002.xhtml",
+            "location": "段落起于 XHTML 第 1150 行；人物PROFILE别称",
+            "excerpt": "称号：天眼"
+          }
+        ]
+      }
+    }
+  ],
+  "existingAvatarCheck": {
+    "id": "yuudai",
+    "name": "诸星雄大",
+    "manifest": "resource/knightavatars/manifest.json",
+    "file": "yuudai.png",
+    "sourceStyle": "novel-color-shield",
+    "status": "already-present",
+    "groupImagePosition": "第9卷003.jpg上方黄黑发男子为诸星雄大。"
+  }
+}

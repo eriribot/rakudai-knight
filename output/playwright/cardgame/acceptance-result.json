@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-03",
+  "engine": { "command": "node --test cardgame/battle.test.cjs", "passed": 14, "failed": 0 },
+  "browser": {
+    "desktopViewport": [1440, 900],
+    "mobileViewport": [390, 844],
+    "openingDemo": { "turn": 2, "playerHp": 48, "enemyHp": 49 },
+    "victory": { "turn": 3, "playerHp": 42, "enemyHp": 0, "shuraExhausted": true },
+    "defeat": { "endTurnCount": 6, "playerHp": 0, "status": "lost" },
+    "restart": "passed",
+    "resultBackgroundInert": "passed",
+    "helpAndDrawPile": "passed",
+    "reducedMotion": "passed",
+    "mobileCardPlayAndEndTurn": "passed",
+    "pageExceptions": [],
+    "assetLoadFailures": [],
+    "referenceGalleryCount": 9,
+    "referenceZoom": "passed"
+  },
+  "visual": { "mobileActorHeadsClearOfIntent": true, "mobileEndButtonClearOfFooter": true, "faceLikeness": "v3 is available for visual comparison; not represented as user-approved" }
+}

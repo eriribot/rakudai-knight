@@ -1,0 +1,167 @@
+{
+  "basis": "captured current manifest/PNG bytes/raw RGBA before next three avatars; not Git HEAD",
+  "characterCount": 26,
+  "preparedCount": 17,
+  "prepared": [
+    {
+      "id": "nagi",
+      "file": "prepared/nagi.png",
+      "manifestSha256": "d0941a3057192ac42689b48dad91a1e565164a8877e96071dc994a07181be5fd",
+      "actualSha256": "d0941a3057192ac42689b48dad91a1e565164a8877e96071dc994a07181be5fd",
+      "rgbaPixelSha256": "fcfbd3666b912d2bc294ca4fef7a20509f93b808578577fc45be67ebd1654a2f",
+      "width": 434,
+      "height": 580
+    },
+    {
+      "id": "kirihara",
+      "file": "prepared/kirihara.png",
+      "manifestSha256": "8ab36d2b14f90ff1944a6bb5920ef4f4c3451aa1991f9f0b480d6a9819a2718d",
+      "actualSha256": "8ab36d2b14f90ff1944a6bb5920ef4f4c3451aa1991f9f0b480d6a9819a2718d",
+      "rgbaPixelSha256": "0e2ea0383ad0391fdce435a1a15d7ef6b2264151c247a583197ad111c255b555",
+      "width": 434,
+      "height": 580
+    },
+    {
+      "id": "kuraudo",
+      "file": "prepared/kuraudo.png",
+      "manifestSha256": "b0a9adff8ca91165bc10c10690d3093a9b37c5fe892611751b34279bcbfb0b90",
+      "actualSha256": "b0a9adff8ca91165bc10c10690d3093a9b37c5fe892611751b34279bcbfb0b90",
+      "rgbaPixelSha256": "7fba13bac71945cb167cf5def044156ae2ce0774ffdf074e19d45691999570fb",
+      "width": 434,
+      "height": 580
+    },
+    {
+      "id": "renren",
+      "file": "prepared/renren.png",
+      "manifestSha256": "4036aeca55a4d6482dee15cfe07be7c0b1db5b0ed859ef9956ed046075c067f3",
+      "actualSha256": "4036aeca55a4d6482dee15cfe07be7c0b1db5b0ed859ef9956ed046075c067f3",
+      "rgbaPixelSha256": "e72892bf833710ebdd34de207149a42d41c57240dd0325001654e53e4968cf78",
+      "width": 434,
+      "height": 580
+    },
+    {
+      "id": "misogi",
+      "file": "prepared/misogi.png",
+      "manifestSha256": "c089284134efc40f4c73e764c1227cde08f8b83d8569c0f7b08806347593d091",
+      "actualSha256": "c089284134efc40f4c73e764c1227cde08f8b83d8569c0f7b08806347593d091",
+      "rgbaPixelSha256": "7c2c7b593474306f1677a584382f38b3ead9784b76673c311f0ef13f7a097949",
+      "width": 434,
+      "height": 580
+    },
+    {
+      "id": "kanata",
+      "file": "prepared/kanata.png",
+      "manifestSha256": "4eaa2086607fe091f09a87a493199257e0f25b7c0e3820899b2dcdb83c0d68cf",
+      "actualSha256": "4eaa2086607fe091f09a87a493199257e0f25b7c0e3820899b2dcdb83c0d68cf",
+      "rgbaPixelSha256": "6bc863618cbe5bbc7015e652bcec5565d9b7f610cd37144dba4eb3eae8e33310",
+      "width": 434,
+      "height": 580
+    },
+    {
+      "id": "nene",
+      "file": "prepared/nene.png",
+      "manifestSha256": "b50ffc1deef39c0760c5bb75be8b086eb110ffc235344e35dc5d4898449af775",
+      "actualSha256": "b50ffc1deef39c0760c5bb75be8b086eb110ffc235344e35dc5d4898449af775",
+      "rgbaPixelSha256": "cd491deb27d5fcf661b1d6a8d255db0aa7c03d09686e7b629934c4c94e7aee14",
+      "width": 434,
+      "height": 580
+    },
+    {
+      "id": "kurono",
+      "file": "prepared/kurono.png",
+      "manifestSha256": "ad28a366fa0686f5a1669e1dff3d375b15fbc4df42561515b8a997bef6cbc197",
+      "actualSha256": "ad28a366fa0686f5a1669e1dff3d375b15fbc4df42561515b8a997bef6cbc197",
+      "rgbaPixelSha256": "b79885b8c6e085bfe1f99198dc5bb2541405217687abad0296359b0070acaca4",
+      "width": 434,
+      "height": 580
+    },
+    {
+      "id": "yuri",
+      "file": "prepared/yuri.png",
+      "manifestSha256": "1dc9497f5bcad73cacd0b819fc04d38e5e0f357e58c53916bb2505decdfb8722",
+      "actualSha256": "1dc9497f5bcad73cacd0b819fc04d38e5e0f357e58c53916bb2505decdfb8722",
+      "rgbaPixelSha256": "96519aeda8a0dc0f3e18ebb769852e5dad43862da27d78b16060bc11b9eaf3a1",
+      "width": 434,
+      "height": 580
+    },
+    {
+      "id": "iris",
+      "file": "prepared/iris.png",
+      "manifestSha256": "2f95d92246215fa80da423ffb5010c2aefc8d9364febb874ce9c881396cf2c5a",
+      "actualSha256": "2f95d92246215fa80da423ffb5010c2aefc8d9364febb874ce9c881396cf2c5a",
+      "rgbaPixelSha256": "9e21e36609ce5f4ef6945d4bc7df5d2f778676e51eea53e1889cc79767ec42f2",
+      "width": 434,
+      "height": 580
+    },
+    {
+      "id": "uri",
+      "file": "prepared/uri.png",
+      "manifestSha256": "b08f9dd4aba68f142f84cfc1ccc6975afacd8a70b77a2c5b6fb6a2a3a4ec5264",
+      "actualSha256": "b08f9dd4aba68f142f84cfc1ccc6975afacd8a70b77a2c5b6fb6a2a3a4ec5264",
+      "rgbaPixelSha256": "def9506cc665a18d1e605bba0cf07a951a0bda658f3d7e8c09c949c6c684c835",
+      "width": 434,
+      "height": 580
+    },
+    {
+      "id": "or_gaule",
+      "file": "prepared/or_gaule.png",
+      "manifestSha256": "0f52c5a403b298aa839e7cfe10a840660290e46c7125fdc88ba67286c69990fb",
+      "actualSha256": "0f52c5a403b298aa839e7cfe10a840660290e46c7125fdc88ba67286c69990fb",
+      "rgbaPixelSha256": "6c5f72bb07a9d977d94b9bf7257328e5b8f2b2e4ee7cf40d9a37c719e6e0f5df",
+      "width": 434,
+      "height": 580
+    },
+    {
+      "id": "wallenstein",
+      "file": "prepared/wallenstein.png",
+      "manifestSha256": "4643fedc2492738e314f9da9674d8802aec291353b9b331509f6afee8e262938",
+      "actualSha256": "4643fedc2492738e314f9da9674d8802aec291353b9b331509f6afee8e262938",
+      "rgbaPixelSha256": "e24b06257def94411470da775ceb7a6aa71a9172d60e7c4ad0bc9fca5a1295dd",
+      "width": 434,
+      "height": 580
+    },
+    {
+      "id": "kiriko",
+      "file": "prepared/kiriko.png",
+      "manifestSha256": "94a54c1f4a57a5bc669abbca6f196416a955b61c895ec26daa1458ecb47abcf2",
+      "actualSha256": "94a54c1f4a57a5bc669abbca6f196416a955b61c895ec26daa1458ecb47abcf2",
+      "rgbaPixelSha256": "5a7e2e3a11728ccc9d19651d7f87cbf22cef899e7d7bb07a449f161a8f6df94a",
+      "width": 434,
+      "height": 580
+    },
+    {
+      "id": "sara",
+      "file": "prepared/sara.png",
+      "manifestSha256": "740ce910c5fc988f7ea399e61b81b20c88c71ecbab774eb67b060e1d501e99f0",
+      "actualSha256": "740ce910c5fc988f7ea399e61b81b20c88c71ecbab774eb67b060e1d501e99f0",
+      "rgbaPixelSha256": "b7c366512fd696270c1c32216bbcfb633265036d8d1d97e43fbfc0e18d612b61",
+      "width": 434,
+      "height": 580
+    },
+    {
+      "id": "rinna",
+      "file": "prepared/rinna.png",
+      "manifestSha256": "9928336c35311d38bc1f719351ca963cdff50ce426da03d037087f4dd5841c91",
+      "actualSha256": "9928336c35311d38bc1f719351ca963cdff50ce426da03d037087f4dd5841c91",
+      "rgbaPixelSha256": "fe14335eac5f9cce33e71ee45bbb983a5dea850f59c2141eba1a7088fc212a88",
+      "width": 434,
+      "height": 580
+    },
+    {
+      "id": "ein",
+      "file": "prepared/ein.png",
+      "manifestSha256": "819d3b90f199592824badef5c76374a6ec31bc1c8427a433f822c92a5deb5feb",
+      "actualSha256": "819d3b90f199592824badef5c76374a6ec31bc1c8427a433f822c92a5deb5feb",
+      "rgbaPixelSha256": "62a30bc291506b1a0f61375eb00c6f4d2254887cdb60495a3fbd4ecbd3abd180",
+      "width": 434,
+      "height": 580
+    }
+  ],
+  "yuudai": {
+    "file": "yuudai.png",
+    "hasShieldFrame": true,
+    "sourceStatus": "original-shield",
+    "sha256": "48ecaae18cbbf038b6a5bdf483ad31742557dc482804cf919d0151ab9b0865ae",
+    "shaMatchesManifest": true
+  }
+}

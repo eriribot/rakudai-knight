@@ -1,0 +1,606 @@
+{
+  "schemaVersion": 1,
+  "characters": [
+    {
+      "name": "艾莉丝·格尔·阿斯卡里德",
+      "id": "iris",
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 11.epub",
+      "imageMember": "OEBPS/Images/003.jpg",
+      "evidence": [
+        {
+          "xhtml": "OEBPS/Text/Chapter003.xhtml",
+          "location": "第七章 访问奎多兰；XHTML 第 175 行；与彩图左侧文字对应",
+          "excerpt": "那一处在视觉上，不过是一片空白。"
+        },
+        {
+          "xhtml": "OEBPS/Text/Chapter003.xhtml",
+          "location": "第七章 访问奎多兰；XHTML 第 177 行",
+          "excerpt": "那名银发女子的双瞳带着不同色彩，静静眺望着一行人。"
+        },
+        {
+          "xhtml": "OEBPS/Text/Chapter004.xhtml",
+          "location": "第八章 名为「法米利昂」的国家；XHTML 第 280 行",
+          "excerpt": "他赞赏女子——〈黑骑士〉艾莉丝•阿斯卡里德。"
+        },
+        {
+          "xhtml": "OEBPS/Text/Chapter004.xhtml",
+          "location": "第八章 名为「法米利昂」的国家；XHTML 第 397 行",
+          "excerpt": "白中带灰的白发、红蓝双色的眼瞳"
+        }
+      ],
+      "alternateImageMembers": [
+        "OEBPS/Images/003_.jpg"
+      ]
+    },
+    {
+      "name": "多多良幽衣",
+      "id": "uri",
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 12.epub",
+      "imageMember": "OEBPS/Images/003.jpg",
+      "evidence": [
+        {
+          "xhtml": "OEBPS/Text/Chapter002.xhtml",
+          "location": "第十一章 洁白之巅；XHTML 第 54 行",
+          "excerpt": "她就是拥有〈不转杀手〉之名的伐刀者——多多良幽衣，"
+        },
+        {
+          "xhtml": "OEBPS/Text/Chapter003.xhtml",
+          "location": "第十二章 严寒的考验；XHTML 第 114 行",
+          "excerpt": "另一人则是多多良幽衣，她身穿女仆装，大嚼巧克力点心。"
+        }
+      ]
+    },
+    {
+      "name": "欧尔·格尔",
+      "id": "or_gaule",
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 15.epub",
+      "imageMember": "OEBPS/Images/004.jpg",
+      "evidence": [
+        {
+          "xhtml": "OEBPS/Text/Chapter001.xhtml",
+          "location": "第二十二章 剑神；XHTML 第 47 行",
+          "excerpt": "〈傀儡王〉欧尔•格尔。"
+        },
+        {
+          "xhtml": "OEBPS/Text/Chapter003.xhtml",
+          "location": "第二十四章 遗骸洒泪；XHTML 第 71 行；该彩图为童年回忆场景",
+          "excerpt": "他叫做欧尔雷斯•格尔。"
+        },
+        {
+          "xhtml": "OEBPS/Text/Chapter003.xhtml",
+          "location": "第二十四章 遗骸洒泪；XHTML 第 257 行；与彩图左侧台词对应",
+          "excerpt": "『不、不要……杀我……我、我还、不想死……！』"
+        }
+      ]
+    },
+    {
+      "name": "华伦斯坦",
+      "id": "wallenstein",
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 15.epub",
+      "imageMember": "OEBPS/Images/004.jpg",
+      "evidence": [
+        {
+          "xhtml": "OEBPS/Text/Chapter003.xhtml",
+          "location": "第二十四章 遗骸洒泪；XHTML 第 273 行",
+          "excerpt": "『太可笑了。』华伦斯坦笑着说："
+        },
+        {
+          "xhtml": "OEBPS/Text/Chapter003.xhtml",
+          "location": "第二十四章 遗骸洒泪；XHTML 第 277 行；与彩图右侧台词对应",
+          "excerpt": "『小子，你以为现在的自己，算得上「活人」吗？』"
+        },
+        {
+          "xhtml": "OEBPS/Text/Chapter003.xhtml",
+          "location": "第二十四章 遗骸洒泪；XHTML 第 287 行",
+          "excerpt": "华伦斯坦放开欧尔雷斯的衣襟。"
+        }
+      ]
+    },
+    {
+      "id": "kiriko",
+      "name": "药师雾子",
+      "volume": 5,
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 05.epub",
+      "imageMember": "OEBPS/Images/004.jpg",
+      "imageColorStatus": "original-color",
+      "imageIdentityNote": "彩图右下角直接标注〈白衣骑士〉药师雾子；绿色短发，白色医师外衣与黑色内搭。",
+      "evidence": [
+        {
+          "xhtml": "OEBPS/Text/Chapter001.xhtml",
+          "location": "第一章 全国的劲敌们；XHTML 第 730 行",
+          "excerpt": "「廉贞学园三年级——〈白衣骑士〉药师雾子。」"
+        },
+        {
+          "xhtml": "OEBPS/Text/Chapter002.xhtml",
+          "location": "第二章 浪速之星；XHTML 第 443 行；与彩图左侧台词对应",
+          "excerpt": "要不要让大姊姊帮你来个赛前健康检查呢？"
+        },
+        {
+          "xhtml": "OEBPS/Text/Chapter002.xhtml",
+          "location": "第二章 浪速之星；XHTML 第 444 行；衣装描写",
+          "excerpt": "特地解开白衣，换了个坐姿，"
+        }
+      ]
+    },
+    {
+      "id": "sara",
+      "name": "莎拉·布拉德莉莉",
+      "volume": 6,
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 06.epub",
+      "imageMember": "OEBPS/Images/005.jpg",
+      "imageColorStatus": "original-color",
+      "imageIdentityNote": "彩图左上为莎拉完整头部：长金发夹杂颜料色痕，沾色围裙，手持画笔与调色盘；印字“莎拉拿起画笔，沾取调色盘的颜料”与正文对应。右侧人物为仓敷藏人，头像取左上莎拉。",
+      "evidence": [
+        {
+          "xhtml": "OEBPS/Text/Chapter003.xhtml",
+          "location": "第七章 七星剑武祭第二轮战·开战；XHTML 第 249 行；两名参赛者具名",
+          "excerpt": "莎拉•布拉德莉莉选手，仓敷藏人选手。"
+        },
+        {
+          "xhtml": "OEBPS/Text/Chapter003.xhtml",
+          "location": "第七章 七星剑武祭第二轮战·开战；XHTML 第 350 行；容貌描写",
+          "excerpt": "完全没有梳理，乱糟糟的金发。"
+        },
+        {
+          "xhtml": "OEBPS/Text/Chapter003.xhtml",
+          "location": "第七章 七星剑武祭第二轮战·开战；XHTML 第 383 行；具名确认调色盘与画笔",
+          "excerpt": "这就是〈染血达文西〉莎拉•布拉德莉莉的固有灵装。"
+        },
+        {
+          "xhtml": "OEBPS/Text/Chapter003.xhtml",
+          "location": "第七章 七星剑武祭第二轮战·开战；XHTML 第 385 行；与彩图印字对应",
+          "excerpt": "莎拉拿起画笔，沾取调色盘的颜料——"
+        }
+      ],
+      "alternativeImageCandidates": [
+        {
+          "volume": 5,
+          "sourceEpub": "39688/[台版]落第骑士英雄谭 05.epub",
+          "imageMember": "OEBPS/Images/003.jpg",
+          "imageColorStatus": "original-color",
+          "evidence": [
+            {
+              "xhtml": "OEBPS/Text/Chapter001.xhtml",
+              "location": "第一章 全国的劲敌们；XHTML 第 320 行",
+              "excerpt": "「晓学园的、〈染血达文西〉莎拉•布拉德莉莉……！」"
+            },
+            {
+              "xhtml": "OEBPS/Text/Chapter001.xhtml",
+              "location": "第一章 全国的劲敌们；XHTML 第 317 行；容貌描写",
+              "excerpt": "那名女性的金发上，散落着各色颜料。"
+            },
+            {
+              "xhtml": "OEBPS/Text/Chapter001.xhtml",
+              "location": "第一章 全国的劲敌们；XHTML 第 318 行；衣装描写",
+              "excerpt": "只用沾满颜料的肮脏围裙"
+            },
+            {
+              "xhtml": "OEBPS/Text/Chapter001.xhtml",
+              "location": "第一章 全国的劲敌们；XHTML 第 362 行；与彩图台词对应",
+              "excerpt": "「……没问题，这样就合格了。」"
+            }
+          ],
+          "note": "第5卷具名彩图候选；莎拉头脸与左侧一辉相邻，裁切头像较易带入另一人物。"
+        }
+      ]
+    },
+    {
+      "id": "rinna",
+      "name": "风祭凛奈",
+      "volume": 5,
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 05.epub",
+      "imageMember": "OEBPS/Images/007.jpg",
+      "imageColorStatus": "original-monochrome",
+      "imageIdentityNote": "5–9卷未找到可确认凛奈的彩色头像来源；本图右下方眼罩、头顶大蝴蝶结、礼服少女为凛奈，左上女仆为夏洛特。保留黑白原图。 本地终端使用该图的内置imagegen上色衍生头像，原黑白文件仍在novel/rinna-original.jpg存档。",
+      "alternativeImageCandidates": [
+        {
+          "volume": 6,
+          "sourceEpub": "39688/[台版]落第骑士英雄谭 06.epub",
+          "imageMember": "OEBPS/Images/016.jpg",
+          "imageColorStatus": "original-monochrome",
+          "note": "具名风祭凛奈 RINNA KAZAMATSURI 官方PROFILE页，人物脸部较小。"
+        },
+        {
+          "volume": 7,
+          "sourceEpub": "39688/[台版]落第骑士英雄谭 07.epub",
+          "imageMember": "OEBPS/Images/016.jpg",
+          "imageColorStatus": "original-monochrome",
+          "note": "三人插图；凛奈位于下半右侧，夏洛特在左，史黛菈在上右。"
+        }
+      ],
+      "evidence": [
+        {
+          "xhtml": "OEBPS/Text/Chapter001.xhtml",
+          "location": "第一章 全国的劲敌们；XHTML 第 418 行；紧接对应插图007.jpg之前",
+          "excerpt": "戴着眼罩、身穿深红礼服的少女"
+        },
+        {
+          "xhtml": "OEBPS/Text/Chapter001.xhtml",
+          "location": "第一章 全国的劲敌们；XHTML 第 424 行；紧接对应插图007.jpg之后",
+          "excerpt": "「我记得没错的话，你应该是原廉贞学园代表的风祭同学，没错吧？」"
+        },
+        {
+          "xhtml": "OEBPS/Text/Chapter001.xhtml",
+          "location": "第一章 全国的劲敌们；XHTML 第 455 行",
+          "excerpt": "魔兽使Beast Tamer风祭凛奈语带嘲讽地笑道。"
+        }
+      ],
+      "colorReference": {
+        "volume": 18,
+        "sourceEpub": "39688/落第骑士英雄谭 - 18.epub",
+        "imageMember": "OEBPS/Images/190216.jpg",
+        "note": "原彩图右侧为粉红短发的凛奈，左侧为金发夹杂颜料色痕的莎拉；仅作颜色参考，主头像保留第5卷黑白来源。",
+        "evidence": [
+          {
+            "xhtml": "OEBPS/Text/chapter1.xhtml",
+            "location": "序章 所谓正义，所谓邪恶；段落起于 XHTML 第 45 行；身份具名",
+            "excerpt": "〈魔兽使（BeastTamer）〉风祭凛奈。"
+          },
+          {
+            "xhtml": "OEBPS/Text/chapter2.xhtml",
+            "location": "第一章 〈烈风剑帝〉VS〈超人〉；段落起于 XHTML 第 350 行；与彩图呼名对应",
+            "excerpt": "「───！？凛奈！！莎拉───！！」"
+          },
+          {
+            "xhtml": "OEBPS/Text/chapter2.xhtml",
+            "location": "第一章 〈烈风剑帝〉VS〈超人〉；段落起于 XHTML 第 353 行；与彩图绑椅场景对应",
+            "excerpt": "映出两人的模样。她们和月影、晄三一样，被人绑在椅子上。"
+          }
+        ]
+      },
+      "colorizationRecord": "research/epub/rinna-colorization.json"
+    },
+    {
+      "schemaVersion": 1,
+      "id": "ein",
+      "name": "艾茵·阿伯伦特",
+      "recommendedAliases": [
+        "艾茵",
+        "艾茵·阿伯倫特",
+        "艾茵•阿伯伦特",
+        "恶之华",
+        "惡之華",
+        "一号",
+        "Ein",
+        "Dirty Rose"
+      ],
+      "aliasNotes": {
+        "Ein": "第13卷 Chapter004.xhtml 第486行的 ruby 注音；对应〈一号〉，不是外部百科拼法推定。",
+        "Dirty Rose": "第12卷 Chapter005.xhtml 第71行的 ruby 注音；对应〈恶之华〉。",
+        "艾因": "本次第12–13卷未核到该写法，不自动加入别名。",
+        "Abgrund": "本次限定本地第12–13卷未核到拉丁姓氏拼法，不将其声称为EPUB直接证据。"
+      },
+      "manifestCheck": {
+        "existingId": null,
+        "existingName": null,
+        "note": "核验时主manifest没有ein、艾茵、艾因或阿伯伦特记录；建议新增稳定id为ein。未修改主manifest。"
+      },
+      "characterIdentity": {
+        "gender": "female",
+        "genderEvidence": "正文以她、姐姐称呼艾茵；童年回忆称她为少女。",
+        "relationship": "与多多良幽衣同出〈暗狱之家〉；姐姐是组织〈姐妹〉关系，不能据此断言血缘亲姐妹。",
+        "portraitForm": "第13卷代表战时的人形女性，深紫长发、黑色高领礼服；服装胸前开口、腰侧交叉带。",
+        "formBoundary": "该彩色头像候选是战前/人形状态。Chapter004.xhtml第316、330行另描述以全魔力喂养灵装后出现〈幽狱世界树〉；不把树形态当成这张人像的常态。",
+        "visualBoundary": "画中头顶与侧边尖状轮廓只记作发型/轮廓，正文第12–13卷未核实为身体长角，不新增角的设定。"
+      },
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 13.epub",
+      "imageMember": "OEBPS/Images/004.jpg",
+      "imageXhtml": "OEBPS/Text/illus02.xhtml",
+      "imageReferenceLine": 17,
+      "alternateImageMembers": [
+        "OEBPS/Images/004_.jpg"
+      ],
+      "researchFile": "resource/knightavatars/research/epub/images/05cbc99c5aa0fc168fb9.jpg",
+      "imageWidth": 1674,
+      "imageHeight": 1200,
+      "imageSha256": "05cbc99c5aa0fc168fb978c77242de943fa7ab43207f6376f00ebf0f56a908f9",
+      "subjectPosition": "左半群像右侧，金发角色的下方；深紫长发、黑色高领礼服女性。",
+      "faceRegionForInspection": {
+        "left": 620,
+        "top": 475,
+        "right": 740,
+        "bottom": 635
+      },
+      "faceRegionNote": "仅用于定位核验，最终盾形裁切由主代理另行确定。",
+      "colorImageTextMapping": {
+        "visibleText": "奎多蘭 vs 法米利昂／代表戰開打。",
+        "note": "这张彩页没有艾茵的具名个人台词，不能仅靠该群像标题认人。身份由同卷具名正文位置的两张单人黑白图及一致服装建立。"
+      },
+      "corroboratingImageMembers": [
+        {
+          "member": "OEBPS/Images/012.jpg",
+          "xhtml": "OEBPS/Text/Chapter004.xhtml",
+          "imageLine": 135,
+          "width": 796,
+          "height": 1200,
+          "inspectionFile": "resource/knightavatars/research/epub/scratch-ein/tw-13-012.jpg",
+          "depiction": "具名对战位置的艾茵人形单人图，手边有树枝/荆棘。"
+        },
+        {
+          "member": "OEBPS/Images/013.jpg",
+          "xhtml": "OEBPS/Text/Chapter004.xhtml",
+          "imageLine": 689,
+          "width": 796,
+          "height": 1200,
+          "inspectionFile": "resource/knightavatars/research/epub/scratch-ein/tw-13-013.jpg",
+          "depiction": "插图前直接点名艾茵的笑脸近景；图像本身没有台词文字，相关台词在紧接的XHTML正文。"
+        }
+      ],
+      "confidence": "verified-local-epub-text-anchored-visual-crossmatch",
+      "scope": "仅使用本地第12–13卷正文及插图；未采用Fandom、社区图或外部人物设定。",
+      "evidence": [
+        {
+          "sourceEpub": "39688/[台版]落第骑士英雄谭 12.epub",
+          "xhtml": "OEBPS/Text/Chapter005.xhtml",
+          "line": 71,
+          "location": "第十四章 法米利昂之战；代表战敌方名单",
+          "excerpt": "〈恶之华〉艾茵•阿伯伦特。",
+          "supports": "全名及称号；原文ruby另给Dirty Rose。"
+        },
+        {
+          "sourceEpub": "39688/[台版]落第骑士英雄谭 12.epub",
+          "xhtml": "OEBPS/Text/Chapter001.xhtml",
+          "line": 185,
+          "location": "第十章 皇族的职责；多多良目送艾茵离开",
+          "excerpt": "她的姐姐",
+          "supports": "女性称呼及多多良眼中的姐姐关系；同章第170–171行已点名艾茵。"
+        },
+        {
+          "sourceEpub": "39688/[台版]落第骑士英雄谭 13.epub",
+          "xhtml": "OEBPS/Text/Chapter004.xhtml",
+          "line": 486,
+          "location": "第十七章 不转杀手；多多良/菲亚的童年回忆",
+          "excerpt": "稍稍年长的少女",
+          "supports": "女性童年身份；该段称〈一号〉，ruby注音Ein，后文继续明确点名艾茵。"
+        },
+        {
+          "sourceEpub": "39688/[台版]落第骑士英雄谭 13.epub",
+          "xhtml": "OEBPS/Text/Chapter004.xhtml",
+          "line": 138,
+          "location": "第十七章 不转杀手；012.jpg在第135行，正文对战双方在第16行具名",
+          "excerpt": "艾茵的确看透自己的弱点。",
+          "supports": "012.jpg单人是艾茵；正文描述她从断臂长出荆棘，对应图中枝蔓。图中长发、高领、胸前开口、腰侧交叉带与004.jpg候选一致。"
+        },
+        {
+          "sourceEpub": "39688/[台版]落第骑士英雄谭 13.epub",
+          "xhtml": "OEBPS/Text/Chapter004.xhtml",
+          "line": 687,
+          "location": "第十七章 不转杀手；013.jpg在第689行",
+          "excerpt": "艾茵露出菲亚从未见过的欣喜神色",
+          "supports": "013.jpg单人笑脸在插图前被直接点名艾茵，给出第二身份锚点。其长发、高领服装与012.jpg、004.jpg一致。"
+        }
+      ]
+    },
+    {
+      "id": "rai",
+      "name": "碎城雷",
+      "aliases": [
+        "碎城",
+        "破城舰",
+        "破城艦",
+        "Destroyer",
+        "IKADSUCHI SAIJO"
+      ],
+      "profileRomanizedName": "IKADSUCHI SAIJO",
+      "affiliation": "破军学园",
+      "volume": 9,
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 09.epub",
+      "imageMember": "OEBPS/Images/007.jpg",
+      "width": 1061,
+      "height": 1600,
+      "sha256": "522938ed04fd940dc5d2c6465b4f377b527736a8b4df7418e26954301b6908ef",
+      "imageColorStatus": "original-monochrome",
+      "imageIdentityNote": "与用户图1精确相同的小说原图；左上寸头男子为碎城雷，右侧为兔丸恋恋，左下为御祓泡沫。",
+      "facePosition": "原图左上；头部约 x=20–450，y=70–570（1061×1600像素坐标，供定位）。",
+      "userReference": "C:/Users/eriri/AppData/Local/Temp/codex-clipboard-3ed5662e-4fa2-4de2-83ce-f580f54b57b8.png",
+      "evidence": [
+        {
+          "xhtml": "OEBPS/Text/Chapter000.xhtml",
+          "location": "段落起于 XHTML 第 56 行；第十四章 战魂高昂；具名容貌",
+          "excerpt": "那是一名身材壮硕，恍若岩石的高大男子，名为碎城雷。"
+        },
+        {
+          "xhtml": "OEBPS/Text/Chapter000.xhtml",
+          "location": "段落起于 XHTML 第 112 行；第十四章 战魂高昂；007.jpg场景中的对话对象",
+          "excerpt": "「……兔丸认为黑铁会获胜？」"
+        }
+      ],
+      "namedProfile": {
+        "volume": 7,
+        "sourceEpub": "39688/[台版]落第骑士英雄谭 07.epub",
+        "imageMember": "OEBPS/Images/011.jpg",
+        "width": 1000,
+        "height": 1507,
+        "sha256": "dc651d665c4a1c182d88dc8311eb0438ffdbf31fcb43c1cc28e2f8f7a8c7e176",
+        "evidence": [
+          {
+            "xhtml": "OEBPS/Text/Chapter001.xhtml",
+            "location": "段落起于 XHTML 第 553 行；人物PROFILE具名",
+            "excerpt": "碎城雷IKADSUCHI SAIJO"
+          },
+          {
+            "xhtml": "OEBPS/Text/Chapter001.xhtml",
+            "location": "段落起于 XHTML 第 558 行；人物PROFILE别称",
+            "excerpt": "称号：破城舰Destroyer"
+          },
+          {
+            "xhtml": "OEBPS/Text/Chapter001.xhtml",
+            "location": "段落起于 XHTML 第 559 行；人物PROFILE身份",
+            "excerpt": "人物简介：学生会书记"
+          }
+        ]
+      },
+      "colorizationRecord": "research/epub/rai-colorization.json",
+      "displayVariant": "用户提供的小说原图裁片的AI上色衍生头像；本地保存完整EPUB原档。"
+    },
+    {
+      "id": "momiji",
+      "name": "浅木椛",
+      "aliases": [
+        "淺木椛",
+        "浅木",
+        "鬼火",
+        "MOMIJI ASAGI",
+        "Momiji Asagi",
+        "Asagi Momiji"
+      ],
+      "profileRomanizedName": "MOMIJI ASAGI",
+      "userSpelling": "浅桦",
+      "nameNote": "本地小说正文和具名PROFILE均为“浅木椛”；“浅桦”是本次用户简称，不能作为完整正名。现有词条“浅木红叶”属于项目已有异译，未在本地EPUB确认。",
+      "affiliation": "武曲学园",
+      "volume": 9,
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 09.epub",
+      "imageMember": "OEBPS/Images/003.jpg",
+      "width": 2352,
+      "height": 1776,
+      "sha256": "8eb2923f55025f48385de5dd4afe20de9b9311dbebc26e00b042e84e357d9652",
+      "imageColorStatus": "original-color",
+      "imageIdentityNote": "与用户图3相同的第9卷群像；左下紫色大蝴蝶结、长黑发、紫色眼睛、脸贴OK绷的女生为浅木椛。身份可与第8卷具名PROFILE外貌对照。",
+      "facePosition": "原图左下；头部含蝴蝶结约 x=0–600，y=800–1360（2352×1776像素坐标，供定位）。",
+      "userReference": "C:/Users/eriri/AppData/Local/Temp/codex-clipboard-42e726d7-c275-497c-a75e-590c3f707601.png",
+      "evidence": [
+        {
+          "xhtml": "OEBPS/Text/Chapter000.xhtml",
+          "location": "段落起于 XHTML 第 311 行；第十四章 战魂高昂；武曲代表具名",
+          "excerpt": "〈天眼〉城之崎白夜、〈鬼火〉浅木椛。"
+        }
+      ],
+      "appearanceEvidence": {
+        "sourceEpub": "39688/[台版]落第骑士英雄谭 05.epub",
+        "evidence": [
+          {
+            "xhtml": "OEBPS/Text/Chapter001.xhtml",
+            "location": "段落起于 XHTML 第 624 行；第一章 全国的劲敌们；完整姓名",
+            "excerpt": "她同样也是武曲学园三年级•浅木椛。"
+          },
+          {
+            "xhtml": "OEBPS/Text/Chapter001.xhtml",
+            "location": "段落起于 XHTML 第 624 行；第一章 全国的劲敌们；女生容貌",
+            "excerpt": "脸颊贴着OK绷，眼神宛如少年般俏皮。"
+          }
+        ]
+      },
+      "namedProfile": {
+        "volume": 8,
+        "sourceEpub": "39688/[台版]落第骑士英雄谭 08.epub",
+        "imageMember": "OEBPS/Images/009.jpg",
+        "width": 927,
+        "height": 1398,
+        "sha256": "f078f6a02b787d0d250b00899446b77c10518f52eaed03b34355ffae738cbf6d",
+        "evidence": [
+          {
+            "xhtml": "OEBPS/Text/Chapter001.xhtml",
+            "location": "段落起于 XHTML 第 600 行；人物PROFILE具名",
+            "excerpt": "浅木椛MOMIJI ASAGI"
+          },
+          {
+            "xhtml": "OEBPS/Text/Chapter001.xhtml",
+            "location": "段落起于 XHTML 第 602 行；人物PROFILE身份",
+            "excerpt": "隶属：武曲学园三年级"
+          },
+          {
+            "xhtml": "OEBPS/Text/Chapter001.xhtml",
+            "location": "段落起于 XHTML 第 605 行；人物PROFILE别称",
+            "excerpt": "称号：鬼火"
+          }
+        ]
+      }
+    },
+    {
+      "id": "byakuya",
+      "name": "城之崎白夜",
+      "aliases": [
+        "城之崎",
+        "白夜",
+        "天眼",
+        "BYAKUYA JOGASAKI",
+        "Byakuya Jogasaki",
+        "Jogasaki Byakuya"
+      ],
+      "profileRomanizedName": "BYAKUYA JOGASAKI",
+      "nameNote": "第7卷具名PROFILE的姓氏罗马字为JOGASAKI；现有词条中的Jonosaki Byakuya未得到该EPUB支持，本次仅记录差异。",
+      "affiliation": "武曲学园",
+      "volume": 9,
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 09.epub",
+      "imageMember": "OEBPS/Images/003.jpg",
+      "width": 2352,
+      "height": 1776,
+      "sha256": "8eb2923f55025f48385de5dd4afe20de9b9311dbebc26e00b042e84e357d9652",
+      "imageColorStatus": "original-color",
+      "imageIdentityNote": "与用户图3相同的第9卷群像；浅木椛上方、诸星雄大下方的黑发戴眼镜男子为城之崎白夜，与第7卷具名PROFILE吻合。",
+      "facePosition": "原图左半中部；头部约 x=300–840，y=500–1030（2352×1776像素坐标，供定位）。",
+      "userReference": "C:/Users/eriri/AppData/Local/Temp/codex-clipboard-42e726d7-c275-497c-a75e-590c3f707601.png",
+      "evidence": [
+        {
+          "xhtml": "OEBPS/Text/Chapter000.xhtml",
+          "location": "段落起于 XHTML 第 311 行；第十四章 战魂高昂；武曲代表具名",
+          "excerpt": "〈天眼〉城之崎白夜、〈鬼火〉浅木椛。"
+        }
+      ],
+      "appearanceEvidence": {
+        "sourceEpub": "39688/[台版]落第骑士英雄谭 05.epub",
+        "evidence": [
+          {
+            "xhtml": "OEBPS/Text/Chapter001.xhtml",
+            "location": "段落起于 XHTML 第 624 行；第一章 全国的劲敌们；完整姓名",
+            "excerpt": "他就是武曲学园三年级•城之崎白夜；"
+          },
+          {
+            "xhtml": "OEBPS/Text/Chapter001.xhtml",
+            "location": "段落起于 XHTML 第 624 行；第一章 全国的劲敌们；男生容貌",
+            "excerpt": "配戴眼镜的男学生，身上的制服一丝不苟"
+          }
+        ]
+      },
+      "namedProfile": {
+        "volume": 7,
+        "sourceEpub": "39688/[台版]落第骑士英雄谭 07.epub",
+        "imageMember": "OEBPS/Images/015.jpg",
+        "width": 1000,
+        "height": 1507,
+        "sha256": "27799c640a5d873930a84a51884d1d9ee5a0e3a108cbc951e67f156bd96c8c58",
+        "evidence": [
+          {
+            "xhtml": "OEBPS/Text/Chapter002.xhtml",
+            "location": "段落起于 XHTML 第 1145 行；人物PROFILE具名",
+            "excerpt": "城之崎白夜BYAKUYA JOGASAKI"
+          },
+          {
+            "xhtml": "OEBPS/Text/Chapter002.xhtml",
+            "location": "段落起于 XHTML 第 1147 行；人物PROFILE身份",
+            "excerpt": "隶属：武曲学园三年级"
+          },
+          {
+            "xhtml": "OEBPS/Text/Chapter002.xhtml",
+            "location": "段落起于 XHTML 第 1150 行；人物PROFILE别称",
+            "excerpt": "称号：天眼"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mikoto",
+      "name": "鹤屋美琴",
+      "sourceImage": "research/user-supplied/mikoto-profile-screenshot.png",
+      "imageSourceStatus": "user-supplied-publication-unverified",
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 05.epub",
+      "evidence": [
+        {
+          "xhtml": "OEBPS/Text/Chapter005.xhtml",
+          "location": "尾声；XHTML第70行",
+          "excerpt": "一名有着灰金色发丝的女性",
+          "establishes": "hair-color"
+        },
+        {
+          "xhtml": "OEBPS/Text/Chapter003.xhtml",
+          "location": "第3章；XHTML第37行",
+          "excerpt": "巨门学园三年级〈冰霜冷笑〉鹤屋美琴",
+          "establishes": "identity"
+        }
+      ],
+      "colorizationRecord": "research/epub/mikoto-colorization.json",
+      "detailedEvidence": "research/epub/mikoto-evidence.json",
+      "displayVariant": "用户提供黑白人物图的AI上色盾形头像；眼睛和制服为未核实官方颜色的中性补色。"
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "id": "mikoto",
+  "name": "鹤屋美琴",
+  "assetType": "ai-colorized-user-supplied-portrait",
+  "mode": "built-in",
+  "tool": "image_gen__imagegen",
+  "intent": "edit",
+  "useCase": "identity-preserve",
+  "transparentBackground": false,
+  "identityBasis": "使用者提供的百科人物截图与姓名说明；原始插画出版载体尚未核实，不标记为已核实小说插图或官方原生彩图。",
+  "finalPrompt": "Use case: identity-preserve.\nAsset type: AI-colorized companion portrait of Mikoto Tsuruya / 鶴屋美琴, derived from the user's existing black-and-white illustration.\nPrimary request: add restrained color ONLY to the existing Image 1. Keep the existing face, expression, hair shape, clothing design, pose and composition. This is colorization of the supplied art, not a new portrait or character redesign.\nInput images: Image 1 is the ONLY edit target, a 420×595 opaque monochrome portrait crop. The source is user supplied and its original publication has not been verified; do not insert any publication or official-art claims into the image.\nSubject invariants: keep the precise original face outline, gently arched full blunt fringe, straight shoulder-length hair, original eyes, eyebrows, nose, tiny closed mouth and reserved cold expression. Keep the direction of the head, shoulders, visible ear, original white high neck inner clothing, jacket lapels, double contour/piping lines, dark neck opening and black tie. Preserve all existing ink contours and printed shading as closely as possible.\nColor palette: hair is ash blonde / 灰金色, a muted misty gray with a faint pale beige-gold undertone. Use subtle subdued warmth, never vivid yellow/golden blonde and never pure silver-white. Skin has a natural soft light skin tone, without exaggerated blush. Irises remain nearly black neutral charcoal gray: this is a neutral artistic choice because the character's actual eye color is unknown. The original grayscale uniform stays white and pale cool gray with very subtle cool-gray shadows, and the original tie stays black: this is also a neutral artistic choice, not a claim of a canonical uniform palette. Keep all original garment boundaries and printed tones.\nScene/backdrop: keep the original pale white and gray background, black horizontal border line near the top and cropped curved manga outline at the right edge. Preserve the exact portrait framing and aspect ratio. Background remains opaque.\nStyle/medium: retain the original manga/light-novel-like ink drawing style. Apply gentle color beneath the existing contours and preserve the restrained expression; do not make it a different anime face or a painterly redesign.\nConstraints: change only color. No new expression, no smiling, no posture change, no changes to facial proportions, no longer or shorter hair, no accessories or glasses, no new props. Do not invent garment structures, badge, buttons, jewelry or new neckline. Do not add a shield frame, text, labels, table, webpage UI, watermark, border decoration or another character. Keep the source's existing manga edge lines rather than replacing the backdrop.",
+  "inputs": [
+    {
+      "path": "resource/knightavatars/novel/mikoto-user-crop.png",
+      "width": 420,
+      "height": 595,
+      "mode": "RGB",
+      "sha256": "906277e16755e62ad1fc1b92a3cd32c231a28619147a89d27d58feac74a67d02",
+      "role": "only-edit-target",
+      "sourceType": "user-supplied-encyclopedia-portrait-crop",
+      "note": "只输入去除网页界面的同一人物裁图。目录名novel为项目既有目录，不代表已核实插画出版出处。"
+    }
+  ],
+  "preservedScreenshot": {
+    "path": "resource/knightavatars/research/user-supplied/mikoto-profile-screenshot.png",
+    "userAttachmentPath": "C:/Users/eriri/AppData/Local/Temp/codex-clipboard-f465e8ad-fc86-4405-8608-be64c0a1d276.png",
+    "width": 483,
+    "height": 1212,
+    "sha256": "2c3f93e72e8fbdf40f6e90819710888f10a7b7631fa52e84f36b36d0b10fcf75",
+    "role": "preserved-source-not-submitted-to-generation",
+    "note": "原截图与裁切图分别保留与记录哈希；原含网页UI截图未提交本次imagegen。"
+  },
+  "output": {
+    "path": "resource/knightavatars/color/mikoto-colorized.png",
+    "width": 1054,
+    "height": 1493,
+    "mode": "RGB",
+    "sha256": "0be6927fecc54f0ae01a535dc1b212e883f968efffd06088157c32d801d4639d"
+  },
+  "generatedOriginal": "C:/Users/eriri/.codex/generated_images/01a10086-4e7a-75b0-b4f9-062f66bc75ca/exec-eb71d28e-2e08-4428-88c3-7c3c04cf97b0.png",
+  "paletteEvidence": {
+    "hair": {
+      "status": "canonical-novel-text",
+      "value": "低饱和灰金色／ash blonde；雾灰与淡米金，不用亮金或纯银白",
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 05.epub",
+      "sourceMember": "OEBPS/Text/Chapter005.xhtml",
+      "line": 70,
+      "excerpt": "一名有着灰金色发丝的女性"
+    },
+    "naturalEyeColor": {
+      "status": "unknown-neutral-artistic-choice",
+      "chosen": "接近黑的中性深灰",
+      "note": "未核实常态虹膜色；蓝白魔力特效不能据此当作常态瞳色。"
+    },
+    "uniformColors": {
+      "status": "unknown-neutral-artistic-choice",
+      "chosen": "原灰白制服，细微冷灰阴影，原黑领带",
+      "note": "没有核实这套制服的官方配色；只保留原线稿明暗结构并补色。"
+    },
+    "skin": {
+      "status": "neutral-artistic-choice",
+      "chosen": "自然浅肤色"
+    }
+  },
+  "visualReview": {
+    "passed": true,
+    "observed": [
+      "保持原脸轮廓、圆弧平刘海、及肩直发、眼鼻嘴和冷淡表情。",
+      "头肩姿势和构图不变；保留制服翻领、双轮廓线条、立领与黑领带。",
+      "头发呈低饱和灰金色，瞳孔为中性深灰，制服为灰白冷灰阴影。",
+      "背景不透明，保留原淡白底、顶部横线与右侧漫画边缘线。",
+      "没有添加网页UI、文字、表格、盾框、眼镜、能力发光或新饰物。"
+    ],
+    "limitations": "内置生成式编辑会重绘并放大线条，不声称逐像素保留原线稿。原插图出处未核实；AI上色衍生图不标为官方原生彩图；眼睛和制服的中性配色不标为官方设定。"
+  },
+  "preservedOriginal": "resource/knightavatars/novel/mikoto-user-crop.png",
+  "identityEvidence": "resource/knightavatars/research/epub/mikoto-evidence.json",
+  "scope": "仅保存AI上色结果与来源/配色记录；主清单及裁盾参数由集成任务维护。"
+}

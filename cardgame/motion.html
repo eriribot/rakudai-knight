@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#10141b">
+  <link rel="icon" href="data:,">
+  <title>動作演練 · 一刀之間</title>
+  <link rel="stylesheet" href="actors.css">
+  <link rel="stylesheet" href="stella-frames.css">
+  <link rel="stylesheet" href="ikki-unified.css">
+
+
+  <link rel="stylesheet" href="motion-viewer.css">
+  <script defer src="actors.js"></script>
+  <script defer src="motion-viewer.js"></script>
+</head>
+<body>
+  <main class="motion-page">
+    <header class="motion-header">
+      <a class="motion-brand" href="index.html"><span>斬</span><div>一刀之間<small>CHIVALRY OF A FAILED KNIGHT</small></div></a>
+      <a class="back-link" href="index.html">返回模擬戰 <span>↗</span></a>
+    </header>
+
+    <div class="page-heading"><div><p class="eyebrow">THE ART OF THE BLADE</p><h1>每一步，為下一劍。</h1></div><p>從步伐到落刀，停下來看清每個動作。</p></div>
+
+    <section class="motion-scene" aria-label="角色動作演練場">
+      <div class="scene-art" aria-hidden="true"></div><div class="scene-shade" aria-hidden="true"></div>
+      <div class="scene-caption"><span>破軍學園</span><i></i><span>動作演練</span></div>
+      <div class="mode-tag" id="mode-tag">素材載入中</div>
+      <div class="combat-stage" id="combat-stage">
+        <div class="actor actor-ikki" id="actor-player" role="img" aria-label="黑鐵一輝，待機姿勢" data-pose="idle"><div class="actor-shadow"></div><div class="actor-sprite"></div><div class="actor-aura"></div></div>
+        <div class="actor actor-stella" id="actor-enemy" role="img" aria-label="史黛菈，待機姿勢" data-pose="idle"><div class="actor-shadow"></div><div class="actor-sprite"></div><div class="actor-aura"></div></div>
+      </div>
+      <div class="actor-name name-ikki"><small>WORST ONE</small><strong>黑鐵一輝</strong><span id="pose-player">待機</span></div>
+      <div class="actor-name name-stella"><small>CRIMSON PRINCESS</small><strong>史黛菈</strong><span id="pose-enemy">待機</span></div>
+      <p class="scene-status" id="scene-status" role="status" aria-live="polite">正在準備人物動作。</p>
+    </section>
+
+    <section class="playback-bar" aria-label="動作播放控制">
+      <div class="attack-controls"><button class="action-button ikki-button" id="attack-ikki" disabled><span>▷</span> 一輝出擊</button><button class="action-button stella-button" id="attack-stella" disabled><span>▷</span> 史黛菈出擊</button><button class="quiet-button" id="replay" disabled>↻ 重播</button></div>
+      <button class="quiet-button" id="reset-pose">還原待機</button>
+    </section>
+
+    <section class="inspection" aria-labelledby="inspection-title">
+      <div class="inspection-heading"><div><p class="eyebrow">SIX MOMENTS / ONE MOTION</p><h2 id="inspection-title">逐格看清劍路</h2></div><p>點選任一姿勢，在演練場放大檢視。</p></div>
+      <div class="step-controls">
+        <div class="actor-selector" role="group" aria-label="逐格檢視角色"><button id="select-ikki" data-select-side="player" class="is-selected" aria-pressed="true">黑鐵一輝</button><button id="select-stella" data-select-side="enemy" aria-pressed="false">史黛菈</button></div>
+        <div class="frame-navigation"><button class="quiet-button" id="previous-frame" disabled aria-label="上一格姿勢">← 上一格</button><span class="frame-counter" id="frame-counter">01 / 06</span><button class="quiet-button" id="next-frame" disabled aria-label="下一格姿勢">下一格 →</button><button class="slow-button" id="slow-frames" disabled aria-pressed="false">▷ 慢速逐格</button></div>
+      </div>
+      <div class="pose-galleries"><article class="pose-gallery" aria-labelledby="ikki-gallery-title"><header><h3 id="ikki-gallery-title">黑鐵一輝</h3><span>IKKI KUROGANE</span></header><div class="pose-grid" id="poses-player"></div></article><article class="pose-gallery" aria-labelledby="stella-gallery-title"><header><h3 id="stella-gallery-title">史黛菈</h3><span>STELLA VERMILLION</span></header><div class="pose-grid" id="poses-enemy"></div></article></div>
+      <p class="motion-note" id="motion-note" hidden>目前依照系統設定減少動態，仍可逐格檢視完整姿勢。</p>
+    </section>
+    <footer class="motion-footer"><span>概念演示 · 動作檢視</span><a href="references.html">素材對照 ↗</a><span>讀懂對手。掌握節奏。</span></footer>
+  </main>
+</body>
+</html>

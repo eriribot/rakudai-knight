@@ -1,0 +1,165 @@
+{
+  "schemaVersion": 1,
+  "scannedVolumes": [
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "characters": [
+    {
+      "id": "kiriko",
+      "name": "药师雾子",
+      "volume": 5,
+      "sourceEpub": "E:/web/落第/39688/[台版]落第骑士英雄谭 05.epub",
+      "imageMember": "OEBPS/Images/004.jpg",
+      "imageColorStatus": "original-color",
+      "imageIdentityNote": "彩图右下角直接标注〈白衣骑士〉药师雾子；绿色短发，白色医师外衣与黑色内搭。",
+      "evidence": [
+        {
+          "xhtml": "OEBPS/Text/Chapter001.xhtml",
+          "location": "第一章 全国的劲敌们；XHTML 第 730 行",
+          "excerpt": "「廉贞学园三年级——〈白衣骑士〉药师雾子。」"
+        },
+        {
+          "xhtml": "OEBPS/Text/Chapter002.xhtml",
+          "location": "第二章 浪速之星；XHTML 第 443 行；与彩图左侧台词对应",
+          "excerpt": "要不要让大姊姊帮你来个赛前健康检查呢？"
+        },
+        {
+          "xhtml": "OEBPS/Text/Chapter002.xhtml",
+          "location": "第二章 浪速之星；XHTML 第 444 行；衣装描写",
+          "excerpt": "特地解开白衣，换了个坐姿，"
+        }
+      ]
+    },
+    {
+      "id": "sara",
+      "name": "莎拉·布拉德莉莉",
+      "volume": 6,
+      "sourceEpub": "E:/web/落第/39688/[台版]落第骑士英雄谭 06.epub",
+      "imageMember": "OEBPS/Images/005.jpg",
+      "imageColorStatus": "original-color",
+      "imageIdentityNote": "彩图左上为莎拉完整头部：长金发夹杂颜料色痕，沾色围裙，手持画笔与调色盘；印字“莎拉拿起画笔，沾取调色盘的颜料”与正文对应。右侧人物为仓敷藏人，头像取左上莎拉。",
+      "evidence": [
+        {
+          "xhtml": "OEBPS/Text/Chapter003.xhtml",
+          "location": "第七章 七星剑武祭第二轮战·开战；XHTML 第 249 行；两名参赛者具名",
+          "excerpt": "莎拉•布拉德莉莉选手，仓敷藏人选手。"
+        },
+        {
+          "xhtml": "OEBPS/Text/Chapter003.xhtml",
+          "location": "第七章 七星剑武祭第二轮战·开战；XHTML 第 350 行；容貌描写",
+          "excerpt": "完全没有梳理，乱糟糟的金发。"
+        },
+        {
+          "xhtml": "OEBPS/Text/Chapter003.xhtml",
+          "location": "第七章 七星剑武祭第二轮战·开战；XHTML 第 383 行；具名确认调色盘与画笔",
+          "excerpt": "这就是〈染血达文西〉莎拉•布拉德莉莉的固有灵装。"
+        },
+        {
+          "xhtml": "OEBPS/Text/Chapter003.xhtml",
+          "location": "第七章 七星剑武祭第二轮战·开战；XHTML 第 385 行；与彩图印字对应",
+          "excerpt": "莎拉拿起画笔，沾取调色盘的颜料——"
+        }
+      ],
+      "alternativeImageCandidates": [
+        {
+          "volume": 5,
+          "sourceEpub": "E:/web/落第/39688/[台版]落第骑士英雄谭 05.epub",
+          "imageMember": "OEBPS/Images/003.jpg",
+          "imageColorStatus": "original-color",
+          "evidence": [
+            {
+              "xhtml": "OEBPS/Text/Chapter001.xhtml",
+              "location": "第一章 全国的劲敌们；XHTML 第 320 行",
+              "excerpt": "「晓学园的、〈染血达文西〉莎拉•布拉德莉莉……！」"
+            },
+            {
+              "xhtml": "OEBPS/Text/Chapter001.xhtml",
+              "location": "第一章 全国的劲敌们；XHTML 第 317 行；容貌描写",
+              "excerpt": "那名女性的金发上，散落着各色颜料。"
+            },
+            {
+              "xhtml": "OEBPS/Text/Chapter001.xhtml",
+              "location": "第一章 全国的劲敌们；XHTML 第 318 行；衣装描写",
+              "excerpt": "只用沾满颜料的肮脏围裙"
+            },
+            {
+              "xhtml": "OEBPS/Text/Chapter001.xhtml",
+              "location": "第一章 全国的劲敌们；XHTML 第 362 行；与彩图台词对应",
+              "excerpt": "「……没问题，这样就合格了。」"
+            }
+          ],
+          "note": "第5卷具名彩图候选；莎拉头脸与左侧一辉相邻，裁切头像较易带入另一人物。"
+        }
+      ]
+    },
+    {
+      "id": "rinna",
+      "name": "风祭凛奈",
+      "volume": 5,
+      "sourceEpub": "E:/web/落第/39688/[台版]落第骑士英雄谭 05.epub",
+      "imageMember": "OEBPS/Images/007.jpg",
+      "imageColorStatus": "original-monochrome",
+      "imageIdentityNote": "5–9卷未找到可确认凛奈的彩色头像来源；本图右下方眼罩、头顶大蝴蝶结、礼服少女为凛奈，左上女仆为夏洛特。保留黑白原图。",
+      "alternativeImageCandidates": [
+        {
+          "volume": 6,
+          "sourceEpub": "E:/web/落第/39688/[台版]落第骑士英雄谭 06.epub",
+          "imageMember": "OEBPS/Images/016.jpg",
+          "imageColorStatus": "original-monochrome",
+          "note": "具名风祭凛奈 RINNA KAZAMATSURI 官方PROFILE页，人物脸部较小。"
+        },
+        {
+          "volume": 7,
+          "sourceEpub": "E:/web/落第/39688/[台版]落第骑士英雄谭 07.epub",
+          "imageMember": "OEBPS/Images/016.jpg",
+          "imageColorStatus": "original-monochrome",
+          "note": "三人插图；凛奈位于下半右侧，夏洛特在左，史黛菈在上右。"
+        }
+      ],
+      "evidence": [
+        {
+          "xhtml": "OEBPS/Text/Chapter001.xhtml",
+          "location": "第一章 全国的劲敌们；XHTML 第 418 行；紧接对应插图007.jpg之前",
+          "excerpt": "戴着眼罩、身穿深红礼服的少女"
+        },
+        {
+          "xhtml": "OEBPS/Text/Chapter001.xhtml",
+          "location": "第一章 全国的劲敌们；XHTML 第 424 行；紧接对应插图007.jpg之后",
+          "excerpt": "「我记得没错的话，你应该是原廉贞学园代表的风祭同学，没错吧？」"
+        },
+        {
+          "xhtml": "OEBPS/Text/Chapter001.xhtml",
+          "location": "第一章 全国的劲敌们；XHTML 第 455 行",
+          "excerpt": "魔兽使Beast Tamer风祭凛奈语带嘲讽地笑道。"
+        }
+      ],
+      "colorReference": {
+        "volume": 18,
+        "sourceEpub": "E:/web/落第/39688/落第骑士英雄谭 - 18.epub",
+        "imageMember": "OEBPS/Images/190216.jpg",
+        "note": "原彩图右侧为粉红短发的凛奈，左侧为金发夹杂颜料色痕的莎拉；仅作颜色参考，主头像保留第5卷黑白来源。",
+        "evidence": [
+          {
+            "xhtml": "OEBPS/Text/chapter1.xhtml",
+            "location": "序章 所谓正义，所谓邪恶；段落起于 XHTML 第 45 行；身份具名",
+            "excerpt": "〈魔兽使（BeastTamer）〉风祭凛奈。"
+          },
+          {
+            "xhtml": "OEBPS/Text/chapter2.xhtml",
+            "location": "第一章 〈烈风剑帝〉VS〈超人〉；段落起于 XHTML 第 350 行；与彩图呼名对应",
+            "excerpt": "「───！？凛奈！！莎拉───！！」"
+          },
+          {
+            "xhtml": "OEBPS/Text/chapter2.xhtml",
+            "location": "第一章 〈烈风剑帝〉VS〈超人〉；段落起于 XHTML 第 353 行；与彩图绑椅场景对应",
+            "excerpt": "映出两人的模样。她们和月影、晄三一样，被人绑在椅子上。"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+@charset "UTF-8";
+
+/*
+ * Ikki motion BODY layer only. The rejected generated heads are removed using
+ * an even-odd neckline/hair exclusion polygon, never blended into the source head.
+ * Load after actors.css. The original head is rendered by a separate .actor-head.
+ * No PNG is changed.
+ *
+ * Source sheet: 1536 x 1024. One source pixel = actor height / 512.
+ * --head-x: actor-local CSS left of the replacement head's bottom neck anchor.
+ * --head-y: actor-local CSS top of that same anchor.
+ * --head-width: replacement head's display width.
+ * Expected head geometry: left:var(--head-x); top:var(--head-y);
+ * width:var(--head-width); transform:translate(-50%,-100%).
+ * The source-head image's visible neck endpoint must coincide with its bottom
+ * center. Source cropping, alpha and head rendering stay with the head layer.
+ *
+ * pose     crop x,y,w,h          feet x,y    neck x,y   head width (source px)
+ * walk-a   18,0,466,512          315,509     346,121    116
+ * walk-b   520,0,392,514         774,504     807,120    116
+ * walk-c   1016,8,440,506        1291,508    1327,129   118
+ * windup   91,510,383,499        293,1000    253,662    116
+ * slash    527,562,561,435       747,993     803,680    119
+ * guard    1087,535,398,463      1287,993    1283,671   120
+ */
+.combat-stage .actor-ikki {
+  --ikki-frame-scale: 1;
+  --ikki-unit: calc(var(--actor-height) * var(--ikki-frame-scale) / 512);
+  --ikki-ground-offset: calc(var(--actor-height) * .02);
+}
+
+.combat-stage .actor-ikki[data-pose="walk-a"] {
+  --ikki-src-x: 18; --ikki-src-y: 0;
+  --ikki-frame-w: 466; --ikki-frame-h: 512;
+  --ikki-anchor-x: 315; --ikki-anchor-y: 509;
+  --ikki-neck-x: 346; --ikki-neck-y: 121;
+  --ikki-head-width: 116;
+}
+
+.combat-stage .actor-ikki[data-pose="walk-b"] {
+  --ikki-src-x: 520; --ikki-src-y: 0;
+  --ikki-frame-w: 392; --ikki-frame-h: 514;
+  --ikki-anchor-x: 774; --ikki-anchor-y: 504;
+  --ikki-neck-x: 807; --ikki-neck-y: 120;
+  --ikki-head-width: 116;
+}
+
+.combat-stage .actor-ikki[data-pose="walk-c"] {
+  --ikki-src-x: 1016; --ikki-src-y: 8;
+  --ikki-frame-w: 440; --ikki-frame-h: 506;
+  --ikki-anchor-x: 1291; --ikki-anchor-y: 508;
+  --ikki-neck-x: 1327; --ikki-neck-y: 129;
+  --ikki-head-width: 118;
+}
+
+.combat-stage .actor-ikki[data-pose="windup"] {
+  --ikki-src-x: 91; --ikki-src-y: 510;
+  --ikki-frame-w: 383; --ikki-frame-h: 499;
+  --ikki-anchor-x: 293; --ikki-anchor-y: 1000;
+  --ikki-neck-x: 253; --ikki-neck-y: 662;
+  --ikki-head-width: 116;
+}
+
+.combat-stage .actor-ikki[data-pose="slash"] {
+  --ikki-src-x: 527; --ikki-src-y: 562;
+  --ikki-frame-w: 561; --ikki-frame-h: 435;
+  --ikki-anchor-x: 747; --ikki-anchor-y: 993;
+  --ikki-neck-x: 803; --ikki-neck-y: 680;
+  --ikki-head-width: 119;
+}
+
+.combat-stage .actor-ikki:is([data-pose="guard"], [data-pose="idle"]) {
+  --ikki-src-x: 1087; --ikki-src-y: 535;
+  --ikki-frame-w: 398; --ikki-frame-h: 463;
+  --ikki-anchor-x: 1287; --ikki-anchor-y: 993;
+  --ikki-neck-x: 1283; --ikki-neck-y: 671;
+  --ikki-head-width: 120;
+}
+
+.combat-stage .actor-ikki:is([data-pose="walk-a"], [data-pose="walk-b"], [data-pose="walk-c"], [data-pose="windup"], [data-pose="slash"], [data-pose="guard"], [data-pose="idle"]) {
+  --head-x: calc(50% + var(--ikki-unit) * (var(--ikki-neck-x) - var(--ikki-anchor-x)));
+  --head-y: calc(100% - var(--ikki-ground-offset) - var(--ikki-unit) * (var(--ikki-anchor-y) - var(--ikki-neck-y)));
+  --head-width: calc(var(--ikki-unit) * var(--ikki-head-width) * .82);
+}
+.combat-stage .actor-ikki:is([data-pose="walk-a"], [data-pose="walk-b"], [data-pose="walk-c"], [data-pose="windup"], [data-pose="slash"], [data-pose="guard"], [data-pose="idle"]) .actor-sprite {
+  inset: auto;
+  left: calc(50% - var(--ikki-unit) * (var(--ikki-anchor-x) - var(--ikki-src-x)));
+  bottom: calc(var(--ikki-ground-offset) - var(--ikki-unit) * (var(--ikki-src-y) + var(--ikki-frame-h) - var(--ikki-anchor-y)));
+  width: calc(var(--ikki-unit) * var(--ikki-frame-w));
+  height: calc(var(--ikki-unit) * var(--ikki-frame-h));
+  margin: 0;
+  background-image: url('assets/ikki-motion.png');
+  background-size: calc(var(--ikki-unit) * 1536) calc(var(--ikki-unit) * 1024);
+  background-position: calc(var(--ikki-unit) * var(--ikki-src-x) * -1) calc(var(--ikki-unit) * var(--ikki-src-y) * -1);
+  background-repeat: no-repeat;
+  animation: none;
+  transform: none;
+}
+
+.combat-stage .actor-ikki[data-pose="walk-a"] .actor-sprite {
+  clip-path: polygon(evenodd, 0.00000% 0.00000%, 100.00000% 0.00000%, 100.00000% 100.00000%, 0.00000% 100.00000%, 0.00000% 0.00000%, 58.15451% 0.00000%, 85.83691% 0.00000%, 85.83691% 19.72656%, 78.32618% 22.65625%, 71.88841% 24.02344%, 66.52361% 21.09375%, 64.16309% 21.48438%, 61.58798% 19.33594%, 58.15451% 18.55469%, 58.15451% 0.00000%, 0.00000% 0.00000%);
+}
+
+.combat-stage .actor-ikki[data-pose="walk-b"] .actor-sprite {
+  clip-path: polygon(evenodd, 0.00000% 0.00000%, 100.00000% 0.00000%, 100.00000% 100.00000%, 0.00000% 100.00000%, 0.00000% 0.00000%, 57.14286% 0.00000%, 90.56122% 0.00000%, 90.56122% 20.03891%, 81.63265% 22.76265%, 73.97959% 23.73541%, 67.09184% 21.01167%, 64.28571% 21.20623%, 59.43878% 19.06615%, 57.14286% 18.28794%, 57.14286% 0.00000%, 0.00000% 0.00000%);
+}
+
+.combat-stage .actor-ikki[data-pose="walk-c"] .actor-sprite {
+  clip-path: polygon(evenodd, 0.00000% 0.00000%, 100.00000% 0.00000%, 100.00000% 100.00000%, 0.00000% 100.00000%, 0.00000% 0.00000%, 54.77273% -0.39526%, 83.86364% -0.39526%, 83.86364% 20.55336%, 77.04545% 23.32016%, 70.45455% 24.30830%, 64.09091% 21.34387%, 61.13636% 21.73913%, 56.36364% 19.16996%, 54.77273% 17.78656%, 54.77273% -0.39526%, 0.00000% 0.00000%);
+}
+
+.combat-stage .actor-ikki[data-pose="windup"] .actor-sprite {
+  clip-path: polygon(evenodd, 0.00000% 7.01403%, 27.15405% 7.01403%, 27.15405% 0.00000%, 62.40209% 0.00000%, 62.40209% 8.41683%, 100.00000% 8.41683%, 100.00000% 100.00000%, 0.00000% 100.00000%, 0.00000% 7.01403%, 26.10966% 22.04409%, 26.63185% 17.03407%, 29.76501% 13.02605%, 38.90339% 7.81563%, 44.38642% 6.01202%, 55.35248% 6.81363%, 61.09661% 11.02204%, 61.87990% 21.64329%, 56.13577% 27.45491%, 50.13055% 31.06212%, 43.86423% 31.86373%, 37.59791% 29.05812%, 33.15927% 28.05611%, 29.24282% 25.25050%, 26.10966% 22.04409%, 0.00000% 7.01403%);
+}
+
+.combat-stage .actor-ikki[data-pose="slash"] .actor-sprite {
+  clip-path: polygon(evenodd, 0.00000% 0.00000%, 100.00000% 0.00000%, 100.00000% 100.00000%, 0.00000% 100.00000%, 0.00000% 0.00000%, 37.07665% -2.75862%, 63.81462% -2.75862%, 63.81462% 13.79310%, 58.82353% 22.06897%, 53.65419% 25.51724%, 49.37611% 27.81609%, 45.27629% 23.90805%, 42.60250% 22.52874%, 40.10695% 18.16092%, 37.07665% 15.63218%, 37.07665% -2.75862%, 0.00000% 0.00000%);
+}
+
+.combat-stage .actor-ikki:is([data-pose="guard"], [data-pose="idle"]) .actor-sprite {
+  clip-path: polygon(evenodd, 0.00000% 0.00000%, 100.00000% 0.00000%, 100.00000% 100.00000%, 0.00000% 100.00000%, 0.00000% 0.00000%, 33.16583% 0.64795%, 71.10553% 0.64795%, 71.10553% 18.79050%, 63.31658% 25.48596%, 55.02513% 28.72570%, 48.49246% 30.02160%, 42.96482% 25.91793%, 39.19598% 23.32613%, 36.43216% 20.08639%, 33.16583% 18.35853%, 33.16583% 0.64795%, 0.00000% 0.00000%);
+}
+

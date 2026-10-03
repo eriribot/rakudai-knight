@@ -1,0 +1,194 @@
+{
+  "characters": [
+    {
+      "id": "ikki",
+      "file": "ikki.png",
+      "sha256": "c1aa07045f00041d0602657929990df12bfe5f0e211b90e5b0c6bb3f97c9bc7a",
+      "imageUrl": ""
+    },
+    {
+      "id": "stella",
+      "file": "stella.png",
+      "sha256": "22e0a4ddd11c110e44f551e1e7094e110a333973ee22b2cb5108325f5cc3d38a",
+      "imageUrl": ""
+    },
+    {
+      "id": "shizuku",
+      "file": "shizuku.png",
+      "sha256": "76cd763eb54496c8a8d7e9bc8342c443e56be5a7887582e280a61ed164c7e8c6",
+      "imageUrl": ""
+    },
+    {
+      "id": "ayase",
+      "file": "ayase.png",
+      "sha256": "05d897307eae2cf1e9b68afa45e924717d825b505128758a8fa037ecdb645142",
+      "imageUrl": ""
+    },
+    {
+      "id": "toka",
+      "file": "toka.png",
+      "sha256": "186250c240708672366657fdf59bd417f0ffe130a332c11d436367cd22245463",
+      "imageUrl": ""
+    },
+    {
+      "id": "itsuki",
+      "file": "itsuki.png",
+      "sha256": "7022e2738e4f6a317be972e95da5f103f2e9f226f2e4f9e95ae400bdaf64298c",
+      "imageUrl": ""
+    },
+    {
+      "id": "ouma",
+      "file": "ouma.png",
+      "sha256": "a6be886848dd32be84c17e1fb83ade6e6a6933d6a17ecd992251e3d2a9500e57",
+      "imageUrl": ""
+    },
+    {
+      "id": "edelweiss",
+      "file": "edelweiss.png",
+      "sha256": "3eecdd710e24eac22820c725f2305370b028dd0a993d0cd8cad88822d35a8b54",
+      "imageUrl": ""
+    },
+    {
+      "id": "yuudai",
+      "file": "yuudai.png",
+      "sha256": "48ecaae18cbbf038b6a5bdf483ad31742557dc482804cf919d0151ab9b0865ae",
+      "imageUrl": ""
+    },
+    {
+      "id": "nagi",
+      "file": "prepared/nagi.png",
+      "sha256": "d0941a3057192ac42689b48dad91a1e565164a8877e96071dc994a07181be5fd",
+      "imageUrl": ""
+    },
+    {
+      "id": "kirihara",
+      "file": "prepared/kirihara.png",
+      "sha256": "8ab36d2b14f90ff1944a6bb5920ef4f4c3451aa1991f9f0b480d6a9819a2718d",
+      "imageUrl": ""
+    },
+    {
+      "id": "kuraudo",
+      "file": "prepared/kuraudo.png",
+      "sha256": "b0a9adff8ca91165bc10c10690d3093a9b37c5fe892611751b34279bcbfb0b90",
+      "imageUrl": ""
+    },
+    {
+      "id": "renren",
+      "file": "prepared/renren.png",
+      "sha256": "4036aeca55a4d6482dee15cfe07be7c0b1db5b0ed859ef9956ed046075c067f3",
+      "imageUrl": ""
+    },
+    {
+      "id": "misogi",
+      "file": "prepared/misogi.png",
+      "sha256": "c089284134efc40f4c73e764c1227cde08f8b83d8569c0f7b08806347593d091",
+      "imageUrl": ""
+    },
+    {
+      "id": "kanata",
+      "file": "prepared/kanata.png",
+      "sha256": "4eaa2086607fe091f09a87a493199257e0f25b7c0e3820899b2dcdb83c0d68cf",
+      "imageUrl": ""
+    },
+    {
+      "id": "nene",
+      "file": "prepared/nene.png",
+      "sha256": "b50ffc1deef39c0760c5bb75be8b086eb110ffc235344e35dc5d4898449af775",
+      "imageUrl": ""
+    },
+    {
+      "id": "kurono",
+      "file": "prepared/kurono.png",
+      "sha256": "ad28a366fa0686f5a1669e1dff3d375b15fbc4df42561515b8a997bef6cbc197",
+      "imageUrl": ""
+    },
+    {
+      "id": "yuri",
+      "file": "prepared/yuri.png",
+      "sha256": "1dc9497f5bcad73cacd0b819fc04d38e5e0f357e58c53916bb2505decdfb8722",
+      "imageUrl": ""
+    },
+    {
+      "id": "iris",
+      "file": "prepared/iris.png",
+      "sha256": "2f95d92246215fa80da423ffb5010c2aefc8d9364febb874ce9c881396cf2c5a",
+      "imageUrl": ""
+    },
+    {
+      "id": "uri",
+      "file": "prepared/uri.png",
+      "sha256": "b08f9dd4aba68f142f84cfc1ccc6975afacd8a70b77a2c5b6fb6a2a3a4ec5264",
+      "imageUrl": ""
+    },
+    {
+      "id": "or_gaule",
+      "file": "prepared/or_gaule.png",
+      "sha256": "0f52c5a403b298aa839e7cfe10a840660290e46c7125fdc88ba67286c69990fb",
+      "imageUrl": ""
+    },
+    {
+      "id": "wallenstein",
+      "file": "prepared/wallenstein.png",
+      "sha256": "4643fedc2492738e314f9da9674d8802aec291353b9b331509f6afee8e262938",
+      "imageUrl": ""
+    },
+    {
+      "id": "kiriko",
+      "file": "prepared/kiriko.png",
+      "sha256": "94a54c1f4a57a5bc669abbca6f196416a955b61c895ec26daa1458ecb47abcf2",
+      "imageUrl": ""
+    },
+    {
+      "id": "sara",
+      "file": "prepared/sara.png",
+      "sha256": "740ce910c5fc988f7ea399e61b81b20c88c71ecbab774eb67b060e1d501e99f0",
+      "imageUrl": ""
+    },
+    {
+      "id": "rinna",
+      "file": "prepared/rinna.png",
+      "sha256": "9928336c35311d38bc1f719351ca963cdff50ce426da03d037087f4dd5841c91",
+      "imageUrl": ""
+    },
+    {
+      "id": "ein",
+      "file": "prepared/ein.png",
+      "sha256": "819d3b90f199592824badef5c76374a6ec31bc1c8427a433f822c92a5deb5feb",
+      "imageUrl": ""
+    },
+    {
+      "id": "rai",
+      "file": "prepared/rai.png",
+      "sha256": "92c08ec2f9141c50c7b68f926b30b349dc545c9611a3f83931cb55727bee13a2",
+      "imageUrl": ""
+    },
+    {
+      "id": "momiji",
+      "file": "prepared/momiji.png",
+      "sha256": "5009e697eab88be6df154dedd51a97844f91efa94bb8119d95866eb5fe4f4651",
+      "imageUrl": ""
+    },
+    {
+      "id": "byakuya",
+      "file": "prepared/byakuya.png",
+      "sha256": "9ee21ae7e0114a11b3dbd8ea73ee5ac1fffd51ce46f6e21647d2af407dc11244",
+      "imageUrl": ""
+    }
+  ],
+  "shieldFrame": {
+    "file": "shield-frame.png",
+    "maskFile": "shield-mask.svg",
+    "width": 1085,
+    "height": 1450,
+    "aperture": {
+      "x": 0,
+      "y": 0,
+      "width": 100,
+      "height": 100
+    },
+    "provenance": "derived-imagegen-cutout",
+    "source": "user-provided-reference",
+    "notes": "使用内置 imagegen 从用户提供的绫辻绚濑参考提取透明盾边与底部花饰；不是官网原始空框。遮罩为对应轮廓的SVG。",
+    "imageUrl": ""
+  }
+}

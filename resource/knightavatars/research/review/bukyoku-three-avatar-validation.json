@@ -1,0 +1,278 @@
+{
+  "schemaVersion": 1,
+  "scope": "Read-only production inspection; only this independent review report is written",
+  "review": "Three new Bukyoku-related avatars and captured current 17-image regression",
+  "sources": {
+    "characterCount": 29,
+    "preparedCount": 20,
+    "newCharacters": [
+      {
+        "id": "rai",
+        "archivedFile": "novel/rai-original.jpg",
+        "sourceEpub": "39688/[台版]落第骑士英雄谭 09.epub",
+        "sourceMember": "OEBPS/Images/007.jpg",
+        "archivedBytes": 413641,
+        "epubExactBytesMatch": true,
+        "archivedShaMatchesManifest": true,
+        "preparedSourceFile": "novel/rai-colorized.png",
+        "preparedSourceShaMatches": true,
+        "preparedFile": "prepared/rai.png",
+        "preparedShaMatches": true,
+        "rotationDegrees": 31.646629792759,
+        "horizontalEyeLineResidualSourcePixels": -2.842170943040401e-14,
+        "imageUrlBlank": true,
+        "sourceStyle": "novel-monochrome-illustration"
+      },
+      {
+        "id": "momiji",
+        "archivedFile": "novel/byakuya-momiji.jpg",
+        "sourceEpub": "39688/[台版]落第骑士英雄谭 09.epub",
+        "sourceMember": "OEBPS/Images/003.jpg",
+        "archivedBytes": 588550,
+        "epubExactBytesMatch": true,
+        "archivedShaMatchesManifest": true,
+        "preparedSourceFile": "novel/byakuya-momiji.jpg",
+        "preparedSourceShaMatches": true,
+        "preparedFile": "prepared/momiji.png",
+        "preparedShaMatches": true,
+        "rotationDegrees": 40.32583628886923,
+        "horizontalEyeLineResidualSourcePixels": 7.105427357601002e-15,
+        "imageUrlBlank": true,
+        "sourceStyle": "novel-color-illustration"
+      },
+      {
+        "id": "byakuya",
+        "archivedFile": "novel/byakuya-momiji.jpg",
+        "sourceEpub": "39688/[台版]落第骑士英雄谭 09.epub",
+        "sourceMember": "OEBPS/Images/003.jpg",
+        "archivedBytes": 588550,
+        "epubExactBytesMatch": true,
+        "archivedShaMatchesManifest": true,
+        "preparedSourceFile": "novel/byakuya-momiji.jpg",
+        "preparedSourceShaMatches": true,
+        "preparedFile": "prepared/byakuya.png",
+        "preparedShaMatches": true,
+        "rotationDegrees": 42.05595365001238,
+        "horizontalEyeLineResidualSourcePixels": -7.105427357601002e-15,
+        "imageUrlBlank": true,
+        "sourceStyle": "novel-color-illustration"
+      }
+    ],
+    "raiAIRecord": {
+      "recordId": "rai",
+      "recordIdMatchesCanonicalRai": true,
+      "type": "ai-colorized-derivative",
+      "isOfficialNativeColorIllustration": false,
+      "inputs": [
+        {
+          "role": "only-edit-target",
+          "savedFile": "resource/knightavatars/novel/rai-original.png",
+          "shaMatchesRecord": true,
+          "attachmentExists": true,
+          "byteIdenticalToAttachment": true
+        },
+        {
+          "role": "anime-color-palette-only",
+          "savedFile": "resource/knightavatars/research/user-supplied/rai-anime-reference.png",
+          "shaMatchesRecord": true,
+          "attachmentExists": true,
+          "byteIdenticalToAttachment": true
+        }
+      ],
+      "outputShaMatchesRecord": true,
+      "outputShaMatchesPreparation": true,
+      "fullEpubOriginalFile": "resource/knightavatars/novel/rai-original.jpg",
+      "fullEpubOriginalShaMatchesRecordAndMainManifest": true,
+      "cropPngAndFullEpubJpgAreSeparateFiles": true,
+      "cropPngIsNotClaimedByteIdenticalToEpubJpg": true,
+      "canonicalEvidenceRaiPresent": true
+    },
+    "allCharacterImageUrlsBlank": true,
+    "shieldImageUrlBlank": true
+  },
+  "pixels": {
+    "maskArea": 866460,
+    "characters": [
+      {
+        "id": "rai",
+        "size": [
+          434,
+          580
+        ],
+        "coreAlphaBelow255": 0,
+        "coreAlphaZero": 0,
+        "outsideAlphaDifferencePixels": 0,
+        "outsideVisibleRGBDifferencePixels": 0,
+        "flowerHoleExtraAlphaPixels": 0,
+        "portraitAlphaPixels": 139296
+      },
+      {
+        "id": "momiji",
+        "size": [
+          434,
+          580
+        ],
+        "coreAlphaBelow255": 0,
+        "coreAlphaZero": 0,
+        "outsideAlphaDifferencePixels": 0,
+        "outsideVisibleRGBDifferencePixels": 0,
+        "flowerHoleExtraAlphaPixels": 0,
+        "portraitAlphaPixels": 139296
+      },
+      {
+        "id": "byakuya",
+        "size": [
+          434,
+          580
+        ],
+        "coreAlphaBelow255": 0,
+        "coreAlphaZero": 0,
+        "outsideAlphaDifferencePixels": 0,
+        "outsideVisibleRGBDifferencePixels": 0,
+        "flowerHoleExtraAlphaPixels": 0,
+        "portraitAlphaPixels": 139296
+      }
+    ],
+    "regression": {
+      "basis": "current pre-round PNG and raw RGBA baseline, not Git HEAD",
+      "count": 17,
+      "prepared": [
+        {
+          "id": "nagi",
+          "pngShaMatchesBaseline": true,
+          "rgbaShaMatchesBaseline": true,
+          "pngShaMatchesCurrentManifest": true
+        },
+        {
+          "id": "kirihara",
+          "pngShaMatchesBaseline": true,
+          "rgbaShaMatchesBaseline": true,
+          "pngShaMatchesCurrentManifest": true
+        },
+        {
+          "id": "kuraudo",
+          "pngShaMatchesBaseline": true,
+          "rgbaShaMatchesBaseline": true,
+          "pngShaMatchesCurrentManifest": true
+        },
+        {
+          "id": "renren",
+          "pngShaMatchesBaseline": true,
+          "rgbaShaMatchesBaseline": true,
+          "pngShaMatchesCurrentManifest": true
+        },
+        {
+          "id": "misogi",
+          "pngShaMatchesBaseline": true,
+          "rgbaShaMatchesBaseline": true,
+          "pngShaMatchesCurrentManifest": true
+        },
+        {
+          "id": "kanata",
+          "pngShaMatchesBaseline": true,
+          "rgbaShaMatchesBaseline": true,
+          "pngShaMatchesCurrentManifest": true
+        },
+        {
+          "id": "nene",
+          "pngShaMatchesBaseline": true,
+          "rgbaShaMatchesBaseline": true,
+          "pngShaMatchesCurrentManifest": true
+        },
+        {
+          "id": "kurono",
+          "pngShaMatchesBaseline": true,
+          "rgbaShaMatchesBaseline": true,
+          "pngShaMatchesCurrentManifest": true
+        },
+        {
+          "id": "yuri",
+          "pngShaMatchesBaseline": true,
+          "rgbaShaMatchesBaseline": true,
+          "pngShaMatchesCurrentManifest": true
+        },
+        {
+          "id": "iris",
+          "pngShaMatchesBaseline": true,
+          "rgbaShaMatchesBaseline": true,
+          "pngShaMatchesCurrentManifest": true
+        },
+        {
+          "id": "uri",
+          "pngShaMatchesBaseline": true,
+          "rgbaShaMatchesBaseline": true,
+          "pngShaMatchesCurrentManifest": true
+        },
+        {
+          "id": "or_gaule",
+          "pngShaMatchesBaseline": true,
+          "rgbaShaMatchesBaseline": true,
+          "pngShaMatchesCurrentManifest": true
+        },
+        {
+          "id": "wallenstein",
+          "pngShaMatchesBaseline": true,
+          "rgbaShaMatchesBaseline": true,
+          "pngShaMatchesCurrentManifest": true
+        },
+        {
+          "id": "kiriko",
+          "pngShaMatchesBaseline": true,
+          "rgbaShaMatchesBaseline": true,
+          "pngShaMatchesCurrentManifest": true
+        },
+        {
+          "id": "sara",
+          "pngShaMatchesBaseline": true,
+          "rgbaShaMatchesBaseline": true,
+          "pngShaMatchesCurrentManifest": true
+        },
+        {
+          "id": "rinna",
+          "pngShaMatchesBaseline": true,
+          "rgbaShaMatchesBaseline": true,
+          "pngShaMatchesCurrentManifest": true
+        },
+        {
+          "id": "ein",
+          "pngShaMatchesBaseline": true,
+          "rgbaShaMatchesBaseline": true,
+          "pngShaMatchesCurrentManifest": true
+        }
+      ],
+      "yuudai": {
+        "shaMatchesBaseline": true,
+        "shaMatchesManifest": true,
+        "retainsOriginalShield": true,
+        "fileUnchanged": true
+      }
+    }
+  },
+  "catalog": {
+    "blankUrlCatalogInheritance": [
+      {
+        "id": "rai",
+        "imageUrlBlank": true,
+        "usesExactPreparedDataUri": true,
+        "prepared": true,
+        "retainsSourceHasShieldFrameFalse": true
+      },
+      {
+        "id": "momiji",
+        "imageUrlBlank": true,
+        "usesExactPreparedDataUri": true,
+        "prepared": true,
+        "retainsSourceHasShieldFrameFalse": true
+      },
+      {
+        "id": "byakuya",
+        "imageUrlBlank": true,
+        "usesExactPreparedDataUri": true,
+        "prepared": true,
+        "retainsSourceHasShieldFrameFalse": true
+      }
+    ],
+    "nativeYuudaiRetainsOriginalInlineImage": true
+  },
+  "passed": true
+}

@@ -1,0 +1,63 @@
+{
+  "scope": "Research only; production fit and source unchanged",
+  "fit": {
+    "levelEyes": [
+      [
+        220,
+        1243
+      ],
+      [
+        306,
+        1170
+      ]
+    ],
+    "window": [
+      375,
+      895,
+      385,
+      520
+    ],
+    "eye": [
+      569,
+      1090
+    ],
+    "protect": [
+      [
+        512,
+        1090
+      ],
+      [
+        625,
+        1090
+      ],
+      [
+        549,
+        1172
+      ],
+      [
+        531,
+        1187
+      ],
+      [
+        489,
+        1149
+      ],
+      [
+        512,
+        1135
+      ]
+    ],
+    "eyeTarget": 0.42,
+    "eyeTargetX": 0.5
+  },
+  "expectedCrop": {
+    "left": 376,
+    "top": 900,
+    "width": 384,
+    "height": 462
+  },
+  "eyeHorizontalPercent": 50.26041666666666,
+  "opaqueCoreHoles": 0,
+  "bandageProtection": "Two opposite bandage corners included; visible eye, mouth and chin protected",
+  "preview": "research/review/momiji-centered-shield-study.png"
+}

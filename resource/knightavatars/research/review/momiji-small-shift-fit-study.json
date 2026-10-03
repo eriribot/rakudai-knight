@@ -1,0 +1,64 @@
+{
+  "scope": "Research only; production files unchanged",
+  "passed": true,
+  "fit": {
+    "levelEyes": [
+      [
+        220,
+        1243
+      ],
+      [
+        306,
+        1170
+      ]
+    ],
+    "window": [
+      410,
+      830,
+      440,
+      590
+    ],
+    "eye": [
+      569,
+      1090
+    ],
+    "protect": [
+      [
+        512,
+        1090
+      ],
+      [
+        625,
+        1090
+      ],
+      [
+        549,
+        1172
+      ],
+      [
+        531,
+        1187
+      ],
+      [
+        489,
+        1149
+      ],
+      [
+        512,
+        1135
+      ]
+    ],
+    "eyeTarget": 0.5,
+    "eyeTargetX": 0.36
+  },
+  "expectedCrop": {
+    "left": 411,
+    "top": 856,
+    "width": 439,
+    "height": 528
+  },
+  "eyeHorizontalPercent": 35.99088838268793,
+  "originalScalePreserved": true,
+  "coreOpaqueHoles": 0,
+  "preview": "research/review/momiji-small-shift-shield-study.png"
+}

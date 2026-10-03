@@ -1,0 +1,148 @@
+@charset "UTF-8";
+
+/* Idle uses the source portrait; movement uses six articulated sheet frames. */
+.combat-stage {
+  --actor-height: 300px;
+  position: absolute;
+  inset: 0 0 115px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.arena > :is(.scene-heading, .round, .intent, .fighter, .battle-message) { z-index: 3; }
+.combat-stage .actor {
+  --actor-color: 117, 213, 255;
+  position: absolute;
+  width: calc(var(--actor-height) * .72);
+  height: var(--actor-height);
+  margin-left: calc(var(--actor-height) * -.36);
+  bottom: 0;
+  isolation: isolate;
+  transform-origin: 50% 93%;
+  will-change: transform;
+}
+.combat-stage .actor-ikki { left: 33%; }
+.combat-stage .actor-stella { left: 67%; --actor-color: 255, 147, 77; }
+.combat-stage .actor-sprite {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background-size: contain;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  transform-origin: 50% 93%;
+  filter: drop-shadow(0 3px 2px #070e1e70) drop-shadow(0 0 5px rgba(var(--actor-color), .13));
+  animation: actor-breathe 3.6s ease-in-out infinite;
+}
+.combat-stage .actor-ikki .actor-sprite { background-image: url('assets/ikki-unified-profile.png'); }
+.combat-stage .actor-stella .actor-sprite { background-image: url('assets/stella-idle.png'); animation-delay: -1.7s; }
+.combat-stage .actor:not([data-pose="idle"]) .actor-sprite {
+  /* A square viewport crops one cell without stretching the full-body art. */
+  inset: auto;
+  left: 50%;
+  bottom: calc(var(--actor-height) * -.09);
+  width: calc(var(--actor-height) * 1.13);
+  height: calc(var(--actor-height) * 1.13);
+  margin-left: calc(var(--actor-height) * -.565);
+  background-size: 300% 200%;
+  transform: none;
+  animation: none;
+}
+.combat-stage .actor-ikki:not([data-pose="idle"]) .actor-sprite { background-image: url('assets/ikki-unified-motion.png'); }
+.combat-stage .actor-stella:not([data-pose="idle"]) .actor-sprite { background-image: url('assets/stella-motion.png'); }
+.combat-stage .actor[data-pose="walk-a"] .actor-sprite { background-position: 0% 0%; }
+.combat-stage .actor[data-pose="walk-b"] .actor-sprite { background-position: 50% 0%; }
+.combat-stage .actor[data-pose="walk-c"] .actor-sprite { background-position: 100% 0%; }
+.combat-stage .actor[data-pose="windup"] .actor-sprite { background-position: 0% 100%; }
+.combat-stage .actor[data-pose="slash"] .actor-sprite { background-position: 50% 100%; }
+.combat-stage .actor[data-pose="guard"] .actor-sprite { background-position: 100% 100%; }
+.combat-stage .actor.is-active .actor-sprite {
+  animation: none;
+}
+.combat-stage .actor-shadow {
+  position: absolute;
+  left: 14%;
+  right: 14%;
+  bottom: 3.5%;
+  height: 7%;
+  z-index: 0;
+  background: radial-gradient(ellipse, #030a14b3 0%, #070d1740 47%, transparent 72%);
+  transform: scaleX(1.2);
+}
+.combat-stage .actor-aura {
+  position: absolute;
+  inset: 14% -35% 3%;
+  z-index: 1;
+  opacity: 0;
+  background: radial-gradient(ellipse at 50% 65%, rgba(var(--actor-color), .27), transparent 64%);
+  transform-origin: 50% 93%;
+}
+.combat-stage .actor.is-charging .actor-aura {
+  opacity: 1;
+  box-shadow: inset 0 -10px 15px -15px rgba(var(--actor-color), 1);
+}
+.combat-stage .actor.is-attacking { z-index: 4; }
+
+.combat-effect {
+  --effect-color: 142, 224, 255;
+  position: absolute;
+  z-index: 6;
+  pointer-events: none;
+}
+.combat-effect[data-side="enemy"] { --effect-color: 255, 170, 94; }
+.combat-slash {
+  height: 4px;
+  border-radius: 100%;
+  background: linear-gradient(90deg, transparent, rgba(var(--effect-color), .75) 20%, #fff 55%, transparent);
+  box-shadow: 0 0 6px rgba(var(--effect-color), 1), 0 0 20px rgba(var(--effect-color), .65);
+  transform-origin: center;
+}
+.combat-slash.is-finisher { height: 6px; box-shadow: 0 0 8px #fff, 0 0 24px rgba(var(--effect-color), 1), 0 0 50px rgba(var(--effect-color), .5); }
+.combat-shield {
+  border: 2px solid rgba(var(--effect-color), .9);
+  border-radius: 48%;
+  background: radial-gradient(ellipse, transparent 45%, rgba(var(--effect-color), .22));
+  box-shadow: inset 0 0 18px rgba(var(--effect-color), .35), 0 0 18px rgba(var(--effect-color), .35);
+}
+.combat-spark {
+  width: 42px;
+  height: 42px;
+  background: radial-gradient(circle, #fff 0 7%, rgba(var(--effect-color), .9) 12%, transparent 64%);
+}
+.combat-spark::before, .combat-spark::after {
+  content: "";
+  position: absolute;
+  top: 48%;
+  left: -30%;
+  width: 160%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #fff, transparent);
+  transform: rotate(43deg);
+}
+.combat-spark::after { transform: rotate(-43deg); }
+.combat-read {
+  border: 1px solid #a0eaff99;
+  border-radius: 50%;
+  box-shadow: 0 0 18px #7acdf524, inset 0 0 20px #79d5ff22;
+}
+.combat-read::before, .combat-read::after {
+  content: "";
+  position: absolute;
+  inset: 15%;
+  border: 1px solid #c6f0ff66;
+  transform: rotate(45deg);
+}
+.combat-read::after { inset: 35%; border-color: #effcff; }
+
+@keyframes actor-breathe {
+  0%, 100% { transform: translateY(0) scaleY(1); }
+  50% { transform: translateY(-1.5px) scaleY(1.006); }
+}
+@media (min-width: 1650px) { .combat-stage { --actor-height: 330px; } }
+@media (max-width: 1100px) { .combat-stage { --actor-height: 280px; } }
+@media (max-width: 760px) { .combat-stage { --actor-height: 235px; bottom: 145px; } .combat-stage .actor-ikki { left:29%; } .combat-stage .actor-stella { left:71%; } }
+@media (max-width: 420px) { .combat-stage { --actor-height: 220px; } }
+@media (prefers-reduced-motion: reduce) {
+  .combat-stage .actor-sprite { animation: none; }
+  .combat-stage .actor { will-change: auto; }
+}

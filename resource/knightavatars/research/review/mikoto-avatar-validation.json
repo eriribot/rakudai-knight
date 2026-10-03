@@ -1,0 +1,265 @@
+{
+  "schemaVersion": 1,
+  "scope": "Independent read-only review; only this report is written",
+  "passed": true,
+  "checks": {
+    "characterCount30": true,
+    "onlyNewCharacterMikoto": true,
+    "aliasesIncludeSimplifiedTraditionalEnglish": true,
+    "originalScreenshotMatchesManifest": true,
+    "originalScreenshotMatchesAiRecord": true,
+    "originalScreenshotMatchesUserAttachment": true,
+    "cropMatchesAiInputRecord": true,
+    "aiOutputMatchesRecord": true,
+    "aiOutputMatchesPreparationSource": true,
+    "preparationSourceMatchesAiOutputPath": true,
+    "preparedOutputMatchesManifest": true,
+    "preparedOutputDimensions": true,
+    "reportAndManifestCropAgree": true,
+    "shieldAlphaMatchesExistingOpaqueShield": true,
+    "facialLandmarksInsideOpaqueShield": true,
+    "allPrevious29ImageHashesUnchanged": true,
+    "allPrevious29DisplayPathsUnchanged": true,
+    "allPrevious29ImageUrlsUnchanged": true,
+    "shieldFrameImageUrlUnchanged": true,
+    "shieldFrameConfigurationUnchanged": true,
+    "newImageUrlBlank": true
+  },
+  "sha256": {
+    "originalScreenshot": "2c3f93e72e8fbdf40f6e90819710888f10a7b7631fa52e84f36b36d0b10fcf75",
+    "colorizedOutput": "0be6927fecc54f0ae01a535dc1b212e883f968efffd06088157c32d801d4639d",
+    "preparedOutput": "b5492b71cefe1ff9864d624920fd9c71d70d14c3bf70f2e4aea207da9dcde1f8"
+  },
+  "shieldPixelChecks": {
+    "alphaDifferencesFromExistingShield": 0,
+    "transparentHolesInsideOpaqueCore": 0,
+    "visiblePixelsOutsideReferenceMask": 0,
+    "faceLandmarks": {
+      "leftEye": {
+        "outputPixel": [
+          164,
+          281
+        ],
+        "alpha": 255,
+        "fullyInside": true
+      },
+      "rightEye": {
+        "outputPixel": [
+          309,
+          283
+        ],
+        "alpha": 255,
+        "fullyInside": true
+      },
+      "nose": {
+        "outputPixel": [
+          256,
+          338
+        ],
+        "alpha": 255,
+        "fullyInside": true
+      },
+      "mouth": {
+        "outputPixel": [
+          235,
+          384
+        ],
+        "alpha": 255,
+        "fullyInside": true
+      },
+      "chin": {
+        "outputPixel": [
+          233,
+          437
+        ],
+        "alpha": 255,
+        "fullyInside": true
+      }
+    }
+  },
+  "visualReview": {
+    "passed": true,
+    "observed": [
+      "低饱和灰金色头发，保留原齐刘海、及肩直发与冷淡闭口表情。",
+      "完整保留两眼、鼻、嘴和下巴；盾口裁切没有遮掉面部，耳朵与肩部服装部分自然退出头像构图。",
+      "深灰瞳孔和灰白制服是已记录的中性补色；没有新增眼镜、能力发光、网页文字或盾边装饰。"
+    ],
+    "scope": "AI上色会放大重绘线条，目视确认外形和表情保持一致，不声称与黑白原图逐像素相同。"
+  },
+  "previousCharacters": [
+    {
+      "id": "ikki",
+      "sameDisplayPath": true,
+      "sameImageSha": true,
+      "sameImageUrl": true
+    },
+    {
+      "id": "stella",
+      "sameDisplayPath": true,
+      "sameImageSha": true,
+      "sameImageUrl": true
+    },
+    {
+      "id": "shizuku",
+      "sameDisplayPath": true,
+      "sameImageSha": true,
+      "sameImageUrl": true
+    },
+    {
+      "id": "ayase",
+      "sameDisplayPath": true,
+      "sameImageSha": true,
+      "sameImageUrl": true
+    },
+    {
+      "id": "toka",
+      "sameDisplayPath": true,
+      "sameImageSha": true,
+      "sameImageUrl": true
+    },
+    {
+      "id": "itsuki",
+      "sameDisplayPath": true,
+      "sameImageSha": true,
+      "sameImageUrl": true
+    },
+    {
+      "id": "ouma",
+      "sameDisplayPath": true,
+      "sameImageSha": true,
+      "sameImageUrl": true
+    },
+    {
+      "id": "edelweiss",
+      "sameDisplayPath": true,
+      "sameImageSha": true,
+      "sameImageUrl": true
+    },
+    {
+      "id": "yuudai",
+      "sameDisplayPath": true,
+      "sameImageSha": true,
+      "sameImageUrl": true
+    },
+    {
+      "id": "nagi",
+      "sameDisplayPath": true,
+      "sameImageSha": true,
+      "sameImageUrl": true
+    },
+    {
+      "id": "kirihara",
+      "sameDisplayPath": true,
+      "sameImageSha": true,
+      "sameImageUrl": true
+    },
+    {
+      "id": "kuraudo",
+      "sameDisplayPath": true,
+      "sameImageSha": true,
+      "sameImageUrl": true
+    },
+    {
+      "id": "renren",
+      "sameDisplayPath": true,
+      "sameImageSha": true,
+      "sameImageUrl": true
+    },
+    {
+      "id": "misogi",
+      "sameDisplayPath": true,
+      "sameImageSha": true,
+      "sameImageUrl": true
+    },
+    {
+      "id": "kanata",
+      "sameDisplayPath": true,
+      "sameImageSha": true,
+      "sameImageUrl": true
+    },
+    {
+      "id": "nene",
+      "sameDisplayPath": true,
+      "sameImageSha": true,
+      "sameImageUrl": true
+    },
+    {
+      "id": "kurono",
+      "sameDisplayPath": true,
+      "sameImageSha": true,
+      "sameImageUrl": true
+    },
+    {
+      "id": "yuri",
+      "sameDisplayPath": true,
+      "sameImageSha": true,
+      "sameImageUrl": true
+    },
+    {
+      "id": "iris",
+      "sameDisplayPath": true,
+      "sameImageSha": true,
+      "sameImageUrl": true
+    },
+    {
+      "id": "uri",
+      "sameDisplayPath": true,
+      "sameImageSha": true,
+      "sameImageUrl": true
+    },
+    {
+      "id": "or_gaule",
+      "sameDisplayPath": true,
+      "sameImageSha": true,
+      "sameImageUrl": true
+    },
+    {
+      "id": "wallenstein",
+      "sameDisplayPath": true,
+      "sameImageSha": true,
+      "sameImageUrl": true
+    },
+    {
+      "id": "kiriko",
+      "sameDisplayPath": true,
+      "sameImageSha": true,
+      "sameImageUrl": true
+    },
+    {
+      "id": "sara",
+      "sameDisplayPath": true,
+      "sameImageSha": true,
+      "sameImageUrl": true
+    },
+    {
+      "id": "rinna",
+      "sameDisplayPath": true,
+      "sameImageSha": true,
+      "sameImageUrl": true
+    },
+    {
+      "id": "ein",
+      "sameDisplayPath": true,
+      "sameImageSha": true,
+      "sameImageUrl": true
+    },
+    {
+      "id": "rai",
+      "sameDisplayPath": true,
+      "sameImageSha": true,
+      "sameImageUrl": true
+    },
+    {
+      "id": "momiji",
+      "sameDisplayPath": true,
+      "sameImageSha": true,
+      "sameImageUrl": true
+    },
+    {
+      "id": "byakuya",
+      "sameDisplayPath": true,
+      "sameImageSha": true,
+      "sameImageUrl": true
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "basis": "current manifest before four new portraits; not Git HEAD",
+  "count": 13,
+  "characters": [
+    {
+      "id": "nagi",
+      "file": "prepared/nagi.png",
+      "manifestSha256": "d0941a3057192ac42689b48dad91a1e565164a8877e96071dc994a07181be5fd",
+      "actualSha256": "d0941a3057192ac42689b48dad91a1e565164a8877e96071dc994a07181be5fd"
+    },
+    {
+      "id": "kirihara",
+      "file": "prepared/kirihara.png",
+      "manifestSha256": "8ab36d2b14f90ff1944a6bb5920ef4f4c3451aa1991f9f0b480d6a9819a2718d",
+      "actualSha256": "8ab36d2b14f90ff1944a6bb5920ef4f4c3451aa1991f9f0b480d6a9819a2718d"
+    },
+    {
+      "id": "kuraudo",
+      "file": "prepared/kuraudo.png",
+      "manifestSha256": "b0a9adff8ca91165bc10c10690d3093a9b37c5fe892611751b34279bcbfb0b90",
+      "actualSha256": "b0a9adff8ca91165bc10c10690d3093a9b37c5fe892611751b34279bcbfb0b90"
+    },
+    {
+      "id": "renren",
+      "file": "prepared/renren.png",
+      "manifestSha256": "4036aeca55a4d6482dee15cfe07be7c0b1db5b0ed859ef9956ed046075c067f3",
+      "actualSha256": "4036aeca55a4d6482dee15cfe07be7c0b1db5b0ed859ef9956ed046075c067f3"
+    },
+    {
+      "id": "misogi",
+      "file": "prepared/misogi.png",
+      "manifestSha256": "c089284134efc40f4c73e764c1227cde08f8b83d8569c0f7b08806347593d091",
+      "actualSha256": "c089284134efc40f4c73e764c1227cde08f8b83d8569c0f7b08806347593d091"
+    },
+    {
+      "id": "kanata",
+      "file": "prepared/kanata.png",
+      "manifestSha256": "4eaa2086607fe091f09a87a493199257e0f25b7c0e3820899b2dcdb83c0d68cf",
+      "actualSha256": "4eaa2086607fe091f09a87a493199257e0f25b7c0e3820899b2dcdb83c0d68cf"
+    },
+    {
+      "id": "nene",
+      "file": "prepared/nene.png",
+      "manifestSha256": "b50ffc1deef39c0760c5bb75be8b086eb110ffc235344e35dc5d4898449af775",
+      "actualSha256": "b50ffc1deef39c0760c5bb75be8b086eb110ffc235344e35dc5d4898449af775"
+    },
+    {
+      "id": "kurono",
+      "file": "prepared/kurono.png",
+      "manifestSha256": "ad28a366fa0686f5a1669e1dff3d375b15fbc4df42561515b8a997bef6cbc197",
+      "actualSha256": "ad28a366fa0686f5a1669e1dff3d375b15fbc4df42561515b8a997bef6cbc197"
+    },
+    {
+      "id": "yuri",
+      "file": "prepared/yuri.png",
+      "manifestSha256": "1dc9497f5bcad73cacd0b819fc04d38e5e0f357e58c53916bb2505decdfb8722",
+      "actualSha256": "1dc9497f5bcad73cacd0b819fc04d38e5e0f357e58c53916bb2505decdfb8722"
+    },
+    {
+      "id": "iris",
+      "file": "prepared/iris.png",
+      "manifestSha256": "2f95d92246215fa80da423ffb5010c2aefc8d9364febb874ce9c881396cf2c5a",
+      "actualSha256": "2f95d92246215fa80da423ffb5010c2aefc8d9364febb874ce9c881396cf2c5a"
+    },
+    {
+      "id": "uri",
+      "file": "prepared/uri.png",
+      "manifestSha256": "b08f9dd4aba68f142f84cfc1ccc6975afacd8a70b77a2c5b6fb6a2a3a4ec5264",
+      "actualSha256": "b08f9dd4aba68f142f84cfc1ccc6975afacd8a70b77a2c5b6fb6a2a3a4ec5264"
+    },
+    {
+      "id": "or_gaule",
+      "file": "prepared/or_gaule.png",
+      "manifestSha256": "0f52c5a403b298aa839e7cfe10a840660290e46c7125fdc88ba67286c69990fb",
+      "actualSha256": "0f52c5a403b298aa839e7cfe10a840660290e46c7125fdc88ba67286c69990fb"
+    },
+    {
+      "id": "wallenstein",
+      "file": "prepared/wallenstein.png",
+      "manifestSha256": "4643fedc2492738e314f9da9674d8802aec291353b9b331509f6afee8e262938",
+      "actualSha256": "4643fedc2492738e314f9da9674d8802aec291353b9b331509f6afee8e262938"
+    }
+  ]
+}

@@ -1,0 +1,117 @@
+- main [ref=e2]:
+  - generic [ref=e3]:
+    - link "斬 一刀之間 CHIVALRY OF A FAILED KNIGHT" [ref=e4] [cursor=pointer]:
+      - /url: index.html
+      - generic [ref=e5]: 斬
+      - generic [ref=e6]:
+        - text: 一刀之間
+        - generic [ref=e7]: CHIVALRY OF A FAILED KNIGHT
+    - link "返回模擬戰 ↗" [ref=e8] [cursor=pointer]:
+      - /url: index.html
+  - generic [ref=e9]:
+    - generic [ref=e10]:
+      - paragraph [ref=e11]: THE ART OF THE BLADE
+      - heading "每一步，為下一劍。" [level=1] [ref=e12]
+    - paragraph [ref=e13]: 從步伐到落刀，停下來看清每個動作。
+  - region "角色動作演練場" [ref=e14]:
+    - generic [ref=e17]:
+      - generic [ref=e18]: 破軍學園
+      - generic [ref=e20]: 動作演練
+    - generic [ref=e21]: 動作播放
+    - generic:
+      - img "黑鐵一輝，跨步姿勢"
+      - img "史黛菈，待機姿勢"
+    - generic:
+      - generic: WORST ONE
+      - strong: 黑鐵一輝
+      - generic: 跨步
+    - generic:
+      - generic: CRIMSON PRINCESS
+      - strong: 史黛菈
+      - generic: 待機
+    - status [ref=e22]: 刀鋒交會。
+  - region "動作播放控制" [ref=e23]:
+    - generic [ref=e24]:
+      - button "▷ 一輝出擊" [active] [ref=e25] [cursor=pointer]
+      - button "▷ 史黛菈出擊" [ref=e26] [cursor=pointer]
+      - button "↻ 重播" [ref=e27] [cursor=pointer]
+    - button "還原待機" [ref=e28] [cursor=pointer]
+  - region [ref=e29]:
+    - generic [ref=e30]:
+      - generic [ref=e31]:
+        - paragraph [ref=e32]: SIX MOMENTS / ONE MOTION
+        - heading "逐格看清劍路" [level=2] [ref=e33]
+      - paragraph [ref=e34]: 點選任一姿勢，在演練場放大檢視。
+    - generic [ref=e35]:
+      - group "逐格檢視角色" [ref=e36]:
+        - button "黑鐵一輝" [pressed] [ref=e37] [cursor=pointer]
+        - button "史黛菈" [ref=e38] [cursor=pointer]
+      - generic [ref=e39]:
+        - button "上一格姿勢" [ref=e40] [cursor=pointer]: ← 上一格
+        - generic [ref=e41]: 03 / 06
+        - button "下一格姿勢" [ref=e42] [cursor=pointer]: 下一格 →
+        - button "▷ 慢速逐格" [ref=e43] [cursor=pointer]
+    - generic [ref=e44]:
+      - article [ref=e45]:
+        - generic [ref=e46]:
+          - heading "黑鐵一輝" [level=3] [ref=e47]
+          - generic [ref=e48]: IKKI KUROGANE
+        - generic [ref=e49]:
+          - button "黑鐵一輝：第 1 格，踏出" [ref=e50] [cursor=pointer]:
+            - generic [ref=e53]:
+              - generic [ref=e54]: "01"
+              - generic [ref=e55]: 踏出
+          - button "黑鐵一輝：第 2 格，重心交替" [ref=e56] [cursor=pointer]:
+            - generic [ref=e59]:
+              - generic [ref=e60]: "02"
+              - generic [ref=e61]: 重心交替
+          - button "黑鐵一輝：第 3 格，跨步" [pressed] [ref=e62] [cursor=pointer]:
+            - generic [ref=e65]:
+              - generic [ref=e66]: "03"
+              - generic [ref=e67]: 跨步
+          - button "黑鐵一輝：第 4 格，蓄勢" [ref=e68] [cursor=pointer]:
+            - generic [ref=e71]:
+              - generic [ref=e72]: "04"
+              - generic [ref=e73]: 蓄勢
+          - button "黑鐵一輝：第 5 格，斬擊" [ref=e74] [cursor=pointer]:
+            - generic [ref=e77]:
+              - generic [ref=e78]: "05"
+              - generic [ref=e79]: 斬擊
+          - button "黑鐵一輝：第 6 格，收勢・格擋" [ref=e80] [cursor=pointer]:
+            - generic [ref=e83]:
+              - generic [ref=e84]: "06"
+              - generic [ref=e85]: 收勢・格擋
+      - article [ref=e86]:
+        - generic [ref=e87]:
+          - heading "史黛菈" [level=3] [ref=e88]
+          - generic [ref=e89]: STELLA VERMILLION
+        - generic [ref=e90]:
+          - button "史黛菈：第 1 格，踏出" [ref=e91] [cursor=pointer]:
+            - generic [ref=e94]:
+              - generic [ref=e95]: "01"
+              - generic [ref=e96]: 踏出
+          - button "史黛菈：第 2 格，重心交替" [ref=e97] [cursor=pointer]:
+            - generic [ref=e100]:
+              - generic [ref=e101]: "02"
+              - generic [ref=e102]: 重心交替
+          - button "史黛菈：第 3 格，跨步" [ref=e103] [cursor=pointer]:
+            - generic [ref=e106]:
+              - generic [ref=e107]: "03"
+              - generic [ref=e108]: 跨步
+          - button "史黛菈：第 4 格，蓄勢" [ref=e109] [cursor=pointer]:
+            - generic [ref=e112]:
+              - generic [ref=e113]: "04"
+              - generic [ref=e114]: 蓄勢
+          - button "史黛菈：第 5 格，斬擊" [ref=e115] [cursor=pointer]:
+            - generic [ref=e118]:
+              - generic [ref=e119]: "05"
+              - generic [ref=e120]: 斬擊
+          - button "史黛菈：第 6 格，收勢・格擋" [ref=e121] [cursor=pointer]:
+            - generic [ref=e124]:
+              - generic [ref=e125]: "06"
+              - generic [ref=e126]: 收勢・格擋
+  - generic [ref=e127]:
+    - generic [ref=e128]: 概念演示 · 動作檢視
+    - link "素材對照 ↗" [ref=e129] [cursor=pointer]:
+      - /url: references.html
+    - generic [ref=e130]: 讀懂對手。掌握節奏。

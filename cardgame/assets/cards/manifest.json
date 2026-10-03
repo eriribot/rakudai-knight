@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "title": "概念卡牌的動畫官方劇照配圖",
+  "collectedOn": "2026-10-03",
+  "sourcePolicy": "所有素材均來自動畫官方頁面實際連結的劇照；原始位元組不變，僅由 card-art.css 顯示裁切。",
+  "interpretation": "卡名與劇照是本展示的視覺配對；除畫面中可直接觀察的內容外，不聲稱每張劇照是同名正典招式的確切瞬間。",
+  "assets": [
+    {
+      "id": "slash",
+      "cardLabel": "斬擊",
+      "sceneDescription": "一輝正面持刀，劍刃向鏡頭前方延伸；背景帶綠色競技場光線。",
+      "selectionReason": "持劍主體及進攻方向清楚，作為基礎攻擊的示意配圖。",
+      "file": "slash.jpg",
+      "sourceFile": "E:\\web\\落第\\cardgame\\assets\\references\\ikki-web\\ikki-ep01-06-sword-forward.jpg",
+      "sourceUrl": "https://ittoshura.com/story/img/onair_p01_6.jpg",
+      "sourcePage": "https://ittoshura.com/story/epsode1.html",
+      "episode": 1,
+      "width": 650,
+      "height": 366,
+      "sha256": "e5b1bb19ddbb704656482e3adda9ac1d29e69a024a9f597d6aec0bce477c2b70",
+      "originalBytesUnchanged": true,
+      "visuallyInspected": true,
+      "display": {
+        "backgroundSize": "cover",
+        "backgroundPosition": "48% 45%",
+        "pixelEditing": false
+      }
+    },
+    {
+      "id": "guard",
+      "cardLabel": "受身",
+      "sourceUrl": "https://ittoshura.com/story/img/onair_p07_5.jpg",
+      "sourcePage": "https://ittoshura.com/story/epsode7.html",
+      "episode": 7,
+      "width": 620,
+      "height": 349,
+      "sceneDescription": "一輝在右側持刀與絢瀨近距離交鋒，絢瀨的紫色長髮在左側前景。",
+      "selectionReason": "抬臂握刀和近距離承受壓力的姿勢，作為防禦意圖的示意配圖。",
+      "file": "guard.jpg",
+      "sourceFile": "E:/web/落第/scratch/ikki-web-candidates/onair_p07_5.jpg",
+      "sha256": "2b066cb05c07450672317a68dd287500bc766ad284b1745112c605268f61e33a",
+      "originalBytesUnchanged": true,
+      "visuallyInspected": true,
+      "display": {
+        "backgroundSize": "cover",
+        "backgroundPosition": "85% 43%",
+        "pixelEditing": false
+      }
+    },
+    {
+      "id": "insight",
+      "cardLabel": "看破",
+      "sceneDescription": "一輝在樹林中的正面中性表情，抬手觀察，制服領口清楚。",
+      "selectionReason": "平靜、專注的神態，作為觀察與判讀意圖的示意配圖。",
+      "file": "insight.jpg",
+      "sourceFile": "E:\\web\\落第\\cardgame\\assets\\references\\ikki-web\\ikki-ep08-05-neutral-front.jpg",
+      "sourceUrl": "https://ittoshura.com/story/img/onair_p08_5.jpg",
+      "sourcePage": "https://ittoshura.com/story/epsode8.html",
+      "episode": 8,
+      "width": 620,
+      "height": 349,
+      "sha256": "41fea56d70a1f6b8afc5a6e9b0f38e259d0fba6561ae6097dfc2b2ae8034f3f4",
+      "originalBytesUnchanged": true,
+      "visuallyInspected": true,
+      "display": {
+        "backgroundSize": "cover",
+        "backgroundPosition": "50% 42%",
+        "pixelEditing": false
+      }
+    },
+    {
+      "id": "step",
+      "cardLabel": "疾步",
+      "sceneDescription": "黑白強透視畫面中，一輝壓低身體持刀向前，刀身佔據右側前景。",
+      "selectionReason": "低重心和前進方向清楚，作為步法意圖的示意配圖。",
+      "file": "step.jpg",
+      "sourceFile": "E:\\web\\落第\\cardgame\\assets\\references\\ikki-web\\ikki-ep08-04-low-sword-action.jpg",
+      "sourceUrl": "https://ittoshura.com/story/img/onair_p08_4.jpg",
+      "sourcePage": "https://ittoshura.com/story/epsode8.html",
+      "episode": 8,
+      "width": 620,
+      "height": 349,
+      "sha256": "0543b3e4c0697221d383d3f9644efd9b2a27893975b2c085f7d657a3861a08f8",
+      "originalBytesUnchanged": true,
+      "visuallyInspected": true,
+      "display": {
+        "backgroundSize": "cover",
+        "backgroundPosition": "45% 50%",
+        "pixelEditing": false
+      }
+    },
+    {
+      "id": "riposte",
+      "cardLabel": "返擊",
+      "sceneDescription": "右側是一輝，左側是藏人，兩人近距離交鋒並露出咬牙的側臉。",
+      "selectionReason": "近身交鋒的張力，作為防禦後反攻的示意配圖。",
+      "file": "riposte.jpg",
+      "sourceFile": "E:\\web\\落第\\cardgame\\assets\\references\\ikki-web\\ikki-ep08-03-combat-profile.jpg",
+      "sourceUrl": "https://ittoshura.com/story/img/onair_p08_3.jpg",
+      "sourcePage": "https://ittoshura.com/story/epsode8.html",
+      "episode": 8,
+      "width": 620,
+      "height": 349,
+      "sha256": "1982b4560aa7cba66eab4c3a84fb677a60db784536a82efc1f0d9bdfb98d071f",
+      "originalBytesUnchanged": true,
+      "visuallyInspected": true,
+      "display": {
+        "backgroundSize": "cover",
+        "backgroundPosition": "75% 50%",
+        "pixelEditing": false
+      }
+    },
+    {
+      "id": "shura",
+      "cardLabel": "一刀修羅",
+      "sceneDescription": "一輝在藍色戰鬥光效中向右持刀，侧臉與握劍手清晰。",
+      "selectionReason": "爆發感和藍色劍光，作為終結牌的示意配圖；不將該劇照精確鑑定為此招式發動瞬間。",
+      "file": "shura.jpg",
+      "sourceFile": "E:\\web\\落第\\cardgame\\assets\\references\\ikki-web\\ikki-ep12-05-blue-sword-profile.jpg",
+      "sourceUrl": "https://ittoshura.com/story/img/onair_p12_5.jpg",
+      "sourcePage": "https://ittoshura.com/story/",
+      "episode": 12,
+      "width": 620,
+      "height": 349,
+      "sha256": "dcb9149961578e3df7eb51aada09bcc48db38a130faeebe11759a8fbd684eef1",
+      "originalBytesUnchanged": true,
+      "visuallyInspected": true,
+      "display": {
+        "backgroundSize": "cover",
+        "backgroundPosition": "80% 47%",
+        "pixelEditing": false
+      }
+    }
+  ]
+}

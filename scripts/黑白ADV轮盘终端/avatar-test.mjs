@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import vm from 'node:vm';
+import { createHash } from 'node:crypto';
 import assert from 'node:assert/strict';
 import { parseFragment } from 'parse5';
 import { buildKnightAvatarCatalog } from './knight-avatars.mjs';
@@ -46,6 +47,104 @@ check('全名与清单别名匹配，空白和中点等价；不把同姓 OC 匹
   assert.equal(realm.resolveKnightAvatar(key.slice(0, 1) + '原创同伴'), null);
   const html = realm.renderCompanionAvatar('未登记的原创同伴');
   assert.equal(images(html).length, 0); assert.match(html, />未<\/div>/);
+});
+check('黑骑士 Iris 与有栖院 Alice 以完整别名消歧，同译裸名和共用称号保留首字回退', () => {
+  const iris = realm.RK_KNIGHT_AVATARS.entries.iris;
+  const nagi = realm.RK_KNIGHT_AVATARS.entries.nagi;
+  assert.ok(iris, '黑骑士必须具有独立的 iris 人物 ID');
+  assert.ok(nagi, '有栖院必须保留 nagi 人物 ID');
+  assert.notEqual(iris.src, nagi.src, '两个人物不能复用同一实际头像');
+  for (const name of ['艾莉丝·阿斯卡里德', '艾莉絲·阿斯卡里德', '艾莉丝·格尔', '艾莉絲·格爾',
+    '艾莉丝·格尔·阿斯卡里德', '艾莉絲·格爾·阿斯卡里德',
+    '阿斯卡里德', 'Iris Ascarid', 'Iris Gaule', 'アイリス・アスカリッド', 'アイリス・ゴール', '黑骑士艾莉丝', '黑騎士艾莉絲']) {
+    assert.equal(realm.resolveKnightAvatar(name), iris, name + ' 应指向黑骑士');
+    assert.equal(images(realm.renderCompanionAvatar(name))[0].src, iris.src);
+  }
+  for (const name of ['有栖院凪', '有栖院', '有栖院艾莉丝', '有栖院艾莉絲', '爱丽丝', '愛麗絲', 'Alice', 'Alice Arisuin']) {
+    assert.equal(realm.resolveKnightAvatar(name), nagi, name + ' 应指向有栖院');
+    assert.equal(images(realm.renderCompanionAvatar(name))[0].src, nagi.src);
+  }
+  for (const name of ['艾莉丝', '艾莉絲', '黑骑士', '黑騎士']) {
+    assert.equal(catalog.byName[name], undefined, '同译裸名或共用称号不得绑定任一人物');
+    assert.equal(realm.resolveKnightAvatar(name), null);
+    const html = realm.renderCompanionAvatar(name);
+    assert.equal(images(html).length, 0); assert.match(html, new RegExp('>' + name.slice(0, 1) + '<\\/div>'));
+  }
+});
+check('本次四名 EPUB 人物有独立 ID 与完整合成盾图，不再裁切人物', () => {
+  const characters = [['iris', '艾莉丝·阿斯卡里德'], ['uri', '多多良幽衣'], ['or_gaule', '欧尔·格尔'], ['wallenstein', '华伦斯坦']];
+  const sources = new Set();
+  for (const [id, name] of characters) {
+    const avatar = realm.RK_KNIGHT_AVATARS.entries[id];
+    assert.ok(avatar, name + ' 的独立头像缺失');
+    assert.equal(realm.resolveKnightAvatar(name), avatar);
+    assert.equal(avatar.prepared, true, name + ' 应使用完整合成盾图');
+    assert.equal(avatar.hasShieldFrame, false, name + ' 的原图来源状态应保留');
+    const html = realm.renderCompanionAvatar(name);
+    const nodes = images(html);
+    assert.match(html, /rk-knight-avatar--native/);
+    assert.doesNotMatch(html, /mask-image:|transform:scale/);
+    assert.equal(nodes.length, 2);
+    assert.equal(nodes[0].src, avatar.src);
+    assert.equal(nodes[0].style, undefined);
+    sources.add(avatar.src);
+  }
+  assert.equal(sources.size, characters.length, '新增人物应有各自的实际头像');
+});
+check('已补入小说头像集合的姓名对应独立完整 PNG，保留来源与框分层', () => {
+  const manifest = JSON.parse(fs.readFileSync(new URL('../../resource/knightavatars/manifest.json', import.meta.url), 'utf8').replace(/^\uFEFF/, ''));
+  const characters = [
+    ['kiriko', ['药师雾子', '藥師霧子']],
+    ['sara', ['莎拉·布拉德莉莉']],
+    ['rinna', ['风祭凛奈', '風祭凜奈', '風祭凛奈', '风祭凜奈']],
+    ['ein', ['艾茵·阿伯伦特', '艾茵·阿伯倫特']],
+    ['rai', ['碎城雷']],
+    ['momiji', ['浅木椛', '淺木椛', '浅桦', '淺樺']],
+    ['byakuya', ['城之崎白夜']],
+    ['mikoto', ['鹤屋美琴', '鶴屋美琴', 'Mikoto Tsuruya']],
+  ];
+  const files = new Set(), sources = new Set();
+  for (const [id, names] of characters) {
+    const record = manifest.characters.find(character => character.id === id);
+    const avatar = realm.RK_KNIGHT_AVATARS.entries[id];
+    assert.ok(record && avatar, id + ' 的真实清单或运行头像缺失');
+    assert.equal(record.hasShieldFrame, false);
+    assert.equal(avatar.hasShieldFrame, false);
+    assert.equal(avatar.prepared, true, id + ' 应使用已生成的完整盾图');
+    assert.equal(path.extname(record.displayFile).toLowerCase(), '.png');
+    const pixels = fs.readFileSync(new URL('../../resource/knightavatars/' + record.displayFile, import.meta.url));
+    assert.ok(pixels.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10])), id + ' 的显示文件应是真实 PNG');
+    files.add(record.displayFile); sources.add(avatar.src);
+    for (const name of names) {
+      assert.equal(realm.resolveKnightAvatar(name), avatar, name + ' 应对应 ' + id);
+      const html = realm.renderCompanionAvatar(name);
+      const nodes = images(html);
+      assert.match(html, /rk-knight-avatar--native/);
+      assert.doesNotMatch(html, /mask-image:|transform:scale/);
+      assert.equal(nodes.length, 2);
+      assert.equal(nodes[0].src, avatar.src);
+      assert.equal(nodes[0].style, undefined);
+      assert.match(nodes[1].class, /rk-avatar-frame/);
+      assert.equal(nodes[1].src, realm.RK_KNIGHT_AVATARS.shield.src);
+    }
+  }
+  assert.equal(files.size, characters.length, '已补入人物不能引用同一个 prepared PNG');
+  assert.equal(sources.size, characters.length, '已补入人物应显示彼此不同的实际头像');
+  const yuudaiRecord = manifest.characters.find(character => character.id === 'yuudai');
+  const yuudai = realm.RK_KNIGHT_AVATARS.entries.yuudai;
+  assert.ok(yuudaiRecord && yuudai, '诸星雄大的原版头像必须保留');
+  assert.equal(yuudaiRecord.file, 'yuudai.png');
+  assert.equal(yuudaiRecord.hasShieldFrame, true);
+  assert.equal(yuudai.hasShieldFrame, true);
+  assert.equal(yuudai.prepared, false);
+  const original = fs.readFileSync(new URL('../../resource/knightavatars/yuudai.png', import.meta.url));
+  assert.equal(createHash('sha256').update(original).digest('hex'), '48ecaae18cbbf038b6a5bdf483ad31742557dc482804cf919d0151ab9b0865ae', '诸星原始盾图不可被新人物合照替换');
+  for (const name of ['诸星雄大', '諸星雄大']) {
+    assert.equal(realm.resolveKnightAvatar(name), yuudai);
+    const nodes = images(realm.renderCompanionAvatar(name));
+    assert.equal(nodes.length, 1);
+    assert.equal(nodes[0].src, yuudai.src);
+  }
 });
 check('宁音的简繁姓名匹配同一人物近景，并套用透明盾框', () => {
   const nene = realm.resolveKnightAvatar('西京宁音');

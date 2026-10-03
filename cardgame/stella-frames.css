@@ -1,0 +1,83 @@
+@charset "UTF-8";
+
+/*
+ * Stella only: source coordinates in the 1536 x 1024 motion sheet.
+ * No image is rewritten. Load this AFTER actors.css.
+ *
+ * pose     crop x,y,width,height   ground anchor x,y (sheet pixels)
+ * walk-a    49,  4,467,512          292,508
+ * walk-b   561,  5,435,517          798,512
+ * walk-c  1069, 15,453,501         1300,511
+ * windup   141,515,372,479          308,986
+ * slash    497,573,637,425          897,992
+ * guard   1135,541,379,463         1331,996
+ *
+ * Crops include the main connected alpha component and a small edge margin.
+ * Anchors use the horizontal center of the last 20 px of opaque footwear.
+ * Windup/slash have overlapping rectangular bounds; their clip polygons keep
+ * every pixel in the corresponding alpha > 16 component and exclude the
+ * neighboring component. Verified by connected-component mask intersections.
+ */
+:is(.combat-stage .actor-stella, .stella-frame-thumbnail) {
+  --stella-frame-scale: 1;
+  --stella-unit: calc(var(--actor-height) * var(--stella-frame-scale) / 512);
+  /* The existing idle portrait's foot reaches y=1530 of 1536. */
+  --stella-ground-offset: calc(var(--actor-height) * .004);
+}
+
+:is(.combat-stage .actor-stella, .stella-frame-thumbnail)[data-pose="walk-a"] {
+  --stella-src-x: 49; --stella-src-y: 4;
+  --stella-frame-w: 467; --stella-frame-h: 512;
+  --stella-anchor-x: 292; --stella-anchor-y: 508;
+}
+:is(.combat-stage .actor-stella, .stella-frame-thumbnail)[data-pose="walk-b"] {
+  --stella-src-x: 561; --stella-src-y: 5;
+  --stella-frame-w: 435; --stella-frame-h: 517;
+  --stella-anchor-x: 798; --stella-anchor-y: 512;
+}
+:is(.combat-stage .actor-stella, .stella-frame-thumbnail)[data-pose="walk-c"] {
+  --stella-src-x: 1069; --stella-src-y: 15;
+  --stella-frame-w: 453; --stella-frame-h: 501;
+  --stella-anchor-x: 1300; --stella-anchor-y: 511;
+}
+:is(.combat-stage .actor-stella, .stella-frame-thumbnail)[data-pose="windup"] {
+  --stella-src-x: 141; --stella-src-y: 515;
+  --stella-frame-w: 372; --stella-frame-h: 479;
+  --stella-anchor-x: 308; --stella-anchor-y: 986;
+}
+:is(.combat-stage .actor-stella, .stella-frame-thumbnail)[data-pose="slash"] {
+  --stella-src-x: 497; --stella-src-y: 573;
+  --stella-frame-w: 637; --stella-frame-h: 425;
+  --stella-anchor-x: 897; --stella-anchor-y: 992;
+}
+:is(.combat-stage .actor-stella, .stella-frame-thumbnail)[data-pose="guard"] {
+  --stella-src-x: 1135; --stella-src-y: 541;
+  --stella-frame-w: 379; --stella-frame-h: 463;
+  --stella-anchor-x: 1331; --stella-anchor-y: 996;
+}
+
+:is(.combat-stage .actor-stella, .stella-frame-thumbnail):is([data-pose="walk-a"], [data-pose="walk-b"], [data-pose="walk-c"], [data-pose="windup"], [data-pose="slash"], [data-pose="guard"]) .actor-sprite {
+  inset: auto;
+  left: calc(50% - var(--stella-unit) * (var(--stella-anchor-x) - var(--stella-src-x)));
+  bottom: calc(var(--stella-ground-offset) - var(--stella-unit) * (var(--stella-src-y) + var(--stella-frame-h) - var(--stella-anchor-y)));
+  width: calc(var(--stella-unit) * var(--stella-frame-w));
+  height: calc(var(--stella-unit) * var(--stella-frame-h));
+  margin: 0;
+  background-image: url('assets/stella-motion.png');
+  background-size: calc(var(--stella-unit) * 1536) calc(var(--stella-unit) * 1024);
+  background-position: calc(var(--stella-unit) * var(--stella-src-x) * -1) calc(var(--stella-unit) * var(--stella-src-y) * -1);
+  background-repeat: no-repeat;
+  clip-path: none;
+  animation: none;
+  transform: none;
+}
+
+/* Remove the adjacent slash blade at the windup crop's lower right. */
+:is(.combat-stage .actor-stella, .stella-frame-thumbnail)[data-pose="windup"] .actor-sprite {
+  clip-path: polygon(0 0, 100% 0, 100% 38.62213%, 95.16129% 38.62213%, 95.16129% 100%, 0 100%);
+}
+
+/* Remove the adjacent windup blade from the slash crop's upper left. */
+:is(.combat-stage .actor-stella, .stella-frame-thumbnail)[data-pose="slash"] .actor-sprite {
+  clip-path: polygon(31.86813% 0, 100% 0, 100% 100%, 0 100%, 0 65.17647%, 24.01884% 41.64706%, 31.86813% 41.64706%);
+}

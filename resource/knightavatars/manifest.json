@@ -216,11 +216,12 @@
         "有栖院",
         "爱丽丝",
         "愛麗絲",
-        "艾莉丝",
-        "艾莉絲",
         "Alice",
         "Nagi Arisuin",
-        "有栖院 凪"
+        "有栖院 凪",
+        "有栖院艾莉丝",
+        "有栖院艾莉絲",
+        "Alice Arisuin"
       ],
       "file": "nagi.png",
       "sourceUrl": "https://ittoshura.com/img/b_chara04.png",
@@ -618,6 +619,618 @@
         "outputHeight": 580,
         "sha256": "1dc9497f5bcad73cacd0b819fc04d38e5e0f357e58c53916bb2505decdfb8722"
       }
+    },
+    {
+      "id": "iris",
+      "name": "艾莉丝·阿斯卡里德",
+      "aliases": [
+        "艾莉絲·阿斯卡里德",
+        "艾莉丝·格尔",
+        "艾莉絲·格爾",
+        "阿斯卡里德",
+        "Iris Ascarid",
+        "Iris Gaule",
+        "アイリス・アスカリッド",
+        "アイリス・ゴール",
+        "黑骑士艾莉丝",
+        "黑騎士艾莉絲",
+        "艾莉丝·格尔·阿斯卡里德",
+        "艾莉絲·格爾·阿斯卡里德"
+      ],
+      "file": "novel/iris.jpg",
+      "sourceUrl": "",
+      "sourcePage": "",
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 11.epub",
+      "sourceMember": "OEBPS/Images/003_.jpg",
+      "hasShieldFrame": false,
+      "sourceStyle": "novel-color-illustration",
+      "sourceStatus": "verified-local-epub-no-original-shield",
+      "width": 1544,
+      "height": 2048,
+      "sha256": "62596a7bd0668571cb1f43faa364ac089ed73edc7ebe7ec91e5c289f28bcd867",
+      "imageUrl": "",
+      "identityEvidence": "research/epub/character-evidence.json#iris",
+      "imageVariant": "white-green-qipao",
+      "displayFile": "prepared/iris.png",
+      "preparation": {
+        "method": "closed-shield-region-face-aware-crop-v1",
+        "sourceFile": "novel/iris.jpg",
+        "sourceSha256": "62596a7bd0668571cb1f43faa364ac089ed73edc7ebe7ec91e5c289f28bcd867",
+        "crop": {
+          "left": 955,
+          "top": 179,
+          "width": 571,
+          "height": 686
+        },
+        "outputWidth": 434,
+        "outputHeight": 580,
+        "sha256": "2f95d92246215fa80da423ffb5010c2aefc8d9364febb874ce9c881396cf2c5a",
+        "orientation": {
+          "method": "level-eye-line",
+          "sourceEyes": [
+            [
+              1046,
+              299
+            ],
+            [
+              1174,
+              342
+            ]
+          ],
+          "rotationDegrees": -18.56913073103783,
+          "rotatedWidth": 2116,
+          "rotatedHeight": 2433,
+          "cropSpace": "after-rotation"
+        }
+      }
+    },
+    {
+      "id": "uri",
+      "name": "多多良幽衣",
+      "aliases": [
+        "多多良 幽衣",
+        "幽衣"
+      ],
+      "file": "novel/uri.jpg",
+      "sourceUrl": "",
+      "sourcePage": "",
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 12.epub",
+      "sourceMember": "OEBPS/Images/003.jpg",
+      "hasShieldFrame": false,
+      "sourceStyle": "novel-color-illustration",
+      "sourceStatus": "verified-local-epub-no-original-shield",
+      "width": 1592,
+      "height": 1200,
+      "sha256": "75cf138d6b93c6c596ec1eb9286d602f86124601262554198d32bb15199580b6",
+      "imageUrl": "",
+      "identityEvidence": "research/epub/character-evidence.json#uri",
+      "displayFile": "prepared/uri.png",
+      "preparation": {
+        "method": "closed-shield-region-face-aware-crop-v1",
+        "sourceFile": "novel/uri.jpg",
+        "sourceSha256": "75cf138d6b93c6c596ec1eb9286d602f86124601262554198d32bb15199580b6",
+        "crop": {
+          "left": 256,
+          "top": 233,
+          "width": 469,
+          "height": 564
+        },
+        "outputWidth": 434,
+        "outputHeight": 580,
+        "sha256": "b08f9dd4aba68f142f84cfc1ccc6975afacd8a70b77a2c5b6fb6a2a3a4ec5264"
+      }
+    },
+    {
+      "id": "or_gaule",
+      "name": "欧尔·格尔",
+      "aliases": [
+        "歐爾·格爾",
+        "欧尔雷斯·格尔",
+        "歐爾雷斯·格爾",
+        "傀儡王"
+      ],
+      "file": "novel/or-gaule-wallenstein.jpg",
+      "sourceUrl": "",
+      "sourcePage": "",
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 15.epub",
+      "sourceMember": "OEBPS/Images/004.jpg",
+      "hasShieldFrame": false,
+      "sourceStyle": "novel-color-illustration",
+      "sourceStatus": "verified-local-epub-no-original-shield",
+      "width": 1592,
+      "height": 1200,
+      "sha256": "75dc1db0adbf947d526b92d4ef98c3962f79a68bbd381f08d2c952315a31edb9",
+      "imageUrl": "",
+      "identityEvidence": "research/epub/character-evidence.json#or_gaule",
+      "imageVariant": "childhood-memory",
+      "displayFile": "prepared/or_gaule.png",
+      "preparation": {
+        "method": "closed-shield-region-face-aware-crop-v1",
+        "sourceFile": "novel/or-gaule-wallenstein.jpg",
+        "sourceSha256": "75dc1db0adbf947d526b92d4ef98c3962f79a68bbd381f08d2c952315a31edb9",
+        "crop": {
+          "left": 146,
+          "top": 92,
+          "width": 619,
+          "height": 744
+        },
+        "outputWidth": 434,
+        "outputHeight": 580,
+        "sha256": "0f52c5a403b298aa839e7cfe10a840660290e46c7125fdc88ba67286c69990fb"
+      }
+    },
+    {
+      "id": "wallenstein",
+      "name": "华伦斯坦",
+      "aliases": [
+        "華倫斯坦"
+      ],
+      "file": "novel/or-gaule-wallenstein.jpg",
+      "sourceUrl": "",
+      "sourcePage": "",
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 15.epub",
+      "sourceMember": "OEBPS/Images/004.jpg",
+      "hasShieldFrame": false,
+      "sourceStyle": "novel-color-illustration",
+      "sourceStatus": "verified-local-epub-no-original-shield",
+      "width": 1592,
+      "height": 1200,
+      "sha256": "75dc1db0adbf947d526b92d4ef98c3962f79a68bbd381f08d2c952315a31edb9",
+      "imageUrl": "",
+      "identityEvidence": "research/epub/character-evidence.json#wallenstein",
+      "displayFile": "prepared/wallenstein.png",
+      "preparation": {
+        "method": "closed-shield-region-face-aware-crop-v1",
+        "sourceFile": "novel/or-gaule-wallenstein.jpg",
+        "sourceSha256": "75dc1db0adbf947d526b92d4ef98c3962f79a68bbd381f08d2c952315a31edb9",
+        "crop": {
+          "left": 1061,
+          "top": 35,
+          "width": 419,
+          "height": 504
+        },
+        "outputWidth": 434,
+        "outputHeight": 580,
+        "sha256": "4643fedc2492738e314f9da9674d8802aec291353b9b331509f6afee8e262938"
+      }
+    },
+    {
+      "id": "kiriko",
+      "name": "药师雾子",
+      "aliases": [
+        "藥師霧子"
+      ],
+      "file": "novel/kiriko.jpg",
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 05.epub",
+      "sourceMember": "OEBPS/Images/004.jpg",
+      "sourceUrl": "",
+      "sourcePage": "",
+      "hasShieldFrame": false,
+      "sourceStyle": "novel-color-illustration",
+      "sourceStatus": "verified-local-epub-no-original-shield",
+      "width": 2352,
+      "height": 1776,
+      "sha256": "2ae42c80bff67c163408cf2773437aad3b70ffd5da3f7fbd7a814452838bd344",
+      "imageUrl": "",
+      "identityEvidence": "research/epub/character-evidence.json#kiriko",
+      "displayFile": "prepared/kiriko.png",
+      "preparation": {
+        "method": "closed-shield-region-face-aware-crop-v1",
+        "sourceFile": "novel/kiriko.jpg",
+        "sourceSha256": "2ae42c80bff67c163408cf2773437aad3b70ffd5da3f7fbd7a814452838bd344",
+        "crop": {
+          "left": 1541,
+          "top": 240,
+          "width": 749,
+          "height": 900
+        },
+        "outputWidth": 434,
+        "outputHeight": 580,
+        "sha256": "94a54c1f4a57a5bc669abbca6f196416a955b61c895ec26daa1458ecb47abcf2",
+        "orientation": {
+          "method": "level-eye-line",
+          "sourceEyes": [
+            [
+              1712,
+              492
+            ],
+            [
+              1986,
+              599
+            ]
+          ],
+          "rotationDegrees": -21.331189529861557,
+          "rotatedWidth": 2837,
+          "rotatedHeight": 2510,
+          "cropSpace": "after-rotation"
+        }
+      }
+    },
+    {
+      "id": "sara",
+      "name": "莎拉·布拉德莉莉",
+      "aliases": [
+        "莎拉"
+      ],
+      "file": "novel/sara.jpg",
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 06.epub",
+      "sourceMember": "OEBPS/Images/005.jpg",
+      "sourceUrl": "",
+      "sourcePage": "",
+      "hasShieldFrame": false,
+      "sourceStyle": "novel-color-illustration",
+      "sourceStatus": "verified-local-epub-no-original-shield",
+      "width": 2353,
+      "height": 1654,
+      "sha256": "b82d80e24674d1509072e01e4ca77eebfefb65c2aec482eab15ab6d872972cf1",
+      "imageUrl": "",
+      "identityEvidence": "research/epub/character-evidence.json#sara",
+      "displayFile": "prepared/sara.png",
+      "preparation": {
+        "method": "closed-shield-region-face-aware-crop-v1",
+        "sourceFile": "novel/sara.jpg",
+        "sourceSha256": "b82d80e24674d1509072e01e4ca77eebfefb65c2aec482eab15ab6d872972cf1",
+        "crop": {
+          "left": 600,
+          "top": 1260,
+          "width": 599,
+          "height": 720
+        },
+        "outputWidth": 434,
+        "outputHeight": 580,
+        "sha256": "740ce910c5fc988f7ea399e61b81b20c88c71ecbab774eb67b060e1d501e99f0",
+        "orientation": {
+          "method": "level-eye-line",
+          "sourceEyes": [
+            [
+              659,
+              416
+            ],
+            [
+              767,
+              519
+            ]
+          ],
+          "rotationDegrees": -43.64253415546939,
+          "rotatedWidth": 2844,
+          "rotatedHeight": 2821,
+          "cropSpace": "after-rotation"
+        }
+      }
+    },
+    {
+      "id": "rinna",
+      "name": "风祭凛奈",
+      "aliases": [
+        "風祭凜奈",
+        "風祭凛奈",
+        "风祭凜奈"
+      ],
+      "file": "novel/rinna-original.jpg",
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 05.epub",
+      "sourceMember": "OEBPS/Images/007.jpg",
+      "sourceUrl": "",
+      "sourcePage": "",
+      "hasShieldFrame": false,
+      "sourceStyle": "novel-monochrome-illustration",
+      "sourceStatus": "verified-local-epub-ai-colorized",
+      "width": 700,
+      "height": 1000,
+      "sha256": "a4d646adeb9caa9d328173fe7dc2aa3ccfc59e31338bfb1199d5409c26072355",
+      "imageUrl": "",
+      "identityEvidence": "research/epub/character-evidence.json#rinna",
+      "colorization": {
+        "type": "ai-colorized-derivative",
+        "mode": "built-in",
+        "file": "novel/rinna-colorized.png",
+        "record": "research/epub/rinna-colorization.json",
+        "colorReferenceVolume": 18,
+        "note": "第5卷原黑白图上色；参考第18卷发色和瞳色，深红礼服依据第5卷正文。蝴蝶结深红为上色选择。非官方原生彩图。"
+      },
+      "displayFile": "prepared/rinna.png",
+      "preparation": {
+        "method": "closed-shield-region-face-aware-crop-v1",
+        "sourceFile": "novel/rinna-colorized.png",
+        "sourceSha256": "5e218dd8603c135d53b0a7e7cd2c9a277817a20d6d3c6dc249dc3c12c6eb0cc7",
+        "crop": {
+          "left": 310,
+          "top": 370,
+          "width": 817,
+          "height": 982
+        },
+        "outputWidth": 434,
+        "outputHeight": 580,
+        "sha256": "9928336c35311d38bc1f719351ca963cdff50ce426da03d037087f4dd5841c91",
+        "orientation": {
+          "method": "level-eye-line",
+          "sourceEyes": [
+            [
+              356,
+              740
+            ],
+            [
+              628,
+              817
+            ]
+          ],
+          "rotationDegrees": -15.806193600678467,
+          "landmarkNote": "左点是眼罩覆盖的眼位中心，未推定被遮住瞳孔的外观。",
+          "rotatedWidth": 1421,
+          "rotatedHeight": 1723,
+          "cropSpace": "after-rotation"
+        }
+      }
+    },
+    {
+      "id": "ein",
+      "name": "艾茵·阿伯伦特",
+      "aliases": [
+        "艾茵·阿伯倫特",
+        "艾茵",
+        "Ein",
+        "Dirty Rose"
+      ],
+      "file": "novel/ein.jpg",
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 13.epub",
+      "sourceMember": "OEBPS/Images/004.jpg",
+      "sourceUrl": "",
+      "sourcePage": "",
+      "hasShieldFrame": false,
+      "sourceStyle": "novel-color-illustration",
+      "sourceStatus": "verified-local-epub-no-original-shield",
+      "width": 1674,
+      "height": 1200,
+      "sha256": "05cbc99c5aa0fc168fb978c77242de943fa7ab43207f6376f00ebf0f56a908f9",
+      "imageUrl": "",
+      "identityEvidence": "research/epub/character-evidence.json#ein",
+      "displayFile": "prepared/ein.png",
+      "preparation": {
+        "method": "closed-shield-region-face-aware-crop-v1",
+        "sourceFile": "novel/ein.jpg",
+        "sourceSha256": "05cbc99c5aa0fc168fb978c77242de943fa7ab43207f6376f00ebf0f56a908f9",
+        "crop": {
+          "left": 755,
+          "top": 920,
+          "width": 259,
+          "height": 312
+        },
+        "outputWidth": 434,
+        "outputHeight": 580,
+        "sha256": "819d3b90f199592824badef5c76374a6ec31bc1c8427a433f822c92a5deb5feb",
+        "orientation": {
+          "method": "level-eye-line",
+          "sourceEyes": [
+            [
+              693,
+              517
+            ],
+            [
+              726,
+              551
+            ]
+          ],
+          "rotationDegrees": -45.85509739626672,
+          "rotatedWidth": 2027,
+          "rotatedHeight": 2037,
+          "cropSpace": "after-rotation"
+        }
+      }
+    },
+    {
+      "id": "rai",
+      "name": "碎城雷",
+      "aliases": [
+        "IKADSUCHI SAIJO",
+        "Ikadsuchi Saijo"
+      ],
+      "file": "novel/rai-original.jpg",
+      "sourceMember": "OEBPS/Images/007.jpg",
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 09.epub",
+      "sourceUrl": "",
+      "sourcePage": "",
+      "hasShieldFrame": false,
+      "sourceStyle": "novel-monochrome-illustration",
+      "sourceStatus": "verified-local-epub-ai-colorized",
+      "width": 1061,
+      "height": 1600,
+      "sha256": "522938ed04fd940dc5d2c6465b4f377b527736a8b4df7418e26954301b6908ef",
+      "imageUrl": "",
+      "identityEvidence": "research/epub/character-evidence.json#rai",
+      "colorization": {
+        "type": "ai-colorized-derivative",
+        "mode": "built-in",
+        "file": "novel/rai-colorized.png",
+        "record": "research/epub/rai-colorization.json",
+        "colorReferenceFile": "research/user-supplied/rai-anime-reference.png",
+        "note": "保留第9卷小說人物，使用用户提供的小说裁片上色；动画截图仅作配色参考。非官方原生彩图。"
+      },
+      "displayFile": "prepared/rai.png",
+      "preparation": {
+        "method": "closed-shield-region-face-aware-crop-v1",
+        "sourceFile": "novel/rai-colorized.png",
+        "sourceSha256": "73fee756e7be1c0ae8befd0bc4049db6c144465be8512f36d5d593d3387940ea",
+        "crop": {
+          "left": 455,
+          "top": 416,
+          "width": 835,
+          "height": 1004
+        },
+        "outputWidth": 434,
+        "outputHeight": 580,
+        "sha256": "92c08ec2f9141c50c7b68f926b30b349dc545c9611a3f83931cb55727bee13a2",
+        "orientation": {
+          "method": "level-eye-line",
+          "sourceEyes": [
+            [
+              387,
+              719
+            ],
+            [
+              632,
+              568
+            ]
+          ],
+          "rotationDegrees": 31.646629792759,
+          "rotatedWidth": 1693,
+          "rotatedHeight": 1776,
+          "cropSpace": "after-rotation"
+        }
+      }
+    },
+    {
+      "id": "momiji",
+      "name": "浅木椛",
+      "aliases": [
+        "淺木椛",
+        "浅桦",
+        "淺樺",
+        "Momiji Asagi",
+        "MOMIJI ASAGI"
+      ],
+      "file": "novel/byakuya-momiji.jpg",
+      "sourceMember": "OEBPS/Images/003.jpg",
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 09.epub",
+      "sourceUrl": "",
+      "sourcePage": "",
+      "hasShieldFrame": false,
+      "sourceStyle": "novel-color-illustration",
+      "sourceStatus": "verified-local-epub-no-original-shield",
+      "width": 2352,
+      "height": 1776,
+      "sha256": "8eb2923f55025f48385de5dd4afe20de9b9311dbebc26e00b042e84e357d9652",
+      "imageUrl": "",
+      "identityEvidence": "research/epub/character-evidence.json#momiji",
+      "aliasNotes": {
+        "浅桦/淺樺": "用户在本次对话中使用的简称，仅用于头像匹配；标准姓名为浅木椛。"
+      },
+      "displayFile": "prepared/momiji.png",
+      "preparation": {
+        "method": "closed-shield-region-face-aware-crop-v1",
+        "sourceFile": "novel/byakuya-momiji.jpg",
+        "sourceSha256": "8eb2923f55025f48385de5dd4afe20de9b9311dbebc26e00b042e84e357d9652",
+        "crop": {
+          "left": 411,
+          "top": 856,
+          "width": 439,
+          "height": 528
+        },
+        "outputWidth": 434,
+        "outputHeight": 580,
+        "sha256": "5009e697eab88be6df154dedd51a97844f91efa94bb8119d95866eb5fe4f4651",
+        "orientation": {
+          "method": "level-eye-line",
+          "sourceEyes": [
+            [
+              220,
+              1243
+            ],
+            [
+              306,
+              1170
+            ]
+          ],
+          "rotationDegrees": 40.32583628886923,
+          "rotatedWidth": 2942,
+          "rotatedHeight": 2876,
+          "cropSpace": "after-rotation"
+        }
+      }
+    },
+    {
+      "id": "byakuya",
+      "name": "城之崎白夜",
+      "aliases": [
+        "白夜",
+        "Byakuya Jogasaki",
+        "BYAKUYA JOGASAKI"
+      ],
+      "file": "novel/byakuya-momiji.jpg",
+      "sourceMember": "OEBPS/Images/003.jpg",
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 09.epub",
+      "sourceUrl": "",
+      "sourcePage": "",
+      "hasShieldFrame": false,
+      "sourceStyle": "novel-color-illustration",
+      "sourceStatus": "verified-local-epub-no-original-shield",
+      "width": 2352,
+      "height": 1776,
+      "sha256": "8eb2923f55025f48385de5dd4afe20de9b9311dbebc26e00b042e84e357d9652",
+      "imageUrl": "",
+      "identityEvidence": "research/epub/character-evidence.json#byakuya",
+      "displayFile": "prepared/byakuya.png",
+      "preparation": {
+        "method": "closed-shield-region-face-aware-crop-v1",
+        "sourceFile": "novel/byakuya-momiji.jpg",
+        "sourceSha256": "8eb2923f55025f48385de5dd4afe20de9b9311dbebc26e00b042e84e357d9652",
+        "crop": {
+          "left": 841,
+          "top": 660,
+          "width": 479,
+          "height": 576
+        },
+        "outputWidth": 434,
+        "outputHeight": 580,
+        "sha256": "9ee21ae7e0114a11b3dbd8ea73ee5ac1fffd51ce46f6e21647d2af407dc11244",
+        "orientation": {
+          "method": "level-eye-line",
+          "sourceEyes": [
+            [
+              495,
+              872
+            ],
+            [
+              587,
+              789
+            ]
+          ],
+          "rotationDegrees": 42.05595365001238,
+          "rotatedWidth": 2936,
+          "rotatedHeight": 2894,
+          "cropSpace": "after-rotation"
+        }
+      }
+    },
+    {
+      "id": "mikoto",
+      "name": "鹤屋美琴",
+      "aliases": [
+        "鶴屋美琴",
+        "Mikoto Tsuruya",
+        "Tsuruya Mikoto"
+      ],
+      "file": "research/user-supplied/mikoto-profile-screenshot.png",
+      "sourceUrl": "",
+      "sourcePage": "",
+      "hasShieldFrame": false,
+      "sourceStyle": "user-supplied-monochrome-illustration",
+      "sourceStatus": "identity-confirmed-user-image-ai-colorized",
+      "width": 483,
+      "height": 1212,
+      "sha256": "2c3f93e72e8fbdf40f6e90819710888f10a7b7631fa52e84f36b36d0b10fcf75",
+      "imageUrl": "",
+      "identityEvidence": "research/epub/character-evidence.json#mikoto",
+      "colorization": {
+        "type": "ai-colorized-derivative",
+        "mode": "built-in",
+        "file": "color/mikoto-colorized.png",
+        "record": "research/epub/mikoto-colorization.json",
+        "note": "使用用户提供的黑白人物裁图上色；灰金发有第5卷尾声正文依据。原出版载体未核实，眼睛深灰与灰白制服为本次中性补色，不标为官方原生彩图。"
+      },
+      "displayFile": "prepared/mikoto.png",
+      "preparation": {
+        "method": "closed-shield-region-face-aware-crop-v1",
+        "sourceFile": "color/mikoto-colorized.png",
+        "sourceSha256": "0be6927fecc54f0ae01a535dc1b212e883f968efffd06088157c32d801d4639d",
+        "crop": {
+          "left": 164,
+          "top": 53,
+          "width": 764,
+          "height": 918
+        },
+        "outputWidth": 434,
+        "outputHeight": 580,
+        "sha256": "b5492b71cefe1ff9864d624920fd9c71d70d14c3bf70f2e4aea207da9dcde1f8"
+      }
     }
   ],
   "missingPortraits": [
@@ -634,6 +1247,19 @@
         "綾辻海斗"
       ],
       "status": "no-verified-portrait"
+    }
+  ],
+  "ambiguousAliases": [
+    {
+      "aliases": [
+        "艾莉丝",
+        "艾莉絲"
+      ],
+      "characters": [
+        "nagi",
+        "iris"
+      ],
+      "handling": "Unbound. Use 有栖院凪 or 艾莉丝·阿斯卡里德 to select an image."
     }
   ]
 }

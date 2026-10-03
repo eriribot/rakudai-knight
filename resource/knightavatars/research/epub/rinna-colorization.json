@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "id": "rinna",
+  "assetType": "ai-colorized-novel-portrait",
+  "mode": "built-in",
+  "tool": "image_gen__imagegen",
+  "intent": "edit",
+  "useCase": "identity-preserve",
+  "transparentBackground": false,
+  "finalPrompt": "Use case: identity-preserve.\nAsset type: colorized light-novel character portrait for a visual-novel companion avatar.\nPrimary request: colorize Image 1, the existing black-and-white portrait. Apply color inside its existing drawing; preserve its original line art, geometry, pose, face, expression, clothing, perspective and framing. Do not redraw a new scene.\nInput images: Image 1 is the ONLY edit target, a 385×545 formal-dress portrait crop with a large bow and a white single-eye eyepatch. Image 2 is ONLY a limited color reference for pale pink hair and the red-brown iris. Do not copy Image 2's hairstyle, expression, eye coverage, clothing, background or composition.\nScene/backdrop: retain Image 1's existing opaque background, neighboring cropped details and all original scene outlines. Keep the same portrait aspect ratio and boundaries; no new objects, text, badges or shield frame.\nSubject and invariants: keep the target's white eyepatch over the eye on the viewer's left, including its original shape, dots and strap. Keep the visible eye on the viewer's right, its exact shape and gaze, the gentle smile, facial proportions, original short back hair and long front locks, the very large bow on top, and the same formal dress. Preserve the original relaxed head-and-shoulders portrait and shoulder placement.\nColor palette: pale soft pink hair informed by Image 2; red-brown visible iris informed by Image 2; natural light skin; deep crimson/red formal dress; black lace edging and small dark garment details; deep crimson/red head bow. The eyepatch remains white with the existing dark outline. Keep the target's original light and dark values and printed shading, adding clean subtle anime color without changing the illustration style.\nConstraints: this is only a color edit of Image 1's already existing non-erotic formal portrait. Do not replace the white eyepatch with hair or a second visible eye. Do not replace the smile with Image 2's worried expression. Do not shorten the long front hair. Do not enlarge or redesign clothing or the body. Do not introduce bondage, nudity, erotic emphasis, a new pose, a second character, text, watermark or a frame. Preserve Image 1's original scene line art rather than creating a new illustration. Opaque background, no transparency.",
+  "inputs": [
+    {
+      "path": "resource/knightavatars/research/epub/rinna-colorization-target.png",
+      "width": 385,
+      "height": 545,
+      "mode": "L",
+      "sha256": "3f0966432894fde0d4bc505bf3510897649d82b7ac14c45e154191d9f34a0633",
+      "role": "edit-target",
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 05.epub",
+      "sourceMember": "OEBPS/Images/007.jpg",
+      "note": "第5卷原始黑白插图的独立正式礼服头像裁片；原黑白文件保留。"
+    },
+    {
+      "path": "resource/knightavatars/research/epub/rinna-color-reference.png",
+      "width": 725,
+      "height": 510,
+      "mode": "RGB",
+      "sha256": "2b98afc0178400b5d3c180af95d2ad31267c4d63650196a1e439be4b67eaf478",
+      "role": "limited-hair-and-eye-color-reference",
+      "sourceEpub": "39688/落第骑士英雄谭 - 18.epub",
+      "note": "第18卷190216.jpg右侧凛奈的头脸裁片；仅参考淡粉红发与红褐眼色，具名正文依据见character-evidence.json#rinna的colorReference。",
+      "sourceMember": "OEBPS/Images/190216.jpg"
+    }
+  ],
+  "output": {
+    "path": "resource/knightavatars/novel/rinna-colorized.png",
+    "width": 1054,
+    "height": 1492,
+    "mode": "RGB",
+    "sha256": "5e218dd8603c135d53b0a7e7cd2c9a277817a20d6d3c6dc249dc3c12c6eb0cc7"
+  },
+  "generatedOriginal": "C:/Users/eriri/.codex/generated_images/01a0f276-5081-76d1-a56c-983c63c75001/exec-224923fd-debd-4723-b1f7-c1826fb52efd.png",
+  "visualReview": {
+    "passed": true,
+    "observed": [
+      "保留观者左侧单眼白色眼罩、点状细节与带线。",
+      "保留原图的温和微笑、可见眼形与原有头肩构图。",
+      "保留大蝴蝶结、后部短发及前部较长发束。",
+      "头发呈淡粉红、可见眼呈红褐、礼服和蝴蝶结呈深红、蕾丝呈黑色。",
+      "背景不透明；没有添加盾框、文字或新姿势。"
+    ],
+    "limitations": "内置生成式编辑为上色衍生图，线条经过模型重绘/放大，不声称与原黑白图逐像素完全一致，也不标为官方原生彩图。"
+  },
+  "preservedOriginalBw": "resource/knightavatars/novel/rinna-original.jpg",
+  "scope": "上色步骤生成衍生图；主清单另保存原黑白来源，并记录AI上色状态、来源与裁盾结果。"
+}

@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+/* Official anime stills, unedited source bytes. Load after styles.css.
+   Scene provenance and interpretive card associations: assets/cards/manifest.json. */
+.card[data-id="slash"] .card-art {
+  background-image: url('assets/cards/slash.jpg');
+  background-size: cover;
+  background-position: 48% 45%;
+}
+.card[data-id="guard"] .card-art {
+  background-image: url('assets/cards/guard.jpg');
+  background-size: cover;
+  background-position: 85% 43%;
+}
+.card[data-id="insight"] .card-art {
+  background-image: url('assets/cards/insight.jpg');
+  background-size: cover;
+  background-position: 50% 42%;
+}
+.card[data-id="step"] .card-art {
+  background-image: url('assets/cards/step.jpg');
+  background-size: cover;
+  background-position: 45% 50%;
+  filter: none;
+}
+.card[data-id="riposte"] .card-art {
+  background-image: url('assets/cards/riposte.jpg');
+  background-size: cover;
+  background-position: 75% 50%;
+}
+.card[data-id="shura"] .card-art {
+  background-image: url('assets/cards/shura.jpg');
+  background-size: cover;
+  background-position: 80% 47%;
+}
+.card[data-id] .card-art::after {
+  background: linear-gradient(0deg, #050b1c26, transparent 50%);
+}

@@ -1,0 +1,140 @@
+{
+  "scope": "Research fit suggestions only; production files unchanged",
+  "sourceFile": "research/epub/images/8eb2923f55025f48385d.jpg",
+  "sourceSha256": "8eb2923f55025f48385de5dd4afe20de9b9311dbebc26e00b042e84e357d9652",
+  "sourceSize": [
+    2352,
+    1776
+  ],
+  "eyeLandmarkConfidence": "Manual pupil/iris-center placement, checked with magnified source and iris-color centroid; approximately +/-1-2 source pixels",
+  "baseline": "research/review/prepared-baseline-17-before-bukyoku3.json",
+  "characters": [
+    {
+      "id": "momiji",
+      "fit": {
+        "levelEyes": [
+          [
+            220,
+            1243
+          ],
+          [
+            306,
+            1170
+          ]
+        ],
+        "window": [
+          450,
+          790,
+          440,
+          590
+        ],
+        "eye": [
+          569,
+          1090
+        ],
+        "protect": [
+          [
+            512,
+            1090
+          ],
+          [
+            625,
+            1090
+          ],
+          [
+            549,
+            1172
+          ],
+          [
+            531,
+            1187
+          ],
+          [
+            668,
+            845
+          ],
+          [
+            700,
+            830
+          ]
+        ],
+        "eyeTarget": 0.56,
+        "eyeTargetX": 0.27
+      },
+      "rotationDegrees": 40.32583628886923,
+      "rotatedSize": [
+        2942,
+        2876
+      ],
+      "expectedCrop": {
+        "left": 450,
+        "top": 811,
+        "width": 439,
+        "height": 528
+      },
+      "preview": "research/review/momiji-shield-study.png"
+    },
+    {
+      "id": "byakuya",
+      "fit": {
+        "levelEyes": [
+          [
+            495,
+            872
+          ],
+          [
+            587,
+            789
+          ]
+        ],
+        "window": [
+          840,
+          660,
+          480,
+          670
+        ],
+        "eye": [
+          1035,
+          979
+        ],
+        "protect": [
+          [
+            973,
+            979
+          ],
+          [
+            1097,
+            979
+          ],
+          [
+            1021,
+            1090
+          ],
+          [
+            1000,
+            1112
+          ],
+          [
+            1195,
+            725
+          ]
+        ],
+        "eyeTarget": 0.55,
+        "eyeTargetX": 0.4
+      },
+      "rotationDegrees": 42.05595365001238,
+      "rotatedSize": [
+        2936,
+        2894
+      ],
+      "expectedCrop": {
+        "left": 841,
+        "top": 660,
+        "width": 479,
+        "height": 576
+      },
+      "preview": "research/review/byakuya-shield-study.png"
+    }
+  ],
+  "momijiConstraint": "Full original bow wings cannot fit while preserving the opaque rotated source footprint and a complete face; preview retains bow base and cheek bandage."
+}
