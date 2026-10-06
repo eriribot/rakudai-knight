@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "character": "艾茵·阿伯伦特",
+  "variant": "volume-13-human-form-visible-heart",
+  "type": "ai-generated-fan-illustration-not-official-art",
+  "generatedDateLocal": "2026-10-04",
+  "timezone": "Asia/Shanghai",
+  "mode": "built-in",
+  "tool": "image_gen__imagegen",
+  "useCase": "precise-object-edit",
+  "input": "resource/knightavatars/fanart/ein-vol13-heart.png",
+  "output": "resource/knightavatars/fanart/ein-vol13-heart-v2.png",
+  "userAcceptance": "双手中央有清楚可见的爱心图形。",
+  "changes": [
+    "双手围出的中央添加粉红发光实心爱心",
+    "礼服胸前开口改为完整覆盖的黑色布料，加入细蕾丝装饰"
+  ],
+  "preserved": [
+    "成年艾茵脸型与微笑",
+    "紫黑长发和斜刘海",
+    "玫红瞳色",
+    "双手比心姿势与长手套",
+    "竖版构图和淡色背景"
+  ],
+  "generationHistory": [
+    {
+      "attempt": "heart-only",
+      "status": "rejected-by-image-tool-safety-system",
+      "reportedCategory": "sexual",
+      "outputCreated": false
+    },
+    {
+      "attempt": "covered-dress-and-visible-heart",
+      "status": "success"
+    }
+  ],
+  "finalPrompt": "Use case: precise-object-edit.\nCreate a modest, fully clothed version of the adult fantasy woman in this reference, and add a visible pink heart to complete her friendly hand-heart gesture.\n\nTwo changes:\n1. Replace the entire open front section of her dress with opaque BLACK FABRIC from her high collar down to her waist. The new black high-neck evening dress completely covers the chest with smooth fitted fabric and subtle lace trim. Keep the long black gloves and elegant dark dress silhouette. This is a fully clothed, nonsexual portrait.\n2. Add ONE bright rose-pink filled heart floating visibly in the opening made by her two gloved hands. The heart has two rounded upper lobes and a pointed bottom. It fits inside the fingers and thumbs without covering them, occupying about 65 percent of the opening width, and has a gentle pink glow.\n\nKeep her adult face, gentle smile, magenta eyes, long deep-violet hair and side-swept bangs, existing hand pose, soft light-novel drawing style, portrait framing, and pale ivory/pink background. Keep the heart gesture clearly readable. No other characters, text, signature, watermark, or additional objects."
+}

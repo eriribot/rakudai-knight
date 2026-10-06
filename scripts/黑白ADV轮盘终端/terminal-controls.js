@@ -75,10 +75,12 @@ var correctionProgressUI = (function installCorrectionProgress() {
     var stage = status && status.state || 'inactive', active = activeStages.indexOf(stage) !== -1;
     node.setAttribute('data-state', stage);
     node.setAttribute('data-active', active ? 'true' : 'false');
-    setText(node.querySelector('[data-progress-stage]'), '副 API · ' + (stages[stage] || '状态更新'));
+    var primary = status && status.scope === 'main';
+    var title = primary && stage === 'failed' ? '保存未确认' : primary && stage === 'ready' ? '已保存' : (stages[stage] || '状态更新');
+    setText(node.querySelector('[data-progress-stage]'), (primary ? 'MVU 主保存 · ' : '副 API · ') + title);
     setText(node.querySelector('[data-progress-message]'), status && status.message || '保存连接配置后，自动读取本轮内容并校验保存。');
     var notes = [];
-    if (Number.isFinite(status && status.attempt) && status.attempt > 0) {
+    if (!primary && Number.isFinite(status && status.attempt) && status.attempt > 0) {
       notes.push('尝试 ' + status.attempt + (Number.isFinite(status.maxAttempts) && status.maxAttempts > 0 ? '/' + status.maxAttempts : ''));
     }
     if (stage === 'retrying' && Number.isFinite(status && status.retryAt)) {
@@ -198,7 +200,7 @@ var correctionProgressUI = (function installCorrectionProgress() {
     var card = document.createElement('section');
     card.className = 'card1 rk-correction';
     card.innerHTML = '<div class="ct">副 API · MVU 校正</div>' +
-      '<p>主回复负责当轮变量更新。副 API 自动复核本轮正文与事件，补齐遗漏的好感、支援及其他状态，校验后保存。</p>' +
+      '<p>主回复负责当轮变量更新。副 API 自动复核本轮正文与事件，补齐遗漏的好感、支援及其他状态，保存并回读确认。</p>' +
       '<label class="rk-correction-auto"><input data-field="autoApply" type="checkbox">每轮自动校正并保存（保存配置后生效）</label>' +
       '<div data-auto-status class="rk-correction-progress" aria-label="副 API 处理进度">' + correctionProgressUI.markup() + '</div>' +
       '<label>API 地址<input data-field="endpoint" type="url" placeholder="https://example.com/v1" autocomplete="off" spellcheck="false"></label>' +
@@ -207,6 +209,8 @@ var correctionProgressUI = (function installCorrectionProgress() {
       '<div class="rk-correction-model"><label>可用模型<select data-model-list aria-label="拉取到的模型"><option value="">可拉取，也可手动填写</option></select></label><button type="button" data-action="models">拉取模型</button></div>' +
       '<div class="rk-correction-fields"><label>模型名称<input data-field="model" type="text" autocomplete="off" spellcheck="false" placeholder="从上方选择或手动填写"></label>' +
       '<label>输出上限<input data-field="maxTokens" type="number" min="256" max="30000" step="1" aria-label="最大输出 token"></label></div>' +
+      '<label>排除请求参数（选填）<textarea data-field="excludedParams" rows="2" maxlength="4096" autocomplete="off" spellcheck="false" placeholder="temperature, top_p, presence_penalty"></textarea></label>' +
+      '<p>按参数名填写，用逗号、空格或换行分隔。只影响副 API 请求体的顶层参数；留空不排除。</p>' +
       '<p data-model-status role="status" aria-live="polite">填好地址和密钥即可拉取模型，无需先保存。</p>' +
       '<details class="rk-correction-fold"><summary>本轮内容 · 自动读取</summary><p data-context-source></p>' +
       '<label>本轮正文<textarea data-context-text rows="6" readonly aria-label="自动读取的本轮正文"></textarea></label>' +
@@ -223,6 +227,7 @@ var correctionProgressUI = (function installCorrectionProgress() {
     body.appendChild(card);
     function field(name) { return card.querySelector('[data-field="' + name + '"]'); }
     ['endpoint', 'model', 'maxTokens', 'deviation', 'prompt'].forEach(function (name) { field(name).value = config[name] == null ? '' : config[name]; });
+    field('excludedParams').value = Array.isArray(config.excludedParams) ? config.excludedParams.join(', ') : '';
     field('autoApply').checked = config.autoApply !== false;
     var status = card.querySelector('[data-status]'), preview = card.querySelector('[data-preview]');
     var apply = card.querySelector('[data-action="apply"]'), request = card.querySelector('[data-action="request"]');
@@ -279,7 +284,9 @@ var correctionProgressUI = (function installCorrectionProgress() {
       clearPreview();
       config = api.saveConfig({ endpoint: field('endpoint').value, model: field('model').value,
         maxTokens: Number(field('maxTokens').value), apiKey: field('apiKey').value,
+        excludedParams: field('excludedParams').value,
         deviation: field('deviation').value, prompt: field('prompt').value, autoApply: field('autoApply').checked, clearKey: clearKey });
+      field('excludedParams').value = Array.isArray(config.excludedParams) ? config.excludedParams.join(', ') : '';
       field('apiKey').value = ''; keyStatus(); refreshAutoStatus();
     }
     function readContext() {
@@ -295,7 +302,7 @@ var correctionProgressUI = (function installCorrectionProgress() {
         if (events.textContent !== nextEvents) events.textContent = nextEvents;
       } catch (error) { source.textContent = error.message; text.value = ''; events.textContent = ''; }
     }
-    ['endpoint', 'model', 'apiKey', 'maxTokens', 'deviation', 'prompt'].forEach(function (name) {
+    ['endpoint', 'model', 'apiKey', 'maxTokens', 'excludedParams', 'deviation', 'prompt'].forEach(function (name) {
       field(name).addEventListener('input', function () { edited(name); });
     });
     field('autoApply').addEventListener('change', function () { edited('autoApply'); });

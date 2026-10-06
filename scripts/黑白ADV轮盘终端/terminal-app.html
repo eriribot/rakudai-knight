@@ -219,6 +219,16 @@
 <!-- 提醒浮条 -->
 <div id="toast"></div>
 
+<dialog id="rk-calendar-story" aria-labelledby="rk-calendar-story-title">
+  <header class="rk-calendar-story-header">
+    <h2 id="rk-calendar-story-title"></h2>
+    <button type="button" onclick="closeCalendarStory()" autofocus>关闭</button>
+  </header>
+  <p id="rk-calendar-story-source"></p>
+  <div id="rk-calendar-story-choices"></div>
+  <pre id="rk-calendar-story-content"></pre>
+</dialog>
+
 <script src="./terminal-app.js"></script>
 <script src="./terminal-controls.js"></script>
 </body>

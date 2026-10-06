@@ -34,15 +34,20 @@
     const oldGuard = [W, H].some(scope => scope.__RK_MVU_GUARD_V3__) || (function () {
       try { return W.parent?.__RK_MVU_GUARD_V3__ || W.top?.__RK_MVU_GUARD_V3__; } catch (_) { return false; }
     })();
-    if (oldGuard) throw new Error('旧版 v3 约束仍在运行，请先停用旧版约束，只启用 v4 后再读取或写入。');
-    const guard = H.__RK_MVU_GUARD_V4__ || W.__RK_MVU_GUARD_V4__ || (function () {
-      try { return W.parent?.__RK_MVU_GUARD_V4__; } catch (_) {}
-    })() || (function () {
-      try { return W.top?.__RK_MVU_GUARD_V4__; } catch (_) {}
-    })();
-    if (guard?.version !== '4.0.0') throw new Error('请先导入并启用“落第骑士·MVU v4 字段与卷章约束”脚本，并停用旧版约束。');
-    // 旧v4也叫4.0.0，但不认识魔人觉醒；在建档前核对实际功能修订，不能只看显示名。
-    if (guard.growth !== 'G03') throw new Error('当前运行的是旧v4约束，不支持玩家.魔人觉醒。请替换为标有G03/P02的v4约束并重载酒馆；保留现有true/false，不要重新初始化。');
+    if (oldGuard) throw new Error('旧版 v3 约束仍在运行，请先停用并重载酒馆，避免与 v4 档案冲突。');
+    const mode = rakudaiMvuRuntime([W, H]);
+    if (mode.mode === 'loading' || mode.mode === 'failed') {
+      const error = new Error('MVU v4 约束' + (mode.mode === 'loading' ? '正在初始化：' : '启动失败：') +
+        (mode.boot?.message || '请查看约束脚本日志，排除加载错误后重载酒馆。'));
+      error.code = mode.mode === 'loading' ? 'RK_GUARD_LOADING' : 'RK_GUARD_FAILED';
+      throw error;
+    }
+    const guard = mode.guard;
+    if (guard) {
+      if (guard.version !== '4.0.0') throw new Error('当前字段约束版本不兼容，请更新为配套 MVU v4 约束，或停用后重载酒馆。');
+      // 旧v4也叫4.0.0，但不认识魔人觉醒；只对实际开启的约束核对修订。
+      if (guard.growth !== 'G03') throw new Error('当前运行的是旧v4约束，不支持玩家.魔人觉醒。请替换为标有G03/P02的v4约束并重载酒馆；保留现有true/false，不要重新初始化。');
+    }
     const ctx = H.SillyTavern.getContext();
     const chatId = ctx.chatId;
     if (chatId === null || chatId === undefined || chatId === '' || !Array.isArray(ctx.chat) || !ctx.chat.length) throw new Error('当前没有可建档的聊天。');
@@ -93,7 +98,7 @@
     migrate: value => prepareStateMigration(value, runtime().Z),
     write: (saved, expected, state, { openingReplacement = false } = {}) => {
       if (openingReplacement) assertOpeningReplacement(saved);
-      const now = current(saved);
+      const now = current(saved), H = now.H;
       if (stateKey(now.data) !== stateKey(expected)) throw new Error('变量在提交前发生变化，请刷新。');
       // 使用宿主同步 updater：校验与赋值之间不 await，不退回 chat/global scope。
       const result = helper('updateVariablesWith')(variables => {
@@ -102,6 +107,7 @@
         if (stateKey(variables) !== stateKey(expected)) throw new Error('变量已经更新，未覆盖。');
         const next = cloneState(variables);
         next.stat_data = cloneState(state);
+        prepareRakudaiNativeMvu(next, [W, H]);
         return next;
       }, now.options);
       sync(result, '更新变量');

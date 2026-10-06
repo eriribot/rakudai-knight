@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "deliveryMode": "component",
+  "skillPlans": [
+    {
+      "spec": "output/native-mvu-repair/specs/helper-scripts.json",
+      "errors": [],
+      "plan": {
+        "schemaVersion": 1,
+        "deliveryMode": "component",
+        "kind": "helper-script",
+        "outRoot": "output/native-mvu-repair/skill-staging/helper-script",
+        "files": [
+          "phone-v1-3-14.script.json",
+          "native-mvu-n01.script.json",
+          "guard-v4-r01.script.json",
+          "component-update-manifest.json"
+        ],
+        "requiresPipeline": false
+      }
+    },
+    {
+      "spec": "output/native-mvu-repair/specs/opening-regex.json",
+      "errors": [],
+      "plan": {
+        "schemaVersion": 1,
+        "deliveryMode": "component",
+        "kind": "regex",
+        "outRoot": "output/native-mvu-repair/skill-staging/regex",
+        "files": [
+          "opening-state.regex.json",
+          "component-update-manifest.json"
+        ],
+        "requiresPipeline": false
+      }
+    }
+  ],
+  "finalFiles": [
+    "output/native-mvu-repair/components/phone-v1-3-14.json",
+    "output/native-mvu-repair/components/native-mvu-n01.json",
+    "output/native-mvu-repair/components/opening-state.json",
+    "output/native-mvu-repair/components/guard-v4-r01.json"
+  ]
+}

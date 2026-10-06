@@ -21,7 +21,7 @@
 
 `sourceUrl` 和 `sourcePage` 记录原始出处，不是填写图床的地方。`shield-mask.svg` 保持内联，无须上传。
 
-填完地址后，在 `scripts/黑白ADV轮盘终端` 目录执行 `node build.js`，重新导入生成的 v1.3.11 JSON。执行 `node preview.mjs` 可更新离线预览。原有30个人物与共用盾框的 `imageUrl` 已填写 GitHub Pages 地址，基底为 `https://eriribot.github.io/rakudai-knight/resource/knightavatars/`。人物有 `displayFile` 时使用 `prepared/` 图片；原版盾形头像与共用盾框使用根层图片。这31张原有图片均已检查HTTP 200、PNG格式及与本地逐字节一致，记录见 [图床检查](./research/review/github-pages-avatar-check.json)。新增福小莉尚未上传，`imageUrl` 留空，构建先内联 [prepared/xiaoli.png](./prepared/xiaoli.png)；上传后再填写该人物地址。站点根路径没有首页，404不影响图片直链。构建不会下载图床图片，而是直接保留地址；将单项地址留空可恢复该项的本地内联预览。
+填完地址后，在 `scripts/黑白ADV轮盘终端` 目录执行 `node build.js`，重新导入生成的 v1.3.11 JSON。执行 `node preview.mjs` 可更新离线预览。31个人物与共用盾框的 `imageUrl` 均已填写 GitHub Pages 地址，基底为 `https://eriribot.github.io/rakudai-knight/resource/knightavatars/`。人物有 `displayFile` 时使用 `prepared/` 图片；原版盾形头像与共用盾框使用根层图片。原有31张图片的HTTP 200、PNG格式及与本地逐字节一致检查见 [图床检查](./research/review/github-pages-avatar-check.json)。福小莉使用第12卷囚衣版 [prepared/xiaoli.png](./prepared/xiaoli.png)，图床已返回HTTP 200且SHA-256与本地一致，核验见 [本次记录](../../output/xiaoli-avatar-delivery/remote-verification.json)。站点根路径没有首页，404不影响图片直链。构建不会下载图床图片，而是直接保留地址；将单项地址留空可恢复该项的本地内联预览。
 
 百度百科页面的浏览被网站安全政策阻止。这批图片改从独立的官方页面取得；GA 文库的彩色盾形图与提供的绫辻绚濑参考图属于同一套素材。
 
@@ -100,9 +100,9 @@
 
 鹤屋美琴使用用户提供的黑白人物图，以内置 imagegen 上色。灰金色头发依据用户给出的描述，并与第5卷尾声正文核对；眼色与制服颜色尚无官方彩图核实，标为本次上色选择。原截图与 [color/mikoto-colorized.png](./color/mikoto-colorized.png) 上色结果分别保留，不把来源标成已核实的小说插图，也不把生成图标成官方原生彩图。[上色记录](./research/epub/mikoto-colorization.json) 保存完整提示词、输入来源和哈希。图床上传使用 [prepared/mikoto.png](./prepared/mikoto.png)。
 
-福小莉的用户图片与第12卷 `OEBPS/Images/014.jpg` 为同幅人物插图；[novel/xiaoli-original.jpg](./novel/xiaoli-original.jpg) 保留 EPUB 原始位元组，[research/user-supplied/xiaoli-original.png](./research/user-supplied/xiaoli-original.png) 保留用户图片。第12卷正文描述肤色与发色偏深，第18卷第四章进一步写为肤色黝黑的黑发女孩并具名福小莉，因此本次使用黑长发与自然较深棕肤，保留白囚衣、束带、锁链和原图结构。深棕眼色属于本次中性上色选择，未标成官方设定。[color/xiaoli-colorized.png](./color/xiaoli-colorized.png) 是内置 imagegen 上色衍生图；原图 `© Won` 署名保留，[上色记录](./research/epub/xiaoli-colorization.json) 保存完整提示词、原始来源与哈希。上传使用 [prepared/xiaoli.png](./prepared/xiaoli.png)，新增人物 `imageUrl` 留空，等待上传后填写。
+福小莉的用户图片与第12卷 `OEBPS/Images/014.jpg` 为同幅人物插图；[novel/xiaoli-original.jpg](./novel/xiaoli-original.jpg) 保留 EPUB 原始位元组，[research/user-supplied/xiaoli-original.png](./research/user-supplied/xiaoli-original.png) 保留用户图片。第12卷正文描述肤色与发色偏深，第18卷第四章进一步写为肤色黝黑的黑发女孩并具名福小莉，因此本次使用黑长发与自然较深棕肤，保留白囚衣、束带、锁链和原图结构。深棕眼色属于本次中性上色选择，未标成官方设定。[color/xiaoli-colorized.png](./color/xiaoli-colorized.png) 是内置 imagegen 上色衍生图；原图 `© Won` 署名保留，[上色记录](./research/epub/xiaoli-colorization.json) 保存完整提示词、原始来源与哈希。终端使用 [prepared/xiaoli.png](./prepared/xiaoli.png) 的GitHub Pages图床地址。第18卷中华服上色图仍作为独立素材保存。
 
-目前共有 **31个人物头像 + 1张共用盾框，共32个图床文件**：九张原版盾形 PNG 与二十二张 `prepared/` PNG；新增福小莉待上传，原有31个远端文件继续使用已核验地址。研究联系表、小说原彩图、旧徽章、扫描索引不作为终端图床头像上传。
+目前共有 **31个人物头像 + 1张共用盾框，共32个图床文件**：九张原版盾形 PNG 与二十二张 `prepared/` PNG；福小莉已接入图床，全部32项均配置远端地址。研究联系表、小说原彩图、旧徽章、扫描索引不作为终端图床头像上传。
 
 有栖院凪的 Alice 与后期 Iris 均曾被译作“艾莉丝”。裸 `艾莉丝／艾莉絲` 不绑定人物图片，保留姓名首字；请使用 `有栖院凪`、`有栖院艾莉丝` 或 `艾莉丝·阿斯卡里德`、`艾莉丝·格尔`、完整三段姓名。`Alice`、`爱丽丝／愛麗絲` 仍绑定凪；`Iris Ascarid`、`Iris Gaule` 绑定后期艾莉丝。裸 `黑骑士／黑騎士` 同样不作姓名替代，可使用 `黑骑士艾莉丝`。这里只消歧头像，原有聊天人物名不会被自动改写。
 

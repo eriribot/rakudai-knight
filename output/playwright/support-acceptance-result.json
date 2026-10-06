@@ -1,0 +1,38 @@
+{
+  "checkedOn": "2026-10-04",
+  "status": "passed",
+  "tool": "Playwright CLI, real Chromium page",
+  "script": "support-acceptance.js",
+  "checks": [
+    "Early exit leaves C locked",
+    "Enter and Space advance exactly one line",
+    "Auto advances after reading delay",
+    "Log shows only reached lines and pauses auto",
+    "Only final continue unlocks C",
+    "Completion survives reload",
+    "Replay does not rewrite or award completion",
+    "Reset restores initial demo state",
+    "Click while typing completes same line",
+    "All portrait images and facial layers decode",
+    "Facial geometry stays proportional across viewports",
+    "Reduced motion stops typewriter and face animation",
+    "Blocked localStorage still allows full event",
+    "Direct file opening works"
+  ],
+  "viewports": [
+    { "width": 1440, "height": 1000, "visualScreenshot": "support-event-desktop.png" },
+    { "width": 1024, "height": 768, "overflow": false, "eyeWidthRatio": 0.1493921451071503, "visualScreenshot": "support-event-1024.png" },
+    { "width": 844, "height": 390, "overflow": false, "eyeWidthRatio": 0.14938436981501566, "visualScreenshot": "support-event-844.png" },
+    { "width": 390, "height": 844, "overflow": false, "eyeWidthRatio": 0.14938109734639365, "visualScreenshot": "support-event-390.png" }
+  ],
+  "pageErrors": [],
+  "failedResponses": [],
+  "staticChecks": { "support.js": "passed", "story.js": "passed", "portrait.js": "passed", "gitDiffWhitespace": "passed" },
+  "artEvidence": {
+    "neutral": "support-event-desktop.png",
+    "closedEyeAndSpeakingMouthComposite": "support-stella-closed-speaking.png",
+    "inspection": "Composited overlays inspected; no obvious seam at displayed scale. Human likeness and expression acceptance pending."
+  },
+  "notRun": ["Physical phone touch interaction", "Manual screen reader session", "Other browser engines"],
+  "humanReview": "pending"
+}

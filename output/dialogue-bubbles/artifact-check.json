@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "exactArtifactParity": "passed",
+  "htmlParse": {
+    "scripts": 0,
+    "bubbles": 2,
+    "styles": 1
+  },
+  "inlineBundle": {
+    "legacyEntityPrefix": 0,
+    "currencySign": 0,
+    "replacementChar": 0,
+    "replacementSpecial": 0,
+    "syntaxErrors": 0,
+    "note": "导入规则生成纯 HTML/CSS，无内联脚本；样本无 HTML 实体，实体解码前后相同。普通台词中的美元文本不是生成代码。"
+  },
+  "artifacts": [
+    {
+      "file": "components/dialogue-bubbles.regex.json",
+      "sha256": "d657e81516c7e60fdcb1131ec3edb25b9b5495aa490ab8c8c55122533dac4578",
+      "bytes": 12502
+    },
+    {
+      "file": "components/dialogue-bubble-style.regex.json",
+      "sha256": "ab8a6ec4e0bc6d96b990e26947de109c65bba0752024d55e77ca5f05878e3b3e",
+      "bytes": 14671
+    }
+  ],
+  "realSillyTavern": "not run"
+}

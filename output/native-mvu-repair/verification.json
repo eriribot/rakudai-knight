@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "deliveryMode": "component",
+  "date": "2026-10-06",
+  "implementationStatus": "complete",
+  "playerRuntimeAcceptance": "pending",
+  "offlineRelevantChecks": {
+    "passed": 151,
+    "total": 151,
+    "groups": [
+      { "command": "node scripts/check-mvu-native.mjs", "passed": 6, "total": 6 },
+      { "command": "node scripts/check-state-browser.mjs", "passed": 32, "total": 32 },
+      { "command": "node scripts/check-state-controller.mjs", "passed": 21, "total": 21 },
+      { "command": "node scripts/check-mvu-bootstrap.mjs", "passed": 13, "total": 13 },
+      { "command": "node scripts/黑白ADV轮盘终端/correction-readiness-test.mjs", "passed": 26, "total": 26 },
+      { "command": "node scripts/黑白ADV轮盘终端/correction-exclusions-test.mjs", "passed": 11, "total": 11 },
+      { "command": "node scripts/黑白ADV轮盘终端/packaging-test.mjs", "passed": 9, "total": 9 },
+      { "command": "node scripts/黑白ADV轮盘终端/shell-test.mjs", "passed": 9, "total": 9 },
+      { "command": "node scripts/黑白ADV轮盘终端/state-panel-test.mjs", "passed": 11, "total": 11 },
+      { "command": "node scripts/黑白ADV轮盘终端/tournament-ui-test.mjs", "passed": 8, "total": 8 },
+      { "command": "node scripts/check-mvu-native-core.mjs", "passed": 5, "total": 5, "actualUpstreamCommit": "61010dab47bc3a08a1b626320bf7fc8c9573eca4", "report": "native-core-report.json" }
+    ],
+    "evidenceBoundary": "Real maintained source exercised with offline host/event/network/DOM fixtures; not player SillyTavern persistence acceptance."
+  },
+  "artifactValidation": {
+    "passed": 4,
+    "total": 4,
+    "report": "component-validation.json",
+    "preservationChecksPassed": 8,
+    "sourceHashReport": "scope-lock.json",
+    "gitDiffCheck": "passed"
+  },
+  "knownBaselineFailures": {
+    "baseline": "8923636 (git HEAD)",
+    "method": "Read HEAD source/dependencies/fixtures/artifact in memory and rerun without writing workspace; compare current failure names and reasons.",
+    "introducedFailures": [],
+    "checks": [
+      {
+        "command": "node scripts/check-state-v4.mjs",
+        "headPassed": 20, "currentPassed": 20, "total": 23,
+        "failures": ["错误卷号类型", "旧人物迁移/切章保留", "手动向前切入保留"]
+      },
+      {
+        "command": "node scripts/黑白ADV轮盘终端/state-reader-test.mjs",
+        "headPassed": 6, "currentPassed": 6, "total": 9,
+        "failures": ["空最新槽与历史只读回退契约三项"]
+      },
+      {
+        "command": "node scripts/黑白ADV轮盘终端/smoke-test.mjs",
+        "headPassed": 24, "currentPassed": 24, "total": 30,
+        "failures": ["空槽错误文案", "空名册文案", "空槽错误来源为 null", "好感待核定文案及桥接 fixture", "重复启动订阅数 2 !== 1", "事件历史缺少要求的卷章显示"]
+      }
+    ],
+    "interpretation": "Baseline tests are not all green; this release introduces no additional failures in these suites."
+  },
+  "liveRuntime": {
+    "observed": { "sillyTavern": "1.18.0", "tavernHelper": "4.11.3", "mvuCommit": "61010dab47bc3a08a1b626320bf7fc8c9573eca4" },
+    "testScope": "UI-duplicated character 落第骑士·N01验收副本 with a fresh floor 0; original player chat was not seeded with synthetic data.",
+    "uiEvidence": ["独立副本创建并恢复后可见", "旧约束与旧手机开关关闭", "N01 与验收探针重新导入成功并开启", "最小无依赖文字标记诊断脚本开启后未显示标记", "测试结束时两个 TEST ONLY 脚本已关闭，独立 N01 保持开启"],
+    "persistenceVerified": false,
+    "actualParserExecutionVerified": false,
+    "mainReplyEventAcceptanceVerified": false,
+    "resolvedInterruption": "Local service stopped responding during test (Failed to fetch / ERR_CONNECTION_REFUSED); user restarted service and UI import/enable succeeded after reload.",
+    "blocker": "Connected Codex IAB creates BLOB message/script iframes but acceptance panel does not appear; minimal dependency-free script also shows no DOM marker. Actual iframe execution and persistence cannot be accepted through this browser session; no conclusion about other user browsers.",
+    "modelRequestsMade": 0,
+    "pending": ["Use a browser that executes the existing Tavern Helper message/script iframes", "Execute acceptance-probe once in the named isolated copy: real native parse + CAS/save/readback/restore", "Import new phone/opening components in isolated copy", "Verify new phone main-save status on an actual reply; do not use independent parse as proof of a saved main reply"]
+  },
+  "semanticLimits": ["Native mode does not automatically run G04 growth/relationship business settlement", "Old failed patches are not automatically replayed", "No historical floors or other swipes are batch-migrated", "Native required flags protect removal, not wholesale object replacement; business constraint OFF uses native semantics", "Missing parent containers still require parent add operations"]
+}

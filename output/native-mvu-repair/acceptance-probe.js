@@ -1,0 +1,1949 @@
+// TEST ONLY: 独立验收副本探针，不进入交付 components，不发送模型请求。
+// INITIAL_STATE 与当前生成控制器在生成验收 JSON 时从维护源内联。
+// GENERATED: node scripts/build-state-controller.mjs --write
+(function () {
+"use strict";
+// GBK 原文目录是唯一顺序来源；浏览器产物在构建时内联这些数据和函数。
+const STORY_VOLUMES = [{"volume":1,"title":"第1卷","chapters":[{"key":"序章","title":"序章 早晨的相遇","aliases":[]},{"key":"第一章","title":"第一章 天才骑士与落第骑士","aliases":[]},{"key":"第二章","title":"第二章 来自旧巢的访客","aliases":[]},{"key":"第三章","title":"第三章 解放军（Rebellion）","aliases":[]},{"key":"第四章","title":"第四章 初战","aliases":[]},{"key":"终章","title":"终章 月下誓言","aliases":[]}]},{"volume":2,"title":"第2卷","chapters":[{"key":"序章","title":"序章 遥远的记忆","aliases":[]},{"key":"第一章","title":"第一章 拜入师门","aliases":[]},{"key":"第二章","title":"第二章 逢魔时刻","aliases":[]},{"key":"第三章","title":"第三章 绫辻绚濑","aliases":[]},{"key":"第四章","title":"第四章 决战！〈落第骑士（Worst one）〉VS〈剑士杀手（Sword Eater）〉","aliases":[]},{"key":"终章","title":"终章 寒冰微笑","aliases":[]}]},{"volume":3,"title":"第3卷","chapters":[{"key":"序章","title":"序章 珠雫的挑战","aliases":[]},{"key":"第一章","title":"第一章〈深海魔女（Lorelei）〉VS〈雷切〉","aliases":[]},{"key":"第二章","title":"第二章 奥多摩的怪物","aliases":[]},{"key":"第三章","title":"第三章 身陷逆境的〈落第骑士（Worst one）〉","aliases":[]},{"key":"第四章","title":"第四章 一刀两断","aliases":[]},{"key":"终章","title":"终章 无冕剑王（Another one）","aliases":[]}]},{"volume":4,"title":"第4卷","chapters":[{"key":"序章","title":"序章 雪国的街道","aliases":[]},{"key":"第一章","title":"第一章 强化集训","aliases":[]},{"key":"第二章","title":"第二章 阴谋蠢动","aliases":[]},{"key":"第三章","title":"第三章 晓，进军","aliases":[]},{"key":"第四章","title":"第四章 过早的决战","aliases":[]},{"key":"终章","title":"终章 幕后黑手（fixer）","aliases":[]}]},{"volume":5,"title":"第5卷","chapters":[{"key":"序章","title":"序章 祭典的乐声","aliases":[]},{"key":"第一章","title":"第一章 全国的劲敌们","aliases":[]},{"key":"第二章","title":"第二章 浪速之星","aliases":[]},{"key":"第三章","title":"第三章 七星剑武祭·开幕","aliases":[]},{"key":"第四章","title":"第四章 决战·〈无冕剑王〉VS〈七星剑王〉","aliases":[]},{"key":"终章","title":"终章 好戏登场","aliases":[]}]},{"volume":6,"title":"第6卷","chapters":[{"key":"间章1","title":"间章 反射术士","aliases":["间章"]},{"key":"第五章","title":"第五章 快刀斩乱麻","aliases":[]},{"key":"第六章","title":"第六章 初战终了","aliases":[]},{"key":"第七章","title":"第七章 七星剑武祭第二轮战·开战","aliases":[]},{"key":"间章2","title":"间章 转暗","aliases":[]}]},{"volume":7,"title":"第7卷","chapters":[{"key":"间章1","title":"间章 毫无余韵的胜利","aliases":["间章"]},{"key":"第八章","title":"第八章 喧闹不休的医务室","aliases":[]},{"key":"第九章","title":"第九章 战士们略微喧嚣的中场休息","aliases":[]},{"key":"第十章","title":"第十章 七星剑舞祭第三轮战·开战","aliases":[]},{"key":"间章2","title":"间章 鲜血的结局","aliases":[]}]},{"volume":8,"title":"第8卷","chapters":[{"key":"间章1","title":"间章 为了让自己不再后悔","aliases":["间章"]},{"key":"第十一章","title":"第十一章 鲜血的真相","aliases":[]},{"key":"第十二章","title":"第十二章 双龙相克","aliases":[]},{"key":"第十三章","title":"第十三章 阴云密布的准决赛","aliases":[]},{"key":"间章2","title":"间章 姗姗来迟","aliases":[]}]},{"volume":9,"title":"第9卷","chapters":[{"key":"第十四章","title":"第十四章 战魂高昂","aliases":[]},{"key":"终章（前）","title":"终章（前） 约定之刻","aliases":[]},{"key":"终章（后）","title":"终章（后） 并立之人","aliases":[]}]},{"volume":10,"title":"第10卷","chapters":[{"key":"序章","title":"来自地狱的蜘蛛","aliases":[]},{"key":"第一章","title":"庆典结束之后","aliases":[]},{"key":"第二章","title":"〈深海魔女〉与〈白衣骑士〉","aliases":[]},{"key":"第三章","title":"法米利昂皇国","aliases":[]},{"key":"第四章","title":"惨剧开幕","aliases":[]}]},{"volume":11,"title":"第11卷","chapters":[{"key":"第五章","title":"〈落第骑士（Worst One）〉VS〈红莲狂狮〉！？","aliases":[]},{"key":"第六章","title":"杀戮之夜","aliases":[]},{"key":"第七章","title":"访问奎多兰","aliases":[]},{"key":"第八章","title":"名为「法米利昂」的国家","aliases":[]},{"key":"第九章","title":"卡尔迪亚城镇战","aliases":[]}]},{"volume":12,"title":"第12卷","chapters":[{"key":"间章","title":"第一皇女的决心","aliases":[]},{"key":"第十章","title":"皇族的职责","aliases":[]},{"key":"第十一章","title":"洁白之巅","aliases":[]},{"key":"第十二章","title":"严寒的考验","aliases":[]},{"key":"第十三章","title":"来自〈神龙寺〉的刺客","aliases":[]},{"key":"第十四章","title":"法米利昂之剑","aliases":[]}]},{"volume":13,"title":"第13卷","chapters":[{"key":"间章1","title":"凶信","aliases":["间章"]},{"key":"第十五章","title":"月下乱斗","aliases":[]},{"key":"第十六章","title":"王都开战","aliases":[]},{"key":"第十七章","title":"不转杀手","aliases":[]},{"key":"第十八章","title":"狂飙突进","aliases":[]},{"key":"间章2","title":"迟来的魔女","aliases":[]}]},{"volume":14,"title":"第14卷","chapters":[{"key":"间章","title":"泪雨","aliases":[]},{"key":"第十九章","title":"魔人对决","aliases":[]},{"key":"第二十章","title":"难舍的情谊","aliases":[]},{"key":"第二十一章","title":"天理难容的心愿","aliases":[]}]},{"volume":15,"title":"第15卷","chapters":[{"key":"间章","title":"遗言","aliases":[]},{"key":"第二十二章","title":"剑神","aliases":[]},{"key":"第二十三章","title":"法米利昂的怒火","aliases":[]},{"key":"第二十四章","title":"遗骸洒泪","aliases":[]},{"key":"第二十五章","title":"胜负已分，在那之后……","aliases":[]},{"key":"终章","title":"正义从天而降","aliases":[]}]},{"volume":16,"title":"第16卷","chapters":[{"key":"终章Ⅱ","title":"思乡","aliases":[]},{"key":"序章","title":"深渊熅火","aliases":[]},{"key":"第一章","title":"众劲敌的此刻","aliases":[]},{"key":"第二章","title":"〈剑士杀手〉VS〈浪速之星〉","aliases":[]},{"key":"第三章","title":"〈大炎〉","aliases":[]}]},{"volume":17,"title":"第17卷","chapters":[{"key":"间章","title":"波纹逐渐扩散","aliases":[]},{"key":"第四章","title":"恩宠的力量","aliases":[]},{"key":"第五章","title":"命运锁链","aliases":[]},{"key":"第六章","title":"两场大战·首都保卫战","aliases":[]},{"key":"第七章","title":"两场大战·〈大炎〉讨伐战","aliases":[]},{"key":"尾声","title":"急转直下","aliases":[]}]},{"volume":18,"title":"第18卷","chapters":[{"key":"序章","title":"所谓正义，所谓邪恶","aliases":[]},{"key":"第一章","title":"〈烈风剑帝〉VS〈超人(Thehero)〉","aliases":[]},{"key":"第二章","title":"屠尽三千世界之鸦","aliases":[]},{"key":"第三章","title":"圣母史黛菈","aliases":[]}]},{"volume":19,"title":"第19卷","chapters":[{"key":"间章","title":"遭囚的皇女","aliases":[]},{"key":"第四章","title":"划破黑暗","aliases":[]},{"key":"第五章","title":"〈大教授〉","aliases":[]},{"key":"第六章","title":"最爱，也是最强的劲敌","aliases":[]},{"key":"终章","title":"背负憧憬的意义","aliases":[]}]}];
+function getStoryVolume(volume) {
+  return Number.isInteger(volume) ? STORY_VOLUMES.find(item => item.volume === volume) || null : null;
+}
+function resolveStoryChapter(volume, key) {
+  if (typeof key !== 'string' || !key.trim()) return null;
+  const chapters = getStoryVolume(volume)?.chapters || [];
+  const value = key.trim();
+  return chapters.find(chapter => chapter.key === value) ||
+    chapters.find(chapter => (chapter.aliases || []).includes(value)) || null;
+}
+function firstStoryChapter(volume) {
+  return getStoryVolume(volume)?.chapters[0] || null;
+}
+function storyPosition(volume, key) {
+  const chapter = resolveStoryChapter(volume, key);
+  if (!chapter) return -1;
+  let offset = 0;
+  for (const book of STORY_VOLUMES) {
+    if (book.volume === volume) return offset + book.chapters.indexOf(chapter);
+    offset += book.chapters.length;
+  }
+  return -1;
+}
+function nextStoryChapter(volume, key) {
+  const current = resolveStoryChapter(volume, key), book = getStoryVolume(volume);
+  if (!current || !book) return null;
+  const next = book.chapters[book.chapters.indexOf(current) + 1];
+  if (next) return { volume, chapter: next.key };
+  const following = STORY_VOLUMES[STORY_VOLUMES.indexOf(book) + 1];
+  return following ? { volume: following.volume, chapter: following.chapters[0].key } : null;
+}
+
+const tournamentCalendar2013 = {"id":"S01","year":2013,"status":"日期裁定；尚未接入运行时","totalRounds":20,"openingDate":"2013-04-22","finalDate":"2013-07-08","clock":{"source":"stat_data.场景.时间","existingParser":"scripts/黑白ADV轮盘终端/terminal-app.js#parseSceneDate","calendarSelectionAdvancesTime":false,"dateOnlyRule":"赛程日小于剧情日期才算该排期已过去；当天标为本日待赛或待赛果，不能在零点直接判胜。","resultsRule":"日期只决定赛程进度，不单独证明胜负；本局实际比赛日期和赛果优先。"},"suspensions":[{"start":"2013-04-27","end":"2013-05-06","inclusive":true,"name":"破军学园黄金周停赛","basis":"用户确认的本卡学园安排；4月30日至5月2日并非日本法定假日。"}],"publicHolidaysDuringSeason":[{"date":"2013-04-29","name":"昭和之日"},{"date":"2013-05-03","name":"宪法纪念日"},{"date":"2013-05-04","name":"绿之日"},{"date":"2013-05-05","name":"儿童之日"},{"date":"2013-05-06","name":"补休日"}],"rounds":[{"round":1,"defaultDate":"2013-04-22","ikkiDate":"2013-04-23","note":"周一开幕；一辉对桐原在翌日周二。"},{"round":2,"defaultDate":"2013-04-25","ikkiDate":"2013-04-26","note":"首轮两组各隔三天；假期前最后一场。"},{"round":3,"defaultDate":"2013-05-07","ikkiDate":"2013-05-07","note":"黄金周后复赛；从此合并常规日期。"},{"round":4,"defaultDate":"2013-05-10","ikkiDate":"2013-05-10","note":"五月常规每周二、五排期。"},{"round":5,"defaultDate":"2013-05-14","ikkiDate":"2013-05-14","note":"五月常规排期。"},{"round":6,"defaultDate":"2013-05-17","ikkiDate":"2013-05-17","note":"五月常规排期。"},{"round":7,"defaultDate":"2013-05-21","ikkiDate":"2013-05-21","note":"五月常规排期。"},{"round":8,"defaultDate":"2013-05-24","ikkiDate":"2013-05-24","note":"第九战前的常规排期。"},{"round":9,"defaultDate":"2013-05-28","ikkiDate":"2013-05-28","note":"一辉对恋恋、史黛菈对碎城雷；均是个人第九战。"},{"round":10,"defaultDate":"2013-05-31","ikkiDate":"2013-05-31","note":"翌日六月一日泳池；满足昨天取得第十胜。"},{"round":11,"defaultDate":"2013-06-05","ikkiDate":"2013-06-05","note":"六月一日通知后，三天不见面的六月四日为赛前一天。"},{"round":12,"defaultDate":"2013-06-08","ikkiDate":"2013-06-08","note":"六月前中段按三天间隔排期；周末并非一律停赛。"},{"round":13,"defaultDate":"2013-06-11","ikkiDate":"2013-06-11","note":"常规排期。"},{"round":14,"defaultDate":"2013-06-14","ikkiDate":"2013-06-14","note":"珠雫对刀华按第二卷第十四场通知裁定；不采第三卷十五胜的冲突播报。"},{"round":15,"defaultDate":"2013-06-17","ikkiDate":"2013-06-17","note":"常规排期；日期不强制已退选者出赛。"},{"round":16,"defaultDate":"2013-06-20","ikkiDate":"2013-06-20","note":"六月二十三日奥多摩事件前，一辉完成十六场。"},{"round":17,"defaultDate":"2013-06-24","ikkiDate":"2013-06-29","note":"一辉采用拘押期间的个人延赛；六月三十日父亲探访提到昨日第十七胜。"},{"round":18,"defaultDate":"2013-06-27","ikkiDate":"2013-07-03","note":"一辉第十八场为六月二十三日被带走之后第十天。"},{"round":19,"defaultDate":"2013-06-30","ikkiDate":"2013-07-05","note":"一辉第十九场补白在第十八场与终战之间；两组在终战前均留恢复时间。"},{"round":20,"defaultDate":"2013-07-08","ikkiDate":"2013-07-08","note":"共同终战日，星期一；七月七日拘押已两周，翌日终战。"}],"storyAnchors":[{"date":"2013-04-21","event":"购物中心解放军事件；不计选拔赛场次。"},{"date":"2013-06-01","event":"泳池与餐厅事件，晚间收到第十一场对阵通知。"},{"date":"2013-06-04","event":"绚濑避不见面已三天；第十一场前夕。"},{"date":"2013-06-06","event":"对绚濑比赛翌日挑战藏人；非选拔赛，不占第十二场。"},{"date":"2013-06-13","event":"本卡安排第十四场通知；位于藏人决斗后的隔周。"},{"date":"2013-06-23","event":"隔周星期天奥多摩事件与一辉被捕。"},{"date":"2013-06-26","event":"一辉被拘禁三天；不把这一日误作第十七场。"},{"date":"2013-06-30","event":"拘押一周，父亲探访；一辉昨日取得第十七胜。"},{"date":"2013-07-07","event":"拘押两周；翌日最终选拔战。"}],"decisions":["2013年为本卡沿用年份，不声称原著明示了公历年。","表中具体月日均为本卡排程裁定；原文星期、季节、场次与相对间隔作为约束。","20为每名选手最多20场的日期槽，不是全校总共20场，不是要求退选者补满20场。","场馆今日第七场、第八场不等于选手个人第七战、第八战。","每三天左右为常规频率，不能用统一三日等差数列覆盖假期、剧情间隔与个人延赛。","默认表为普通选手及未特别改期的OC提供日期；一辉表仅用于黑铁一辉，不能套到全校或所有OC。","一辉拘押相关日期只在本局确实发生拘押时使用；未发生拘押则沿默认日期，不强制剧情。","新登记OC不把登记当天重新当第一轮；参与身份与入场基线另由运行时确定。","本轮仅裁定日历与轮次，不生成场外胜负、积分、排名，也不迁移旧存档。"],"evidence":{"holidays":"https://eco.mtk.nao.ac.jp/koyomi/yoko/2013/rekiyou131.html","firstVolume":"落第骑士英雄谭 第一卷 gbk.txt:5557-5559,5594-5596,6002","juneAndRound11":"第二卷-世界书整理/第二卷_第二章_逢魔时刻.txt:4,184,798,1304,1428-1430,1488","round14Notice":"第二卷-世界书整理/第二卷_终章_寒冰微笑.txt:316","round14Conflict":"第三卷-世界书整理/第三卷_序章_珠雫的挑战.txt:160","sunday":"第三卷-世界书整理/第三卷_第二章_奥多摩的怪物.txt:98","detention":"第三卷-世界书整理/第三卷_第三章_身陷逆境的落第骑士.txt:730,988-990,1298-1300,1404,1514","weekdayFinal":"第三卷-世界书整理/第三卷_第四章_一刀两断.txt:336,348,1340,1374"}};
+// S01：只读取剧情时钟和裁定日期，不写存档，也不从日期推断比赛胜负。
+// 与终端 parseSceneDate 接受相同的中文/连字符日期，拒绝不存在的公历日。
+function parseTournamentDate(text) {
+  if (typeof text !== 'string') return null;
+  const match = text.match(/(?:^|[^\d])(\d{4})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日/) ||
+    text.match(/(?:^|[^\d])(\d{4})\s*-\s*(\d{1,2})\s*-\s*(\d{1,2})(?!\d)/);
+  if (!match) return null;
+  const year = Number(match[1]), month = Number(match[2]), day = Number(match[3]);
+  const leapYear = year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
+  const monthDays = month === 2 ? (leapYear ? 29 : 28) : [4, 6, 9, 11].includes(month) ? 30 : 31;
+  if (year < 1 || year > 9999 || month < 1 || month > 12 || day < 1 || day > monthDays) return null;
+  return { year, month, day,
+    key: String(year).padStart(4, '0') + '-' + String(month).padStart(2, '0') + '-' + String(day).padStart(2, '0') };
+}
+
+/**
+ * 输入为剧情时间文字、stat_data 本体或 { stat_data } 包装。
+ * currentRound 包含当天排期；elapsedRound 仅计过去排期，均不表示已完成比赛。
+ * todayRound/nextRound 是个人场次数字或 null；nextRound 严格指未来，不重复当天。
+ * 日期无效或不属于 2013 赛季时 valid=false、轮次为 null，schedule 仍可供查看。
+ */
+function tournamentCalendar(stateOrText, { ikki = false, detained = false } = {}) {
+  const text = typeof stateOrText === 'string' ? stateOrText :
+    stateOrText?.stat_data?.场景?.时间 ?? stateOrText?.场景?.时间;
+  const date = parseTournamentDate(text);
+  const valid = Boolean(date && date.year === tournamentCalendar2013.year);
+  const reason = !date ? '日期待确认：剧情时间须包含有效的完整年月日。' :
+    !valid ? `当前剧情年份为 ${date.year}；本赛程仅适用于 ${tournamentCalendar2013.year} 年。` : '';
+  const schedule = tournamentCalendar2013.rounds.map(row => {
+    // 一辉前两场错开一天是开赛安排，不以拘押是否发生为条件。
+    const personalDate = Boolean(ikki && (row.round <= 2 || (detained && row.round >= 17 && row.round <= 19)));
+    const scheduledDate = personalDate ? row.ikkiDate : row.defaultDate;
+    const phase = !valid ? 'unknown' : scheduledDate < date.key ? 'elapsed' : scheduledDate === date.key ? 'today' : 'upcoming';
+    return { ...row, date: scheduledDate, dateSource: personalDate ? 'ikkiDate' : 'defaultDate', phase };
+  });
+  const suspension = valid ? tournamentCalendar2013.suspensions.find(period =>
+    period.inclusive ? date.key >= period.start && date.key <= period.end : date.key > period.start && date.key < period.end) : null;
+  const elapsed = schedule.filter(row => row.phase === 'elapsed');
+  const today = schedule.find(row => row.phase === 'today');
+  const upcoming = schedule.find(row => row.phase === 'upcoming');
+  const elapsedRound = valid ? elapsed.at(-1)?.round ?? 0 : null;
+  return {
+    valid, reason, date, track: ikki ? 'ikki' : 'default', detained: Boolean(ikki && detained),
+    totalRounds: tournamentCalendar2013.totalRounds,
+    currentRound: valid ? today?.round ?? elapsedRound : null,
+    elapsedRound, todayRound: today?.round ?? null, nextRound: upcoming?.round ?? null,
+    suspended: Boolean(suspension), suspension: suspension ? { ...suspension } : null,
+    schedule,
+  };
+}
+
+// T02：确定性、按需的场外推演。只是本卡模拟，绝不声称补齐了全校真实账本。
+const TOURNAMENT_CANON = ['黑铁一辉', '史黛菈·法米利昂', '东堂刀华', '黑铁珠雫', '贵德原彼方', '叶暮牡丹', '叶暮桔梗', '有栖院凪', '兔丸恋恋', '碎城雷', '绫辻绚濑', '桐原静矢', '桃谷武士', '管茂信'];
+const backgroundFixtures = [
+  [1, 0, 11, 0], [1, 1, 12, 1], [1, 3, 13, 3], [9, 0, 8, 0],
+  [9, 1, 9, 1], [11, 0, 10, 0], [14, 3, 2, 2], [20, 0, 2, 0],
+];
+const backgroundExit = new Set(['桐原静矢', '桃谷武士', '绫辻绚濑', '碎城雷']);
+function tournamentBackgroundHash(value) {
+  let hash = 2166136261;
+  for (const char of value) { hash ^= char.codePointAt(0); hash = Math.imul(hash, 16777619); }
+  return hash >>> 0;
+}
+
+function identifyTournamentPlayer(state, ledger, create = false) {
+  const name = state?.系统?.主角模式 === '黑铁一辉' ? '黑铁一辉' : state?.玩家?.姓名?.trim();
+  if (!name) return;
+  let id = Object.keys(ledger.名册).find(key => ledger.名册[key].姓名 === name);
+  if (!id && create) {
+    id = 'player'; while (Object.hasOwn(ledger.名册, id)) id += '_';
+    ledger.名册[id] = { 姓名: name, 参赛状态: '参赛' };
+  }
+  for (const [key, person] of Object.entries(ledger.名册)) {
+    if (key === id) person.来源 = '玩家';
+    else if (person.来源 === '玩家') person.来源 = TOURNAMENT_CANON.includes(person.姓名) ? '正典' : '原创';
+  }
+}
+
+// 种子名册只补可见正典和当前玩家，不把288人整池写进存档或提示词。
+function seedTournamentRoster(state, ledger) {
+  const next = structuredClone(ledger);
+  for (const [index, name] of TOURNAMENT_CANON.entries()) {
+    if (Object.values(next.名册).some(person => person.姓名 === name)) continue;
+    let id = 'canon_' + String(index + 1).padStart(2, '0');
+    while (Object.hasOwn(next.名册, id)) id += '_';
+    next.名册[id] = { 姓名: name, 来源: '正典', 参赛状态: '参赛' };
+  }
+  identifyTournamentPlayer(state, next, true);
+  return next;
+}
+
+function projectTournamentBackground(state, ledger) {
+  // 拘押是明确的本局业务事实，不靠到了6/23或自由文字关键词猜它发生了。
+  const detained = ledger.一辉拘押 === true;
+  const calendar = tournamentCalendar(state, { ikki: state?.系统?.主角模式 === '黑铁一辉', detained });
+  const next = structuredClone(ledger), visibleIds = Object.keys(ledger.名册), warnings = [];
+  const endDate = ledger.状态 === '已结束' ? parseTournamentDate(ledger.结束日期) : null;
+  const settlementDate = endDate && calendar.valid && endDate.key < calendar.date.key ? endDate.key : calendar.date?.key;
+  const progressState = settlementDate || state;
+  const simulatedCounts = {}, pendingRounds = {}, schedules = {}, reserved = new Set(), stopped = new Map(), checkpoints = {};
+  const actual = Object.entries(ledger.比赛), pairs = new Set();
+  const pairKey = (a, b) => JSON.stringify([a, b].sort());
+  const slot = (id, round) => JSON.stringify([id, round]);
+  const byName = name => visibleIds.find(id => next.名册[id].姓名 === name);
+  for (const id of visibleIds) {
+    const person = next.名册[id];
+    schedules[id] = tournamentCalendar(progressState, { ikki: person.姓名 === '黑铁一辉', detained });
+    simulatedCounts[id] = 0; pendingRounds[id] = [];
+  }
+  if (!calendar.valid || ledger.总轮次 !== 20 || ledger.状态 === '已结束' && !endDate) {
+    warnings.push(!calendar.valid ? calendar.reason : ledger.状态 === '已结束' && !endDate ? '旧赛季已结束但缺少结束日期：仅显示真实账本，未追加场外推演。' : '当前自定义赛季不是20轮，S01场外推演未启用。');
+    return { ledger: next, calendar, visibleIds, simulatedCounts, pendingRounds, warnings, active: false };
+  }
+  for (const [id, match] of actual) {
+    // 连取消/草案也保留该槽，不把用户取消的比赛偷偷再生成。
+    for (const participant of [match.甲方, match.乙方]) reserved.add(slot(participant, match.轮次));
+    if (['已安排', '已完成'].includes(match.状态)) pairs.add(pairKey(match.甲方, match.乙方));
+    const date = parseTournamentDate(match.日期);
+    if (match.状态 === '已完成' && date && date.key > settlementDate) {
+      next.比赛[id].状态 = '已安排';
+      warnings.push(`比赛 ${id} 的日期晚于当前剧情日，未来赛果暂不计分。`);
+    }
+    if (next.比赛[id].状态 === '已完成') for (const [person, field] of [[match.甲方, '甲赛前胜场'], [match.乙方, '乙赛前胜场']]) {
+      if (match[field] !== undefined) checkpoints[person] = Math.max(checkpoints[person] || 0, match.轮次);
+    }
+  }
+  for (const id of visibleIds) {
+    const person = next.名册[id];
+    if (checkpoints[id]) warnings.push(`${person.姓名}有已确认的赛前胜场：第${checkpoints[id]}场以前缺失历史保留待补，背景不覆盖人工记录。`);
+    if (!checkpoints[id] && person.来源 !== '玩家' && (person.参赛状态 === '参赛' || parseTournamentDate(person.退赛日期)) && !person.初始战绩) {
+      person.初始战绩 = { 截至轮次: (person.入赛轮次 || 1) - 1, 胜场: 0, 败场: 0, 积分: 0, 依据: 'T02程序推演起点，不是补录的真实战果' };
+    }
+  }
+  const canPlay = (id, round) => id && !stopped.has(id) && (next.名册[id].参赛状态 === '参赛' ||
+    parseTournamentDate(next.名册[id].退赛日期)?.key > schedules[id].schedule[round - 1].date) &&
+    round >= (next.名册[id].入赛轮次 || 1) && round >= (checkpoints[id] || 1) && round > (next.名册[id].初始战绩?.截至轮次 ?? 0) && !reserved.has(slot(id, round));
+  const generated = (id, match) => {
+    next.比赛[id] = { 日期: '', 时间: '', 地点: '', ...match, 程序推演: true, 推演版本: 'T02',
+      依据: 'T02固定背景策略；本局真实赛果可覆盖，非原著已确认战果' };
+    for (const participant of [match.甲方, match.乙方]) {
+      reserved.add(slot(participant, match.轮次));
+      if (simulatedCounts[participant] !== undefined && match.状态 === '已完成') simulatedCounts[participant]++;
+    }
+    pairs.add(pairKey(match.甲方, match.乙方));
+  };
+  for (let round = 1; round <= 20; round++) {
+    for (const [, ai, bi, wi] of backgroundFixtures.filter(row => row[0] === round)) {
+      const a = byName(TOURNAMENT_CANON[ai]), b = byName(TOURNAMENT_CANON[bi]), winner = byName(TOURNAMENT_CANON[wi]);
+      if (!canPlay(a, round) || !canPlay(b, round) || pairs.has(pairKey(a, b))) continue;
+      const date = [schedules[a].schedule[round - 1].date, schedules[b].schedule[round - 1].date].sort().at(-1);
+      if (date > settlementDate) continue;
+      const player = [a, b].some(id => next.名册[id].来源 === '玩家');
+      const completed = date < settlementDate && !player;
+      generated(`__rk_bg_fixture_${round}_${ai}_${bi}`, { 轮次: round, 甲方: a, 乙方: b, 日期: date,
+        状态: completed ? '已完成' : '已安排', ...(completed ? { 胜者: winner } : {}) });
+      if (completed) {
+        const loser = winner === a ? b : a;
+        if (backgroundExit.has(next.名册[loser].姓名)) stopped.set(loser, round);
+      }
+    }
+    for (const id of visibleIds) {
+      const person = next.名册[id], scheduled = schedules[id].schedule[round - 1];
+      if (!canPlay(id, round) || person.来源 === '玩家' || scheduled.phase !== 'elapsed') continue;
+      const token = Array.from(id).map(char => char.codePointAt(0).toString(16)).join('_');
+      const opponent = `__rk_bg_opponent_${token}_${round}`;
+      const wins = tournamentBackgroundHash(`T02:opponent:${id}:${round}`) % (Math.floor((round - 1) / 2) + 1);
+      // 背景对手采用程序基线，不递归虚构其全校逐场履历，也不进入可见名册。
+      next.名册[opponent] = { 姓名: `场外选手·${person.姓名}第${round}场对手`, 来源: '原创', 参赛状态: '参赛',
+        初始战绩: { 截至轮次: round - 1, 胜场: wins, 败场: round - 1 - wins, 依据: 'T02固定种子生成的背景对手基线，非本局确认事实' } };
+      const victory = TOURNAMENT_CANON.includes(person.姓名) || tournamentBackgroundHash(`T02:result:${id}:${round}`) % 2 === 0;
+      generated(`__rk_bg_match_${token}_${round}`, { 轮次: round, 甲方: id, 乙方: opponent, 日期: scheduled.date,
+        状态: '已完成', 胜者: victory ? id : opponent });
+    }
+    // 只有既定退选节点的那场真实败局才应用默认退出；OC提前打败正典不会自动踢掉他。
+    for (const [id, match] of actual) {
+      if (match.轮次 !== round || next.比赛[id].状态 !== '已完成') continue;
+      for (const [r, ai, bi, wi] of backgroundFixtures.filter(row => row[0] === round)) {
+        const a = byName(TOURNAMENT_CANON[ai]), b = byName(TOURNAMENT_CANON[bi]);
+        if (pairKey(a, b) !== pairKey(match.甲方, match.乙方)) continue;
+        const loser = match.胜者 === a ? b : a;
+        if (loser && backgroundExit.has(next.名册[loser].姓名)) stopped.set(loser, round);
+      }
+    }
+  }
+  for (const id of visibleIds) {
+    const person = next.名册[id];
+    if (person.参赛状态 !== '参赛') continue;
+    const completed = new Set(Object.values(next.比赛).filter(match => match.状态 === '已完成' && [match.甲方, match.乙方].includes(id)).map(match => match.轮次));
+    const finalRound = stopped.has(id) ? Math.max(person.初始战绩?.截至轮次 || 0, ...completed) : schedules[id].elapsedRound;
+    for (let round = (person.初始战绩?.截至轮次 || 0) + 1; round <= finalRound; round++) {
+      if (!completed.has(round)) pendingRounds[id].push(round);
+    }
+  }
+  warnings.push('场外结果为T02程序推演，实际赛果优先；背景对手使用固定基线，当前榜单不是全校完整账本。');
+  if (endDate) warnings.push(`赛季已结束，场外推演冻结于${endDate.key}；重新开启赛季才会继续随日期推进。`);
+  return { ledger: next, calendar, visibleIds, simulatedCounts, pendingRounds, warnings, stoppedRounds: Object.fromEntries(stopped), active: true };
+}
+
+// T01兼容存档 / T02引擎：实际账本与日期背景投影合并后统一重算。
+// 本模块无宿主、网络和 schema 依赖，可同时用于 MVU 校验与终端视图。
+const TOURNAMENT_VERSION = 'T01';
+const tournamentStates = ['未开始', '进行中', '已结束'];
+const matchStates = ['待定', '已安排', '已完成', '已取消'];
+const participantStates = ['参赛', '退选', '取消资格'];
+const sources = ['正典', '原创', '玩家'];
+const unsafeKeys = new Set(['__proto__', 'prototype', 'constructor']);
+const own = (value, key) => Object.prototype.hasOwnProperty.call(value || {}, key);
+const object = value => Boolean(value && typeof value === 'object' && !Array.isArray(value));
+const copy = value => structuredClone(value);
+const natural = value => Number.isSafeInteger(value) && value >= 0;
+const nonblank = value => typeof value === 'string' && Boolean(value.trim());
+const fixtures = { 1: '桐原静矢', 9: '兔丸恋恋', 11: '绫辻绚濑', 20: '东堂刀华' };
+const canon = TOURNAMENT_CANON;
+
+// 仅补容器和显示默认值，不猜比赛、初始胜场、初始积分或命定胜负。
+function normalizeTournament(value) {
+  if (!object(value)) return value;
+  const next = copy(value);
+  next.版本 ??= TOURNAMENT_VERSION;
+  next.赛季 ??= '破军学园选拔赛';
+  next.状态 ??= '未开始';
+  next.总轮次 ??= 20;
+  next.代表名额 ??= 6;
+  next.号池规模 ??= 288;
+  next.模式 = '跟随系统';
+  next.名册 ??= {};
+  next.比赛 ??= {};
+  // 派生缓存绝不是计分输入；读档、主副API和手动入口统一清理。
+  for (const key of ['积分', '排名', '榜单']) delete next[key];
+  if (object(next.名册)) for (const entry of Object.values(next.名册)) {
+    if (!object(entry)) continue;
+    entry.来源 ??= '原创';
+    entry.参赛状态 ??= '参赛';
+    for (const key of ['胜场', '败场', '积分', '排名', '程序推演', '推演版本']) delete entry[key];
+    // null 是显式清除旧基线；省略字段仍由操作入口保留旧值。
+    if (entry.初始战绩 === null) delete entry.初始战绩;
+  }
+  if (object(next.比赛)) for (const entry of Object.values(next.比赛)) {
+    if (!object(entry)) continue;
+    entry.状态 ??= '待定';
+    for (const key of ['积分', '排名', '程序推演', '推演版本']) delete entry[key];
+    for (const key of ['日期', '时间', '地点', '依据']) entry[key] ??= '';
+    // 表单的未填可选项不是一个空 ID，也不是零胜。
+    for (const key of ['胜者', '弃权方', '甲赛前胜场', '乙赛前胜场']) if (entry[key] === '' || entry[key] === null) delete entry[key];
+  }
+  return next;
+}
+
+function tournamentIssues(tournament) {
+  const issues = [], add = message => issues.push(message);
+  if (!object(tournament)) return ['选拔赛必须是对象'];
+  if (tournament.版本 !== TOURNAMENT_VERSION) add('选拔赛版本应为 T01');
+  if (!nonblank(tournament.赛季)) add('赛季名称不能为空');
+  if (!tournamentStates.includes(tournament.状态)) add('选拔赛状态无效');
+  if (tournament.结束日期 !== undefined && !parseTournamentDate(tournament.结束日期)) add('赛季结束日期无效');
+  if (tournament.一辉拘押 !== undefined && typeof tournament.一辉拘押 !== 'boolean') add('一辉拘押须为明确布尔事实');
+  if (!Number.isSafeInteger(tournament.总轮次) || tournament.总轮次 < 1) add('总轮次须为正整数');
+  if (!Number.isSafeInteger(tournament.代表名额) || tournament.代表名额 < 1) add('代表名额须为正整数');
+  if (!Number.isSafeInteger(tournament.号池规模) || tournament.号池规模 < 2) add('号池规模须至少为 2');
+  if (!object(tournament.名册) || !object(tournament.比赛)) return [...issues, '名册与比赛须为按稳定 ID 保存的对象'];
+  for (const [id, person] of Object.entries(tournament.名册)) {
+    if (!nonblank(id) || unsafeKeys.has(id)) add('名册 ID 无效');
+    if (!object(person)) { add(`名册 ${id} 必须是对象`); continue; }
+    if (!nonblank(person.姓名)) add(`名册 ${id} 缺少姓名`);
+    if (!sources.includes(person.来源)) add(`名册 ${id} 来源无效`);
+    if (!participantStates.includes(person.参赛状态)) add(`名册 ${id} 参赛状态无效`);
+    if (id.startsWith('__rk_bg_')) add(`名册 ${id} 使用了程序保留ID`);
+    if (person.入赛轮次 !== undefined && (!Number.isInteger(person.入赛轮次) || person.入赛轮次 < 1 || person.入赛轮次 > tournament.总轮次)) add(`名册 ${id} 入赛轮次无效`);
+    if (person.退赛日期 !== undefined && !parseTournamentDate(person.退赛日期)) add(`名册 ${id} 退赛日期无效`);
+    const baseline = person.初始战绩;
+    if (baseline !== undefined) {
+      if (!object(baseline)) { add(`名册 ${id} 初始战绩必须是对象`); continue; }
+      if (![baseline.截至轮次, baseline.胜场, baseline.败场].every(natural)) add(`名册 ${id} 初始战绩须填非负整数`);
+      else if (baseline.截至轮次 > tournament.总轮次 || baseline.胜场 + baseline.败场 > baseline.截至轮次) add(`名册 ${id} 初始战绩与轮次矛盾`);
+      if (baseline.积分 !== undefined && !natural(baseline.积分)) add(`名册 ${id} 初始积分须为非负整数`);
+      else if (baseline.积分 !== undefined && natural(baseline.胜场) && natural(baseline.截至轮次)) {
+        const maximum = 5 * baseline.胜场 * (2 * baseline.截至轮次 - baseline.胜场 + 1);
+        if (baseline.积分 < 10 * baseline.胜场 || baseline.积分 > maximum || baseline.积分 % 10 !== 0) add(`名册 ${id} 初始积分与胜场及轮次不符`);
+      }
+      if (!nonblank(baseline.依据)) add(`名册 ${id} 初始战绩必须注明本局依据`);
+    }
+  }
+  const pairs = new Set(), occupied = new Set();
+  for (const [id, match] of Object.entries(tournament.比赛)) {
+    if (id.startsWith('__rk_bg_')) add(`比赛 ${id} 使用了程序保留ID；请另登记真实比赛`);
+    if (!nonblank(id) || unsafeKeys.has(id)) add('比赛 ID 无效');
+    if (!object(match)) { add(`比赛 ${id} 必须是对象`); continue; }
+    if (!Number.isSafeInteger(match.轮次) || match.轮次 < 1 || match.轮次 > tournament.总轮次) add(`比赛 ${id} 轮次超出赛季范围`);
+    if (!matchStates.includes(match.状态)) add(`比赛 ${id} 状态无效`);
+    for (const field of ['日期', '时间', '地点', '依据']) if (typeof match[field] !== 'string') add(`比赛 ${id} ${field}须为文字`);
+    const a = own(tournament.名册, match.甲方) ? tournament.名册[match.甲方] : null;
+    const b = own(tournament.名册, match.乙方) ? tournament.名册[match.乙方] : null;
+    if (!a || !b) add(`比赛 ${id} 双方必须引用已有名册 ID`);
+    if (match.甲方 === match.乙方) add(`比赛 ${id} 不能自己对战自己`);
+    if (match.胜者 !== undefined && ![match.甲方, match.乙方].includes(match.胜者)) add(`比赛 ${id} 胜者不是参赛双方`);
+    if (match.弃权方 !== undefined && ![match.甲方, match.乙方].includes(match.弃权方)) add(`比赛 ${id} 弃权方不是参赛双方`);
+    if (match.状态 === '已完成') {
+      if (![match.甲方, match.乙方].includes(match.胜者) || !match.胜者) add(`比赛 ${id} 完成时必须填写胜者`);
+      if (match.弃权方 && match.弃权方 === match.胜者) add(`比赛 ${id} 弃权方不能同时获胜`);
+      if (!nonblank(match.依据)) add(`比赛 ${id} 完成时须注明本局结果依据`);
+    }
+    for (const field of ['甲赛前胜场', '乙赛前胜场']) {
+      if (match[field] !== undefined && (!natural(match[field]) || match[field] >= match.轮次)) add(`比赛 ${id} ${field}与轮次矛盾`);
+    }
+    if (!['已安排', '已完成'].includes(match.状态)) continue;
+    // 已退选者的历史完赛仍有效；只阻止继续给退选或取消资格的人安排新赛。
+    if (match.状态 === '已安排' && [a, b].some(person => person && person.参赛状态 !== '参赛')) add(`比赛 ${id} 不能为退选或取消资格者安排比赛`);
+    const pair = JSON.stringify([match.甲方, match.乙方].sort());
+    if (pairs.has(pair)) add(`比赛 ${id} 与既有对局重复匹配`);
+    pairs.add(pair);
+    for (const participantId of [match.甲方, match.乙方]) {
+      const key = JSON.stringify([participantId, match.轮次]);
+      if (occupied.has(key)) add(`比赛 ${id} 同一选手同轮有多个对局`);
+      occupied.add(key);
+      const baseline = tournament.名册[participantId]?.初始战绩;
+      if (match.轮次 < (tournament.名册[participantId]?.入赛轮次 || 1)) add(`比赛 ${id} 早于 ${participantId} 的入赛轮次`);
+      if (baseline && match.轮次 <= baseline.截至轮次) add(`比赛 ${id} 与 ${participantId} 的初始战绩覆盖轮次重叠`);
+    }
+  }
+  return issues;
+}
+
+// 工厂不注册全局 schema；调用者将结果挂到可选的 /场景/选拔赛。
+function createTournamentSchema(z) {
+  const count = () => z.number().int().min(0).max(Number.MAX_SAFE_INTEGER);
+  const baseline = z.object({ 截至轮次: count(), 胜场: count(), 败场: count(), 积分: count().optional(), 依据: z.string().min(1) }).passthrough();
+  const participant = z.object({ 姓名: z.string().min(1), 来源: z.enum(sources), 参赛状态: z.enum(participantStates), 入赛轮次: count().optional(), 退赛日期: z.string().optional(), 初始战绩: baseline.optional() }).passthrough();
+  const match = z.object({ 轮次: count(), 甲方: z.string().min(1), 乙方: z.string().min(1), 日期: z.string(), 时间: z.string(), 地点: z.string(), 状态: z.enum(matchStates), 胜者: z.string().optional(), 弃权方: z.string().optional(), 甲赛前胜场: count().optional(), 乙赛前胜场: count().optional(), 依据: z.string() }).passthrough();
+  return z.preprocess(normalizeTournament, z.object({ 版本: z.literal(TOURNAMENT_VERSION), 赛季: z.string().min(1), 状态: z.enum(tournamentStates), 总轮次: count(), 代表名额: count(), 号池规模: count(), 模式: z.literal('跟随系统'), 一辉拘押: z.boolean().optional(), 名册: z.record(z.string(), participant), 比赛: z.record(z.string(), match) }).passthrough().superRefine((value, ctx) => {
+    const messages = [...tournamentIssues(value), ...calculateTournament(value).conflicts];
+    for (const message of new Set(messages)) ctx.addIssue({ code: 'custom', message });
+  }));
+}
+
+function calculateTournament(tournament) {
+  const rows = new Map(), matches = [], usedOpponents = {}, conflicts = [];
+  for (const [id, person] of Object.entries(tournament.名册 || {})) {
+    const base = person.初始战绩;
+    rows.set(id, { id, name: person.姓名, source: person.来源, status: person.参赛状态,
+      wins: base ? base.胜场 : null, losses: base ? base.败场 : null, points: base?.积分 ?? null,
+      recordedWins: base?.胜场 ?? 0, recordedLosses: base?.败场 ?? 0, recordedPoints: base?.积分 ?? 0,
+      pendingPoints: 0, throughRound: base?.截至轮次 ?? null, complete: false, minimumWins: base?.胜场 ?? 0, opponentHistoryComplete: Boolean(base && base.胜场 === 0 && base.败场 === 0) });
+    usedOpponents[id] = [];
+  }
+  const records = Object.entries(tournament.比赛 || {}).filter(([, match]) => object(match)).sort((a, b) => a[1].轮次 - b[1].轮次 || a[0].localeCompare(b[0]));
+  for (const [id, match] of records) {
+    const a = rows.get(match.甲方), b = rows.get(match.乙方);
+    const view = { id, ...copy(match), 甲方姓名: a?.name || match.甲方, 乙方姓名: b?.name || match.乙方, 积分: null, 说明: match.状态 };
+    matches.push(view);
+    if (!a || !b) continue;
+    if (['已安排', '已完成'].includes(match.状态)) {
+      if (!usedOpponents[a.id].includes(b.id)) usedOpponents[a.id].push(b.id);
+      if (!usedOpponents[b.id].includes(a.id)) usedOpponents[b.id].push(a.id);
+    }
+    if (match.状态 !== '已完成' || ![a.id, b.id].includes(match.胜者)) continue;
+    // 已完成的首轮是本赛季的真实起点，可确定赛前零战零分；跳轮绝不补这个基线。
+    if (match.轮次 === 1) for (const row of [a, b]) {
+      if (row.throughRound === null) { row.wins = 0; row.losses = 0; row.points = 0; row.throughRound = 0; row.opponentHistoryComplete = true; }
+      else if (row.throughRound === 0 && row.wins === 0 && row.losses === 0 && row.points === null) row.points = 0;
+    }
+    const winsBefore = (row, field) => {
+      const adjacent = row.throughRound !== null && row.throughRound === match.轮次 - 1;
+      const known = adjacent ? row.wins : null;
+      const supplied = match[field];
+      if (supplied !== undefined && known !== null && supplied !== known) conflicts.push(`比赛 ${id} ${field}与已确认的先前战绩不一致`);
+      // 缺场次时允许补赛前总胜场，但不能少于已经证实的胜场下界。
+      if (supplied !== undefined && supplied < row.minimumWins) conflicts.push(`比赛 ${id} ${field}小于此前已确认的胜场`);
+      if (supplied !== undefined && supplied > match.轮次 - 1 - row.recordedLosses) conflicts.push(`比赛 ${id} ${field}超过扣除已知败场后的胜场上界`);
+      return supplied !== undefined ? supplied : known;
+    };
+    const aBefore = winsBefore(a, '甲赛前胜场'), bBefore = winsBefore(b, '乙赛前胜场');
+    const winner = match.胜者 === a.id ? a : b;
+    const opponentWins = winner === a ? bBefore : aBefore;
+    const points = natural(opponentWins) ? 10 + 10 * opponentWins : null;
+    view.积分 = points;
+    view.说明 = points === null ? '对手赛前胜场未确认，积分待补' : `胜者 +${points} 分；败方历史积分不扣减`;
+    for (const [row, before] of [[a, aBefore], [b, bBefore]]) {
+      const victory = row === winner;
+      const adjacent = row.throughRound !== null && row.throughRound === match.轮次 - 1;
+      if (!adjacent) { row.losses = null; row.points = null; row.opponentHistoryComplete = false; }
+      row.wins = natural(before) ? before + Number(victory) : null;
+      if (row.losses !== null) row.losses += Number(!victory);
+      row.minimumWins = Math.max(row.minimumWins + Number(victory), row.wins ?? 0);
+      row.recordedWins += Number(victory);
+      row.recordedLosses += Number(!victory);
+      if (victory) {
+        if (points === null) { row.pendingPoints++; row.points = null; }
+        else { row.recordedPoints += points; if (row.points !== null) row.points += points; }
+      }
+      row.throughRound = match.轮次;
+    }
+  }
+  for (const row of rows.values()) {
+    row.complete = row.wins !== null && row.losses !== null && row.points !== null && row.pendingPoints === 0;
+  }
+  return { roster: [...rows.values()], matches, usedOpponents, conflicts };
+}
+
+// 推荐传 stat_data，从系统主角模式与玩家姓名解析当前玩家；直接传账本时仅提供中立视图。
+function deriveTournament(stateOrTournament) {
+  const state = stateOrTournament?.stat_data || stateOrTournament;
+  const directLedger = object(state) && ['版本', '名册', '比赛', '赛季'].some(key => own(state, key));
+  const stored = state?.场景 ? state.场景.选拔赛 : directLedger ? state : null;
+  const clock = tournamentCalendar(state);
+  const virtual = !stored && clock.valid && Boolean(state?.玩家?.姓名?.trim()) && state?.系统?.主角模式 !== '未选择';
+  const raw = stored || (virtual ? {} : null);
+  if (!raw) return { version: TOURNAMENT_VERSION, exists: false, tournament: null, mode: state?.系统?.主角模式 || '未选择', playerId: null, roster: [], matches: [], leaderboard: [], eligible: [], ties: [], qualificationTie: false, usedOpponents: {}, warnings: [], complete: false, rankingLabel: '仅据已记录积分' };
+  let tournament = normalizeTournament(raw);
+  const issues = tournamentIssues(tournament);
+  if (issues.length) return { version: TOURNAMENT_VERSION, exists: true, tournament, mode: state?.系统?.主角模式 || '未选择', playerId: null, roster: [], matches: [], leaderboard: [], eligible: [], ties: [], qualificationTie: false, usedOpponents: {}, warnings: issues, complete: false, rankingLabel: '账本格式待修正' };
+  identifyTournamentPlayer(state, tournament);
+  // 无有效日期时保留纯账本行为；不能悄悄用现实日期生成赛果。
+  if (clock.valid) tournament = seedTournamentRoster(state, tournament);
+  const projection = projectTournamentBackground(state, tournament);
+  const result = calculateTournament(projection.ledger);
+  result.roster = result.roster.filter(row => projection.visibleIds.includes(row.id));
+  for (const row of result.roster) {
+    row.projectedWithdrawalRound = projection.stoppedRounds?.[row.id] ?? null;
+    row.projectedWithdrawal = row.status === '参赛' && row.projectedWithdrawalRound !== null;
+    if (row.projectedWithdrawal) row.status = '退选';
+    row.simulatedMatches = projection.simulatedCounts[row.id] || 0;
+    row.player = row.source === '玩家';
+    row.pendingRounds = projection.pendingRounds[row.id] || [];
+    if (row.pendingRounds.length) { row.wins = null; row.losses = null; row.points = null; row.complete = false; }
+  }
+  const mode = state?.系统?.主角模式 || '未选择';
+  const player = result.roster.find(row => row.source === '玩家') || result.roster.find(row => row.name === state?.玩家?.姓名);
+  // 同积分并列；ID 只稳定显示顺序，不拿胜场或名字暗定代表席位。
+  const leaderboard = [...result.roster].sort((a, b) => b.recordedPoints - a.recordedPoints || a.id.localeCompare(b.id));
+  const ties = [];
+  for (let start = 0; start < leaderboard.length;) {
+    let end = start + 1;
+    while (end < leaderboard.length && leaderboard[end].recordedPoints === leaderboard[start].recordedPoints) end++;
+    for (let i = start; i < end; i++) { leaderboard[i].rank = start + 1; leaderboard[i].tied = end - start > 1; }
+    if (end - start > 1) ties.push({ rank: start + 1, points: leaderboard[start].recordedPoints, ids: leaderboard.slice(start, end).map(row => row.id) });
+    start = end;
+  }
+  const eligible = leaderboard.filter(row => row.status === '参赛');
+  const cutoff = tournament.代表名额;
+  const qualificationTie = eligible.length > cutoff && eligible[cutoff - 1].recordedPoints === eligible[cutoff].recordedPoints;
+  const complete = tournament.状态 === '已结束' && result.roster.length >= tournament.号池规模 && result.roster.every(row => row.complete && (row.status !== '参赛' || row.throughRound === tournament.总轮次)) && !result.conflicts.length;
+  const warnings = [...result.conflicts, ...projection.warnings];
+  if (virtual) warnings.push('当前存档尚无比赛账本：正在显示日期背景预览，玩家旧战绩待补；登记实际赛果时建立本局账本。');
+  if (result.roster.some(row => !row.complete)) warnings.push('记录不完整：未知场外战绩未补成零胜，缺少赛前胜场的胜局积分待补。');
+  if (!complete) warnings.push('排行榜仅据已记录积分，不据此自动宣布完整排名或代表资格。');
+  if (qualificationTie) warnings.push('代表席位边界同分：暂列并列，须由本局附加赛或已确认规则决出，不按 ID 或胜场擅定。');
+  return { version: TOURNAMENT_VERSION, engine: 'T02', exists: true, virtual, projected: projection.active, calendar: projection.calendar,
+    tournament, mode, playerId: player?.id || null, ...result, leaderboard, eligible, ties, qualificationTie, warnings,
+    complete: complete && !projection.active, rankingLabel: projection.active ? '本局记录＋程序场外推演（非全校完整榜）' : complete ? '完整赛季账本排名' : '仅据已记录积分' };
+}
+
+function tournamentPromptSummary(state) {
+  const view = deriveTournament(state);
+  return { 版本: 'T02', 日期: view.calendar?.date?.key || null, 当前场次: view.calendar?.currentRound ?? null,
+    已过排期: view.calendar?.elapsedRound ?? null, 停赛: view.calendar?.suspended || false,
+    名册: view.roster.map(row => ({ ID: row.id, 姓名: row.name, 胜场: row.wins, 败场: row.losses, 积分: row.points,
+      已记录胜场: row.recordedWins, 已记录积分: row.recordedPoints, 推演场数: row.simulatedMatches || 0, 待补场次: row.pendingRounds || [] })),
+    说明: '本摘要只读；实际赛果优先。只提交参赛者与实际比赛，不能把推演摘要写回初始战绩或赛前胜场。' };
+}
+
+// 非法赛制更新只恢复选拔赛子树；其他剧情、成长与人际更新继续保留。
+function enforceTournamentState(variables, previous) {
+  const scene = variables?.stat_data?.场景;
+  if (!scene) return [];
+  const old = previous?.stat_data?.场景?.选拔赛;
+  const notices = [];
+  if (!own(scene, '选拔赛')) {
+    if (old) { scene.选拔赛 = copy(old); notices.push('选拔赛：已恢复被移除的本局账本。'); }
+    else if (tournamentCalendar(variables.stat_data).valid && variables.stat_data?.玩家?.姓名?.trim() && variables.stat_data?.系统?.主角模式 !== '未选择') scene.选拔赛 = {};
+    else return [];
+  }
+  let next = normalizeTournament(scene.选拔赛);
+  if (object(next)) {
+    maintainTournamentEnd(next, old, variables.stat_data);
+    for (const [key, fallback] of Object.entries({ 版本: 'T01', 总轮次: 20, 代表名额: 6, 号池规模: 288, 模式: '跟随系统' })) next[key] = old?.[key] ?? fallback;
+    for (const field of ['名册', '比赛']) if (object(next[field]) && object(old?.[field])) {
+      for (const [id, record] of Object.entries(old[field])) if (!own(next[field], id)) {
+        next[field][id] = copy(record);
+        notices.push(`选拔赛：已保留被省略的${field} ${id}；取消比赛请明确标记已取消。`);
+      }
+    }
+  }
+  if (object(next?.名册)) for (const [id, person] of Object.entries(next.名册)) {
+    if (!object(person)) continue;
+    const prior = old?.名册?.[id]?.初始战绩;
+    if (JSON.stringify(person.初始战绩) !== JSON.stringify(prior)) notices.push(`选拔赛：${id} 的初始战绩只接受旧档沿用或终端手动补录，已略过AI改写。`);
+    if (prior) person.初始战绩 = copy(prior); else delete person.初始战绩;
+    const previousPerson = old?.名册?.[id];
+    if (previousPerson) {
+      if (person.入赛轮次 !== previousPerson.入赛轮次) notices.push(`选拔赛：${id} 已有入赛轮次由终端维护，已恢复AI改写。`);
+      if (previousPerson.入赛轮次 === undefined) delete person.入赛轮次;
+      else person.入赛轮次 = previousPerson.入赛轮次;
+    }
+    maintainTournamentExit(person, previousPerson, variables.stat_data);
+  }
+  if (object(next?.比赛)) for (const [id, match] of Object.entries(next.比赛)) {
+    if (!object(match)) continue;
+    retainTournamentCheckpoints(match, old?.比赛?.[id]);
+  }
+  const issues = tournamentIssues(next);
+  if (!issues.length) {
+    identifyTournamentPlayer(variables.stat_data, next);
+    if (tournamentCalendar(variables.stat_data).valid) next = seedTournamentRoster(variables.stat_data, next);
+    issues.push(...deriveTournament({ ...variables.stat_data, 场景: { ...scene, 选拔赛: next } }).conflicts || []);
+  }
+  if (issues.length) {
+    const old = previous?.stat_data?.场景;
+    if (old && own(old, '选拔赛')) scene.选拔赛 = copy(old.选拔赛);
+    else delete scene.选拔赛;
+    return [...new Set(issues)].map(message => `选拔赛：${message}；本次仅恢复选拔赛记录。`);
+  }
+  scene.选拔赛 = next;
+  scene.选拔赛.程序战况 = tournamentPromptSummary(variables.stat_data);
+  return notices;
+}
+
+function createTournamentParticipant(state, { name = '', source = '原创', id = '' } = {}) {
+  const sourceState = state?.stat_data || state;
+  const tournament = sourceState?.场景 ? deriveTournament(sourceState).tournament : sourceState;
+  const roster = tournament?.名册 || {};
+  if (!sources.includes(source)) throw new Error('参赛者来源无效');
+  let nextId = id;
+  if (!nextId && source === '正典' && canon.includes(name)) nextId = 'canon_' + String(canon.indexOf(name) + 1).padStart(2, '0');
+  if (!nextId) { let index = 1; while (own(roster, 'oc_' + String(index).padStart(3, '0'))) index++; nextId = 'oc_' + String(index).padStart(3, '0'); }
+  if (!nonblank(nextId) || unsafeKeys.has(nextId) || own(roster, nextId)) throw new Error('参赛者 ID 已存在或无效');
+  return { id: nextId, participant: { 姓名: name.trim() || `未命名选手 ${nextId}`, 来源: source, 参赛状态: '参赛' } };
+}
+
+function maintainTournamentExit(person, before, state) {
+  if (person.参赛状态 === '参赛') { delete person.退赛日期; return; }
+  const date = before?.参赛状态 && before.参赛状态 !== '参赛' ? before.退赛日期 : parseTournamentDate(state?.场景?.时间)?.key;
+  if (date) person.退赛日期 = date; else delete person.退赛日期;
+}
+
+function maintainTournamentEnd(tournament, before, state) {
+  if (tournament.状态 !== '已结束') { delete tournament.结束日期; return; }
+  const date = before?.状态 === '已结束' ? before.结束日期 : parseTournamentDate(state?.场景?.时间)?.key;
+  if (date) tournament.结束日期 = date; else delete tournament.结束日期;
+}
+
+// 赛前历史绑定到参赛者和轮次；交换甲乙不能把另一人的胜场继承过来。
+function retainTournamentCheckpoints(match, before, supplied = null) {
+  for (const [side, field] of [['甲方', '甲赛前胜场'], ['乙方', '乙赛前胜场']]) {
+    delete match[field];
+    if (supplied && own(supplied, field)) { match[field] = supplied[field]; continue; }
+    if (before?.轮次 !== match.轮次) continue;
+    const oldField = before.甲方 === match[side] ? '甲赛前胜场' : before.乙方 === match[side] ? '乙赛前胜场' : null;
+    if (oldField && before[oldField] !== undefined) match[field] = before[oldField];
+  }
+}
+
+// 只建议下一场，不改动名册、不写预设胜负。原著锚点若与本局记录冲突就让位。
+function suggestTournamentOpponents(state, { participantId, round } = {}) {
+  const view = deriveTournament(state);
+  if (!view.exists || !view.roster.length) return { anchorId: null, candidates: [], warnings: ['请先登记选拔赛与参赛者。'] };
+  const id = participantId || view.playerId, person = view.roster.find(row => row.id === id);
+  const available = row => row && view.tournament.名册[row.id].参赛状态 === '参赛' &&
+    round >= (view.tournament.名册[row.id].入赛轮次 || 1) && (row.projectedWithdrawalRound === null || round <= row.projectedWithdrawalRound);
+  if (!available(person) || !Number.isInteger(round) || round < 1 || round > view.tournament.总轮次) return { anchorId: null, candidates: [], warnings: ['请选择参赛者和有效轮次。'] };
+  const actual = Object.values(view.tournament.比赛).filter(match => ['已安排', '已完成'].includes(match.状态));
+  const occupied = new Set(actual.filter(match => match.轮次 === round).flatMap(match => [match.甲方, match.乙方]));
+  if (occupied.has(id)) return { anchorId: null, candidates: [], warnings: ['该选手本轮已有对局，请查看或修正原比赛。'] };
+  const used = new Set(actual.filter(match => [match.甲方, match.乙方].includes(id)).map(match => match.甲方 === id ? match.乙方 : match.甲方));
+  const candidates = view.roster.filter(row => row.id !== id && available(row) && !occupied.has(row.id) && !used.has(row.id)).map(row => ({ id: row.id, name: row.name, source: row.source, reason: '本轮可安排，实际记录未重复对战；可覆盖背景预设' }));
+  const anchorName = view.mode === '黑铁一辉' && person.name === '黑铁一辉' ? fixtures[round] : null;
+  const anchor = anchorName ? candidates.find(row => row.name === anchorName) : null;
+  const warnings = [];
+  if (!person.opponentHistoryComplete || candidates.some(candidate => !view.roster.find(row => row.id === candidate.id)?.opponentHistoryComplete)) warnings.push('部分场外对手历史不完整，建议仅据现有记录排除重复；请核对未登记的旧对手。');
+  if (anchor) { anchor.reason = '原著模式默认对手，可依本局剧情调整'; candidates.sort((a, b) => Number(b.id === anchor.id) - Number(a.id === anchor.id)); }
+  else if (anchorName) warnings.push(`本轮原著默认对手为${anchorName}；未登记、已退选或与既有赛程冲突时不强行改写。`);
+  return { anchorId: anchor?.id || null, candidates, warnings };
+}
+
+// 终端手动记账使用同一校验入口；同 ID 是纠错替换，不是再发一次积分。
+function prepareTournamentAction(state, request) {
+  if (!object(state?.场景) || !object(request)) throw new Error('请先读取本局状态和操作内容');
+  const next = copy(state);
+  if (request.action === 'initialize') {
+    if (next.场景.选拔赛) throw new Error('本局已有选拔赛，请修改现有赛季记录');
+    next.场景.选拔赛 = seedTournamentRoster(state, normalizeTournament({ 赛季: request.season || '破军学园选拔赛' }));
+  } else {
+    if (!next.场景.选拔赛 && !tournamentCalendar(state).valid) throw new Error('请先确认2013年剧情日期或初始化选拔赛');
+    const t = seedTournamentRoster(state, normalizeTournament(next.场景.选拔赛 || {}));
+    if (['upsertParticipant', 'upsertMatch', 'cancelMatch'].includes(request.action) && (!nonblank(request.id) || unsafeKeys.has(request.id))) throw new Error('记录 ID 不能为空或保留名称');
+    if (request.action === 'upsertParticipant') {
+      if (!object(request.participant)) throw new Error('请填写参赛者资料');
+      const before = t.名册[request.id];
+      t.名册[request.id] = { ...(before || {}), ...copy(request.participant) };
+      maintainTournamentExit(t.名册[request.id], before, state);
+    } else if (request.action === 'upsertMatch') {
+      if (!object(request.match)) throw new Error('请填写比赛资料');
+      const before = t.比赛[request.id];
+      t.比赛[request.id] = { ...(before || {}), ...copy(request.match) };
+      retainTournamentCheckpoints(t.比赛[request.id], before, request.match);
+    } else if (request.action === 'cancelMatch') {
+      if (!own(t.比赛, request.id)) throw new Error('没有找到该比赛');
+      t.比赛[request.id].状态 = '已取消';
+    } else if (request.action === 'setStatus') {
+      const before = copy(t);
+      t.状态 = request.status;
+      maintainTournamentEnd(t, before, state);
+    }
+    else if (request.action === 'setDetained') t.一辉拘押 = request.detained;
+    else throw new Error('未知选拔赛操作');
+    next.场景.选拔赛 = t;
+  }
+  const checked = normalizeTournament(next.场景.选拔赛);
+  const issues = tournamentIssues(checked);
+  if (!issues.length) issues.push(...deriveTournament({ ...next, 场景: { ...next.场景, 选拔赛: checked } }).conflicts || []);
+  if (issues.length) throw new Error([...new Set(issues)].join('；'));
+  next.场景.选拔赛 = checked;
+  next.场景.选拔赛.程序战况 = tournamentPromptSummary(next);
+  return next;
+}
+
+// 本卡的原生 MVU 兼容层；不注册 Zod、不调用模型、不改 stat_data。
+// MVU 61010dab: STARTED 后读取 schema；strictSet 只关闭 set 的旧二元组解释。
+function rakudaiMvuScopes(scopes = []) {
+  const result = [];
+  for (const scope of scopes) {
+    for (const resolve of [() => scope, () => scope?.parent, () => scope?.top]) {
+      try { const value = resolve(); if (value && !result.includes(value)) result.push(value); } catch (_) {}
+    }
+  }
+  return result;
+}
+
+function rakudaiMvuRuntime(scopes = []) {
+  const entries = rakudaiMvuScopes(scopes).flatMap(scope => {
+    try { return [{ boot: scope.__RK_MVU_GUARD_BOOT_V4__, guard: scope.__RK_MVU_GUARD_V4__ || scope.__RK_MVU_GUARD_V3__ }]; } catch (_) { return []; }
+  });
+  const entry = entries.find(item => item.boot) || entries.find(item => item.guard);
+  if (!entry) return { mode: 'native', guard: null, boot: null };
+  const { boot, guard } = entry;
+  if (boot?.state === 'loading') return { mode: 'loading', boot, guard: guard || null };
+  if (boot?.state === 'failed') return { mode: 'failed', boot, guard: guard || null };
+  if (boot && (!guard || boot.state !== 'ready' || boot.guard !== guard)) return { mode: 'failed', boot, guard: guard || null };
+  // 老版配套约束没有 boot 标记；真实 guard 仍表示 Zod 路径，不冒充原生模式。
+  return { mode: 'zod', boot: boot || null, guard: guard || null };
+}
+
+function isRakudaiMvuState(state) {
+  return Boolean(state && !Array.isArray(state) && state.系统?.结构版本 === 4 &&
+    state.系统 && state.场景 && state.玩家 && state.人际 &&
+    [state.系统, state.场景, state.玩家, state.人际].every(value => typeof value === 'object' && !Array.isArray(value)));
+}
+
+function createRakudaiNativeSchema(state, previous) {
+  function build(value, old, root = false) {
+    if (Array.isArray(value)) {
+      return { type: 'array', extensible: true, recursiveExtensible: true,
+        elementType: value.length ? build(value[0], old?.elementType) : { type: 'any' },
+        ...(old?.template !== undefined ? { template: structuredClone(old.template) } : {}) };
+    }
+    if (value && typeof value === 'object') {
+      const properties = Object.fromEntries(Object.entries(value)
+        .filter(([key]) => key !== '$internal' && key !== '$meta')
+        .map(([key, child]) => [key, { ...build(child, old?.properties?.[key]), required: root }]));
+      return { type: 'object', properties, extensible: !root, recursiveExtensible: !root,
+        ...(old?.template !== undefined ? { template: structuredClone(old.template) } : {}) };
+    }
+    const type = typeof value;
+    return { type: ['string', 'number', 'boolean'].includes(type) ? type : 'any' };
+  }
+  const schema = build(state, previous, true);
+  schema.strictSet = true;
+  schema.strictTemplate = previous?.strictTemplate ?? false;
+  schema.concatTemplateArray = previous?.concatTemplateArray ?? true;
+  return schema;
+}
+
+function prepareRakudaiNativeMvu(data, scopes = []) {
+  if (rakudaiMvuRuntime(scopes).mode === 'native' && isRakudaiMvuState(data?.stat_data)) {
+    data.schema = createRakudaiNativeSchema(data.stat_data, data.schema);
+  }
+  return data;
+}
+
+async function installRakudaiNativeMvu(W) {
+  const slot = '__RK_MVU_NATIVE_N01__';
+  if (W[slot]?.version === 'N01' && W[slot].state !== 'failed') return W[slot];
+  W[slot]?.destroy?.();
+  const marker = { version: 'N01', state: 'loading', destroy: null };
+  W[slot] = marker;
+  let disposed = false, listener = null;
+  function destroy() {
+    disposed = true; listener?.stop();
+    if (W[slot] === marker) delete W[slot];
+    W.removeEventListener?.('pagehide', destroy);
+  }
+  marker.destroy = destroy;
+  W.addEventListener?.('pagehide', destroy, { once: true });
+  function helper(name) {
+    if (typeof W[name] === 'function') return W[name].bind(W);
+    if (typeof W.TavernHelper?.[name] === 'function') return W.TavernHelper[name].bind(W.TavernHelper);
+    throw new Error('原生 MVU 兼容缺少酒馆助手接口：' + name);
+  }
+  try {
+    await helper('waitGlobalInitialized')('Mvu');
+    if (disposed) return marker;
+    const scopes = rakudaiMvuScopes([W]);
+    const H = [...scopes].reverse().find(scope => { try { return scope.SillyTavern?.getContext; } catch (_) { return false; } });
+    if (!H) throw new Error('原生 MVU 兼容未连接当前酒馆。');
+    const initial = H.SillyTavern.getContext();
+    const owner = { characterId: initial.characterId, groupId: initial.groupId ?? null };
+    if (owner.characterId == null && owner.groupId == null) throw new Error('请在角色聊天中加载原生 MVU 兼容。');
+    const mvu = W.Mvu || H.Mvu;
+    if (!mvu?.events?.VARIABLE_UPDATE_STARTED) throw new Error('MVU 缺少变量更新开始事件。');
+    listener = helper('eventOn')(mvu.events.VARIABLE_UPDATE_STARTED, variables => {
+      if (disposed) return;
+      const current = H.SillyTavern.getContext();
+      if (current.characterId !== owner.characterId || (current.groupId ?? null) !== owner.groupId) return;
+      prepareRakudaiNativeMvu(variables, scopes);
+    });
+    marker.state = 'ready';
+  } catch (error) {
+    if (!disposed) { marker.state = 'failed'; marker.message = error?.message || '原生 MVU 兼容启动失败。'; }
+  }
+  return marker;
+}
+
+// 本卡 stat_data v4。纯 schema 工厂；不访问聊天、不自动迁移旧楼层。
+// CHAPTERS 仅为旧 v3 第一卷验证与开局兼容枚举；运行中卷章以共享目录为准。
+const CHAPTERS = ['待选择', '序章', '第一章', '第二章', '第三章', '第四章', '终章'];
+const GRADES = ['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E+', 'E', 'F+', 'F'];
+// A+、S 只扩展实际六维的成长尺度，联盟登记与开局综合初评仍使用原量表。
+const ATTRIBUTE_GRADES = ['S', 'A+', ...GRADES];
+const GROWTH_AXES = ['魔力控制', '体能', '魔力量'];
+const AXES = ['攻击力', '防御力', '魔力量', '魔力控制', '体能', '运气'];
+// 只转换含义明确的卷号写法，保存结果仍为数字；未知文本留给严格校验拒绝。
+function normalizeStoryVolume(value) {
+  if (typeof value !== 'string') return value;
+  const text = value.trim();
+  const numeric = text.match(/^(?:([1-9]|1[0-9])|第([1-9]|1[0-9])卷)$/);
+  if (numeric) return Number(numeric[1] || numeric[2]);
+  const names = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二', '十三', '十四', '十五', '十六', '十七', '十八', '十九'];
+  const index = names.findIndex(name => text === '第' + name + '卷');
+  return index < 0 ? value : index + 1;
+}
+// 描述兼容只补结构，不从说明文字推断掌握程度；有旧条目时保留已知资料。
+function normalizeSkillEntry(value, previous) {
+  if (typeof value === 'string') value = { 说明: value };
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return value;
+  const next = { ...value };
+  const old = previous && typeof previous === 'object' && !Array.isArray(previous) ? previous : {};
+  for (const field of ['说明', '条件与代价']) {
+    const missing = next[field] === undefined;
+    const blank = typeof next[field] === 'string' && !next[field].trim();
+    if (missing || blank) {
+      if (typeof old[field] === 'string' && old[field].trim()) next[field] = old[field];
+      else if (missing) next[field] = '';
+    }
+  }
+  const known = ['学习中', '已掌握'].includes(old.掌握状态);
+  if (next.掌握状态 === undefined || (next.掌握状态 === '待确认' && known)) {
+    next.掌握状态 = known ? old.掌握状态 : '待确认';
+  }
+  return next;
+}
+// 多目标只是一种输入写法；拆出的稳定键与原来源事件共同用于去重。
+// 单个经验数是总量：先去重目标，再均分；除不尽的余数按目标顺序分配。
+function normalizeGrowthRequests(value) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return value;
+  const result = {};
+  for (const [id, original] of Object.entries(value)) {
+    if (!original || typeof original !== 'object' || Array.isArray(original) || !Object.hasOwn(original, '经验')) { result[id] = original; continue; }
+    const rawTargets = Array.isArray(original.目标) ? original.目标 : typeof original.目标 === 'string' ? original.目标.split(/[、,，]/).map(axis => axis.trim()) : [];
+    const targets = [...new Set(rawTargets)];
+    const paired = Array.isArray(original.经验);
+    const valid = targets.length > 0 && targets.every(axis => GROWTH_AXES.includes(axis)) &&
+      (paired ? original.经验.length === rawTargets.length && original.经验.every(number => Number.isSafeInteger(number) && number >= 0) : Number.isSafeInteger(original.经验) && original.经验 >= 0);
+    if (!valid) { result[id] = original; continue; }
+    const base = paired ? 0 : Math.floor(original.经验 / targets.length), rest = paired ? 0 : original.经验 % targets.length;
+    const multiple = rawTargets.length > 1;
+    for (let i = 0; i < targets.length; i++) {
+      const axis = targets[i], derived = multiple ? id + '·' + axis : id;
+      // 遇到同名显式申请不覆盖它；两条最终仍按来源事件与目标去重。
+      if (derived !== id && Object.hasOwn(value, derived)) continue;
+      result[derived] = { ...original, 目标: axis,
+        经验: paired ? original.经验[rawTargets.indexOf(axis)] : base + (i < rest ? 1 : 0),
+        类型: original.类型 ?? '', 方式: original.方式 ?? '' };
+    }
+  }
+  return result;
+}
+
+// 本卡成长尺度，不是原作公布的经验公式。
+const GROWTH_RULES = {
+  version: 'G03', costs: { F: 100, 'F+': 100, E: 150, 'E+': 150, D: 250, 'D+': 250, C: 400, 'C+': 400, B: 600, 'B+': 900, A: 1200, 'A+': 1600 },
+  perReplyCap: 9999,
+  // 类型说明成果性质；经验按本轮实际成长核定，不再用类型压低单次奖励。
+  awards: { 基础训练: { min: 1, max: 9999 }, 纠正训练: { min: 1, max: 9999 }, 重大突破: { min: 1, max: 9999 } },
+};
+// 本卡关系计分配置；并非《火焰纹章》任一作品的官方公式。终端构建读取同一份配置。
+const RELATIONSHIP_SCORING = {
+  version: 'R10-按回复分项结算',
+  affection: {
+    min: 0, max: 1000, initial: 0,
+    ordinaryMin: 2, ordinaryMax: 10, mediumMin: 11, mediumMax: 20, majorMin: 21, majorMax: 40,
+    decrease: { ordinaryMin: 1, ordinaryMax: 5, mediumMin: 6, mediumMax: 10, majorMin: 11, majorMax: 20 },
+    backgroundMin: 70, backgroundMax: 200,
+  },
+  support: {
+    min: 0, max: 320, initial: 0, ordinaryMin: 1, ordinaryMax: 5, mediumMin: 6, mediumMax: 10, majorMin: 10, majorMax: 15,
+    stages: [{ stage: 'C', min: 80 }, { stage: 'B', min: 160 }, { stage: 'A', min: 240 }, { stage: 'S', min: 320 }],
+  },
+  romance: {
+    stages: [{ stage: '路人', min: 0 }, { stage: '在意', min: 200 }, { stage: '暧昧', min: 500 }, { stage: '交往', min: 800 }, { stage: '生死相随', min: 1000 }],
+  },
+};
+function supportStage(value) {
+  const config = RELATIONSHIP_SCORING.support;
+  if (!Number.isInteger(value) || value < config.min || value > config.max) return '未定';
+  let stage = '未建立';
+  for (const threshold of config.stages) if (value >= threshold.min) stage = threshold.stage;
+  return stage;
+}
+function romanceStage(relation) {
+  const value = relation?.好感, config = RELATIONSHIP_SCORING.affection;
+  if (relation?.性别 !== '女性' || typeof value !== 'number' || !Number.isFinite(value) || value < config.min || value > config.max) return null;
+  let stage = null;
+  for (const threshold of RELATIONSHIP_SCORING.romance.stages) if (value >= threshold.min) stage = threshold.stage;
+  return stage;
+}
+
+// 主副 API 共用事实写入权：只检查数值、真实回复来源和最终值收据，不审核叙事强度。
+function enforceRelationshipScores(variables, previous, { replyKey = '', submittedFields = [] } = {}) {
+  const before = previous?.stat_data?.人际 || {}, after = variables?.stat_data?.人际;
+  const notices = [];
+  if (!after || typeof after !== 'object' || Array.isArray(after)) return notices;
+  const submitted = new Map(Array.isArray(submittedFields) ? submittedFields : []);
+  const oldReceipt = previous?.stat_data?.系统?.关系计分;
+  const receipt = replyKey && oldReceipt?.回合 === replyKey ? structuredClone(oldReceipt) : { 回合: replyKey, 人物: {} };
+  for (const [name, relation] of Object.entries(after)) {
+    if (!relation || typeof relation !== 'object' || Array.isArray(relation)) continue;
+    const old = before[name];
+    for (const [field, config] of [['好感', RELATIONSHIP_SCORING.affection], ['支援度', RELATIONSHIP_SCORING.support]]) {
+      const value = relation[field], prior = old?.[field];
+      if (value === prior || (value == null && prior == null)) continue;
+      let reason = '';
+      if (value !== null && (typeof value !== 'number' || !Number.isFinite(value) || value < config.min || value > config.max || field === '支援度' && !Number.isInteger(value))) {
+        reason = field + '须为 ' + config.min + '—' + config.max + ' 的数字' + (field === '支援度' ? '整数' : '') + '，或 null 待核定';
+      } else if (!replyKey || !variables.stat_data?.系统) reason = '尚不能确认真实回复来源';
+      // 明确提交的是最终值，允许本轮纠错；不把补丁重放理解成再加一次分。
+      else if (receipt.人物?.[name]?.[field] && submitted.get(JSON.stringify([name, field])) !== value) reason = '本回复已计分；如需纠错请明确提交最终值';
+      if (reason) {
+        if (old && Object.hasOwn(old, field)) relation[field] = prior;
+        else relation[field] = field === '好感' ? null : 0;
+        notices.push({ path: '/人际/' + name + '/' + field, message: reason + '，已保留原分数。' });
+        continue;
+      }
+      receipt.人物[name] ??= {};
+      const done = receipt.人物[name][field];
+      receipt.人物[name][field] = { 旧值: done ? done.旧值 : typeof prior === 'number' && Number.isFinite(prior) ? prior : null, 新值: value };
+      variables.stat_data.系统.关系计分 = structuredClone(receipt);
+    }
+    if (relation.支援度 === null) relation.羁绊阶段 = '未定';
+    else if (typeof relation.支援度 === 'number') relation.羁绊阶段 = supportStage(relation.支援度);
+    const romance = romanceStage(relation);
+    if (romance !== null) relation.恋爱阶段 = romance;
+    else delete relation.恋爱阶段;
+  }
+  return notices;
+}
+// 联系记录只维护互动状态和关系标签，不派生好感或作为计分前置条件。
+// 普通首次的0起点与实际变化由计分器处理，既定背景仍独立核定。
+function enforceRelationshipContact(variables, previous, { replyKey = '', flexibleRepair = false } = {}) {
+  // 主副回复均可纠正联系事实，已确认内容无需另走人工审批。
+  if (replyKey) return [];
+  const state = variables?.stat_data;
+  const before = previous?.stat_data?.人际 || {};
+  if (state?.系统?.结构版本 !== 4 || !state.人际 || typeof state.人际 !== 'object' || Array.isArray(state.人际)) return [];
+  const changed = [];
+  const text = value => typeof value === 'string' ? value.trim() : '';
+  const initialLabel = value => ['', '初见', '尚未交谈', '初见／尚未交谈'].includes(text(value).replace(/\s+/g, '').replace(/\//g, '／'));
+  for (const [name, relation] of Object.entries(state.人际)) {
+    if (!relation || typeof relation !== 'object' || Array.isArray(relation)) continue;
+    if ((state.系统.已删除人物 || []).includes(name)) continue;
+    const old = Object.hasOwn(before, name) ? before[name] : undefined;
+    function set(field, value) {
+      if (relation[field] === value) return;
+      relation[field] = value;
+      changed.push('/人际/' + name + '/' + field);
+    }
+    // 当前分支内已确认的联系不会因离场、漏字段或重写最简对象退回“仅识别”。
+    if (old?.联系状态 === '已建立联系' && text(old.联系依据)) {
+      set('联系状态', '已建立联系');
+      if (!text(relation.联系依据)) set('联系依据', old.联系依据);
+    }
+    if (relation.联系状态 !== '已建立联系' || !text(relation.联系依据)) continue;
+    if (initialLabel(relation.关系)) {
+      set('关系', old && !initialLabel(old.关系) ? old.关系 : '已建立直接联系');
+    }
+  }
+  return changed;
+}
+const INITIAL_STATE = {
+  系统: { 结构版本: 4, 开局状态: '待建档', 主角模式: '未选择' },
+  场景: { 当前卷: 1, 当前章: '待选择', 阶段: '未开始', 时间: '', 地点: '', 切入说明: '', 已发生事件: {} },
+  玩家: {
+    性别: '男性',
+    魔人觉醒: false,
+    姓名: '', 性格关键词: '', 处事风格: '', 所属: '', 固有灵装: '', 角色简介: '', 战斗风格: '',
+    伐刀能力: { 能力系别: '', 能力本质: '', 共通限制: '', 招式: {} },
+    其他能力: {},
+    六维: Object.fromEntries(AXES.map(key => [key, ''])),
+    综合初评: { 规则版本: 'R05-第一版', 分数: null, 等级: null, 拟定登记等级: null, 评定状态: '待填写六维', 待填写项: AXES.slice(0, 4) },
+    登记等级: null,
+  },
+  人际: {},
+};
+
+function createSchema(z, options = {}) {
+  return createStateSchema(z, 4, options);
+}
+
+function createLegacyV3Schema(z, options = {}) {
+  return createStateSchema(z, 3, options);
+}
+
+function createStateSchema(z, version, { normalizeRelationships = true } = {}) {
+  const text = z.string();
+  // 动态记录允许有名条目；固定对象全部 strict，禁止拼错路径后另造字段。
+  const key = z.string().min(1).refine(value => !/[~/]/.test(value) && !['__proto__', 'prototype', 'constructor'].includes(value), '名称不能包含 /、~ 或保留键');
+  const record = value => z.record(key, value);
+  // 字段级转换也覆盖框架逐字段、逐条事件应用 JSONPatch 的校验入口。
+  const volumeNumber = z.preprocess(normalizeStoryVolume, z.number().int().min(1).max(19));
+  // 单条申请由结算器局部检查；未知/缺失数据保留待修正，不拖累其它状态更新。
+  const growthRequests = z.preprocess(normalizeGrowthRequests, record(z.unknown()));
+  const growth = z.object({
+    版本: z.enum(['G01', 'G02', 'G03']).optional(),
+    // 经验允许保留晋级后的溢出，不能拿最高单档门槛当累计上限；旧档经验原样读取。
+    经验: z.object({ 魔力控制: z.number().int().min(0).max(Number.MAX_SAFE_INTEGER), 体能: z.number().int().min(0).max(Number.MAX_SAFE_INTEGER), 魔力量: z.number().int().min(0).max(Number.MAX_SAFE_INTEGER).optional() }).strict().optional(),
+    申请: growthRequests.optional(),
+    记录: record(z.object({
+      来源事件: key, 日期: text.optional(), 目标: z.enum(GROWTH_AXES), 类型: text,
+      环境: text.optional(), 现实分钟: z.number().int().min(0).max(1440).optional(), 有效分钟: z.number().int().min(0).max(1440000).optional(),
+      加速: z.boolean().optional(), 获得: z.number().int().min(0).max(Math.max(70, GROWTH_RULES.perReplyCap)), 活动指纹: text, 说明: text,
+      方式: text.optional(), 成果: text.optional(), 回合: text.optional(),
+    }).strict()).optional(),
+    回合结算: z.object({
+      标识: text,
+      获得: z.object({ 魔力控制: z.number().int().min(0).max(GROWTH_RULES.perReplyCap), 体能: z.number().int().min(0).max(GROWTH_RULES.perReplyCap), 魔力量: z.number().int().min(0).max(GROWTH_RULES.perReplyCap).optional() }).strict(),
+      已晋级: z.array(z.enum(GROWTH_AXES)).max(GROWTH_AXES.length),
+      // 终值重放也不能把同一份档内经验按晋级后的新档位再算一遍。
+      终值收据: z.partialRecord(z.enum(GROWTH_AXES), z.object({ 提交: text, 经验: z.number().int().min(0).max(Number.MAX_SAFE_INTEGER), 评级: z.enum(ATTRIBUTE_GRADES) }).strict()).optional(),
+    }).strict().optional(),
+    // 旧境界、环境与复核记录仅保留历史；绝不用于推断 /玩家/魔人觉醒。
+    境界: z.enum(['未确认', '普通', '魔人']).optional(), 境界依据: text.optional(),
+    训练环境: record(z.object({
+      能力路径: text, 模式: z.enum(['意识模拟', '真实时间加速']), 倍率: z.number().min(1).max(1000),
+      魔力参与: z.boolean(), 肉身参与: z.boolean(), 依据: text,
+    }).strict()).optional(),
+    复核记录: z.array(text).max(30).optional(), 最近提示: text.optional(), 结算起点: text.optional(),
+  }).strict();
+  const skillObject = z.object({ 说明: text, 条件与代价: text, 掌握状态: z.enum(['待确认', '学习中', '已掌握']) }).strict();
+  const skill = version === 4 ? z.preprocess(value => normalizeSkillEntry(value), skillObject) : skillObject;
+  const knownProfile = z.object({ 身份: text.optional(), 登记等级: text.optional(), 灵装: text.optional(), 已知能力: text.optional() }).strict();
+  const scheduleDate = text.refine(value => {
+    if (value === '') return true;
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+    const [year, month, day] = value.split('-').map(Number);
+    if (year < 1 || month < 1 || month > 12 || day < 1) return false;
+    const leap = year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
+    return day <= [31, leap ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month - 1];
+  }, '日程日期使用真实的 YYYY-MM-DD；尚未确定时留空');
+  const schedule = z.object({
+    类型: z.enum(['比赛', '训练', '约定', '其他']), 日期: scheduleDate,
+    时间: text, 地点: text, 参与者: z.array(text.min(1)),
+    状态: z.enum(['待定', '已安排', '进行中', '已完成', '已取消']), 说明: text,
+  }).strict();
+  // 代码专属的当前回复收据：可选以兼容旧档，不要求模型提交，也不发给模型。
+  // 旧值保留纠错前的真实数字，允许记录曾经越界的坏账；修正后的新值仍须合法。
+  const scoreReceipt = z.object({ 旧值: z.number().nullable(), 新值: z.number().min(0).max(1000).nullable() }).strict();
+  const relationshipReceipt = z.object({
+    回合: text.min(1), 人物: record(z.object({ 好感: scoreReceipt.optional(), 支援度: scoreReceipt.optional() }).strict()),
+  }).strict();
+  const root = z.object({
+    // MVU 更新过程临时注入的框架元数据；保留原值，不作为本卡业务结构校验。
+    $internal: z.unknown().optional(),
+    系统: z.object({
+      结构版本: z.literal(version), 开局状态: z.enum(['待建档', '已建档']), 主角模式: z.enum(['未选择', '黑铁一辉', '自定义角色']),
+      // 随当前楼层和活动 swipe 保存；回退读取旧快照，不使用聊天级或本地存储黑名单。
+      ...(version === 4 ? { 已删除人物: z.array(key).optional(), 关系计分: relationshipReceipt.optional() } : {}),
+    }).strict(),
+    场景: z.object({
+      当前卷: version === 3 ? z.literal(1) : volumeNumber,
+      当前章: version === 3 ? z.enum(CHAPTERS) : text.min(1),
+      阶段: z.enum(['未开始', '进行中', '已结束']),
+      时间: text, 地点: text, 切入说明: text.default(''),
+      已发生事件: record(z.object({ ...(version === 4 ? { 卷号: volumeNumber } : {}), 章段: version === 3 ? z.enum(CHAPTERS.slice(1)) : text.min(1), 结果: text.min(1), 参与者: z.array(text.min(1)), 知情者: z.array(text.min(1)) }).strict()),
+      // 可选字段兼容现有 v4 存档；未来约定不占用已发生事件。
+      ...(version === 4 ? { 日程: record(schedule).optional(), 选拔赛: createTournamentSchema(z).optional() } : {}),
+    }).strict(),
+    玩家: z.object({
+      性别: z.literal('男性').default('男性'),
+      // 唯一觉醒开关；不接受字符串或 0/1。旧档未保存时按未觉醒读取，不推断旧境界。
+      ...(version === 4 ? { 魔人觉醒: z.boolean().default(false) } : {}),
+      姓名: text, 性格关键词: text, 处事风格: text, 所属: text, 固有灵装: text, 角色简介: text, 战斗风格: text,
+      伐刀能力: z.object({ 能力系别: z.enum(['', '体能强化系', '自然干涉系', '概念干涉系', '因果干涉系']), 能力本质: text, 共通限制: text, 招式: record(skill) }).strict(),
+      其他能力: record(skill),
+      六维: z.object(Object.fromEntries(AXES.map(axis => [axis, z.enum(['', ...(version === 4 ? ATTRIBUTE_GRADES : GRADES)])]))).strict(),
+      综合初评: z.object({
+        规则版本: text, 分数: z.number().min(1).max(6).nullable(), 等级: z.enum(GRADES).nullable(), 拟定登记等级: z.enum(GRADES).nullable(),
+        评定状态: z.enum(['待填写六维', '已计算', '原作档案']), 待填写项: z.array(z.enum(AXES.slice(0, 4))),
+      }).strict(),
+      登记等级: z.enum(GRADES).nullable(),
+      ...(version === 4 ? { 成长: growth.optional() } : {}),
+    }).strict(),
+    人际: record(z.object({ 关系: text, 态度印象: text, 性别: z.enum(['未知', '男性', '女性']).optional(), 已加联系方式: z.boolean().optional(), ...(version === 4 ? { 名册隐藏: z.boolean().optional(), 联系状态: z.enum(['仅识别', '已建立联系']).optional(), 联系依据: text.optional() } : {}), 好感: z.number().min(RELATIONSHIP_SCORING.affection.min).max(RELATIONSHIP_SCORING.affection.max).nullable(), 支援度: z.number().int().min(RELATIONSHIP_SCORING.support.min).max(RELATIONSHIP_SCORING.support.max).nullable().optional(), 羁绊阶段: z.enum(['未定', '未建立', 'C', 'B', 'A', 'S']), 恋爱阶段: z.enum(RELATIONSHIP_SCORING.romance.stages.map(item => item.stage)).optional(), 好感突破依据: text.optional(), 变化依据: text, 已知资料: knownProfile.optional() }).strict()),
+  }).strict().superRefine((state, ctx) => {
+    const issue = (path, message) => ctx.addIssue({ code: 'custom', path, message });
+    if (state.系统.开局状态 === '已建档' && (state.系统.主角模式 === '未选择' || !state.玩家.姓名.trim())) issue(['系统', '开局状态'], '已建档需要已选身份和非空姓名');
+    if (state.场景.阶段 !== '未开始' && state.系统.开局状态 !== '已建档') issue(['场景', '阶段'], '先完成建档，再开始剧情');
+    if (state.场景.当前章 === '待选择' && state.场景.阶段 !== '未开始') issue(['场景', '阶段'], '未选择章段时不能开始或结束剧情');
+    const scene = state.场景;
+    const chapter = version === 3 ? CHAPTERS.indexOf(scene.当前章) : storyPosition(scene.当前卷, scene.当前章);
+    if (version === 4 && !getStoryVolume(scene.当前卷)) issue(['场景', '当前卷'], '卷号不在已核对的剧情目录中');
+    if (version === 4 && scene.当前章 !== '待选择' && chapter < 0) issue(['场景', '当前章'], '当前卷与章节不是已核对的目录组合');
+    for (const [name, event] of Object.entries(state.场景.已发生事件)) {
+      const eventPosition = version === 3 ? CHAPTERS.indexOf(event.章段) : storyPosition(event.卷号, event.章段);
+      if (version === 4 && eventPosition < 0) issue(['场景', '已发生事件', name, '章段'], '事件卷号与章段不是已核对的目录组合');
+      else if (eventPosition > chapter) issue(['场景', '已发生事件', name, '章段'], '不能把后续卷章事件写成已发生');
+    }
+    if (state.系统.主角模式 === '黑铁一辉' && Object.hasOwn(state.人际, '黑铁一辉')) issue(['人际', '黑铁一辉'], '一辉模式不能新建另一个一辉的人际记录');
+    for (const [name, relation] of Object.entries(state.人际)) {
+      if (relation.恋爱阶段 !== undefined && romanceStage(relation) === null) issue(['人际', name, '恋爱阶段'], '只有已确认女性且好感为有效数值时才能派生恋爱阶段；男性、性别未知或好感待核定时不能预写。');
+    }
+  });
+  // 上游桥接器对直接传入的 ZodObject 会改用 looseObject。
+  // preprocess 保留本卡固定字段的 strict 校验；在 record 可能忽略保留键前明确拒绝。
+  return z.preprocess((value, ctx) => {
+    function inspect(node, path = []) {
+      if (!node || typeof node !== 'object') return;
+      for (const name of Object.keys(node)) {
+        if (path.length === 0 && name === '$internal') continue;
+        if (['__proto__', 'prototype', 'constructor'].includes(name)) ctx.addIssue({ code: 'custom', path: [...path, name], message: '不接受保留键，未丢弃原始数据' });
+        else inspect(node[name], [...path, name]);
+      }
+    }
+    inspect(value);
+    // 只接收目录声明的精确别名，并在校验结果中归一成稳定章节键。
+    if (version === 4 && value?.场景 && typeof value.场景 === 'object' && !Array.isArray(value.场景)) {
+      const scene = { ...value.场景, 当前卷: normalizeStoryVolume(value.场景.当前卷) };
+      const chapter = resolveStoryChapter(scene.当前卷, scene.当前章);
+      const events = scene.已发生事件;
+      value = { ...value, 场景: { ...scene,
+        ...(chapter ? { 当前章: chapter.key } : {}),
+        ...(events && typeof events === 'object' && !Array.isArray(events) ? { 已发生事件: Object.fromEntries(Object.entries(events).map(([name, event]) => {
+          if (event && typeof event === 'object' && !Array.isArray(event)) event = { ...event, 卷号: normalizeStoryVolume(event.卷号) };
+          const resolved = resolveStoryChapter(event?.卷号, event?.章段);
+          return [name, resolved ? { ...event, 章段: resolved.key } : event];
+        })) } : {}),
+      } };
+    }
+    // 数值已经存在才派生阶段。旧记录缺支援度或为 null 时完全保留，绝不凭字母倒填分。
+    // 只复制待归一化对象，schema.parse 不修改调用方或框架 $internal 快照。
+    if (!normalizeRelationships || !value?.人际 || typeof value.人际 !== 'object' || Array.isArray(value.人际)) return value;
+    const relations = Object.fromEntries(Object.entries(value.人际).map(([name, relation]) => {
+      const stage = supportStage(relation?.支援度);
+      const romance = romanceStage(relation);
+      if (!relation || typeof relation !== 'object' || Array.isArray(relation)) return [name, relation];
+      const normalized = { ...relation, ...(relation.支援度 === null ? { 羁绊阶段: '未定' } : stage !== '未定' ? { 羁绊阶段: stage } : {}) };
+      if (romance !== null) normalized.恋爱阶段 = romance;
+      else delete normalized.恋爱阶段;
+      return [name, normalized];
+    }));
+    return { ...value, 人际: relations };
+  }, root);
+}
+
+// 离线 v2 迁移：拒绝未识别数据，不覆盖聊天，不凭招式名猜测多招式分隔。
+function migrateV2(input, z) {
+  const schema = createLegacyV3Schema(z, { normalizeRelationships: false });
+  if ([3, 4].includes(input?.系统?.结构版本)) return migrateV3(input, z);
+  if (input?.系统?.结构版本 !== 2) throw new Error('仅支持中文结构 v2 / v3 → v4；英文或未知版本须先核对原始数据');
+  const next = structuredClone(input);
+  next.系统.结构版本 = 3;
+  next.场景 = { 当前章: '待选择', 阶段: '未开始', 已发生事件: {}, ...next.场景 };
+  const p = next.玩家;
+  p.伐刀能力 = { 能力系别: p.能力系别 ?? '', 能力本质: p.能力机制 ?? '', 共通限制: p.限制与代价 ?? '', 招式: {} };
+  if (p.伐刀绝技?.trim()) p.伐刀能力.招式[p.伐刀绝技.trim()] = { 说明: '', 条件与代价: '', 掌握状态: '待确认' };
+  p.其他能力 = {};
+  for (const field of ['伐刀绝技', '能力系别', '能力机制', '限制与代价']) delete p[field];
+  next.人际 ??= {};
+  for (const relation of Object.values(next.人际)) {
+    const old = relation.羁绊阶段;
+    if (!['未定', '未建立', 'C', 'B', 'A', 'S'].includes(old)) {
+      relation.羁绊阶段 = '未定';
+      relation.变化依据 = `旧存档阶段：${old ?? '未记录'}。尚未确认 C/B/A/S 对应，保留原描述待核对。`;
+    } else relation.变化依据 ??= '';
+    relation.好感 ??= null;
+  }
+  return migrateV3(schema.parse(next), z);
+}
+
+function migrateV3(input, z) {
+  const targetSchema = createSchema(z, { normalizeRelationships: false });
+  if (input?.系统?.结构版本 === 4) {
+    targetSchema.parse(input);
+    return structuredClone(input);
+  }
+  if (input?.系统?.结构版本 !== 3) throw new Error('在线迁移仅接受合法的第一卷 v3 档案；v2 或未知结构请先离线核对');
+  // 兼容已写入觉醒开关、结构版本尚为 v3 的旧档；只识别原生布尔值，不猜测或转换。
+  // 仅从校验副本暂去这一已知 v4 字段，原档与迁移候选都保留它；其余旧结构仍严格验证。
+  const legacyInput = structuredClone(input);
+  if (legacyInput.玩家 && Object.hasOwn(legacyInput.玩家, '魔人觉醒')) {
+    if (typeof legacyInput.玩家.魔人觉醒 !== 'boolean') throw new Error('/玩家/魔人觉醒 必须是 true 或 false，旧档迁移不会转换其他值。');
+    delete legacyInput.玩家.魔人觉醒;
+  }
+  // parse 仅用于校验；不采用其默认填充结果，也不重新派生人物字段。
+  createLegacyV3Schema(z, { normalizeRelationships: false }).parse(legacyInput);
+  const next = structuredClone(input);
+  next.系统.结构版本 = 4;
+  for (const event of Object.values(next.场景.已发生事件)) event.卷号 = 1;
+  targetSchema.parse(next);
+  return next;
+}
+
+function migrationChanges(before, after, path = '') {
+  if (JSON.stringify(before) === JSON.stringify(after)) return [];
+  const object = value => value !== null && typeof value === 'object' && !Array.isArray(value);
+  if (object(before) && object(after)) {
+    return [...new Set([...Object.keys(before), ...Object.keys(after)])].flatMap(key => {
+      const escaped = key.replace(/~/g, '~0').replace(/\//g, '~1');
+      return migrationChanges(before[key], after[key], path + '/' + escaped);
+    });
+  }
+  return [{ path: path || '/', before: structuredClone(before), after: structuredClone(after) }];
+}
+
+function prepareStateMigration(input, z) {
+  const before = structuredClone(input);
+  const state = migrateV3(before, z);
+  return { status: before.系统.结构版本 === 3 ? 'migration-required' : 'current', before, state, changes: migrationChanges(before, state) };
+}
+
+// 状态规则与运行时适配分开：本模块不访问宿主、不发送消息、不生成剧情。
+const STATE_CHAPTERS = ['待选择', ...getStoryVolume(1).chapters.map(chapter => chapter.key)];
+const cloneState = value => structuredClone(value);
+function stateKey(value) {
+  if (Array.isArray(value)) return '[' + value.map(stateKey).join(',') + ']';
+  if (value && typeof value === 'object') return '{' + Object.keys(value).sort().map(key => JSON.stringify(key) + ':' + stateKey(value[key])).join(',') + '}';
+  return JSON.stringify(value);
+}
+
+function applyOpening(before, payload) {
+  if (before.系统.结构版本 !== 4) throw new Error('请先预览并确认升级为 v4，不能通过建档自动迁移旧楼层。');
+  if (before.系统.开局状态 !== '待建档') throw new Error('当前分支已建档，不能再次初始化。');
+  if (!payload || payload.系统?.结构版本 !== 4 || !['黑铁一辉', '自定义角色'].includes(payload.系统.主角模式)) throw new Error('请选择身份模式并使用 v4 档案。');
+  if (before.场景.当前卷 !== 1 || (payload.场景?.当前卷 !== undefined && payload.场景.当前卷 !== 1)) throw new Error('开局页从第一卷建档，不能覆盖其他卷的剧情状态。');
+  const next = cloneState(before);
+  const scene = payload.场景 || {};
+  for (const key of ['当前章', '时间', '地点', '切入说明']) {
+    const incoming = scene[key];
+    if (incoming !== undefined && typeof incoming !== 'string') throw new Error('场景字段必须是文字。');
+    const existing = before.场景[key] || '';
+    const established = existing && existing !== '待选择';
+    if (established && incoming && incoming !== '待选择' && incoming !== existing) throw new Error(`场景${key}与已保存内容冲突，请先调整草稿：${existing}`);
+    if (!established && incoming) next.场景[key] = incoming.trim();
+  }
+  const chapter = resolveStoryChapter(1, next.场景.当前章);
+  if (!chapter || !next.场景.时间.trim() || !next.场景.地点.trim()) throw new Error('请先确定切入章段、时间和地点；相对时间也可以。');
+  next.场景.当前章 = chapter.key;
+  next.玩家 = cloneState(payload.玩家);
+  if (!next.玩家 || !next.玩家.姓名?.trim()) throw new Error('档案缺少姓名。');
+  if (next.玩家.性别 !== undefined && next.玩家.性别 !== '男性') throw new Error('当前版本仅支持男性玩家，不能提交其他玩家性别。');
+  next.玩家.性别 = '男性';
+  next.玩家.魔人觉醒 ??= false;
+  next.玩家.登记等级 = payload.系统.主角模式 === '黑铁一辉' ? 'F' : null;
+  next.系统 = { 结构版本: 4, 主角模式: payload.系统.主角模式, 开局状态: '已建档' };
+  next.场景.阶段 = '进行中';
+  return next;
+}
+
+// 仅修正尚未开演时选错的人物；不把读取草稿等同于重置整局。
+function assertOpeningReplacementState(state) {
+  if (state?.系统?.结构版本 !== 4 || state.系统.开局状态 !== '已建档') throw new Error('只有已建档的开局可以替换人物，请先读取当前聊天。');
+  if (state.场景?.当前卷 !== 1) throw new Error('剧情已进入其他卷，不能通过开局页替换人物。');
+  if (Object.keys(state.场景.已发生事件 || {}).length) throw new Error('本局已经记录剧情事件，不能替换开局人物；请在新聊天使用该档案。');
+}
+function applyOpeningReplacement(before, payload) {
+  assertOpeningReplacementState(before);
+  const draftBase = cloneState(before);
+  draftBase.系统.开局状态 = '待建档';
+  // 场景来自这次明确选定的草稿，仍走原建档的卷章、字段和身份校验。
+  for (const key of ['当前章', '时间', '地点', '切入说明']) draftBase.场景[key] = '';
+  const opening = applyOpening(draftBase, payload);
+  const next = cloneState(before);
+  next.玩家 = opening.玩家;
+  next.系统.主角模式 = opening.系统.主角模式;
+  for (const key of ['当前章', '时间', '地点', '切入说明']) next.场景[key] = opening.场景[key];
+  return next;
+}
+
+function applyTransition(before, request) {
+  if (before.系统.结构版本 !== 4) throw new Error('请先预览并确认升级为 v4，再操作剧情卷章。');
+  if (before.系统.开局状态 !== '已建档') throw new Error('请先在开局页完成建档。');
+  const next = cloneState(before);
+  const scene = next.场景;
+  const volume = getStoryVolume(scene.当前卷);
+  if (!volume) throw new Error('当前卷不在已核对的剧情目录中。');
+  const currentChapter = resolveStoryChapter(scene.当前卷, scene.当前章);
+  if (scene.当前章 !== '待选择' && !currentChapter) throw new Error('当前卷与章节不匹配，请核对存档。');
+  if (currentChapter) scene.当前章 = currentChapter.key;
+  function locateTarget(targetVolume, targetChapter) {
+    const chapter = resolveStoryChapter(targetVolume, targetChapter);
+    if (!chapter) throw new Error('目标卷与章节不是已核对的目录组合。');
+    for (const key of ['time', 'location', 'entryNote']) {
+      if (typeof request[key] !== 'string' || !request[key].trim()) throw new Error('请确认目标时间、地点和切入说明后再切换卷章。');
+    }
+    scene.当前卷 = targetVolume;
+    scene.当前章 = chapter.key;
+    scene.阶段 = '未开始';
+    scene.时间 = request.time.trim();
+    scene.地点 = request.location.trim();
+    scene.切入说明 = request.entryNote.trim();
+  }
+  if (request.action === 'start') {
+    if (scene.阶段 !== '未开始') throw new Error('当前章段已开始，不能重复开始。');
+    const chapter = resolveStoryChapter(scene.当前卷, scene.当前章 === '待选择' ? request.chapter : scene.当前章);
+    if (request.chapter && resolveStoryChapter(scene.当前卷, request.chapter)?.key !== chapter?.key) throw new Error('不能以开始操作跳到其他章段。');
+    if (!chapter || !scene.时间.trim() || !scene.地点.trim()) throw new Error('当前章段、时间或地点尚未确认。');
+    scene.当前章 = chapter.key;
+    scene.阶段 = '进行中';
+  } else if (request.action === 'end') {
+    if (scene.阶段 !== '进行中') throw new Error('只有进行中的章段可以标记结束。');
+    scene.阶段 = '已结束';
+  } else if (request.action === 'next') {
+    if (scene.阶段 !== '已结束') throw new Error('请先确认当前章段已结束。');
+    const target = nextStoryChapter(scene.当前卷, scene.当前章);
+    if (!target || target.volume !== scene.当前卷) throw new Error('已到当前卷末，请使用进入下一卷并确认切入场景。');
+    scene.当前章 = target.chapter;
+    scene.阶段 = '未开始';
+  } else if (request.action === 'nextVolume') {
+    if (scene.阶段 !== '已结束' || scene.当前章 !== volume.chapters.at(-1).key) throw new Error('只有当前卷的最后章节已结束，才能进入下一卷。');
+    const chapter = firstStoryChapter(scene.当前卷 + 1);
+    if (!chapter) throw new Error('已到已核对剧情目录的最后一卷。');
+    locateTarget(scene.当前卷 + 1, chapter.key);
+  } else if (request.action === 'jump') {
+    const from = storyPosition(scene.当前卷, scene.当前章);
+    const target = storyPosition(request.volume, request.chapter);
+    if (from < 0) throw new Error('请先确认当前章段，再选择向前切入的目标。');
+    if (target < 0) throw new Error('目标卷与章节不是已核对的目录组合。');
+    if (target <= from) throw new Error('手动切入仅允许严格向前；回到已有剧情请使用聊天分支或已有回复页。');
+    locateTarget(request.volume, request.chapter);
+  } else throw new Error('未知剧情操作。');
+  if (['jump', 'nextVolume'].includes(request.action)) {
+    // 手动跳过的过程不是训练。取消未结算申请，保留已获得经验与历史。
+    const growth = growthState(next.玩家.成长);
+    growth.申请 = {};
+    growth.最近提示 = '已切入新场景；跳过的事件不补算经验，待结算申请已取消。';
+    next.玩家.成长 = growth;
+  }
+  return next;
+}
+
+// 世界书完成标识由模型结合本局事实判断；这里只约束更新方向和阶段。
+// 一轮最多前进一个目录节点，不从正文关键词推断完成、不补写历史。
+function acceptAutomaticStoryProgress(before, after) {
+  if (before?.系统?.结构版本 !== 4 || before.系统.开局状态 !== '已建档') return false;
+  const old = before.场景, scene = after?.场景;
+  if (!old || !scene || typeof scene !== 'object' || Array.isArray(scene)) return false;
+  const current = resolveStoryChapter(old.当前卷, old.当前章);
+  const proposed = resolveStoryChapter(scene.当前卷, scene.当前章);
+  if (!current || !proposed) return false;
+  const target = nextStoryChapter(old.当前卷, current.key);
+  const unchanged = scene.当前卷 === old.当前卷 && proposed.key === current.key;
+  function advance() {
+    scene.当前卷 = target.volume;
+    scene.当前章 = target.chapter;
+    scene.阶段 = '进行中';
+    scene.切入说明 = '';
+  }
+  if (unchanged) {
+    if (scene.阶段 === old.阶段) return true;
+    if (old.阶段 === '未开始' && scene.阶段 === '进行中') return true;
+    if (old.阶段 === '进行中' && scene.阶段 === '已结束') {
+      // 模型只提交本章完成时，由目录决定下一节点；末卷末章保持结束。
+      if (target) advance();
+      return true;
+    }
+    return false;
+  }
+  if (!target || !['进行中', '已结束'].includes(old.阶段) ||
+      scene.当前卷 !== target.volume || proposed.key !== target.chapter ||
+      !['未开始', '进行中'].includes(scene.阶段)) return false;
+  advance();
+  return true;
+}
+
+// 副校正共享主回复的推进额度；主回复已经切章时，重复“已结束”不再结束下一章。
+function acceptRepairStoryProgress(before, after, storyBefore) {
+  const old = before.场景, scene = after.场景;
+  const start = storyBefore && storyPosition(storyBefore.当前卷, storyBefore.当前章);
+  const current = storyPosition(old.当前卷, old.当前章);
+  if (current < 0) return false;
+  if (Number.isInteger(start) && start >= 0) {
+    if (start === current) {
+      // 以主回复开始前的阶段判断整轮结果；本轮刚开始的章节不能再借副校正结算一次。
+      return acceptAutomaticStoryProgress({ ...before, 场景: { ...old, ...storyBefore } }, after);
+    }
+    // 已确认本回复发生过切入，副模型只补其他事实，不重复消费本章完成标识。
+    for (const key of ['当前卷', '当前章', '阶段']) scene[key] = old[key];
+    return true;
+  }
+  // 重载后若没有原结算快照，只接受当前节点的阶段纠正，不能猜测本轮还可跨章。
+  return scene.当前卷 === old.当前卷 &&
+    resolveStoryChapter(scene.当前卷, scene.当前章)?.key === resolveStoryChapter(old.当前卷, old.当前章)?.key &&
+    ['未开始', '进行中', '已结束'].includes(scene.阶段);
+}
+
+// 供 MVU 的更新结束事件使用。身份与初评保留页面写入权；经绑定的副校正可补切入说明。
+// v4 允许按世界书完成标识顺序推进；其他卷章修改仍恢复原值。
+function enforceStateOwnership(variables, previous, context = {}) {
+  const before = previous?.stat_data;
+  const after = variables?.stat_data;
+  if (![3, 4].includes(before?.系统?.结构版本)) return [];
+  if (!after || typeof after !== 'object' || Array.isArray(after)) {
+    variables.stat_data = cloneState(before);
+    return ['/stat_data'];
+  }
+  const changed = [];
+  function restore(parent, key, original, path) {
+    if (stateKey(parent[key]) !== stateKey(original)) { parent[key] = cloneState(original); changed.push(path); }
+  }
+  if (before.系统.开局状态 === '待建档') {
+    for (const key of ['系统', '场景', '玩家', '人际']) restore(after, key, before[key], '/' + key);
+  } else {
+    restore(after, '系统', before.系统, '/系统');
+    if (!after.场景 || typeof after.场景 !== 'object' || Array.isArray(after.场景)) after.场景 = cloneState(before.场景);
+    const repair = Boolean(context.replyKey && context.storyCorrection === true);
+    const flexible = Boolean(context.replyKey);
+    if (!repair) restore(after.场景, '切入说明', before.场景.切入说明 ?? '', '/场景/切入说明');
+    const repairDescription = repair && after.场景.切入说明 !== before.场景.切入说明 ? after.场景.切入说明 : undefined;
+    const storyAccepted = repair ? acceptRepairStoryProgress(before, after, context.storyBefore) : acceptAutomaticStoryProgress(before, after);
+    // 自动切章会清空旧切入说明；副校正明确补写的新说明属于本次最终场景，继续保留。
+    if (storyAccepted && repairDescription !== undefined) after.场景.切入说明 = repairDescription;
+    if (!storyAccepted) {
+      for (const key of ['当前卷', '当前章', '阶段']) restore(after.场景, key, before.场景[key], '/场景/' + key);
+    }
+    if (!after.玩家 || typeof after.玩家 !== 'object') after.玩家 = cloneState(before.玩家);
+    restore(after.玩家, '综合初评', before.玩家.综合初评, '/玩家/综合初评');
+    restore(after.玩家, '性别', '男性', '/玩家/性别');
+    if (before.系统.结构版本 === 4) {
+      // false→true 是明确本局觉醒的事实更新，由更新规则约束语义；代码不从战斗或旧境界猜测。
+      // 普通主回复不能抹掉已确认觉醒；经绑定的副校正可用原生布尔值修正误记。
+      const awakened = before.玩家.魔人觉醒 === true;
+      if (!flexible && awakened || typeof after.玩家.魔人觉醒 !== 'boolean') {
+        restore(after.玩家, '魔人觉醒', awakened, '/玩家/魔人觉醒');
+      }
+      // 主副回复均可保存已确认的实际评级；未绑定来源时保留旧数值。
+      if (!flexible) {
+        restore(after.玩家, '六维', before.玩家.六维, '/玩家/六维');
+        restore(after.玩家, '登记等级', before.玩家.登记等级, '/玩家/登记等级');
+      }
+      // Zod 对简写补齐结构后，再结合本轮原快照恢复省略的旧条件与掌握状态。
+      for (const [skills, originals] of [
+        [after.玩家.其他能力, before.玩家.其他能力],
+        [after.玩家.伐刀能力?.招式, before.玩家.伐刀能力?.招式],
+      ]) {
+        if (!skills || typeof skills !== 'object' || Array.isArray(skills)) continue;
+        for (const [name, skill] of Object.entries(skills)) {
+          if (['__proto__', 'prototype', 'constructor'].includes(name)) continue;
+          const original = originals && Object.hasOwn(originals, name) ? originals[name] : undefined;
+          skills[name] = normalizeSkillEntry(skill, original);
+        }
+      }
+    }
+    // 名册显隐只由玩家在终端整理，AI 不能自行藏起人物。
+    if (before.系统.结构版本 === 4 && after.人际 && typeof after.人际 === 'object' && !Array.isArray(after.人际)) {
+      // 玩家永久移除后，当前分支继承删除标记；模型不能依据历史正文重新建档。
+      // 标记在系统对象内随楼层保存，回退到操作前的快照自然恢复原记录。
+      for (const name of before.系统.已删除人物 || []) {
+        if (Object.hasOwn(after.人际, name)) {
+          delete after.人际[name];
+          changed.push('/人际/' + name + '（本分支已永久移除）');
+        }
+      }
+      for (const [name, relation] of Object.entries(after.人际)) {
+        if (!relation || typeof relation !== 'object' || Array.isArray(relation)) continue;
+        const original = before.人际?.[name];
+        if (original && Object.hasOwn(original, '名册隐藏')) {
+          restore(relation, '名册隐藏', original.名册隐藏, '/人际/' + name + '/名册隐藏');
+        } else if (Object.hasOwn(relation, '名册隐藏')) {
+          delete relation.名册隐藏;
+          changed.push('/人际/' + name + '/名册隐藏');
+        }
+      }
+    }
+  }
+  return changed;
+}
+
+function growthDateKey(value) {
+  if (typeof value !== 'string') return null;
+  const match = value.match(/(?:^|[^\d])(\d{4})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日/) ||
+    value.match(/(?:^|[^\d])(\d{4})-(\d{1,2})-(\d{1,2})(?!\d)/);
+  if (!match) return null;
+  const [year, month, day] = match.slice(1).map(Number);
+  const leap = year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
+  if (year < 1 || month < 1 || month > 12 || day < 1 || day > [31, leap ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month - 1]) return null;
+  return String(year).padStart(4, '0') + '-' + String(month).padStart(2, '0') + '-' + String(day).padStart(2, '0');
+}
+
+function growthObject(value) { return value && typeof value === 'object' && !Array.isArray(value); }
+function growthName(value) { return typeof value === 'string' && !!value.trim() && !/[~/]/.test(value) && !['__proto__', 'prototype', 'constructor'].includes(value); }
+function growthState(value) {
+  const result = growthObject(value) ? cloneState(value) : {};
+  result.版本 = GROWTH_RULES.version;
+  result.经验 ??= {};
+  for (const axis of GROWTH_AXES) result.经验[axis] ??= 0;
+  result.记录 ??= {};
+  result.申请 ??= {};
+  result.最近提示 ??= '';
+  // G01/G02 的境界、环境、复核与待结算申请原样留档；G03 不再创建这些字段。
+  return result;
+}
+function growthFingerprint(request, event) {
+  const text = JSON.stringify([request.目标, String(event.结果 || '').replace(/\s+/g, '')]);
+  let hash = 2166136261;
+  for (let i = 0; i < text.length; i++) hash = Math.imul(hash ^ text.charCodeAt(i), 16777619);
+  return (hash >>> 0).toString(36);
+}
+function growthRequestValid(request) {
+  return growthObject(request) && growthName(request.来源事件) && GROWTH_AXES.includes(request.目标) &&
+    typeof request.类型 === 'string' && typeof request.方式 === 'string' &&
+    Number.isSafeInteger(request.经验) && request.经验 >= 0 && typeof request.成果 === 'string' && !!request.成果.trim();
+}
+
+// 统一处理申请奖励与经验终值。结算不以类型/方式的措辞审批成果，也不限制每轮升档次数。
+function enforceGrowthProgress(variables, previous, { replyKey = '', repairEventKeys = [], growthFinalAxes = [], growthGradeAxes = [] } = {}) {
+  const before = previous?.stat_data, after = variables?.stat_data, notices = [];
+  if (before?.系统?.结构版本 !== 4 || before.系统.开局状态 !== '已建档' || !after?.玩家) return notices;
+  const old = before.玩家.成长, incoming = after.玩家.成长;
+  if (!old && incoming === undefined) return notices;
+  const growth = growthState(old), scoped = typeof replyKey === 'string' && !!replyKey;
+  const explicitFinal = new Set(growthFinalAxes), explicitGrades = new Set(growthGradeAxes);
+  const correctedExperience = {};
+  if (scoped) for (const axis of GROWTH_AXES) {
+    const value = incoming?.经验?.[axis];
+    if (Number.isSafeInteger(value) && value >= 0 && (value !== old?.经验?.[axis] || explicitFinal.has(axis))) correctedExperience[axis] = value;
+  }
+  const proposed = normalizeGrowthRequests(growthObject(incoming?.申请) ? incoming.申请 : growth.申请);
+  growth.申请 = cloneState(proposed);
+  const events = after.场景.已发生事件 || {}, oldEvents = before.场景.已发生事件 || {};
+  function note(id, message) { notices.push({ path: '/玩家/成长/申请/' + id, message }); growth.最近提示 = message; }
+  // 元数据和收据原样继承；经验终值是业务数据，主副 API 都可以明确校正。
+  const owned = value => growthObject(value) ? Object.fromEntries(Object.entries(value).filter(([key]) => !['申请', '经验'].includes(key))) : {};
+  if (stateKey(owned(incoming)) !== stateKey(owned(old))) note('结算收据', '版本与结算记录由代码维护，本次已保留原收据；其它字段继续更新。');
+  const repairEvents = new Set(Array.isArray(repairEventKeys) ? repairEventKeys.filter(growthName) : []);
+  const budget = scoped && growth.回合结算?.标识 === replyKey ? cloneState(growth.回合结算) : { 标识: replyKey, 获得: {}, 已晋级: [] };
+  for (const axis of GROWTH_AXES) {
+    const spent = scoped ? Object.values(growth.记录).filter(row => row.回合 === replyKey && row.目标 === axis).reduce((sum, row) => sum + row.获得, 0) : 0;
+    budget.获得[axis] = Math.min(GROWTH_RULES.perReplyCap, Math.max(budget.获得[axis] || 0, spent));
+  }
+  const finalInputs = new Map();
+  if (scoped) for (const axis of GROWTH_AXES) {
+    if (!explicitFinal.has(axis) && !explicitGrades.has(axis)) continue;
+    const signature = JSON.stringify([explicitFinal.has(axis) ? incoming?.经验?.[axis] : null, explicitGrades.has(axis) ? after.玩家.六维?.[axis] : null]);
+    finalInputs.set(axis, signature);
+    const receipt = budget.终值收据?.[axis];
+    if (receipt?.提交 === signature && before.玩家.六维?.[axis] === receipt.评级 && old?.经验?.[axis] === receipt.经验) {
+      after.玩家.六维[axis] = receipt.评级;
+      if (explicitFinal.has(axis)) correctedExperience[axis] = receipt.经验;
+    }
+  }
+  let settled = false;
+  for (const [id, request] of Object.entries(proposed)) {
+    if (!growthName(id)) { note(id, '申请名称无效，仅保留待修正。'); continue; }
+    if (Object.hasOwn(growth.记录, id)) { delete growth.申请[id]; continue; }
+    if (!growthRequestValid(request)) {
+      if (growthObject(old?.申请) && stateKey(old.申请[id]) === stateKey(request)) continue;
+      note(id, '此申请缺少有效来源事件、目标、非负整数经验或成果；多目标与经验数组须逐项对应。已保留待修正，其它更新照常保存。'); continue;
+    }
+    if (!scoped) { note(id, '尚不能确认真实助手回复，本次保留申请，不猜测来源或扣除额度。'); continue; }
+    if (request.目标 === '魔力量' && after.玩家.魔人觉醒 !== true) { note(id, '魔人觉醒不是 true，魔力量申请暂不结算；其它目标照常结算。'); continue; }
+    const event = Object.hasOwn(events, request.来源事件) ? events[request.来源事件] : null;
+    if (!growthObject(event) || typeof event.结果 !== 'string' || !event.结果.trim()) { note(id, '来源事件结果尚未保存，已保留此申请待补；其它变量照常更新。'); continue; }
+    const pos = storyPosition(event.卷号, event.章段), from = storyPosition(before.场景.当前卷, before.场景.当前章);
+    if (pos < from - (repairEvents.has(request.来源事件) ? 1 : 0) || pos < 0 || pos > storyPosition(after.场景.当前卷, after.场景.当前章)) {
+      note(id, '来源不属于本轮实际经历的章段；保留待核对，不补造跳过的训练。'); continue;
+    }
+    const fingerprint = growthFingerprint(request, event);
+    if (Object.values(growth.记录).some(row => row.目标 === request.目标 && (row.来源事件 === request.来源事件 || row.活动指纹 === fingerprint ||
+      oldEvents[row.来源事件] && growthFingerprint(request, oldEvents[row.来源事件]) === fingerprint))) {
+      delete growth.申请[id]; note(id, '同一来源成果与目标已经结算，不重复领取。'); continue;
+    }
+    if (!repairEvents.has(request.来源事件) && String(oldEvents[request.来源事件]?.结果 || '').replace(/\s+/g, '') === event.结果.replace(/\s+/g, '')) {
+      note(id, '本轮未新增此来源的实际成果，旧活动不追授经验。'); continue;
+    }
+    const rank = after.玩家.六维?.[request.目标];
+    if (!GROWTH_RULES.costs[rank] && rank !== 'S') { note(id, '此目标评级未知，申请保留待核定；其它目标继续。'); continue; }
+    // 经验终值与同源申请同时出现时，以终值为准，并保存零叠加收据防止下次补漏重领。
+    const finalProvided = Object.hasOwn(correctedExperience, request.目标);
+    const award = !finalProvided && rank !== 'S' ? Math.min(request.经验, Math.max(0, GROWTH_RULES.perReplyCap - budget.获得[request.目标])) : 0;
+    growth.经验[request.目标] = Math.min(Number.MAX_SAFE_INTEGER, growth.经验[request.目标] + award);
+    budget.获得[request.目标] += award;
+    let explanation = request.目标 + ' +' + award + (request.类型 ? '；' + request.类型 : '') + '。';
+    if (finalProvided) explanation += ' 本轮已明确经验最终值，此申请记为已处理，不再重复相加。';
+    else if (rank === 'S') explanation += ' 已到本卡量表顶档，保留原有余量。';
+    else if (award < request.经验) explanation += ' 按本轮此目标合计 ' + GROWTH_RULES.perReplyCap + ' 上限截断，超额不延后补领。';
+    growth.记录[id] = { 来源事件: request.来源事件, 目标: request.目标, 类型: request.类型, 方式: request.方式,
+      成果: request.成果, 获得: award, 活动指纹: fingerprint, 说明: explanation, 回合: replyKey };
+    delete growth.申请[id]; growth.最近提示 = explanation; settled = true;
+  }
+  Object.assign(growth.经验, correctedExperience);
+  // 评级发生明确校正后，经验按该新评级的当前档进度计算；没有新申请也修复旧档溢出。
+  const promotions = [];
+  if (scoped) for (const axis of GROWTH_AXES) {
+    if (axis === '魔力量' && after.玩家.魔人觉醒 !== true) continue;
+    const initialRank = after.玩家.六维?.[axis];
+    let rank = initialRank, index = ATTRIBUTE_GRADES.indexOf(rank), cost = GROWTH_RULES.costs[rank];
+    while (cost && index > 0 && growth.经验[axis] >= cost) {
+      growth.经验[axis] -= cost; rank = ATTRIBUTE_GRADES[--index]; cost = GROWTH_RULES.costs[rank];
+    }
+    if (rank === initialRank) continue;
+    after.玩家.六维[axis] = rank;
+    if (!budget.已晋级.includes(axis)) budget.已晋级.push(axis);
+    const text = axis + '：' + initialRank + ' → ' + rank + '，剩余经验 ' + growth.经验[axis] + '。';
+    promotions.push(text);
+    const receipt = Object.values(growth.记录).findLast(row => row.回合 === replyKey && row.目标 === axis);
+    if (receipt) receipt.说明 += ' ' + text;
+  }
+  for (const [axis, signature] of finalInputs) {
+    if (!ATTRIBUTE_GRADES.includes(after.玩家.六维?.[axis])) continue;
+    budget.终值收据 ??= {};
+    budget.终值收据[axis] = { 提交: signature, 经验: growth.经验[axis], 评级: after.玩家.六维[axis] };
+  }
+  if (settled || promotions.length || finalInputs.size) growth.回合结算 = budget;
+  if (promotions.length) growth.最近提示 = promotions.join(' ');
+  after.玩家.成长 = growth;
+  return notices;
+}
+
+function createStateController(adapter) {
+  const tokens = new WeakMap();
+  async function capture(options = {}) {
+    const snapshot = await adapter.capture(options);
+    if (snapshot.data.stat_data?.系统?.结构版本 === 3) {
+      const error = new Error('当前楼层是 v3 档案，请先查看迁移差异并确认升级为 v4。');
+      error.code = 'MIGRATION_REQUIRED';
+      throw error;
+    }
+    const state = adapter.validate(cloneState(snapshot.data.stat_data));
+    const token = Object.freeze({});
+    tokens.set(token, { snapshot, state, done: null, kind: 'state' });
+    return { state: cloneState(state), token };
+  }
+  async function prepareMigration(options = {}) {
+    if (typeof adapter.migrate !== 'function') throw new Error('当前运行环境未提供迁移预览，请更新状态服务。');
+    const snapshot = await adapter.capture(options);
+    const preview = adapter.migrate(cloneState(snapshot.data.stat_data));
+    const state = adapter.validate(cloneState(preview.state));
+    const token = Object.freeze({});
+    tokens.set(token, { snapshot, state, done: null, kind: 'migration' });
+    return { ...cloneState(preview), state: cloneState(state), token };
+  }
+  function assertReplacementScope(snapshot) {
+    if (typeof adapter.assertOpeningReplacement !== 'function') throw new Error('当前状态服务不能核对开局替换范围，请更新状态控制器后重试。');
+    // 范围验证必须同步完成，临写检查与宿主赋值之间不能让出执行权。
+    const result = adapter.assertOpeningReplacement(snapshot);
+    if (result && typeof result.then === 'function') throw new Error('开局替换需要同步宿主校验，尚未写入。');
+  }
+  async function commit(token, build, kind = 'state', openingReplacement = false) {
+    const record = tokens.get(token);
+    if (!record) throw new Error('操作凭据已失效，请重新读取当前分支。');
+    if (record.kind !== kind) throw new Error('操作凭据用途不符；迁移必须通过明确的升级操作提交。');
+    if (record.busy) throw new Error('正在写入，请勿重复操作。');
+    record.busy = true;
+    try {
+      if (openingReplacement) assertReplacementScope(record.snapshot);
+      const candidate = adapter.validate(build(cloneState(record.state)));
+      if (record.done) {
+        if (stateKey(candidate) !== stateKey(record.done)) throw new Error('同一凭据只能重试原操作，请重新读取后再执行新操作。');
+        const now = await adapter.current(record.snapshot);
+        if (openingReplacement) assertReplacementScope(record.snapshot);
+        if (stateKey(adapter.validate(now.data.stat_data)) !== stateKey(record.done)) throw new Error('当前状态已变化，请刷新。');
+        return { state: cloneState(record.done), alreadyApplied: true };
+      }
+      const current = await adapter.current(record.snapshot);
+      if (openingReplacement) assertReplacementScope(record.snapshot);
+      // API 返回异常但写入已落地时，仅确认匹配结果，绝不再写一遍。
+      if (current.data.stat_data?.系统?.结构版本 === 4 && stateKey(adapter.validate(current.data.stat_data)) === stateKey(candidate)) {
+        record.done = candidate;
+        record.openingReplacement = openingReplacement;
+        return { state: cloneState(candidate), alreadyApplied: true };
+      }
+      if (stateKey(current.data) !== stateKey(record.snapshot.data)) throw new Error('变量已被其他操作更新，请重新读取，草稿已保留。');
+      if (openingReplacement) assertReplacementScope(record.snapshot);
+      await adapter.write(record.snapshot, current.data, candidate, { openingReplacement });
+      const persisted = await adapter.current(record.snapshot);
+      if (openingReplacement) assertReplacementScope(record.snapshot);
+      const result = adapter.validate(persisted.data.stat_data);
+      if (stateKey(result) !== stateKey(candidate)) throw new Error('回读与提交内容不一致，未确认写入成功；请检查 MVU 通知后刷新。');
+      record.done = result;
+      record.openingReplacement = openingReplacement;
+      return { state: cloneState(result) };
+    } finally { record.busy = false; }
+  }
+  return Object.freeze({
+    version: '4.0.0', get catalogue() { return cloneState(STORY_VOLUMES); }, capture, prepareMigration,
+    capabilities: Object.freeze({ scheduleAndRoster: true, rosterPermanentRemoval: true,
+      tournament: 'T01', tournamentEngine: 'T02', nativeMvu: 'N01' }),
+    get growthRules() { return cloneState(GROWTH_RULES); },
+    tournamentView: state => deriveTournament(state),
+    tournamentAction: (token, request) => commit(token, state => prepareTournamentAction(state, request)),
+    tournamentOpponents: (state, options) => suggestTournamentOpponents(state, options),
+    tournamentParticipant: (state, options) => createTournamentParticipant(state, options),
+    commitMigration: token => commit(token, state => state, 'migration'),
+    verify: async token => {
+      const record = tokens.get(token);
+      if (!record?.done) throw new Error('尚无已回读确认的建档结果。');
+      const now = await adapter.current(record.snapshot);
+      if (record.openingReplacement) assertReplacementScope(record.snapshot);
+      const state = adapter.validate(now.data.stat_data);
+      if (stateKey(state) !== stateKey(record.done)) throw new Error('本局状态已变化，请刷新后继续。');
+      return { state: cloneState(state) };
+    },
+    commitOpening: (token, payload) => commit(token, state => applyOpening(state, payload)),
+    replaceOpening: (token, payload) => commit(token, state => applyOpeningReplacement(state, payload), 'state', true),
+    transition: (token, request) => commit(token, state => applyTransition(state, request)),
+    setRosterHidden: (token, name, hidden) => commit(token, state => {
+      if (typeof name !== 'string' || !name.trim() || /[~/]/.test(name) ||
+          ['__proto__', 'prototype', 'constructor'].includes(name) || typeof hidden !== 'boolean') throw new Error('名册操作参数不合法。');
+      if (state.系统.开局状态 !== '已建档' || !Object.hasOwn(state.人际, name)) throw new Error('当前分支没有该人物档案，请刷新名册。');
+      state.人际[name].名册隐藏 = hidden;
+      return state;
+    }),
+    deleteRosterPerson: (token, name) => commit(token, state => {
+      if (typeof name !== 'string' || !name.trim() || /[~/]/.test(name) ||
+          ['__proto__', 'prototype', 'constructor'].includes(name)) throw new Error('人物名称不合法。');
+      if (state.系统.开局状态 !== '已建档' || !Object.hasOwn(state.人际, name)) throw new Error('当前回复页没有该人物资料，请刷新名册。');
+      delete state.人际[name];
+      state.系统.已删除人物 = [...new Set([...(state.系统.已删除人物 || []), name])];
+      return state;
+    }),
+  });
+}
+
+window.RakudaiMvuNative = { version: "N01", runtime: rakudaiMvuRuntime, prepare: prepareRakudaiNativeMvu, install: installRakudaiNativeMvu };
+// 构建时与 schema、纯状态规则一起内联；只在 Tavern Helper 上下文使用。
+// 精确接口依据及尚未完成的实机验收见 世界书规则/MVU/v4_使用与迁移.md。
+(function installRakudaiController() {
+  const W = window;
+  function host() {
+    // Helper 给每个 iframe 都提供 SillyTavern getter，不能据此把自己当成宿主。
+    // 每次访问单独捕获跨源异常，优先实际最外层同源酒馆窗口。
+    for (const resolve of [() => W.top, () => W.parent, () => W]) {
+      try { const candidate = resolve(); if (candidate?.SillyTavern?.getContext) return candidate; } catch (_) {}
+    }
+    throw new Error('未连接 SillyTavern，档案仅为草稿。');
+  }
+  function helper(name) {
+    if (typeof W[name] === 'function') return W[name].bind(W);
+    if (typeof W.TavernHelper?.[name] === 'function') return W.TavernHelper[name].bind(W.TavernHelper);
+    throw new Error(`酒馆助手缺少 ${name}，尚未写入。`);
+  }
+  function runtime() {
+    const H = host(), mvu = W.Mvu || H.Mvu;
+    if (!mvu || typeof mvu.getMvuData !== 'function') throw new Error('MVU 尚未就绪，请启用变量框架后重试。');
+    const version = helper('getTavernHelperVersion')();
+    const parts = String(version).match(/^(\d+)\.(\d+)\.(\d+)/);
+    if (!parts || Number(parts[1]) < 4 || (Number(parts[1]) === 4 && (Number(parts[2]) < 8 || (Number(parts[2]) === 8 && Number(parts[3]) < 19)))) throw new Error('本建档器需要酒馆助手 4.8.19 或以上的同步变量接口。');
+    const Z = W.z || H.z;
+    if (!Z?.preprocess || !Z?.toJSONSchema) throw new Error('未找到酒馆助手提供的 Zod 4，尚未写入。');
+    return { H, mvu, Z };
+  }
+  function sync(value, label) {
+    if (value && typeof value.then === 'function') throw new Error(`${label} 在此版本不是同步接口，不能确认分支隔离。`);
+    return value;
+  }
+  function position(messageId) {
+    const { H, mvu } = runtime();
+    const oldGuard = [W, H].some(scope => scope.__RK_MVU_GUARD_V3__) || (function () {
+      try { return W.parent?.__RK_MVU_GUARD_V3__ || W.top?.__RK_MVU_GUARD_V3__; } catch (_) { return false; }
+    })();
+    if (oldGuard) throw new Error('旧版 v3 约束仍在运行，请先停用并重载酒馆，避免与 v4 档案冲突。');
+    const mode = rakudaiMvuRuntime([W, H]);
+    if (mode.mode === 'loading' || mode.mode === 'failed') {
+      const error = new Error('MVU v4 约束' + (mode.mode === 'loading' ? '正在初始化：' : '启动失败：') +
+        (mode.boot?.message || '请查看约束脚本日志，排除加载错误后重载酒馆。'));
+      error.code = mode.mode === 'loading' ? 'RK_GUARD_LOADING' : 'RK_GUARD_FAILED';
+      throw error;
+    }
+    const guard = mode.guard;
+    if (guard) {
+      if (guard.version !== '4.0.0') throw new Error('当前字段约束版本不兼容，请更新为配套 MVU v4 约束，或停用后重载酒馆。');
+      // 旧v4也叫4.0.0，但不认识魔人觉醒；只对实际开启的约束核对修订。
+      if (guard.growth !== 'G03') throw new Error('当前运行的是旧v4约束，不支持玩家.魔人觉醒。请替换为标有G03/P02的v4约束并重载酒馆；保留现有true/false，不要重新初始化。');
+    }
+    const ctx = H.SillyTavern.getContext();
+    const chatId = ctx.chatId;
+    if (chatId === null || chatId === undefined || chatId === '' || !Array.isArray(ctx.chat) || !ctx.chat.length) throw new Error('当前没有可建档的聊天。');
+    const readMessages = helper('getChatMessages');
+    const assistants = sync(readMessages(`0-${ctx.chat.length - 1}`, { role: 'assistant', include_swipes: true }), '读取楼层');
+    const latest = assistants.at(-1);
+    if (!latest) throw new Error('当前聊天没有助手楼层。');
+    const id = messageId === undefined ? latest.message_id : messageId;
+    if (!Number.isInteger(id) || id !== latest.message_id) throw new Error('该开局页已是历史楼层；请在当前分支最新助手楼层操作，不能覆盖旧状态。');
+    const message = latest;
+    if (!Number.isInteger(message.swipe_id) || message.swipe_id < 0 || !Array.isArray(message.swipes) || message.swipe_id >= message.swipes.length) throw new Error('未能识别当前 swipe，尚未写入。');
+    const options = { type: 'message', message_id: id };
+    const data = sync(mvu.getMvuData(options), '读取 MVU');
+    if (!data?.stat_data) throw new Error('当前楼层没有 MVU 初始化数据，请先检查初始化通知。');
+    return { H, mvu, ctx, chatId, characterId: ctx.characterId, groupId: ctx.groupId, chatRef: ctx.chat, messageId: id, messageRef: ctx.chat[id], swipeId: message.swipe_id,
+      messageText: message.swipes?.[message.swipe_id], length: ctx.chat.length, data: cloneState(data), options };
+  }
+  function current(saved) {
+    const now = position(saved.messageId);
+    if (now.chatId !== saved.chatId || now.characterId !== saved.characterId || now.groupId !== saved.groupId ||
+      now.chatRef !== saved.chatRef || now.messageRef !== saved.messageRef || now.length !== saved.length ||
+      now.swipeId !== saved.swipeId || now.messageText !== saved.messageText) throw new Error('聊天、楼层或 swipe 已变化，请重新读取；草稿已保留。');
+    return now;
+  }
+  function assertOpeningReplacement(saved) {
+    const now = current(saved);
+    // 只信实际宿主聊天：过滤后的助手列表无法证明中间没有用户消息。
+    if (now.ctx.chat.length !== 1 || now.messageId !== 0) throw new Error('本局已经产生后续聊天，不能替换开局人物；请在新聊天使用该档案。');
+    assertOpeningReplacementState(now.data.stat_data);
+  }
+  const api = createStateController({
+    capture: async ({ messageId } = {}) => {
+      // MVU 可能在本 iframe 创建后初始化；用本 iframe 的 Helper 安装动态 getter。
+      // 等待仅放在读取入口，current/write 内的同步比较与更新不能插入 await。
+      await helper('waitGlobalInitialized')('Mvu');
+      return position(messageId);
+    },
+    current, assertOpeningReplacement,
+    validate: value => {
+      // 页面事务只验证，不借迁移或切章重算人际、补入人物默认字段。
+      const parsed = createSchema(runtime().Z, { normalizeRelationships: false }).parse(value);
+      const state = cloneState(value);
+      // 仅规范已经存在的卷章别名，避免合法别名在终端目录中失配。
+      state.场景.当前章 = parsed.场景.当前章;
+      for (const name of Object.keys(state.场景.已发生事件)) state.场景.已发生事件[name].章段 = parsed.场景.已发生事件[name].章段;
+      return state;
+    },
+    migrate: value => prepareStateMigration(value, runtime().Z),
+    write: (saved, expected, state, { openingReplacement = false } = {}) => {
+      if (openingReplacement) assertOpeningReplacement(saved);
+      const now = current(saved), H = now.H;
+      if (stateKey(now.data) !== stateKey(expected)) throw new Error('变量在提交前发生变化，请刷新。');
+      // 使用宿主同步 updater：校验与赋值之间不 await，不退回 chat/global scope。
+      const result = helper('updateVariablesWith')(variables => {
+        current(saved);
+        if (openingReplacement) assertOpeningReplacement(saved);
+        if (stateKey(variables) !== stateKey(expected)) throw new Error('变量已经更新，未覆盖。');
+        const next = cloneState(variables);
+        next.stat_data = cloneState(state);
+        prepareRakudaiNativeMvu(next, [W, H]);
+        return next;
+      }, now.options);
+      sync(result, '更新变量');
+      return undefined;
+    },
+  });
+  W.RakudaiStateController = api;
+})();
+
+})();
+
+(function installN01AcceptanceProbe() {
+  'use strict';
+  const W = window;
+  const INITIAL = {"系统":{"结构版本":4,"开局状态":"待建档","主角模式":"未选择"},"场景":{"当前卷":1,"当前章":"待选择","阶段":"未开始","时间":"","地点":"","切入说明":"","已发生事件":{}},"玩家":{"性别":"男性","魔人觉醒":false,"姓名":"","性格关键词":"","处事风格":"","所属":"","固有灵装":"","角色简介":"","战斗风格":"","伐刀能力":{"能力系别":"","能力本质":"","共通限制":"","招式":{}},"其他能力":{},"六维":{"攻击力":"","防御力":"","魔力量":"","魔力控制":"","体能":"","运气":""},"综合初评":{"规则版本":"R05-第一版","分数":null,"等级":null,"拟定登记等级":null,"评定状态":"待填写六维","待填写项":["攻击力","防御力","魔力量","魔力控制"]},"登记等级":null},"人际":{}};
+  const expectedAvatar = '落第骑士英雄谭v0.03_1.png';
+  const expectedName = '落第骑士·N01验收副本';
+  let H, aside, output, button, running = false, ran = false, disposed = false;
+  const lines = [];
+  function helper(name) {
+    if (typeof W[name] === 'function') return W[name].bind(W);
+    if (typeof W.TavernHelper?.[name] === 'function') return W.TavernHelper[name].bind(W.TavernHelper);
+    throw new Error('缺少 public Helper: ' + name);
+  }
+  function sync(value, label) {
+    if (value && typeof value.then === 'function') throw new Error(label + '不是同步接口');
+    return value;
+  }
+  function key(value) {
+    if (Array.isArray(value)) return '[' + value.map(key).join(',') + ']';
+    if (value && typeof value === 'object') return '{' + Object.keys(value).sort().map(name => JSON.stringify(name) + ':' + key(value[name])).join(',') + '}';
+    return JSON.stringify(value);
+  }
+  const clone = value => structuredClone(value);
+  function report(label, passed, detail = '') {
+    lines.push((passed ? 'PASS ' : 'FAIL ') + label + (detail ? ' — ' + detail : ''));
+    if (output) output.textContent = lines.join('\n');
+  }
+  function assert(value, message) { if (!value) throw new Error(message); }
+  function context() { return H.SillyTavern.getContext(); }
+  function position() {
+    const ctx = context(), character = ctx.characters?.[ctx.characterId];
+    assert(character && (character.avatar === expectedAvatar || character.name === expectedName), '仅允许指定的独立验收副本');
+    assert(Array.isArray(ctx.chat) && ctx.chat.length === 1 && ctx.chat[0] && !ctx.chat[0].is_user, '只允许唯一助手楼层 floor 0');
+    const message = sync(helper('getChatMessages')(0, { role: 'assistant', include_swipes: true }), '读取消息')?.[0];
+    assert(message?.message_id === 0 && Number.isInteger(message.swipe_id), '未识别唯一助手活动回复页');
+    return { chatId: ctx.chatId, characterId: ctx.characterId, groupId: ctx.groupId ?? null,
+      chatRef: ctx.chat, messageRef: ctx.chat[0], swipe: message.swipe_id, text: message.swipes?.[message.swipe_id] ?? message.message };
+  }
+  function samePosition(saved) {
+    const now = position();
+    assert(!disposed && now.chatId === saved.chatId && now.characterId === saved.characterId && now.groupId === saved.groupId &&
+      now.chatRef === saved.chatRef && now.messageRef === saved.messageRef && now.swipe === saved.swipe && now.text === saved.text,
+    '验收角色、聊天、楼层或回复页已经变化');
+  }
+  function read(mvu) {
+    const data = sync(mvu.getMvuData({ type: 'message', message_id: 0 }), '读取 MVU');
+    assert(data && typeof data === 'object' && !Array.isArray(data), 'floor 0 缺少变量包装');
+    return clone(data);
+  }
+  function write(saved, expected, next) {
+    samePosition(saved);
+    sync(helper('updateVariablesWith')(current => {
+      samePosition(saved);
+      assert(key(current) === key(expected), 'CAS 拒绝：变量发生并发变化');
+      return clone(next);
+    }, { type: 'message', message_id: 0 }), '更新 MVU');
+  }
+  async function run() {
+    if (running || ran || disposed) return;
+    running = true; ran = true; button.disabled = true;
+    lines.length = 0;
+    let mvu, saved, original, restoreExpected = [];
+    try {
+      saved = position();
+      await helper('waitGlobalInitialized')('Mvu'); samePosition(saved);
+      mvu = W.Mvu || H.Mvu;
+      assert(typeof mvu?.parseMessage === 'function' && typeof mvu?.getMvuData === 'function', 'MVU 接口未就绪');
+      report('版本', true, 'Helper ' + helper('getTavernHelperVersion')() + '; MVU ' +
+        (typeof mvu.version === 'string' ? mvu.version : '未暴露版本；目标构建 61010dab（未自动识别）'));
+      assert(W.RakudaiMvuNative?.runtime([W, H]).mode === 'native', '本项必须在 v4 约束关闭的原生模式运行');
+      report('副本与原生模式', true, '仅 floor 0；不发送正文或模型请求');
+      original = read(mvu); restoreExpected.push(clone(original));
+      const base = clone(original); base.stat_data = clone(INITIAL);
+      base.stat_data.系统 = { 结构版本: 4, 开局状态: '已建档', 主角模式: '自定义角色' };
+      base.stat_data.玩家.姓名 = 'N01验收玩家';
+      base.stat_data.场景 = { ...base.stat_data.场景, 当前章: '第一章', 阶段: '进行中', 时间: '2013-04-06 08:30', 地点: '一年一班' };
+      base.stat_data.人际 = clone(original.stat_data?.人际 || {});
+      if (original.stat_data && Object.hasOwn(original.stat_data, '$internal')) base.stat_data.$internal = clone(original.stat_data.$internal);
+      base.schema = '没有用别管这个';
+      const person = { 关系: '一年一班同级生', 态度印象: '剑术基础扎实的同窗', 性别: '男性', 联系状态: '已建立联系', 联系依据: '验收补丁',
+        已加联系方式: false, 好感: 20, 支援度: 10, 羁绊阶段: '未建立', 变化依据: '仅独立副本验收', 已知资料: { 身份: '破军学园一年级生（留级一年）', 登记等级: 'F', 灵装: '阴铁' } };
+      const operations = [
+        { op: 'add', path: '/人际/黑铁一辉', value: person },
+        { op: 'add', path: '/场景/已发生事件/N01验收事件', value: { 卷号: 1, 章段: '第一章', 结果: '仅验收，随后还原', 参与者: ['占位'], 知情者: [] } },
+        { op: 'replace', path: '/场景/已发生事件/N01验收事件/参与者', value: ['黑铁一辉', 'N01验收玩家'] },
+        { op: 'replace', path: '/玩家/综合初评/待填写项', value: ['攻击力', '魔力控制'] },
+      ];
+      // 不调用 prepare/install；只由已导入的独立 N01 真实 STARTED 监听修复 sentinel。
+      const parsed = await mvu.parseMessage('<UpdateVariable><JSONPatch>' + JSON.stringify(operations) + '</JSONPatch></UpdateVariable>', base);
+      samePosition(saved);
+      assert(parsed?.schema?.type === 'object', '独立 N01 事件监听没有生成原生 schema');
+      report('独立 N01 真实事件修复 sentinel', true);
+      assert(key(parsed.stat_data.人际.黑铁一辉) === key(person), '普通 add 新人物失败'); report('普通 add /人际/黑铁一辉', true);
+      assert(parsed.stat_data.场景.已发生事件.N01验收事件?.结果 === '仅验收，随后还原', '新增嵌套 map 失败'); report('新增嵌套 map', true);
+      assert(key(parsed.stat_data.场景.已发生事件.N01验收事件.参与者) === key(['黑铁一辉', 'N01验收玩家']), '第一组二字符串数组终值异常');
+      assert(key(parsed.stat_data.玩家.综合初评.待填写项) === key(['攻击力', '魔力控制']), '第二组二字符串数组终值异常'); report('replace 两组字符串数组终值', true);
+      for (const [name, value] of Object.entries(original.stat_data?.人际 || {})) if (name !== '黑铁一辉') assert(key(parsed.stat_data.人际[name]) === key(value), '旧人物记录被修改');
+      for (const name of Object.keys(original)) if (!['stat_data', 'schema', 'display_data', 'delta_data', 'initialized_lorebooks'].includes(name)) assert(key(parsed[name]) === key(original[name]), '未知 wrapper 丢失: ' + name);
+      report('旧人物与未知 wrapper 保留', true);
+      restoreExpected.push(clone(parsed)); write(saved, original, parsed);
+      assert(key(read(mvu)) === key(parsed), '真实 floor 0 回读不一致'); report('同步 CAS 保存与真实回读', true);
+
+      // 页面事务使用当前控制器及 Helper，仍不开 N01 自安装或伪造任何 MVU 事件。
+      const opening = clone(original); opening.stat_data = clone(INITIAL); opening.schema = '没有用别管这个';
+      restoreExpected.push(clone(opening)); write(saved, parsed, opening);
+      const service = W.RakudaiStateController;
+      assert(typeof service?.commitOpening === 'function', '未找到当前生成控制器');
+      const capture = await service.capture({ messageId: 0 }); samePosition(saved);
+      const payload = clone(INITIAL); payload.系统.主角模式 = '自定义角色'; payload.玩家.姓名 = 'N01页面事务验收';
+      payload.场景 = { ...payload.场景, 当前章: '第一章', 时间: '2013-04-06 08:30', 地点: '一年一班', 切入说明: '仅独立副本验收' };
+      const predicted = clone(opening); predicted.stat_data = clone(payload);
+      predicted.stat_data.系统 = { 结构版本: 4, 主角模式: '自定义角色', 开局状态: '已建档' };
+      predicted.stat_data.场景.阶段 = '进行中';
+      // 这里只为恢复 CAS 算出控制器预期包装，不替代独立 N01 的解析事件验收。
+      W.RakudaiMvuNative.prepare(predicted, [W, H]); restoreExpected.push(clone(predicted));
+      const committed = await service.commitOpening(capture.token, payload); samePosition(saved);
+      assert(committed.state.玩家.姓名 === payload.玩家.姓名 && key(read(mvu)) === key(predicted), '页面 commitOpening 保存或回读不一致');
+      report('约束关闭时页面 commitOpening 完整事务', true);
+      report('范围', true, '本次仅手工 parse 与页面事务；未验收真实主生成事件链');
+    } catch (error) { report('验收中止', false, String(error?.message || error)); }
+    finally {
+      if (mvu && saved && original) {
+        try {
+          samePosition(saved);
+          const current = read(mvu);
+          assert(restoreExpected.some(value => key(current) === key(value)), '存在并发变量变化；拒绝覆盖还原');
+          if (key(current) !== key(original)) write(saved, current, original);
+          assert(key(read(mvu)) === key(original), '还原后回读不一致'); report('恢复 floor 0 原始 wrapper', true);
+        } catch (error) { report('恢复 floor 0 原始 wrapper', false, String(error?.message || error)); }
+      } else report('恢复', true, '未开始变量写入');
+      running = false;
+    }
+  }
+  function cleanup() { disposed = true; aside?.remove(); W.removeEventListener('pagehide', cleanup); }
+  try {
+    for (const resolve of [() => W.top, () => W.parent, () => W]) {
+      try { const candidate = resolve(); if (candidate?.SillyTavern?.getContext && candidate.document?.body) { H = candidate; break; } } catch (_) {}
+    }
+    assert(H, '未连接酒馆宿主'); position();
+    aside = H.document.createElement('aside'); aside.id = 'rk-n01-acceptance-probe';
+    aside.style.cssText = 'position:fixed;right:12px;top:12px;z-index:2147483647;max-width:620px;width:calc(100vw - 24px);max-height:70vh;overflow:auto;background:#fff;color:#111;border:3px solid #222;padding:12px;font:14px/1.5 monospace;box-sizing:border-box';
+    const heading = H.document.createElement('strong'); heading.textContent = 'TEST ONLY · N01 独立副本验收（自动还原）';
+    button = H.document.createElement('button'); button.textContent = '运行一次验收'; button.style.cssText = 'margin:8px;padding:8px'; button.addEventListener('click', run);
+    output = H.document.createElement('pre'); output.style.cssText = 'white-space:pre-wrap;overflow-wrap:anywhere'; output.textContent = '仅指定验收副本、唯一助手 floor 0；先导入独立 N01。';
+    aside.append(heading, button, output); H.document.body.appendChild(aside); W.addEventListener('pagehide', cleanup, { once: true });
+  } catch (error) { console.warn('[N01 test-only probe] ' + String(error?.message || error)); }
+})();

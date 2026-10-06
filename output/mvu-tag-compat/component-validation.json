@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "validations": [
+    {
+      "schemaVersion": 1,
+      "target": "output\\mvu-tag-compat\\components\\regex",
+      "deliveryMode": "component",
+      "errors": [],
+      "files": [
+        {
+          "file": "output\\mvu-tag-compat\\components\\regex\\variable-display.regex.json",
+          "kind": "regex",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "target": "output\\mvu-tag-compat\\components\\helper",
+      "deliveryMode": "component",
+      "errors": [],
+      "files": [
+        {
+          "file": "output\\mvu-tag-compat\\components\\helper\\phone-v1-3-15.script.json",
+          "kind": "helper-script",
+          "errors": []
+        },
+        {
+          "file": "output\\mvu-tag-compat\\components\\helper\\guard-v4-tags.script.json",
+          "kind": "helper-script",
+          "errors": []
+        }
+      ]
+    }
+  ],
+  "preservation": {
+    "sourceHashesUnchanged": true,
+    "displayMetadataPreserved": true,
+    "historyCleanupUnchanged": true,
+    "phoneAllFieldsPreserved": true,
+    "guardAllFieldsPreserved": true
+  },
+  "sourceHashes": {
+    "世界书规则/MVU/落第骑士-专属变量美化正则.json": "91a5eab87f75020ab2ceeb5feaee9dbf3c4cae6e92086c022fa374d696809a0a",
+    "scripts/酒馆助手脚本-小手机-黑白ADV轮盘版-v1.3.15.json": "e3ef0e7f0dc81e4c70e1a7abd4d6f6f2d3bc2719ac8ec47e79c955c8f1f29a4b",
+    "世界书规则/MVU/落第骑士-MVU-v4字段约束.json": "f2c24ab817084a0699cb12829462602d7e363abdd44404f57f227fcd0cbb9d2d"
+  },
+  "evidence": "Deterministic Node regex and component validation; no player host execution."
+}

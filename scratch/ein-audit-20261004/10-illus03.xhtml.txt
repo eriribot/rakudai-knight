@@ -1,0 +1,3 @@
+彩页
+if(navigator.userAgent.toLowerCase().match("edge")){
+document.onreadystatechange=function(){if(document.readyState=="interactive"){f=function(n){return document.getElementsByClassName(n)[0]};f('change').remove();x=f('change-image').classList;x.add('change-image-show');x.remove('change-image');}}}

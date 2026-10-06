@@ -1,0 +1,98 @@
+{
+  "status": "passed",
+  "generatedAt": "2026-10-06T07:29:08.528Z",
+  "host": "SillyTavern 1.18.0",
+  "origin": "http://127.0.0.1:8000/",
+  "character": "落第骑士英雄谭v0.03",
+  "messageId": 2,
+  "scope": "编辑当前角色原有两条局部正则；刷新重开同一聊天；未生成或保存编辑聊天消息",
+  "sourceHashes": {
+    "resource/knightavatars/manifest.json": "dd6060eecc8d78cdeb05f44f58f83e3d4b262d87f2a9f24936aaeb14a3551521",
+    "scripts/正文气泡/bubble.css": "259c0ebf8bb57579179770d6b545029c3192bee42ac35378cf7242cd540a94e4",
+    "scripts/正文气泡/context-guard.mjs": "80dd9ae2eba789f8b9f4f7012b74705c0ee06ce586129423f56732adffc2eb8a",
+    "scripts/正文气泡/build.mjs": "39326e9d901a62cea7127484a1a491e87c9ae7d8042f16c770b8a78483be52fb"
+  },
+  "artifacts": [
+    {
+      "file": "components/dialogue-bubbles.regex.json",
+      "sha256": "052ba7e4dad0be89a6caa6921b0ed09c3ec1b0b9aad9df608b64cbf8b198b376",
+      "bytes": 12321
+    },
+    {
+      "file": "components/dialogue-bubble-style.regex.json",
+      "sha256": "c6c34e5119146cb45280f431c9c89a637c3cd478f17e02c2e3693a5cc7c3c523",
+      "bytes": 14671
+    }
+  ],
+  "hostParity": [
+    {
+      "hostId": "9b72eda5-1bd4-4bd9-9b73-d1a8a8d9322f",
+      "scriptName": "01 盾形对白 · 姓名与台词 v0.2",
+      "exactParity": true,
+      "placement": [
+        2
+      ],
+      "display": true,
+      "prompt": false,
+      "disabled": false
+    },
+    {
+      "hostId": "01414260-25f8-4755-8346-472356ae6785",
+      "scriptName": "02 盾形对白 · 共享样式 v0.2",
+      "exactParity": true,
+      "placement": [
+        2
+      ],
+      "display": true,
+      "prompt": false,
+      "disabled": false
+    }
+  ],
+  "before": {
+    "bubbles": 0
+  },
+  "after": {
+    "bubbleOverflow": 0,
+    "bubbleStyles": 1,
+    "bubbles": 13,
+    "examples": [
+      {
+        "avatar": "url(\"https://eriribot.github.io/rakudai-knight/resource/knightavatars/ikki.png\")",
+        "display": "flex",
+        "name": "黑铁一辉",
+        "speakerColor": "rgb(220, 212, 240)"
+      },
+      {
+        "avatar": "url(\"https://eriribot.github.io/rakudai-knight/resource/knightavatars/stella.png\")",
+        "display": "flex",
+        "name": "史黛菈·法米利昂",
+        "speakerColor": "rgb(220, 212, 240)"
+      }
+    ],
+    "outsideEvent": 0
+  },
+  "rawMessage": {
+    "unchanged": true,
+    "sha256": "39d5e05d45b0ef71a85cf60fe45bafc8841cc9fd6f25a3d37d187d308cb99731",
+    "characters": 14750
+  },
+  "visual": {
+    "image": "runtime-bubble-proof.jpg",
+    "verified": "实机截图可见盾形头像、姓名和台词气泡；两种头像显示正常"
+  },
+  "rootCauses": [
+    "v0.1 任意前置 < 阻断后续正文",
+    "v0.1 style 带属性未被宿主 encodeStyleTags 保护，随后被净化移除"
+  ],
+  "apiEvidence": [
+    "https://raw.githubusercontent.com/SillyTavern/SillyTavern/1.18.0/public/scripts/extensions/regex/engine.js",
+    "https://raw.githubusercontent.com/SillyTavern/SillyTavern/1.18.0/public/scripts/chats.js"
+  ],
+  "unverified": [
+    "真实新生成流式回复",
+    "其他设备和主题",
+    "其他全局正则结构",
+    "模型格式遵守率",
+    "未显示的其余29个角色远程图片"
+  ]
+}

@@ -1,0 +1,1393 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-06T07:44:43.653Z",
+  "nodeVersion": "v25.6.1",
+  "sourceHashes": {
+    "scripts/正文气泡/build.mjs": "441b1f5f334895ed4e2ef0f2583522042cbbd4cd439eb85f75437a08183d0207",
+    "scripts/正文气泡/context-guard.mjs": "80dd9ae2eba789f8b9f4f7012b74705c0ee06ce586129423f56732adffc2eb8a",
+    "scripts/正文气泡/bubble.css": "259c0ebf8bb57579179770d6b545029c3192bee42ac35378cf7242cd540a94e4",
+    "resource/knightavatars/manifest.json": "dd6060eecc8d78cdeb05f44f58f83e3d4b262d87f2a9f24936aaeb14a3551521"
+  },
+  "dialect": "SillyTavern card RegexScriptData",
+  "evidenceType": "offline-javascript-string-replacement",
+  "disclaimer": "仅验证规则字段、JavaScript 替换与固定输入输出；不等于 SillyTavern 实机、Markdown 渲染或真实模型格式遵守率验收。",
+  "unverifiedHostStages": [
+    "installed-version numeric placement mapping",
+    "Markdown/HTML rendering",
+    "macro substitution (not run; actual behavior depends on the installed host)",
+    "actual prompt assembly",
+    "global/preset/character regex ordering",
+    "edit/swipe/reload/streaming lifecycle",
+    "remote avatar availability"
+  ],
+  "declaredScope": {
+    "placement": [
+      2
+    ],
+    "destination": "display",
+    "markdownOnly": true,
+    "promptOnly": false,
+    "runOnEdit": true
+  },
+  "safetyBoundary": "仅对已知唯一姓名或当前玩家安全姓名的纯文本行生成 HTML；玩家查找宏以转义值进行有限离线模拟，不代表宿主宏系统验收。正文封套及已闭合保护块之后可恢复；当前保护块、HTML 属性及普通 details 内不转换；同名保护标签嵌套允许保守回退；含 HTML/实体或 {{ 宏标记的行保持宿主原文。本组件不是原始消息 HTML 消毒器。",
+  "manifestCharacters": 31,
+  "uniqueNamesChecked": 163,
+  "ambiguousNames": [],
+  "total": 333,
+  "passed": 333,
+  "failed": 0,
+  "measurements": [
+    {
+      "name": "十万字旁白夹少量对白",
+      "inputCharacters": 96014,
+      "outputCharacters": 108806,
+      "elapsedMs": 16.98
+    },
+    {
+      "name": "数万字连续对白",
+      "inputCharacters": 37889,
+      "outputCharacters": 260930,
+      "elapsedMs": 5312.47
+    },
+    {
+      "name": "八万字单行对白",
+      "inputCharacters": 80003,
+      "outputCharacters": 92619,
+      "elapsedMs": 12.91
+    }
+  ],
+  "results": [
+    {
+      "name": "规则结构：恰好两条，唯一 ID，AI 显示侧，编辑时重绘",
+      "passed": true
+    },
+    {
+      "name": "显式传入规则与默认规则行为一致",
+      "passed": true
+    },
+    {
+      "name": "用户原样双语复现：日文行保留，两个中文对白显示气泡",
+      "passed": true
+    },
+    {
+      "name": "当前玩家动态匹配，换名后旧名与其他未知人物不放行",
+      "passed": true
+    },
+    {
+      "name": "玩家英文正则元字符与单引号按字面匹配，大小写沿用 i",
+      "passed": true
+    },
+    {
+      "name": "空名、HTML、宏、冒号及换行玩家名不制造气泡或跨行捕获",
+      "passed": true
+    },
+    {
+      "name": "玩家与 NPC 混排共用一次样式，玩家分支保留台词安全边界",
+      "passed": true
+    },
+    {
+      "name": "动态玩家在保护区与 HTML 属性内不转换，闭合后正文恢复",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：黑铁一辉",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：一辉",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：黑鐵一輝",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：一輝",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：黒鉄一輝",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Ikki Kurogane",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：史黛菈·法米利昂",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：史黛菈",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：史黛拉",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：史黛拉·法米利昂",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：ステラ・ヴァーミリオン",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Stella Vermillion",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：黑铁珠雫",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：珠雫",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：黑鐵珠雫",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：黒鉄珠雫",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Shizuku Kurogane",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：绫辻绚濑",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：绚濑",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：绫濑",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：绫辻绚瀬",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：綾辻絢瀨",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：綾辻絢瀬",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：絢瀨",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：絢瀬",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Ayase Ayatsuji",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：东堂刀华",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：刀华",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：東堂刀華",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：刀華",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Toka Todo",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Touka Toudou",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：黑铁严",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：黑鐵嚴",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：黒鉄厳",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Kurogane Itsuki",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Itsuki Kurogane",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：黑铁王马",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：王马",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：黑鐵王馬",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：黒鉄王馬",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：王馬",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Ouma Kurogane",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：爱德怀斯",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：愛德懷斯",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：艾德怀斯",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：艾德懷斯",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Edelweiss",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：エーデルワイス",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：诸星雄大",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：諸星雄大",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Yuudai Moroboshi",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Yudai Moroboshi",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：有栖院凪",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：有栖院",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：爱丽丝",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：愛麗絲",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Alice",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Nagi Arisuin",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：有栖院 凪",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：有栖院艾莉丝",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：有栖院艾莉絲",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Alice Arisuin",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：桐原静矢",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：桐原靜矢",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Shizuya Kirihara",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：仓敷藏人",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：倉敷藏人",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：倉敷蔵人",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Kuraudo Kurashiki",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Claude Kurashiki",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：兔丸恋恋",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：兔丸戀戀",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：兎丸恋々",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：兔丸恋々",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：恋恋",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：戀戀",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Renren Tomaru",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：御祓泡沫",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：御祓 泡沫",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：御禊泡沫",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：泡沫",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Utakata Misogi",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：贵德原彼方",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：貴德原彼方",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：貴徳原彼方",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：彼方",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Kanata Totokubara",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：西京宁音",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：西京寧音",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：西京 寧音",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：宁音",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：寧音",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Nene Saikyo",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Nene Saikyou",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Saikyou Nene",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：新宫寺黑乃",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：新宮寺黑乃",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：新宮寺黒乃",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：黑乃",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：黒乃",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Kurono Shinguji",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Kurono Shinguuji",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：折木有里",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：有里",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Yuri Oreki",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：折木 有里",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：艾莉丝·阿斯卡里德",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：艾莉絲·阿斯卡里德",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：艾莉丝·格尔",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：艾莉絲·格爾",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：阿斯卡里德",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Iris Ascarid",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Iris Gaule",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：アイリス・アスカリッド",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：アイリス・ゴール",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：黑骑士艾莉丝",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：黑騎士艾莉絲",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：艾莉丝·格尔·阿斯卡里德",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：艾莉絲·格爾·阿斯卡里德",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：多多良幽衣",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：多多良 幽衣",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：幽衣",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：欧尔·格尔",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：歐爾·格爾",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：欧尔雷斯·格尔",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：歐爾雷斯·格爾",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：傀儡王",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：华伦斯坦",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：華倫斯坦",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：药师雾子",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：藥師霧子",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：莎拉·布拉德莉莉",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：莎拉",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：风祭凛奈",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：風祭凜奈",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：風祭凛奈",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：风祭凜奈",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：艾茵·阿伯伦特",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：艾茵·阿伯倫特",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：艾茵",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Ein",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Dirty Rose",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：碎城雷",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：IKADSUCHI SAIJO",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Ikadsuchi Saijo",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：浅木椛",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：淺木椛",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：浅桦",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：淺樺",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Momiji Asagi",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：MOMIJI ASAGI",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：城之崎白夜",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：白夜",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Byakuya Jogasaki",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：BYAKUYA JOGASAKI",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：鹤屋美琴",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：鶴屋美琴",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Mikoto Tsuruya",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Tsuruya Mikoto",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：福小莉",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Fu Xiaoli",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Xiaoli Fu",
+      "passed": true
+    },
+    {
+      "name": "歧义别名保留原文：艾莉丝",
+      "passed": true
+    },
+    {
+      "name": "中英文冒号兼容，台词内部冒号及引号原样",
+      "passed": true
+    },
+    {
+      "name": "英文别名大小写保持输入文字，并能命中对白",
+      "passed": true
+    },
+    {
+      "name": "JavaScript replacement 符号 $1、$$、$`、$' 不二次求值",
+      "passed": true
+    },
+    {
+      "name": "连续对白逐行转换，首尾旁白保持原样",
+      "passed": true
+    },
+    {
+      "name": "CRLF 不吞相邻行和末尾换行",
+      "passed": true
+    },
+    {
+      "name": "允许 0 个行首空格",
+      "passed": true
+    },
+    {
+      "name": "允许 1 个行首空格",
+      "passed": true
+    },
+    {
+      "name": "允许 2 个行首空格",
+      "passed": true
+    },
+    {
+      "name": "允许 3 个行首空格",
+      "passed": true
+    },
+    {
+      "name": "代码缩进保留：\"    \"",
+      "passed": true
+    },
+    {
+      "name": "代码缩进保留：\"     \"",
+      "passed": true
+    },
+    {
+      "name": "代码缩进保留：\"\\t\"",
+      "passed": true
+    },
+    {
+      "name": "代码缩进保留：\" \\t\"",
+      "passed": true
+    },
+    {
+      "name": "代码缩进保留：\"\\t \"",
+      "passed": true
+    },
+    {
+      "name": "缩进行与普通对白混排互不干扰",
+      "passed": true
+    },
+    {
+      "name": "非目标行与空台词 1",
+      "passed": true
+    },
+    {
+      "name": "非目标行与空台词 2",
+      "passed": true
+    },
+    {
+      "name": "非目标行与空台词 3",
+      "passed": true
+    },
+    {
+      "name": "非目标行与空台词 4",
+      "passed": true
+    },
+    {
+      "name": "非目标行与空台词 5",
+      "passed": true
+    },
+    {
+      "name": "非目标行与空台词 6",
+      "passed": true
+    },
+    {
+      "name": "非目标行与空台词 7",
+      "passed": true
+    },
+    {
+      "name": "非目标行与空台词 8",
+      "passed": true
+    },
+    {
+      "name": "非目标行与空台词 9",
+      "passed": true
+    },
+    {
+      "name": "非目标行与空台词 10",
+      "passed": true
+    },
+    {
+      "name": "非目标行与空台词 11",
+      "passed": true
+    },
+    {
+      "name": "非目标行与空台词 12",
+      "passed": true
+    },
+    {
+      "name": "非目标行与空台词 13",
+      "passed": true
+    },
+    {
+      "name": "非目标行与空台词 14",
+      "passed": true
+    },
+    {
+      "name": "非目标行与空台词 15",
+      "passed": true
+    },
+    {
+      "name": "非目标行与空台词 16",
+      "passed": true
+    },
+    {
+      "name": "非目标行与空台词 17",
+      "passed": true
+    },
+    {
+      "name": "非目标行与空台词 18",
+      "passed": true
+    },
+    {
+      "name": "非目标行与空台词 19",
+      "passed": true
+    },
+    {
+      "name": "非目标行与空台词 20",
+      "passed": true
+    },
+    {
+      "name": "非目标行与空台词 21",
+      "passed": true
+    },
+    {
+      "name": "非目标行与空台词 22",
+      "passed": true
+    },
+    {
+      "name": "非目标行与空台词 23",
+      "passed": true
+    },
+    {
+      "name": "非目标行与空台词 24",
+      "passed": true
+    },
+    {
+      "name": "消息含 ``` 时整条保留：```text\n一辉:代码内容。\n```",
+      "passed": true
+    },
+    {
+      "name": "消息含 ``` 时整条保留：史黛菈:围栏前的对白也保持原文。\n```",
+      "passed": true
+    },
+    {
+      "name": "消息含 ``` 时整条保留：一辉:正文中间有 ``` 标记。",
+      "passed": true
+    },
+    {
+      "name": "消息含 ~~~ 时整条保留：~~~text\n一辉:代码内容。\n~~~",
+      "passed": true
+    },
+    {
+      "name": "消息含 ~~~ 时整条保留：史黛菈:围栏前的对白也保持原文。\n~~~",
+      "passed": true
+    },
+    {
+      "name": "消息含 ~~~ 时整条保留：一辉:正文中间有 ~~~ 标记。",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<UpdateVariable>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<updatevariable>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<UPDATEVARIABLE>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<update>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<UPDATE>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<Analysis>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<analysis>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<ANALYSIS>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<JSONPatch>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<jsonpatch>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<JSONPATCH>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<think>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<THINK>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<thinking>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<THINKING>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<reasoning>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<REASONING>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<script>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<SCRIPT>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<style>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<STYLE>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<pre>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<PRE>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<code>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<CODE>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<textarea>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<TEXTAREA>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<acg_think>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<ACG_THINK>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<combat_driver>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<COMBAT_DRIVER>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<story_driver>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<STORY_DRIVER>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<parallel_line_drive>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<PARALLEL_LINE_DRIVE>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<memory_log>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<MEMORY_LOG>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<wlog>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<WLOG>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<status>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<STATUS>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<affinity>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<AFFINITY>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<!--",
+      "passed": true
+    },
+    {
+      "name": "保护块闭合后恢复正文：<UpdateVariable>",
+      "passed": true
+    },
+    {
+      "name": "保护块闭合后恢复正文：<update>",
+      "passed": true
+    },
+    {
+      "name": "保护块闭合后恢复正文：<Analysis>",
+      "passed": true
+    },
+    {
+      "name": "保护块闭合后恢复正文：<JSONPatch>",
+      "passed": true
+    },
+    {
+      "name": "保护块闭合后恢复正文：<think>",
+      "passed": true
+    },
+    {
+      "name": "保护块闭合后恢复正文：<thinking>",
+      "passed": true
+    },
+    {
+      "name": "保护块闭合后恢复正文：<reasoning>",
+      "passed": true
+    },
+    {
+      "name": "保护块闭合后恢复正文：<script>",
+      "passed": true
+    },
+    {
+      "name": "保护块闭合后恢复正文：<style>",
+      "passed": true
+    },
+    {
+      "name": "保护块闭合后恢复正文：<pre>",
+      "passed": true
+    },
+    {
+      "name": "保护块闭合后恢复正文：<code>",
+      "passed": true
+    },
+    {
+      "name": "保护块闭合后恢复正文：<textarea>",
+      "passed": true
+    },
+    {
+      "name": "保护块闭合后恢复正文：<acg_think>",
+      "passed": true
+    },
+    {
+      "name": "保护块闭合后恢复正文：<combat_driver>",
+      "passed": true
+    },
+    {
+      "name": "保护块闭合后恢复正文：<story_driver>",
+      "passed": true
+    },
+    {
+      "name": "保护块闭合后恢复正文：<parallel_line_drive>",
+      "passed": true
+    },
+    {
+      "name": "保护块闭合后恢复正文：<memory_log>",
+      "passed": true
+    },
+    {
+      "name": "保护块闭合后恢复正文：<wlog>",
+      "passed": true
+    },
+    {
+      "name": "保护块闭合后恢复正文：<status>",
+      "passed": true
+    },
+    {
+      "name": "保护块闭合后恢复正文：<affinity>",
+      "passed": true
+    },
+    {
+      "name": "保护块闭合后恢复正文：<!--",
+      "passed": true
+    },
+    {
+      "name": "正文封套 content 内部允许气泡",
+      "passed": true
+    },
+    {
+      "name": "正文封套 story_scene 内部允许气泡",
+      "passed": true
+    },
+    {
+      "name": "正文封套 parallel_line 内部允许气泡",
+      "passed": true
+    },
+    {
+      "name": "正文封套 div 内部允许气泡",
+      "passed": true
+    },
+    {
+      "name": "前置思考驱动、正文并行驱动及末尾状态块互不污染",
+      "passed": true
+    },
+    {
+      "name": "HTML 标签与属性保护：普通多行属性",
+      "passed": true
+    },
+    {
+      "name": "HTML 标签与属性保护：双引号属性包含大于号",
+      "passed": true
+    },
+    {
+      "name": "HTML 标签与属性保护：单引号属性包含大于号",
+      "passed": true
+    },
+    {
+      "name": "HTML 标签与属性保护：属性里的伪关闭标签",
+      "passed": true
+    },
+    {
+      "name": "HTML 标签与属性保护：未闭合双引号属性",
+      "passed": true
+    },
+    {
+      "name": "HTML 标签与属性保护：未闭合单引号属性",
+      "passed": true
+    },
+    {
+      "name": "HTML 标签与属性保护：完整 textarea",
+      "passed": true
+    },
+    {
+      "name": "HTML 标签与属性保护：textarea 属性",
+      "passed": true
+    },
+    {
+      "name": "完整 HTML 属性关闭后，普通容器正文与后行可转换",
+      "passed": true
+    },
+    {
+      "name": "普通 details 保护内部，结束后恢复",
+      "passed": true
+    },
+    {
+      "name": "平行线事件 details 的正文可显示气泡",
+      "passed": true
+    },
+    {
+      "name": "平行线事件内嵌普通驱动 details 仍受保护",
+      "passed": true
+    },
+    {
+      "name": "details 边界：后置 summary 不改变首 summary 的驱动身份",
+      "passed": true
+    },
+    {
+      "name": "details 边界：属性里的伪 details 关闭不结束驱动区",
+      "passed": true
+    },
+    {
+      "name": "details 边界：未关闭的 details 保持保护",
+      "passed": true
+    },
+    {
+      "name": "同名保护标签嵌套允许保守保留后文：acg_think",
+      "passed": true
+    },
+    {
+      "name": "同名保护标签嵌套允许保守保留后文：story_driver",
+      "passed": true
+    },
+    {
+      "name": "同名保护标签嵌套允许保守保留后文：status",
+      "passed": true
+    },
+    {
+      "name": "同名保护标签嵌套允许保守保留后文：UpdateVariable",
+      "passed": true
+    },
+    {
+      "name": "Unicode 行分隔 U+2028 不合并两句对白",
+      "passed": true
+    },
+    {
+      "name": "Unicode 行分隔 U+2029 不合并两句对白",
+      "passed": true
+    },
+    {
+      "name": "完整 MVU JSONPatch 逐字保留，闭合之后允许恢复正文",
+      "passed": true
+    },
+    {
+      "name": "含宿主宏标记的台词整行回退：一辉:{{user}}",
+      "passed": true
+    },
+    {
+      "name": "含宿主宏标记的台词整行回退：一辉:先说{{getvar::x}}后说",
+      "passed": true
+    },
+    {
+      "name": "HTML/实体反例整行不转换、不截取安全前缀 1",
+      "passed": true
+    },
+    {
+      "name": "HTML/实体反例整行不转换、不截取安全前缀 2",
+      "passed": true
+    },
+    {
+      "name": "HTML/实体反例整行不转换、不截取安全前缀 3",
+      "passed": true
+    },
+    {
+      "name": "HTML/实体反例整行不转换、不截取安全前缀 4",
+      "passed": true
+    },
+    {
+      "name": "HTML/实体反例整行不转换、不截取安全前缀 5",
+      "passed": true
+    },
+    {
+      "name": "HTML/实体反例整行不转换、不截取安全前缀 6",
+      "passed": true
+    },
+    {
+      "name": "HTML/实体反例整行不转换、不截取安全前缀 7",
+      "passed": true
+    },
+    {
+      "name": "HTML/实体反例整行不转换、不截取安全前缀 8",
+      "passed": true
+    },
+    {
+      "name": "HTML/实体反例整行不转换、不截取安全前缀 9",
+      "passed": true
+    },
+    {
+      "name": "HTML/实体反例整行不转换、不截取安全前缀 10",
+      "passed": true
+    },
+    {
+      "name": "HTML/实体反例整行不转换、不截取安全前缀 11",
+      "passed": true
+    },
+    {
+      "name": "HTML/实体反例整行不转换、不截取安全前缀 12",
+      "passed": true
+    },
+    {
+      "name": "HTML/实体反例整行不转换、不截取安全前缀 13",
+      "passed": true
+    },
+    {
+      "name": "HTML/实体反例整行不转换、不截取安全前缀 14",
+      "passed": true
+    },
+    {
+      "name": "HTML/实体反例整行不转换、不截取安全前缀 15",
+      "passed": true
+    },
+    {
+      "name": "引号位于文本节点，不能变成气泡属性",
+      "passed": true
+    },
+    {
+      "name": "未知人物 HTML 原行保留，后续安全对白仍转换",
+      "passed": true
+    },
+    {
+      "name": "无对白消息不注入样式；转换结果再次处理幂等",
+      "passed": true
+    },
+    {
+      "name": "原始消息字符串保留，离线替换返回新字符串",
+      "passed": true
+    },
+    {
+      "name": "性能粗测：十万字旁白夹少量对白",
+      "passed": true
+    },
+    {
+      "name": "性能粗测：数万字连续对白",
+      "passed": true
+    },
+    {
+      "name": "性能粗测：八万字单行对白",
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "generatedOn": "2026-10-04",
+  "generationMode": "built-in image_gen",
+  "character": "史黛拉 · 法米利昂",
+  "purpose": "C 级支援同人概念预览，官方人设参考下的 AI 重绘；非官方原始分层素材。",
+  "files": {
+    "body": "stella.png",
+    "expression": "stella-expression.png"
+  },
+  "canvas": {
+    "width": 1024,
+    "height": 1536
+  },
+  "identityReference": {
+    "path": "../../assets/references/stella-anime.jpg",
+    "sourcePage": "https://ittoshura.com/character/",
+    "role": "身份、红色双马尾与发带、眼睛、校服、平涂动画风格"
+  },
+  "generatedOriginals": [
+    "C:/Users/weijunxiang/.codex/generated_images/01a106ce-697e-7370-bec9-6c668096803d/exec-86619101-be23-4985-b0ee-33a24d3bc8c0.png",
+    "C:/Users/weijunxiang/.codex/generated_images/01a106ce-697e-7370-bec9-6c668096803d/exec-73924d76-59d0-4f12-886b-8981354d00ac.png"
+  ],
+  "prompts": {
+    "base": "Use case: identity-preserve. Asset type: transparent layered-dialogue game character base.\nReference image: official TV anime character sheet of Stella Vermillion. Preserve her exact anime identity, red twin tails with pale yellow-green ribbon bows, red eyes, distinctive black-and-white school uniform with purple ribbon at collar and geometric white trim, long white split jacket tails. Reconstruct ONLY the single standing figure at the RIGHT of the reference, no text or extra inset faces.\nCreate one clean high-resolution knee-up standing conversational portrait, straight-on with a very slight turn toward viewer's left, hands resting confidently at hips as in the official reference, friendly but self-assured CLOSED-mouth neutral expression. Entire head and hair ribbons must fit with generous top margin. Lower crop just below knees. Natural original anime proportions, not chibi; no weapon.\nStyle: faithfully match 2015 Japanese television anime clean black linework and flat two-tone cel shading, no painterly texture, no gradients on face, no photorealism or 3D.\nOutput: single character on a genuinely transparent alpha background, portrait canvas preferably 1024x1536. No cast shadow, no background color, no labels, no watermark. Leave each eye and closed mouth clearly defined and suitable for later precisely aligned facial overlay patches.",
+    "expression": "Use case: precise-object-edit. This is an animation frame edit of the supplied Stella Vermillion portrait. Keep the EXACT same 1024x1536 canvas, position, pose, head size, face silhouette, skin colors, hair, outfit, linework and every body pixel. Change ONLY two tiny interior facial features: (1) close both eyes in a natural relaxed blink, preserving surrounding eyelashes and skin with no head movement; (2) change the small closed mouth to a modest slightly open speaking mouth, no big smile, no teeth, no tongue protrusion. Preserve the entire original portrait and its existing transparency. Do not redraw, relight, resize, move, or crop the character. This image will be layered in exact same coordinates over the original base. No background, no text."
+  },
+  "formatProfile": "aligned-full-canvas-overlays",
+  "rendering": {
+    "description": "透明 body + 从同画布编辑稿采样的独立眼嘴窗口；CSS 只缩放整个 stage。新制两状态图层，不采用菈菈旧 Unity 容器，不是 Live2D。",
+    "regions": {
+      "eyes": {
+        "x": 435,
+        "y": 205,
+        "width": 153,
+        "height": 60
+      },
+      "mouth": {
+        "x": 496,
+        "y": 277,
+        "width": 50,
+        "height": 31
+      }
+    },
+    "frameOrder": {
+      "eyes": [
+        "base-open",
+        "overlay-closed",
+        "base-open"
+      ],
+      "mouth": [
+        "base-rest",
+        "overlay-speaking",
+        "base-rest"
+      ]
+    },
+    "alpha": "PNG 自带 alpha，无单独 mask；CSS 仅对局部窗口边缘羽化。",
+    "fallback": "素材未加载或减少动态时显示 body 中性帧",
+    "animation": "4.7 秒眨眼循环；说话期间 360ms 口型循环，与逐字显示状态一致，无声音/音素分析。"
+  },
+  "inspection": {
+    "width": 1024,
+    "height": 1536,
+    "pixelFormat": "Format32bppArgb",
+    "alphaSamples": {
+      "corner": 0,
+      "face": 253
+    },
+    "knownDeviations": [
+      "母图请求膝上，但生成结果为接近全身；运行时使用同一画布整体取景。",
+      "表情为闭眼/微张口两状态，没有三帧图集和 Live2D 网格。",
+      "史黛拉以外的一辉只做整图呼吸/发言强调，无眼嘴分层。"
+    ],
+    "humanArtAcceptance": "pending"
+  }
+}

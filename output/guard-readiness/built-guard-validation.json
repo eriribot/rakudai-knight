@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "file": "世界书规则/MVU/落第骑士-MVU-v4字段约束.json",
+  "sha256": "303e15258f42e981237a152f9657256a8611930b3e15ebf5b9070bc6a467f404",
+  "checks": [
+    "HTML parser preserves one complete inline script modulo standard CRLF normalization",
+    "exact built artifact uses real Zod/schema/guard with a stubbed remote bridge",
+    "boot ready references real G04/T02 guard after one registration",
+    "pagehide removes boot, guard and owned MVU hooks"
+  ],
+  "harnessCorrection": "First assertion compared raw CRLF against HTML-normalized LF. Production source unchanged; parser comparison now accounts only for HTML standard newline normalization.",
+  "runtime": "offline VM; remote bridge and host event bus stubbed, no real host or API calls"
+}

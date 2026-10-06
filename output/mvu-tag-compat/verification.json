@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "deliveryMode": "component",
+  "phoneVersion": "1.3.15",
+  "passed": true,
+  "totalChecks": 95,
+  "groups": [
+    { "command": "node scripts/check-mvu-tag-compat.mjs --write", "passed": 18, "total": 18, "boundary": "Node regex stage eligibility and replacement; not target-host rendering" },
+    { "command": "node scripts/黑白ADV轮盘终端/correction-readiness-test.mjs", "passed": 33, "total": 33, "boundary": "Real correction source; host/MVU/network/time doubles" },
+    { "command": "node scripts/黑白ADV轮盘终端/correction-exclusions-test.mjs", "passed": 11, "total": 11, "boundary": "Real correction source and pinned upstream request snippets; host/network doubles" },
+    { "command": "node scripts/黑白ADV轮盘终端/packaging-test.mjs", "passed": 9, "total": 9, "boundary": "Generated artifact through parse5 and V8; not Tavern import" },
+    { "command": "node --test scripts/check-tournament-guard.mjs", "passed": 8, "total": 8, "boundary": "Real guard handlers; host/events/core doubles" },
+    { "command": "node scripts/黑白ADV轮盘终端/shell-test.mjs", "passed": 9, "total": 9, "boundary": "Real shell source; offline DOM/time doubles" },
+    { "command": "node scripts/check-mvu-native-core.mjs", "passed": 7, "total": 7, "boundary": "Pinned actual upstream core bodies, real Lodash/Klona/JSON5; host/events doubles" }
+  ],
+  "componentValidation": "component-validation.json",
+  "preserved": ["display metadata", "history prompt-cleanup regex", "raw player messages", "save source/events/CAS/readback conditions", "canonical generated patch tags", "prior component releases"],
+  "remainingAcceptance": ["player installed versions", "player import and regex ordering", "player current-floor and swipe stat_data readback"],
+  "noLivePlayerWrites": true
+}

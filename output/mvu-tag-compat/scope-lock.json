@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "deliveryMode": "component",
+  "sourceHashes": {
+    "世界书规则/MVU/落第骑士-专属变量美化正则.json": "91a5eab87f75020ab2ceeb5feaee9dbf3c4cae6e92086c022fa374d696809a0a",
+    "scripts/酒馆助手脚本-小手机-黑白ADV轮盘版-v1.3.15.json": "e3ef0e7f0dc81e4c70e1a7abd4d6f6f2d3bc2719ac8ec47e79c955c8f1f29a4b",
+    "世界书规则/MVU/落第骑士-MVU-v4字段约束.json": "f2c24ab817084a0699cb12829462602d7e363abdd44404f57f227fcd0cbb9d2d"
+  },
+  "selected": [
+    {
+      "id": "e0b51684-257a-422a-a9f8-rakudai00001",
+      "kind": "regex",
+      "output": "components/regex/variable-display.regex.json"
+    },
+    {
+      "id": "ee190b2f-d2ba-44b4-9f1b-0695c07fefc5",
+      "kind": "helper-script",
+      "output": "components/helper/phone-v1-3-15.script.json"
+    },
+    {
+      "id": "06117475-a08c-4d78-a886-3d26426c4b37",
+      "kind": "helper-script",
+      "output": "components/helper/guard-v4-tags.script.json"
+    }
+  ],
+  "library": {
+    "snapshotVersion": "2026-08-18",
+    "routeIds": [
+      "sillytavern-render-regex-pipeline",
+      "sillytavern-component-update"
+    ],
+    "loadedDocumentIds": [
+      "ST-A0",
+      "ST-A5",
+      "ST-A6",
+      "ST-A2",
+      "ST-B2"
+    ],
+    "adoptedCandidates": [],
+    "a0": {
+      "goal": "Display nonempty snake-tag MVU output and recognize the same source tags in the phone/optional guard",
+      "redLines": "No real chat writes, replay, model API, full card package, history-cleanup edit or save-lock weakening",
+      "acceptance": "Reproduce empty captures, preserve non-target metadata, fixtures, upstream/core and existing readiness tests; target host pending"
+    }
+  },
+  "untouched": [
+    "prior releases",
+    "history prompt-cleanup regex",
+    "canonical output format",
+    "real chats and swipes",
+    "N01 component"
+  ],
+  "pendingRuntime": [
+    "player installed SillyTavern/Tavern Helper/MVU versions",
+    "player component import and current-swipe render/readback"
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "evidence": "Actual pinned upstream TypeScript bodies executed after type stripping; host/events doubled; no live Tavern writes.",
+  "commit": "61010dab47bc3a08a1b626320bf7fc8c9573eca4",
+  "runtime": "v25.6.1",
+  "n01Sha256": "3c17148e1165b70be48d1c2798e08bfb724550dacf809c137dea3a9e054a2db5",
+  "hashes": {
+    "variable-def": {
+      "url": "https://raw.githubusercontent.com/MagicalAstrogy/MagVarUpdate/61010dab47bc3a08a1b626320bf7fc8c9573eca4/src/variable_def.ts",
+      "sha256": "8ba03ce3d02a2b21ff5af214f01823bbec88e6f2cc33cf831c34a53ecbf3b21e"
+    },
+    "schema": {
+      "url": "https://raw.githubusercontent.com/MagicalAstrogy/MagVarUpdate/61010dab47bc3a08a1b626320bf7fc8c9573eca4/src/function/schema.ts",
+      "sha256": "e4b17f6f3f682fdc0e6f996706fbe39eb75875471215dd1ea48e56f422d1ae84"
+    },
+    "util": {
+      "url": "https://raw.githubusercontent.com/MagicalAstrogy/MagVarUpdate/61010dab47bc3a08a1b626320bf7fc8c9573eca4/src/util.ts",
+      "sha256": "35689f41f401478455eff417fa62fe4439aa1c6a6326b4fa3533a3633d8ade4b"
+    },
+    "common": {
+      "url": "https://raw.githubusercontent.com/MagicalAstrogy/MagVarUpdate/61010dab47bc3a08a1b626320bf7fc8c9573eca4/util/common.ts",
+      "sha256": "c9ef1ee81e1499e99b7943cba06e31f2f944e9bebbbd74dda8645b900cae7973"
+    },
+    "update-variables": {
+      "url": "https://raw.githubusercontent.com/MagicalAstrogy/MagVarUpdate/61010dab47bc3a08a1b626320bf7fc8c9573eca4/src/function/update_variables.ts",
+      "sha256": "fdcb2d26b047c21eb7bff7432a57fe2f1b9ab8fa77db17e06fed54596520383a"
+    },
+    "lodash": {
+      "url": "https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.js",
+      "sha256": "4c04561befdf653aef017a42ac5addf68ea943cdfca6bdee5ce04e04e8139f54"
+    },
+    "klona": {
+      "url": "https://cdn.jsdelivr.net/npm/klona@2.0.6/full/index.js",
+      "sha256": "f05a0cb26c2d9be7936242b50e46d1882cd7c054181050b56aed4f0521899bf7"
+    },
+    "json5": {
+      "url": "https://cdn.jsdelivr.net/npm/json5@2.2.3/dist/index.js",
+      "sha256": "c3f094c550436757e955bc1e2619fa5624ae8f22f41a7587b95af1d14175800a"
+    }
+  },
+  "checks": [
+    {
+      "name": "Actual upstream without N01 reproduces sentinel insert rejection",
+      "passed": true
+    },
+    {
+      "name": "Actual upstream add inserts person and preserves all previous business data/wrappers",
+      "passed": true
+    },
+    {
+      "name": "Actual upstream same-patch nested map insertion works after a new person",
+      "passed": true
+    },
+    {
+      "name": "Actual upstream replace treats two-string array as an ordinary array",
+      "passed": true
+    },
+    {
+      "name": "Actual upstream add to another empty nested map preserves existing state",
+      "passed": true
+    },
+    {
+      "name": "Actual upstream accepts snake and mixed-case JSONPatch tags with update_analysis",
+      "passed": true
+    },
+    {
+      "name": "Actual upstream mismatched patch tags do not apply the embedded operation",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "events": [
+    "mag_variable_update_started",
+    "mag_command_parsed",
+    "mag_command_parsed_for_zod",
+    "mag_command_parsed_ended_for_zod",
+    "mag_variable_update_ended",
+    "mag_variable_update_ended_for_zod",
+    "mag_variable_updated"
+  ],
+  "uncovered": [
+    "invalid JSON/YAML/math fallback",
+    "host floor/swipe persistence",
+    "real iframe lifecycle",
+    "Zod bridge listeners"
+  ]
+}

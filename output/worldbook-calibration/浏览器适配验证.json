@@ -1,6 +1,6 @@
 {
-  "passed": 27,
-  "total": 27,
+  "passed": 32,
+  "total": 32,
   "runtime": "离线固定API语义模拟，未连接真实酒馆",
   "results": [
     {
@@ -72,7 +72,27 @@
       "passed": true
     },
     {
-      "name": "未导入新版伴随脚本时显示具体缺项",
+      "name": "关闭约束可读取和建档，只修当前回复页native schema并保留包装数据",
+      "passed": true
+    },
+    {
+      "name": "native准备保留stat_data对象与业务值，只更新schema",
+      "passed": true
+    },
+    {
+      "name": "关闭约束仍可切章、整理名册及保存赛程，controller公开自身能力",
+      "passed": true
+    },
+    {
+      "name": "关闭约束仍保留本地页面校验及变量并发比较",
+      "passed": true
+    },
+    {
+      "name": "约束启动中或失败时明确诊断，不能当作关闭约束继续写入",
+      "passed": true
+    },
+    {
+      "name": "已开启约束的写入保持桥接原有schema，不改为native",
       "passed": true
     },
     {

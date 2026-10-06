@@ -1,6 +1,6 @@
 // Run: node scripts/check-tournament-guard.mjs
 // Execute the maintained shared sources and installed MVU event callback in an offline VM.
-// Only host event registration is simulated; no browser, API, release artifact, or real save is touched.
+// Host events/readers and the repair parse entry are simulated; no browser, API, release artifact, or real save is touched.
 import fs from 'node:fs';
 import vm from 'node:vm';
 import assert from 'node:assert/strict';
@@ -19,12 +19,19 @@ const source = [inlineStoryCatalog(), inlineTournamentSource(),
   'globalThis.testApi = { INITIAL_STATE, schema: testSchema, deriveTournament };',
 ].join('\n');
 
-function fixture() {
+function fixture(replyTexts = []) {
   const hooks = new Map(), lifecycle = new Map(), warnings = [];
-  const host = { SillyTavern: { getContext: () => ({ chatId: 'offline-tournament', chat: [] }) } };
+  const context = { chatId: 'offline-tournament', chat: replyTexts.map(mes => ({ mes })) };
+  const host = { SillyTavern: { getContext: () => context } };
   const window = { parent: host, top: host, addEventListener: (event, callback) => lifecycle.set(event, callback) };
+  window.getChatMessages = query => {
+    const range = String(query).includes('-'), id = Number(query);
+    return context.chat.flatMap((message, message_id) => range || message_id === id
+      ? [{ message_id, role: 'assistant', message: message.mes, swipe_id: 0, swipes: [message.mes] }] : []);
+  };
+  const Mvu = { events: { VARIABLE_UPDATE_ENDED: 'mvu-ended', COMMAND_PARSED: 'mvu-parsed' } };
   const realm = vm.createContext({ window, z, structuredClone,
-    Mvu: { events: { VARIABLE_UPDATE_ENDED: 'mvu-ended', COMMAND_PARSED: 'mvu-parsed' } },
+    Mvu,
     eventOn: (name, callback) => { hooks.set(name, callback); return { stop: () => hooks.delete(name) }; },
     console: { warn: message => warnings.push(message), info() {} },
   });
@@ -37,9 +44,10 @@ function fixture() {
     Object.assign(value.场景, { 当前卷: 1, 当前章: '第一章', 阶段: '进行中', 时间: date, 地点: '破军学园' });
     return plain(schema.parse(value));
   }
-  function update(before, mutate) {
+  function update(before, mutate, content) {
     const previous = { stat_data: structuredClone(before) }, variables = structuredClone(previous);
     mutate(variables.stat_data);
+    if (content !== undefined) hooks.get('mvu-parsed')(variables, [], content);
     hooks.get('mvu-ended')(variables, previous);
     assert.deepEqual(plain(previous.stat_data), plain(before), 'the real callback must not mutate its previous-state argument');
     assert.equal(schema.safeParse(variables.stat_data).success, true, 'the saved result must satisfy the real schema');
@@ -54,8 +62,92 @@ function fixture() {
         时间: '午后', 地点: '第一对决场', 状态: '已完成', 胜者: view.playerId, 依据: '本轮实际扮演：OC 战胜珠雫' };
     });
   }
-  return { host, window, hooks, lifecycle, warnings, state, update, bootstrap, actualWin, deriveTournament };
+  return { host, window, context, Mvu, realm, hooks, lifecycle, warnings, state, update, bootstrap, actualWin, deriveTournament };
 }
+
+const scoreOps = [
+  { op: 'replace', path: '/人际/同窗/好感', value: 105 },
+  { op: 'replace', path: '/人际/同窗/变化依据', value: '本轮共同完成巡查并实际互相协助' },
+];
+const scoreBlock = tag => `<UpdateVariable><Analysis>本轮共同完成巡查</Analysis><${tag}>${JSON.stringify(scoreOps)}</${tag}></UpdateVariable>`;
+function scoreUpdate(f, content) {
+  const before = f.state();
+  before.人际.同窗 = { 关系: '已认识的同窗', 态度印象: '已实际相处', 好感: 100, 支援度: 0,
+    羁绊阶段: '未建立', 变化依据: '此前实际相处记录' };
+  return f.update(before, next => {
+    next.人际.同窗.好感 = 105;
+    next.人际.同窗.变化依据 = scoreOps[1].value;
+    next.场景.地点 = '本轮确认的教室';
+  }, content);
+}
+
+test('guard binds canonical and underscore patch labels without rewriting the reply', () => {
+  for (const tag of ['JSONPatch', 'json_patch', 'JsOn_PaTcH']) {
+    const content = scoreBlock(tag), f = fixture([content]);
+    const saved = scoreUpdate(f, content);
+    assert.equal(saved.人际.同窗.好感, 105);
+    assert.equal(f.context.chat[0].mes, content);
+    assert.equal(saved.场景.地点, '本轮确认的教室');
+    f.lifecycle.get('pagehide')();
+  }
+});
+
+test('mixed duplicate labels, mismatched aliases, invalid arrays and Analysis-only JSON cannot claim a reply', () => {
+  for (const content of [
+    scoreBlock('json_patch').replace('</UpdateVariable>', '<JSONPatch>[]</JSONPatch></UpdateVariable>'),
+    scoreBlock('JSONPatch').replace('</JSONPatch>', '</json_patch>'),
+    '<UpdateVariable><json_patch>{"op":"replace"}</json_patch></UpdateVariable>',
+    '<UpdateVariable><json_patch>[broken]</json_patch></UpdateVariable>',
+    '<UpdateVariable><Analysis>' + JSON.stringify(scoreOps) + '</Analysis></UpdateVariable>',
+  ]) {
+    const f = fixture([content]), saved = scoreUpdate(f, content);
+    assert.equal(saved.人际.同窗.好感, 100);
+    assert.equal(saved.场景.地点, '本轮确认的教室');
+    assert.equal(f.context.chat[0].mes, content);
+    f.lifecycle.get('pagehide')();
+  }
+});
+
+test('the same underscore block on two reply floors remains ambiguous', () => {
+  const content = scoreBlock('json_patch'), f = fixture([content, content]);
+  assert.equal(scoreUpdate(f, content).人际.同窗.好感, 100);
+  f.lifecycle.get('pagehide')();
+});
+
+test('repair recognizes saved event evidence in underscore source labels while generating canonical JSONPatch', async () => {
+  const result = '本轮实际完成训练';
+  for (const tag of ['JSONPatch', 'json_patch', 'JsOn_PaTcH']) {
+    const operations = [{ op: 'replace', path: '/场景/已发生事件/本轮训练/结果', value: result }];
+    const content = `<UpdateVariable><${tag}>${JSON.stringify(operations)}</${tag}></UpdateVariable>`;
+    const f = fixture([content]), before = { stat_data: f.state() };
+    before.stat_data.场景.已发生事件.本轮训练 = { 卷号: 1, 章段: '第一章', 结果: result,
+      参与者: ['测试原创玩家'], 知情者: ['测试原创玩家'] };
+    const beforeSnapshot = plain(before);
+    // Observe the actual guard's options while retaining the real growth implementation.
+    vm.runInContext('const originalGrowth = enforceGrowthProgress; enforceGrowthProgress = (...args) => { globalThis.growthOptions = args[2]; return originalGrowth(...args); };', f.realm);
+    const parsed = [];
+    f.Mvu.parseMessage = async (wrapped, data) => {
+      parsed.push(wrapped);
+      const variables = structuredClone(data);
+      f.hooks.get('mvu-parsed')(variables, [], wrapped);
+      f.hooks.get('mvu-ended')(variables, data);
+      return variables;
+    };
+    const identity = { chatId: f.context.chatId, chatRef: f.context.chat, messageRef: f.context.chat[0],
+      messageId: 0, swipeId: 0 };
+    const saved = await f.host.__RK_MVU_GUARD_V4__.parseRepair('[]', before, content, identity);
+    assert.match(parsed[0], /<JSONPatch>\[\]<\/JSONPatch>/);
+    assert.deepEqual(plain(f.realm.growthOptions.repairEventKeys), ['本轮训练']);
+    assert.ok(f.realm.growthOptions.replyKey);
+    assert.equal(saved.stat_data.场景.已发生事件.本轮训练.结果, result);
+    assert.deepEqual(plain(before), beforeSnapshot);
+    assert.equal(f.context.chat[0].mes, content);
+    await assert.rejects(f.host.__RK_MVU_GUARD_V4__.parseRepair('[]', before, content,
+      { ...identity, swipeId: 1 }), /无法唯一确认/);
+    assert.equal(parsed.length, 1, 'a stale reply page must not enter repair parsing');
+    f.lifecycle.get('pagehide')();
+  }
+});
 
 test('installed guard exposes T02 and initializes a dated T01 ledger with a program summary through ENDED', () => {
   const f = fixture();

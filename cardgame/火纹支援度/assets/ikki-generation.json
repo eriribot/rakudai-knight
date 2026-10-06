@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "file": "ikki.png",
+  "character": "黑铁一辉 / Ikki Kurogane",
+  "purpose": "为火纹觉醒式 C 级支援对话概念预览制作的透明膝上立绘；AI 基于官方参考重建，并非官方原始立绘或最终分层生产资产。",
+  "generatedOn": "2026-10-04",
+  "generationMode": "built-in image_gen",
+  "sourceReference": {
+    "localPath": "../../assets/references/ikki-web/ikki-official-character.jpg",
+    "sourceUrl": "https://ittoshura.com/character/chara_ikki.jpg",
+    "sourcePage": "https://ittoshura.com/character/",
+    "sourceManifest": "../../assets/references/ikki-web/manifest.json",
+    "role": "Official anime identity and uniform reference; right full-body figure plus central facial reference",
+    "sourceUnchanged": true
+  },
+  "generatedOriginalPath": "C:/Users/weijunxiang/.codex/generated_images/01a106d3-6baf-77f0-bea3-29c331513cca/exec-1427070f-ab67-4b31-9282-95931237d5d3.png",
+  "prompt": "Use case: identity-preserve.\nAsset type: transparent visual novel dialogue character sprite for a fan concept support-conversation preview.\nInput image: the provided official anime character sheet for Ikki Kurogane from Rakudai Kishi no Cavalry. Use the black-haired boy on the RIGHT as the identity and uniform reference; the face close-up is additional identity guidance.\nPrimary request: create ONE clean standalone knee-up portrait sprite of Ikki Kurogane, upright relaxed posture, shown nearly front-on but turning his chest and face slightly toward viewer's RIGHT. Both arms hang naturally and both hands are relaxed at his sides. Friendly neutral closed-mouth expression.\nPreserve: his tousled short BLACK hair, gray-brown eyes, exact youthful face identity and ordinary teenage body proportions, WHITE academy jacket with dark edging and gray patterned lapels, black high-neck underlayer, black horizontal upper-arm straps and dark trousers, accurate white/black anime uniform design.\nStyle: polished clean 2015 Japanese TV-anime cel shading, crisp fine line art, restrained flat colors, faithful to the source character sheet, no painterly texture.\nComposition: single person centered with clear uncut hair silhouette and both hands visible, knee-up dialogue portrait, ideally portrait canvas 1024 x 1536 with generous transparent margins.\nBackground: actual alpha transparency, no backdrop, no paper, no texture, no shadow.\nAvoid: weapon, sword, action pose, raised finger, speech bubble, panel, letters, logo, text, duplicate people, chibi proportions, heavy blush, open mouth, 3D rendering, floor shadow.",
+  "output": {
+    "width": 1024,
+    "height": 1536,
+    "format": "PNG",
+    "pixelFormat": "Format32bppArgb",
+    "transparentBackground": true,
+    "alphaSamples": {
+      "corner": 0,
+      "leftEdge": 0,
+      "outsideBody": 0,
+      "body": 254
+    }
+  },
+  "review": {
+    "visuallyInspected": true,
+    "notes": [
+      "Single youthful black-haired character, white and black uniform, relaxed hands, friendly closed-mouth face.",
+      "Source face identity and uniform retained as close visual guidance, generated reinterpretation.",
+      "Alpha verified from saved PNG; no image editing or postprocessing performed.",
+      "Knee-up standing portrait; designed for a left-side dialogue participant facing slightly toward the right."
+    ]
+  },
+  "rights": "Character and official reference belong to their respective rights holders. Generated derivative for a fan concept preview; no license transfer implied."
+}

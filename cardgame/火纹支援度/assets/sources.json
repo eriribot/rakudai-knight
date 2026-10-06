@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "checkedOn": "2026-10-04",
+  "references": [
+    {
+      "character": "史黛拉",
+      "file": "../../assets/references/stella-anime.jpg",
+      "sourcePage": "https://ittoshura.com/character/",
+      "sourceAssetUrl": null,
+      "kind": "existing-project-official-character-sheet",
+      "sha256": "4468EBE7BEBB8874FE18BE888EEC372A6773C06F0E748C3B094638BDB2A9BBFB",
+      "evidence": "复用项目既有人设图；cardgame/references.html 标为动画官方设计图。本轮已目视核对及访问官网角色页，未重新下载，也未独立取得其原始图片 URL。",
+      "role": "AI 重绘身份与服装参考；原图未修改"
+    },
+    {
+      "character": "黑铁一辉",
+      "file": "../../assets/references/ikki-web/ikki-official-character.jpg",
+      "sourcePage": "https://ittoshura.com/character/",
+      "sourceAssetUrl": "https://ittoshura.com/character/chara_ikki.jpg",
+      "kind": "official-character-sheet",
+      "sha256": "455ea9352ff5a5772de2fdec35bd7fadf55049a4df3576a828aeafe42d5e07a5",
+      "width": 960,
+      "height": 700,
+      "alpha": false,
+      "evidence": "既有官方素材清单与本轮目视检查。官网角色页本轮可访问。",
+      "role": "AI 重绘身份与服装参考；原图未修改"
+    }
+  ],
+  "gameplayReference": {
+    "url": "https://www.nintendo.co.jp/3ds/afej/man_afej.pdf",
+    "title": "ファイアーエムブレム 覚醒 電子説明書",
+    "sections": ["7 進撃準備メニュー", "13 サポートユニットとダブル"],
+    "verified": ["支援会话提升支援等级", "可观看会话时支援图标改变颜色", "最高支援等级 S"],
+    "usage": "借鉴支援菜单到对话和等级提升的流程，无 Nintendo 素材复制"
+  },
+  "background": {
+    "file": "../../assets/arena-duel.png",
+    "kind": "existing-ai-generated-project-art",
+    "evidence": "cardgame/README.md 记录为无人物生成竞技场背景",
+    "modified": false
+  }
+}

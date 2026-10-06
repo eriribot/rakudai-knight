@@ -651,6 +651,112 @@ function prepareTournamentAction(state, request) {
   return next;
 }
 
+// 本卡的原生 MVU 兼容层；不注册 Zod、不调用模型、不改 stat_data。
+// MVU 61010dab: STARTED 后读取 schema；strictSet 只关闭 set 的旧二元组解释。
+function rakudaiMvuScopes(scopes = []) {
+  const result = [];
+  for (const scope of scopes) {
+    for (const resolve of [() => scope, () => scope?.parent, () => scope?.top]) {
+      try { const value = resolve(); if (value && !result.includes(value)) result.push(value); } catch (_) {}
+    }
+  }
+  return result;
+}
+
+function rakudaiMvuRuntime(scopes = []) {
+  const entries = rakudaiMvuScopes(scopes).flatMap(scope => {
+    try { return [{ boot: scope.__RK_MVU_GUARD_BOOT_V4__, guard: scope.__RK_MVU_GUARD_V4__ || scope.__RK_MVU_GUARD_V3__ }]; } catch (_) { return []; }
+  });
+  const entry = entries.find(item => item.boot) || entries.find(item => item.guard);
+  if (!entry) return { mode: 'native', guard: null, boot: null };
+  const { boot, guard } = entry;
+  if (boot?.state === 'loading') return { mode: 'loading', boot, guard: guard || null };
+  if (boot?.state === 'failed') return { mode: 'failed', boot, guard: guard || null };
+  if (boot && (!guard || boot.state !== 'ready' || boot.guard !== guard)) return { mode: 'failed', boot, guard: guard || null };
+  // 老版配套约束没有 boot 标记；真实 guard 仍表示 Zod 路径，不冒充原生模式。
+  return { mode: 'zod', boot: boot || null, guard: guard || null };
+}
+
+function isRakudaiMvuState(state) {
+  return Boolean(state && !Array.isArray(state) && state.系统?.结构版本 === 4 &&
+    state.系统 && state.场景 && state.玩家 && state.人际 &&
+    [state.系统, state.场景, state.玩家, state.人际].every(value => typeof value === 'object' && !Array.isArray(value)));
+}
+
+function createRakudaiNativeSchema(state, previous) {
+  function build(value, old, root = false) {
+    if (Array.isArray(value)) {
+      return { type: 'array', extensible: true, recursiveExtensible: true,
+        elementType: value.length ? build(value[0], old?.elementType) : { type: 'any' },
+        ...(old?.template !== undefined ? { template: structuredClone(old.template) } : {}) };
+    }
+    if (value && typeof value === 'object') {
+      const properties = Object.fromEntries(Object.entries(value)
+        .filter(([key]) => key !== '$internal' && key !== '$meta')
+        .map(([key, child]) => [key, { ...build(child, old?.properties?.[key]), required: root }]));
+      return { type: 'object', properties, extensible: !root, recursiveExtensible: !root,
+        ...(old?.template !== undefined ? { template: structuredClone(old.template) } : {}) };
+    }
+    const type = typeof value;
+    return { type: ['string', 'number', 'boolean'].includes(type) ? type : 'any' };
+  }
+  const schema = build(state, previous, true);
+  schema.strictSet = true;
+  schema.strictTemplate = previous?.strictTemplate ?? false;
+  schema.concatTemplateArray = previous?.concatTemplateArray ?? true;
+  return schema;
+}
+
+function prepareRakudaiNativeMvu(data, scopes = []) {
+  if (rakudaiMvuRuntime(scopes).mode === 'native' && isRakudaiMvuState(data?.stat_data)) {
+    data.schema = createRakudaiNativeSchema(data.stat_data, data.schema);
+  }
+  return data;
+}
+
+async function installRakudaiNativeMvu(W) {
+  const slot = '__RK_MVU_NATIVE_N01__';
+  if (W[slot]?.version === 'N01' && W[slot].state !== 'failed') return W[slot];
+  W[slot]?.destroy?.();
+  const marker = { version: 'N01', state: 'loading', destroy: null };
+  W[slot] = marker;
+  let disposed = false, listener = null;
+  function destroy() {
+    disposed = true; listener?.stop();
+    if (W[slot] === marker) delete W[slot];
+    W.removeEventListener?.('pagehide', destroy);
+  }
+  marker.destroy = destroy;
+  W.addEventListener?.('pagehide', destroy, { once: true });
+  function helper(name) {
+    if (typeof W[name] === 'function') return W[name].bind(W);
+    if (typeof W.TavernHelper?.[name] === 'function') return W.TavernHelper[name].bind(W.TavernHelper);
+    throw new Error('原生 MVU 兼容缺少酒馆助手接口：' + name);
+  }
+  try {
+    await helper('waitGlobalInitialized')('Mvu');
+    if (disposed) return marker;
+    const scopes = rakudaiMvuScopes([W]);
+    const H = [...scopes].reverse().find(scope => { try { return scope.SillyTavern?.getContext; } catch (_) { return false; } });
+    if (!H) throw new Error('原生 MVU 兼容未连接当前酒馆。');
+    const initial = H.SillyTavern.getContext();
+    const owner = { characterId: initial.characterId, groupId: initial.groupId ?? null };
+    if (owner.characterId == null && owner.groupId == null) throw new Error('请在角色聊天中加载原生 MVU 兼容。');
+    const mvu = W.Mvu || H.Mvu;
+    if (!mvu?.events?.VARIABLE_UPDATE_STARTED) throw new Error('MVU 缺少变量更新开始事件。');
+    listener = helper('eventOn')(mvu.events.VARIABLE_UPDATE_STARTED, variables => {
+      if (disposed) return;
+      const current = H.SillyTavern.getContext();
+      if (current.characterId !== owner.characterId || (current.groupId ?? null) !== owner.groupId) return;
+      prepareRakudaiNativeMvu(variables, scopes);
+    });
+    marker.state = 'ready';
+  } catch (error) {
+    if (!disposed) { marker.state = 'failed'; marker.message = error?.message || '原生 MVU 兼容启动失败。'; }
+  }
+  return marker;
+}
+
 // 本卡 stat_data v4。纯 schema 工厂；不访问聊天、不自动迁移旧楼层。
 // CHAPTERS 仅为旧 v3 第一卷验证与开局兼容枚举；运行中卷章以共享目录为准。
 const CHAPTERS = ['待选择', '序章', '第一章', '第二章', '第三章', '第四章', '终章'];
@@ -1532,6 +1638,8 @@ function createStateController(adapter) {
   }
   return Object.freeze({
     version: '4.0.0', get catalogue() { return cloneState(STORY_VOLUMES); }, capture, prepareMigration,
+    capabilities: Object.freeze({ scheduleAndRoster: true, rosterPermanentRemoval: true,
+      tournament: 'T01', tournamentEngine: 'T02', nativeMvu: 'N01' }),
     get growthRules() { return cloneState(GROWTH_RULES); },
     tournamentView: state => deriveTournament(state),
     tournamentAction: (token, request) => commit(token, state => prepareTournamentAction(state, request)),
@@ -1568,6 +1676,7 @@ function createStateController(adapter) {
   });
 }
 
+window.RakudaiMvuNative = { version: "N01", runtime: rakudaiMvuRuntime, prepare: prepareRakudaiNativeMvu, install: installRakudaiNativeMvu };
 // 构建时与 schema、纯状态规则一起内联；只在 Tavern Helper 上下文使用。
 // 精确接口依据及尚未完成的实机验收见 世界书规则/MVU/v4_使用与迁移.md。
 (function installRakudaiController() {
@@ -1604,15 +1713,20 @@ function createStateController(adapter) {
     const oldGuard = [W, H].some(scope => scope.__RK_MVU_GUARD_V3__) || (function () {
       try { return W.parent?.__RK_MVU_GUARD_V3__ || W.top?.__RK_MVU_GUARD_V3__; } catch (_) { return false; }
     })();
-    if (oldGuard) throw new Error('旧版 v3 约束仍在运行，请先停用旧版约束，只启用 v4 后再读取或写入。');
-    const guard = H.__RK_MVU_GUARD_V4__ || W.__RK_MVU_GUARD_V4__ || (function () {
-      try { return W.parent?.__RK_MVU_GUARD_V4__; } catch (_) {}
-    })() || (function () {
-      try { return W.top?.__RK_MVU_GUARD_V4__; } catch (_) {}
-    })();
-    if (guard?.version !== '4.0.0') throw new Error('请先导入并启用“落第骑士·MVU v4 字段与卷章约束”脚本，并停用旧版约束。');
-    // 旧v4也叫4.0.0，但不认识魔人觉醒；在建档前核对实际功能修订，不能只看显示名。
-    if (guard.growth !== 'G03') throw new Error('当前运行的是旧v4约束，不支持玩家.魔人觉醒。请替换为标有G03/P02的v4约束并重载酒馆；保留现有true/false，不要重新初始化。');
+    if (oldGuard) throw new Error('旧版 v3 约束仍在运行，请先停用并重载酒馆，避免与 v4 档案冲突。');
+    const mode = rakudaiMvuRuntime([W, H]);
+    if (mode.mode === 'loading' || mode.mode === 'failed') {
+      const error = new Error('MVU v4 约束' + (mode.mode === 'loading' ? '正在初始化：' : '启动失败：') +
+        (mode.boot?.message || '请查看约束脚本日志，排除加载错误后重载酒馆。'));
+      error.code = mode.mode === 'loading' ? 'RK_GUARD_LOADING' : 'RK_GUARD_FAILED';
+      throw error;
+    }
+    const guard = mode.guard;
+    if (guard) {
+      if (guard.version !== '4.0.0') throw new Error('当前字段约束版本不兼容，请更新为配套 MVU v4 约束，或停用后重载酒馆。');
+      // 旧v4也叫4.0.0，但不认识魔人觉醒；只对实际开启的约束核对修订。
+      if (guard.growth !== 'G03') throw new Error('当前运行的是旧v4约束，不支持玩家.魔人觉醒。请替换为标有G03/P02的v4约束并重载酒馆；保留现有true/false，不要重新初始化。');
+    }
     const ctx = H.SillyTavern.getContext();
     const chatId = ctx.chatId;
     if (chatId === null || chatId === undefined || chatId === '' || !Array.isArray(ctx.chat) || !ctx.chat.length) throw new Error('当前没有可建档的聊天。');
@@ -1663,7 +1777,7 @@ function createStateController(adapter) {
     migrate: value => prepareStateMigration(value, runtime().Z),
     write: (saved, expected, state, { openingReplacement = false } = {}) => {
       if (openingReplacement) assertOpeningReplacement(saved);
-      const now = current(saved);
+      const now = current(saved), H = now.H;
       if (stateKey(now.data) !== stateKey(expected)) throw new Error('变量在提交前发生变化，请刷新。');
       // 使用宿主同步 updater：校验与赋值之间不 await，不退回 chat/global scope。
       const result = helper('updateVariablesWith')(variables => {
@@ -1672,6 +1786,7 @@ function createStateController(adapter) {
         if (stateKey(variables) !== stateKey(expected)) throw new Error('变量已经更新，未覆盖。');
         const next = cloneState(variables);
         next.stat_data = cloneState(state);
+        prepareRakudaiNativeMvu(next, [W, H]);
         return next;
       }, now.options);
       sync(result, '更新变量');

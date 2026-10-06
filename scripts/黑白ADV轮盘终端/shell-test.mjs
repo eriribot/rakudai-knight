@@ -137,7 +137,7 @@ await check('分支变动清空旧名册，主回复更新保留只读展示等�
   const f = fixture();
   vm.runInContext("var bridgeRevision = 0, stateSignature = '', dataStatus = 'ready', dataError = '', stateSource = null, expandedPeople = new Set();\n" +
     "var stat = {}, stateTargetSource = null, stateMessage = '', hasDisplayedState = false, hiddenPeopleOpen = false, activeChat = null, rosterDeleteDraft = null, calendarState = { _initialized: false };\n" +
-    "var bridge = { getStat: () => new Promise(() => {}) };\nfunction refreshTerminalView() {}\n" + pageRefresh +
+    "var bridge = { getStat: () => new Promise(() => {}) };\nfunction refreshTerminalView() {}\nfunction resetCalendarLore() {}\n" + pageRefresh +
     '\nshell.makeBridge().onUpdate(refreshTerminalState);', f.realm);
   for (const name of ['CHAT_CHANGED', 'MESSAGE_SWIPED', 'MESSAGE_SWIPE_DELETED', 'MESSAGE_DELETED', 'MESSAGE_EDITED', 'CHARACTER_FIRST_MESSAGE_SELECTED']) {
     vm.runInContext("stat = { 人际: { 旧分支人物: {} } }; dataStatus = 'ready'; hasDisplayedState = true;", f.realm);

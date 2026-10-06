@@ -5,8 +5,10 @@ const read = path => fs.readFileSync(new URL(path, import.meta.url), 'utf8').rep
 const bundle = '// GENERATED: node scripts/build-state-controller.mjs --write\n(function () {\n\"use strict\";\n' +
   inlineStoryCatalog() + '\n' +
   inlineTournamentSource() + '\n' +
+  stripModuleSyntax(read('./rakudai-mvu-native.mjs')) + '\n' +
   stripModuleSyntax(read('../世界书规则/MVU/schema.mjs')) + '\n' +
   stripModuleSyntax(read('./rakudai-state-core.mjs')) + '\n' +
+  'window.RakudaiMvuNative = { version: "N01", runtime: rakudaiMvuRuntime, prepare: prepareRakudaiNativeMvu, install: installRakudaiNativeMvu };\n' +
   read('./rakudai-state-browser.js') + '\n})();\n';
 new vm.Script(bundle);
 const file = new URL('./rakudai-state-controller.js', import.meta.url);

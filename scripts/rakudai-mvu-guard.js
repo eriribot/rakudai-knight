@@ -37,7 +37,7 @@ function installRakudaiMvuGuard(schema) {
     const wrapped = '<UpdateVariable><Analysis>repair:' + nonce + '</Analysis><JSONPatch>' +
       content + '</JSONPatch></UpdateVariable>';
     // 只认真实正文原补丁已提交的本轮事件结果，不能凭副模型自称把旧事件重新结算。
-    const blocks = [...source.text.matchAll(/<JSONPatch>([\s\S]*?)<\/JSONPatch>/gi)];
+    const blocks = [...source.text.matchAll(/<(json_?patch)>([\s\S]*?)<\/\1>/gi)];
     const repairEventKeys = [], savedEvents = data.stat_data?.场景?.已发生事件;
     const object = value => value && typeof value === 'object' && !Array.isArray(value);
     function rememberEvent(name, result) {
@@ -54,7 +54,7 @@ function installRakudaiMvuGuard(schema) {
     }
     if (blocks.length === 1) {
       try {
-        const operations = JSON.parse(blocks[0][1].trim());
+        const operations = JSON.parse(blocks[0][2].trim());
         for (const op of Array.isArray(operations) ? operations : []) {
           if (!op || !['add', 'replace'].includes(op.op) || typeof op.path !== 'string' || !op.path.startsWith('/') || /~(?![01])/.test(op.path)) continue;
           const parts = op.path.slice(1).split('/').map(part => part.replace(/~1/g, '/').replace(/~0/g, '~'));
@@ -82,10 +82,10 @@ function installRakudaiMvuGuard(schema) {
     if ((text.match(/<UpdateVariable>/gi) || []).length !== 1 ||
         (text.match(/<\/UpdateVariable>/gi) || []).length !== 1) return '';
     const block = text.match(/<UpdateVariable>[\s\S]*?<\/UpdateVariable>/i)?.[0];
-    if (!block || (block.match(/<JSONPatch>/gi) || []).length !== 1 ||
-        (block.match(/<\/JSONPatch>/gi) || []).length !== 1) return '';
-    const patch = block.match(/<JSONPatch>([\s\S]*?)<\/JSONPatch>/i);
-    try { return patch && Array.isArray(JSON.parse(patch[1].trim())) ? block : ''; }
+    if (!block || (block.match(/<json_?patch>/gi) || []).length !== 1 ||
+        (block.match(/<\/json_?patch>/gi) || []).length !== 1) return '';
+    const patch = block.match(/<(json_?patch)>([\s\S]*?)<\/\1>/i);
+    try { return patch && Array.isArray(JSON.parse(patch[2].trim())) ? block : ''; }
     catch (_) { return ''; }
   }
   function replyContext() {
@@ -134,7 +134,7 @@ function installRakudaiMvuGuard(schema) {
   }
   // 从原补丁记录明确提交的最终数值；支持叶字段和父对象写法，主副共用。
   function submittedFinals(content) {
-    const blocks = [...replyMvuBlock(content).matchAll(/<JSONPatch>([\s\S]*?)<\/JSONPatch>/gi)];
+    const blocks = [...replyMvuBlock(content).matchAll(/<(json_?patch)>([\s\S]*?)<\/\1>/gi)];
     const fields = [], growthFinalAxes = new Set(), growthGradeAxes = new Set();
     if (blocks.length !== 1) return { fields, growthFinalAxes: [], growthGradeAxes: [] };
     function inspect(parts, value) {
@@ -146,7 +146,7 @@ function installRakudaiMvuGuard(schema) {
       for (const [key, child] of Object.entries(value)) if (!['__proto__', 'prototype', 'constructor'].includes(key)) inspect([...parts, key], child);
     }
     try {
-      const operations = JSON.parse(blocks[0][1].trim());
+      const operations = JSON.parse(blocks[0][2].trim());
       for (const op of Array.isArray(operations) ? operations : []) {
         if (!op || !['add', 'replace'].includes(op.op) || typeof op.path !== 'string' || !op.path.startsWith('/')) continue;
         const parts = op.path.slice(1).split('/').map(part => part.replace(/~1/g, '/').replace(/~0/g, '~'));

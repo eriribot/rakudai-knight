@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "deliveryMode": "component",
+  "passed": true,
+  "sourceHashes": {
+    "scripts/酒馆助手脚本-小手机-黑白ADV轮盘版-v1.3.14.json": "398ae84c58108abbbf46ca3f4ecebd08c9e08df23e3c12370264487a30a6cc2c",
+    "世界书规则/MVU/落第骑士-MVU-v4字段约束.json": "52d86b8f7236ea43c683552274aa074582e3efa998c3e456f290c865300783ac",
+    "scripts/rakudai-mvu-native.mjs": "3c17148e1165b70be48d1c2798e08bfb724550dacf809c137dea3a9e054a2db5",
+    "output/chapter-v4/runtime-original-card.json": "9c2bab1cf3a4bea05ae2f2e7ff3bd7caa3785dba8f62f96f963c17ce35f972d0",
+    "第一卷-世界书整理/开局页面/正则替换文本.txt": "8e9a8516bd1b2a99991af41978585219775330c46b2e7601f4c347e6d7c62bbf"
+  },
+  "artifactCount": 4,
+  "artifacts": [
+    {
+      "artifactName": "phone-v1-3-14",
+      "id": "ee190b2f-d2ba-44b4-9f1b-0695c07fefc5",
+      "kind": "helper-script",
+      "relativePath": "phone-v1-3-14.json",
+      "sha256": "398ae84c58108abbbf46ca3f4ecebd08c9e08df23e3c12370264487a30a6cc2c"
+    },
+    {
+      "artifactName": "native-mvu-n01",
+      "id": "0ad18dbe-5a59-4cad-acfd-50c2bce0d9ec",
+      "kind": "helper-script",
+      "relativePath": "native-mvu-n01.json",
+      "sha256": "7aec852058bd641b0d7d1693ed7378e184126b459ba6b4a2d2f8661d492f6999"
+    },
+    {
+      "artifactName": "opening-state",
+      "id": "4f9bda79-82bd-4d2f-9a66-2497349df26e",
+      "kind": "regex",
+      "relativePath": "opening-state.json",
+      "sha256": "69c449f3084a274e3caac36f9c068cb07a1003fef52a14b12325c798635058b5"
+    },
+    {
+      "artifactName": "guard-v4-r01",
+      "id": "06117475-a08c-4d78-a886-3d26426c4b37",
+      "kind": "helper-script",
+      "relativePath": "guard-v4-r01.json",
+      "sha256": "52d86b8f7236ea43c683552274aa074582e3efa998c3e456f290c865300783ac"
+    }
+  ],
+  "preservation": {
+    "sourceHashesUnchanged": true,
+    "phoneAllFieldsPreserved": true,
+    "guardAllFieldsPreserved": true,
+    "openingMetadataPreserved": true,
+    "openingReplacementMatchesSource": true,
+    "nativeEnabled": true,
+    "nativeNoApiOrRemoteImport": true,
+    "outputPathsInsideDeclaredRoot": true
+  },
+  "skill": {
+    "stagingValidation": [
+      {
+        "schemaVersion": 1,
+        "target": "output/native-mvu-repair/skill-staging/helper-script",
+        "deliveryMode": "component",
+        "errors": [],
+        "files": [
+          {
+            "file": "output/native-mvu-repair/skill-staging/helper-script/phone-v1-3-14.script.json",
+            "kind": "helper-script",
+            "errors": []
+          },
+          {
+            "file": "output/native-mvu-repair/skill-staging/helper-script/native-mvu-n01.script.json",
+            "kind": "helper-script",
+            "errors": []
+          },
+          {
+            "file": "output/native-mvu-repair/skill-staging/helper-script/guard-v4-r01.script.json",
+            "kind": "helper-script",
+            "errors": []
+          }
+        ]
+      },
+      {
+        "schemaVersion": 1,
+        "target": "output/native-mvu-repair/skill-staging/regex",
+        "deliveryMode": "component",
+        "errors": [],
+        "files": [
+          {
+            "file": "output/native-mvu-repair/skill-staging/regex/opening-state.regex.json",
+            "kind": "regex",
+            "errors": []
+          }
+        ]
+      }
+    ],
+    "finalValidation": {
+      "schemaVersion": 1,
+      "target": "output/native-mvu-repair/components",
+      "deliveryMode": "component",
+      "errors": [],
+      "files": [
+        {
+          "file": "output/native-mvu-repair/components/phone-v1-3-14.json",
+          "kind": "helper-script",
+          "errors": []
+        },
+        {
+          "file": "output/native-mvu-repair/components/native-mvu-n01.json",
+          "kind": "helper-script",
+          "errors": []
+        },
+        {
+          "file": "output/native-mvu-repair/components/opening-state.json",
+          "kind": "regex",
+          "errors": []
+        },
+        {
+          "file": "output/native-mvu-repair/components/guard-v4-r01.json",
+          "kind": "helper-script",
+          "errors": []
+        }
+      ]
+    }
+  },
+  "runtime": "Static importable artifact validation; no live import, model request or full-card packaging",
+  "pendingRuntime": [
+    "target SillyTavern and Tavern Helper versions",
+    "component import and current-reply execution in user runtime"
+  ]
+}

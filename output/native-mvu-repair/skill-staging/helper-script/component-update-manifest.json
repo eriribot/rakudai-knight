@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "deliveryMode": "component",
+  "kind": "helper-script",
+  "artifacts": [
+    {
+      "artifactName": "phone-v1-3-14",
+      "id": "ee190b2f-d2ba-44b4-9f1b-0695c07fefc5",
+      "kind": "helper-script",
+      "relativePath": "phone-v1-3-14.script.json",
+      "sha256": "398ae84c58108abbbf46ca3f4ecebd08c9e08df23e3c12370264487a30a6cc2c"
+    },
+    {
+      "artifactName": "native-mvu-n01",
+      "id": "0ad18dbe-5a59-4cad-acfd-50c2bce0d9ec",
+      "kind": "helper-script",
+      "relativePath": "native-mvu-n01.script.json",
+      "sha256": "7aec852058bd641b0d7d1693ed7378e184126b459ba6b4a2d2f8661d492f6999"
+    },
+    {
+      "artifactName": "guard-v4-r01",
+      "id": "06117475-a08c-4d78-a886-3d26426c4b37",
+      "kind": "helper-script",
+      "relativePath": "guard-v4-r01.script.json",
+      "sha256": "52d86b8f7236ea43c683552274aa074582e3efa998c3e456f290c865300783ac"
+    }
+  ]
+}

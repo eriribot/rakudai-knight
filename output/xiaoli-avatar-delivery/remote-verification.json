@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "verifiedDateLocal": "2026-10-04",
+  "timezone": "Asia/Shanghai",
+  "url": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/xiaoli.png",
+  "status": 200,
+  "contentType": "image/png",
+  "bytes": 297358,
+  "remoteSha256": "5f3c93fd459017ec6d0c3b3ab376eafa581cde16e341118e3a85d03289e87548",
+  "localSha256": "5f3c93fd459017ec6d0c3b3ab376eafa581cde16e341118e3a85d03289e87548",
+  "bytesMatch": true,
+  "selectedVariant": "volume-12-prison-outfit",
+  "previousArtifactSha256": "e29247a5981251cb6f76f1393006c28e57c2061d6f51c18f54d80258b3825010"
+}

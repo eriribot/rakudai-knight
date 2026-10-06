@@ -1,0 +1,77 @@
+{
+  "version": "0.3",
+  "status": "passed",
+  "generatedAt": "2026-10-06T07:49:16.759Z",
+  "host": "SillyTavern 1.18.0",
+  "origin": "http://127.0.0.1:8000/",
+  "character": "落第骑士英雄谭v0.03",
+  "messageId": 2,
+  "scope": "原位更新原有2条角色局部显示正则，玩家名通过当前persona的user宏读取",
+  "sourceHashes": {
+    "resource/knightavatars/manifest.json": "dd6060eecc8d78cdeb05f44f58f83e3d4b262d87f2a9f24936aaeb14a3551521",
+    "scripts/正文气泡/bubble.css": "259c0ebf8bb57579179770d6b545029c3192bee42ac35378cf7242cd540a94e4",
+    "scripts/正文气泡/context-guard.mjs": "80dd9ae2eba789f8b9f4f7012b74705c0ee06ce586129423f56732adffc2eb8a",
+    "scripts/正文气泡/build.mjs": "441b1f5f334895ed4e2ef0f2583522042cbbd4cd439eb85f75437a08183d0207"
+  },
+  "artifacts": [
+    {
+      "file": "components/dialogue-bubbles.regex.json",
+      "sha256": "d657e81516c7e60fdcb1131ec3edb25b9b5495aa490ab8c8c55122533dac4578",
+      "bytes": 12502
+    },
+    {
+      "file": "components/dialogue-bubble-style.regex.json",
+      "sha256": "ab8a6ec4e0bc6d96b990e26947de109c65bba0752024d55e77ca5f05878e3b3e",
+      "bytes": 14671
+    }
+  ],
+  "hostParity": [
+    {
+      "hostId": "9b72eda5-1bd4-4bd9-9b73-d1a8a8d9322f",
+      "name": "01 盾形对白 · 姓名与台词 v0.3",
+      "exactParity": true,
+      "substituteRegex": 2,
+      "display": true,
+      "prompt": false
+    },
+    {
+      "hostId": "01414260-25f8-4755-8346-472356ae6785",
+      "name": "02 盾形对白 · 共享样式 v0.3",
+      "exactParity": true,
+      "substituteRegex": 0,
+      "display": true,
+      "prompt": false
+    }
+  ],
+  "before": {
+    "bubbles": 13,
+    "playerBubbles": 0
+  },
+  "after": {
+    "overflow": 0,
+    "playerBubbles": 1,
+    "playerText": "打扰了……请问这里也是我的房间吗。",
+    "totalBubbles": 14
+  },
+  "rawMessage": {
+    "unchanged": true,
+    "sha256": "39d5e05d45b0ef71a85cf60fe45bafc8841cc9fd6f25a3d37d187d308cb99731"
+  },
+  "offline": {
+    "passed": 333,
+    "total": 333,
+    "userMacro": "仅模拟此规则使用的user查找宏，不是完整宿主宏引擎"
+  },
+  "screenshot": "runtime-player-v0.3.jpg",
+  "avatar": "无对应清单头像的自捏名使用通用盾形，不读取用户设定头像",
+  "nameScope": "自捏档案名须与酒馆用户设定姓名一致；不读取MVU里独立填写的不同姓名或历史别名",
+  "apiEvidence": [
+    "https://github.com/SillyTavern/SillyTavern/blob/1.18.0/public/scripts/extensions/regex/engine.js#L281",
+    "https://github.com/SillyTavern/SillyTavern/blob/1.18.0/public/script.js#L2679"
+  ],
+  "unverified": [
+    "真实切换另一persona后的新生成；本次用离线换名fixture验证",
+    "真实生成流式生命周期",
+    "用户设定头像绑定"
+  ]
+}

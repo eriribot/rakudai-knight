@@ -1,0 +1,33 @@
+[
+  {
+    "name": "regex",
+    "errors": [],
+    "plan": {
+      "schemaVersion": 1,
+      "deliveryMode": "component",
+      "kind": "regex",
+      "outRoot": "output\\mvu-tag-compat\\components\\regex",
+      "files": [
+        "variable-display.regex.json",
+        "component-update-manifest.json"
+      ],
+      "requiresPipeline": false
+    }
+  },
+  {
+    "name": "helper",
+    "errors": [],
+    "plan": {
+      "schemaVersion": 1,
+      "deliveryMode": "component",
+      "kind": "helper-script",
+      "outRoot": "output\\mvu-tag-compat\\components\\helper",
+      "files": [
+        "phone-v1-3-15.script.json",
+        "guard-v4-tags.script.json",
+        "component-update-manifest.json"
+      ],
+      "requiresPipeline": false
+    }
+  }
+]

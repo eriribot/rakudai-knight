@@ -1,0 +1,42 @@
+{
+  "version": "0.3",
+  "deliveryMode": "component",
+  "scope": "两条角色局部显示正则、短格式规则、离线预览；只更新对应组件，不重打整卡或修改聊天原文",
+  "sourceHashes": {
+    "resource/knightavatars/manifest.json": "dd6060eecc8d78cdeb05f44f58f83e3d4b262d87f2a9f24936aaeb14a3551521",
+    "scripts/正文气泡/bubble.css": "259c0ebf8bb57579179770d6b545029c3192bee42ac35378cf7242cd540a94e4",
+    "scripts/正文气泡/context-guard.mjs": "80dd9ae2eba789f8b9f4f7012b74705c0ee06ce586129423f56732adffc2eb8a",
+    "scripts/正文气泡/build.mjs": "441b1f5f334895ed4e2ef0f2583522042cbbd4cd439eb85f75437a08183d0207"
+  },
+  "library": {
+    "snapshot": "2026-08-18",
+    "routes": [
+      "sillytavern-render-regex-pipeline",
+      "sillytavern-embedded-ui",
+      "sillytavern-component-update",
+      "sillytavern-api-reference"
+    ],
+    "guides": [
+      "A0",
+      "A5",
+      "A6",
+      "C3",
+      "D7"
+    ],
+    "adoptedDesignCandidates": []
+  },
+  "dependencies": {
+    "host": "SillyTavern Regex + message HTML/CSS sanitization",
+    "image": "现有 manifest HTTPS 图片（远程加载）",
+    "helper": "不需要 Tavern Helper"
+  },
+  "apiEvidence": {
+    "referenceVersion": "SillyTavern 1.18.0",
+    "source": "https://raw.githubusercontent.com/SillyTavern/SillyTavern/1.18.0/public/scripts/extensions/regex/engine.js",
+    "fields": "AI_OUTPUT=2; dialogue substitute_find_regex.ESCAPED=2; style NONE=0; markdownOnly display gate",
+    "userMacro": "当前 persona name1；只替换查找模式，安全字符捕获后输出",
+    "runtimeVerified": false
+  },
+  "realSillyTavern": "构建器不执行宿主验收；本次实际验收另见 runtime-check.json（须核对哈希）",
+  "modelCompliance": "not run; 不宣称绝对最少 token 或保证遵守率"
+}

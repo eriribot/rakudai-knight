@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-05",
+  "version": "1.3.13",
+  "scope": "小手机日历读取当前角色主世界书剧情日期，并以只读弹窗显示完整原文",
+  "artifact": "scripts/酒馆助手脚本-小手机-黑白ADV轮盘版-v1.3.13.json",
+  "offlineChecks": {
+    "calendarWorldbook": { "passed": 15, "total": 15 },
+    "calendarUI": { "passed": 18, "total": 18 },
+    "packaging": { "passed": 9, "total": 9 },
+    "shellLifecycle": { "passed": 9, "total": 9 },
+    "existingTournamentCalendar": { "passed": 10, "total": 10 },
+    "existingTournamentUI": { "passed": 8, "total": 8 },
+    "importableComponent": "passed",
+    "javascriptSyntax": "passed"
+  },
+  "worldbookFixture": {
+    "source": "落第骑士英雄谭v0.02.json",
+    "storyEntries": 100,
+    "datedEntries": 28,
+    "undatedEntries": 72,
+    "note": "只从首个场景信息块的时间字段取完整日期；不补猜年份或改写世界书。"
+  },
+  "browserPreview": {
+    "environment": "Codex 内置浏览器，本地离线预览，实际编译 UI，容器宽度 320px",
+    "verified": [
+      "有剧情的日期显示标记",
+      "单条剧情日期直接打开完整正文",
+      "同日多条剧情先选择章节再打开全文",
+      "未定日期剧情可以展开并打开全文",
+      "正文纯文本渲染，长内容纵向滚动，弹窗无横向溢出",
+      "Escape 只关闭剧情弹窗并返回日历，恢复日期按钮焦点",
+      "串联日期区间覆盖的中间日期有剧情标记"
+    ],
+    "screenshot": "output/playwright/worldbook-calendar-modal.jpg"
+  },
+  "realSillyTavern": "未导入真实酒馆；宿主主世界书读取与用户实际安装版本待实机验证"
+}

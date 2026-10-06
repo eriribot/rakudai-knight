@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#233a48">
+  <title>羁绊之间 · C级支援预览</title>
+  <link rel="stylesheet" href="support.css">
+  <script defer src="story.js"></script>
+  <script defer src="support.js"></script>
+  <script defer src="portrait.js"></script>
+</head>
+<body>
+<main class="game-shell">
+  <header class="masthead">
+    <a class="wordmark" href="../index.html" aria-label="返回卡牌战斗"><span class="crest" aria-hidden="true">✧</span><span>落第骑士英雄谭<small>CHIVALRY OF A FAILED KNIGHT</small></span></a>
+    <div class="chapter"><span>AFTER THE DUEL</span><i></i>战斗之后，故事继续</div>
+    <span class="edition">支援系统 · 概念预览</span>
+  </header>
+
+  <section id="hub-view" class="hub-view" aria-labelledby="hub-title">
+    <div class="page-heading"><div><p class="eyebrow">THE BONDS WE FORGE</p><h1 id="hub-title">羁绊之间<span>支援会话</span></h1></div><div class="location"><span aria-hidden="true">◈</span><div>破军学园<small>放学后 · 自由时间</small></div></div></div>
+    <div class="support-board">
+      <aside class="roster" aria-label="支援对象">
+        <div class="roster-heading"><span>选择支援对象</span><small>01 / 04</small></div>
+        <div class="protagonist"><div class="avatar ikki-avatar"><img src="assets/ikki.png" alt="黑铁一辉"></div><div><small>当前角色</small><strong>黑铁一辉</strong></div><span class="tiny-seal">F</span></div>
+        <div class="roster-divider"><span>可以发展的羁绊</span></div>
+        <button class="partner selected" type="button" aria-pressed="true"><div class="avatar stella-avatar"><img src="assets/stella.png" alt=""></div><span class="partner-copy"><strong>史黛拉</strong><small id="support-status">新的支援会话</small></span><span class="available-dot" aria-hidden="true"></span><span class="partner-arrow">›</span></button>
+        <button class="partner future" disabled><span class="future-monogram">绚</span><span class="partner-copy"><strong>绫辻绚濑</strong><small>尚未收录</small></span><span class="lock-mark" aria-hidden="true">◇</span></button>
+        <button class="partner future" disabled><span class="future-monogram">珠</span><span class="partner-copy"><strong>黑铁珠雫</strong><small>尚未收录</small></span><span class="lock-mark" aria-hidden="true">◇</span></button>
+        <button class="partner future" disabled><span class="future-monogram">凪</span><span class="partner-copy"><strong>有栖院凪</strong><small>尚未收录</small></span><span class="lock-mark" aria-hidden="true">◇</span></button>
+        <div class="roster-foot"><span class="mini-swords" aria-hidden="true">⚔</span><p>并肩作战之后，<br>也听听彼此的心声。</p></div>
+      </aside>
+
+      <article class="support-detail" aria-labelledby="partner-name">
+        <div class="character-banner">
+          <div class="banner-pattern" aria-hidden="true"></div><span class="banner-watermark" aria-hidden="true">VERMILLION</span>
+          <div class="hero-copy"><span class="character-number">01 <i></i> 红莲皇女</span><h2 id="partner-name">史黛拉<span>· 法米利昂</span></h2><p class="roman-name">STELLA VERMILLION</p><p class="hero-quote">「明天同一时间。<br>　这回换我来接住你的剑。」</p><div class="pair-label"><span>黑铁一辉</span><b aria-hidden="true">⟷</b><span>史黛拉</span></div></div>
+          <div class="hero-portrait" aria-hidden="true"><img src="assets/stella.png" alt=""></div>
+          <span class="banner-corner" aria-hidden="true">SUPPORT<br>CONVERSATION</span>
+        </div>
+        <div class="relationship-strip"><div class="current-support"><small>当前支援等级</small><strong id="rank-current">—</strong></div><ol class="rank-path" aria-label="支援等级路线"><li class="rank-step ready"><span class="rank-medal" id="rank-c">C</span><small id="rank-c-note">可以对话</small></li><li class="rank-step locked"><span class="rank-medal">B</span><small>未开放</small></li><li class="rank-step locked"><span class="rank-medal">A</span><small>未开放</small></li><li class="rank-step locked"><span class="rank-medal">S</span><small>未开放</small></li></ol></div>
+        <div class="episode-detail"><div class="episode-heading"><span class="chapter-tag">C 级支援</span><span class="reading-time">约 2 分钟 · 原创片段</span></div><h3>再陪我练十分钟</h3><p>训练已经结束，史黛拉却还站在场边。<br>她似乎有一件事，非要向一辉问个明白。</p><div class="episode-action"><span class="unlock-note"><i aria-hidden="true">✓</i> 一场共同训练之后</span><button id="support-start" class="primary-button"><span id="support-start-label">开始支援对话</span><b aria-hidden="true">→</b></button></div></div>
+      </article>
+    </div>
+    <footer class="hub-footer"><span id="storage-note">演示进度仅保存在此浏览器</span><button id="reset-demo" class="text-button">重置演示</button></footer>
+  </section>
+
+  <section id="event-view" class="event-view" aria-labelledby="event-title" hidden>
+    <header class="event-header"><button id="leave-event" class="text-button">← 返回支援</button><div><span id="event-subtitle">C 级支援 · 黑铁一辉 × 史黛拉</span><h2 id="event-title">再陪我练十分钟</h2></div><div class="event-controls"><button id="open-log" class="utility-button">回顾</button><button id="auto-play" class="utility-button" aria-pressed="false">自动</button></div></header>
+    <div class="scene">
+      <div class="scene-background" aria-hidden="true"></div><div class="scene-vignette" aria-hidden="true"></div><div class="scene-sun" aria-hidden="true"></div>
+      <div class="scene-location"><span class="scene-dot"></span>破军学园 · 训练场<small>17:40 / 放学后</small></div>
+      <div class="portrait portrait-ikki" id="portrait-ikki" data-speaking="false"><div class="portrait-rig"><img src="assets/ikki.png" class="portrait-base" alt="黑铁一辉"></div></div>
+      <div class="portrait portrait-stella" id="portrait-stella" data-speaking="false"><div class="portrait-rig"><img src="assets/stella.png" class="portrait-base" alt="史黛拉"><div class="face-layer eye-layer" aria-hidden="true"></div><div class="face-layer mouth-layer" aria-hidden="true"></div></div></div>
+      <div class="scene-caption" aria-hidden="true">A LITTLE CLOSER, ONE CONVERSATION AT A TIME</div>
+      <div class="dialogue-wrap"><div class="speaker-tab"><span class="speaker-diamond" aria-hidden="true">◆</span><strong id="dialogue-speaker">史黛拉</strong><span>SUPPORT C</span></div><button id="dialogue-next" class="dialogue-panel" aria-label="显示完整对白或继续下一句"><span id="dialogue-text"></span><span class="dialogue-bottom"><span id="dialogue-count">01 / 18</span><span class="continue-hint">点击继续 <b aria-hidden="true">▾</b></span></span></button></div>
+    </div>
+    <footer class="event-footer"><span>支援会话 · 原创概念片段</span><span><kbd>Space</kbd> / <kbd>Enter</kbd> 继续 <i></i><kbd>Esc</kbd> 返回</span></footer>
+  </section>
+
+  <section id="result-view" class="result-view" aria-labelledby="result-title" hidden>
+    <div class="result-ornament" aria-hidden="true">✧</div><p class="eyebrow">A NEW BOND HAS BEEN FORGED</p><h2 id="result-title">支援等级提升</h2><div class="result-pair"><span>黑铁一辉</span><b aria-hidden="true">⟷</b><span>史黛拉</span></div><div class="result-seal"><span>C</span><small>SUPPORT RANK</small></div><p id="result-copy">从交锋的对手，到值得信赖的练习伙伴。</p><div class="result-memory"><span>会话已收录</span><strong>再陪我练十分钟</strong><small>随时可以回来，重温这一刻。</small></div><div class="result-actions"><button id="result-replay" class="secondary-button">再次回看</button><button id="result-back" class="primary-button">返回支援列表 <b aria-hidden="true">→</b></button></div><span class="result-note">本次仅展示 C 级支援，后续等级尚未制作</span>
+  </section>
+
+  <footer class="site-footer"><span>RAKUDAI KISHI <i>×</i> SUPPORT ARCHIVE</span><span>同人概念演示 · 美术参考动画官方人设</span></footer>
+</main>
+<dialog id="log-dialog" class="log-dialog" aria-labelledby="log-title"><div class="log-header"><div><span class="eyebrow">CONVERSATION LOG</span><h2 id="log-title">会话回顾</h2></div><button id="close-log" class="utility-button" aria-label="关闭回顾">关闭 ×</button></div><div id="log-lines" class="log-lines"></div></dialog>
+</body>
+</html>

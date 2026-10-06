@@ -74,7 +74,8 @@ function fixture(initial = saved()) {
   const HW = { Blob, URL: { createObjectURL(blob) { const key = 'blob:backup-' + blobs.size; blobs.set(key, blob); return key; }, revokeObjectURL: value => revoked.push(value) } };
   const SS = { host, visible: true, destroyed: false }, updates = [];
   const emit = event => [...updates].forEach(callback => callback(event));
-  const realm = vm.createContext({ window: { RakudaiStateController: service }, HD, HW, SS, updateCbs: updates, emit, structuredClone, Blob, console });
+  const realm = vm.createContext({ window: { RakudaiStateController: service }, HD, HW, SS, updateCbs: updates, emit, structuredClone, Blob, console,
+    generationPending: false, correctionMainBusy: () => false });
   vm.runInContext(source + '\nglobalThis.panel = { buildStatePanel, refreshStatePanel, disposeStatePanel };', realm); realm.panel.buildStatePanel();
   return { realm, api, service, HW, SS, HD, updates, downloads, blobs, revoked, emit,
     node: selector => host.querySelector(selector), get writes() { return writes; }, get state() { return data.stat_data; },

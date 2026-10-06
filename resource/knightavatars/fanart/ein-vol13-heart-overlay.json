@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "type": "deterministic-heart-overlay-on-existing-fanart",
+  "source": "ein-vol13-heart.png",
+  "output": "ein-vol13-heart-overlay.png",
+  "method": "Pillow alpha composite; original image is not redrawn",
+  "heartCenter": [
+    471,
+    782
+  ],
+  "heartBounds": [
+    409,
+    739,
+    533,
+    825
+  ],
+  "changedPixelsBounds": [
+    409,
+    739,
+    533,
+    824
+  ],
+  "pixelsOutsideOverlayUnchanged": true,
+  "originalOutfitPreserved": true,
+  "sourceSha256": "3743fb78f0f47152ff07486765b8ac845933e5b95dfd20ffddfb1bcb8fb2672a",
+  "outputSha256": "989867d3a0415877e827df1a9a41aa379b255e8e0b3610a3b8df3222898d1869"
+}

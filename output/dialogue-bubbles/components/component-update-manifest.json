@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "deliveryMode": "component",
+  "kind": "regex",
+  "artifacts": [
+    {
+      "artifactName": "dialogue-bubbles",
+      "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+      "kind": "regex",
+      "relativePath": "dialogue-bubbles.regex.json",
+      "sha256": "d657e81516c7e60fdcb1131ec3edb25b9b5495aa490ab8c8c55122533dac4578"
+    },
+    {
+      "artifactName": "dialogue-bubble-style",
+      "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+      "kind": "regex",
+      "relativePath": "dialogue-bubble-style.regex.json",
+      "sha256": "ab8a6ec4e0bc6d96b990e26947de109c65bba0752024d55e77ca5f05878e3b3e"
+    }
+  ]
+}

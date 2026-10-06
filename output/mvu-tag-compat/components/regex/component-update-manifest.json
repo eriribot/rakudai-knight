@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "deliveryMode": "component",
+  "kind": "regex",
+  "artifacts": [
+    {
+      "artifactName": "variable-display",
+      "id": "e0b51684-257a-422a-a9f8-rakudai00001",
+      "kind": "regex",
+      "relativePath": "variable-display.regex.json",
+      "sha256": "713430b698e127c3a1f0291ce9592421fd6460a56c12d5933582a208e2cfcdff"
+    }
+  ]
+}

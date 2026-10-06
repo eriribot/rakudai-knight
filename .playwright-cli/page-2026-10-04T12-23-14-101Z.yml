@@ -1,0 +1,50 @@
+- main [ref=e2]:
+  - generic [ref=e3]:
+    - link "返回卡牌战斗" [ref=e4] [cursor=pointer]:
+      - /url: ../index.html
+      - generic [aria-hidden] [ref=e5]: ✧
+      - generic [ref=e6]:
+        - text: 落第骑士英雄谭
+        - generic [ref=e7]: CHIVALRY OF A FAILED KNIGHT
+    - generic [ref=e99]:
+      - generic [ref=e100]: AFTER THE DUEL
+      - text: 战斗之后，故事继续
+    - generic [ref=e8]: 支援系统 · 概念预览
+  - region [ref=e102]:
+    - generic [ref=e103]:
+      - button "← 返回支援" [ref=e104] [cursor=pointer]
+      - generic [ref=e105]:
+        - text: C 级支援 · 黑铁一辉 × 史黛拉
+        - heading "再陪我练十分钟" [level=2] [ref=e106]
+      - generic [ref=e107]:
+        - button "回顾" [ref=e108] [cursor=pointer]
+        - button "自动 · 关" [ref=e109] [cursor=pointer]
+    - generic [ref=e110]:
+      - generic [ref=e113]:
+        - text: 破军学园 · 训练场
+        - generic [ref=e115]: 17:40 / 放学后
+      - generic:
+        - generic:
+          - img "黑铁一辉"
+      - generic:
+        - generic:
+          - img "史黛拉"
+      - generic [aria-hidden] [ref=e116]: A LITTLE CLOSER, ONE CONVERSATION AT A TIME
+      - generic [ref=e117]:
+        - generic [ref=e118]:
+          - generic [aria-hidden] [ref=e119]: ◆
+          - strong [ref=e120]: 史黛拉
+          - generic [ref=e121]: SUPPORT C
+        - button "显示完整台词" [active] [ref=e122] [cursor=pointer]:
+          - generic "一辉，等一下。刚才最后那一招，你为什么往后退？" [ref=e123]: 一辉，等一下。刚才最后那一招，
+          - generic [ref=e124]:
+            - generic [ref=e125]: 01 / 18
+            - generic [ref=e126]:
+              - text: 显示完整台词
+              - generic [aria-hidden] [ref=e127]: ▾
+    - generic [ref=e128]:
+      - generic [ref=e129]: 支援会话 · 原创概念片段
+      - generic [ref=e130]: Space / Enter 继续 Esc 返回
+  - generic [ref=e96]:
+    - generic [ref=e97]: RAKUDAI KISHI × SUPPORT ARCHIVE
+    - generic [ref=e98]: 同人概念演示 · 美术参考动画官方人设

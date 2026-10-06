@@ -22,6 +22,8 @@
   }
   const HW = hostWindow();
   const HD = (function(){ try { return HW.document; } catch (_) { return document; } })();
+  const rakudaiMvuRuntime = scopes => window.RakudaiMvuNative.runtime(scopes);
+  const prepareRakudaiNativeMvu = (data, scopes) => window.RakudaiMvuNative.prepare(data, scopes);
 
   const SLOT = '__RK_PHONE_SHELL__';
   try { HW[SLOT] && HW[SLOT].destroy && HW[SLOT].destroy(); } catch (_) {}
@@ -47,6 +49,7 @@
   }
 
   /*__INJECT_STATE_READER__*/
+  /*__INJECT_CALENDAR_WORLDBOOK__*/
 
   const ORB_W = 68, ORB_H = 68;
 
@@ -293,6 +296,23 @@
     return terminalStateReader({ generating: generationPending });
   }
 
+  // 只读当前角色主世界书；日历资料不进入本局变量或剧情注入。
+  let calendarWorldbookReader = null;
+  async function readCalendarWorldbook() {
+    if (SS.destroyed) throw new Error('终端已关闭，请重新打开后查看剧情。');
+    if (!calendarWorldbookReader) calendarWorldbookReader = createCalendarWorldbookReader({
+      getCharWorldbookNames: fn('getCharWorldbookNames'),
+      getWorldbook: fn('getWorldbook'),
+      getContext: () => {
+        const st = HW.SillyTavern || window.SillyTavern;
+        return st && typeof st.getContext === 'function' ? st.getContext() : null;
+      }
+    });
+    const result = await calendarWorldbookReader.read();
+    if (SS.destroyed) throw new Error('终端已关闭，请重新打开后查看剧情。');
+    return result;
+  }
+
   const updateCbs = [];
   let readTimer;
   let rosterEditRevision = 0;
@@ -309,10 +329,9 @@
     if (rosterEditBusy) throw new Error('正在保存终端操作，请稍候。');
     if (SS.destroyed || generationPending) throw new Error('生成期间只能查看名册，请在变量更新完成后操作。');
     const controller = window.RakudaiStateController;
-    const guard = HW.__RK_MVU_GUARD_V4__ || window.__RK_MVU_GUARD_V4__;
-    if (!guard?.scheduleAndRoster || typeof controller?.setRosterHidden !== 'function') throw new Error('请同步更新并启用包含日程与名册功能的 MVU v4 字段约束脚本。');
-    if (action === 'delete' && (!guard?.rosterPermanentRemoval || typeof controller?.deleteRosterPerson !== 'function')) {
-      throw new Error('请同步更新并启用支持永久移除的 MVU v4 字段约束脚本。');
+    if (!controller?.capabilities?.scheduleAndRoster || typeof controller?.setRosterHidden !== 'function') throw new Error('请更新包含日程与名册功能的终端状态控制器。');
+    if (action === 'delete' && (!controller?.capabilities?.rosterPermanentRemoval || typeof controller?.deleteRosterPerson !== 'function')) {
+      throw new Error('请更新支持永久移除的终端状态控制器。');
     }
     const revision = rosterEditRevision;
     const snapshot = readSnapshot();
@@ -345,7 +364,7 @@
   function installHostCorrectionNotice() {
     const notice = HD.createElement('section');
     notice.id = 'rk-correction-notice'; notice.hidden = true;
-    notice.setAttribute('aria-label', '副 API 处理通知');
+    notice.setAttribute('aria-label', 'MVU 保存与副 API 处理通知');
     notice.innerHTML = '<span class="rk-notice-glyph" aria-hidden="true"></span><div class="rk-notice-copy">' +
       '<strong data-notice-stage></strong><p data-notice-message role="status" aria-live="polite" aria-atomic="true"></p>' +
       '<small data-notice-attempt></small><div class="rk-notice-actions">' +
@@ -365,13 +384,16 @@
     function paint() {
       if (SS.destroyed) return;
       const state = latest?.state || 'inactive', active = activeStages.includes(state);
-      notice.hidden = dismissed || !stages[state];
+      const primary = latest?.scope === 'main';
+      const visibleStage = stages[state] || (primary && state === 'ready' ? '已保存' : null);
+      notice.hidden = dismissed || !visibleStage;
       notice.setAttribute('data-state', state); notice.setAttribute('data-active', String(active));
-      text(title, '副 API · ' + (stages[state] || '状态更新'));
+      const stage = primary && state === 'failed' ? '保存未确认' : (visibleStage || '状态更新');
+      text(title, (primary ? 'MVU 主保存 · ' : '副 API · ') + stage);
       // 模型和接口返回的内容只能作为纯文本显示，不能进入宿主 HTML。
       text(message, latest?.message || '正在处理本轮内容…');
       const notes = [];
-      if (Number.isFinite(latest?.attempt) && latest.attempt > 0) notes.push('尝试 ' + latest.attempt +
+      if (!primary && Number.isFinite(latest?.attempt) && latest.attempt > 0) notes.push('尝试 ' + latest.attempt +
         (Number.isFinite(latest.maxAttempts) && latest.maxAttempts > 0 ? '/' + latest.maxAttempts : ''));
       if (state === 'retrying' && Number.isFinite(latest?.retryAt)) {
         const seconds = Math.max(0, Math.ceil((latest.retryAt - Date.now()) / 1000));
@@ -383,11 +405,11 @@
     }
     function refresh() {
       latest = getCorrectionStatus();
-      const next = JSON.stringify([latest.state, latest.message, latest.attempt, latest.retryAt, latest.canRetry]);
+      const next = JSON.stringify([latest.scope, latest.mainSave, latest.state, latest.message, latest.attempt, latest.retryAt, latest.canRetry]);
       if (next !== signature) {
         signature = next; dismissed = false; clearTimeout(hideTimer);
         // 成功与取消短暂提示后收起；错误与待确认预览保留，直到处理或手动关闭。
-        if (['applied', 'unchanged', 'cancelled'].includes(latest.state)) hideTimer = setTimeout(() => {
+        if (['applied', 'unchanged', 'cancelled'].includes(latest.state) || (latest.scope === 'main' && latest.state === 'ready')) hideTimer = setTimeout(() => {
           dismissed = true; paint();
         }, 5000);
       }
@@ -445,8 +467,7 @@
     if (tournamentWriting) throw new Error('正在保存选拔赛记录，请稍候。');
     if (generationPending || correctionMainBusy()) throw new Error('正在等待主回复与 MVU 保存完成，请稍后登记。');
     const service = stateService();
-    const guard = HW.__RK_MVU_GUARD_V4__ || window.__RK_MVU_GUARD_V4__;
-    if (guard?.tournament !== 'T01' || guard?.tournamentEngine !== 'T02' || typeof service.tournamentAction !== 'function') throw new Error('请同步更新包含 T02 日期结算的终端与约束脚本。');
+    if (service.capabilities?.tournament !== 'T01' || service.capabilities?.tournamentEngine !== 'T02' || typeof service.tournamentAction !== 'function') throw new Error('请更新包含 T02 日期结算的终端状态控制器。');
     const revision = rosterEditRevision, snapshot = readSnapshot();
     const isExpected = current => !current.pending && JSON.stringify(current.source) === JSON.stringify(expectedSource) &&
       tournamentSnapshotKey(current.state) === expectedState;
@@ -470,6 +491,7 @@
     return {
       version: BUILD_VERSION,
       relationshipRules: RELATIONSHIP_SCORING,
+      get mvuRuntimeMode() { return rakudaiMvuRuntime([window, HW]).mode; },
       get contactBaselineVersion() { return (HW.__RK_MVU_GUARD_V4__ || window.__RK_MVU_GUARD_V4__)?.contactBaseline || null; },
       growthRules: window.RakudaiStateController?.growthRules,
       tournament: {
@@ -485,6 +507,7 @@
         request: () => requestCorrection(), retry: retryCorrection, apply: applyCorrection, cancel: cancelCorrection },
       getSnapshot: async () => readSnapshot(),
       getStat: async () => readSnapshot().state,
+      worldbookCalendar: { read: readCalendarWorldbook },
       setRosterHidden,
       deleteRosterPerson,
       onUpdate: (cb) => {
@@ -582,6 +605,11 @@
   buildStatePanel();
   bindDrag();
   wireEvents();
+  window.RakudaiMvuNative.install(window).then(marker => {
+    if (SS.destroyed) marker.destroy?.();
+    else if (marker.state === 'failed') console.warn('[落第 MVU 原生兼容] ' + marker.message);
+  });
+  SS.disposers.push(() => window.__RK_MVU_NATIVE_N01__?.destroy?.());
 
   SS.host.querySelector('[data-a="x"]').onclick = hide;
   SS.host.querySelector('[data-a="min"]').onclick = hide;

@@ -189,6 +189,28 @@ button:focus-visible,[role=button]:focus-visible{outline:2px solid var(--ink);ou
 .gba-badge-holiday{display:inline-block;padding:1px 6px;font:600 10px var(--font-ui);border:1px solid var(--ink);background:var(--card);color:var(--ink);border-radius:0}
 .gba-badge-fest{display:inline-block;padding:1px 6px;font:600 10px var(--font-ui);border:1px dashed var(--hair);background:var(--card2);color:var(--ink);border-radius:0}
 
+/* 世界书剧情只读标记与原文弹窗 */
+.gba-cal-nav{flex-wrap:wrap}
+.gba-cal-cell.has-lore{border-bottom:3px double var(--ink)}
+.gba-cal-mark.mark-lore{font:700 9px var(--font-ui);white-space:nowrap}
+.gba-cal-marks{flex-wrap:wrap;justify-content:center}
+.rk-calendar-lore-heading{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.rk-calendar-lore-heading button,.rk-calendar-story-button,#rk-calendar-story button{font:12px var(--font-ui);min-height:36px;padding:6px 10px;border:1px solid var(--ink);background:var(--card2);color:var(--ink);cursor:pointer;border-radius:0}
+.rk-calendar-lore-heading button:disabled{opacity:.55;cursor:wait}
+.rk-calendar-lore-heading button:focus-visible,.rk-calendar-story-button:focus-visible,#rk-calendar-story button:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.rk-calendar-lore-note{font-size:11px;color:var(--muted);overflow-wrap:anywhere}
+.rk-calendar-story-button{display:block;width:100%;text-align:left;margin:6px 0;overflow-wrap:anywhere}
+.rk-calendar-story-button small{display:block;color:var(--muted);font-size:10px;margin-top:3px}
+.rk-calendar-undated summary{cursor:pointer;font-weight:700;padding:8px 0}
+.rk-calendar-undated[open]{padding-bottom:8px}
+#rk-calendar-story{box-sizing:border-box;width:calc(100% - 24px);max-width:680px;max-height:calc(100% - 24px);margin:auto;padding:14px;border:2px solid var(--ink);border-radius:0;background:var(--card);color:var(--ink);overflow:auto;overscroll-behavior:contain;font:12px/1.65 var(--font-ui)}
+#rk-calendar-story::backdrop{background:rgba(0,0,0,.65)}
+.rk-calendar-story-header{position:sticky;top:-14px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;background:var(--card);padding:10px 0;border-bottom:1px solid var(--hair);z-index:1}
+#rk-calendar-story-title{font:700 14px/1.5 var(--font-title);margin:0;min-width:0;overflow-wrap:anywhere}
+.rk-calendar-story-header button{flex-shrink:0}
+#rk-calendar-story-source{font-size:11px;color:var(--muted);white-space:pre-wrap;overflow-wrap:anywhere}
+#rk-calendar-story-content{margin:12px 0 0;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;font:inherit;color:var(--ink2)}
+
 /* ===== 破军 LIME 互换通讯录样式 ===== */
 .lime-contact-list{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
 .lime-contact-card{display:flex;align-items:center;cursor:pointer;gap:10px}

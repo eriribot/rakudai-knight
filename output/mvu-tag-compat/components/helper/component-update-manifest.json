@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "deliveryMode": "component",
+  "kind": "helper-script",
+  "artifacts": [
+    {
+      "artifactName": "phone-v1-3-15",
+      "id": "ee190b2f-d2ba-44b4-9f1b-0695c07fefc5",
+      "kind": "helper-script",
+      "relativePath": "phone-v1-3-15.script.json",
+      "sha256": "e3ef0e7f0dc81e4c70e1a7abd4d6f6f2d3bc2719ac8ec47e79c955c8f1f29a4b"
+    },
+    {
+      "artifactName": "guard-v4-tags",
+      "id": "06117475-a08c-4d78-a886-3d26426c4b37",
+      "kind": "helper-script",
+      "relativePath": "guard-v4-tags.script.json",
+      "sha256": "f2c24ab817084a0699cb12829462602d7e363abdd44404f57f227fcd0cbb9d2d"
+    }
+  ]
+}

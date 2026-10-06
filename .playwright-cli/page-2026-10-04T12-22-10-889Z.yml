@@ -1,0 +1,107 @@
+- main [ref=e2]:
+  - generic [ref=e3]:
+    - link "返回卡牌战斗" [ref=e4] [cursor=pointer]:
+      - /url: ../index.html
+      - generic [aria-hidden] [ref=e5]: ✧
+      - generic [ref=e6]:
+        - text: 落第骑士英雄谭
+        - generic [ref=e7]: CHIVALRY OF A FAILED KNIGHT
+    - generic [ref=e8]: 支援系统 · 概念预览
+  - region [ref=e9]:
+    - generic [ref=e10]:
+      - generic [ref=e11]:
+        - paragraph [ref=e12]: THE BONDS WE FORGE
+        - heading "羁绊之间 支援会话" [level=1] [ref=e13]:
+          - text: 羁绊之间
+          - generic [ref=e14]: 支援会话
+      - generic [ref=e15]:
+        - generic [aria-hidden] [ref=e16]: ◈
+        - generic [ref=e17]:
+          - text: 破军学园
+          - generic [ref=e18]: 放学后 · 自由时间
+    - generic [ref=e19]:
+      - complementary "支援对象" [ref=e20]:
+        - generic [ref=e21]:
+          - generic [ref=e22]: 选择支援对象
+          - generic [ref=e23]: 01 / 04
+        - generic [ref=e24]:
+          - img "黑铁一辉" [ref=e26]
+          - generic [ref=e27]:
+            - generic [ref=e28]: 当前角色
+            - strong [ref=e29]: 黑铁一辉
+          - generic [ref=e30]: F
+        - generic [ref=e31]: 可以发展的羁绊
+        - button "史黛拉 支援对话已就绪 ›" [pressed] [ref=e32] [cursor=pointer]:
+          - generic [ref=e34]:
+            - strong [ref=e35]: 史黛拉
+            - generic [ref=e36]: 支援对话已就绪
+          - generic [ref=e38]: ›
+        - button "绚 绫辻绚濑 尚未收录" [disabled] [ref=e39]:
+          - generic [ref=e40]: 绚
+          - generic [ref=e41]:
+            - strong [ref=e42]: 绫辻绚濑
+            - generic [ref=e43]: 尚未收录
+          - generic [aria-hidden] [ref=e44]: ◇
+        - button "珠 黑铁珠雫 尚未收录" [disabled] [ref=e45]:
+          - generic [ref=e46]: 珠
+          - generic [ref=e47]:
+            - strong [ref=e48]: 黑铁珠雫
+            - generic [ref=e49]: 尚未收录
+          - generic [aria-hidden] [ref=e50]: ◇
+        - button "凪 有栖院凪 尚未收录" [disabled] [ref=e51]:
+          - generic [ref=e52]: 凪
+          - generic [ref=e53]:
+            - strong [ref=e54]: 有栖院凪
+            - generic [ref=e55]: 尚未收录
+          - generic [aria-hidden] [ref=e56]: ◇
+        - generic [ref=e57]:
+          - generic [aria-hidden] [ref=e58]: ⚔
+          - paragraph [ref=e59]: 并肩作战之后，也听听彼此的心声。
+      - article "史黛拉 · 法米利昂" [ref=e60]:
+        - generic [ref=e61]:
+          - generic [aria-hidden] [ref=e63]: VERMILLION
+          - generic:
+            - generic: 01 红莲皇女
+            - heading "史黛拉 · 法米利昂" [level=2]:
+              - text: 史黛拉
+              - generic: · 法米利昂
+            - paragraph: STELLA VERMILLION
+            - paragraph: 「明天同一时间。 这回换我来接住你的剑。」
+            - generic:
+              - generic: 黑铁一辉
+              - generic [aria-hidden]: ⟷
+              - generic: 史黛拉
+          - generic [aria-hidden] [ref=e64]: SUPPORT CONVERSATION
+        - generic [ref=e65]:
+          - generic [ref=e66]:
+            - generic [ref=e67]: 当前支援等级
+            - strong [ref=e68]: —
+          - list "支援等级路线" [ref=e69]:
+            - listitem [ref=e70]:
+              - generic "C 级支援待解锁" [ref=e71]: C
+              - generic [ref=e72]: 可解锁
+            - listitem [ref=e73]:
+              - generic [ref=e74]: B
+              - generic [ref=e75]: 未开放
+            - listitem [ref=e76]:
+              - generic [ref=e77]: A
+              - generic [ref=e78]: 未开放
+            - listitem [ref=e79]:
+              - generic [ref=e80]: S
+              - generic [ref=e81]: 未开放
+        - generic [ref=e82]:
+          - generic [ref=e83]:
+            - generic [ref=e84]: C 级支援
+            - generic [ref=e85]: 约 2 分钟 · 原创片段
+          - heading "再陪我练十分钟" [level=3] [ref=e86]
+          - paragraph [ref=e87]: 训练已经结束，史黛拉却还站在场边。她似乎有一件事，非要向一辉问个明白。
+          - generic [ref=e88]:
+            - generic [ref=e89]: ✓ 一场共同训练之后
+            - button "观看 C 级支援" [ref=e90] [cursor=pointer]:
+              - generic [aria-hidden] [ref=e92]: →
+    - generic [ref=e93]:
+      - generic [ref=e94]: 演示进度仅保存在当前浏览器。
+      - button "重置演示" [ref=e95] [cursor=pointer]
+  - generic [ref=e96]:
+    - generic [ref=e97]: RAKUDAI KISHI × SUPPORT ARCHIVE
+    - generic [ref=e98]: 同人概念演示 · 美术参考动画官方人设

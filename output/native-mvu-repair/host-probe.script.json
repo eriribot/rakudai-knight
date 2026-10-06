@@ -1,0 +1,11 @@
+{
+  "type": "script",
+  "enabled": true,
+  "name": "TEST ONLY · 浏览器脚本执行诊断",
+  "id": "662c70d9-8e4f-43a4-93ba-e5817b663e82",
+  "content": "(function(){const host=window.parent.document;const node=host.createElement('pre');node.id='rk-host-probe';node.style.cssText='position:fixed;right:10px;top:10px;z-index:2147483647;background:white;color:black;border:2px solid black;padding:12px;max-width:600px;white-space:pre-wrap';node.textContent='TEST ONLY: BLOB脚本已执行；父文档可访问。\\nHelper API: '+typeof window.getChatMessages+' / context: '+typeof window.SillyTavern?.getContext;host.body.append(node);window.addEventListener('pagehide',()=>node.remove(),{once:true});})();",
+  "info": "仅独立副本浏览器诊断：添加可见DOM标记，不读写变量、不调用模型。非玩家交付组件。",
+  "button": { "enabled": true, "buttons": [] },
+  "data": {},
+  "export_with": { "data": false, "button": false }
+}

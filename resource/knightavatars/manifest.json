@@ -1250,7 +1250,7 @@
       "width": 796,
       "height": 1200,
       "sha256": "d5e1b37955a7991df069c8a257e2aaea22acfb5b75b2151dc5ac817740e1b634",
-      "imageUrl": "",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/xiaoli.png",
       "identityEvidence": "research/epub/character-evidence.json#xiaoli",
       "colorization": {
         "type": "ai-colorized-derivative",

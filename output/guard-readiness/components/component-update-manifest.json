@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "deliveryMode": "component",
+  "kind": "helper-script",
+  "artifacts": [
+    {
+      "artifactName": "terminal-v1-3-12",
+      "id": "ee190b2f-d2ba-44b4-9f1b-0695c07fefc5",
+      "kind": "helper-script",
+      "relativePath": "terminal-v1-3-12.script.json",
+      "sha256": "ec65ee37f6ccf63b3fff03effbfb469d7510e4381e9fcfdb3d24e10bcfbf63e2"
+    },
+    {
+      "artifactName": "mvu-guard-g04-t02-r01",
+      "id": "06117475-a08c-4d78-a886-3d26426c4b37",
+      "kind": "helper-script",
+      "relativePath": "mvu-guard-g04-t02-r01.script.json",
+      "sha256": "303e15258f42e981237a152f9657256a8611930b3e15ebf5b9070bc6a467f404"
+    }
+  ]
+}

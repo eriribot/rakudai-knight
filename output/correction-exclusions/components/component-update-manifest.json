@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "deliveryMode": "component",
+  "kind": "helper-script",
+  "artifacts": [
+    {
+      "artifactName": "terminal-v1-3-12",
+      "id": "ee190b2f-d2ba-44b4-9f1b-0695c07fefc5",
+      "kind": "helper-script",
+      "relativePath": "terminal-v1-3-12.script.json",
+      "sha256": "ac6838bb750b7c3dd94edc1e01cce113079eefe04fafc455b65aeaa424d2176a"
+    }
+  ]
+}

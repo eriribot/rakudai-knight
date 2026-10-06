@@ -1,0 +1,34 @@
+[
+  {
+    "name": "exclusions",
+    "chunk_id": "27bed8",
+    "wall_time_seconds": 0.3138794,
+    "exit_code": 0,
+    "original_token_count": 399,
+    "output": "{\n  \"total\": 11,\n  \"passed\": 11,\n  \"runtime\": \"真实 correction.js + 固定上游请求与后端排除片段；宿主状态、MVU、网络和时钟为替身，未连接酒馆\",\n  \"results\": [\n    {\n      \"name\": \"旧配置默认空列表，首次请求保留输出上限与必需字段\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"混合分隔符去重并区分大小写，本机保存后重载恢复\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"保存其他配置未提供排除列表时保留；留空与空数组可清除\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"非法参数名、类型与超限输入不覆盖已保存的配置或密钥\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"64项、128字符参数名和连字符接受；大小写不同和未知名称不误删\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"固定上游实现最终序列化时排除三个常见参数，未排除字段及消息JSON不变\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"手动与自动校正经过相同真实宿主排除路径，重载后仍生效\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"清空并保存后后续请求恢复发送参数\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"排除仅处理API请求体；显式排除model/messages不破坏副连接路由和认证\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"保存、手动、自动均不修改主连接配置或借用主连接认证\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"v1.3.12导入组件包含排除请求字段与设置输入\",\n      \"passed\": true\n    }\n  ]\n}\n"
+  },
+  {
+    "name": "readiness",
+    "chunk_id": "68a417",
+    "wall_time_seconds": 0.3553924,
+    "exit_code": 0,
+    "original_token_count": 504,
+    "output": "{\n  \"total\": 16,\n  \"passed\": 16,\n  \"runtime\": \"真实 correction.js 与事件接线；宿主、MVU、网络和时钟为内存替身，未连接酒馆\",\n  \"results\": [\n    {\n      \"name\": \"既有完整能力 marker 没有 boot 标记仍可请求并保存\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"多层 iframe 顶层 marker 能被真实自动校正流程找到\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"不可访问的 parent 不阻断可读 top 的能力发现\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"loading 后 ready 自动续跑原轮次并且只请求和写入一次\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"依赖启动失败显示明确失败原因且不请求不写入\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"完全缺少 marker 和 boot 时有界等待，逾时说明约束未注册\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"真实旧 guard 不因脚本标题含 G04 而通过 T02 能力门禁\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"缺少 parseRepair 能力不能通过并指出缺失字段\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"等待约束期间切换聊天，后来 ready 不补跑旧轮\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"等待约束期间手动取消，后来 ready 不补跑旧轮\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"loading 时即使旧完整 marker 残留，也等待当前 boot ready\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"failed boot 不能被同宿主残留的旧完整 marker 掩盖\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"ready.guard 与当前 marker 不一致不能放行\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"约束加载超过 60 秒后停止并说明约束启动超时\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"预览之后约束被替换，旧 guard 不再用于解析或写入\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"约束就绪不能跳过主 MVU 保存一致性和渲染门禁\",\n      \"passed\": true\n    }\n  ]\n}\n"
+  },
+  {
+    "name": "packaging",
+    "chunk_id": "a0a65c",
+    "wall_time_seconds": 0.9315793,
+    "exit_code": 0,
+    "original_token_count": 338,
+    "output": "{\n  \"evidence\": \"parse5 HTML解析 → 实际完整脚本V8编译；独立源映射消费；未连接真实酒馆\",\n  \"passed\": 9,\n  \"total\": 9,\n  \"results\": [\n    {\n      \"name\": \"旧包直接编译通过，但完整宿主HTML解析后稳定复现两段SyntaxError\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"新包在HTML宿主中只产生一个未截断的完整脚本\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"实际JSON交付物经反序列化、宿主HTML及内页入口仍还原完整页面\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"HTML闭合标签、大小写、注释、中文、反斜杠及行分隔符往返保持原值\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"打包页面包含当前维护的全部 JS 与 CSS 模块，没有滞留旧版源码\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"交付脚本中注入的关系函数可独立执行，共享新上限且不缺闭包依赖\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"主壳与注入模块的真实生成位置可映射回原文件行\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"内页真实script文本不trim：源映射与原文件行一致且来源名明确\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"打包保留原脚本身份与按钮数据，不另建第二个运行实例\",\n      \"passed\": true\n    }\n  ]\n}\n"
+  },
+  {
+    "name": "lifecycle",
+    "chunk_id": "e0db71",
+    "wall_time_seconds": 0.3805418,
+    "exit_code": 0,
+    "original_token_count": 309,
+    "output": "{\n  \"total\": 9,\n  \"passed\": 9,\n  \"runtime\": \"执行主壳真实函数与事件接线；使用离线 DOM/计时器替身，未连接酒馆\",\n  \"results\": [\n    {\n      \"name\": \"主壳实例与内嵌桥接均采用当前构建版本\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"展开启动轮询，重复展开不叠加，收起停止后可重新展开\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"分支变动清空旧名册，主回复更新保留只读展示等待 MVU\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"pagehide销毁会注销宿主事件、停止轮询且不再向旧页面推送\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"srcdoc挂载中销毁立即取消timeout与onload，晚到回调不boot\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"load已回调但尚未继续boot时销毁，仍不创建旧桥接\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"正常srcdoc挂载仅boot一次且释放挂载等待资源\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"srcdoc超时仍按原策略回退blob，blob可成功挂载\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"blob回退挂载中销毁同样取消等待且不再显示加载失败通知\",\n      \"passed\": true\n    }\n  ]\n}\n"
+  }
+]

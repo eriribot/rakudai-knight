@@ -7,10 +7,11 @@ const require = createRequire(import.meta.url), { z } = require('../output/world
 const source = fs.readFileSync(new URL('./rakudai-state-controller.js', import.meta.url), 'utf8');
 const clone = structuredClone, results = [];
 const payload = () => ({ 系统: { 结构版本: 4, 主角模式: '自定义角色' }, 玩家: { ...clone(INITIAL_STATE.玩家), 姓名: '通用测试角色' }, 场景: { 当前章: '第一章', 时间: '春假早晨', 地点: '理事长室', 切入说明: '' } });
-function fixture({ deferredMvu = false, nestedIframe = false } = {}) {
+function fixture({ deferredMvu = false, nestedIframe = false, guarded = true } = {}) {
   const chat = [{ role: 'assistant', swipe: 0, text: ['开局一', '开局二'], variables: [{ stat_data: clone(INITIAL_STATE), custom: { untouched: true } }, { stat_data: clone(INITIAL_STATE) }] }];
   let ctx = { chat, chatId: 'test-chat', characterId: 1, groupId: null }, writes = 0, waitCalls = 0, iframeProxyReads = 0, parentProxyReads = 0;
-  const H = { SillyTavern: { getContext: () => ctx }, __RK_MVU_GUARD_V4__: { version: '4.0.0', growth: 'G03' } };
+  const H = { SillyTavern: { getContext: () => ctx } };
+  if (guarded) H.__RK_MVU_GUARD_V4__ = { version: '4.0.0', growth: 'G03' };
   const parent = nestedIframe ? { get SillyTavern() { parentProxyReads++; return H.SillyTavern; } } : H;
   let ready;
   const initialized = new Promise(resolve => { ready = resolve; });
@@ -135,9 +136,86 @@ await check('不允许旧开局页修改已有后续助手楼层', async () => {
   const f = fixture(); f.ctx.chat.push(clone(f.ctx.chat[0]));
   await assert.rejects(f.api.capture({ messageId: 0 }), /历史楼层/);
 });
-await check('未导入新版伴随脚本时显示具体缺项', async () => {
-  const f = fixture(); delete f.H.__RK_MVU_GUARD_V4__;
-  await assert.rejects(f.api.capture(), /请先导入并启用.*MVU v4/); assert.equal(f.writes, 0);
+await check('关闭约束可读取和建档，只修当前回复页native schema并保留包装数据', async () => {
+  const f = fixture({ guarded: false });
+  for (const data of f.ctx.chat[0].variables) data.schema = '没有用别管这个';
+  f.ctx.chat[0].swipe = 1;
+  f.ctx.chat[0].variables[1].custom = { retained: ['未知包装字段', '原值保留'] };
+  const before = clone(f.ctx.chat[0].variables), capture = await f.api.capture();
+  assert.deepEqual(f.ctx.chat[0].variables, before, '读取不修复或保存变量');
+  await f.api.commitOpening(capture.token, payload()); await f.api.verify(capture.token);
+  const current = f.ctx.chat[0].variables[1];
+  assert.equal(current.stat_data.系统.开局状态, '已建档');
+  assert.equal(current.schema.type, 'object');
+  assert.equal(current.schema.strictSet, true);
+  assert.equal(current.schema.extensible, false); assert.equal(current.schema.recursiveExtensible, false);
+  for (const key of ['系统', '场景', '玩家', '人际']) assert.equal(current.schema.properties[key].required, true);
+  assert.equal(current.schema.properties.人际.extensible, true);
+  assert.equal(current.schema.properties.人际.recursiveExtensible, true);
+  assert.equal(current.schema.properties.场景.properties.时间.required, false);
+  assert.deepEqual(current.custom, before[1].custom);
+  assert.deepEqual(f.ctx.chat[0].variables[0], before[0]);
+  assert.equal(f.writes, 1);
+});
+await check('native准备保留stat_data对象与业务值，只更新schema', () => {
+  const f = fixture({ guarded: false }), data = clone(f.ctx.chat[0].variables[0]);
+  data.stat_data.系统.已删除人物 = ['已删除人物一', '已删除人物二'];
+  data.schema = '没有用别管这个';
+  const reference = data.stat_data, before = clone(reference), custom = clone(data.custom);
+  f.W.RakudaiMvuNative.prepare(data, [f.W, f.H]);
+  assert.strictEqual(data.stat_data, reference); assert.deepEqual(data.stat_data, before); assert.deepEqual(data.custom, custom);
+  assert.equal(data.schema.strictSet, true);
+  assert.equal(data.schema.properties.系统.properties.已删除人物.type, 'array');
+  assert.equal(data.schema.properties.系统.properties.已删除人物.elementType.type, 'string');
+});
+await check('关闭约束仍可切章、整理名册及保存赛程，controller公开自身能力', async () => {
+  const f = fixture({ guarded: false }), draft = payload(); draft.场景.时间 = '2013-04-22 08:30';
+  await f.api.commitOpening((await f.api.capture()).token, draft);
+  assert.deepEqual(clone(f.api.capabilities), { scheduleAndRoster: true, rosterPermanentRemoval: true,
+    tournament: 'T01', tournamentEngine: 'T02', nativeMvu: 'N01' });
+  const state = () => f.ctx.chat[0].variables[0].stat_data;
+  const firstChapter = state().场景.当前章;
+  await f.api.transition((await f.api.capture()).token, { action: 'end' });
+  await f.api.transition((await f.api.capture()).token, { action: 'next' });
+  assert.notEqual(state().场景.当前章, firstChapter); assert.equal(state().场景.阶段, '未开始');
+  state().人际.同伴 = { 关系: '同伴', 态度印象: '已认识', 性别: '男性', 好感: 0, 支援度: 0, 羁绊阶段: '未建立', 变化依据: '实际相识' };
+  await f.api.setRosterHidden((await f.api.capture()).token, '同伴', true);
+  assert.equal(state().人际.同伴.名册隐藏, true);
+  await f.api.deleteRosterPerson((await f.api.capture()).token, '同伴');
+  assert.equal(Object.hasOwn(state().人际, '同伴'), false); assert.deepEqual(state().系统.已删除人物, ['同伴']);
+  await f.api.tournamentAction((await f.api.capture()).token, { action: 'initialize' });
+  await f.api.tournamentAction((await f.api.capture()).token, { action: 'upsertParticipant', id: 'oc_test',
+    participant: { 姓名: '本局原创选手', 来源: '原创', 参赛状态: '参赛' } });
+  const playerId = Object.keys(state().场景.选拔赛.名册).find(id => state().场景.选拔赛.名册[id].来源 === '玩家');
+  await f.api.tournamentAction((await f.api.capture()).token, { action: 'upsertMatch', id: 'match_test',
+    match: { 轮次: 1, 甲方: playerId, 乙方: 'oc_test', 日期: '2013-04-22', 时间: '下午', 地点: '演习场', 状态: '已安排', 依据: '本局正式通知' } });
+  assert.equal(state().场景.选拔赛.比赛.match_test.状态, '已安排');
+  const native = f.ctx.chat[0].variables[0].schema;
+  assert.equal(native.properties.场景.properties.选拔赛.properties.名册.extensible, true);
+  assert.equal(native.properties.场景.properties.选拔赛.properties.比赛.extensible, true);
+  assert.equal(f.ctx.chat[0].variables[1].stat_data.系统.开局状态, '待建档');
+  assert.equal(f.writes, 8);
+});
+await check('关闭约束仍保留本地页面校验及变量并发比较', async () => {
+  const f = fixture({ guarded: false }), captured = await f.api.capture(), invalid = payload();
+  invalid.玩家.未知字段 = '不能写入';
+  await assert.rejects(f.api.commitOpening(captured.token, invalid)); assert.equal(f.writes, 0);
+  f.ctx.chat[0].variables[0].custom.untouched = false;
+  await assert.rejects(f.api.commitOpening(captured.token, payload()), /变量已被其他操作更新/);
+  assert.equal(f.writes, 0); assert.equal(f.ctx.chat[0].variables[0].stat_data.系统.开局状态, '待建档');
+});
+await check('约束启动中或失败时明确诊断，不能当作关闭约束继续写入', async () => {
+  for (const [state, code, text] of [['loading', 'RK_GUARD_LOADING', /正在初始化/], ['failed', 'RK_GUARD_FAILED', /启动失败/]]) {
+    const f = fixture({ guarded: false });
+    f.H.__RK_MVU_GUARD_BOOT_V4__ = { state, message: '桥接依赖尚未就绪', bridgeActive: state === 'failed' };
+    await assert.rejects(f.api.capture(), error => error.code === code && text.test(error.message));
+    assert.equal(f.writes, 0);
+  }
+});
+await check('已开启约束的写入保持桥接原有schema，不改为native', async () => {
+  const f = fixture(); f.ctx.chat[0].variables[0].schema = '没有用别管这个';
+  await f.api.commitOpening((await f.api.capture()).token, payload());
+  assert.equal(f.ctx.chat[0].variables[0].schema, '没有用别管这个'); assert.equal(f.writes, 1);
 });
 await check('旧新约束同时启用时拒绝写入，避免两个 schema 互相抵触', async () => {
   const f = fixture(); f.H.__RK_MVU_GUARD_V3__ = { version: '3.1.0' };

@@ -107,7 +107,7 @@ function buildApp(version) {
 export function buildTerminal() {
   const version = JSON.parse(read('package.json')).version;
   const html = buildApp(version);
-  const jsModules = { STATE_CONTROLLER: '../rakudai-state-controller.js', STATE_READER: 'state-reader.js', LAYOUT: 'layout.js', WHEEL: 'wheel.js', STATE_PANEL: 'state-panel.js', CORRECTION: 'correction.js' };
+  const jsModules = { STATE_CONTROLLER: '../rakudai-state-controller.js', STATE_READER: 'state-reader.js', CALENDAR_WORLDBOOK: 'calendar-worldbook.js', LAYOUT: 'layout.js', WHEEL: 'wheel.js', STATE_PANEL: 'state-panel.js', CORRECTION: 'correction.js' };
   const literals = { VERSION: jsString(version), STYLES: jsString(read('styles.css')), APP_HTML: jsString(html),
     CORRECTION_RULES: jsString(read('../../世界书规则/MVU/变量更新规则.txt')), CORRECTION_FORMAT: jsString(read('../../世界书规则/MVU/变量输出格式.txt')),
     // 函数源码保留原文件换行；与文件模块一样归一化，避免 HTML 解析把 CRLF 改成 LF 后误报。
@@ -135,7 +135,7 @@ export function buildTerminal() {
   const artifact = {
     type: 'script', enabled: true, name: '落第骑士·黑白ADV轮盘终端 v' + version,
     id: 'ee190b2f-d2ba-44b4-9f1b-0695c07fefc5', content: built.code,
-    info: 'v' + version + ' / G04 / T02：成长类型与方式自由填写，多目标单经验为总量均分，经验数组逐项对应；每目标每完整回复上限' + GROWTH_RULES.perReplyCap + '，连续晋级并保留余量。主副API共用业务修正与数字终值，坏成长申请局部提示。选拔赛读取2013年剧情日历，合并固定背景推演与实际赛果统一计分；OC实际获胜优先于正典走势，玩家缺场待补；学园圈与赛程显示推演来源，日历保留实际比赛；同场纠错不重复发分，拒绝重复对手和同轮多赛。副API输出上限30000，等待本轮主MVU保存后自动处理，只核对MVU标签与变量，正文/生图刷新不取消。酒馆右上角显示处理和重试状态，密钥本机持久保存。保留原生布尔觉醒、G03/P02、F01、S01和MVU01兼容能力。需同步替换说明含G04/T02的v4约束与三份MVU TXT；只启用一份终端和约束，不重打整卡或整本世界书。',
+    info: 'v' + version + ' / N01 / G04 / T02 / R01：主MVU保存独立于副API和可选约束，确认本轮事件及当前楼层回读后显示已保存；未确认保存单独提示，不冒充副API失败。内置N01在约束关闭时修复原生MVU结构，支持动态人物和普通JSONPatch；配套独立N01使小手机也关闭时仍可写入，不请求模型。约束加载或失败时保留诊断，不绕过已启用的约束。副API等待主保存后校正：有约束走业务校验，无约束走MVU原生解析，跨楼层、切换模式和并发修改均检查保存条件。页面人物、赛程事务使用本地验证并回读。副API支持按参数名排除请求体字段，配置及密钥本机保存，输出上限30000。开启G04约束才自动执行成长和关系结算，每目标每完整回复经验上限' + GROWTH_RULES.perReplyCap + '；保留T02选拔赛、日历、轮盘及头像功能。只启用一份终端和一份独立N01，约束可选；配套更新开局页面正则，不重打整卡或整本世界书。',
     button: { enabled: true, buttons: [] }, data: {}, export_with: { data: false, button: false },
   };
   return { artifact, html, map: built.map, version };

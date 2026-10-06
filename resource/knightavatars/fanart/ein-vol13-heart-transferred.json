@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "method": "color matte of actual source heart, scale, alpha composite",
+  "base": "ein-vol13-heart.png",
+  "heartSource": "ein-vol13-heart-v2.png",
+  "heartCutout": "ein-heart-extracted.png",
+  "sourceBounds": [
+    406,
+    710,
+    543,
+    816
+  ],
+  "targetCenter": [
+    471,
+    776
+  ],
+  "targetBounds": [
+    411,
+    729,
+    532,
+    823
+  ],
+  "output": "ein-vol13-heart-transferred.png",
+  "originalOutfitPreserved": true,
+  "pixelsOutsideHeartUnchanged": true,
+  "heartRgbIsFromSource": true,
+  "baseSha256": "3743fb78f0f47152ff07486765b8ac845933e5b95dfd20ffddfb1bcb8fb2672a",
+  "heartSourceSha256": "2163ee431afaf767429b4ab48f9d6679497f3225e513573290901ff54920dad6",
+  "outputSha256": "1039b084113570fcc8effbdf6b01e78e80252b23753cfd0f1a64ed65f189279b"
+}

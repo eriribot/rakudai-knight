@@ -1,0 +1,180 @@
+{
+  "date": "2026-10-05",
+  "deliveryMode": "component",
+  "status": "offline validation passed; real SillyTavern acceptance not run",
+  "request": "G04/T02约束已开启，开局副API仍提示启用并失败",
+  "findings": {
+    "confirmed": [
+      "旧captureCorrection将未注册、依赖加载中、加载失败及旧版本合并为同一错误",
+      "旧bootstrap仅在所有异步依赖注册成功后发布guard，没有共享启动结果",
+      "旧自动校正遇到未注册即停止本轮等待"
+    ],
+    "notConfirmed": "无法从截图确定该用户实例具体失败于Zod、MVU、网络桥接还是跨帧读取；当前无已连接酒馆标签页。"
+  },
+  "changes": [
+    "R01约束即时发布实例启动状态，阶段限时，总窗口60秒",
+    "桥接主入口失败尝试同commit备用入口，仅成功结果可注册一次，卸载或旧实例迟到不得注册",
+    "终端跨可读top/宿主/parent/window读取状态；加载中最多等待60秒",
+    "旧能力继续拒绝；失败提示具体原因；预览与写入绑定同一guard实例"
+  ],
+  "artifacts": [
+    {
+      "file": "scripts/酒馆助手脚本-小手机-黑白ADV轮盘版-v1.3.12.json",
+      "component": "output/guard-readiness/components/terminal-v1-3-12.script.json",
+      "id": "ee190b2f-d2ba-44b4-9f1b-0695c07fefc5",
+      "name": "落第骑士·黑白ADV轮盘终端 v1.3.12",
+      "sha256": "ec65ee37f6ccf63b3fff03effbfb469d7510e4381e9fcfdb3d24e10bcfbf63e2",
+      "enabled": true
+    },
+    {
+      "file": "世界书规则/MVU/落第骑士-MVU-v4字段约束.json",
+      "component": "output/guard-readiness/components/mvu-guard-g04-t02-r01.script.json",
+      "id": "06117475-a08c-4d78-a886-3d26426c4b37",
+      "name": "落第骑士·MVU v4 字段与卷章约束 [G04/T02/R01]",
+      "sha256": "303e15258f42e981237a152f9657256a8611930b3e15ebf5b9070bc6a467f404",
+      "enabled": true
+    }
+  ],
+  "sourceArtifacts": [
+    {
+      "file": "scripts/酒馆助手脚本-小手机-黑白ADV轮盘版-v1.3.11.json",
+      "sha256": "a068a422b28d4c7de6a7b9582dbad47f8e993d8d7215aa581a4952346e1388df",
+      "id": "ee190b2f-d2ba-44b4-9f1b-0695c07fefc5"
+    },
+    {
+      "file": "世界书规则/MVU/落第骑士-MVU-v4字段约束.json",
+      "sha256": "58aa909c06eb4f8bd403d3f8b26641cc2462cf8150295a5111017710a1f03409",
+      "id": "06117475-a08c-4d78-a886-3d26426c4b37"
+    }
+  ],
+  "checks": [
+    {
+      "name": "bootstrap",
+      "status": "passed",
+      "exitCode": 0,
+      "passed": 13,
+      "total": 13
+    },
+    {
+      "name": "correction",
+      "status": "passed",
+      "exitCode": 0,
+      "passed": 16,
+      "total": 16
+    },
+    {
+      "name": "packaging",
+      "status": "passed",
+      "exitCode": 0,
+      "passed": 9,
+      "total": 9
+    },
+    {
+      "name": "lifecycle",
+      "status": "passed",
+      "exitCode": 0,
+      "passed": 9,
+      "total": 9
+    },
+    {
+      "name": "guard",
+      "status": "passed",
+      "exitCode": 0,
+      "passed": 4,
+      "total": 4
+    },
+    {
+      "name": "sync",
+      "status": "passed",
+      "exitCode": 0
+    }
+  ],
+  "unitTestTotal": 51,
+  "unitTestPassed": 51,
+  "exactBuiltGuard": {
+    "status": "passed",
+    "file": "世界书规则/MVU/落第骑士-MVU-v4字段约束.json",
+    "sha256": "303e15258f42e981237a152f9657256a8611930b3e15ebf5b9070bc6a467f404",
+    "checks": [
+      "HTML parser preserves one complete inline script modulo standard CRLF normalization",
+      "exact built artifact uses real Zod/schema/guard with a stubbed remote bridge",
+      "boot ready references real G04/T02 guard after one registration",
+      "pagehide removes boot, guard and owned MVU hooks"
+    ],
+    "harnessCorrection": "First assertion compared raw CRLF against HTML-normalized LF. Production source unchanged; parser comparison now accounts only for HTML standard newline normalization.",
+    "runtime": "offline VM; remote bridge and host event bus stubbed, no real host or API calls"
+  },
+  "additionalChecks": [
+    {
+      "name": "component importable schema and staging hashes",
+      "status": "passed"
+    },
+    {
+      "name": "stable ids/enabled/button/data/export/unknown metadata preserved",
+      "status": "passed"
+    },
+    {
+      "name": "prior v1.3.11 terminal bytes preserved",
+      "status": "passed"
+    },
+    {
+      "name": "independent read-only review",
+      "status": "passed",
+      "finding": "no blocking findings"
+    },
+    {
+      "name": "complete legacy npm test suite",
+      "status": "not run",
+      "reason": "Targeted readiness, guard, artifact and lifecycle tests cover this change; existing unrelated failures were not changed."
+    },
+    {
+      "name": "live import/API/save/reload in user SillyTavern",
+      "status": "not run",
+      "reason": "No attached SillyTavern page or runtime version available"
+    }
+  ],
+  "regressionEvidence": {
+    "sameFinalReadinessTestsOnHead": {
+      "passed": 2,
+      "total": 16
+    },
+    "sameFinalReadinessTestsOnUpdatedSource": {
+      "passed": 16,
+      "total": 16
+    },
+    "scope": "offline host/MVU/transport/clock substitutes, real correction module"
+  },
+  "dependencyEvidence": {
+    "host": "Existing Tavern Helper Zod4, waitGlobalInitialized/eventOn, Mvu and SillyTavern APIs retained; actual installed versions unverified",
+    "remote": {
+      "provider": "StageDog/tavern_resource",
+      "commit": "dee97e8c3e24e1e75efe21141743e4b5c0af776e",
+      "path": "dist/util/mvu_zod.js",
+      "source": "https://github.com/StageDog/tavern_resource/blob/dee97e8c3e24e1e75efe21141743e4b5c0af776e/util/mvu_zod.ts",
+      "primary": "testingcf.jsdelivr.net",
+      "fallback": "cdn.jsdelivr.net",
+      "limitation": "Both entry modules retain testingcf.jsdelivr.net child imports; fallback does not eliminate that dependency.",
+      "downloadEvidence": "All three entry URL copies returned HTTP200 with matching content during this task; transport evidence is not real iframe execution.",
+      "sha256": "78c40f52d81022d9d769a923a49e673b8babb562656051a7d0410b6b19f45184"
+    }
+  },
+  "skillReceipt": {
+    "primary": "sillytavern-component-update",
+    "routeIds": [
+      "sillytavern-component-update"
+    ],
+    "snapshotVersion": "2026-08-18",
+    "loadedGuideIds": [
+      "ST-A0",
+      "ST-A2"
+    ],
+    "candidates": [],
+    "scope": "Fix readiness and supply two importable script components; preserve saved state and other components",
+    "acceptance": "source regressions + exact artifact validation; live host acceptance explicitly pending"
+  },
+  "instructions": [
+    "替换R01约束与v1.3.12终端，各只启用一份，然后重载酒馆",
+    "无需重新建档或更改存档；v1.3.11已有规则文本继续使用",
+    "同页失败任务可在依赖恢复后重试；重载后旧回复使用手动校正并预览"
+  ]
+}

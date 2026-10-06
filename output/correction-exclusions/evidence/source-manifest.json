@@ -1,0 +1,31 @@
+{
+  "commit": "8172dcd0ee672d3cd9a5e5f7af134f91a45cd2b8",
+  "checked_date": "2026-10-05",
+  "runtime_verified": false,
+  "files": [
+    {
+      "file": "public__scripts__custom-request.js",
+      "source": "https://raw.githubusercontent.com/SillyTavern/SillyTavern/8172dcd0ee672d3cd9a5e5f7af134f91a45cd2b8/public/scripts/custom-request.js",
+      "sha256": "cf48867dea08c936ab077dd2367458fe308578b33ef2743d5236ef2213e72561",
+      "bytes": 25967
+    },
+    {
+      "file": "public__scripts__openai.js",
+      "source": "https://raw.githubusercontent.com/SillyTavern/SillyTavern/8172dcd0ee672d3cd9a5e5f7af134f91a45cd2b8/public/scripts/openai.js",
+      "sha256": "93445a168807b916654bcb857f3b7f3943eaff8142c48aa1674fc9763944611d",
+      "bytes": 299442
+    },
+    {
+      "file": "src__endpoints__backends__chat-completions.js",
+      "source": "https://raw.githubusercontent.com/SillyTavern/SillyTavern/8172dcd0ee672d3cd9a5e5f7af134f91a45cd2b8/src/endpoints/backends/chat-completions.js",
+      "sha256": "43b70de92b41d0992a957589863b29c7342849e1201ae08c3c26cba6844cf052",
+      "bytes": 121088
+    },
+    {
+      "file": "src__util.js",
+      "source": "https://raw.githubusercontent.com/SillyTavern/SillyTavern/8172dcd0ee672d3cd9a5e5f7af134f91a45cd2b8/src/util.js",
+      "sha256": "672779409ba5edd1eb11f7a6c067d44df74eb34ed3acd29cad76057968bee833",
+      "bytes": 50910
+    }
+  ]
+}

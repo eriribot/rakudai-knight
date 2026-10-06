@@ -467,6 +467,8 @@ export function createStateController(adapter) {
   }
   return Object.freeze({
     version: '4.0.0', get catalogue() { return cloneState(STORY_VOLUMES); }, capture, prepareMigration,
+    capabilities: Object.freeze({ scheduleAndRoster: true, rosterPermanentRemoval: true,
+      tournament: 'T01', tournamentEngine: 'T02', nativeMvu: 'N01' }),
     get growthRules() { return cloneState(GROWTH_RULES); },
     tournamentView: state => deriveTournament(state),
     tournamentAction: (token, request) => commit(token, state => prepareTournamentAction(state, request)),

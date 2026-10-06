@@ -31,9 +31,19 @@ function correctionChatKey() {
   if (ctx?.chatId === undefined || ctx.chatId === null || ctx.chatId === '') throw new Error('请先打开本局聊天。');
   return 'rk:correction:plot:' + JSON.stringify([ctx.characterId ?? null, ctx.groupId ?? null, ctx.chatId]);
 }
+function normalizeCorrectionExcludedParams(value = []) {
+  if (typeof value !== 'string' && !Array.isArray(value)) throw new Error('排除参数请填写参数名，用逗号、空格或换行分隔。');
+  const text = Array.isArray(value) ? value.join('\n') : value;
+  if (text.length > 4096 || Array.isArray(value) && value.some(name => typeof name !== 'string')) throw new Error('排除参数只接受参数名，总长度不能超过4096字。');
+  const names = [...new Set(text.split(/[\s,，;；]+/u).filter(Boolean))];
+  if (names.length > 64) throw new Error('最多排除64个请求参数。');
+  if (names.some(name => !/^[A-Za-z_][A-Za-z0-9_-]{0,127}$/.test(name))) throw new Error('排除参数只填顶层参数名（字母、数字、下划线或连字符），不要填 JSON、参数值或嵌套路径。');
+  return names;
+}
 function getCorrectionConfig() {
   const saved = LS.get(correctionConfigKey, {});
   return { endpoint: saved.endpoint || '', model: saved.model || '', maxTokens: saved.maxTokens || 3000,
+    excludedParams: normalizeCorrectionExcludedParams(saved.excludedParams ?? []),
     hasKey: Boolean(correctionKey), autoApply: saved.autoApply !== false, deviation: LS.get(correctionChatKey(), ''),
     prompt: typeof saved.prompt === 'string' && saved.prompt.trim() ? saved.prompt : DEFAULT_CORRECTION_PROMPT, defaultPrompt: DEFAULT_CORRECTION_PROMPT };
 }
@@ -44,9 +54,10 @@ function saveCorrectionConfig(value) {
   if (model.length > 200 || !Number.isInteger(maxTokens) || maxTokens < 256 || maxTokens > 30000) throw new Error('模型名不能超过200字，输出上限为256—30000的整数。');
   const prompt = String(value.prompt ?? getCorrectionConfig().prompt).trim();
   if (prompt.length > 12000) throw new Error('校正提示词不能超过12000字。');
+  const excludedParams = normalizeCorrectionExcludedParams(value.excludedParams ?? getCorrectionConfig().excludedParams);
   const nextKey = value.clearKey ? '' : String(value.apiKey || '').trim() || correctionKey;
   const autoApply = value.autoApply === undefined ? getCorrectionConfig().autoApply : value.autoApply === true;
-  const connection = { endpoint, model, maxTokens, autoApply, apiKey: nextKey,
+  const connection = { endpoint, model, maxTokens, excludedParams, autoApply, apiKey: nextKey,
     prompt: prompt && prompt !== DEFAULT_CORRECTION_PROMPT ? prompt : '' };
   // 只写酒馆所在浏览器的本地配置，不放入聊天变量、请求正文或导入包。
   LS.set(correctionConfigKey, connection);
@@ -71,17 +82,20 @@ function normalizeCorrectionEndpoint(value) {
 }
 function setCorrectionStatus(state, message, detail = {}) {
   const turn = correctionAutoTurn;
-  correctionStatus = { state, message, attempt: turn?.attempt || (['reading', 'requesting', 'preview', 'applying', 'verifying', 'applied', 'unchanged', 'failed'].includes(state) ? 1 : 0), maxAttempts: turn ? CORRECTION_MAX_ATTEMPTS : 1, canRetry: false, ...detail };
+  const scope = detail.scope || 'correction';
+  correctionStatus = { state, message, scope, attempt: scope === 'main' ? 0 : turn?.attempt || (['reading', 'requesting', 'preview', 'applying', 'verifying', 'applied', 'unchanged', 'failed'].includes(state) ? 1 : 0), maxAttempts: turn ? CORRECTION_MAX_ATTEMPTS : 1, canRetry: false, ...detail };
   // 收起时也可看到副 API 是否忙碌；不依赖设置页被打开或页面轮询。
   const busy = ['waiting', 'reading', 'requesting', 'retrying', 'applying', 'verifying'].includes(state);
   SS.orb?.setAttribute('data-correction-busy', String(busy));
-  SS.orb?.setAttribute('aria-label', '打开终端操作轮盘；副 API：' + message);
+  SS.orb?.setAttribute('aria-label', '打开终端操作轮盘；' + (scope === 'main' ? 'MVU 主保存：' : '副 API：') + message);
   const label = SS.orb?.querySelector('.crest span');
-  if (label) label.textContent = busy ? '处理中' : state === 'failed' ? '待处理' : '操作';
+  if (label) label.textContent = busy ? scope === 'main' ? '待保存' : '处理中' : state === 'failed' ? scope === 'main' ? '未确认' : '待处理' : '操作';
   emit({ type: 'correction-status' });
 }
 function getCorrectionStatus() {
-  return { ...correctionStatus, autoApply: LS.get(correctionConfigKey, {}).autoApply !== false, active: correctionActive };
+  return { ...correctionStatus, scope: correctionStatus.scope || 'correction',
+    mainSave: !correctionMainTurn ? 'idle' : correctionMainTurn.settled ? 'saved' : correctionMainTurn.waitFailed ? 'failed' : 'waiting',
+    autoApply: LS.get(correctionConfigKey, {}).autoApply !== false, active: correctionActive };
 }
 function cancelCorrection(reason = '本次校正已取消，后续新回复仍按已保存配置处理。') {
   correctionEpoch++;
@@ -130,33 +144,61 @@ function correctionMainBusy(checkingSettlement = false) {
   if (correctionMainTurn) return !checkingSettlement && !correctionMainTurn.settled;
   return generationPending || Boolean(correctionContext()?.streamingProcessor);
 }
-function captureCorrection(checkingSettlement = false) {
+// 开关开启不代表异步桥接已注册。先读宿主启动状态，再核对真实能力，不能借用旧实例残留的标记。
+function correctionRuntime() {
+  const scopes = [];
+  for (const resolve of [() => window.top, () => HW, () => window.parent, () => window]) {
+    try {
+      const scope = resolve();
+      if (scope && !scopes.includes(scope)) scopes.push(scope);
+    } catch (_) { /* 跨域上层不可读时，继续检查当前脚本与可访问的宿主。 */ }
+  }
+  return { ...rakudaiMvuRuntime(scopes), scopes };
+}
+function correctionGuard(runtime = correctionRuntime()) {
+  const { mode, boot, guard } = runtime;
+  if (mode === 'native') return null;
+  function fail(message, loading = false) {
+    const error = new Error(message);
+    if (loading) error.code = 'RK_GUARD_LOADING';
+    throw error;
+  }
+  if (boot?.state === 'failed') fail('MVU v4 约束启动失败：' + (boot.message || '请查看约束脚本日志，排除加载错误后重新启用该脚本。'));
+  if (boot?.state === 'loading') fail('MVU v4 约束正在初始化：' + (boot.message || '正在等待依赖加载。'), true);
+  if (!guard) fail('尚未检测到 MVU v4 约束注册。若脚本已开启，请检查约束脚本日志中的 MVU、Zod 4 或桥接加载错误。', true);
+  if (boot && (boot.state !== 'ready' || boot.guard !== guard)) fail('MVU v4 约束注册已变化，请重新启用当前约束脚本后重试。');
+  const required = { growth: 'G03', repair: 'P02', repairSource: 'MVU01', storyRepair: 'S01',
+    flexibleRepair: 'F01', growthSettlement: 'G04', tournament: 'T01', tournamentEngine: 'T02' };
+  const missing = Object.entries(required).filter(([key, value]) => guard[key] !== value).map(([, value]) => value);
+  if (typeof guard.parseRepair !== 'function') missing.push('parseRepair');
+  if (missing.length) fail('已检测到 MVU v4 约束，但缺少能力：' + missing.join(' / ') + '。请替换为配套 G04 / T02 约束并重载酒馆；仅切换开关不能更新旧脚本。');
+  return guard;
+}
+function captureCorrection(checkingSettlement = false, requireGuard = true) {
   if (SS.destroyed || correctionMainBusy(checkingSettlement)) throw new Error('请等本轮 MVU 标签完整并保存后再校正。');
   const ctx = correctionContext(), reply = correctionReply();
-  if (!reply?.mvuBlock) throw new Error('当前回复没有完整且唯一的 UpdateVariable / JSONPatch，暂不校正。');
-  const guard = HW.__RK_MVU_GUARD_V4__ || window.__RK_MVU_GUARD_V4__;
-  if (guard?.growth !== 'G03' || guard?.repair !== 'P02' || guard?.repairSource !== 'MVU01' || guard?.storyRepair !== 'S01' || guard?.flexibleRepair !== 'F01' || guard?.growthSettlement !== 'G04' || guard?.tournament !== 'T01' || guard?.tournamentEngine !== 'T02' || typeof guard.parseRepair !== 'function')
-    throw new Error('请同步启用说明含 G04 / T02 的 v4 约束脚本，以支持成长结算与选拔赛日期推演。');
+  if (!reply?.mvuBlock) throw new Error('当前回复没有完整且唯一的 UpdateVariable / JSONPatch（或 json_patch），暂不校正。');
+  const runtime = correctionRuntime(), guard = requireGuard ? correctionGuard(runtime) : null;
   const mvu = window.Mvu || HW.Mvu;
-  if (typeof mvu?.getMvuData !== 'function' || typeof mvu.parseMessage !== 'function') throw new Error('MVU 解析接口尚未就绪。');
+  if (typeof mvu?.getMvuData !== 'function' || requireGuard && typeof mvu.parseMessage !== 'function') throw new Error('MVU 解析接口尚未就绪。');
   const options = { type: 'message', message_id: reply.messageId };
   const data = mvu.getMvuData(options);
   if (!data?.stat_data || typeof data.then === 'function') throw new Error('当前 MVU 不是可确认的同步楼层接口。');
   if (data.stat_data.系统?.结构版本 !== 4 || data.stat_data.系统?.开局状态 !== '已建档' ||
-      !['系统', '场景', '玩家', '人际'].every(key => data.stat_data[key] && typeof data.stat_data[key] === 'object'))
+      !['系统', '场景', '玩家', '人际'].every(key => data.stat_data[key] && typeof data.stat_data[key] === 'object' && !Array.isArray(data.stat_data[key])))
     throw new Error('当前回复还没有完整的 v4 档案，请先完成本轮 MVU 保存。');
   // 仅采用同一回复、同一 MVU 块的主结算起点；正文/图片刷新不影响这个快照。
   const candidate = correctionMainTurn?.candidate;
   const storyBefore = candidate?.ended && correctionSameReply(reply, candidate.reply) && candidate.storyBefore
     ? structuredClone(candidate.storyBefore) : undefined;
   // 正文只在请求时读取一次作为分析材料；后续一致性检查仅看来源、MVU 标签和实际变量。
-  return { ...reply, ctx, guard, data: structuredClone(data), options,
+  return { ...reply, ctx, guard, mvu, runtimeMode: runtime.mode, scopes: runtime.scopes, data: structuredClone(data), options,
     chatId: ctx.chatId, characterId: ctx.characterId ?? null, groupId: ctx.groupId ?? null,
     storyBefore, stateKey: correctionMvuKey(data) };
 }
 function ensureCorrectionCurrent(saved) {
   const now = captureCorrection();
-  if (!correctionSameReply(now, saved) || now.stateKey !== saved.stateKey)
+  if (!correctionSameReply(now, saved) || now.stateKey !== saved.stateKey || now.guard !== saved.guard || now.runtimeMode !== saved.runtimeMode || now.mvu !== saved.mvu)
     throw new Error('聊天、回复页、MVU 标签或实际变量已变化，请重新请求校正。');
   return now;
 }
@@ -193,10 +235,10 @@ function correctionInput(saved) {
       Object.defineProperty(events, name, { value: structuredClone(all[name]), enumerable: true, configurable: true });
     }
   }
-  const blocks = [...saved.mvuBlock.matchAll(/<JSONPatch>([\s\S]*?)<\/JSONPatch>/gi)];
+  const blocks = [...saved.mvuBlock.matchAll(/<(JSONPatch|json_patch)>([\s\S]*?)<\/\1>/gi)];
   if (blocks.length === 1) {
     try {
-      const operations = JSON.parse(blocks[0][1].trim());
+      const operations = JSON.parse(blocks[0][2].trim());
       for (const op of Array.isArray(operations) ? operations : []) {
         if (!op || !['add', 'replace'].includes(op.op) || typeof op.path !== 'string' || !op.path.startsWith('/')) continue;
         const parts = op.path.slice(1).split('/').map(part => part.replace(/~1/g, '/').replace(/~0/g, '~'));
@@ -434,6 +476,8 @@ async function requestCorrection(automatic = false) {
     requesting = true;
     const response = await saved.ctx.ChatCompletionService.processRequest({ chat_completion_source: 'custom', custom_url: config.endpoint,
       custom_include_headers: JSON.stringify({ Authorization: correctionKey ? 'Bearer ' + correctionKey : '' }),
+      // 固定宿主源码在最终请求体组装后排除顶层字段；JSON 数组也是合法 YAML，避免手拼配置语法。
+      custom_exclude_body: JSON.stringify(config.excludedParams),
       model: config.model, messages: [{ role: 'system', content: system }, { role: 'user', content: JSON.stringify({
         当前变量: state, 程序选拔赛: correctionTournamentSummary(state), 本轮正文: input.text, 本轮已发生事件: input.events, 本轮已提交人际更新: input.submittedRelations,
         本轮已提交进度: input.submittedStory, 主结算前场景: input.storyBefore,
@@ -481,10 +525,14 @@ async function applyCorrection() {
   try {
     ensureCorrectionCurrent(draft.saved);
     const parseBase = ensureCorrectionCurrent(draft.saved);
-    const parsed = await draft.saved.guard.parseRepair(JSON.stringify(draft.ops), parseBase.data, draft.saved.mvuBlock, draft.saved);
+    const parsed = draft.saved.guard
+      ? await draft.saved.guard.parseRepair(JSON.stringify(draft.ops), parseBase.data, draft.saved.mvuBlock, draft.saved)
+      : await draft.saved.mvu.parseMessage('<UpdateVariable><JSONPatch>' + JSON.stringify(draft.ops) + '</JSONPatch></UpdateVariable>',
+        prepareRakudaiNativeMvu(structuredClone(parseBase.data), parseBase.scopes));
     if (lock.signal.aborted) throw new Error('本次校正已取消，未写入。');
     ensureCorrectionCurrent(draft.saved);
     if (!parsed?.stat_data) throw new Error('MVU 未返回可保存的状态，请查看 MVU 通知。');
+    if (!draft.saved.guard) prepareRakudaiNativeMvu(parsed, parseBase.scopes);
     if (correctionMvuKey(parsed) === draft.saved.stateKey) {
       // 同轮已推进时，重复的卷章提议属于无变化，不再显示连接或写入失败。
       const scene = draft.saved.data.stat_data.场景, start = draft.saved.storyBefore;
@@ -516,7 +564,7 @@ async function applyCorrection() {
     correctionRetry = null;
     emit({ type: 'correction-applied', reset: true, retainDisplay: true });
     setCorrectionStatus('applied', '本轮校正已保存，当前回复页回读一致。' + (draft.skipped?.length ? ' 已略过 ' + draft.skipped.length + ' 项程序维护字段。' : ''));
-    return 'MVU 已解析并保存，当前回复页回读一致；被字段约束拒绝的项不会强写。';
+    return draft.saved.guard ? 'MVU 已解析并保存，当前回复页回读一致；被字段约束拒绝的项不会强写。' : '原生 MVU 已解析并保存，当前回复页回读一致。';
   } catch (error) {
     const message = (String(error.message || '校正未能保存。') + (writeStarted ? ' 写入结果未确认，请先核对当前变量；不会自动重放补丁。' : '')).replaceAll(correctionKey || '\u0000', '[已隐藏]');
     if (writeStarted) correctionRetry = null;
@@ -531,9 +579,9 @@ function correctionMvuBlock(content) {
   // 半截、多块或不可解析的标签不能代表本轮结算完成；非 MVU 文本不参与指纹。
   if ((text.match(/<UpdateVariable>/gi) || []).length !== 1 || (text.match(/<\/UpdateVariable>/gi) || []).length !== 1) return '';
   const block = text.match(/<UpdateVariable>[\s\S]*?<\/UpdateVariable>/i)?.[0];
-  if (!block || (block.match(/<JSONPatch>/gi) || []).length !== 1 || (block.match(/<\/JSONPatch>/gi) || []).length !== 1) return '';
-  const patch = block.match(/<JSONPatch>([\s\S]*?)<\/JSONPatch>/i);
-  try { return patch && Array.isArray(JSON.parse(patch[1].trim())) ? block : ''; }
+  if (!block || (block.match(/<(?:JSONPatch|json_patch)>/gi) || []).length !== 1 || (block.match(/<\/(?:JSONPatch|json_patch)>/gi) || []).length !== 1) return '';
+  const patch = block.match(/<(JSONPatch|json_patch)>([\s\S]*?)<\/\1>/i);
+  try { return patch && Array.isArray(JSON.parse(patch[2].trim())) ? block : ''; }
   catch (_) { return ''; }
 }
 function correctionReply() {
@@ -593,16 +641,17 @@ function startAutomaticCorrection() {
   if (!ctx || !Array.isArray(ctx.chat)) return;
   let before;
   try { before = correctionReply()?.key; }
-  catch (error) { setCorrectionStatus('failed', '无法读取当前回复：' + error.message); return; }
+  catch (error) { setCorrectionStatus('failed', '无法读取当前回复：' + error.message, { scope: 'main' }); return; }
   const turn = { phase: 'waiting', chatRef: ctx.chat, chatKey: correctionChatKey(), before,
     candidate: null, finished: false, settled: false };
   correctionMainTurn = turn;
   // 主保存门禁始终跟踪；只有连接与自动开关都启用时才安排后续副请求。
   if (config.active && config.autoApply) correctionAutoTurn = turn;
   if (!correctionBindMvu?.()) {
-    setCorrectionStatus('failed', '主生成或 MVU 保存事件尚未就绪，当前轮次未开放校正。'); return;
+    turn.waitFailed = true;
+    setCorrectionStatus('failed', '主生成或 MVU 保存事件尚未就绪，尚未确认本轮主保存。', { scope: 'main' }); return;
   }
-  if (correctionAutoTurn === turn) setCorrectionStatus('waiting', '等待本轮 MVU 标签完整并保存，随后自动核对人际与角色变化。');
+  setCorrectionStatus('waiting', '等待本轮 MVU 标签、解析与当前回复页保存确认。', { scope: 'main' });
 }
 function endAutomaticCorrection(stopped, messageCount) {
   const turn = correctionMainTurn;
@@ -623,7 +672,8 @@ function endAutomaticCorrection(stopped, messageCount) {
 function scheduleAutomaticCorrection() {
   clearTimeout(correctionAutoTimer);
   const waiting = correctionMainTurn?.phase === 'waiting' && !correctionMainTurn.waitFailed;
-  if ((waiting || correctionAutoTurn?.phase === 'retrying') && !SS.destroyed) correctionAutoTimer = setTimeout(checkAutomaticCorrection, 200);
+  const correcting = ['guard', 'retrying'].includes(correctionAutoTurn?.phase) && !correctionAutoTurn.waitFailed;
+  if ((waiting || correcting) && !SS.destroyed) correctionAutoTimer = setTimeout(checkAutomaticCorrection, 200);
 }
 function rememberCorrection(key) {
   correctionSeen.add(key);
@@ -660,12 +710,13 @@ async function retryCorrection() {
   if (!retry || !correctionStatus.canRetry) throw new Error('没有可重试的任务，请先核对配置与当前变量。');
   if (retry.waiting) {
     const turn = retry.waiting;
-    if (correctionMainTurn !== turn || turn.settled) throw new Error('原等待任务已变化，请重新读取本轮。');
+    if (correctionMainTurn !== turn || turn.settled && turn.phase !== 'guard') throw new Error('原等待任务已变化，请重新读取本轮。');
     // 保存未确认的失败只能重走门禁，绝不把“能读到旧 v4”当成可重试的校正来源。
     turn.waitFailed = false; turn.deadline = Date.now() + 180000;
+    delete turn.guardWaitDeadline;
     if (retry.automatic) correctionAutoTurn = turn;
     correctionRetry = null;
-    setCorrectionStatus('waiting', '重新等待本轮 MVU 标签与保存结果；确认完成后再校正。');
+    setCorrectionStatus('waiting', turn.settled ? '主 MVU 已保存，重新等待副校正约束就绪。' : '重新等待本轮 MVU 标签与保存结果；确认完成后再校正。', { scope: turn.settled ? 'correction' : 'main' });
     scheduleAutomaticCorrection();
     return { waiting: true, count: 0 };
   }
@@ -682,8 +733,8 @@ async function retryCorrection() {
   return runAutomaticCorrection(turn);
 }
 async function checkAutomaticCorrection() {
-  const turn = correctionAutoTurn?.phase === 'retrying' ? correctionAutoTurn : correctionMainTurn;
-  if (!turn || !['waiting', 'retrying'].includes(turn.phase) || turn.waitFailed || SS.destroyed) return;
+  const turn = ['guard', 'retrying'].includes(correctionAutoTurn?.phase) ? correctionAutoTurn : correctionMainTurn;
+  if (!turn || !['waiting', 'guard', 'retrying'].includes(turn.phase) || turn.waitFailed || SS.destroyed) return;
   try {
     if (turn.phase === 'retrying') {
       ensureCorrectionCurrent(correctionRetry.saved);
@@ -691,29 +742,38 @@ async function checkAutomaticCorrection() {
       turn.attempt++;
       return await runAutomaticCorrection(turn);
     }
-    if (turn.deadline && Date.now() > turn.deadline) throw new Error('未确认本轮 MVU 保存。请检查 MVU 是否启用、是否在等待独立更新；当前楼层有完整变量后可重试。');
+    if (turn.phase === 'waiting' && turn.deadline && Date.now() > turn.deadline) throw new Error('未确认本轮 MVU 主保存。请检查 MVU 是否启用、是否在等待独立更新；当前楼层有完整变量后可重试。');
     const ctx = correctionContext();
     if (ctx?.chat !== turn.chatRef || correctionChatKey() !== turn.chatKey) throw new Error('聊天已切换，本轮校正已取消。');
     const candidate = turn.candidate;
-    if (!candidate?.ended || !candidate.rendered || correctionJob) { scheduleAutomaticCorrection(); return; }
+    if (!candidate?.ended || !candidate.rendered) { scheduleAutomaticCorrection(); return; }
     if (!correctionSameReply(correctionReply(), candidate.reply)) throw new Error('回复页或 MVU 标签已变化，本轮校正已取消。');
-    // 仅本处可在结算锁内回读 MVU 保存结果；请求和写入仍必须等待本轮变量确认。
-    const saved = captureCorrection(true), current = correctionMvuKey(saved.data), expected = correctionMvuKey(candidate.variables);
-    // ENDED 在楼层写入之前触发。另等保存后的渲染信号，并回读相同的完整结算结果。
-    if (current !== expected) {
-      // 主结算可能分多次解析/保存，清掉早先的稳定读数，继续等最新候选，不能抢先报失败。
-      turn.persisted = null;
+    // 主保存只依赖 MVU 核心事件和同一活动页回读，不等待副 API 的字段约束。
+    const saved = captureCorrection(true, false), current = correctionMvuKey(saved.data), expected = correctionMvuKey(candidate.variables);
+    if (turn.phase === 'waiting') {
+      if (current !== expected) { turn.persisted = null; scheduleAutomaticCorrection(); return; }
+      const stable = current + saved.mvuBlock;
+      if (turn.persisted !== stable) { turn.persisted = stable; turn.stableSince = Date.now(); scheduleAutomaticCorrection(); return; }
+      if (Date.now() - turn.stableSince < 300) { scheduleAutomaticCorrection(); return; }
+      turn.settled = true; turn.phase = 'settled'; turn.saved = saved;
+      if (correctionRetry?.waiting === turn) correctionRetry = null;
+      if (correctionAutoTurn !== turn) {
+        setCorrectionStatus('ready', '本轮 MVU 主保存已确认；未安排副 API 自动校正。', { scope: 'main' });
+        return;
+      }
+      turn.phase = 'guard';
+    }
+    if (!correctionSameReply(saved, turn.saved) || current !== turn.saved.stateKey) throw new Error('主 MVU 保存后回复页或实际变量已变化，请重新请求校正。');
+    if (correctionJob) { scheduleAutomaticCorrection(); return; }
+    try { correctionGuard(); }
+    catch (error) {
+      if (error.code !== 'RK_GUARD_LOADING') throw error;
+      turn.guardWaitDeadline ??= Date.now() + 60000;
+      if (Date.now() >= turn.guardWaitDeadline) throw new Error('等待 MVU v4 约束注册超时。' + error.message + ' 排除原因后可点击“重试本轮”。');
+      if (correctionStatus.scope !== 'correction' || correctionStatus.state !== 'waiting' || correctionStatus.message !== error.message) setCorrectionStatus('waiting', error.message, { attempt: 0 });
       scheduleAutomaticCorrection(); return;
     }
-    const stable = current + saved.mvuBlock;
-    if (turn.persisted !== stable) { turn.persisted = stable; turn.stableSince = Date.now(); scheduleAutomaticCorrection(); return; }
-    if (Date.now() - turn.stableSince < 300) { scheduleAutomaticCorrection(); return; }
-    turn.settled = true; turn.phase = 'settled';
-    if (correctionRetry?.waiting === turn) correctionRetry = null;
-    if (correctionAutoTurn !== turn) {
-      if (['waiting', 'failed'].includes(correctionStatus.state)) setCorrectionStatus('ready', '本轮 MVU 已保存，可手动校正；本轮没有安排自动请求。');
-      return;
-    }
+    delete turn.guardWaitDeadline;
     if (correctionSeen.has(candidate.reply.key)) { correctionAutoTurn = null; setCorrectionStatus('unchanged', '本回复已经自动核对过，不重复请求。'); return; }
     turn.attempt = 1;
     return await runAutomaticCorrection(turn);
@@ -721,12 +781,12 @@ async function checkAutomaticCorrection() {
     if (SS.destroyed || correctionMainTurn !== turn && correctionAutoTurn !== turn) return;
     const automatic = correctionAutoTurn === turn;
     correctionAutoTurn = null; correctionDraft = null; correctionRetry = null;
-    if (turn.phase === 'waiting') {
+    if (['waiting', 'guard'].includes(turn.phase)) {
       // 保留主流程写锁；超时后等待新 MVU 事件或显式重试，避免定时器反复报错。
       turn.waitFailed = true;
       correctionRetry = { waiting: turn, automatic };
     }
-    setCorrectionStatus('failed', String(error.message || '本轮自动校正失败。').replaceAll(correctionKey || '\u0000', '[已隐藏]'), { canRetry: Boolean(correctionRetry) });
+    setCorrectionStatus('failed', String(error.message || '本轮自动校正失败。').replaceAll(correctionKey || '\u0000', '[已隐藏]'), { scope: turn.settled ? 'correction' : 'main', canRetry: Boolean(correctionRetry) });
   }
 }
 function wireAutomaticCorrection(safeOn, TE) {

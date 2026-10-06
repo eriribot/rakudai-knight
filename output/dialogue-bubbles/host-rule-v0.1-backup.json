@@ -1,0 +1,146 @@
+[
+  {
+    "checked": false,
+    "id": "regex_test_input",
+    "name": "",
+    "tag": "TEXTAREA",
+    "type": "textarea",
+    "value": ""
+  },
+  {
+    "checked": false,
+    "id": "regex_test_output",
+    "name": "",
+    "tag": "TEXTAREA",
+    "type": "textarea",
+    "value": ""
+  },
+  {
+    "checked": false,
+    "id": "",
+    "name": "",
+    "tag": "INPUT",
+    "type": "text",
+    "value": "01 盾形对白 · 姓名与台词 v0.1"
+  },
+  {
+    "checked": false,
+    "id": "",
+    "name": "",
+    "tag": "INPUT",
+    "type": "text",
+    "value": "/^(?<!(?:```|~~~|<)[\\s\\S]*)(?![\\s\\S]*(?:```|~~~))[ ]{0,3}(Stella Vermillion|Kuraudo Kurashiki|Kanata Totokubara|Shizuku Kurogane|Yuudai Moroboshi|Shizuya Kirihara|Claude Kurashiki|Kurono Shinguuji|Byakuya Jogasaki|BYAKUYA JOGASAKI|Kurogane Itsuki|Itsuki Kurogane|Yudai Moroboshi|Kurono Shinguji|IKADSUCHI SAIJO|Ikadsuchi Saijo|Ayase Ayatsuji|Utakata Misogi|Mikoto Tsuruya|Tsuruya Mikoto|Ikki Kurogane|Ouma Kurogane|Alice Arisuin|Renren Tomaru|Touka Toudou|Nagi Arisuin|Nene Saikyou|Saikyou Nene|Iris Ascarid|艾莉丝·格尔·阿斯卡里德|艾莉絲·格爾·阿斯卡里德|Momiji Asagi|MOMIJI ASAGI|ステラ・ヴァーミリオン|Nene Saikyo|アイリス・アスカリッド|Yuri Oreki|Iris Gaule|Dirty Rose|Toka Todo|Edelweiss|艾莉丝·阿斯卡里德|艾莉絲·阿斯卡里德|Fu Xiaoli|Xiaoli Fu|史黛菈·法米利昂|史黛拉·法米利昂|アイリス・ゴール|莎拉·布拉德莉莉|エーデルワイス|欧尔雷斯·格尔|歐爾雷斯·格爾|艾茵·阿伯伦特|艾茵·阿伯倫特|有栖院艾莉丝|有栖院艾莉絲|艾莉丝·格尔|艾莉絲·格爾|黑骑士艾莉丝|黑騎士艾莉絲|多多良 幽衣|Alice|有栖院 凪|御祓 泡沫|贵德原彼方|貴德原彼方|貴徳原彼方|西京 寧音|新宫寺黑乃|新宮寺黑乃|新宮寺黒乃|折木 有里|阿斯卡里德|多多良幽衣|欧尔·格尔|歐爾·格爾|城之崎白夜|黑铁一辉|黑鐵一輝|黒鉄一輝|黑铁珠雫|黑鐵珠雫|黒鉄珠雫|绫辻绚濑|绫辻绚瀬|綾辻絢瀨|綾辻絢瀬|东堂刀华|東堂刀華|黑铁王马|黑鐵王馬|黒鉄王馬|爱德怀斯|愛德懷斯|艾德怀斯|艾德懷斯|诸星雄大|諸星雄大|有栖院凪|桐原静矢|桐原靜矢|仓敷藏人|倉敷藏人|倉敷蔵人|兔丸恋恋|兔丸戀戀|兎丸恋々|兔丸恋々|御祓泡沫|御禊泡沫|西京宁音|西京寧音|折木有里|华伦斯坦|華倫斯坦|药师雾子|藥師霧子|风祭凛奈|風祭凜奈|風祭凛奈|风祭凜奈|鹤屋美琴|鶴屋美琴|史黛菈|史黛拉|黑铁严|黑鐵嚴|黒鉄厳|有栖院|爱丽丝|愛麗絲|傀儡王|Ein|碎城雷|浅木椛|淺木椛|福小莉|一辉|一輝|珠雫|绚濑|绫濑|絢瀨|絢瀬|刀华|刀華|王马|王馬|恋恋|戀戀|泡沫|彼方|宁音|寧音|黑乃|黒乃|有里|幽衣|莎拉|艾茵|浅桦|淺樺|白夜)[ \\t]*[:：](?![^\\r\\n\\u2028\\u2029]*\\{\\{)[ \\t]*([^<>&\\r\\n\\u2028\\u2029]*[^<>&\\s])[ \\t]*(?=\\r?$)/gim"
+  },
+  {
+    "checked": false,
+    "id": "",
+    "name": "",
+    "tag": "TEXTAREA",
+    "type": "textarea",
+    "value": "<div data-rkd=\"bubble\" data-rkd-name=\"$1\"><span data-rkd-avatar aria-hidden=\"true\"></span><div data-rkd-body><span data-rkd-speaker>$1</span><div data-rkd-line>$2</div></div></div>"
+  },
+  {
+    "checked": false,
+    "id": "",
+    "name": "",
+    "tag": "TEXTAREA",
+    "type": "textarea",
+    "value": ""
+  },
+  {
+    "checked": false,
+    "id": "",
+    "name": "replace_position",
+    "tag": "INPUT",
+    "type": "checkbox",
+    "value": "1"
+  },
+  {
+    "checked": true,
+    "id": "",
+    "name": "replace_position",
+    "tag": "INPUT",
+    "type": "checkbox",
+    "value": "2"
+  },
+  {
+    "checked": false,
+    "id": "",
+    "name": "replace_position",
+    "tag": "INPUT",
+    "type": "checkbox",
+    "value": "3"
+  },
+  {
+    "checked": false,
+    "id": "",
+    "name": "replace_position",
+    "tag": "INPUT",
+    "type": "checkbox",
+    "value": "5"
+  },
+  {
+    "checked": false,
+    "id": "",
+    "name": "replace_position",
+    "tag": "INPUT",
+    "type": "checkbox",
+    "value": "6"
+  },
+  {
+    "checked": false,
+    "id": "",
+    "name": "min_depth",
+    "tag": "INPUT",
+    "type": "number",
+    "value": ""
+  },
+  {
+    "checked": false,
+    "id": "",
+    "name": "max_depth",
+    "tag": "INPUT",
+    "type": "number",
+    "value": ""
+  },
+  {
+    "checked": false,
+    "id": "",
+    "name": "disabled",
+    "tag": "INPUT",
+    "type": "checkbox",
+    "value": "on"
+  },
+  {
+    "checked": true,
+    "id": "",
+    "name": "run_on_edit",
+    "tag": "INPUT",
+    "type": "checkbox",
+    "value": "on"
+  },
+  {
+    "checked": false,
+    "id": "",
+    "name": "substitute_regex",
+    "tag": "SELECT",
+    "type": "select-one",
+    "value": "0"
+  },
+  {
+    "checked": true,
+    "id": "",
+    "name": "only_format_display",
+    "tag": "INPUT",
+    "type": "checkbox",
+    "value": "on"
+  },
+  {
+    "checked": false,
+    "id": "",
+    "name": "only_format_prompt",
+    "tag": "INPUT",
+    "type": "checkbox",
+    "value": "on"
+  }
+]

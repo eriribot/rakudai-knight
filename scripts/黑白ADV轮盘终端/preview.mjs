@@ -66,12 +66,18 @@ function previewRuntime() {
   let theme = 'dark';
   let app = null;
   const subscribers = new Set();
+  const calendarContext = { characterId: 'offline-worldbook-preview', chatId: 'offline-preview', chat: [] };
+  const calendarReader = createCalendarWorldbookReader({
+    getCharWorldbookNames: async () => ({ primary: '本地世界书 v0.02 · 离线预览' }),
+    getWorldbook: async () => calendarWorldbookEntries,
+    getContext: () => calendarContext
+  });
   const descriptions = {
     numeric: '虚拟数值样本：防御 B+；男性好感 1000、支援 S，没有恋爱阶段；女性好感 800 显示交往、支援仍为 C。点击人物展开。',
     highest: '虚拟上限样本：女性好感 1000 显示生死相随；男性同为 1000 仍只展示好感和支援。',
     legacy: '虚拟旧记录：好感为 null，支援度缺失或 null；原 C / A 仅作为旧字母显示，分数保持待核定。',
     empty: '虚拟第 8 楼的另一回复槽未保存 MVU：应清空此前人物，显示当前槽未就绪，不借用上一回复。',
-    avatars: '虚拟头像样本：已补入碎城雷、浅木椛、城之崎白夜、鹤屋美琴与福小莉，诸星雄大继续使用原版彩色盾图。碎城雷按动画参考配色，凛奈、美琴与小莉由黑白图上色，四人均记录为AI衍生图；小莉保留白囚衣、束带与锁链，未上传的头像先使用本地内联。美琴的灰金发依据用户提供的小说描述，未核实的眼色与制服配色标为本次上色选择。欧尔图为童年回忆形态。有栖院凪与艾莉丝使用全名分别识别；原创同行保留首字。可在手机首页打开 LIME 比较通讯录。',
+    avatars: '虚拟头像样本：已补入碎城雷、浅木椛、城之崎白夜、鹤屋美琴与福小莉，诸星雄大继续使用原版彩色盾图。碎城雷按动画参考配色，凛奈、美琴与小莉由黑白图上色，四人均记录为AI衍生图；小莉使用第12卷白囚衣、束带与锁链版，头像从已核验的图床地址加载。美琴的灰金发依据用户提供的小说描述，未核实的眼色与制服配色标为本次上色选择。欧尔图为童年回忆形态。有栖院凪与艾莉丝使用全名分别识别；原创同行保留首字。可在手机首页打开 LIME 比较通讯录。',
   };
   function source() {
     return { chatId: 'offline-preview', messageId: selected === 'legacy' ? 6 : 8,
@@ -124,6 +130,7 @@ function previewRuntime() {
       supportStage,
       romanceStage,
       getSnapshot,
+      worldbookCalendar: { read: () => calendarReader.read() },
       onUpdate(callback) { subscribers.add(callback); return () => subscribers.delete(callback); },
       notify(message) { status.textContent = '离线预览提示：' + String(message); },
       ui: {
@@ -132,7 +139,8 @@ function previewRuntime() {
         openStoryControls() { status.textContent = '离线预览不执行建档或剧情写入。'; },
       },
     });
-    if (selected === 'avatars' && query.get('view') === 'lime') app.openApp('lime');
+    if (query.get('view') === 'calendar') app.openApp('calendar');
+    else if (selected === 'avatars' && query.get('view') === 'lime') app.openApp('lime');
     else { app.openApp('blazer'); app.switchBlazerTab('roster'); }
     updateDescription();
   });
@@ -142,12 +150,17 @@ function previewRuntime() {
 
 export function buildPreview() {
   const built = buildTerminal();
+  const exportedWorldbook = JSON.parse(fs.readFileSync(new URL('../../落第骑士英雄谭v0.02.json', import.meta.url), 'utf8'));
+  const calendarWorldbookEntries = Object.values(exportedWorldbook.entries).filter(entry => entry.comment && entry.comment.startsWith('[剧情]'))
+    .map(entry => ({ uid: entry.uid, name: entry.comment, content: entry.content }));
+  const calendarReaderSource = fs.readFileSync(path.join(directory, 'calendar-worldbook.js'), 'utf8').replace(/\r\n/g, '\n');
   const bootstrap = 'const compiledHtml = ' + jsString(built.html) + ';\n' +
     'const version = ' + jsString(built.version) + ';\n' +
     'const RELATIONSHIP_SCORING = ' + jsString(RELATIONSHIP_SCORING) + ';\n' +
     'const supportStage = ' + supportStage.toString() + ';\n' +
     'const romanceStage = ' + romanceStage.toString() + ';\n' +
     'const samples = ' + jsString(makeSamples()) + ';\n' +
+    'const calendarWorldbookEntries = ' + jsString(calendarWorldbookEntries) + ';\n' + calendarReaderSource + '\n' +
     '(' + previewRuntime.toString() + ')();\n';
   const html = `<!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
@@ -161,7 +174,7 @@ button:focus-visible,select:focus-visible{outline:3px solid #b66226;outline-offs
 iframe{display:block;width:100%;height:min(760px,80vh);min-height:420px;border:0}
 </style></head><body><main>
 <h1>终端 v${built.version} · 离线状态预览</h1>
-<p class="note">以下是独立虚拟样本，不是当前聊天。页面使用实际编译后的终端 HTML，不连接酒馆，也不写入 MVU。</p>
+<p class="note">本局状态使用独立虚拟样本；校历的剧情资料来自本地世界书 v0.02。页面使用实际编译后的终端 HTML，不连接酒馆，也不写入 MVU。</p>
 <div class="controls" aria-label="切换虚拟记录">
 <button type="button" data-sample="numeric" aria-pressed="true">男／女阶段</button>
 <button type="button" data-sample="highest" aria-pressed="false">女性好感 1000</button>

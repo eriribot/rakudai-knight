@@ -129,7 +129,7 @@ function openApp(appId) {
   else if (appId === 'bbs') renderBbs();
   else if (appId === 'schedule') renderSchedule();
   else if (appId === 'gallery') renderGallery();
-  else if (appId === 'calendar' || appId === 'worldbook') renderCalendar();
+  else if (appId === 'calendar' || appId === 'worldbook') loadCalendarLore(true);
   else if (appId === 'settings') renderSettings();
 
   var curEl = document.getElementById(currentStack[currentStack.length - 1]);
@@ -291,7 +291,8 @@ function renderRelationshipMetrics(relation) {
   var stageText = knownSupport ? stage : '待核定' + (relation.羁绊阶段 && relation.羁绊阶段 !== '未定' ? '（原记录：' + esc(relation.羁绊阶段) + '）' : '');
   var contactNote = '';
   if (typeof relation.好感 !== 'number') {
-    contactNote = bridge.contactBaselineVersion !== 'C02' ? '请更新并启用按互动累计的 MVU v4 字段约束脚本，取消普通初始50。' :
+    contactNote = bridge.mvuRuntimeMode === 'native' ? '尚未计分。原生 MVU 保留已提交的分数，请按本局实际互动记录好感；未记录时保持待核定。' :
+      bridge.contactBaselineVersion !== 'C02' ? '请更新并启用按互动累计的 MVU v4 字段约束脚本，取消普通初始50。' :
       '尚未计分。普通首次从0累计本轮实际变化；特殊关系可按既定背景核定初始好感。无需先交换联系方式。';
   }
   return '<section class="gba-bond-panel" aria-label="好感与支援状态">' +
@@ -1116,6 +1117,130 @@ var calendarState = {
   _initialized: false
 };
 
+var calendarLore = { status: 'idle', worldbook: '', entries: [], undatedCount: 0, error: '', revision: 0 };
+var calendarStoryOrigin = null;
+var calendarLorePending = null;
+
+function resetCalendarLore() {
+  closeCalendarStory();
+  calendarLore = { status: 'idle', worldbook: '', entries: [], undatedCount: 0, error: '', revision: calendarLore.revision + 1 };
+  calendarLorePending = null;
+}
+
+function loadCalendarLore(force) {
+  if (!force && calendarLore.status !== 'idle') return calendarLorePending || Promise.resolve();
+  var currentBridge = bridge, revision = ++calendarLore.revision;
+  closeCalendarStory();
+  calendarLore.status = 'loading';
+  calendarLore.worldbook = ''; calendarLore.entries = []; calendarLore.undatedCount = 0; calendarLore.error = '';
+  var pending = Promise.resolve().then(function() {
+    if (!currentBridge || !currentBridge.worldbookCalendar || typeof currentBridge.worldbookCalendar.read !== 'function') {
+      throw new Error('当前终端未连接主世界书读取接口。');
+    }
+    return currentBridge.worldbookCalendar.read();
+  }).then(function(result) {
+    if (revision !== calendarLore.revision || currentBridge !== bridge) return;
+    if (!result || typeof result.worldbook !== 'string' || !Array.isArray(result.entries)) throw new Error('世界书剧情读取结果无效。');
+    calendarLore.status = 'ready';
+    calendarLore.worldbook = result.worldbook;
+    calendarLore.entries = result.entries;
+    calendarLore.undatedCount = result.undatedCount || 0;
+    renderCalendar();
+  }).catch(function(error) {
+    if (revision !== calendarLore.revision || currentBridge !== bridge) return;
+    calendarLore.status = 'error';
+    calendarLore.error = error && error.message || '世界书剧情暂不可用，请重试。';
+    renderCalendar();
+  });
+  calendarLorePending = pending;
+  if (force) renderCalendar();
+  return pending;
+}
+
+function calendarLoreItems(key) {
+  return calendarLore.status === 'ready' ? calendarLore.entries.filter(function(entry) {
+    return entry.dates.some(function(date) { return date.key === key; });
+  }) : [];
+}
+
+function calendarStoryButton(entry) {
+  return '<button type="button" class="rk-calendar-story-button" onclick="openCalendarStory(' + entry.uid + ')">' +
+    esc(entry.name) + '<small>' + esc(entry.dateLabel || '完整日期未明确') + '</small></button>';
+}
+
+function renderCalendarLoreStatus() {
+  var text = calendarLore.status === 'ready' ? calendarLore.worldbook + ' · ' + calendarLore.entries.filter(function(entry) { return entry.dates.length; }).length + ' 条剧情已标注日期' :
+    calendarLore.status === 'error' ? calendarLore.error : '正在读取当前角色主世界书…';
+  return '<div class="card1"><div class="ct rk-calendar-lore-heading"><span>世界书剧情</span>' +
+    '<button type="button" onclick="loadCalendarLore(true)"' + (calendarLore.status === 'loading' ? ' disabled' : '') + '>刷新剧情</button></div>' +
+    '<p class="rk-calendar-lore-note" role="status" aria-live="polite">' + esc(text) + '</p>' +
+    (calendarLore.status === 'ready' && !calendarLore.entries.length ? '<p>当前主世界书没有可查看的 [剧情] 条目。</p>' : '') + '</div>';
+}
+
+function renderUndatedCalendarLore() {
+  var entries = calendarLore.status === 'ready' ? calendarLore.entries.filter(function(entry) { return !entry.dates.length; }) : [];
+  return entries.length ? '<details class="card1 rk-calendar-undated"><summary>未定日期剧情 · ' + entries.length + ' 条</summary>' +
+    '<p class="rk-calendar-lore-note">这些条目未明确完整年月日，点击标题可查看原文。</p>' + entries.map(calendarStoryButton).join('') + '</details>' : '';
+}
+
+function calendarStoryDialog() {
+  var dialog = document.getElementById('rk-calendar-story');
+  if (!dialog || typeof dialog.showModal !== 'function') { toast('当前浏览器无法打开剧情弹窗。'); return null; }
+  if (!dialog._rkCalendarBound) {
+    dialog._rkCalendarBound = true;
+    dialog.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') event.stopPropagation();
+    });
+    dialog.addEventListener('click', function(event) {
+      if (event.target !== dialog) return;
+      var rect = dialog.getBoundingClientRect();
+      if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) dialog.close();
+    });
+    dialog.addEventListener('close', function() {
+      if (calendarStoryOrigin && calendarStoryOrigin.isConnected !== false && typeof calendarStoryOrigin.focus === 'function') calendarStoryOrigin.focus();
+      calendarStoryOrigin = null;
+    });
+  }
+  return dialog;
+}
+
+function showCalendarStoryDialog() {
+  var dialog = calendarStoryDialog();
+  if (!dialog) return;
+  if (!dialog.open) { calendarStoryOrigin = document.activeElement; dialog.showModal(); }
+  dialog.scrollTop = 0;
+}
+
+function closeCalendarStory() {
+  var dialog = document.getElementById('rk-calendar-story');
+  if (dialog && dialog.open && typeof dialog.close === 'function') dialog.close();
+  ['rk-calendar-story-title', 'rk-calendar-story-source', 'rk-calendar-story-content'].forEach(function(id) {
+    var node = document.getElementById(id); if (node) node.textContent = '';
+  });
+  var choices = document.getElementById('rk-calendar-story-choices'); if (choices) choices.innerHTML = '';
+}
+
+function openCalendarStory(uid) {
+  var entry = calendarLore.status === 'ready' && calendarLore.entries.find(function(item) { return item.uid === uid; });
+  if (!entry) { toast('该剧情资料已更新，请刷新日历后查看。'); return; }
+  document.getElementById('rk-calendar-story-title').textContent = entry.name;
+  document.getElementById('rk-calendar-story-source').textContent = '来源：' + calendarLore.worldbook + '\n世界书时间：' + (entry.dateLabel || '完整日期未明确');
+  document.getElementById('rk-calendar-story-choices').innerHTML = '';
+  document.getElementById('rk-calendar-story-content').textContent = entry.content;
+  showCalendarStoryDialog();
+}
+
+function openCalendarStoriesForDate(key) {
+  var entries = calendarLoreItems(key);
+  if (entries.length === 1) return openCalendarStory(entries[0].uid);
+  if (!entries.length) return;
+  document.getElementById('rk-calendar-story-title').textContent = key + ' · 世界书剧情';
+  document.getElementById('rk-calendar-story-source').textContent = '来源：' + calendarLore.worldbook + ' · 请选择要查看的剧情';
+  document.getElementById('rk-calendar-story-content').textContent = '';
+  document.getElementById('rk-calendar-story-choices').innerHTML = entries.map(calendarStoryButton).join('');
+  showCalendarStoryDialog();
+}
+
 // 2013年日本法定国民祝日 (National Holidays)
 var JAPAN_HOLIDAYS_2013 = {
   '1-1': { name: '元日', desc: '日本法定祝日 · 迎新春元旦' },
@@ -1238,6 +1363,9 @@ function selectCalendarDay(day) {
   if (!validCalendarDate(calendarState.year, calendarState.month, day)) return;
   calendarState.selectedDay = day;
   renderCalendar();
+  var selected = document.querySelector('[data-calendar-day="' + day + '"]');
+  if (selected) selected.focus();
+  openCalendarStoriesForDate(validCalendarDate(calendarState.year, calendarState.month, day).key);
 }
 
 function jumpToSceneDate() {
@@ -1258,13 +1386,18 @@ function renderCalendar() {
   var body = document.getElementById('calendar-body');
   if (!body) return;
   var sub = document.getElementById('calendar-sub');
+  if (calendarLore.status === 'idle') loadCalendarLore(false);
+  var loreStatus = renderCalendarLoreStatus();
+  var undatedLore = renderUndatedCalendarLore();
 
   var sceneDate = parseSceneDate();
   var schedule = readSceneSchedule();
   var dated = schedule.filter(function(item) { return !!item.date; });
   var undated = schedule.filter(function(item) { return !item.date; });
   if (!calendarState._initialized) {
-    var anchor = sceneDate || (dated.length ? dated[0].date : null);
+    var firstLoreDate = calendarLore.entries.flatMap(function(entry) { return entry.dates; }).map(function(date) { return parseScheduleDate(date.key); })
+      .filter(function(date) { return !!date; }).sort(function(a, b) { return a.key.localeCompare(b.key); })[0];
+    var anchor = sceneDate || (dated.length ? dated[0].date : null) || firstLoreDate;
     calendarState.year = anchor ? anchor.year : null;
     calendarState.month = anchor ? anchor.month : null;
     calendarState.selectedDay = anchor ? anchor.day : null;
@@ -1276,15 +1409,15 @@ function renderCalendar() {
   var selectedDay = calendarState.selectedDay || 1;
   if (!validCalendarDate(y, m, 1)) {
     if (sub) sub.textContent = '本局年月日尚未确认';
-    body.innerHTML = '<div class="card1"><div class="ct">手机日历</div>' +
-      '<p>当前场景和日程均无有效的完整日期，暂不定位月份。</p>' +
+    body.innerHTML = loreStatus + '<div class="card1"><div class="ct">手机日历</div>' +
+      '<p>当前场景、日程和世界书剧情均无有效的完整日期，暂不定位月份。</p>' +
       '<p>明确比赛或约定的日期后，会显示在对应日期；尚未定日的安排保留在下方。</p></div>' +
-      renderUndatedSchedule(undated, sceneDate);
+      renderUndatedSchedule(undated, sceneDate) + undatedLore;
     return;
   }
 
   if (sub) {
-    sub.textContent = y + '年' + m + '月 · ' + (sceneDate ? '剧情日期：' + sceneDate.key : '按已登记日程定位；剧情日期未确认');
+    sub.textContent = y + '年' + m + '月 · ' + (sceneDate ? '本局日期：' + sceneDate.key : '本局日期未确认');
   }
 
   var totalDays = calendarMonthDays(y, m);
@@ -1316,6 +1449,7 @@ function renderCalendar() {
     var festival = JAPAN_FESTIVALS[key];
     var dateKey = validCalendarDate(y, m, d).key;
     var dayItems = byDate[dateKey] || [];
+    var dayLore = calendarLoreItems(dateKey);
     var activeItems = dayItems.filter(function(item) { return item.entry.状态 !== '已取消'; });
     var hasMatch = activeItems.some(function(item) { return item.entry.类型 === '比赛'; });
     var isSceneToday = (sceneDate && sceneDate.year === y && sceneDate.month === m && sceneDate.day === d);
@@ -1327,17 +1461,19 @@ function renderCalendar() {
     if (isSceneToday) cellClass += ' is-scene-today';
     if (activeItems.length) cellClass += ' has-school';
     else if (holiday) cellClass += ' has-holiday';
+    if (dayLore.length) cellClass += ' has-lore';
     if (weekdayIndex === 0) cellClass += ' is-sun';
     if (weekdayIndex === 6) cellClass += ' is-sat';
 
     var marks = '';
     if (isSceneToday) marks += '<span class="gba-cal-mark mark-today" title="当前剧情日">★</span>';
     if (dayItems.length) marks += '<span class="gba-cal-mark mark-school" title="本局日程 ' + dayItems.length + ' 项">' + (hasMatch ? '⚔' : '•') + dayItems.length + '</span>';
+    if (dayLore.length) marks += '<span class="gba-cal-mark mark-lore" title="点击查看世界书剧情">剧情' + (dayLore.length > 1 ? dayLore.length : '') + '</span>';
     if (holiday) marks += '<span class="gba-cal-mark mark-holiday" title="2013 年法定祝日">㊗</span>';
     else if (festival) marks += '<span class="gba-cal-mark mark-fest" title="传统节庆">🎋</span>';
 
-    cellsHtml += '<button type="button" class="' + cellClass + '" onclick="selectCalendarDay(' + d + ')" aria-pressed="' + isSelected +
-      '" aria-label="' + dateKey + '，' + dayItems.length + ' 项本局日程' + (hasMatch ? '，含比赛' : '') + '">' +
+    cellsHtml += '<button type="button" class="' + cellClass + '" data-calendar-day="' + d + '" onclick="selectCalendarDay(' + d + ')" aria-pressed="' + isSelected +
+      '" aria-label="' + dateKey + '，' + dayItems.length + ' 项本局日程' + (hasMatch ? '，含比赛' : '') + (dayLore.length ? '，' + dayLore.length + ' 条世界书剧情，点击查看' : '') + '">' +
       '<span class="gba-cal-num">' + d + '</span>' +
       '<span class="gba-cal-marks">' + marks + '</span>' +
     '</button>';
@@ -1347,16 +1483,19 @@ function renderCalendar() {
   var selHoliday = y === 2013 ? JAPAN_HOLIDAYS_2013[selKey] : null;
   var selFestival = JAPAN_FESTIVALS[selKey];
   var selectedItems = byDate[validCalendarDate(y, m, selectedDay).key] || [];
+  var selectedLore = calendarLoreItems(validCalendarDate(y, m, selectedDay).key);
   var selIsScene = (sceneDate && sceneDate.year === y && sceneDate.month === m && sceneDate.day === selectedDay);
   var selWeekdayName = weekdays[(firstDayWeekday + selectedDay - 1) % 7];
 
   var detailTags = '';
   if (selIsScene) detailTags += '<span class="gba-badge-today">★ 当前剧情时间</span> ';
   if (selectedItems.length) detailTags += '<span class="gba-badge-school">本局日程 ' + selectedItems.length + ' 项</span> ';
+  if (selectedLore.length) detailTags += '<span class="gba-badge-school">世界书剧情 ' + selectedLore.length + ' 条</span> ';
   if (selHoliday) detailTags += '<span class="gba-badge-holiday">㊗ ' + esc(selHoliday.name) + '</span> ';
   if (selFestival) detailTags += '<span class="gba-badge-fest">🎋 ' + esc(selFestival.name) + '</span> ';
 
   var detailNotes = selectedItems.map(function(item) { return renderScheduleItem(item, sceneDate); });
+  if (selectedLore.length) detailNotes.push('<div class="gba-cal-event"><b>【世界书剧情】</b>' + selectedLore.map(calendarStoryButton).join('') + '</div>');
   if (!selectedItems.length) detailNotes.push('<div style="font-size:12px;color:var(--muted);padding:4px 0;">当日暂无本局已登记的比赛或约定。</div>');
   if (selHoliday) {
     detailNotes.push('<div class="gba-cal-event holiday-event"><b>【法定祝日】' + esc(selHoliday.name) + '</b><p>' + esc(selHoliday.desc) + '</p></div>');
@@ -1369,7 +1508,7 @@ function renderCalendar() {
   }
 
   var html = 
-    '<div class="gba-cal-panel">' +
+    loreStatus + '<div class="gba-cal-panel">' +
       '<div class="gba-cal-nav">' +
         '<button type="button" class="gba-btn-sm" onclick="changeCalendarMonth(-1)">◀ 上月</button>' +
         '<span class="gba-cal-cur-title">' + y + ' 年 ' + m + ' 月</span>' +
@@ -1378,7 +1517,7 @@ function renderCalendar() {
       '</div>' +
       '<div class="gba-cal-week-row">' + weekHeaderHtml + '</div>' +
       '<div class="gba-cal-grid">' + cellsHtml + '</div>' +
-      '<p style="font-size:11px;color:var(--muted);">⚔ 比赛 · • 其他日程 · ★ 本局日期；过去的安排不会自动标为完成。</p>' +
+      '<p style="font-size:11px;color:var(--muted);">⚔ 比赛 · • 其他日程 · ★ 本局日期 · 剧情：点击查看世界书原文。</p>' +
       (y === 2013 ? '' : '<p style="font-size:11px;color:var(--muted);">该年的法定祝日尚未配置，节庆提示不代表本局活动。</p>') +
     '</div>' +
     '<div class="card1 gba-cal-detail">' +
@@ -1388,7 +1527,7 @@ function renderCalendar() {
       '</div>' +
       (detailTags ? '<div class="gba-cal-tags" style="margin-bottom:8px;">' + detailTags + '</div>' : '') +
       '<div class="gba-cal-desc-list">' + detailNotes.join('') + '</div>' +
-    '</div>' + renderUndatedSchedule(undated, sceneDate);
+    '</div>' + renderUndatedSchedule(undated, sceneDate) + undatedLore;
 
   body.innerHTML = html;
 }
@@ -1401,6 +1540,9 @@ function renderWorldbook() {
 window.changeCalendarMonth = changeCalendarMonth;
 window.selectCalendarDay = selectCalendarDay;
 window.jumpToSceneDate = jumpToSceneDate;
+window.loadCalendarLore = loadCalendarLore;
+window.openCalendarStory = openCalendarStory;
+window.closeCalendarStory = closeCalendarStory;
 
 // ===== 终端配置 (Settings) =====
 function renderSettings() {
@@ -1469,6 +1611,7 @@ function refreshTerminalState(event) {
   var revision = ++bridgeRevision;
   var retainDisplay = !!event && (!event.reset || event.retainDisplay === true);
   if (!retainDisplay) {
+    resetCalendarLore();
     stat = {};
     stateSource = null;
     stateTargetSource = null;
@@ -1500,6 +1643,12 @@ function refreshTerminalState(event) {
     if (revision !== bridgeRevision) return;
     var signature = JSON.stringify(snapshot);
     if (signature === stateSignature && dataStatus === (snapshot.pending ? 'pending' : 'ready')) return;
+    var previousScope = stateTargetSource || stateSource;
+    var nextScope = snapshot.targetSource || snapshot.source;
+    var calendarScopeKey = function(source) {
+      return source ? JSON.stringify([source.characterId ?? null, source.groupId ?? null, source.chatId ?? null]) : '';
+    };
+    if (calendarScopeKey(previousScope) !== calendarScopeKey(nextScope)) resetCalendarLore();
     if (sourceKey(stateSource) !== sourceKey(snapshot.source)) {
       expandedPeople.clear();
       hiddenPeopleOpen = false;
@@ -1550,6 +1699,7 @@ window.RKBoot = function(b) {
 };
 window.addEventListener('pagehide', function() {
   bridgeRevision++;
+  calendarLore.revision++;
   if (typeof correctionProgressUI !== 'undefined') correctionProgressUI.destroy();
   if (typeof bridgeUnsubscribe === 'function') bridgeUnsubscribe();
   bridgeUnsubscribe = null;

@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "character": "艾茵·阿伯伦特",
+  "title": "恶之华",
+  "variant": "volume-13-human-form-hand-heart",
+  "type": "ai-generated-fan-illustration-not-official-art",
+  "generatedDateLocal": "2026-10-04",
+  "timezone": "Asia/Shanghai",
+  "mode": "built-in",
+  "tool": "image_gen__imagegen",
+  "useCase": "identity-preserve",
+  "output": "resource/knightavatars/fanart/ein-vol13-heart.png",
+  "sourceReferences": [
+    {
+      "path": "resource/knightavatars/research/review/ein-upright-study.png",
+      "role": "adult-identity-and-color",
+      "original": "第13卷 OEBPS/Images/004.jpg"
+    },
+    {
+      "path": "resource/knightavatars/research/epub/scratch-ein/tw-13-012.jpg",
+      "role": "adult-garment-construction",
+      "original": "第13卷 Chapter004.xhtml:135"
+    },
+    {
+      "path": "resource/knightavatars/research/epub/scratch-ein/tw-13-013.jpg",
+      "role": "smile-expression-only",
+      "original": "第13卷 Chapter004.xhtml:687–689，回忆段插图"
+    }
+  ],
+  "requestedStyle": "Won 的《落第骑士英雄谭》小说插画画风",
+  "fanCreation": "双手比心、面向观者的姿势与淡色背景为此次同人创作。",
+  "visualReview": {
+    "status": "reviewed",
+    "observed": [
+      "紫黑长发与侧斜刘海",
+      "玫红瞳色与细线条面容",
+      "黑色高领礼服和长手套",
+      "两手构成清晰爱心，面部未被遮挡",
+      "单人、无文字与署名"
+    ]
+  },
+  "finalPrompt": "Use case: identity-preserve.\nAsset type: a new character fan illustration based on an existing light-novel character design.\n\nPrimary request: Depict Ein, 艾茵·阿伯伦特, known as 〈恶之华 / Dirty Rose〉 in Rakudai Kishi no Cavalry, using her adult human appearance from volume 13. She faces the viewer with a warm, gently playful smile and makes a clearly readable TWO-HANDED HEART gesture: curved index fingers meet at the top, thumbs meet at the bottom, creating one symmetrical hollow heart in front of her upper chest. Both hands must be fully visible, with natural wrists and five anatomically coherent fingers on each hand.\n\nInput image 1 (ein-upright-study.png): primary identity and COLOR reference for the SAME woman; preserve her face, eye shape, deep pink/magenta irises, long dark violet-black hair, long side-swept bangs, and distinctive hair strands sweeping across the face. The pointed wisps on her head are HAIR, not horns.\nInput image 2 (tw-13-012.jpg): adult design and garment construction reference; use the existing elegant black high-neck, bare-shoulder dress, small lace edging at the front opening, fitted dark bodice, side crossed straps, and long black gloves. Preserve the original garment coverage and natural proportions; do not exaggerate any body part. Change the arm pose into the requested heart gesture. Do not retain the thorn appendages.\nInput image 3 (tw-13-013.jpg): expression and fine-line drawing reference only; borrow the softness of the smile while keeping the adult face/design and palette of image 1. Do not reproduce its original pose or treat it as a younger age depiction.\n\nStyle/medium: Won's Rakudai Kishi no Cavalry light-novel illustration style, closely grounded in the supplied Won original references: fine expressive hand-drawn contour lines, elegant tapered facial features, layered flowing hair with narrow broken highlights, polished restrained cel shading with soft painterly transitions, delicate fabric folds, graceful proportions, vivid but controlled eye color. A high-quality color novel illustration; not photorealistic, not 3D, not chibi.\nComposition: vertical portrait, waist-up, near-frontal three-quarter orientation with a small natural head tilt. Keep the full head, long hair, shoulders, both forearms and complete heart-shaped hands in the frame. The hand heart must not cover her face. Show her looking toward the viewer, both eyes open, with a small affectionate smile. Her black gloved fingertips define a clean recognizable heart opening.\nScene/backdrop: clean warm ivory background with a very faint blush-pink tonal wash; minimal so the character and gesture are clear.\nLighting: soft diffuse light; retain violet-black hair, magenta irises, fair complexion, and glossy black fabric from the official color reference.\nConstraints: ONLY Ein in the image. Preserve her specific recognizable hair and costume design rather than creating a generic anime girl. No horns, no extra jewelry, no weapons, no thorn growths, no other people, no speech bubbles, no captions, no typography, no logo, no artist signature, no watermark. Original references guide identity and drawing style; create a new hand-heart pose."
+}

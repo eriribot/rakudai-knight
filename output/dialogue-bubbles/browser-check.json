@@ -1,0 +1,21 @@
+{
+  "environment": "Codex in-app browser; local preview; local avatar images",
+  "status": "passed",
+  "source": "output/dialogue-bubbles/preview.html",
+  "checks": {
+    "darkBackground": "passed",
+    "lightBackground": "passed",
+    "containerWidth320": "passed",
+    "horizontalOverflowAt320": false,
+    "visibleDialogueCount": 4,
+    "styleElementCount": 1,
+    "avatarsVisuallyObserved": "史黛菈、一辉、珠雫、东堂刀华"
+  },
+  "screenshots": [
+    "output/playwright/dialogue-bubbles-desktop.jpg",
+    "output/playwright/dialogue-bubbles-mobile.jpg"
+  ],
+  "realSillyTavern": "not run",
+  "remoteAvatarLoading": "not run; preview uses existing local equivalents",
+  "modelCompliance": "not run"
+}
