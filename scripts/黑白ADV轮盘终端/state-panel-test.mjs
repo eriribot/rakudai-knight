@@ -125,7 +125,8 @@ await check('轮询不抹掉输入；并发状态变化后旧表单凭据拒绝�
   f.node('[data-story-action="nextVolume"]').click(); assert.equal(form.elements.time.value, '目标时间'); form.dispatch('submit'); await settle(); assert.equal(f.writes, 1);
 });
 await check('迁移显示具体差异与下载入口，只有确认升级才写当前活动槽', async () => {
-  const before = saved(); before.系统.结构版本 = 3; before.场景.已发生事件.本局事件 = { 章段: '第一章', 结果: '已发生', 参与者: [], 知情者: [] };
+  const before = saved(); before.系统.结构版本 = 3; delete before.玩家.成长;
+  before.场景.已发生事件.本局事件 = { 章段: '第一章', 结果: '已发生', 参与者: [], 知情者: [] };
   const f = fixture(before); await settle();
   assert.equal(f.writes, 0); assert.equal(f.node('[data-story-migration]').hidden, false); assert.match(f.node('[data-story-migration-diff]').textContent, /系统\/结构版本/);
   assert.match(f.node('[data-story-migration-diff]').textContent, /本局事件\/卷号/);

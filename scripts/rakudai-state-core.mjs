@@ -1,6 +1,7 @@
 import { deriveTournament, prepareTournamentAction, suggestTournamentOpponents, createTournamentParticipant } from './rakudai-tournament.mjs';
 import { STORY_VOLUMES, getStoryVolume, resolveStoryChapter, storyPosition, nextStoryChapter, firstStoryChapter } from './rakudai-story-catalog.mjs';
 import { GROWTH_RULES, GROWTH_AXES, ATTRIBUTE_GRADES, normalizeSkillEntry, normalizeGrowthRequests } from '../世界书规则/MVU/schema.mjs';
+import { repairRakudaiMvuStructure } from './rakudai-mvu-structure.mjs';
 
 // 状态规则与运行时适配分开：本模块不访问宿主、不发送消息、不生成剧情。
 export const STATE_CHAPTERS = ['待选择', ...getStoryVolume(1).chapters.map(chapter => chapter.key)];
@@ -37,7 +38,7 @@ export function applyOpening(before, payload) {
   next.玩家.登记等级 = payload.系统.主角模式 === '黑铁一辉' ? 'F' : null;
   next.系统 = { 结构版本: 4, 主角模式: payload.系统.主角模式, 开局状态: '已建档' };
   next.场景.阶段 = '进行中';
-  return next;
+  return repairRakudaiMvuStructure(next, { legacyRequests: false });
 }
 
 // 仅修正尚未开演时选错的人物；不把读取草稿等同于重置整局。
@@ -113,10 +114,9 @@ export function applyTransition(before, request) {
     locateTarget(request.volume, request.chapter);
   } else throw new Error('未知剧情操作。');
   if (['jump', 'nextVolume'].includes(request.action)) {
-    // 手动跳过的过程不是训练。取消未结算申请，保留已获得经验与历史。
-    const growth = growthState(next.玩家.成长);
-    growth.申请 = {};
-    growth.最近提示 = '已切入新场景；跳过的事件不补算经验，待结算申请已取消。';
+    // 手动跳过的过程不是训练；终值模式保留旧申请和记录，不创建申请。
+    const growth = growthState(next.玩家.成长, { legacyRequests: false });
+    growth.最近提示 = '已切入新场景；跳过的事件不补算经验，历史成长记录保持原样。';
     next.玩家.成长 = growth;
   }
   return next;
@@ -272,13 +272,15 @@ export function growthDateKey(value) {
 
 function growthObject(value) { return value && typeof value === 'object' && !Array.isArray(value); }
 function growthName(value) { return typeof value === 'string' && !!value.trim() && !/[~/]/.test(value) && !['__proto__', 'prototype', 'constructor'].includes(value); }
-function growthState(value) {
+function growthState(value, { legacyRequests = true } = {}) {
   const result = growthObject(value) ? cloneState(value) : {};
   result.版本 = GROWTH_RULES.version;
   result.经验 ??= {};
   for (const axis of GROWTH_AXES) result.经验[axis] ??= 0;
-  result.记录 ??= {};
-  result.申请 ??= {};
+  if (legacyRequests) {
+    result.记录 ??= {};
+    result.申请 ??= {};
+  }
   result.最近提示 ??= '';
   // G01/G02 的境界、环境、复核与待结算申请原样留档；G03 不再创建这些字段。
   return result;
@@ -295,30 +297,32 @@ function growthRequestValid(request) {
     Number.isSafeInteger(request.经验) && request.经验 >= 0 && typeof request.成果 === 'string' && !!request.成果.trim();
 }
 
-// 统一处理申请奖励与经验终值。结算不以类型/方式的措辞审批成果，也不限制每轮升档次数。
-export function enforceGrowthProgress(variables, previous, { replyKey = '', repairEventKeys = [], growthFinalAxes = [], growthGradeAxes = [] } = {}) {
+// 默认保留独立 G04 的旧申请接口；字段约束显式使用 final，只校正终值与晋级。
+export function enforceGrowthProgress(variables, previous, { replyKey = '', repairEventKeys = [], growthFinalAxes = [], growthGradeAxes = [], mode = 'legacy' } = {}) {
   const before = previous?.stat_data, after = variables?.stat_data, notices = [];
   if (before?.系统?.结构版本 !== 4 || before.系统.开局状态 !== '已建档' || !after?.玩家) return notices;
   const old = before.玩家.成长, incoming = after.玩家.成长;
   if (!old && incoming === undefined) return notices;
-  const growth = growthState(old), scoped = typeof replyKey === 'string' && !!replyKey;
+  const finalOnly = mode === 'final';
+  const growth = growthState(old, { legacyRequests: !finalOnly }), scoped = typeof replyKey === 'string' && !!replyKey;
   const explicitFinal = new Set(growthFinalAxes), explicitGrades = new Set(growthGradeAxes);
   const correctedExperience = {};
   if (scoped) for (const axis of GROWTH_AXES) {
     const value = incoming?.经验?.[axis];
-    if (Number.isSafeInteger(value) && value >= 0 && (value !== old?.经验?.[axis] || explicitFinal.has(axis))) correctedExperience[axis] = value;
+    // N03 补缺的零初值不是模型提交的经验终值；显式提交零仍可纠错。
+    if (Number.isSafeInteger(value) && value >= 0 && (value !== (old?.经验?.[axis] ?? 0) || explicitFinal.has(axis))) correctedExperience[axis] = value;
   }
-  const proposed = normalizeGrowthRequests(growthObject(incoming?.申请) ? incoming.申请 : growth.申请);
-  growth.申请 = cloneState(proposed);
+  const proposed = finalOnly ? {} : normalizeGrowthRequests(growthObject(incoming?.申请) ? incoming.申请 : growth.申请);
+  if (!finalOnly) growth.申请 = cloneState(proposed);
   const events = after.场景.已发生事件 || {}, oldEvents = before.场景.已发生事件 || {};
-  function note(id, message) { notices.push({ path: '/玩家/成长/申请/' + id, message }); growth.最近提示 = message; }
+  function note(id, message) { notices.push({ path: finalOnly ? '/玩家/成长' : '/玩家/成长/申请/' + id, message }); growth.最近提示 = message; }
   // 元数据和收据原样继承；经验终值是业务数据，主副 API 都可以明确校正。
-  const owned = value => growthObject(value) ? Object.fromEntries(Object.entries(value).filter(([key]) => !['申请', '经验'].includes(key))) : {};
-  if (stateKey(owned(incoming)) !== stateKey(owned(old))) note('结算收据', '版本与结算记录由代码维护，本次已保留原收据；其它字段继续更新。');
+  const owned = value => growthObject(value) ? Object.fromEntries(Object.entries(value).filter(([key]) => !(finalOnly ? ['经验'] : ['申请', '经验']).includes(key))) : {};
+  if (stateKey(owned(incoming)) !== stateKey(owned(old))) note('结算收据', '版本、历史申请与结算记录由代码维护，本次已保留原数据；其它字段继续更新。');
   const repairEvents = new Set(Array.isArray(repairEventKeys) ? repairEventKeys.filter(growthName) : []);
   const budget = scoped && growth.回合结算?.标识 === replyKey ? cloneState(growth.回合结算) : { 标识: replyKey, 获得: {}, 已晋级: [] };
   for (const axis of GROWTH_AXES) {
-    const spent = scoped ? Object.values(growth.记录).filter(row => row.回合 === replyKey && row.目标 === axis).reduce((sum, row) => sum + row.获得, 0) : 0;
+    const spent = !finalOnly && scoped ? Object.values(growth.记录).filter(row => row.回合 === replyKey && row.目标 === axis).reduce((sum, row) => sum + row.获得, 0) : 0;
     budget.获得[axis] = Math.min(GROWTH_RULES.perReplyCap, Math.max(budget.获得[axis] || 0, spent));
   }
   const finalInputs = new Map();
@@ -386,7 +390,7 @@ export function enforceGrowthProgress(variables, previous, { replyKey = '', repa
     if (!budget.已晋级.includes(axis)) budget.已晋级.push(axis);
     const text = axis + '：' + initialRank + ' → ' + rank + '，剩余经验 ' + growth.经验[axis] + '。';
     promotions.push(text);
-    const receipt = Object.values(growth.记录).findLast(row => row.回合 === replyKey && row.目标 === axis);
+    const receipt = finalOnly ? null : Object.values(growth.记录).findLast(row => row.回合 === replyKey && row.目标 === axis);
     if (receipt) receipt.说明 += ' ' + text;
   }
   for (const [axis, signature] of finalInputs) {

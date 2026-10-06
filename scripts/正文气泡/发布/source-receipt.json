@@ -1,0 +1,50 @@
+{
+  "version": "0.4",
+  "deliveryMode": "component",
+  "scope": "三条角色局部显示正则、格式规则、离线预览；只更新对应组件，不重打整卡或修改聊天原文",
+  "sourceHashes": {
+    "resource/knightavatars/manifest.json": "c9490d77d00ca95702ab8a667831ea373796a3c769ed2e7fffeea2bd26c6e596",
+    "scripts/正文气泡/bubble.css": "a546dcf2b07d446c4f0167af6faad23b58a5ebdbb4f0c4b39487872387b84961",
+    "scripts/正文气泡/format-rule.txt": "045e0145da92912faf75f6785a8a299c1654c3fc4d0864de9e963cad757691c6",
+    "scripts/正文气泡/context-guard.mjs": "e980447cf89d41dbfa64ede80c51b516827b2da1afcb3e789164dd6a78a7a0bf",
+    "scripts/正文气泡/build.mjs": "aa47e12316de1260a33b7d75f8c87874884978e62378f79b049b01f8d3f23ede"
+  },
+  "library": {
+    "snapshot": "2026-08-18",
+    "routes": [
+      "sillytavern-render-regex-pipeline",
+      "sillytavern-embedded-ui",
+      "sillytavern-component-update",
+      "sillytavern-api-reference"
+    ],
+    "guides": [
+      "A0",
+      "A5",
+      "A6",
+      "C3",
+      "D7"
+    ],
+    "adoptedDesignCandidates": []
+  },
+  "dependencies": {
+    "host": "SillyTavern Regex + message HTML/CSS sanitization",
+    "image": "现有 manifest HTTPS 图片（远程加载）",
+    "helper": "NPC、固定玩家标记及完整 persona 名不需要 Tavern Helper；OC 候选提升与玩家自选头像由新版终端运行时提供"
+  },
+  "apiEvidence": {
+    "referenceVersion": "SillyTavern 1.18.0",
+    "source": "https://raw.githubusercontent.com/SillyTavern/SillyTavern/1.18.0/public/scripts/extensions/regex/engine.js",
+    "fields": "AI_OUTPUT=2; dialogue substitute_find_regex.ESCAPED=2; style NONE=0; markdownOnly display gate",
+    "userMacro": "当前 persona name1；只替换查找模式，安全字符捕获后输出",
+    "runtimeVerified": false
+  },
+  "candidateContract": {
+    "selector": "span[data-rkd=\"candidate\"]",
+    "name": "data-rkd-name",
+    "source": "span[data-rkd-source].textContent 保留完整原行",
+    "promotion": "仅共享身份解析器唯一命中玩家时提升；未知或歧义保持原文",
+    "playerMarker": "非空 data-rkd-player 表示玩家或固定标记；NPC 为 \"\""
+  },
+  "realSillyTavern": "not run；当前产物需要重新导入及验收，旧 output 中的实机记录不能证明 v0.4",
+  "modelCompliance": "not run; 不宣称绝对最少 token 或保证遵守率"
+}

@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "audit": "终值成长更新的小手机 smoke 既有失败基线审计",
+  "recordedAtUtc": "2026-10-06T11:49:11Z",
+  "workspace": "E:/web/落第",
+  "test": "scripts/黑白ADV轮盘终端/smoke-test.mjs",
+  "conclusion": "当前六项失败均在 HEAD 基线复现；本轮成长终值更新未新增这六项失败。原有导出一致性失败在当前构建中通过。完整 smoke 仍有六项失败，不能记为全部通过。",
+  "baseline": {
+    "ref": "HEAD",
+    "commit": "56a55ef45bcdc440499f71a629dce1215e4a7704",
+    "terminalVersion": "1.3.15",
+    "runtime": "Node.js v25.6.0",
+    "passed": 23,
+    "total": 30,
+    "failed": 7,
+    "method": {
+      "loader": "node:module registerHooks 的内存 load hook",
+      "source": "对仓库内 JS/MJS/JSON 模块使用 git show HEAD:<相对路径> 返回的源码，直接作为模块加载内容；不转换源码。",
+      "reads": "在同一 Node 进程将 node:fs readFileSync 定向到 git show HEAD:<相对路径> 的字节，并用 syncBuiltinESMExports 同步读取接口。仓库外与 node_modules 仍使用本机已安装依赖。",
+      "headFileCount": 84,
+      "headFileCountMeaning": "84 份缓存的 HEAD 文件，包含模块源码、测试、样式/页面、配置、素材及既有导出，并非 84 个纯源码模块。",
+      "testSource": "使用 HEAD 的原 smoke-test.mjs，导出一致性项也使用 HEAD 原路径与旧导出。",
+      "clone": "宿主原生 structuredClone；最终结果不使用 JSON 克隆替代或 VM 跨 realm 的改写方案。",
+      "execution": "通过 PowerShell 标准输入交给 node --input-type=module；测试结束恢复读取函数、日志与 hook。",
+      "diskSourceOverwrite": false,
+      "generatedScriptOnDisk": false,
+      "artifactWrite": false,
+      "reportWriteDuringExecution": false
+    }
+  },
+  "current": {
+    "terminalVersion": "1.3.17",
+    "source": "根代理在当前工作区运行 smoke-test.mjs 的结果，本审计未重复运行当前构建。",
+    "passed": 24,
+    "total": 30,
+    "failed": 6
+  },
+  "sharedFailures": [
+    {
+      "name": "当前页无MVU时不回退到旧页或旧楼层",
+      "baselineFailed": true,
+      "currentFailed": true,
+      "reason": "测试要求错误文本匹配 /尚无 MVU/，现有读取函数返回“当前回复及此前助手楼层都没有可显示的 MVU 数据”，文案不匹配。",
+      "testLine": 86,
+      "source": "scripts/黑白ADV轮盘终端/state-reader.js"
+    },
+    {
+      "name": "空名册不预填四人或世界书人物",
+      "baselineFailed": true,
+      "currentFailed": true,
+      "reason": "测试要求空态文本匹配 /尚无/，现有空名册显示“当前楼层 MVU 的‘人际’尚未登记人物”，文案不匹配。",
+      "testLine": 99,
+      "source": "scripts/黑白ADV轮盘终端/terminal-app.js",
+      "sourceLine": 541
+    },
+    {
+      "name": "空 MVU 槽错误仍保留来源，并清除上一个槽的人物",
+      "baselineFailed": true,
+      "currentFailed": true,
+      "reason": "读取失败后的现有 UI 流程清空 stateSource 为 null，测试要求保留 error.source 对应的回复槽来源。",
+      "testLine": 186,
+      "source": "scripts/黑白ADV轮盘终端/terminal-app.js",
+      "sourceLine": 1684
+    },
+    {
+      "name": "好感未计分与真实零分分开呈现，不替旧阶段倒填支援值",
+      "baselineFailed": true,
+      "currentFailed": true,
+      "reason": "测试要求未知好感文字匹配 /未计分/；现有展示为“好感待核定”及旧约束更新提示，实际文字不匹配。",
+      "testLine": 216,
+      "source": "scripts/黑白ADV轮盘终端/terminal-app.js",
+      "sourceLine": 294
+    },
+    {
+      "name": "重复启动及销毁均移除旧订阅",
+      "baselineFailed": true,
+      "currentFailed": true,
+      "reason": "连续两次 RKBoot 后测试订阅计数实际为 2，断言预期为 1；基线也在同一断言失败。",
+      "testLine": 323,
+      "source": "scripts/黑白ADV轮盘终端/terminal-app.js",
+      "sourceLine": 1689
+    },
+    {
+      "name": "事件历史逐条显示所属卷，旧缺卷事件提示迁移且文本仍转义",
+      "baselineFailed": true,
+      "currentFailed": true,
+      "reason": "现有事件历史只显示事件名与结果，没有测试要求的“第1卷 · 终章”等卷章标签或旧缺卷迁移提示。",
+      "testLine": 341,
+      "source": "scripts/黑白ADV轮盘终端/terminal-app.js",
+      "sourceLine": 1076
+    }
+  ],
+  "improvedExportCheck": {
+    "name": "实际导出脚本与所有维护源码逐字一致",
+    "baselineFailed": true,
+    "currentFailed": false,
+    "baselineReason": "HEAD 的旧导出 content 与使用 HEAD 源码重构的 content 不一致。",
+    "currentEvidence": "根代理当前 smoke 结果为 24/30，只有上述六项失败；当前导出一致性项通过。",
+    "testLine": 352
+  },
+  "changeScopeEvidence": {
+    "mainJs": "scripts/黑白ADV轮盘终端/main.js 相对 HEAD 无差异。",
+    "stateReaderJs": "scripts/黑白ADV轮盘终端/state-reader.js 相对 HEAD 无差异。",
+    "terminalAppJs": "相对 HEAD 唯一代码差异为 renderGrowthProgress 的成长说明、旧申请上限文案与历史标题；六项失败对应逻辑均与 HEAD 相同。",
+    "smokeTest": "相对 HEAD 仅最后的导出一致性项改为读取世界书规则/MVU/落第骑士-小手机-v<版本>.json。",
+    "unrelatedFixesApplied": false
+  },
+  "limitations": {
+    "realSillyTavernVerified": false,
+    "browserLayoutVerified": false,
+    "evidenceLevel": "离线 Node 测试与 Git 源码对比；不表示酒馆真实宿主、MVU 事件或浏览器布局已验收。",
+    "writes": "内存基线执行未覆盖任何磁盘源码、测试或产物；本次唯一新增写入为本 JSON 审计记录。"
+  }
+}

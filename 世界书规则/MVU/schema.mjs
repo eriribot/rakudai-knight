@@ -185,6 +185,7 @@ export const INITIAL_STATE = {
     姓名: '', 性格关键词: '', 处事风格: '', 所属: '', 固有灵装: '', 角色简介: '', 战斗风格: '',
     伐刀能力: { 能力系别: '', 能力本质: '', 共通限制: '', 招式: {} },
     其他能力: {},
+    成长: { 经验: { 魔力控制: 0, 体能: 0, 魔力量: 0 } },
     六维: Object.fromEntries(AXES.map(key => [key, ''])),
     综合初评: { 规则版本: 'R05-第一版', 分数: null, 等级: null, 拟定登记等级: null, 评定状态: '待填写六维', 待填写项: AXES.slice(0, 4) },
     登记等级: null,
@@ -207,8 +208,8 @@ function createStateSchema(z, version, { normalizeRelationships = true } = {}) {
   const record = value => z.record(key, value);
   // 字段级转换也覆盖框架逐字段、逐条事件应用 JSONPatch 的校验入口。
   const volumeNumber = z.preprocess(normalizeStoryVolume, z.number().int().min(1).max(19));
-  // 单条申请由结算器局部检查；未知/缺失数据保留待修正，不拖累其它状态更新。
-  const growthRequests = z.preprocess(normalizeGrowthRequests, record(z.unknown()));
+  // 历史申请仅作不透明记录留档；默认终值模式不拆分、不归一化、不兑现。
+  const growthRequests = record(z.unknown());
   const growth = z.object({
     版本: z.enum(['G01', 'G02', 'G03']).optional(),
     // 经验允许保留晋级后的溢出，不能拿最高单档门槛当累计上限；旧档经验原样读取。

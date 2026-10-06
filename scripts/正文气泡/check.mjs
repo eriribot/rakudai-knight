@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { createHash } from 'node:crypto';
-import { buildRules, applyRules } from './build.mjs';
+import { buildRules, applyRules, reports } from './build.mjs';
 
 // This checks declared card-regex fields and JavaScript string replacement only.
 // Markdown, installed host versions, extension ordering and actual prompt assembly
@@ -21,7 +21,12 @@ const names = [...owners].filter(([name, ids]) => ids.size === 1 && name !== '�
 const ambiguousNames = [...owners].filter(([, ids]) => ids.size > 1).map(([name]) => name);
 const bubbleOpenings = value => [...value.matchAll(/<div\b[^>]*\bdata-rkd="bubble"[^>]*>/g)].map(match => match[0]);
 const bubbleCount = value => bubbleOpenings(value).length;
+const candidateCount = value => [...value.matchAll(/<span data-rkd="candidate" /g)].length;
 const styleCount = value => [...value.matchAll(/<style>\/\* rkd-dialogue-style:/gi)].length;
+function inertText(value) {
+  return value.replace(/^<style>\/\* rkd-dialogue-style:[\s\S]*?<\/style>\n\n/, '')
+    .replace(/<span data-rkd="candidate" data-rkd-name="[^"]+"><span data-rkd-source>([^<>&]*)<\/span><\/span>/g, '$1');
+}
 function check(name, run) {
   try {
     run();
@@ -30,8 +35,11 @@ function check(name, run) {
     results.push({ name, passed: false, error: error.message });
   }
 }
-function unchanged(input, context) {
-  assert.equal(applyRules(input, rules, context), input, '非目标输入必须逐字保留，也不能单独注入样式');
+function unchanged(input, context, allowCandidate = false) {
+  const output = applyRules(input, rules, context);
+  assert.equal(bubbleCount(output), 0, '未确认身份不得生成气泡');
+  if (allowCandidate) assert.equal(inertText(output), input, '候选可逐字还原原行，不能猜身份');
+  else assert.equal(output, input, '保护区和非目标输入必须逐字保留，也不能单独注入样式');
 }
 function rendered(input, expectedBubbles = 1, context) {
   const output = applyRules(input, rules, context);
@@ -40,12 +48,16 @@ function rendered(input, expectedBubbles = 1, context) {
   return output;
 }
 
-check('规则结构：恰好两条，唯一 ID，AI 显示侧，编辑时重绘', () => {
+check('规则结构：恰好三条，既有 ID 保持、候选在样式前、AI 显示侧', () => {
   assert.ok(Array.isArray(rules));
-  assert.equal(rules.length, 2);
-  assert.equal(new Set(rules.map(rule => rule.id)).size, 2);
+  assert.equal(rules.length, 3);
+  assert.equal(new Set(rules.map(rule => rule.id)).size, 3);
+  assert.equal(rules[0].id, 'cf3083f8-42e4-4e2e-8e70-a65817a2c881');
+  assert.equal(rules[1].id, 'bea21af8-9a41-4b0c-9009-1811e54bb8e4');
+  assert.equal(rules[2].id, 'cf3083f8-42e4-4e2e-8e70-a65817a2c882');
   assert.equal(rules[0].substituteRegex, 2, '对白规则仅对查找模式做转义宏替换');
-  assert.equal(rules[1].substituteRegex, 0, '样式规则不执行查找宏替换');
+  assert.equal(rules[1].substituteRegex, 0, '候选规则不执行查找宏替换');
+  assert.equal(rules[2].substituteRegex, 0, '样式规则不执行查找宏替换');
   for (const rule of rules) {
     assert.equal(typeof rule.id, 'string');
     assert.ok(rule.id.length > 0);
@@ -70,6 +82,51 @@ check('规则结构：恰好两条，唯一 ID，AI 显示侧，编辑时重绘'
 check('显式传入规则与默认规则行为一致', () => {
   assert.equal(applyRules('史黛菈:一起走吧。'), applyRules('史黛菈:一起走吧。', rules));
 });
+check('固定玩家标记不依赖 persona 全名，NPC 不携带非空玩家标记', () => {
+  for (const name of ['玩家', 'player', 'PLAYER', 'user', 'OC', 'oc']) {
+    const output = rendered(`${name}:这句话使用稳定玩家标记。`);
+    assert.ok(bubbleOpenings(output)[0].includes(`data-rkd-player="${name}"`));
+    assert.equal(candidateCount(output), 0);
+  }
+  const npc = rendered('一辉:我是已知角色。');
+  assert.ok(bubbleOpenings(npc)[0].includes('data-rkd-player=""'));
+});
+check('OC 全名、缺字和明确简称先保留为候选，不提前猜成玩家', () => {
+  for (const name of ['清泉朝阳', '朝阳', '清泉', '清泉朝', '未登记同伴']) {
+    const input = `  ${name} \t：\t 原文字句 $1、$$、引号“你好”。  `;
+    const output = applyRules(input, rules, {user:'另一个 persona'});
+    assert.equal(candidateCount(output), 1);
+    assert.equal(bubbleCount(output), 0);
+    assert.equal(styleCount(output), 1, '候选消息预置一次样式供稍后提升');
+    assert.ok(output.includes(`data-rkd-name="${name}"`), '候选属性姓名剔除分隔符前空白');
+    assert.ok(output.includes(`<span data-rkd-source>${input}</span>`));
+    assert.equal(inertText(output), input);
+    assert.equal(applyRules(output, rules, {user:'另一个 persona'}), output, '候选显示重绘幂等');
+  }
+});
+check('OC 候选不含脚本、不注入头像地址，保留原文 CRLF 和 Unicode 行边界', () => {
+  const input = '前文\r\n  朝阳:第一句。  \r\n清泉：第二句。\u2028陌生人:第三句。\u2029后文';
+  const output = applyRules(input, rules);
+  assert.equal(candidateCount(output), 3);
+  assert.equal(inertText(output), input);
+  assert.equal(styleCount(output), 1);
+  assert.ok(!/<script\b|\bon\w+\s*=|javascript:/i.test(output));
+  assert.ok(!rules[1].replaceString.includes('$&'), '宿主只展开编号及命名捕获，不使用 JS $&');
+  assert.ok(!rules[1].replaceString.includes('src='));
+});
+check('OC 候选沿用思考、变量、属性及围栏边界，结束后可恢复', () => {
+  for (const [open, close] of [['<acg_think>','</acg_think>'],['<UpdateVariable>','</UpdateVariable>'],
+    ['<details><summary>剧情驱动</summary>','</details>'],['<!--','-->']]) {
+    const block = `${open}\n朝阳:保护区中的文字。\n${close}`;
+    unchanged(block);
+    const output = applyRules(`${block}\n朝阳:正文的候选。`, rules);
+    assert.equal(candidateCount(output), 1);
+    assert.equal(inertText(output), `${block}\n朝阳:正文的候选。`);
+  }
+  for (const input of ['```text\n朝阳:代码。\n```', '~~~\n朝阳:代码。\n~~~',
+    '<div title="quoted >\n朝阳:属性。\n">正文</div>', '朝阳:前文{{getvar::x}}后文',
+    '朝阳:普通文字 <img src=x>', '朝阳:A & B', '朝阳:&lt;script&gt;']) unchanged(input);
+});
 check('用户原样双语复现：日文行保留，两个中文对白显示气泡', () => {
   const input = fs.readFileSync(new URL('../../output/dialogue-bubbles/user-reproduction.txt', import.meta.url), 'utf8');
   const output = rendered(input, 2);
@@ -85,8 +142,8 @@ check('当前玩家动态匹配，换名后旧名与其他未知人物不放行'
     const output = rendered(input, 1, { user });
     assert.ok(bubbleOpenings(output)[0].includes(`data-rkd-name="${user}"`));
     assert.ok(output.includes('这是当前玩家的对白。'));
-    unchanged(input, { user: user === '清泉朝阳' ? '另一个玩家' : '清泉朝阳' });
-    unchanged('其他未知人物:不能借玩家分支显示。', { user });
+    unchanged(input, { user: user === '清泉朝阳' ? '另一个玩家' : '清泉朝阳' }, true);
+    unchanged('其他未知人物:不能借玩家分支显示。', { user }, true);
   }
 });
 check('玩家英文正则元字符与单引号按字面匹配，大小写沿用 i', () => {
@@ -94,8 +151,8 @@ check('玩家英文正则元字符与单引号按字面匹配，大小写沿用 
     const output = rendered(`${user}:Literal player name.`, 1, { user });
     assert.ok(bubbleOpenings(output)[0].includes(`data-rkd-name="${user}"`), '姓名不能被正则元字符或引号改写');
   }
-  unchanged('AxB:点号不可当成通配符。', { user: 'A.B' });
-  unchanged('AB:括号不可变成捕获语法。', { user: 'A(B)' });
+  unchanged('AxB:点号不可当成通配符。', { user: 'A.B' }, true);
+  unchanged('AB:括号不可变成捕获语法。', { user: 'A(B)' }, true);
   for (const spelling of ['ari player', 'ARI PLAYER', 'aRi pLaYeR']) {
     const output = rendered(`${spelling}:Case stays as written.`, 1, { user: 'Ari Player' });
     assert.ok(bubbleOpenings(output)[0].includes(`data-rkd-name="${spelling}"`));
@@ -108,9 +165,9 @@ check('空名、HTML、宏、冒号及换行玩家名不制造气泡或跨行捕
   for (const user of invalidNames) {
     const input = `${user}:不安全姓名保持原文。`;
     const output = applyRules(input, rules, { user });
-    assert.equal(output, input, `非法玩家名不能被截取：${JSON.stringify(user)}`);
+    assert.equal(inertText(output), input, `非法玩家名不能被截取：${JSON.stringify(user)}`);
     assert.equal(bubbleCount(output), 0, `非法玩家名不得产生破损气泡：${JSON.stringify(user)}`);
-    unchanged('其他未知人物:不得由空名或坏名放行。', { user });
+    unchanged('其他未知人物:不得由空名或坏名放行。', { user }, true);
   }
 });
 check('玩家与 NPC 混排共用一次样式，玩家分支保留台词安全边界', () => {
@@ -147,7 +204,7 @@ for (const name of names) {
   });
 }
 for (const name of new Set([...ambiguousNames, '艾莉丝'])) {
-  check(`歧义别名保留原文：${name}`, () => unchanged(`${name}:这行不猜测身份。`));
+  check(`歧义别名保留原文：${name}`, () => unchanged(`${name}:这行不猜测身份。`, undefined, true));
 }
 
 check('中英文冒号兼容，台词内部冒号及引号原样', () => {
@@ -181,7 +238,8 @@ check('CRLF 不吞相邻行和末尾换行', () => {
   const output = rendered(input, 2);
   assert.ok(output.includes('前置旁白\r\n'));
   assert.ok(output.endsWith('\r\n后置旁白\r\n'));
-  assert.equal(output.split('\r\n').length, input.split('\r\n').length, '原始 CRLF 数量应保留');
+  const body = output.replace(/^<style>\/\* rkd-dialogue-style:[\s\S]*?<\/style>\n\n/, '');
+  assert.equal(body.split('\r\n').length, input.split('\r\n').length, '排除独立样式后，正文原始 CRLF 数量应保留');
 });
 for (const indent of ['', ' ', '  ', '   ']) {
   check(`允许 ${indent.length} 个行首空格`, () => rendered(`${indent}一辉:这是对白。`));
@@ -204,7 +262,7 @@ const untouchedInputs = [
   '一辉:\n史黛菈:', '一辉\n:不跨行匹配。', '一辉:   \n普通旁白。',
 ];
 for (const [index, input] of untouchedInputs.entries()) {
-  check(`非目标行与空台词 ${index + 1}`, () => unchanged(input));
+  check(`非目标行与空台词 ${index + 1}`, () => unchanged(input, undefined, true));
 }
 
 for (const fence of ['```', '~~~']) {
@@ -405,7 +463,7 @@ const report = {
   disclaimer: '仅验证规则字段、JavaScript 替换与固定输入输出；不等于 SillyTavern 实机、Markdown 渲染或真实模型格式遵守率验收。',
   unverifiedHostStages: ['installed-version numeric placement mapping', 'Markdown/HTML rendering', 'macro substitution (not run; actual behavior depends on the installed host)', 'actual prompt assembly', 'global/preset/character regex ordering', 'edit/swipe/reload/streaming lifecycle', 'remote avatar availability'],
   declaredScope: { placement: [2], destination: 'display', markdownOnly: true, promptOnly: false, runOnEdit: true },
-  safetyBoundary: '仅对已知唯一姓名或当前玩家安全姓名的纯文本行生成 HTML；玩家查找宏以转义值进行有限离线模拟，不代表宿主宏系统验收。正文封套及已闭合保护块之后可恢复；当前保护块、HTML 属性及普通 details 内不转换；同名保护标签嵌套允许保守回退；含 HTML/实体或 {{ 宏标记的行保持宿主原文。本组件不是原始消息 HTML 消毒器。',
+  safetyBoundary: '已知唯一姓名、固定玩家标记或当前 persona 安全姓名的纯文本行生成气泡；未知安全姓名仅生成惰性候选，完整原行保留，只有终端身份解析唯一命中玩家后才可提升。玩家查找宏以转义值进行有限离线模拟，不代表宿主宏系统验收。正文封套及已闭合保护块之后可恢复；当前保护块、HTML 属性及普通 details 内不转换；同名保护标签嵌套允许保守回退；含 HTML/实体或 {{ 宏标记的行保持宿主原文。本组件不是原始消息 HTML 消毒器。',
   manifestCharacters: manifest.characters.length,
   uniqueNamesChecked: names.length,
   ambiguousNames,
@@ -415,9 +473,8 @@ const report = {
   measurements,
   results,
 };
-const reportUrl = new URL('../../output/dialogue-bubbles/check-results.json', import.meta.url);
-fs.mkdirSync(new URL('.', reportUrl), { recursive: true });
-fs.writeFileSync(reportUrl, `${JSON.stringify(report, null, 2)}\n`, 'utf8');
+fs.mkdirSync(reports, { recursive: true });
+fs.writeFileSync(reports + '/check-results.json', `${JSON.stringify(report, null, 2)}\n`, 'utf8');
 console.log(JSON.stringify({ total: report.total, passed: report.passed, failed: report.failed, measurements }, null, 2));
 for (const result of results.filter(result => !result.passed)) console.error(`${result.name}: ${result.error}`);
 process.exitCode = report.failed ? 1 : 0;

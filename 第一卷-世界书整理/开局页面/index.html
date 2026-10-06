@@ -4251,7 +4251,41 @@ function prepareTournamentAction(state, request) {
   return next;
 }
 
-// 本卡的原生 MVU 兼容层；不注册 Zod、不调用模型、不改 stat_data。
+// 本卡 v4 的经验初值为零；只补缺失容器/轴，不覆盖已有值或修猜坏值。
+function isRakudaiMvuState(state) {
+  const object = value => value !== null && typeof value === 'object' && !Array.isArray(value);
+  return Boolean(object(state) && state.系统?.结构版本 === 4 &&
+    [state.系统, state.场景, state.玩家, state.人际].every(object));
+}
+
+function repairRakudaiMvuStructure(state, { legacyRequests = true } = {}) {
+  if (!isRakudaiMvuState(state)) return state;
+  const player = state.玩家;
+  if (!Object.hasOwn(player, '成长')) {
+    return { ...state, 玩家: { ...player, 成长: { 经验: { 魔力控制: 0, 体能: 0, 魔力量: 0 }, ...(legacyRequests ? { 申请: {} } : {}) } } };
+  }
+  const growth = player.成长;
+  if (growth === null || typeof growth !== 'object' || Array.isArray(growth)) return state;
+  let next = growth;
+  function fill(field, value) {
+    if (next === growth) next = { ...growth };
+    next[field] = value;
+  }
+  if (!Object.hasOwn(growth, '经验')) fill('经验', { 魔力控制: 0, 体能: 0, 魔力量: 0 });
+  else if (growth.经验 !== null && typeof growth.经验 === 'object' && !Array.isArray(growth.经验)) {
+    let experience = growth.经验;
+    for (const axis of ['魔力控制', '体能', '魔力量']) if (!Object.hasOwn(experience, axis)) {
+      if (experience === growth.经验) experience = { ...growth.经验 };
+      experience[axis] = 0;
+    }
+    if (experience !== growth.经验) fill('经验', experience);
+  }
+  // N02 的父容器兼容仍保留；新规则不创建或兑现申请。
+  if (legacyRequests && !Object.hasOwn(growth, '申请')) fill('申请', {});
+  return next === growth ? state : { ...state, 玩家: { ...player, 成长: next } };
+}
+
+// 本卡的 MVU 兼容层；补缺失经验容器/零初值，兼容旧申请父容器，不注册 Zod、不调用模型。
 // MVU 61010dab: STARTED 后读取 schema；strictSet 只关闭 set 的旧二元组解释。
 function rakudaiMvuScopes(scopes = []) {
   const result = [];
@@ -4275,12 +4309,6 @@ function rakudaiMvuRuntime(scopes = []) {
   if (boot && (!guard || boot.state !== 'ready' || boot.guard !== guard)) return { mode: 'failed', boot, guard: guard || null };
   // 老版配套约束没有 boot 标记；真实 guard 仍表示 Zod 路径，不冒充原生模式。
   return { mode: 'zod', boot: boot || null, guard: guard || null };
-}
-
-function isRakudaiMvuState(state) {
-  return Boolean(state && !Array.isArray(state) && state.系统?.结构版本 === 4 &&
-    state.系统 && state.场景 && state.玩家 && state.人际 &&
-    [state.系统, state.场景, state.玩家, state.人际].every(value => typeof value === 'object' && !Array.isArray(value)));
 }
 
 function createRakudaiNativeSchema(state, previous) {
@@ -4307,8 +4335,11 @@ function createRakudaiNativeSchema(state, previous) {
   return schema;
 }
 
-function prepareRakudaiNativeMvu(data, scopes = []) {
-  if (rakudaiMvuRuntime(scopes).mode === 'native' && isRakudaiMvuState(data?.stat_data)) {
+function prepareRakudaiNativeMvu(data, scopes = [], { repairStructure = true } = {}) {
+  const runtime = rakudaiMvuRuntime(scopes);
+  if (repairStructure && data?.stat_data) data.stat_data = repairRakudaiMvuStructure(data.stat_data,
+    { legacyRequests: runtime.guard?.growthProtocol !== 'final-values-v1' });
+  if (runtime.mode === 'native' && isRakudaiMvuState(data?.stat_data)) {
     data.schema = createRakudaiNativeSchema(data.stat_data, data.schema);
   }
   return data;
@@ -4316,9 +4347,9 @@ function prepareRakudaiNativeMvu(data, scopes = []) {
 
 async function installRakudaiNativeMvu(W) {
   const slot = '__RK_MVU_NATIVE_N01__';
-  if (W[slot]?.version === 'N01' && W[slot].state !== 'failed') return W[slot];
+  if (W[slot]?.version === 'N03' && W[slot].state !== 'failed') return W[slot];
   W[slot]?.destroy?.();
-  const marker = { version: 'N01', state: 'loading', destroy: null };
+  const marker = { version: 'N03', state: 'loading', destroy: null };
   W[slot] = marker;
   let disposed = false, listener = null;
   function destroy() {
@@ -4541,6 +4572,7 @@ const INITIAL_STATE = {
     姓名: '', 性格关键词: '', 处事风格: '', 所属: '', 固有灵装: '', 角色简介: '', 战斗风格: '',
     伐刀能力: { 能力系别: '', 能力本质: '', 共通限制: '', 招式: {} },
     其他能力: {},
+    成长: { 经验: { 魔力控制: 0, 体能: 0, 魔力量: 0 } },
     六维: Object.fromEntries(AXES.map(key => [key, ''])),
     综合初评: { 规则版本: 'R05-第一版', 分数: null, 等级: null, 拟定登记等级: null, 评定状态: '待填写六维', 待填写项: AXES.slice(0, 4) },
     登记等级: null,
@@ -4563,8 +4595,8 @@ function createStateSchema(z, version, { normalizeRelationships = true } = {}) {
   const record = value => z.record(key, value);
   // 字段级转换也覆盖框架逐字段、逐条事件应用 JSONPatch 的校验入口。
   const volumeNumber = z.preprocess(normalizeStoryVolume, z.number().int().min(1).max(19));
-  // 单条申请由结算器局部检查；未知/缺失数据保留待修正，不拖累其它状态更新。
-  const growthRequests = z.preprocess(normalizeGrowthRequests, record(z.unknown()));
+  // 历史申请仅作不透明记录留档；默认终值模式不拆分、不归一化、不兑现。
+  const growthRequests = record(z.unknown());
   const growth = z.object({
     版本: z.enum(['G01', 'G02', 'G03']).optional(),
     // 经验允许保留晋级后的溢出，不能拿最高单档门槛当累计上限；旧档经验原样读取。
@@ -4808,7 +4840,7 @@ function applyOpening(before, payload) {
   next.玩家.登记等级 = payload.系统.主角模式 === '黑铁一辉' ? 'F' : null;
   next.系统 = { 结构版本: 4, 主角模式: payload.系统.主角模式, 开局状态: '已建档' };
   next.场景.阶段 = '进行中';
-  return next;
+  return repairRakudaiMvuStructure(next, { legacyRequests: false });
 }
 
 // 仅修正尚未开演时选错的人物；不把读取草稿等同于重置整局。
@@ -4884,10 +4916,9 @@ function applyTransition(before, request) {
     locateTarget(request.volume, request.chapter);
   } else throw new Error('未知剧情操作。');
   if (['jump', 'nextVolume'].includes(request.action)) {
-    // 手动跳过的过程不是训练。取消未结算申请，保留已获得经验与历史。
-    const growth = growthState(next.玩家.成长);
-    growth.申请 = {};
-    growth.最近提示 = '已切入新场景；跳过的事件不补算经验，待结算申请已取消。';
+    // 手动跳过的过程不是训练；终值模式保留旧申请和记录，不创建申请。
+    const growth = growthState(next.玩家.成长, { legacyRequests: false });
+    growth.最近提示 = '已切入新场景；跳过的事件不补算经验，历史成长记录保持原样。';
     next.玩家.成长 = growth;
   }
   return next;
@@ -5043,13 +5074,15 @@ function growthDateKey(value) {
 
 function growthObject(value) { return value && typeof value === 'object' && !Array.isArray(value); }
 function growthName(value) { return typeof value === 'string' && !!value.trim() && !/[~/]/.test(value) && !['__proto__', 'prototype', 'constructor'].includes(value); }
-function growthState(value) {
+function growthState(value, { legacyRequests = true } = {}) {
   const result = growthObject(value) ? cloneState(value) : {};
   result.版本 = GROWTH_RULES.version;
   result.经验 ??= {};
   for (const axis of GROWTH_AXES) result.经验[axis] ??= 0;
-  result.记录 ??= {};
-  result.申请 ??= {};
+  if (legacyRequests) {
+    result.记录 ??= {};
+    result.申请 ??= {};
+  }
   result.最近提示 ??= '';
   // G01/G02 的境界、环境、复核与待结算申请原样留档；G03 不再创建这些字段。
   return result;
@@ -5066,30 +5099,32 @@ function growthRequestValid(request) {
     Number.isSafeInteger(request.经验) && request.经验 >= 0 && typeof request.成果 === 'string' && !!request.成果.trim();
 }
 
-// 统一处理申请奖励与经验终值。结算不以类型/方式的措辞审批成果，也不限制每轮升档次数。
-function enforceGrowthProgress(variables, previous, { replyKey = '', repairEventKeys = [], growthFinalAxes = [], growthGradeAxes = [] } = {}) {
+// 默认保留独立 G04 的旧申请接口；字段约束显式使用 final，只校正终值与晋级。
+function enforceGrowthProgress(variables, previous, { replyKey = '', repairEventKeys = [], growthFinalAxes = [], growthGradeAxes = [], mode = 'legacy' } = {}) {
   const before = previous?.stat_data, after = variables?.stat_data, notices = [];
   if (before?.系统?.结构版本 !== 4 || before.系统.开局状态 !== '已建档' || !after?.玩家) return notices;
   const old = before.玩家.成长, incoming = after.玩家.成长;
   if (!old && incoming === undefined) return notices;
-  const growth = growthState(old), scoped = typeof replyKey === 'string' && !!replyKey;
+  const finalOnly = mode === 'final';
+  const growth = growthState(old, { legacyRequests: !finalOnly }), scoped = typeof replyKey === 'string' && !!replyKey;
   const explicitFinal = new Set(growthFinalAxes), explicitGrades = new Set(growthGradeAxes);
   const correctedExperience = {};
   if (scoped) for (const axis of GROWTH_AXES) {
     const value = incoming?.经验?.[axis];
-    if (Number.isSafeInteger(value) && value >= 0 && (value !== old?.经验?.[axis] || explicitFinal.has(axis))) correctedExperience[axis] = value;
+    // N03 补缺的零初值不是模型提交的经验终值；显式提交零仍可纠错。
+    if (Number.isSafeInteger(value) && value >= 0 && (value !== (old?.经验?.[axis] ?? 0) || explicitFinal.has(axis))) correctedExperience[axis] = value;
   }
-  const proposed = normalizeGrowthRequests(growthObject(incoming?.申请) ? incoming.申请 : growth.申请);
-  growth.申请 = cloneState(proposed);
+  const proposed = finalOnly ? {} : normalizeGrowthRequests(growthObject(incoming?.申请) ? incoming.申请 : growth.申请);
+  if (!finalOnly) growth.申请 = cloneState(proposed);
   const events = after.场景.已发生事件 || {}, oldEvents = before.场景.已发生事件 || {};
-  function note(id, message) { notices.push({ path: '/玩家/成长/申请/' + id, message }); growth.最近提示 = message; }
+  function note(id, message) { notices.push({ path: finalOnly ? '/玩家/成长' : '/玩家/成长/申请/' + id, message }); growth.最近提示 = message; }
   // 元数据和收据原样继承；经验终值是业务数据，主副 API 都可以明确校正。
-  const owned = value => growthObject(value) ? Object.fromEntries(Object.entries(value).filter(([key]) => !['申请', '经验'].includes(key))) : {};
-  if (stateKey(owned(incoming)) !== stateKey(owned(old))) note('结算收据', '版本与结算记录由代码维护，本次已保留原收据；其它字段继续更新。');
+  const owned = value => growthObject(value) ? Object.fromEntries(Object.entries(value).filter(([key]) => !(finalOnly ? ['经验'] : ['申请', '经验']).includes(key))) : {};
+  if (stateKey(owned(incoming)) !== stateKey(owned(old))) note('结算收据', '版本、历史申请与结算记录由代码维护，本次已保留原数据；其它字段继续更新。');
   const repairEvents = new Set(Array.isArray(repairEventKeys) ? repairEventKeys.filter(growthName) : []);
   const budget = scoped && growth.回合结算?.标识 === replyKey ? cloneState(growth.回合结算) : { 标识: replyKey, 获得: {}, 已晋级: [] };
   for (const axis of GROWTH_AXES) {
-    const spent = scoped ? Object.values(growth.记录).filter(row => row.回合 === replyKey && row.目标 === axis).reduce((sum, row) => sum + row.获得, 0) : 0;
+    const spent = !finalOnly && scoped ? Object.values(growth.记录).filter(row => row.回合 === replyKey && row.目标 === axis).reduce((sum, row) => sum + row.获得, 0) : 0;
     budget.获得[axis] = Math.min(GROWTH_RULES.perReplyCap, Math.max(budget.获得[axis] || 0, spent));
   }
   const finalInputs = new Map();
@@ -5157,7 +5192,7 @@ function enforceGrowthProgress(variables, previous, { replyKey = '', repairEvent
     if (!budget.已晋级.includes(axis)) budget.已晋级.push(axis);
     const text = axis + '：' + initialRank + ' → ' + rank + '，剩余经验 ' + growth.经验[axis] + '。';
     promotions.push(text);
-    const receipt = Object.values(growth.记录).findLast(row => row.回合 === replyKey && row.目标 === axis);
+    const receipt = finalOnly ? null : Object.values(growth.记录).findLast(row => row.回合 === replyKey && row.目标 === axis);
     if (receipt) receipt.说明 += ' ' + text;
   }
   for (const [axis, signature] of finalInputs) {
@@ -5276,7 +5311,111 @@ function createStateController(adapter) {
   });
 }
 
-window.RakudaiMvuNative = { version: "N01", runtime: rakudaiMvuRuntime, prepare: prepareRakudaiNativeMvu, install: installRakudaiNativeMvu };
+// 开局页与终端共用的本机、当前聊天显示配置；不读取或写入 MVU。
+function normalizePlayerPortraitName(value) {
+  return typeof value === 'string' ? value.normalize('NFKC').replace(/[\s·・･‧•．.]/g, '').toLowerCase() : '';
+}
+
+function safePlayerPortraitName(value) {
+  return typeof value === 'string' && value.trim().length > 0 && Array.from(value.trim()).length <= 64 &&
+    !/[\x00-\x1f\x7f<>"&{}:：\u2028\u2029]/.test(value);
+}
+
+function validatePlayerPortraitUrl(value) {
+  if (typeof value !== 'string') throw new Error('头像地址须为文字。');
+  value = value.trim();
+  if (!value) return '';
+  const data = /^data:image\/(png|jpeg|webp|gif);base64,([A-Za-z0-9+/]+={0,2})$/.exec(value);
+  if (data) {
+    const base64 = data[2], padding = (base64.match(/=+$/) || [''])[0].length;
+    if (base64.length % 4 || base64.length * 3 / 4 - padding > 1024 * 1024) throw new Error('本地头像须为 1 MiB 以内的 PNG、JPEG、WebP 或 GIF。');
+    return value;
+  }
+  let url;
+  try { url = new URL(value); } catch (_) { throw new Error('请填写有效的 HTTPS 图片地址，或选择本地图片。'); }
+  if (url.protocol !== 'https:' || url.username || url.password || /[\x00-\x1f\x7f]/.test(value)) {
+    throw new Error('远程头像只接受不含账号密码的 HTTPS 图片地址。');
+  }
+  return url.href;
+}
+
+function validatePlayerDisplayAliases(value) {
+  if (!Array.isArray(value) || value.length > 20) throw new Error('别名须为至多 20 个名称。');
+  const seen = new Set();
+  return value.map(name => {
+    if (!safePlayerPortraitName(name)) throw new Error('别名须为 1—64 字的单行名称，不含冒号、引号或标签。');
+    return name.trim();
+  }).filter(name => { const key = normalizePlayerPortraitName(name); if (seen.has(key)) return false; seen.add(key); return true; });
+}
+
+function playerDisplayScope(ctx) {
+  const chatId = ctx?.getCurrentChatId?.() ?? ctx?.chatId;
+  if (!ctx || chatId === undefined || chatId === null || String(chatId).trim() === '') {
+    throw new Error('当前聊天标识尚未就绪，不能读取或保存 OC 外观。');
+  }
+  return JSON.stringify([ctx.characterId ?? null, ctx.groupId ?? null, String(chatId)]);
+}
+
+function createPlayerDisplayStore({ storage, getContext, onChange = () => {} }) {
+  const prefix = 'rk:oc:portrait:v1:';
+  const own = (value, key) => Object.prototype.hasOwnProperty.call(value, key);
+  function profileName(value) {
+    if (typeof value !== 'string' || (value.trim() && !safePlayerPortraitName(value))) {
+      throw new Error('开局玩家姓名须为空或 1—64 字的安全单行名称。');
+    }
+    return value.trim();
+  }
+  function source(value) {
+    if (value !== '' && value !== 'opening') throw new Error('头像来源须为空或 opening。');
+    return value;
+  }
+  function read() {
+    const scope = playerDisplayScope(getContext()), key = prefix + scope, raw = storage.getItem(key);
+    let record;
+    if (raw === null) record = { version: 1, avatarUrl: '', aliases: [], revision: 'empty', profileName: '', source: '' };
+    else {
+      try { record = JSON.parse(raw); } catch (_) { throw new Error('本聊天 OC 外观配置无法读取。'); }
+      if (!record || Array.isArray(record) || record.version !== 1) throw new Error('本聊天 OC 外观配置版本不受支持。');
+      record = { ...record, avatarUrl: validatePlayerPortraitUrl(record.avatarUrl), aliases: validatePlayerDisplayAliases(record.aliases),
+        revision: typeof record.revision === 'string' ? record.revision : raw,
+        profileName: record.profileName === undefined ? '' : profileName(record.profileName),
+        source: record.source === undefined ? '' : source(record.source) };
+    }
+    const snapshot = { version: 1, scope, avatarUrl: record.avatarUrl, aliases: record.aliases,
+      revision: record.revision, profileName: record.profileName, source: record.source };
+    return { key, raw, record, snapshot };
+  }
+  function get() { return read().snapshot; }
+  function save(expected, values) {
+    const current = read();
+    if (!expected || expected.scope !== current.snapshot.scope || expected.revision !== current.snapshot.revision) {
+      throw new Error('聊天或头像设置已变化，请重新读取后保存。');
+    }
+    if (!values || typeof values !== 'object' || Array.isArray(values)) throw new Error('头像设置须为对象。');
+    const changes = {};
+    if (own(values, 'avatarUrl')) changes.avatarUrl = validatePlayerPortraitUrl(values.avatarUrl);
+    if (own(values, 'aliases')) changes.aliases = validatePlayerDisplayAliases(values.aliases);
+    if (own(values, 'profileName')) changes.profileName = profileName(values.profileName);
+    if (own(values, 'source')) changes.source = source(values.source);
+    const record = { ...current.record, ...changes, version: 1,
+      revision: Date.now().toString(36) + '-' + Math.random().toString(36).slice(2) };
+    const raw = JSON.stringify(record);
+    if (playerDisplayScope(getContext()) !== current.snapshot.scope || storage.getItem(current.key) !== current.raw) {
+      throw new Error('聊天或头像设置已变化，请重新读取后保存。');
+    }
+    try { storage.setItem(current.key, raw); } catch (_) { throw new Error('本机未能保存头像设置；请检查存储空间或浏览器权限。'); }
+    if (storage.getItem(current.key) !== raw) throw new Error('头像设置保存后回读不一致，请重新读取。');
+    const saved = read();
+    if (saved.snapshot.scope !== current.snapshot.scope || saved.raw !== raw) {
+      throw new Error('头像设置在保存后又发生变化，请重新读取。');
+    }
+    onChange(saved.snapshot);
+    return saved.snapshot;
+  }
+  return { get, save };
+}
+
+window.RakudaiMvuNative = { version: "N03", runtime: rakudaiMvuRuntime, prepare: prepareRakudaiNativeMvu, install: installRakudaiNativeMvu };
 // 构建时与 schema、纯状态规则一起内联；只在 Tavern Helper 上下文使用。
 // 精确接口依据及尚未完成的实机验收见 世界书规则/MVU/v4_使用与迁移.md。
 (function installRakudaiController() {
@@ -5386,7 +5525,8 @@ window.RakudaiMvuNative = { version: "N01", runtime: rakudaiMvuRuntime, prepare:
         if (stateKey(variables) !== stateKey(expected)) throw new Error('变量已经更新，未覆盖。');
         const next = cloneState(variables);
         next.stat_data = cloneState(state);
-        prepareRakudaiNativeMvu(next, [W, H]);
+        // 页面事务提交的是已验证候选；缺项修复留给 MVU STARTED，避免暗改迁移候选。
+        prepareRakudaiNativeMvu(next, [W, H], { repairStructure: false });
         return next;
       }, now.options);
       sync(result, '更新变量');
@@ -5394,6 +5534,38 @@ window.RakudaiMvuNative = { version: "N01", runtime: rakudaiMvuRuntime, prepare:
     },
   });
   W.RakudaiStateController = api;
+  // 开局页已有的照片入口只保存显示信息；沿用宿主聊天 scope，不进入 MVU。
+  const displayTokens = new WeakMap();
+  function displayStore(H) {
+    return createPlayerDisplayStore({
+      storage: {
+        getItem: key => H.localStorage.getItem(key),
+        setItem: (key, value) => H.localStorage.setItem(key, value),
+      },
+      getContext: () => H.SillyTavern.getContext(),
+      onChange: value => {
+        try { H.dispatchEvent(new H.CustomEvent('rk:player-portrait-changed', { detail: { scope: value.scope, revision: value.revision } })); } catch (_) {}
+      },
+    });
+  }
+  W.RakudaiPlayerDisplay = Object.freeze({
+    capture() {
+      const saved = position(), view = displayStore(saved.H).get(), token = Object.freeze({});
+      displayTokens.set(token, { saved, view });
+      return { ...view, token, primaryName: saved.data.stat_data.玩家?.姓名 || '' };
+    },
+    apply(expected, values) {
+      const record = displayTokens.get(expected?.token);
+      if (!record) throw new Error('头像操作已失效，请重新应用。');
+      const now = current(record.saved), profileName = typeof values?.profileName === 'string' ? values.profileName.trim() : '';
+      if (!profileName || now.data.stat_data.系统?.开局状态 !== '已建档' || now.data.stat_data.玩家?.姓名?.trim() !== profileName) {
+        throw new Error('档案姓名与本局已建档玩家不一致，请载入本局人物的档案或照片。');
+      }
+      const oldName = record.view.profileName || record.saved.data.stat_data.玩家?.姓名 || '';
+      return displayStore(now.H).save(record.view, { avatarUrl: values.avatarUrl,
+        aliases: oldName && oldName !== profileName ? [] : record.view.aliases, profileName, source: 'opening' });
+    },
+  });
 })();
 
 })();
@@ -7172,9 +7344,8 @@ window.RakudaiMvuNative = { version: "N01", runtime: rakudaiMvuRuntime, prepare:
             >
               📷 上传角色照片
             </button>
-            <span class="final-avatar-note"
-              >也可以直接点击档案卡右上角头像</span
-            >
+            <button type="button" class="btn-final-avatar-upload" id="apply-player-avatar-button" onclick="RakudaiOpening.applyAvatarToCurrentChat()">应用头像到本局</button>
+            <span class="final-avatar-note">建档时会共用此头像；旧聊天核对姓名后可直接应用，只更新终端与气泡显示。</span>
           </div>
 
           <div class="final-record-trigger-wrap">
@@ -8195,7 +8366,7 @@ window.RakudaiMvuNative = { version: "N01", runtime: rakudaiMvuRuntime, prepare:
           if (revision !== avatarLoadRevision || activeStartProfile !== "user") return;
           applyArchiveAvatar(canvas.toDataURL("image/jpeg", .88));
           syncCard();
-          archiveFeedback("照片已加入档案，保存槽位或导出 JSON 时会一并保存。");
+          archiveFeedback("照片已加入档案，保存槽位或导出 JSON 时会一并保存。建档后终端与气泡共用此照片；旧聊天请点击“应用头像到本局”。");
         } catch (error) {
           archiveFeedback(error.message, true);
         } finally {
@@ -8677,6 +8848,27 @@ window.RakudaiMvuNative = { version: "N01", runtime: rakudaiMvuRuntime, prepare:
         return controller;
       }
 
+      function openingPlayerDisplay() {
+        var api = window.RakudaiPlayerDisplay;
+        if (!api || typeof api.capture !== "function" || typeof api.apply !== "function") throw new Error("头像共享接口尚未就绪，请更新开局正则并重载。");
+        return api;
+      }
+
+      function openingAvatarSource(draft) {
+        return draft.profile_key === "kurogane" ? defaultCanonAvatarSrc : draft.avatar || "";
+      }
+
+      function applyAvatarToCurrentChat() {
+        if (openingCommitBusy) return;
+        try {
+          var draft = readOpeningDraft(), source = openingAvatarSource(draft);
+          if (!source) throw new Error("请先载入带照片的档案，或点击档案卡头像上传照片。");
+          var api = openingPlayerDisplay(), captured = api.capture();
+          api.apply(captured, { profileName: draft.profile.name, avatarUrl: source });
+          archiveFeedback("本局头像已应用，终端与正文气泡共用此照片。人物资料、经验及剧情保持原值。");
+        } catch (error) { archiveFeedback(error.message, true); }
+      }
+
       async function captureOpeningState() {
         var controller = openingController();
         var getId = typeof getCurrentMessageId === "function" ? getCurrentMessageId : window.TavernHelper && window.TavernHelper.getCurrentMessageId;
@@ -8767,6 +8959,8 @@ window.RakudaiMvuNative = { version: "N01", runtime: rakudaiMvuRuntime, prepare:
           if (basis !== openingDraftKey(readOpeningDraft())) throw new Error("核对期间草稿已修改，未提交，请按当前草稿重试。");
           if (draft.greeting && !document.getElementById("opening-scene-confirmed").checked) throw new Error("场景一致确认已取消，未继续提交。");
           var replacing = snapshot.state["系统"] && snapshot.state["系统"]["开局状态"] === "已建档";
+          var displayCapture = null, displayFailure = "";
+          try { displayCapture = openingPlayerDisplay().capture(); } catch (error) { displayFailure = error.message; }
           var existingReceipt = currentOpeningReceipt(draft);
           if (replacing && existingReceipt && stableOpeningJson(existingReceipt.state) === stableOpeningJson(snapshot.state)) {
             var verified = await openingController().verify(existingReceipt.token);
@@ -8793,10 +8987,16 @@ window.RakudaiMvuNative = { version: "N01", runtime: rakudaiMvuRuntime, prepare:
             openingReceipt = { basis: basis, state: result.state, token: snapshot.token };
             openingPendingAttempt = null;
           }
+          // 只有人物提交已成功回读，才把其照片交给本局显示；头像失败不撤销已成功的建档。
+          try {
+            if (!displayCapture) throw new Error(displayFailure);
+            openingPlayerDisplay().apply(displayCapture, { profileName: draft.profile.name, avatarUrl: openingAvatarSource(draft) });
+          } catch (error) { displayFailure = error.message; }
           var input = showOpeningPreview(draft);
           input.scrollIntoView({ behavior: "smooth", block: "center" });
           input.focus({ preventScroll: true });
-          archiveFeedback((replacing ? "当前人物已确认并回读：" + openingReceipt.state["玩家"]["姓名"] + "。终端会按已保存人物刷新。" : "建档成功并已回读。") + "第一幕请求已生成，请检查后手动复制发送。");
+          archiveFeedback((replacing ? "当前人物已确认并回读：" + openingReceipt.state["玩家"]["姓名"] + "。" : "建档成功并已回读。") +
+            (displayFailure ? "头像尚未同步：" + displayFailure + "。可稍后点击“应用头像到本局”重试。" : "终端与正文气泡已共用档案头像。") + "第一幕请求已生成，请检查后手动复制发送。", !!displayFailure);
         } catch (error) {
           if (operation !== openingUiRevision) return;
           openingReceipt = null; updateOpeningPreview(readOpeningDraft()); archiveFeedback(error.message, true);
@@ -9593,6 +9793,7 @@ window.RakudaiMvuNative = { version: "N01", runtime: rakudaiMvuRuntime, prepare:
         toggleBgmPanel: toggleBgmPanel,
         toggleCardScene: toggleCardScene,
         triggerAvatarUpload: triggerAvatarUpload,
+        applyAvatarToCurrentChat: applyAvatarToCurrentChat,
       };
       initializeOpeningPage();
     </script>

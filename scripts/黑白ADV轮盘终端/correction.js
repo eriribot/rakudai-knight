@@ -21,7 +21,7 @@ const DEFAULT_CORRECTION_PROMPT = [
   '玩家资料、能力、六维、登记等级、成长经验，场景与事件，以及人物资料、好感和支援都可修正。已有数字提交最终值；当前变量已含主回复结算，同一成果不重复加分或发经验。',
   '分别核对好感与支援，不用态度印象代替数值变化。普通正向回应+2—10，新生轻微好感、认可或防备缓和+11—20，重大关系事件+21—40；校正错误旧分数可直接给正确终值，不受这些单轮参考区间限制。支援按实际协作判断。',
   '父对象可只写要改的键，代码会合并并保留省略字段；数组按最终内容更新。add/replace会按存在性适配，remove可删除过时能力、人物、事件等条目。新条目提供完整资料，能力也可用说明文字简写。',
-  '成长申请记录来源事件、目标、经验及实际成果，类型和方式可自由描述。目标可为数组：经验数组逐项对应；单个经验数是总量，按去重后的目标均分。魔力和身体均有实际参与时同步记录各项目；每目标每条回复最多9999。直接修正经验提交最终值，同轴申请不再叠加，达标后代码连续晋级并保留余量。',
+  '成长直接提交经验及六维评级的最终值，不创建申请。经验是所提交评级的档内进度；达到门槛连续晋级、扣除门槛并保留余量。魔力控制与体能分别按实际成果判断，魔力量新成长须已觉醒。当前变量已含主回复结果，只补漏或纠错，不再加一遍本轮经验；登记等级仅随实际登记改变。',
   '魔人觉醒使用JSON布尔true/false，可纠正错误状态。卷章按本轮已落实的完成事实修正，主回复已经推进时不重复结束下一章。',
   '选拔赛只登记本局实际参赛者、安排和赛果；同一比赛沿用ID修正。程序按剧情日历推演场外背景并计算战绩、积分与排名；不抄写推演对局，不写初始战绩或赛前胜场。若本轮OC战胜珠雫等正典人物，按实际胜者登记，绝不能为迎合原著或背景推演改回败局。'
 ].join('\n');
@@ -167,18 +167,29 @@ function correctionGuard(runtime = correctionRuntime()) {
   if (boot?.state === 'loading') fail('MVU v4 约束正在初始化：' + (boot.message || '正在等待依赖加载。'), true);
   if (!guard) fail('尚未检测到 MVU v4 约束注册。若脚本已开启，请检查约束脚本日志中的 MVU、Zod 4 或桥接加载错误。', true);
   if (boot && (boot.state !== 'ready' || boot.guard !== guard)) fail('MVU v4 约束注册已变化，请重新启用当前约束脚本后重试。');
-  const required = { growth: 'G03', repair: 'P02', repairSource: 'MVU01', storyRepair: 'S01',
+  const required = { growthProtocol: 'final-values-v1', repair: 'P02', repairSource: 'MVU01', storyRepair: 'S01',
     flexibleRepair: 'F01', growthSettlement: 'G04', tournament: 'T01', tournamentEngine: 'T02' };
   const missing = Object.entries(required).filter(([key, value]) => guard[key] !== value).map(([, value]) => value);
   if (typeof guard.parseRepair !== 'function') missing.push('parseRepair');
-  if (missing.length) fail('已检测到 MVU v4 约束，但缺少能力：' + missing.join(' / ') + '。请替换为配套 G04 / T02 约束并重载酒馆；仅切换开关不能更新旧脚本。');
+  if (missing.length) fail('已检测到 MVU v4 约束，但缺少能力：' + missing.join(' / ') + '。请替换为配套终值成长 / T02 约束并重载酒馆；仅切换开关不能更新旧脚本。');
   return guard;
+}
+function ensureCorrectionGrowthMode(runtime) {
+  if (runtime.mode !== 'native') return;
+  for (const scope of runtime.scopes) {
+    let growth = null;
+    try {
+      growth = scope.__RK_MVU_GROWTH_G04__;
+    } catch (_) { /* 只读取可访问宿主中的独立成长组件。 */ }
+    if (growth && growth.state !== 'failed') throw new Error('当前使用成长终值，请关闭旧独立成长 G04 并重载酒馆后校正，避免旧申请被再次结算。');
+  }
 }
 function captureCorrection(checkingSettlement = false, requireGuard = true) {
   if (SS.destroyed || correctionMainBusy(checkingSettlement)) throw new Error('请等本轮 MVU 标签完整并保存后再校正。');
   const ctx = correctionContext(), reply = correctionReply();
   if (!reply?.mvuBlock) throw new Error('当前回复没有完整且唯一的 UpdateVariable / JSONPatch（或 json_patch），暂不校正。');
   const runtime = correctionRuntime(), guard = requireGuard ? correctionGuard(runtime) : null;
+  ensureCorrectionGrowthMode(runtime);
   const mvu = window.Mvu || HW.Mvu;
   if (typeof mvu?.getMvuData !== 'function' || requireGuard && typeof mvu.parseMessage !== 'function') throw new Error('MVU 解析接口尚未就绪。');
   const options = { type: 'message', message_id: reply.messageId };
@@ -273,7 +284,10 @@ function correctionInput(saved) {
   delete state.$internal;
   if (state.系统) delete state.系统.关系计分;
   if (state.场景) delete state.场景.已发生事件;
-  if (state.玩家?.成长) { delete state.玩家.成长.记录; delete state.玩家.成长.回合结算; delete state.玩家.成长.境界; delete state.玩家.成长.境界依据; }
+  if (state.玩家?.成长 && typeof state.玩家.成长 === 'object' && !Array.isArray(state.玩家.成长)) {
+    const growth = state.玩家.成长;
+    state.玩家.成长 = Object.hasOwn(growth, '经验') ? { 经验: growth.经验 } : {};
+  }
   return { source: '楼层 ' + saved.messageId + ' · 回复页 ' + (saved.swipeId + 1),
     text: saved.text.replace(/<UpdateVariable>[\s\S]*?<\/UpdateVariable>/gi, '').trim(), events, submittedRelations, submittedStory, storyBefore: saved.storyBefore, state };
 }
@@ -321,7 +335,7 @@ function normalizeCorrectionPatch(operations, state) {
     if (!['玩家', '场景', '人际'].includes(root)) return true;
     if (removing && parts.length === 1) return true;
     if (root === '玩家' && ['性别', '综合初评'].includes(field)) return true;
-    if (root === '玩家' && field === '成长' && (removing && parts.length === 2 || parts.length >= 3 && !['经验', '申请'].includes(child))) return true;
+    if (root === '玩家' && field === '成长' && (removing && parts.length === 2 || parts.length >= 3 && child !== '经验')) return true;
     if (root === '场景' && field === '选拔赛') {
       if (removing && parts.length <= 3) return true;
       const previousPerson = state.场景?.选拔赛?.名册?.[parts[3]];
@@ -438,7 +452,7 @@ function correctionRules(state) {
   // 副校正不再拼入主模型的字段所有权禁令；旧设置中保存的同类禁令由本次权限声明覆盖。
   return 'F01校正权限以本次为准：允许修改玩家、场景、人际的业务字段及现有对象，不限于补建。系统/框架元数据、固定玩家性别、综合初评、已有关系派生阶段和成长自动记录由程序维护，混入补丁时自动略过，不影响其他修改。' +
     '保持现有schema字段名称、类型与范围：好感0—1000或null，支援0—320整数或null，觉醒只用true/false；卷章须属现有目录。' +
-    'G04成长申请：类型、方式用自由文字；目标可为单项或数组，经验数组逐项对应，单个经验数为总量并均分各目标，90分给三项目标各30；来源事件和成果按本轮实际事实记录，等级达标由代码连续结算。' +
+    '本次成长统一采用终值：只写/玩家/成长/经验/<目标>与/玩家/六维/<目标>的最终值，不创建或修改成长申请；旧申请与记录只留档。经验为所提交评级的档内进度，门槛F100、F+100、E150、E+150、D250、D+250、C400、C+400、B600、B+900、A1200、A+1600，达标连续晋级、逐档扣除并保留余量，S保留余量。无约束时由模型完成计算；可选约束校验类型与门槛。读取主回复已经保存的结果，只补漏或纠错，不再次加本轮经验；未知评级不猜起点。魔力量新成长须魔人觉醒:true，觉醒本身不赠经验。登记等级仅随实际登记改变。' +
     'T02日期结算沿用T01账本/场景/选拔赛，默认20轮6席。名册按稳定ID记录{姓名,来源:正典/原创/玩家,参赛状态:参赛/退选/取消资格}；只登记本局实际参赛者，初始战绩只读，禁止新增、修改或清除。新参赛者可按实际事实填入赛轮次，已有参赛者的入赛轮次不可修改；退赛日期及赛季结束日期完全由程序维护，只按事实修改参赛状态或赛季状态，不新增、改写或删除这些日期。' +
     '比赛按稳定ID记录{轮次,甲方:名册ID,乙方:名册ID,日期,时间,地点,状态:待定/已安排/已完成/已取消,胜者?:名册ID,弃权方?:名册ID,依据}；同场纠错沿用ID，结束填实际胜者及结果依据。排期不等于完赛；双方不能相同、重复对战或同轮多赛。' +
     '程序选拔赛摘要按场景/时间读取2013年赛程，场外背景默认沿正典走势、普通选手固定生成；当天排期不自动完赛，玩家缺场保留待补。只登记本轮实际事实，禁止把背景推演批量写回；本轮OC战胜珠雫等正典人物时据实登记，绝不能按原著或程序背景改回失败。' +
@@ -525,8 +539,9 @@ async function applyCorrection() {
   try {
     ensureCorrectionCurrent(draft.saved);
     const parseBase = ensureCorrectionCurrent(draft.saved);
-    const parsed = draft.saved.guard
-      ? await draft.saved.guard.parseRepair(JSON.stringify(draft.ops), parseBase.data, draft.saved.mvuBlock, draft.saved)
+    const parser = draft.saved.guard;
+    const parsed = parser
+      ? await parser.parseRepair(JSON.stringify(draft.ops), prepareRakudaiNativeMvu(structuredClone(parseBase.data), parseBase.scopes), draft.saved.mvuBlock, draft.saved)
       : await draft.saved.mvu.parseMessage('<UpdateVariable><JSONPatch>' + JSON.stringify(draft.ops) + '</JSONPatch></UpdateVariable>',
         prepareRakudaiNativeMvu(structuredClone(parseBase.data), parseBase.scopes));
     if (lock.signal.aborted) throw new Error('本次校正已取消，未写入。');

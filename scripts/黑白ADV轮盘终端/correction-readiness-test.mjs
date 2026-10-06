@@ -1,11 +1,13 @@
 import fs from 'node:fs';
 import vm from 'node:vm';
 import assert from 'node:assert/strict';
+import { stripModuleSyntax } from '../story-build.mjs';
 
 // Run the shipped correction module with only host, MVU and transport replaced.
 // This is an offline readiness/lifecycle regression, not a live Tavern acceptance.
 const source = fs.readFileSync(new URL('correction.js', import.meta.url), 'utf8');
-const nativeSource = fs.readFileSync(new URL('../rakudai-mvu-native.mjs', import.meta.url), 'utf8').replace(/^export\s+/gm, '');
+const nativeSource = ['rakudai-mvu-structure.mjs', 'rakudai-mvu-native.mjs'].map(file =>
+  stripModuleSyntax(fs.readFileSync(new URL('../' + file, import.meta.url), 'utf8'))).join('\n');
 const results = [];
 async function check(name, run) {
   try { await run(); results.push({ name, passed: true }); }
@@ -65,7 +67,7 @@ function fixture({ autoApply = true, connected = true, patch = [{ op: 'replace',
     },
   };
   const guard = {
-    growth: 'G03', repair: 'P02', repairSource: 'MVU01', storyRepair: 'S01', flexibleRepair: 'F01',
+    growth: 'G03', growthProtocol: 'final-values-v1', repair: 'P02', repairSource: 'MVU01', storyRepair: 'S01', flexibleRepair: 'F01',
     growthSettlement: 'G04', tournament: 'T01', tournamentEngine: 'T02',
     async parseRepair(patch, data, mvuBlock, saved) {
       parses.push({ patch, mvuBlock, messageId: saved.messageId });
@@ -540,6 +542,55 @@ await check('json_patch 的已保存事件、人际和进度提交参与核对�
   f.assertNoWork();
 });
 
+await check('关闭约束时，副校正直接走原生终值路径并补缺失经验结构', async () => {
+  const f = fixture(); f.context.chat[0].mes += block;
+  await f.api.requestCorrection(); await f.api.applyCorrection();
+  assert.equal(f.parses[0].native, true); assert.equal(f.writes.length, 1);
+  assert.deepEqual(f.state().stat_data.玩家.成长.经验, { 魔力控制: 0, 体能: 0, 魔力量: 0 });
+});
+await check('旧独立成长仍运行时不请求副API，避免旧申请混入终值模式', async () => {
+  const f = fixture(); f.context.chat[0].mes += block;
+  f.HW.__RK_MVU_GROWTH_G04__ = { state: 'ready', growthSettlement: 'G04', parseRepair() { throw new Error('不能调用旧解析器'); } };
+  await assert.rejects(f.api.requestCorrection(), /关闭旧独立成长/); f.assertNoWork();
+});
+await check('预览之后开启旧独立成长，旧候选不进入解析或写入', async () => {
+  const f = fixture(); f.context.chat[0].mes += block;
+  await f.api.requestCorrection();
+  f.HW.__RK_MVU_GROWTH_G04__ = { state: 'loading' };
+  await assert.rejects(f.api.applyCorrection(), /关闭旧独立成长/);
+  assert.equal(f.parses.length, 0); assert.equal(f.writes.length, 0);
+});
+await check('旧副提示词输出申请时略过申请，合法业务改动仍可预览保存', async () => {
+  const f = fixture({ patch: [
+    { op: 'add', path: '/玩家/成长/申请/旧协议申请', value: { 来源事件: '训练', 目标: '体能', 经验: 40, 成果: '本轮训练' } },
+    { op: 'replace', path: '/场景/地点', value: '演武场' },
+  ] });
+  f.context.chat[0].mes += block; f.ready();
+  const preview = await f.api.requestCorrection();
+  assert.equal(preview.count, 1);
+  assert.deepEqual(clone(preview.skipped), ['/玩家/成长/申请/旧协议申请']);
+  await f.api.applyCorrection();
+  assert.equal(f.state().stat_data.玩家.成长.申请?.旧协议申请, undefined);
+  assert.equal(f.state().stat_data.场景.地点, '演武场');
+});
+await check('终值提示投影只送经验，历史申请与收据不请求也不从存档删除', async () => {
+  const f = fixture(); f.context.chat[0].mes += block;
+  const data = f.state();
+  data.stat_data.玩家.成长 = { 经验: { 魔力控制: 35, 体能: 7 }, 申请: { 旧申请: { 目标: ['魔力控制', '体能'], 经验: 40 } },
+    记录: { 已结算: { 成果: '旧成长事实' } }, 回合结算: { 标识: 'old' }, 自定义历史: ['保留'] };
+  f.save(data);
+  await f.api.requestCorrection();
+  const sent = JSON.parse(f.requests[0].messages[1].content);
+  assert.deepEqual(sent.当前变量.玩家.成长, { 经验: { 魔力控制: 35, 体能: 7 } });
+  assert.deepEqual(f.state(), data);
+  assert.match(f.requests[0].messages[0].content, /不创建或修改成长申请/);
+  assert.match(f.requests[0].messages[0].content, /无约束时由模型完成计算/);
+});
+await check('旧约束没有终值能力标记时明确提示更新，预览和写入均不启动', async () => {
+  const f = fixture(); f.context.chat[0].mes += block;
+  delete f.guard.growthProtocol; f.ready();
+  await assert.rejects(f.api.requestCorrection(), /final-values-v1/); f.assertNoWork();
+});
 console.log(JSON.stringify({ total: results.length, passed: results.filter(result => result.passed).length,
   runtime: '真实 correction.js 与事件接线；宿主、MVU、网络和时钟为内存替身，未连接酒馆', results }, null, 2));
 if (results.some(result => !result.passed)) process.exitCode = 1;

@@ -16,6 +16,7 @@ const versionDeclaration = main.match(/  const BUILD_VERSION = [^\n]+/)[0].repla
 const stateDeclaration = between(main, '  const SS = {', '  const LS = {');
 const shellFunctions = between(main, '  function toggle()', '  /*__INJECT_STATE_PANEL__*/')
   .replace('/*__INJECT_APP_HTML__*/', JSON.stringify('<!doctype html><title>测试终端</title>'))
+  .replace('/*__INJECT_PORTRAIT_RESERVED_NAMES__*/', '[]')
   .replace('/*__INJECT_CORRECTION__*/', read('correction.js'));
 const lifecycleWiring = between(main, "  HW.addEventListener('resize', onResize);", "  console.info('[Hagun-Blazer-Terminal] initialized');");
 const pageRefresh = between(read('terminal-app.js'), 'function refreshTerminalState(event)', 'window.RKBoot = function(b)');
@@ -53,6 +54,9 @@ function fixture() {
   const urls = { createObjectURL: () => 'blob:test-' + frames.length, revokeObjectURL: url => revoked.push(url) };
   const HW = {
     URL: urls,
+    SillyTavern: { getContext: () => ({ characterId: 8, groupId: null, chatId: 'shell-test', name1: '清泉朝阳', chat: [] }) },
+    localStorage: { getItem: key => storage.has(key) ? storage.get(key) : null,
+      setItem: (key, value) => storage.set(key, value), removeItem: key => storage.delete(key) },
     addEventListener: (name, fn) => listen(hostListeners, name, fn),
     removeEventListener: (name, fn) => unlisten(hostListeners, name, fn),
   };
@@ -88,7 +92,7 @@ function fixture() {
     refreshStatePanel() {}, disposeStatePanel() {}, statePanel: null,
     showOrbTip: (...args) => tips.push(args), recenter() {}, toggleWheel() {}, openPhoneApp() {},
   });
-  vm.runInContext("const SLOT = '__RK_PHONE_SHELL__';\n" + versionDeclaration + '\n' + stateDeclaration + '\n' + read('state-reader.js') + '\n' + shellFunctions + '\n' +
+  vm.runInContext("const SLOT = '__RK_PHONE_SHELL__';\n" + versionDeclaration + '\n' + stateDeclaration + '\n' + read('state-reader.js') + '\n' + read('player-display-store.js') + '\n' + read('player-portrait.js') + '\n' + shellFunctions + '\n' +
     'globalThis.shell = { SS, show, hide, destroy, makeBridge, wireEvents };', realm);
   realm.shell.SS.host = node();
   realm.shell.SS.orb = node();
@@ -263,6 +267,20 @@ await check('blob回退挂载中销毁同样取消等待且不再显示加载失
   assert.equal(f.tips.length, 0);
   assert.equal(f.errors.length, 0);
   assert.ok(f.revoked.includes('blob:test-2'));
+});
+
+await check('主壳桥接头像服务可保存别名，宿主只读，销毁后旧桥接不能继续保存', () => {
+  const f = fixture(), portrait = f.api.makeBridge().playerPortrait;
+  const before = portrait.get();
+  const saved = portrait.saveAliases(before, { aliases: ['朝阳'] });
+  assert.equal(saved.aliases[0], '朝阳');
+  assert.equal(portrait.resolve('朝阳').player, true);
+  assert.equal(typeof f.HW.__RK_PHONE_SHELL__.playerPortrait.get, 'function');
+  assert.equal(f.HW.__RK_PHONE_SHELL__.playerPortrait.save, undefined);
+  assert.equal(portrait.save, undefined);
+  assert.equal(portrait.clear, undefined);
+  f.api.destroy();
+  assert.throws(() => portrait.saveAliases(saved, { aliases: ['朝阳'] }), /终端已关闭/);
 });
 
 console.log(JSON.stringify({ total: results.length, passed: results.filter(result => result.passed).length,

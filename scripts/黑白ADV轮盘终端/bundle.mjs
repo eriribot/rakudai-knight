@@ -107,8 +107,13 @@ function buildApp(version) {
 export function buildTerminal() {
   const version = JSON.parse(read('package.json')).version;
   const html = buildApp(version);
-  const jsModules = { STATE_CONTROLLER: '../rakudai-state-controller.js', STATE_READER: 'state-reader.js', CALENDAR_WORLDBOOK: 'calendar-worldbook.js', LAYOUT: 'layout.js', WHEEL: 'wheel.js', STATE_PANEL: 'state-panel.js', CORRECTION: 'correction.js' };
+  const jsModules = { STATE_CONTROLLER: '../rakudai-state-controller.js', STATE_READER: 'state-reader.js', CALENDAR_WORLDBOOK: 'calendar-worldbook.js', PLAYER_DISPLAY_STORE: 'player-display-store.js', PLAYER_PORTRAIT: 'player-portrait.js', LAYOUT: 'layout.js', WHEEL: 'wheel.js', STATE_PANEL: 'state-panel.js', CORRECTION: 'correction.js' };
+  const portraitManifest = JSON.parse(read('../../resource/knightavatars/manifest.json'));
+  const portraitReservedNames = [...portraitManifest.characters, ...(portraitManifest.missingPortraits || [])]
+    .flatMap(person => [person.name, ...(person.aliases || [])])
+    .concat((portraitManifest.ambiguousAliases || []).flatMap(item => item.aliases));
   const literals = { VERSION: jsString(version), STYLES: jsString(read('styles.css')), APP_HTML: jsString(html),
+    PORTRAIT_RESERVED_NAMES: jsString(portraitReservedNames), PLAYER_BUBBLE_CSS: jsString(read('../正文气泡/bubble.css')),
     CORRECTION_RULES: jsString(read('../../世界书规则/MVU/变量更新规则.txt')), CORRECTION_FORMAT: jsString(read('../../世界书规则/MVU/变量输出格式.txt')),
     // 函数源码保留原文件换行；与文件模块一样归一化，避免 HTML 解析把 CRLF 改成 LF 后误报。
     RELATIONSHIP_SCORING: jsString(RELATIONSHIP_SCORING), SUPPORT_STAGE: supportStage.toString().replace(/\r\n?/g, '\n'), ROMANCE_STAGE: romanceStage.toString().replace(/\r\n?/g, '\n') };
@@ -135,8 +140,9 @@ export function buildTerminal() {
   const artifact = {
     type: 'script', enabled: true, name: '落第骑士·黑白ADV轮盘终端 v' + version,
     id: 'ee190b2f-d2ba-44b4-9f1b-0695c07fefc5', content: built.code,
-    info: 'v' + version + ' / N01 / G04 / T02 / R01：主MVU保存独立于副API和可选约束，确认本轮事件及当前楼层回读后显示已保存；未确认保存单独提示，不冒充副API失败。内置N01在约束关闭时修复原生MVU结构，支持动态人物和普通JSONPatch；配套独立N01使小手机也关闭时仍可写入，不请求模型。约束加载或失败时保留诊断，不绕过已启用的约束。副API等待主保存后校正：有约束走业务校验，无约束走MVU原生解析，跨楼层、切换模式和并发修改均检查保存条件。页面人物、赛程事务使用本地验证并回读。副API支持按参数名排除请求体字段，配置及密钥本机保存，输出上限30000。开启G04约束才自动执行成长和关系结算，每目标每完整回复经验上限' + GROWTH_RULES.perReplyCap + '；保留T02选拔赛、日历、轮盘及头像功能。只启用一份终端和一份独立N01，约束可选；配套更新开局页面正则，不重打整卡或整本世界书。',
+    info: 'v' + version + ' / N03 / final-values-v1 / T02 / R01：主API直接提交经验与六维终值，不再提交成长申请。原生模式由模型计算门槛和余量；可选v4字段约束提供准确门槛校正，旧申请原样留档不兑现。升级后关闭旧独立成长G04，保留历史文件和收据。内置N03在更新前补缺失成长、经验与历史申请父容器，经验缺轴补0，保留已有值及坏类型；配套独立N03在小手机关闭时仍工作，不请求模型。主MVU保存独立于副API，确认当前活动回复页回读后显示已保存。副API仅校正最新助手楼层的活动回复页，有约束走当前终值校验，无约束走原生MVU解析；切换聊天、回复页、模式或实际变量后旧候选失效。约束加载或失败保持诊断，不绕过已启用约束。页面建档、名册和赛程事务仍本地验证并回读；保留T02选拔赛、日历、轮盘和头像功能。副API配置及密钥本机保存，支持排除请求参数和输出上限30000。每种组件保留一份，安装文件统一位于世界书规则/MVU，配套更新开局正则、三份MVU文本及初始化YAML，不重打整卡或整本世界书。',
     button: { enabled: true, buttons: [] }, data: {}, export_with: { data: false, button: false },
   };
+  artifact.info += ' N04开局页沿用原有上传/载入照片，建档成功后按本机当前聊天保存显示头像；旧聊天核对姓名后可单独应用头像，不重建人物或改MVU。首页、玩家档案和正文气泡共用，终端设置仅登记明确别名，不再重复上传照片。气泡v0.4固定玩家标记、完整名和已登记唯一别名可显示玩家头像；NPC/歧义名称不抢占，关闭终端脚本会回退候选原文。配套三条气泡正则与格式规则位于scripts/正文气泡/发布。';
   return { artifact, html, map: built.map, version };
 }

@@ -1,0 +1,73 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "新初始化只有经验三轴零初值，不生成申请、收据或奖励",
+      "passed": true
+    },
+    {
+      "name": "纯结构修复补双缺容器，保留业务值、未知字段与调用方",
+      "passed": true
+    },
+    {
+      "name": "只缺申请时保留经验、旧收据与未知字段；完整状态无变化",
+      "passed": true
+    },
+    {
+      "name": "成长或申请已有null、数组和原始坏值一律保留",
+      "passed": true
+    },
+    {
+      "name": "经验容器与轴的已有坏值不覆盖；只填真正缺失的轴",
+      "passed": true
+    },
+    {
+      "name": "新建档模式仅补经验，旧申请历史保持原样且不补新申请",
+      "passed": true
+    },
+    {
+      "name": "非本卡v4中文结构不补容器，不猜测坏掉的玩家父对象",
+      "passed": true
+    },
+    {
+      "name": "迁移哨兵/锁定原生结构，保留全部业务值和外部包装，不推导内部镜像",
+      "passed": true
+    },
+    {
+      "name": "原生准备幂等，未知子字段、空/混合数组与模板保存",
+      "passed": true
+    },
+    {
+      "name": "桥接加载、注册后失败、有效guard与不完整ready都不误入原生",
+      "passed": true
+    },
+    {
+      "name": "结构修复先于运行模式判断；Zod、加载和失败状态仍保留schema门禁",
+      "passed": true
+    },
+    {
+      "name": "终值约束已就绪时只补经验，不制造空申请或替换Zod schema",
+      "passed": true
+    },
+    {
+      "name": "跨源top不可访问时仍识别同源parent的实际guard",
+      "passed": true
+    },
+    {
+      "name": "独立监听只处理本卡事件参数；关闭/重开不重复注册、不写楼层",
+      "passed": true
+    },
+    {
+      "name": "STARTED事件在两种模式及加载/失败状态补齐父容器，仅原生模式重建schema",
+      "passed": true
+    },
+    {
+      "name": "N03沿用原slot替换N01/N02且重复安装保持唯一监听",
+      "passed": true
+    },
+    {
+      "name": "加载失败可重试；其他结构版本不会被迁移",
+      "passed": true
+    }
+  ]
+}

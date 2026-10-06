@@ -1,0 +1,115 @@
+{
+  "evidence": "Actual pinned upstream TypeScript bodies executed after type stripping; host/events doubled; no live Tavern writes.",
+  "commit": "61010dab47bc3a08a1b626320bf7fc8c9573eca4",
+  "runtime": "v25.6.0",
+  "nativeVersion": "N03",
+  "nativeSha256": "781c9792c1fdc338f39726942eb7a3d15691c427aa2ab62a7182eee5dddfc35a",
+  "hashes": {
+    "variable-def": {
+      "url": "https://raw.githubusercontent.com/MagicalAstrogy/MagVarUpdate/61010dab47bc3a08a1b626320bf7fc8c9573eca4/src/variable_def.ts",
+      "sha256": "1a9bd3f57d2a2de290096dd92602b72d8243fb4c4a81b4dbb67e473da22937e6"
+    },
+    "schema": {
+      "url": "https://raw.githubusercontent.com/MagicalAstrogy/MagVarUpdate/61010dab47bc3a08a1b626320bf7fc8c9573eca4/src/function/schema.ts",
+      "sha256": "9df02bd578b2fd2406a42e5281c28c2b0346f322c8a523d3686cc7db8a022c88"
+    },
+    "util": {
+      "url": "https://raw.githubusercontent.com/MagicalAstrogy/MagVarUpdate/61010dab47bc3a08a1b626320bf7fc8c9573eca4/src/util.ts",
+      "sha256": "7cc7791751a472062ca5f824f0806fb31a36941973ef2f26bbf1e91c6814d75c"
+    },
+    "common": {
+      "url": "https://raw.githubusercontent.com/MagicalAstrogy/MagVarUpdate/61010dab47bc3a08a1b626320bf7fc8c9573eca4/util/common.ts",
+      "sha256": "932f0244f0d7aa5bb3defa2e520a57441b6baffc8fec420cdb3da40072b1c453"
+    },
+    "update-variables": {
+      "url": "https://raw.githubusercontent.com/MagicalAstrogy/MagVarUpdate/61010dab47bc3a08a1b626320bf7fc8c9573eca4/src/function/update_variables.ts",
+      "sha256": "f9a1c20184b22153ee65f64fe228540872c61772d1b2716b8ad43a5eb15c6e79"
+    },
+    "lodash": {
+      "url": "https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.js",
+      "sha256": "90c2d468d4e42794e71b046fd1a282faae27825c7fbedd7fb69d1070df5046f1"
+    },
+    "klona": {
+      "url": "https://cdn.jsdelivr.net/npm/klona@2.0.6/full/index.js",
+      "sha256": "d72f51fd4a583753a3dbef72cc3118e8118b91d1c2c8445d271dbe566bf103ef"
+    },
+    "json5": {
+      "url": "https://cdn.jsdelivr.net/npm/json5@2.2.3/dist/index.js",
+      "sha256": "224c518f5a13006034351716cd098e8d0d03ccbf7e199cc63329cfa30d2a2931"
+    }
+  },
+  "checks": [
+    {
+      "name": "Actual upstream without N01 reproduces sentinel insert rejection",
+      "passed": true
+    },
+    {
+      "name": "Without N03 the screenshot request fails even with an extensible schema",
+      "passed": true
+    },
+    {
+      "name": "N03 repairs parents before the original screenshot request and preserves other data",
+      "passed": true
+    },
+    {
+      "name": "N03 fills only missing requests and preserves experience and history on replay",
+      "passed": true
+    },
+    {
+      "name": "N03 never replaces an invalid existing growth container",
+      "passed": true
+    },
+    {
+      "name": "N03 lets vanilla MVU replace a final experience leaf when growth or experience was missing",
+      "passed": true
+    },
+    {
+      "name": "Actual upstream add inserts person and preserves all previous business data/wrappers",
+      "passed": true
+    },
+    {
+      "name": "Actual upstream same-patch nested map insertion works after a new person",
+      "passed": true
+    },
+    {
+      "name": "Actual upstream replace treats two-string array as an ordinary array",
+      "passed": true
+    },
+    {
+      "name": "Actual upstream add to another empty nested map preserves existing state",
+      "passed": true
+    },
+    {
+      "name": "Actual upstream accepts snake and mixed-case JSONPatch tags with update_analysis",
+      "passed": true
+    },
+    {
+      "name": "Actual upstream mismatched patch tags do not apply the embedded operation",
+      "passed": true
+    },
+    {
+      "name": "Pinned upstream parser + N03 + standalone G04 save the original legacy request and reward once",
+      "passed": true
+    },
+    {
+      "name": "Pinned upstream N03 + G04 preserves ordinary patch data while an enabled guard is loading",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "events": [
+    "mag_variable_update_started",
+    "mag_command_parsed",
+    "mag_command_parsed_for_zod",
+    "mag_command_parsed_ended_for_zod",
+    "mag_variable_update_ended",
+    "mag_variable_update_ended_for_zod",
+    "mag_variable_updated"
+  ],
+  "uncovered": [
+    "invalid JSON/YAML/math fallback",
+    "host floor/swipe persistence",
+    "real iframe lifecycle",
+    "Zod bridge listeners"
+  ]
+}

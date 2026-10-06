@@ -14,7 +14,8 @@ const read = path => fs.readFileSync(new URL(path, import.meta.url), 'utf8').rep
 const plain = value => JSON.parse(JSON.stringify(value));
 const source = [inlineStoryCatalog(), inlineTournamentSource(),
   stripModuleSyntax(read('../世界书规则/MVU/schema.mjs')),
-  stripModuleSyntax(read('./rakudai-state-core.mjs')), read('./rakudai-mvu-guard.js'),
+  stripModuleSyntax(read('./rakudai-state-core.mjs')),
+  stripModuleSyntax(read('./rakudai-mvu-reply-source.mjs')), read('./rakudai-mvu-guard.js'),
   'const testSchema = createSchema(z);', 'installRakudaiMvuGuard(testSchema);',
   'globalThis.testApi = { INITIAL_STATE, schema: testSchema, deriveTournament };',
 ].join('\n');

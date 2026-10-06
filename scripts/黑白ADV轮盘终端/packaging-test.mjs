@@ -55,7 +55,7 @@ check('新包在HTML宿主中只产生一个未截断的完整脚本', () => {
   new vm.Script(pieces[0]);
 });
 check('实际JSON交付物经反序列化、宿主HTML及内页入口仍还原完整页面', () => {
-  const artifact = JSON.parse(read('../酒馆助手脚本-小手机-黑白ADV轮盘版-v' + built.version + '.json'));
+  const artifact = JSON.parse(read('../../世界书规则/MVU/落第骑士-小手机-v' + built.version + '.json'));
   assert.deepEqual(artifact, built.artifact);
   const outer = scripts('<script type="module">' + artifact.content + '</script>')[0];
   const html = unpack(outer);

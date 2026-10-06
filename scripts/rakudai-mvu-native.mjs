@@ -1,4 +1,7 @@
-// 本卡的原生 MVU 兼容层；不注册 Zod、不调用模型、不改 stat_data。
+import { isRakudaiMvuState, repairRakudaiMvuStructure } from './rakudai-mvu-structure.mjs';
+export { isRakudaiMvuState };
+
+// 本卡的 MVU 兼容层；补缺失经验容器/零初值，兼容旧申请父容器，不注册 Zod、不调用模型。
 // MVU 61010dab: STARTED 后读取 schema；strictSet 只关闭 set 的旧二元组解释。
 export function rakudaiMvuScopes(scopes = []) {
   const result = [];
@@ -22,12 +25,6 @@ export function rakudaiMvuRuntime(scopes = []) {
   if (boot && (!guard || boot.state !== 'ready' || boot.guard !== guard)) return { mode: 'failed', boot, guard: guard || null };
   // 老版配套约束没有 boot 标记；真实 guard 仍表示 Zod 路径，不冒充原生模式。
   return { mode: 'zod', boot: boot || null, guard: guard || null };
-}
-
-export function isRakudaiMvuState(state) {
-  return Boolean(state && !Array.isArray(state) && state.系统?.结构版本 === 4 &&
-    state.系统 && state.场景 && state.玩家 && state.人际 &&
-    [state.系统, state.场景, state.玩家, state.人际].every(value => typeof value === 'object' && !Array.isArray(value)));
 }
 
 export function createRakudaiNativeSchema(state, previous) {
@@ -54,8 +51,11 @@ export function createRakudaiNativeSchema(state, previous) {
   return schema;
 }
 
-export function prepareRakudaiNativeMvu(data, scopes = []) {
-  if (rakudaiMvuRuntime(scopes).mode === 'native' && isRakudaiMvuState(data?.stat_data)) {
+export function prepareRakudaiNativeMvu(data, scopes = [], { repairStructure = true } = {}) {
+  const runtime = rakudaiMvuRuntime(scopes);
+  if (repairStructure && data?.stat_data) data.stat_data = repairRakudaiMvuStructure(data.stat_data,
+    { legacyRequests: runtime.guard?.growthProtocol !== 'final-values-v1' });
+  if (runtime.mode === 'native' && isRakudaiMvuState(data?.stat_data)) {
     data.schema = createRakudaiNativeSchema(data.stat_data, data.schema);
   }
   return data;
@@ -63,9 +63,9 @@ export function prepareRakudaiNativeMvu(data, scopes = []) {
 
 export async function installRakudaiNativeMvu(W) {
   const slot = '__RK_MVU_NATIVE_N01__';
-  if (W[slot]?.version === 'N01' && W[slot].state !== 'failed') return W[slot];
+  if (W[slot]?.version === 'N03' && W[slot].state !== 'failed') return W[slot];
   W[slot]?.destroy?.();
-  const marker = { version: 'N01', state: 'loading', destroy: null };
+  const marker = { version: 'N03', state: 'loading', destroy: null };
   W[slot] = marker;
   let disposed = false, listener = null;
   function destroy() {

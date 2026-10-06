@@ -1,7 +1,8 @@
 import fs from 'node:fs';
 import { STORY_VOLUMES } from './rakudai-story-catalog.mjs';
 
-export const stripModuleSyntax = source => source.replace(/^import\b[^;]*;\s*/gm, '').replace(/^export /gm, '');
+export const stripModuleSyntax = source => source.replace(/^import\b[^;]*;\s*/gm, '')
+  .replace(/^export\s*\{[^}]*\}(?:\s+from\s+[^;]*)?;?\s*/gm, '').replace(/^export /gm, '');
 export function inlineTournamentSource() {
   const calendar = JSON.parse(fs.readFileSync(new URL('./story/tournament-calendar-2013.json', import.meta.url), 'utf8'));
   return 'const tournamentCalendar2013 = ' + JSON.stringify(calendar).replace(/</g, '\\u003c') + ';\n' +

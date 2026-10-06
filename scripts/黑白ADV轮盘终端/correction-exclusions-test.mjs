@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
+import { stripModuleSyntax } from '../story-build.mjs';
 
 // The dev workspace is already required by the project's schema checks. Missing
 // yaml is a setup failure, never a reason to substitute JSON.parse or skip tests.
@@ -278,7 +279,7 @@ function fixture(storage = new Map([[configKey, clone(defaultConnection)]])) {
     玩家: { 姓名: '测试角色', temperature: 8, max_tokens: 99, top_p: 0.9 }, 人际: {} } };
   const mvu = { events: { COMMAND_PARSED: 'mvu:parsed', VARIABLE_UPDATE_ENDED: 'mvu:ended' },
     getMvuData: () => clone(persisted), parseMessage() { throw new Error('No patch expected'); } };
-  const guard = { growth: 'G03', repair: 'P02', repairSource: 'MVU01', storyRepair: 'S01', flexibleRepair: 'F01',
+  const guard = { growth: 'G03', growthProtocol: 'final-values-v1', repair: 'P02', repairSource: 'MVU01', storyRepair: 'S01', flexibleRepair: 'F01',
     growthSettlement: 'G04', tournament: 'T01', tournamentEngine: 'T02', parseRepair() { throw new Error('No patch expected'); } };
   const HW = { SillyTavern: { getContext: () => ctx }, Mvu: mvu, __RK_MVU_GUARD_V4__: guard };
   HW.top = HW; HW.parent = HW;
@@ -298,7 +299,8 @@ function fixture(storage = new Map([[configKey, clone(defaultConnection)]])) {
     setTimeout: (fn, ms) => timer(fn, ms), clearTimeout: id => timers.delete(id),
     setInterval: (fn, ms) => timer(fn, ms, true), clearInterval: id => timers.delete(id),
   });
-  const nativeSource = fs.readFileSync(new URL('../rakudai-mvu-native.mjs', import.meta.url), 'utf8').replace(/^export\s+/gm, '');
+  const nativeSource = ['rakudai-mvu-structure.mjs', 'rakudai-mvu-native.mjs'].map(file =>
+    stripModuleSyntax(fs.readFileSync(new URL('../' + file, import.meta.url), 'utf8'))).join('\n');
   vm.runInContext(nativeSource + '\n' + source + '\nglobalThis.api = { getCorrectionConfig, saveCorrectionConfig, requestCorrection, ' +
     'getCorrectionStatus, wireAutomaticCorrection, startAutomaticCorrection, endAutomaticCorrection };', realm);
   const api = realm.api, TE = { CHARACTER_MESSAGE_RENDERED: 'host:rendered' };
@@ -453,7 +455,7 @@ await check('保存、手动、自动均不修改主连接配置或借用主连�
 
 await check('当前版本导入组件包含排除请求字段与设置输入', () => {
   const version = JSON.parse(fs.readFileSync(new URL('package.json', import.meta.url), 'utf8')).version;
-  const card = JSON.parse(fs.readFileSync(new URL('../酒馆助手脚本-小手机-黑白ADV轮盘版-v' + version + '.json', import.meta.url), 'utf8'));
+  const card = JSON.parse(fs.readFileSync(new URL('../../世界书规则/MVU/落第骑士-小手机-v' + version + '.json', import.meta.url), 'utf8'));
   assert.ok(card.content.includes(source.replace(/\r\n/g, '\n').trim()), 'Importable script must contain the current correction module');
   assert.match(card.content, /custom_exclude_body: JSON\.stringify\(config\.excludedParams\)/);
   assert.match(card.content, /排除参数/);

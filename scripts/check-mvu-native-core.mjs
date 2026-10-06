@@ -8,9 +8,14 @@ import { stripTypeScriptTypes } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { INITIAL_STATE } from '../世界书规则/MVU/schema.mjs';
 import { installRakudaiNativeMvu } from './rakudai-mvu-native.mjs';
+import { repairRakudaiMvuStructure } from './rakudai-mvu-structure.mjs';
+import { createRakudaiNativeSchema } from './rakudai-mvu-native.mjs';
+import { installRakudaiMvuGrowth } from './rakudai-mvu-growth.mjs';
 
 const commit = '61010dab47bc3a08a1b626320bf7fc8c9573eca4';
 const directory = new URL('../output/native-mvu-repair/', import.meta.url);
+const cacheDirectory = new URL('../世界书规则/MVU/验证记录/upstream/', import.meta.url);
+const reportFile = new URL('../世界书规则/MVU/验证记录/终值成长/native-core-report.json', import.meta.url);
 const sources = Object.fromEntries([
   ['variable-def', 'src/variable_def.ts'], ['schema', 'src/function/schema.ts'],
   ['util', 'src/util.ts'], ['common', 'util/common.ts'],
@@ -21,13 +26,16 @@ Object.assign(sources, {
   klona: 'https://cdn.jsdelivr.net/npm/klona@2.0.6/full/index.js',
   json5: 'https://cdn.jsdelivr.net/npm/json5@2.2.3/dist/index.js',
 });
-const file = key => new URL(`native-core-${key}.txt`, directory);
+const file = key => {
+  const current = new URL(`native-core-${key}.txt`, cacheDirectory);
+  return fs.existsSync(current) ? current : new URL(`native-core-${key}.txt`, directory);
+};
 if (process.argv.includes('--fetch')) {
-  fs.mkdirSync(directory, { recursive: true });
+  fs.mkdirSync(cacheDirectory, { recursive: true });
   await Promise.all(Object.entries(sources).map(async ([key, url]) => {
     const response = await fetch(url, { signal: AbortSignal.timeout(20000) });
     if (!response.ok) throw new Error(`${response.status}: ${url}`);
-    fs.writeFileSync(file(key), await response.text());
+    fs.writeFileSync(new URL(`native-core-${key}.txt`, cacheDirectory), await response.text());
   }));
 }
 const hashes = Object.fromEntries(Object.entries(sources).map(([key, url]) => {
@@ -62,7 +70,7 @@ function loadTypeScript(key) {
 for (const key of ['variable-def', 'schema', 'util', 'common', 'update-variables']) loadTypeScript(key);
 const clone = value => JSON.parse(JSON.stringify(value));
 const sample = () => {
-  const data = { stat_data: structuredClone(INITIAL_STATE), schema: '没有用别管这个',
+  const data = { stat_data: repairRakudaiMvuStructure(structuredClone(INITIAL_STATE)), schema: '没有用别管这个',
     external: { retained: ['wrapper'] }, initialized_lorebooks: { retained: true } };
   data.stat_data.人际.旧同伴 = { 关系: '同伴', 好感: 19, 未知字段: { 保留: true } };
   data.stat_data.玩家.自定义数组 = ['甲', '乙'];
@@ -83,8 +91,20 @@ await check('Actual upstream without N01 reproduces sentinel insert rejection', 
   assert.ok(warnings.slice(start).some(value => value.includes('assignMissingParent')));
 });
 const lifecycle = new Map();
+const hostContext = { characterId: 7, groupId: null, chatId: 'native-core-offline', chat: [] };
+const request = { 来源事件: '战后复盘与弱点剖析', 目标: ['魔力控制'], 经验: 40, 成果: '厘清术伤与确信感关联' };
+const requestOp = { op: 'add', path: '/玩家/成长/申请/战后复盘领悟', value: request };
+await check('Without N03 the screenshot request fails even with an extensible schema', async () => {
+  const data = sample(); delete data.stat_data.玩家.成长;
+  data.schema = createRakudaiNativeSchema(data.stat_data);
+  const before = clone(data.stat_data), start = warnings.length;
+  assert.equal(await context.updateVariables(patch([requestOp]), data), false);
+  assert.deepEqual(clone(data.stat_data), before);
+  assert.ok(warnings.slice(start).some(value => value.includes('assignPrimitive') && value.includes('undefined')));
+});
 const W = {
-  SillyTavern: { getContext: () => ({ characterId: 7, groupId: null }) },
+  SillyTavern: { getContext: () => hostContext },
+  console: { info() {} },
   Mvu: { events: vm.runInContext('variable_events', context) }, waitGlobalInitialized: async () => {},
   eventOn: (name, callback) => {
     if (!handlers.has(name)) handlers.set(name, new Set()); handlers.get(name).add(callback);
@@ -92,9 +112,63 @@ const W = {
   },
   addEventListener: (name, callback) => lifecycle.set(name, callback),
   removeEventListener: name => lifecycle.delete(name),
+  getChatMessages: id => {
+    const indexes = id.includes('-') ? hostContext.chat.map((_, index) => index) : [Number(id)];
+    return indexes.filter(index => hostContext.chat[index]).map(index => ({ message_id: index,
+      message: hostContext.chat[index].mes, swipe_id: hostContext.chat[index].swipe_id }));
+  },
+};
+W.Mvu.parseMessage = async (content, original) => {
+  const data = clone(original); await context.updateVariables(content, data); return data;
 };
 const installation = await installRakudaiNativeMvu(W);
 assert.equal(installation.state, 'ready', installation.message);
+await check('N03 repairs parents before the original screenshot request and preserves other data', async () => {
+  const data = sample(); delete data.stat_data.玩家.成长;
+  const wrapper = clone(data.external), people = clone(data.stat_data.人际);
+  assert.equal(await context.updateVariables(patch([requestOp]), data), true);
+  assert.deepEqual(clone(data.stat_data.玩家.成长.申请.战后复盘领悟), request);
+  assert.deepEqual(clone(data.external), wrapper); assert.deepEqual(clone(data.stat_data.人际), people);
+  assert.deepEqual(clone(data.stat_data.玩家.成长.经验), { 魔力控制: 0, 体能: 0, 魔力量: 0 });
+});
+await check('N03 fills only missing requests and preserves experience and history on replay', async () => {
+  const data = sample();
+  data.stat_data.玩家.成长 = { 经验: { 魔力控制: 35, 体能: 9 }, 记录: { 既存: { 未知字段: true } } };
+  const prior = clone(data.stat_data.玩家.成长);
+  assert.equal(await context.updateVariables(patch([requestOp]), data), true);
+  const saved = clone(data.stat_data);
+  assert.deepEqual(clone(data.stat_data.玩家.成长.经验), { ...prior.经验, 魔力量: 0 });
+  assert.deepEqual(clone(data.stat_data.玩家.成长.记录), prior.记录);
+  assert.equal(await context.updateVariables(patch([requestOp]), data), false);
+  assert.deepEqual(clone(data.stat_data), saved);
+});
+await check('N03 never replaces an invalid existing growth container', async () => {
+  for (const value of [null, 5, '旧坏值', []]) {
+    const data = sample(); data.stat_data.玩家.成长 = value;
+    const before = clone(data.stat_data);
+    assert.equal(await context.updateVariables(patch([requestOp]), data), false);
+    assert.deepEqual(clone(data.stat_data), before);
+  }
+});
+await check('N03 lets vanilla MVU replace a final experience leaf when growth or experience was missing', async () => {
+  for (const missing of ['成长', '经验', '轴']) {
+    const data = sample();
+    if (missing === '成长') delete data.stat_data.玩家.成长;
+    else if (missing === '经验') delete data.stat_data.玩家.成长.经验;
+    else data.stat_data.玩家.成长.经验 = { 体能: 9 };
+    const wrapper = clone(data.external);
+    assert.equal(await context.updateVariables(patch([
+      { op: 'replace', path: '/玩家/成长/经验/魔力控制', value: 130 },
+      { op: 'replace', path: '/玩家/六维/魔力控制', value: 'F+' },
+    ]), data), true);
+    assert.equal(data.stat_data.玩家.成长.经验.魔力控制, 130);
+    assert.equal(data.stat_data.玩家.六维.魔力控制, 'F+');
+    assert.equal(data.stat_data.玩家.成长.经验.体能, missing === '轴' ? 9 : 0);
+    assert.equal(data.stat_data.玩家.成长.经验.魔力量, 0);
+    assert.equal(Object.hasOwn(data.stat_data.玩家.成长, '记录'), false);
+    assert.deepEqual(clone(data.external), wrapper);
+  }
+});
 await check('Actual upstream add inserts person and preserves all previous business data/wrappers', async () => {
   const data = sample(), expected = clone(data.stat_data), wrapper = data.external, reference = data.stat_data;
   expected.人际.黑铁一辉 = clone(person);
@@ -142,13 +216,48 @@ await check('Actual upstream mismatched patch tags do not apply the embedded ope
   assert.equal(await context.updateVariables(input, data), false);
   assert.deepEqual(clone(data.stat_data), expected);
 });
+const growthInstallation = await installRakudaiMvuGrowth(W);
+assert.equal(growthInstallation.state, 'ready', growthInstallation.message);
+await check('Pinned upstream parser + N03 + standalone G04 save the original legacy request and reward once', async () => {
+  const data = sample(); delete data.stat_data.玩家.成长;
+  data.stat_data.系统.开局状态 = '已建档'; data.stat_data.玩家.六维.魔力控制 = 'F';
+  data.stat_data.场景.当前章 = '第一章';
+  const value = { 卷号: 1, 章段: '第一章', 结果: '本轮战后复盘实际完成', 参与者: ['测试玩家'], 知情者: [] };
+  const content = patch([{ op: 'add', path: '/场景/已发生事件/战后复盘与弱点剖析', value }, requestOp]);
+  hostContext.chat = [{ mes: content, swipe_id: 0 }];
+  assert.equal(await context.updateVariables(content, data), true);
+  assert.equal(data.stat_data.玩家.成长.经验.魔力控制, 40);
+  assert.equal(data.stat_data.玩家.六维.魔力控制, 'F');
+  const saved = clone(data.stat_data.玩家.成长);
+  await context.updateVariables(content, data);
+  assert.equal(data.stat_data.玩家.成长.经验.魔力控制, 40);
+  assert.deepEqual(clone(data.stat_data.玩家.成长.记录), saved.记录);
+  assert.deepEqual(clone(data.external), { retained: ['wrapper'] });
+});
+await check('Pinned upstream N03 + G04 preserves ordinary patch data while an enabled guard is loading', async () => {
+  const data = sample(); delete data.stat_data.玩家.成长;
+  // 已可写的原生 schema 与正在加载的 guard 并存时，N03只补缺项，G04不结算。
+  data.schema = createRakudaiNativeSchema(data.stat_data);
+  W.__RK_MVU_GUARD_BOOT_V4__ = { state: 'loading' };
+  hostContext.chat = [{ mes: patch([requestOp]), swipe_id: 0 }];
+  const originalSchema = data.schema;
+  let startedSchema;
+  const observer = W.eventOn(W.Mvu.events.VARIABLE_UPDATE_STARTED, variables => { startedSchema = variables.schema; });
+  await context.updateVariables(hostContext.chat[0].mes, data);
+  observer.stop();
+  // 上游在补丁应用后会自行重新生成schema；只核对N03在STARTED未换结构。
+  assert.equal(startedSchema, originalSchema);
+  assert.deepEqual(clone(data.stat_data.玩家.成长.经验), { 魔力控制: 0, 体能: 0, 魔力量: 0 });
+  delete W.__RK_MVU_GUARD_BOOT_V4__;
+});
+growthInstallation.destroy();
 installation.destroy();
 const report = { evidence: 'Actual pinned upstream TypeScript bodies executed after type stripping; host/events doubled; no live Tavern writes.',
   commit, runtime: process.version,
-  n01Sha256: createHash('sha256').update(fs.readFileSync(new URL('./rakudai-mvu-native.mjs', import.meta.url))).digest('hex'),
+  nativeVersion: 'N03', nativeSha256: createHash('sha256').update(fs.readFileSync(new URL('./rakudai-mvu-native.mjs', import.meta.url))).digest('hex'),
   hashes, checks, passed: checks.every(value => value.passed),
   events: [...new Set(events)], uncovered: ['invalid JSON/YAML/math fallback', 'host floor/swipe persistence', 'real iframe lifecycle', 'Zod bridge listeners'] };
-fs.mkdirSync(directory, { recursive: true });
-fs.writeFileSync(new URL('native-core-report.json', directory), JSON.stringify(report, null, 2));
-console.log(JSON.stringify({ passed: report.passed, checks, report: fileURLToPath(new URL('native-core-report.json', directory)) }, null, 2));
+fs.mkdirSync(new URL('./', reportFile), { recursive: true });
+fs.writeFileSync(reportFile, JSON.stringify(report, null, 2));
+console.log(JSON.stringify({ passed: report.passed, checks, report: fileURLToPath(reportFile) }, null, 2));
 if (!report.passed) process.exitCode = 1;

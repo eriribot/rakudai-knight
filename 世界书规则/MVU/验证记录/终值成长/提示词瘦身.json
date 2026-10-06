@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 1,
+  "scope": "Default growth prompts use experience and grade final values; legacy requests remain read-only in storage",
+  "measurement": {
+    "encoding": "UTF-8",
+    "characters": "Unicode code points, including whitespace and line breaks",
+    "tokenCount": null,
+    "tokenNote": "Byte and character counts are not exact token counts; tokenizer measurement is separate",
+    "promptNote": "These are source-text measurements. EJS projects saved data before actual prompt injection."
+  },
+  "files": [
+    {
+      "file": "世界书规则/MVU/变量更新规则.txt",
+      "before": {
+        "utf8Bytes": 10809,
+        "unicodeCodePoints": 3959,
+        "sha256": "8cae7840d0583cadb89a0a8aeda3bbaa0ad2a62bcd719ef267523bbc8f52ea7b"
+      },
+      "after": {
+        "utf8Bytes": 9925,
+        "unicodeCodePoints": 3651,
+        "sha256": "4bf9c44b933ab34d7948716d3b101e65d82293a15211ea67555f3e2fa00e5a6d"
+      },
+      "reduction": {
+        "utf8Bytes": 884,
+        "unicodeCodePoints": 308
+      }
+    },
+    {
+      "file": "世界书规则/MVU/变量输出格式.txt",
+      "before": {
+        "utf8Bytes": 8428,
+        "unicodeCodePoints": 7216,
+        "sha256": "b6e4c7466b670b301ef8f4a978db46fbffa339d3fa7663dc712c758cbcd0db28"
+      },
+      "after": {
+        "utf8Bytes": 7982,
+        "unicodeCodePoints": 6826,
+        "sha256": "8ce6d954d9ef98cc911b83c870eda20b88e71b1c56bf948125b1400cec286e6d"
+      },
+      "reduction": {
+        "utf8Bytes": 446,
+        "unicodeCodePoints": 390
+      }
+    },
+    {
+      "file": "世界书规则/MVU/变量列表.txt",
+      "before": {
+        "utf8Bytes": 1633,
+        "unicodeCodePoints": 947,
+        "sha256": "c4b538b8e0ebdea4967c2df06ac88e80c2bf972c6900b9465326a375088b3622"
+      },
+      "after": {
+        "utf8Bytes": 1401,
+        "unicodeCodePoints": 941,
+        "sha256": "cf39c56716c969970e300b39e4a632a0ee62d5a1c1f7f33b795a8f4c7999a1bf"
+      },
+      "reduction": {
+        "utf8Bytes": 232,
+        "unicodeCodePoints": 6
+      }
+    }
+  ],
+  "totals": {
+    "before": {
+      "utf8Bytes": 20870,
+      "unicodeCodePoints": 12122
+    },
+    "after": {
+      "utf8Bytes": 19308,
+      "unicodeCodePoints": 11418
+    },
+    "reduction": {
+      "utf8Bytes": 1562,
+      "unicodeCodePoints": 704,
+      "utf8BytesPercent": 7.48,
+      "unicodeCodePointsPercent": 5.81
+    }
+  },
+  "validation": {
+    "preservedFactContracts": [
+      {
+        "file": "世界书规则/MVU/变量更新规则.txt",
+        "sectionStart": "【剧情、事件与日程】",
+        "passed": true
+      },
+      {
+        "file": "世界书规则/MVU/变量输出格式.txt",
+        "sectionStart": "【Scene, Events and Schedule】",
+        "passed": true
+      }
+    ],
+    "projection": {
+      "checks": 27,
+      "passed": true,
+      "scope": "Extracted EJS JavaScript with getvar fixture; no live host, chat write or saved-state mutation"
+    },
+    "projectionPolicy": "Object growth branches expose only experience; legacy requests/receipts stay in stat_data. Unknown business fields outside growth and malformed growth values retain their previous visibility.",
+    "liveHost": "Not tested; EJS JavaScript verified with getvar fixtures",
+    "compactSerialization": {
+      "passed": true,
+      "jsonRoundTrip": true,
+      "savedStateUnchanged": true,
+      "consumerSearch": "No source consumer of status_current_variable depends on indentation"
+    }
+  },
+  "changes": [
+    "New rewards use final experience and six-dimensional grades; no request source/array split/method/type/9999 quota protocol",
+    "Native models calculate repeated promotions and remainder; optional constraint may validate, correct and block replay",
+    "Current saved results are the correction baseline; no repeated rewards on retry",
+    "Growth projection removes legacy protocol data from the prompt without modifying saved state"
+  ],
+  "renderedIllustration": {
+    "evidence": "Maintained EJS bodies executed with offline getvar fixtures; illustrative states, not real player data or tokenizer counts",
+    "cases": [
+      {
+        "legacyRequestCount": 0,
+        "beforeCharacters": 11664,
+        "afterCharacters": 10700,
+        "characterReductionPercent": 8.26
+      },
+      {
+        "legacyRequestCount": 10,
+        "beforeCharacters": 13450,
+        "afterCharacters": 10700,
+        "characterReductionPercent": 20.45
+      },
+      {
+        "legacyRequestCount": 100,
+        "beforeCharacters": 29650,
+        "afterCharacters": 10700,
+        "characterReductionPercent": 63.91
+      }
+    ]
+  }
+}

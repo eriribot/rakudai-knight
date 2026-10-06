@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "deliveryMode": "component",
+  "skillPlans": [
+    {
+      "spec": "世界书规则/MVU/构建记录/N02-G04/specs/helper-scripts.json",
+      "errors": [],
+      "plan": {
+        "schemaVersion": 1,
+        "deliveryMode": "component",
+        "kind": "helper-script",
+        "outRoot": "世界书规则/MVU/构建记录/N02-G04/skill-staging/helper-script",
+        "files": [
+          "phone-v1-3-16.script.json",
+          "native-mvu-n02.script.json",
+          "growth-g04.script.json",
+          "component-update-manifest.json"
+        ],
+        "requiresPipeline": false
+      }
+    },
+    {
+      "spec": "世界书规则/MVU/构建记录/N02-G04/specs/opening-regex.json",
+      "errors": [],
+      "plan": {
+        "schemaVersion": 1,
+        "deliveryMode": "component",
+        "kind": "regex",
+        "outRoot": "世界书规则/MVU/构建记录/N02-G04/skill-staging/regex",
+        "files": [
+          "opening-state-n02.regex.json",
+          "component-update-manifest.json"
+        ],
+        "requiresPipeline": false
+      }
+    }
+  ],
+  "finalFiles": [
+    "世界书规则/MVU/落第骑士-小手机-v1.3.16.json",
+    "世界书规则/MVU/落第骑士-MVU-原生兼容-N02.json",
+    "世界书规则/MVU/落第骑士-MVU-独立成长结算-G04.json",
+    "世界书规则/MVU/落第骑士-开局页面-N02.regex.json"
+  ],
+  "reusedFiles": [
+    "世界书规则/MVU/落第骑士-MVU-v4字段约束.json"
+  ]
+}

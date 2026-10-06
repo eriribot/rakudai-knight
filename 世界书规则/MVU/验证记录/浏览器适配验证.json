@@ -1,0 +1,211 @@
+{
+  "passed": 51,
+  "total": 51,
+  "runtime": "离线固定API语义模拟，未连接真实酒馆",
+  "results": [
+    {
+      "name": "旧v4虽同为4.0.0也必须在建档前提示缺少觉醒schema，不写入存档",
+      "passed": true
+    },
+    {
+      "name": "消息iframe与scriptiframe都使用明确message接口并保留其他数据",
+      "passed": true
+    },
+    {
+      "name": "仅有开局楼层时独立替换玩家，保留人际及其他回复页；重复建档仍拒绝",
+      "passed": true
+    },
+    {
+      "name": "真实聊天已有用户楼层或剧情事件时，不因助手列表仍只有楼层0而允许替换",
+      "passed": true
+    },
+    {
+      "name": "替换临写时新增楼层、换回复页或竞争改变量均拒绝，不能靠先前页面检查放行",
+      "passed": true
+    },
+    {
+      "name": "iframe自带SillyTavern getter且MVU稍后初始化时，等待本iframe并选择最外层宿主",
+      "passed": true
+    },
+    {
+      "name": "跨源top不可访问时继续使用同源parent，不让iframe代理掩盖宿主",
+      "passed": true
+    },
+    {
+      "name": "MVU等待失败时不读取或写入，恢复后可重新读取",
+      "passed": true
+    },
+    {
+      "name": "切swipe后旧凭据不能写入",
+      "passed": true
+    },
+    {
+      "name": "切聊天但变量相同后旧凭据不能写入",
+      "passed": true
+    },
+    {
+      "name": "当前 context 原地更换角色后旧凭据不能写入",
+      "passed": true
+    },
+    {
+      "name": "当前 context 原地更换群组后旧凭据不能写入",
+      "passed": true
+    },
+    {
+      "name": "当前 context 替换聊天数组但保留消息引用后旧凭据不能写入",
+      "passed": true
+    },
+    {
+      "name": "楼层被删除后同位置重建后旧凭据不能写入",
+      "passed": true
+    },
+    {
+      "name": "正文被编辑后旧凭据不能写入",
+      "passed": true
+    },
+    {
+      "name": "追加用户消息后旧凭据不能写入",
+      "passed": true
+    },
+    {
+      "name": "不允许旧开局页修改已有后续助手楼层",
+      "passed": true
+    },
+    {
+      "name": "关闭约束可读取和建档，只修当前回复页native schema并保留包装数据",
+      "passed": true
+    },
+    {
+      "name": "native准备保留stat_data对象与业务值，只更新schema",
+      "passed": true
+    },
+    {
+      "name": "关闭约束仍可切章、整理名册及保存赛程，controller公开自身能力",
+      "passed": true
+    },
+    {
+      "name": "关闭约束仍保留本地页面校验及变量并发比较",
+      "passed": true
+    },
+    {
+      "name": "约束启动中或失败时明确诊断，不能当作关闭约束继续写入",
+      "passed": true
+    },
+    {
+      "name": "已开启约束的写入保持桥接原有schema，不改为native",
+      "passed": true
+    },
+    {
+      "name": "旧新约束同时启用时拒绝写入，避免两个 schema 互相抵触",
+      "passed": true
+    },
+    {
+      "name": "消息返回无效活动 swipe 时拒绝读取，不猜测默认槽",
+      "passed": true
+    },
+    {
+      "name": "没有MVU数据不自行伪造初始化",
+      "passed": true
+    },
+    {
+      "name": "旧异步API版本在写入前拒绝",
+      "passed": true
+    },
+    {
+      "name": "两个界面并发提交只允许一次落地",
+      "passed": true
+    },
+    {
+      "name": "迁移只升级当前活动 swipe，保留另一回复页与 MVU 包装",
+      "passed": true
+    },
+    {
+      "name": "迁移预览后切换 swipe 或编辑正文时旧迁移凭据不能提交",
+      "passed": true
+    },
+    {
+      "name": "真实浏览器适配的迁移与跨卷只修改剧情字段，不重新派生旧人物或补默认性别",
+      "passed": true
+    },
+    {
+      "name": "开局建档前同步捕获外观，成功回读后绑定新姓名；无需小手机且不额外写MVU",
+      "passed": true
+    },
+    {
+      "name": "已游玩聊天按最新活动回复页捕获头像，旧开局页不能借此重建人物，应用外观不写MVU",
+      "passed": true
+    },
+    {
+      "name": "头像姓名仅按当前已建档姓名去首尾空白匹配，不接受不同人物或相似昵称",
+      "passed": true
+    },
+    {
+      "name": "待建档状态即使填写同名也不能应用头像，不伪造开局完成",
+      "passed": true
+    },
+    {
+      "name": "头像凭据只属于生成它的控制器，伪造或另一iframe凭据均不能保存",
+      "passed": true
+    },
+    {
+      "name": "开局外观捕获后切聊天使旧头像凭据失效，不写存储或MVU",
+      "passed": true
+    },
+    {
+      "name": "开局外观捕获后换角色使旧头像凭据失效，不写存储或MVU",
+      "passed": true
+    },
+    {
+      "name": "开局外观捕获后换群组使旧头像凭据失效，不写存储或MVU",
+      "passed": true
+    },
+    {
+      "name": "开局外观捕获后切swipe使旧头像凭据失效，不写存储或MVU",
+      "passed": true
+    },
+    {
+      "name": "开局外观捕获后编辑正文使旧头像凭据失效，不写存储或MVU",
+      "passed": true
+    },
+    {
+      "name": "开局外观捕获后新增楼层使旧头像凭据失效，不写存储或MVU",
+      "passed": true
+    },
+    {
+      "name": "开局外观捕获后替换聊天数组使旧头像凭据失效，不写存储或MVU",
+      "passed": true
+    },
+    {
+      "name": "开局外观捕获后重建同位置消息使旧头像凭据失效，不写存储或MVU",
+      "passed": true
+    },
+    {
+      "name": "头像capture后另一界面保存使revision过期，保留竞争结果且不发变更事件",
+      "passed": true
+    },
+    {
+      "name": "无profileName与revision的旧终端头像记录可兼容，更新同玩家头像保留别名",
+      "passed": true
+    },
+    {
+      "name": "捕获后存储变成未知版本或来源时拒绝覆盖，保留原记录而不伪装成新开局来源",
+      "passed": true
+    },
+    {
+      "name": "明确替换开局人物后头像绑定新玩家，清掉前玩家别名并只保留一次MVU人物替换",
+      "passed": true
+    },
+    {
+      "name": "同一头像凭据保存一次后不可重放，不能再次覆写头像或发送事件",
+      "passed": true
+    },
+    {
+      "name": "本机外观存储失败不修改MVU，也不发出保存成功事件",
+      "passed": true
+    },
+    {
+      "name": "伴随guard运行时保护：恢复章段后也拒绝关联未来事件",
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "初始化和建档都只有三轴零经验，不创建申请或奖励记录",
+      "passed": true
+    },
+    {
+      "name": "模型已完成晋级且提交档内余量时不再晋级",
+      "passed": true
+    },
+    {
+      "name": "溢出终值连续晋级且同回复重放不会重复消耗或再次升档",
+      "passed": true
+    },
+    {
+      "name": "主副均可纠错终值，S保留高额经验且不强加9999奖励上限",
+      "passed": true
+    },
+    {
+      "name": "旧申请多目标数组保持原形，真实事件落实也不兑现；新改申请恢复旧值",
+      "passed": true
+    },
+    {
+      "name": "没有历史申请时提交新申请也不创建留档或奖励",
+      "passed": true
+    },
+    {
+      "name": "手动跳章和跨卷保留历史申请/记录，无历史时不创造申请",
+      "passed": true
+    },
+    {
+      "name": "可选约束使用终值协议且保留相同补丁重放收据",
+      "passed": true
+    },
+    {
+      "name": "约束拒绝字符串/负数经验和非法六维，其它合法事实照常保存",
+      "passed": true
+    }
+  ],
+  "evidence": "Real final-mode core, schema and guard sources executed offline; host and per-operation application doubled; no live Tavern writes."
+}

@@ -50,6 +50,8 @@
 
   /*__INJECT_STATE_READER__*/
   /*__INJECT_CALENDAR_WORLDBOOK__*/
+  /*__INJECT_PLAYER_DISPLAY_STORE__*/
+  /*__INJECT_PLAYER_PORTRAIT__*/
 
   const ORB_W = 68, ORB_H = 68;
 
@@ -296,6 +298,34 @@
     return terminalStateReader({ generating: generationPending });
   }
 
+  let playerBubbleBinder = null;
+  const playerPortrait = createPlayerPortraitService({
+    storage: {
+      getItem: key => HW.localStorage.getItem(key),
+      setItem: (key, value) => HW.localStorage.setItem(key, value),
+      removeItem: key => HW.localStorage.removeItem(key)
+    },
+    getContext: () => {
+      const st = HW.SillyTavern || window.SillyTavern;
+      return st && typeof st.getContext === 'function' ? st.getContext() : null;
+    },
+    getSnapshot: readSnapshot,
+    reservedNames: /*__INJECT_PORTRAIT_RESERVED_NAMES__*/,
+    onChange: snapshot => {
+      emit({ type: 'player-portrait' });
+      try { HW.dispatchEvent(new HW.CustomEvent('rk:player-portrait-changed', { detail: { scope: snapshot.scope, revision: snapshot.revision } })); } catch (_) {}
+    }
+  });
+  function requirePortraitOwner() {
+    if (SS.destroyed) throw new Error('终端已关闭，请重新打开后设置头像。');
+  }
+  const portraitBridge = Object.freeze({
+    get: () => { requirePortraitOwner(); return playerPortrait.get(); },
+    saveAliases: (expected, values) => { requirePortraitOwner(); return playerPortrait.saveAliases(expected, values); },
+    clearAliases: expected => { requirePortraitOwner(); return playerPortrait.clearAliases(expected); },
+    resolve: name => { requirePortraitOwner(); return playerPortrait.resolve(name); }
+  });
+
   // 只读当前角色主世界书；日历资料不进入本局变量或剧情注入。
   let calendarWorldbookReader = null;
   async function readCalendarWorldbook() {
@@ -319,6 +349,7 @@
   let rosterEditBusy = false;
   function emit(ev) {
     if (ev?.reset && !['show', 'correction-applied'].includes(ev.type)) { rosterEditRevision++; correctionHostReset(ev.type); }
+    playerBubbleBinder?.refresh();
     updateCbs.forEach(cb => { try { cb(ev); } catch(_) {} });
   }
 
@@ -507,6 +538,7 @@
         request: () => requestCorrection(), retry: retryCorrection, apply: applyCorrection, cancel: cancelCorrection },
       getSnapshot: async () => readSnapshot(),
       getStat: async () => readSnapshot().state,
+      playerPortrait: portraitBridge,
       worldbookCalendar: { read: readCalendarWorldbook },
       setRosterHidden,
       deleteRosterPerson,
@@ -581,6 +613,7 @@
   function destroy() {
     if (SS.destroyed) return;
     SS.destroyed = true;
+    playerBubbleBinder?.destroy(); playerBubbleBinder = null;
     if (SS.cancelMount) SS.cancelMount();
     clearInterval(readTimer);
     terminalStateReader?.clear(); terminalStateReader = null; generationPending = false;
@@ -605,6 +638,16 @@
   buildStatePanel();
   bindDrag();
   wireEvents();
+  playerBubbleBinder = createPlayerBubbleBinder({ host: HW, document: HD, service: playerPortrait,
+    css: /*__INJECT_PLAYER_BUBBLE_CSS__*/ });
+  function portraitStorageChanged(event) {
+    if (typeof event.key === 'string' && event.key.startsWith('rk:oc:portrait:v1:')) emit({ type: 'player-portrait' });
+  }
+  HW.addEventListener('storage', portraitStorageChanged);
+  SS.disposers.push(() => HW.removeEventListener('storage', portraitStorageChanged));
+  const portraitChanged = () => emit({ type: 'player-portrait' });
+  HW.addEventListener('rk:player-portrait-changed', portraitChanged);
+  SS.disposers.push(() => HW.removeEventListener('rk:player-portrait-changed', portraitChanged));
   window.RakudaiMvuNative.install(window).then(marker => {
     if (SS.destroyed) marker.destroy?.();
     else if (marker.state === 'failed') console.warn('[落第 MVU 原生兼容] ' + marker.message);
@@ -625,7 +668,8 @@
     });
   }
 
-  HW[SLOT] = { destroy, show, hide, toggle, recenter, toggleWheel, openApp: openPhoneApp, version: BUILD_VERSION };
+  HW[SLOT] = { destroy, show, hide, toggle, recenter, toggleWheel, openApp: openPhoneApp, version: BUILD_VERSION,
+    playerPortrait: Object.freeze({ get: portraitBridge.get, resolve: portraitBridge.resolve }) };
   try { HW.RKTacticalToggle = toggle; } catch(_) {}
 
   console.info('[Hagun-Blazer-Terminal] initialized');

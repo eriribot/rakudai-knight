@@ -351,7 +351,7 @@ await check('事件历史逐条显示所属卷，旧缺卷事件提示迁移且�
 });
 await check('实际导出脚本与所有维护源码逐字一致', () => {
   const version = JSON.parse(read('package.json')).version;
-  const artifact = JSON.parse(read('../酒馆助手脚本-小手机-黑白ADV轮盘版-v' + version + '.json'));
+  const artifact = JSON.parse(read('../../世界书规则/MVU/落第骑士-小手机-v' + version + '.json'));
   assert.equal(artifact.content, built.artifact.content);
   assert.equal(artifact.name.endsWith(version), true);
 });

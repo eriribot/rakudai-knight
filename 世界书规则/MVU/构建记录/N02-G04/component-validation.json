@@ -1,0 +1,266 @@
+{
+  "schemaVersion": 1,
+  "deliveryMode": "component",
+  "passed": true,
+  "versions": {
+    "state": 4,
+    "native": "N02",
+    "growth": "G04",
+    "phone": "1.3.16",
+    "guard": "落第骑士·MVU v4 字段与卷章约束 [G04/T02/R01]"
+  },
+  "sourceHashes": {
+    "scripts/黑白ADV轮盘终端/package.json": "9f1302325cd796a1da9cb2fda66adcd5b3aff16d1a08f382006a0ba9824a698a",
+    "scripts/黑白ADV轮盘终端/bundle.mjs": "1c9e98a35dd8745e82c886d74fa5b35afee3387339d9c8b47917f135ac9bfdc6",
+    "scripts/rakudai-state-controller.js": "2a91759bfa562d6bd2d47d5a97c3cb55f3a5e06e781b02b84fa4929644a0d8d9",
+    "resource/knightavatars/manifest.json": "c9490d77d00ca95702ab8a667831ea373796a3c769ed2e7fffeea2bd26c6e596",
+    "世界书规则/MVU/落第骑士-MVU-v4字段约束.json": "3339c0cb34fc960796676ebe4210fbe085bd596e19a973a5f4137389d7ae2307",
+    "scripts/rakudai-mvu-structure.mjs": "9c78d136721aec51f28c6cc820638912cc3a8a591603fd06aba65e559984a24a",
+    "scripts/rakudai-mvu-native.mjs": "6c9e18a06115d79c943b98f6770bbb97e1007798874c868cce0aef16eec6a361",
+    "世界书规则/MVU/schema.mjs": "75d8d7531c4289904227c38068f5a180cbce459830510eeabacae84ce711e865",
+    "世界书规则/MVU/[initvar]变量初始化.yaml": "f6687c96065c3a699f3070618a57b6458d2306ca5a94e99df0fce8fc5d890b27",
+    "scripts/rakudai-state-core.mjs": "f75a7de5c16ec29a6ca0e940ac2eba9f071aafcb912a606674cfa52572b57c90",
+    "scripts/rakudai-mvu-reply-source.mjs": "21dfd19e77af1a8c8a9553ff3abea1f2c325696c433e4b4bad1969d38818818f",
+    "scripts/rakudai-mvu-growth.mjs": "3ff7a217af88947cce65c65740fdbafbee780b629616d7b370c6159bb9f0f7c8",
+    "scripts/rakudai-story-catalog.mjs": "8446e17298591716c143627971fede1f7a40891593c5cc66bc960423108fc7b9",
+    "scripts/story/tournament-calendar-2013.json": "2ca96d90684dd40d8fae4a26180adaf45c190d68280543edf4f6557f6dde7be1",
+    "scripts/rakudai-tournament-calendar.mjs": "b6df2265a4e9ad3eea78c55a4579430aea9488155abe6e8e98e32aa77816384e",
+    "scripts/rakudai-tournament-background.mjs": "a1681a2557fbdef3e359ecc1fbaba87ced21d09ebe817b9fc611592c45468733",
+    "scripts/rakudai-tournament.mjs": "03eeba2c3c5609d15abd92364bf841de17845c480a73cb43d8abafc86707d45e",
+    "output/chapter-v4/runtime-original-card.json": "bfeaf06aa4a2657546fe547de64fa3512e4d0c18c7cf6f2d41db00d27b470b0b",
+    "第一卷-世界书整理/开局页面/正则替换文本.txt": "7a4675c980ab7067fa1801287e63b8464539e5f9ee720232c0575bcba58156d8",
+    "scripts/黑白ADV轮盘终端/knight-avatars.mjs": "0ff294eb14a3f27b2132ecd7a8c2a032b071623c6a847cdbb2e5db4bc12dfe5e",
+    "scripts/黑白ADV轮盘终端/terminal-app.html": "afaa370b04599d5af263f06e427847275a5ae05a4bf6fdfe5979b424d5920e2b",
+    "scripts/黑白ADV轮盘终端/terminal-app.js": "cd9b20a4e05a7b46e4bd15edb9aaeb439e64c8b93abff933d36ba6296084a735",
+    "scripts/黑白ADV轮盘终端/terminal-controls.js": "598d868f79c46cdbb1f6aef6430a200b2c25dd1b0846cd24a6ff65ff21b4afbd",
+    "scripts/黑白ADV轮盘终端/terminal-app.css": "c00b72bf278b517693ae75d920284956f671439759b19ee37801bc4e7dfa7fd7",
+    "scripts/黑白ADV轮盘终端/terminal-theme.css": "750b3bd5ccd9d1a25ead8e0141cf1d598a47dd246201bf1482831cca9a7693b7",
+    "scripts/黑白ADV轮盘终端/terminal-status.css": "469f90c3799efca709d15667033e2cf170113afa58dce86550dc0c209fb10094",
+    "scripts/黑白ADV轮盘终端/styles.css": "3fcd17e920e825b436a859bb4e3e74b8aeec7a87c1f51d608092433a38a6342d",
+    "scripts/黑白ADV轮盘终端/main.js": "67f0fdc5ebb6254a41815378f0e530c39e24961a4e3457c69608ef85753a1f97",
+    "scripts/黑白ADV轮盘终端/state-reader.js": "58859e1db187e7815c977b6bfce23f07b8b39d37b79717b0808979784298408a",
+    "scripts/黑白ADV轮盘终端/calendar-worldbook.js": "dd3af2222b8d3e7eab7b2c41b3072247c2163584b25f02ed55d5fc53104a85ac",
+    "scripts/黑白ADV轮盘终端/layout.js": "e933b53d037ab34aab5c7eed5e855926fd5a83624237ef13fc9742df09040247",
+    "scripts/黑白ADV轮盘终端/wheel.js": "2672222db88430e2f48c6a1a35446269852515ee7aec673ee638e8d2b727dad3",
+    "scripts/黑白ADV轮盘终端/state-panel.js": "65b2f79dd0ef33b04169f5fd9142044f61d73654ad9d8e7efc41220b164f1e8a",
+    "scripts/黑白ADV轮盘终端/correction.js": "d0d93ada0c9b80e182bc91e49ad2c172a769f18ee5fc5110b95dcce978635727",
+    "resource/knightavatars/ikki.png": "c1aa07045f00041d0602657929990df12bfe5f0e211b90e5b0c6bb3f97c9bc7a",
+    "resource/knightavatars/stella.png": "22e0a4ddd11c110e44f551e1e7094e110a333973ee22b2cb5108325f5cc3d38a",
+    "resource/knightavatars/shizuku.png": "76cd763eb54496c8a8d7e9bc8342c443e56be5a7887582e280a61ed164c7e8c6",
+    "resource/knightavatars/ayase.png": "05d897307eae2cf1e9b68afa45e924717d825b505128758a8fa037ecdb645142",
+    "resource/knightavatars/toka.png": "186250c240708672366657fdf59bd417f0ffe130a332c11d436367cd22245463",
+    "resource/knightavatars/itsuki.png": "7022e2738e4f6a317be972e95da5f103f2e9f226f2e4f9e95ae400bdaf64298c",
+    "resource/knightavatars/ouma.png": "a6be886848dd32be84c17e1fb83ade6e6a6933d6a17ecd992251e3d2a9500e57",
+    "resource/knightavatars/edelweiss.png": "3eecdd710e24eac22820c725f2305370b028dd0a993d0cd8cad88822d35a8b54",
+    "resource/knightavatars/yuudai.png": "48ecaae18cbbf038b6a5bdf483ad31742557dc482804cf919d0151ab9b0865ae",
+    "resource/knightavatars/nagi.png": "38b2d0097ce6fcfc873be87403241b5e6fb29ad4a3b583633d12fe8e5f04a084",
+    "resource/knightavatars/prepared/nagi.png": "d0941a3057192ac42689b48dad91a1e565164a8877e96071dc994a07181be5fd",
+    "resource/knightavatars/kirihara.png": "d0b83a6c8da72f93e59185ecb149d45535cec423ea888335a1c0a70fbf2f88b2",
+    "resource/knightavatars/prepared/kirihara.png": "8ab36d2b14f90ff1944a6bb5920ef4f4c3451aa1991f9f0b480d6a9819a2718d",
+    "resource/knightavatars/kuraudo.png": "7a9614a7cc9f96a77b593111b4afe1415166cb13949303fcb7ab4642109b5a46",
+    "resource/knightavatars/prepared/kuraudo.png": "b0a9adff8ca91165bc10c10690d3093a9b37c5fe892611751b34279bcbfb0b90",
+    "resource/knightavatars/renren.png": "bd6e3cf79c49c4ba727d99b15b474093a4b59a46a21dfe1371c8f6d835fbdfa8",
+    "resource/knightavatars/prepared/renren.png": "4036aeca55a4d6482dee15cfe07be7c0b1db5b0ed859ef9956ed046075c067f3",
+    "resource/knightavatars/misogi.png": "7d44d9cac526cd240df3a796da92b33dd4df609264c1af19fe0ea5cfdc2a2dd9",
+    "resource/knightavatars/prepared/misogi.png": "c089284134efc40f4c73e764c1227cde08f8b83d8569c0f7b08806347593d091",
+    "resource/knightavatars/kanata.png": "74098af66c42931ad749b24aa6609c2fae4c4c3942b72ad5cbc555ec8cd84f3d",
+    "resource/knightavatars/prepared/kanata.png": "4eaa2086607fe091f09a87a493199257e0f25b7c0e3820899b2dcdb83c0d68cf",
+    "resource/knightavatars/nene.jpg": "3d244e0535205ca75e57a73a946f665e9da88bd15c1e4f852fa130e116faafdf",
+    "resource/knightavatars/prepared/nene.png": "b50ffc1deef39c0760c5bb75be8b086eb110ffc235344e35dc5d4898449af775",
+    "resource/knightavatars/kurono.jpg": "8e2c35bfa606a3cd5f69601530e1bd600d55f3b68add2650c384ad9df11c5999",
+    "resource/knightavatars/prepared/kurono.png": "ad28a366fa0686f5a1669e1dff3d375b15fbc4df42561515b8a997bef6cbc197",
+    "resource/knightavatars/yuri.jpg": "66b106f61567a9e8c6bb16df8301909a5b284bd65db0842ff9c744f7cd7239c1",
+    "resource/knightavatars/prepared/yuri.png": "1dc9497f5bcad73cacd0b819fc04d38e5e0f357e58c53916bb2505decdfb8722",
+    "resource/knightavatars/novel/iris.jpg": "62596a7bd0668571cb1f43faa364ac089ed73edc7ebe7ec91e5c289f28bcd867",
+    "resource/knightavatars/prepared/iris.png": "2f95d92246215fa80da423ffb5010c2aefc8d9364febb874ce9c881396cf2c5a",
+    "resource/knightavatars/novel/uri.jpg": "75cf138d6b93c6c596ec1eb9286d602f86124601262554198d32bb15199580b6",
+    "resource/knightavatars/prepared/uri.png": "b08f9dd4aba68f142f84cfc1ccc6975afacd8a70b77a2c5b6fb6a2a3a4ec5264",
+    "resource/knightavatars/novel/or-gaule-wallenstein.jpg": "75dc1db0adbf947d526b92d4ef98c3962f79a68bbd381f08d2c952315a31edb9",
+    "resource/knightavatars/prepared/or_gaule.png": "0f52c5a403b298aa839e7cfe10a840660290e46c7125fdc88ba67286c69990fb",
+    "resource/knightavatars/prepared/wallenstein.png": "4643fedc2492738e314f9da9674d8802aec291353b9b331509f6afee8e262938",
+    "resource/knightavatars/novel/kiriko.jpg": "2ae42c80bff67c163408cf2773437aad3b70ffd5da3f7fbd7a814452838bd344",
+    "resource/knightavatars/prepared/kiriko.png": "94a54c1f4a57a5bc669abbca6f196416a955b61c895ec26daa1458ecb47abcf2",
+    "resource/knightavatars/novel/sara.jpg": "b82d80e24674d1509072e01e4ca77eebfefb65c2aec482eab15ab6d872972cf1",
+    "resource/knightavatars/prepared/sara.png": "740ce910c5fc988f7ea399e61b81b20c88c71ecbab774eb67b060e1d501e99f0",
+    "resource/knightavatars/novel/rinna-original.jpg": "a4d646adeb9caa9d328173fe7dc2aa3ccfc59e31338bfb1199d5409c26072355",
+    "resource/knightavatars/prepared/rinna.png": "9928336c35311d38bc1f719351ca963cdff50ce426da03d037087f4dd5841c91",
+    "resource/knightavatars/novel/ein.jpg": "05cbc99c5aa0fc168fb978c77242de943fa7ab43207f6376f00ebf0f56a908f9",
+    "resource/knightavatars/prepared/ein.png": "819d3b90f199592824badef5c76374a6ec31bc1c8427a433f822c92a5deb5feb",
+    "resource/knightavatars/novel/rai-original.jpg": "522938ed04fd940dc5d2c6465b4f377b527736a8b4df7418e26954301b6908ef",
+    "resource/knightavatars/prepared/rai.png": "92c08ec2f9141c50c7b68f926b30b349dc545c9611a3f83931cb55727bee13a2",
+    "resource/knightavatars/novel/byakuya-momiji.jpg": "8eb2923f55025f48385de5dd4afe20de9b9311dbebc26e00b042e84e357d9652",
+    "resource/knightavatars/prepared/momiji.png": "5009e697eab88be6df154dedd51a97844f91efa94bb8119d95866eb5fe4f4651",
+    "resource/knightavatars/prepared/byakuya.png": "9ee21ae7e0114a11b3dbd8ea73ee5ac1fffd51ce46f6e21647d2af407dc11244",
+    "resource/knightavatars/research/user-supplied/mikoto-profile-screenshot.png": "2c3f93e72e8fbdf40f6e90819710888f10a7b7631fa52e84f36b36d0b10fcf75",
+    "resource/knightavatars/prepared/mikoto.png": "b5492b71cefe1ff9864d624920fd9c71d70d14c3bf70f2e4aea207da9dcde1f8",
+    "resource/knightavatars/novel/xiaoli-original.jpg": "d5e1b37955a7991df069c8a257e2aaea22acfb5b75b2151dc5ac817740e1b634",
+    "resource/knightavatars/prepared/xiaoli.png": "5f3c93fd459017ec6d0c3b3ab376eafa581cde16e341118e3a85d03289e87548",
+    "resource/knightavatars/shield-frame.png": "022c0636808ed39c5804a24c3f90335867d8ca99c2d6d701f8f6c0b7b4caae99",
+    "resource/knightavatars/shield-mask.svg": "d3804af0da4886549517a14332c998a891b320901dff7e9992d3a6ed00305eaa",
+    "世界书规则/MVU/变量更新规则.txt": "8cae7840d0583cadb89a0a8aeda3bbaa0ad2a62bcd719ef267523bbc8f52ea7b",
+    "世界书规则/MVU/变量输出格式.txt": "b6e4c7466b670b301ef8f4a978db46fbffa339d3fa7663dc712c758cbcd0db28",
+    "scripts/build-native-mvu-components.mjs": "604047b7bcf4840aa302c15e7e64074bd5f330044f552264b0c7203a4e9ded45"
+  },
+  "artifactCount": 4,
+  "reusedCount": 1,
+  "artifacts": [
+    {
+      "artifactName": "phone-v1-3-16",
+      "id": "ee190b2f-d2ba-44b4-9f1b-0695c07fefc5",
+      "kind": "helper-script",
+      "relativePath": "落第骑士-小手机-v1.3.16.json",
+      "file": "世界书规则/MVU/落第骑士-小手机-v1.3.16.json",
+      "sha256": "76ebad4054acbdff922e2ff5ff485e4c0769883b3e489cdedef2290424b76594"
+    },
+    {
+      "artifactName": "native-mvu-n02",
+      "id": "0ad18dbe-5a59-4cad-acfd-50c2bce0d9ec",
+      "kind": "helper-script",
+      "relativePath": "落第骑士-MVU-原生兼容-N02.json",
+      "file": "世界书规则/MVU/落第骑士-MVU-原生兼容-N02.json",
+      "sha256": "498fa97e704f148902ae35695a229da4889f952b8c88621616294e42c2a90b99"
+    },
+    {
+      "artifactName": "growth-g04",
+      "id": "43a80755-9084-5356-ac85-cc60f8e93886",
+      "kind": "helper-script",
+      "relativePath": "落第骑士-MVU-独立成长结算-G04.json",
+      "file": "世界书规则/MVU/落第骑士-MVU-独立成长结算-G04.json",
+      "sha256": "db179be708c3447e80f61234517a6eae0ddaeeab248249224e336f86aaec3907"
+    },
+    {
+      "artifactName": "opening-state-n02",
+      "id": "4f9bda79-82bd-4d2f-9a66-2497349df26e",
+      "kind": "regex",
+      "relativePath": "落第骑士-开局页面-N02.regex.json",
+      "file": "世界书规则/MVU/落第骑士-开局页面-N02.regex.json",
+      "sha256": "2c6904013c2a8abb3bd81c49a4af9420c69707e945a90602ae6ee978068d2c36"
+    }
+  ],
+  "reused": [
+    {
+      "file": "世界书规则/MVU/落第骑士-MVU-v4字段约束.json",
+      "id": "06117475-a08c-4d78-a886-3d26426c4b37",
+      "sha256": "3339c0cb34fc960796676ebe4210fbe085bd596e19a973a5f4137389d7ae2307",
+      "enabled": true
+    }
+  ],
+  "preservation": {
+    "sourceHashesUnchanged": true,
+    "phoneAllFieldsPreserved": true,
+    "guardFileReusedWithoutWrite": true,
+    "openingMetadataPreserved": true,
+    "openingReplacementMatchesSource": true,
+    "nativeStableIdAndEnabled": true,
+    "growthOptionalAndInitiallyDisabled": true,
+    "nativeAndGrowthNoApiOrRemoteImport": true,
+    "outputPathsInsideDeclaredRoot": true
+  },
+  "skill": {
+    "stagingValidation": [
+      {
+        "schemaVersion": 1,
+        "target": "世界书规则/MVU/构建记录/N02-G04/skill-staging/helper-script",
+        "deliveryMode": "component",
+        "errors": [],
+        "files": [
+          {
+            "file": "世界书规则/MVU/构建记录/N02-G04/skill-staging/helper-script/phone-v1-3-16.script.json",
+            "kind": "helper-script",
+            "errors": []
+          },
+          {
+            "file": "世界书规则/MVU/构建记录/N02-G04/skill-staging/helper-script/native-mvu-n02.script.json",
+            "kind": "helper-script",
+            "errors": []
+          },
+          {
+            "file": "世界书规则/MVU/构建记录/N02-G04/skill-staging/helper-script/growth-g04.script.json",
+            "kind": "helper-script",
+            "errors": []
+          }
+        ]
+      },
+      {
+        "schemaVersion": 1,
+        "target": "世界书规则/MVU/构建记录/N02-G04/skill-staging/regex",
+        "deliveryMode": "component",
+        "errors": [],
+        "files": [
+          {
+            "file": "世界书规则/MVU/构建记录/N02-G04/skill-staging/regex/opening-state-n02.regex.json",
+            "kind": "regex",
+            "errors": []
+          }
+        ]
+      }
+    ],
+    "finalValidation": [
+      {
+        "schemaVersion": 1,
+        "target": "世界书规则/MVU/落第骑士-小手机-v1.3.16.json",
+        "errors": [],
+        "files": [
+          {
+            "file": "世界书规则/MVU/落第骑士-小手机-v1.3.16.json",
+            "kind": "helper-script",
+            "errors": []
+          }
+        ]
+      },
+      {
+        "schemaVersion": 1,
+        "target": "世界书规则/MVU/落第骑士-MVU-原生兼容-N02.json",
+        "errors": [],
+        "files": [
+          {
+            "file": "世界书规则/MVU/落第骑士-MVU-原生兼容-N02.json",
+            "kind": "helper-script",
+            "errors": []
+          }
+        ]
+      },
+      {
+        "schemaVersion": 1,
+        "target": "世界书规则/MVU/落第骑士-MVU-独立成长结算-G04.json",
+        "errors": [],
+        "files": [
+          {
+            "file": "世界书规则/MVU/落第骑士-MVU-独立成长结算-G04.json",
+            "kind": "helper-script",
+            "errors": []
+          }
+        ]
+      },
+      {
+        "schemaVersion": 1,
+        "target": "世界书规则/MVU/落第骑士-开局页面-N02.regex.json",
+        "errors": [],
+        "files": [
+          {
+            "file": "世界书规则/MVU/落第骑士-开局页面-N02.regex.json",
+            "kind": "regex",
+            "errors": []
+          }
+        ]
+      },
+      {
+        "schemaVersion": 1,
+        "target": "世界书规则/MVU/落第骑士-MVU-v4字段约束.json",
+        "errors": [],
+        "files": [
+          {
+            "file": "世界书规则/MVU/落第骑士-MVU-v4字段约束.json",
+            "kind": "helper-script",
+            "errors": []
+          }
+        ]
+      }
+    ]
+  },
+  "runtime": "Static artifact validation; no live import, model request or full-card packaging",
+  "pendingRuntime": [
+    "target SillyTavern, Tavern Helper and MVU versions",
+    "component import, execution, current-reply saving and reload persistence in user runtime"
+  ]
+}

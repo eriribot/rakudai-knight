@@ -107,7 +107,8 @@
         if (stateKey(variables) !== stateKey(expected)) throw new Error('变量已经更新，未覆盖。');
         const next = cloneState(variables);
         next.stat_data = cloneState(state);
-        prepareRakudaiNativeMvu(next, [W, H]);
+        // 页面事务提交的是已验证候选；缺项修复留给 MVU STARTED，避免暗改迁移候选。
+        prepareRakudaiNativeMvu(next, [W, H], { repairStructure: false });
         return next;
       }, now.options);
       sync(result, '更新变量');
@@ -115,4 +116,36 @@
     },
   });
   W.RakudaiStateController = api;
+  // 开局页已有的照片入口只保存显示信息；沿用宿主聊天 scope，不进入 MVU。
+  const displayTokens = new WeakMap();
+  function displayStore(H) {
+    return createPlayerDisplayStore({
+      storage: {
+        getItem: key => H.localStorage.getItem(key),
+        setItem: (key, value) => H.localStorage.setItem(key, value),
+      },
+      getContext: () => H.SillyTavern.getContext(),
+      onChange: value => {
+        try { H.dispatchEvent(new H.CustomEvent('rk:player-portrait-changed', { detail: { scope: value.scope, revision: value.revision } })); } catch (_) {}
+      },
+    });
+  }
+  W.RakudaiPlayerDisplay = Object.freeze({
+    capture() {
+      const saved = position(), view = displayStore(saved.H).get(), token = Object.freeze({});
+      displayTokens.set(token, { saved, view });
+      return { ...view, token, primaryName: saved.data.stat_data.玩家?.姓名 || '' };
+    },
+    apply(expected, values) {
+      const record = displayTokens.get(expected?.token);
+      if (!record) throw new Error('头像操作已失效，请重新应用。');
+      const now = current(record.saved), profileName = typeof values?.profileName === 'string' ? values.profileName.trim() : '';
+      if (!profileName || now.data.stat_data.系统?.开局状态 !== '已建档' || now.data.stat_data.玩家?.姓名?.trim() !== profileName) {
+        throw new Error('档案姓名与本局已建档玩家不一致，请载入本局人物的档案或照片。');
+      }
+      const oldName = record.view.profileName || record.saved.data.stat_data.玩家?.姓名 || '';
+      return displayStore(now.H).save(record.view, { avatarUrl: values.avatarUrl,
+        aliases: oldName && oldName !== profileName ? [] : record.view.aliases, profileName, source: 'opening' });
+    },
+  });
 })();

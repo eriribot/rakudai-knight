@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "checks": [
+    "Both generated script bodies initialize without Zod or remote imports",
+    "Compiled N02 repairs a legacy parent before parsing and preserves unrelated data"
+  ],
+  "boundary": "VM host/lifecycle substitutes; no live import or user-chat writes"
+}

@@ -1,0 +1,181 @@
+{
+  "schemaVersion": 1,
+  "release": {
+    "native": "N03",
+    "phone": "1.3.17",
+    "growthProtocol": "final-values-v1"
+  },
+  "evidenceBoundary": "Offline maintained code, real pinned MVU core and schema checks with host doubles; no real Tavern import, chat write or persistence test.",
+  "targetedRegression": {
+    "rootSuiteCount": 7,
+    "rootChecks": 113,
+    "rootPassed": 113,
+    "delegatedChecks": 107,
+    "delegatedPassed": 107,
+    "totalPassed": 220,
+    "delegatedCommands": [
+      { "command": "node scripts/check-mvu-native.mjs", "passed": 17 },
+      { "command": "node scripts/check-mvu-native-core.mjs", "passed": 14 },
+      { "command": "node scripts/check-mvu-growth-finals.mjs", "passed": 9 },
+      { "command": "node scripts/check-state-controller.mjs", "passed": 22 },
+      { "command": "node --test scripts/check-mvu-growth.mjs scripts/check-tournament-guard.mjs", "passed": 22 },
+      { "command": "node scripts/check-mvu-runtime-schema.mjs", "passed": 23 }
+    ],
+    "delegatedBreakdown": {
+      "native": 17,
+      "pinnedCore": 14,
+      "finalGrowth": 9,
+      "stateController": 22,
+      "legacyGrowth": 14,
+      "guard": 8,
+      "schema": 23
+    }
+  },
+  "suites": [
+    {
+      "command": "node scripts/黑白ADV轮盘终端/correction-readiness-test.mjs",
+      "exitCode": 0,
+      "total": 39,
+      "passed": 39,
+      "failed": [],
+      "evidence": "真实 correction.js 与事件接线；宿主、MVU、网络和时钟为内存替身，未连接酒馆"
+    },
+    {
+      "command": "node scripts/黑白ADV轮盘终端/correction-exclusions-test.mjs",
+      "exitCode": 0,
+      "total": 11,
+      "passed": 11,
+      "failed": [],
+      "evidence": "真实 correction.js + 固定上游请求与后端排除片段；宿主状态、MVU、网络和时钟为替身，未连接酒馆"
+    },
+    {
+      "command": "node scripts/黑白ADV轮盘终端/packaging-test.mjs",
+      "exitCode": 0,
+      "total": 9,
+      "passed": 9,
+      "failed": [],
+      "evidence": "parse5 HTML解析 → 实际完整脚本V8编译；独立源映射消费；未连接真实酒馆"
+    },
+    {
+      "command": "node scripts/黑白ADV轮盘终端/smoke-test.mjs",
+      "exitCode": 1,
+      "total": 30,
+      "passed": 24,
+      "failed": [
+        {
+          "name": "当前页无MVU时不回退到旧页或旧楼层",
+          "error": "AssertionError [ERR_ASSERTION]: The input did not match the regular expression /尚无 MVU/. Input:\n\n'Error: 当前回复及此前助手楼层都没有可显示的 MVU 数据'\n\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:88:10\n    at check (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:11:15)\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:86:7"
+        },
+        {
+          "name": "空名册不预填四人或世界书人物",
+          "error": "AssertionError [ERR_ASSERTION]: The input did not match the regular expression /尚无/. Input:\n\n'<div class=\"card1\" role=\"status\">当前楼层 MVU 的“人际”尚未登记人物。首次见面且身份已确认的人物，即使好感没有变化也应登记。<p class=\"gba-note\">当前助手回复页</p></div>'\n\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:101:10\n    at async check (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:11:9)\n    at async file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:99:1"
+        },
+        {
+          "name": "空 MVU 槽错误仍保留来源，并清除上一个槽的人物",
+          "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ null\n- {\n-   chatId: 'test-chat',\n-   messageId: 6,\n-   swipeCount: 2,\n-   swipeId: 1\n- }\n\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:192:10\n    at async check (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:11:9)\n    at async file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:186:1"
+        },
+        {
+          "name": "好感未计分与真实零分分开呈现，不替旧阶段倒填支援值",
+          "error": "AssertionError [ERR_ASSERTION]: The input did not match the regular expression /未计分/. Input:\n\n'好感待核定请更新并启用按互动累计的 MVU v4 字段约束脚本，取消普通初始50。支援度待核定起点支援阶段待核定（原记录：S）旧字母不折算为分数；确认起点后再累计。性别尚未记录，暂不显示恋爱阶段。'\n\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:220:10\n    at check (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:11:15)\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:216:7"
+        },
+        {
+          "name": "重复启动及销毁均移除旧订阅",
+          "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n2 !== 1\n\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:326:68\n    at async check (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:11:9)\n    at async file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:323:1"
+        },
+        {
+          "name": "事件历史逐条显示所属卷，旧缺卷事件提示迁移且文本仍转义",
+          "error": "AssertionError [ERR_ASSERTION]: The input did not match the regular expression /第1卷 · 终章/. Input:\n\n`<div class=\"card1 rk-t-panel\"><div class=\"ct\">本局选拔赛</div><p>主、副 API 和手动登记共用本局实际比赛记录。</p><div class=\"rk-t-actions\"><button type=\"button\" data-rk-t-action=\"new-match\">登记比赛</button><button type=\"button\" data-rk-t-action=\"new-participant\">登记参赛者</button><button type=\"button\" data-rk-t-action=\"initialize\">建立本局选拔赛</button></div><div class=\"gba-note\" role=\"status\"><p>选拔赛组件尚未连接，请更新配套脚本。</p></div></div><details class=\"card1\"><summary>当前剧情 · 第16卷 · 序章 · 进行中</summary><p>时间未确认 · 地点未确认</p><button type=\"button\" onclick=\"openStoryControls()\">展开剧情控制</button></details><div class=\"card1\"><div class=\"ct\">其他日程与约定</div>尚无其他已确定日期的日程。<p><button type=\"button\" onclick=\"openApp('calendar')\">打开手机日历</button></p></div><details class=\"card1\"><summary>已发生事件 · 3 条</summary><div class=\"noble-art-block\"><div class=\"noble-art-title\">旧卷记录</div><div class=\"noble-art-desc\">保留的本局事件</div></div><div class=\"noble-art-block\"><div class=\"noble-art-title\">本卷记录</div><div class=\"noble-art-desc\">&lt;img src=x&gt;</div></div><div class=\"noble-art-block\"><div class=\"noble-art-title\">待升级事件</div><div class=\"noble-art-desc\">旧数据</div></div></details>`\n\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:349:10\n    at async check (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:11:9)\n    at async file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:341:1"
+        }
+      ],
+      "evidence": "离线 Node VM 执行真实读取和界面函数；未进行酒馆实机或浏览器布局验收"
+    },
+    {
+      "command": "node scripts/黑白ADV轮盘终端/shell-test.mjs",
+      "exitCode": 0,
+      "total": 9,
+      "passed": 9,
+      "failed": [],
+      "evidence": "执行主壳真实函数与事件接线；使用离线 DOM/计时器替身，未连接酒馆"
+    },
+    {
+      "command": "node scripts/check-state-browser.mjs",
+      "exitCode": 0,
+      "total": 32,
+      "passed": 32,
+      "failed": [],
+      "evidence": "离线固定API语义模拟，未连接真实酒馆"
+    },
+    {
+      "command": "node scripts/黑白ADV轮盘终端/state-panel-test.mjs",
+      "exitCode": 0,
+      "total": 11,
+      "passed": 11,
+      "failed": [],
+      "evidence": "真实 state-panel 事件与控制器，parse5 DOM 替身；没有模型调用"
+    },
+    {
+      "command": "node --test scripts/check-growth-final-prompts.mjs",
+      "exitCode": 0,
+      "total": 2,
+      "passed": 2,
+      "failed": [],
+      "evidence": "Node test runner; actual EJS prompt source executed with offline getvar fixtures"
+    }
+  ],
+  "knownSmokeBaseline": {
+    "baselineRef": "56a55ef",
+    "baselineTotal": 30,
+    "baselinePassed": 23,
+    "currentTotal": 30,
+    "currentPassed": 24,
+    "existingFailures": 6,
+    "improvement": "Previously stale exported bundle now agrees with maintained source",
+    "audit": "smoke基线审计.json"
+  },
+  "finalArtifactAudit": {
+    "stableIdsChecked": 4,
+    "artifactHashesMatchManifest": true,
+    "allSourceHashesMatchCurrentFiles": true,
+    "newComponentCount": 3,
+    "optionalGuardReused": true,
+    "currentManifestExcludesLegacyStandaloneG04": true,
+    "worldbookEntryListIncludesThreeTextsAndInitYaml": true,
+    "outputTrackedAndUntrackedChanges": false,
+    "evidence": "Independent read-only audit after unified build; runtime remains pending"
+  },
+  "freshness": [
+    {
+      "command": "node scripts/build-state-controller.mjs --page",
+      "exitCode": 0,
+      "passed": true
+    },
+    {
+      "command": "node scripts/sync-worldbook-calibration.mjs --script-only --check",
+      "exitCode": 0,
+      "passed": true
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "passed": true
+    },
+    {
+      "command": "git diff --name-only -- output",
+      "exitCode": 0,
+      "passed": true
+    }
+  ],
+  "reports": [
+    "N03结构兼容验证.json",
+    "native-core-report.json",
+    "终值结算验证.json",
+    "状态控制验证.json",
+    "提示词瘦身.json",
+    "smoke基线审计.json"
+  ],
+  "limitations": [
+    "Exact tokenizer counts not measured; rendered character reduction is illustrative.",
+    "Main model supplies factual final values; optional constraints check types, thresholds and identical patch replay, not independent truth of every training claim.",
+    "Legacy history is preserved; previously skipped rewards are not automatically replayed."
+  ]
+}

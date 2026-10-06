@@ -233,7 +233,15 @@ await check('更新把stat_data置空、换成字符串或数组时恢复', () =
     assert.deepEqual(variables.stat_data, previous.stat_data);
   }
 });
+await check('建档替换玩家对象后仍补齐成长容器，不修改导入档案', () => {
+  const incoming = payload('旧档玩家'); delete incoming.玩家.成长;
+  const original = structuredClone(incoming);
+  const next = applyOpening(structuredClone(INITIAL_STATE), incoming);
+  assert.deepEqual(next.玩家.成长, { 经验: { 魔力控制: 0, 体能: 0, 魔力量: 0 } }); assert.deepEqual(incoming, original);
+});
 const report = { passed: results.filter(r => r.passed).length, total: results.length, results };
-fs.writeFileSync(new URL('../output/worldbook-calibration/状态控制验证.json', import.meta.url), JSON.stringify(report, null, 2) + '\n');
+const reportDirectory = new URL('../世界书规则/MVU/验证记录/终值成长/', import.meta.url);
+fs.mkdirSync(reportDirectory, { recursive: true });
+fs.writeFileSync(new URL('状态控制验证.json', reportDirectory), JSON.stringify(report, null, 2) + '\n');
 console.log(JSON.stringify(report, null, 2));
 if (report.passed !== report.total) process.exitCode = 1;

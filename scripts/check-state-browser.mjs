@@ -9,8 +9,18 @@ const clone = structuredClone, results = [];
 const payload = () => ({ 系统: { 结构版本: 4, 主角模式: '自定义角色' }, 玩家: { ...clone(INITIAL_STATE.玩家), 姓名: '通用测试角色' }, 场景: { 当前章: '第一章', 时间: '春假早晨', 地点: '理事长室', 切入说明: '' } });
 function fixture({ deferredMvu = false, nestedIframe = false, guarded = true } = {}) {
   const chat = [{ role: 'assistant', swipe: 0, text: ['开局一', '开局二'], variables: [{ stat_data: clone(INITIAL_STATE), custom: { untouched: true } }, { stat_data: clone(INITIAL_STATE) }] }];
-  let ctx = { chat, chatId: 'test-chat', characterId: 1, groupId: null }, writes = 0, waitCalls = 0, iframeProxyReads = 0, parentProxyReads = 0;
-  const H = { SillyTavern: { getContext: () => ctx } };
+  let ctx = { chat, chatId: 'test-chat', characterId: 1, groupId: null }, writes = 0, waitCalls = 0, iframeProxyReads = 0, parentProxyReads = 0, storageWrites = 0;
+  const storage = new Map(), displayEvents = [];
+  const H = {
+    SillyTavern: { getContext: () => ctx },
+    localStorage: {
+      getItem: key => storage.has(String(key)) ? storage.get(String(key)) : null,
+      setItem(key, value) { storage.set(String(key), String(value)); storageWrites++; },
+      removeItem: key => storage.delete(String(key)),
+    },
+    CustomEvent: class { constructor(type, options = {}) { this.type = type; this.detail = options.detail; } },
+    dispatchEvent(event) { displayEvents.push(event); return true; },
+  };
   if (guarded) H.__RK_MVU_GUARD_V4__ = { version: '4.0.0', growth: 'G03' };
   const parent = nestedIframe ? { get SillyTavern() { parentProxyReads++; return H.SillyTavern; } } : H;
   let ready;
@@ -35,9 +45,11 @@ function fixture({ deferredMvu = false, nestedIframe = false, guarded = true } =
   const mvu = { getMvuData: option => clone(ctx.chat[option.message_id].variables[ctx.chat[option.message_id].swipe]), replaceMvuData() {} };
   function initializeMvu() { H.Mvu = mvu; ready(); }
   if (!deferredMvu) initializeMvu();
-  const realm = vm.createContext({ window: W, structuredClone, console });
+  const realm = vm.createContext({ window: W, structuredClone, console, URL });
   vm.runInContext(source, realm);
-  return { api: W.RakudaiStateController, W, H, initializeMvu, get ctx() { return ctx; }, set ctx(value) { ctx = value; }, get writes() { return writes; }, get waitCalls() { return waitCalls; }, get proxyReads() { return { iframe: iframeProxyReads, parent: parentProxyReads }; } };
+  return { api: W.RakudaiStateController, get display() { return W.RakudaiPlayerDisplay; }, W, H, storage, displayEvents, initializeMvu,
+    get ctx() { return ctx; }, set ctx(value) { ctx = value; }, get writes() { return writes; }, get storageWrites() { return storageWrites; },
+    get waitCalls() { return waitCalls; }, get proxyReads() { return { iframe: iframeProxyReads, parent: parentProxyReads }; } };
 }
 async function check(name, run) { try { await run(); results.push({ name, passed: true }); } catch (error) { results.push({ name, passed: false, error: error.message }); } }
 await check('旧v4虽同为4.0.0也必须在建档前提示缺少觉醒schema，不写入存档', async () => {
@@ -162,7 +174,7 @@ await check('native准备保留stat_data对象与业务值，只更新schema', (
   data.stat_data.系统.已删除人物 = ['已删除人物一', '已删除人物二'];
   data.schema = '没有用别管这个';
   const reference = data.stat_data, before = clone(reference), custom = clone(data.custom);
-  f.W.RakudaiMvuNative.prepare(data, [f.W, f.H]);
+  f.W.RakudaiMvuNative.prepare(data, [f.W, f.H], { repairStructure: false });
   assert.strictEqual(data.stat_data, reference); assert.deepEqual(data.stat_data, before); assert.deepEqual(data.custom, custom);
   assert.equal(data.schema.strictSet, true);
   assert.equal(data.schema.properties.系统.properties.已删除人物.type, 'array');
@@ -242,7 +254,7 @@ await check('两个界面并发提交只允许一次落地', async () => {
 });
 await check('迁移只升级当前活动 swipe，保留另一回复页与 MVU 包装', async () => {
   const f = fixture();
-  for (const data of f.ctx.chat[0].variables) data.stat_data.系统.结构版本 = 3;
+  for (const data of f.ctx.chat[0].variables) { data.stat_data.系统.结构版本 = 3; delete data.stat_data.玩家.成长; }
   f.ctx.chat[0].swipe = 1;
   f.ctx.chat[0].variables[1].custom = { retained: '活动页包装' };
   const original = clone(f.ctx.chat[0].variables);
@@ -258,7 +270,7 @@ await check('迁移只升级当前活动 swipe，保留另一回复页与 MVU �
 });
 await check('迁移预览后切换 swipe 或编辑正文时旧迁移凭据不能提交', async () => {
   for (const mutate of [f => { f.ctx.chat[0].swipe = 1; }, f => { f.ctx.chat[0].text[0] = '正文已更改'; }]) {
-    const f = fixture(); f.ctx.chat[0].variables[0].stat_data.系统.结构版本 = 3;
+    const f = fixture(); f.ctx.chat[0].variables[0].stat_data.系统.结构版本 = 3; delete f.ctx.chat[0].variables[0].stat_data.玩家.成长;
     const preview = await f.api.prepareMigration(); mutate(f);
     await assert.rejects(f.api.commitMigration(preview.token), /swipe 已变化/); assert.equal(f.writes, 0);
   }
@@ -266,6 +278,7 @@ await check('迁移预览后切换 swipe 或编辑正文时旧迁移凭据不能
 await check('真实浏览器适配的迁移与跨卷只修改剧情字段，不重新派生旧人物或补默认性别', async () => {
   const f = fixture(), value = f.ctx.chat[0].variables[0].stat_data;
   value.系统 = { 结构版本: 3, 开局状态: '已建档', 主角模式: '自定义角色' }; value.玩家.姓名 = '旧玩家'; delete value.玩家.性别;
+  delete value.玩家.成长;
   value.场景 = { ...value.场景, 当前章: '终章', 阶段: '已结束', 时间: '旧时间', 地点: '旧地点', 已发生事件: { 旧事件: { 章段: '第一章', 结果: '实际记录', 参与者: [], 知情者: [] } } };
   delete value.场景.切入说明;
   value.人际.同伴 = { 关系: '同伴', 态度印象: '', 性别: '女性', 好感: 502, 支援度: 181, 羁绊阶段: 'C', 变化依据: '旧记录保留' };
@@ -277,12 +290,142 @@ await check('真实浏览器适配的迁移与跨卷只修改剧情字段，不�
   await f.api.transition(capture.token, { action: 'nextVolume', time: '次日', location: '目标场所', entryNote: '从已确认场景继续' });
   const after = f.ctx.chat[0].variables[0].stat_data;
   assert.equal(after.场景.当前卷, 2);
-  // G03 跨卷只清空未结算申请，不补发经验；人物本体与关系保持原样。
+  // 终值模式跨卷不补发经验，不创建申请或奖励记录；人物本体与关系保持原样。
   const { 成长, ...player } = after.玩家;
   assert.deepEqual(player, original.玩家);
-  assert.equal(成长.版本, 'G03'); assert.deepEqual(成长.申请, {}); assert.deepEqual(成长.记录, {});
+  assert.equal(成长.版本, 'G03'); assert.equal(Object.hasOwn(成长, '申请'), false); assert.equal(Object.hasOwn(成长, '记录'), false);
   assert.deepEqual(成长.经验, { 体能: 0, 魔力控制: 0, 魔力量: 0 });
   assert.deepEqual(after.人际, original.人际); assert.equal(f.writes, 2);
+});
+const openingAvatar = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+/lN8AAAAASUVORK5CYII=';
+const displayKey = f => 'rk:oc:portrait:v1:' + JSON.stringify([f.ctx.characterId ?? null, f.ctx.groupId ?? null,
+  String(f.ctx.getCurrentChatId?.() ?? f.ctx.chatId)]);
+const displayRecord = f => JSON.parse(f.H.localStorage.getItem(displayKey(f)));
+async function establishedDisplayFixture(name = '通用测试角色') {
+  const f = fixture({ guarded: false }), draft = payload(); draft.玩家.姓名 = name;
+  await f.api.commitOpening((await f.api.capture()).token, draft);
+  return f;
+}
+await check('开局建档前同步捕获外观，成功回读后绑定新姓名；无需小手机且不额外写MVU', async () => {
+  const f = fixture({ guarded: false }), before = clone(f.ctx.chat);
+  assert.equal(f.H.__RK_PHONE_SHELL__, undefined);
+  const display = f.display.capture();
+  assert.equal(typeof display.then, 'undefined'); assert.equal(display.version, 1);
+  assert.equal(display.scope, JSON.stringify([1, null, 'test-chat'])); assert.equal(display.primaryName, '');
+  assert.equal(display.avatarUrl, ''); assert.deepEqual(clone(display.aliases), []);
+  assert.ok(display.token); assert.deepEqual(clone(f.ctx.chat), before); assert.equal(f.storageWrites, 0);
+  const committed = await f.api.commitOpening((await f.api.capture()).token, payload());
+  assert.equal(committed.state.玩家.姓名, '通用测试角色');
+  const saved = f.display.apply(display, { profileName: committed.state.玩家.姓名, avatarUrl: openingAvatar });
+  assert.equal(typeof saved.then, 'undefined'); assert.equal(saved.avatarUrl, openingAvatar);
+  const record = displayRecord(f);
+  assert.equal(record.version, 1); assert.equal(record.profileName, '通用测试角色'); assert.equal(record.avatarUrl, openingAvatar); assert.equal(record.source, 'opening');
+  assert.equal(f.writes, 1); assert.equal(f.storageWrites, 1);
+  assert.equal(f.displayEvents.length, 1); assert.equal(f.displayEvents[0].type, 'rk:player-portrait-changed');
+  assert.equal(f.displayEvents[0].detail.scope, display.scope); assert.equal(f.displayEvents[0].detail.revision, saved.revision);
+  assert.notEqual(saved.revision, display.revision);
+});
+await check('已游玩聊天按最新活动回复页捕获头像，旧开局页不能借此重建人物，应用外观不写MVU', async () => {
+  const f = await establishedDisplayFixture(), latest = clone(f.ctx.chat[0]);
+  f.ctx.chat.push({ role: 'user', swipe: 0, text: ['继续剧情'], variables: [{}] }, latest);
+  latest.text = ['最新正文', '另一个回复']; latest.swipe = 1;
+  latest.variables[1] = clone(latest.variables[0]);
+  const before = clone(f.ctx.chat), writes = f.writes;
+  await assert.rejects(f.api.capture({ messageId: 0 }), /历史楼层/);
+  const captured = f.display.capture();
+  assert.equal(captured.primaryName, '通用测试角色');
+  f.display.apply(captured, { profileName: '  通用测试角色  ', avatarUrl: openingAvatar });
+  assert.deepEqual(clone(f.ctx.chat), before); assert.equal(f.writes, writes);
+  assert.equal(displayRecord(f).profileName, '通用测试角色'); assert.equal(f.displayEvents.length, 1);
+});
+await check('头像姓名仅按当前已建档姓名去首尾空白匹配，不接受不同人物或相似昵称', async () => {
+  const f = await establishedDisplayFixture('黎恩·舒华泽'), captured = f.display.capture(), before = clone(f.ctx.chat);
+  for (const profileName of ['另一人物', '黎恩舒华泽', '', null]) {
+    assert.throws(() => f.display.apply(captured, { profileName, avatarUrl: openingAvatar }), /姓名.*不一致/);
+  }
+  assert.deepEqual(clone(f.ctx.chat), before); assert.equal(f.writes, 1); assert.equal(f.storageWrites, 0); assert.equal(f.displayEvents.length, 0);
+});
+await check('待建档状态即使填写同名也不能应用头像，不伪造开局完成', () => {
+  const f = fixture({ guarded: false }); f.ctx.chat[0].variables[0].stat_data.玩家.姓名 = '草稿玩家';
+  const captured = f.display.capture(), before = clone(f.ctx.chat);
+  assert.throws(() => f.display.apply(captured, { profileName: '草稿玩家', avatarUrl: openingAvatar }), /已建档|姓名.*不一致/);
+  assert.deepEqual(clone(f.ctx.chat), before); assert.equal(f.writes, 0); assert.equal(f.storageWrites, 0);
+});
+await check('头像凭据只属于生成它的控制器，伪造或另一iframe凭据均不能保存', async () => {
+  const a = await establishedDisplayFixture(), b = await establishedDisplayFixture();
+  const captured = a.display.capture();
+  for (const invalid of [undefined, { token: {} }, captured]) {
+    assert.throws(() => b.display.apply(invalid, { profileName: '通用测试角色', avatarUrl: openingAvatar }), /操作已失效/);
+  }
+  assert.equal(a.storageWrites, 0); assert.equal(b.storageWrites, 0); assert.equal(b.writes, 1);
+});
+for (const [name, mutate] of [
+  ['切聊天', f => { f.ctx = { ...f.ctx, chatId: 'other-chat', chat: clone(f.ctx.chat) }; }],
+  ['换角色', f => { f.ctx.characterId = 2; }],
+  ['换群组', f => { f.ctx.groupId = 'other-group'; }],
+  ['切swipe', f => { f.ctx.chat[0].swipe = 1; }],
+  ['编辑正文', f => { f.ctx.chat[0].text[0] = '已编辑正文'; }],
+  ['新增楼层', f => { f.ctx.chat.push({ role: 'user', swipe: 0, text: ['新的用户消息'], variables: [{}] }); }],
+  ['替换聊天数组', f => { f.ctx.chat = [...f.ctx.chat]; }],
+  ['重建同位置消息', f => { f.ctx.chat[0] = clone(f.ctx.chat[0]); }],
+]) await check('开局外观捕获后' + name + '使旧头像凭据失效，不写存储或MVU', async () => {
+  const f = await establishedDisplayFixture(), captured = f.display.capture(); mutate(f);
+  const before = clone(f.ctx.chat);
+  assert.throws(() => f.display.apply(captured, { profileName: '通用测试角色', avatarUrl: openingAvatar }), /变化|历史楼层/);
+  assert.deepEqual(clone(f.ctx.chat), before); assert.equal(f.writes, 1); assert.equal(f.storageWrites, 0); assert.equal(f.displayEvents.length, 0);
+});
+await check('头像capture后另一界面保存使revision过期，保留竞争结果且不发变更事件', async () => {
+  const f = await establishedDisplayFixture(), captured = f.display.capture(), competitor = {
+    version: 1, avatarUrl: 'https://example.com/other.png', aliases: ['教官'], profileName: '通用测试角色', source: 'opening', revision: 'other-interface',
+  };
+  f.H.localStorage.setItem(displayKey(f), JSON.stringify(competitor));
+  const before = clone(f.ctx.chat), storageWrites = f.storageWrites;
+  assert.throws(() => f.display.apply(captured, { profileName: '通用测试角色', avatarUrl: openingAvatar }), /变化|重新读取|重新应用/);
+  assert.deepEqual(displayRecord(f), competitor); assert.deepEqual(clone(f.ctx.chat), before);
+  assert.equal(f.storageWrites, storageWrites); assert.equal(f.writes, 1); assert.equal(f.displayEvents.length, 0);
+});
+await check('无profileName与revision的旧终端头像记录可兼容，更新同玩家头像保留别名', async () => {
+  const f = await establishedDisplayFixture();
+  f.H.localStorage.setItem(displayKey(f), JSON.stringify({ version: 1, avatarUrl: 'https://example.com/legacy.png', aliases: ['教官', '黎恩'] }));
+  const captured = f.display.capture(), writes = f.writes;
+  assert.deepEqual(clone(captured.aliases), ['教官', '黎恩']); assert.ok(captured.revision);
+  f.display.apply(captured, { profileName: '通用测试角色', avatarUrl: openingAvatar });
+  assert.deepEqual(displayRecord(f).aliases, ['教官', '黎恩']); assert.equal(displayRecord(f).profileName, '通用测试角色');
+  assert.equal(displayRecord(f).source, 'opening'); assert.equal(f.writes, writes);
+});
+await check('捕获后存储变成未知版本或来源时拒绝覆盖，保留原记录而不伪装成新开局来源', async () => {
+  for (const invalid of [{ version: 2, source: 'opening' }, { version: 1, source: 'unknown-provider' }]) {
+    const f = await establishedDisplayFixture(), captured = f.display.capture(), record = {
+      avatarUrl: 'https://example.com/existing.png', aliases: [], profileName: '通用测试角色', revision: 'external-record', ...invalid,
+    };
+    f.H.localStorage.setItem(displayKey(f), JSON.stringify(record));
+    const storageWrites = f.storageWrites;
+    assert.throws(() => f.display.apply(captured, { profileName: '通用测试角色', avatarUrl: openingAvatar }), /版本|来源/);
+    assert.deepEqual(displayRecord(f), record); assert.equal(f.storageWrites, storageWrites);
+    assert.equal(f.writes, 1); assert.equal(f.displayEvents.length, 0);
+  }
+});
+await check('明确替换开局人物后头像绑定新玩家，清掉前玩家别名并只保留一次MVU人物替换', async () => {
+  const f = await establishedDisplayFixture('原玩家');
+  f.H.localStorage.setItem(displayKey(f), JSON.stringify({ version: 1, avatarUrl: 'https://example.com/old.png', aliases: ['旧昵称'], profileName: '原玩家', source: 'opening', revision: 'old-player' }));
+  const captured = f.display.capture(), draft = payload(); draft.玩家.姓名 = '新玩家';
+  await f.api.replaceOpening((await f.api.capture()).token, draft);
+  f.display.apply(captured, { profileName: '新玩家', avatarUrl: openingAvatar });
+  assert.equal(displayRecord(f).profileName, '新玩家'); assert.deepEqual(displayRecord(f).aliases, []);
+  assert.equal(displayRecord(f).avatarUrl, openingAvatar); assert.equal(f.writes, 2);
+});
+await check('同一头像凭据保存一次后不可重放，不能再次覆写头像或发送事件', async () => {
+  const f = await establishedDisplayFixture(), captured = f.display.capture();
+  f.display.apply(captured, { profileName: '通用测试角色', avatarUrl: openingAvatar });
+  const saved = displayRecord(f), storageWrites = f.storageWrites;
+  assert.throws(() => f.display.apply(captured, { profileName: '通用测试角色', avatarUrl: 'https://example.com/replay.png' }), /变化|重新读取|重新应用/);
+  assert.deepEqual(displayRecord(f), saved); assert.equal(f.storageWrites, storageWrites); assert.equal(f.displayEvents.length, 1); assert.equal(f.writes, 1);
+});
+await check('本机外观存储失败不修改MVU，也不发出保存成功事件', async () => {
+  const f = await establishedDisplayFixture(), captured = f.display.capture(), before = clone(f.ctx.chat);
+  f.H.localStorage.setItem = () => { throw new Error('QuotaExceeded'); };
+  assert.throws(() => f.display.apply(captured, { profileName: '通用测试角色', avatarUrl: openingAvatar }), /未能保存|QuotaExceeded|存储/);
+  assert.deepEqual(clone(f.ctx.chat), before); assert.equal(f.writes, 1); assert.equal(f.storageWrites, 0); assert.equal(f.displayEvents.length, 0);
 });
 await check('伴随guard运行时保护：恢复章段后也拒绝关联未来事件', () => {
   const hooks = new Map(), events = [], H = {}, W = { parent: H, addEventListener: (...args) => events.push(args) };
@@ -301,5 +444,7 @@ await check('伴随guard运行时保护：恢复章段后也拒绝关联未来�
   events.find(([type]) => type === 'pagehide')[1](); assert.equal(H.__RK_MVU_GUARD_V4__, undefined); assert.equal(hooks.size, 0);
 });
 const report = { passed: results.filter(r => r.passed).length, total: results.length, runtime: '离线固定API语义模拟，未连接真实酒馆', results };
-fs.writeFileSync(new URL('../output/worldbook-calibration/浏览器适配验证.json', import.meta.url), JSON.stringify(report, null, 2) + '\n');
+const reportDirectory = new URL('../世界书规则/MVU/验证记录/', import.meta.url);
+fs.mkdirSync(reportDirectory, { recursive: true });
+fs.writeFileSync(new URL('浏览器适配验证.json', reportDirectory), JSON.stringify(report, null, 2) + '\n');
 console.log(JSON.stringify(report, null, 2)); if (report.passed !== report.total) process.exitCode = 1;

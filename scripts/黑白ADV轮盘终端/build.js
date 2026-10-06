@@ -5,9 +5,10 @@ import { buildTerminal, directory } from './bundle.mjs';
 
 // 维护源文件，产物只由这一入口生成；验证失败时不写出 JSON。
 const { artifact, html, map, version } = buildTerminal();
-const output = path.resolve(directory, '../酒馆助手脚本-小手机-黑白ADV轮盘版-v' + version + '.json');
+const output = path.resolve(directory, '../../世界书规则/MVU/落第骑士-小手机-v' + version + '.json');
 const dist = path.join(directory, 'dist');
 fs.mkdirSync(dist, { recursive: true });
+fs.mkdirSync(path.dirname(output), { recursive: true });
 fs.writeFileSync(path.join(dist, 'terminal.js'), artifact.content);
 fs.writeFileSync(path.join(dist, 'terminal.js.map'), JSON.stringify(map));
 fs.writeFileSync(path.join(dist, 'terminal-app.html'), html);

@@ -1,0 +1,165 @@
+{
+  "schemaVersion": 1,
+  "release": {
+    "phone": "1.3.18",
+    "bubbles": "0.4",
+    "deliveryMode": "component"
+  },
+  "purpose": "Player portrait and registered aliases are shared by the terminal and dialogue display; formal game state stays unchanged.",
+  "ownership": {
+    "storage": "Host localStorage; character/group/chat scoped; this device/browser only",
+    "mvuWrites": false,
+    "chatTextWrites": false,
+    "regexWritesAtRuntime": false
+  },
+  "validation": {
+    "targetedPassed": 476,
+    "targetedTotal": 476,
+    "newPortraitCases": 64,
+    "bubbleRegexCases": 337,
+    "regressionCases": 75
+  },
+  "suites": [
+    {
+      "command": "node --test scripts/黑白ADV轮盘终端/player-portrait-service-test.mjs scripts/黑白ADV轮盘终端/player-bubble-binder-test.mjs scripts/黑白ADV轮盘终端/player-portrait-ui-test.mjs",
+      "exitCode": 0,
+      "total": 64,
+      "passed": 64,
+      "contractPassed": true,
+      "failed": []
+    },
+    {
+      "command": "node scripts/正文气泡/check.mjs",
+      "exitCode": 0,
+      "total": 337,
+      "passed": 337,
+      "contractPassed": true,
+      "failed": []
+    },
+    {
+      "command": "node scripts/正文气泡/check-artifact.mjs",
+      "exitCode": 0,
+      "total": null,
+      "passed": null,
+      "contractPassed": true,
+      "failed": []
+    },
+    {
+      "command": "node .agents/skills/sillytavern-component-update/scripts/validate-importable-component.mjs scripts/正文气泡/发布/components",
+      "exitCode": 0,
+      "total": null,
+      "passed": null,
+      "contractPassed": true,
+      "failed": []
+    },
+    {
+      "command": "node scripts/黑白ADV轮盘终端/avatar-test.mjs",
+      "exitCode": 0,
+      "total": 17,
+      "passed": 17,
+      "contractPassed": true,
+      "failed": []
+    },
+    {
+      "command": "node scripts/黑白ADV轮盘终端/packaging-test.mjs",
+      "exitCode": 0,
+      "total": 9,
+      "passed": 9,
+      "contractPassed": true,
+      "failed": []
+    },
+    {
+      "command": "node scripts/黑白ADV轮盘终端/shell-test.mjs",
+      "exitCode": 0,
+      "total": 10,
+      "passed": 10,
+      "contractPassed": true,
+      "failed": []
+    },
+    {
+      "command": "node scripts/黑白ADV轮盘终端/correction-readiness-test.mjs",
+      "exitCode": 0,
+      "total": 39,
+      "passed": 39,
+      "contractPassed": true,
+      "failed": []
+    },
+    {
+      "command": "node scripts/黑白ADV轮盘终端/smoke-test.mjs",
+      "exitCode": 1,
+      "total": 30,
+      "passed": 24,
+      "contractPassed": false,
+      "failed": [
+        {
+          "name": "当前页无MVU时不回退到旧页或旧楼层",
+          "error": "AssertionError [ERR_ASSERTION]: The input did not match the regular expression /尚无 MVU/. Input:\n\n'Error: 当前回复及此前助手楼层都没有可显示的 MVU 数据'\n\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:88:10\n    at check (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:11:15)\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:86:7"
+        },
+        {
+          "name": "空名册不预填四人或世界书人物",
+          "error": "AssertionError [ERR_ASSERTION]: The input did not match the regular expression /尚无/. Input:\n\n'<div class=\"card1\" role=\"status\">当前楼层 MVU 的“人际”尚未登记人物。首次见面且身份已确认的人物，即使好感没有变化也应登记。<p class=\"gba-note\">当前助手回复页</p></div>'\n\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:101:10\n    at async check (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:11:9)\n    at async file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:99:1"
+        },
+        {
+          "name": "空 MVU 槽错误仍保留来源，并清除上一个槽的人物",
+          "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ null\n- {\n-   chatId: 'test-chat',\n-   messageId: 6,\n-   swipeCount: 2,\n-   swipeId: 1\n- }\n\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:192:10\n    at async check (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:11:9)\n    at async file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:186:1"
+        },
+        {
+          "name": "好感未计分与真实零分分开呈现，不替旧阶段倒填支援值",
+          "error": "AssertionError [ERR_ASSERTION]: The input did not match the regular expression /未计分/. Input:\n\n'好感待核定请更新并启用按互动累计的 MVU v4 字段约束脚本，取消普通初始50。支援度待核定起点支援阶段待核定（原记录：S）旧字母不折算为分数；确认起点后再累计。性别尚未记录，暂不显示恋爱阶段。'\n\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:220:10\n    at check (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:11:15)\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:216:7"
+        },
+        {
+          "name": "重复启动及销毁均移除旧订阅",
+          "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n2 !== 1\n\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:326:68\n    at async check (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:11:9)\n    at async file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:323:1"
+        },
+        {
+          "name": "事件历史逐条显示所属卷，旧缺卷事件提示迁移且文本仍转义",
+          "error": "AssertionError [ERR_ASSERTION]: The input did not match the regular expression /第1卷 · 终章/. Input:\n\n`<div class=\"card1 rk-t-panel\"><div class=\"ct\">本局选拔赛</div><p>主、副 API 和手动登记共用本局实际比赛记录。</p><div class=\"rk-t-actions\"><button type=\"button\" data-rk-t-action=\"new-match\">登记比赛</button><button type=\"button\" data-rk-t-action=\"new-participant\">登记参赛者</button><button type=\"button\" data-rk-t-action=\"initialize\">建立本局选拔赛</button></div><div class=\"gba-note\" role=\"status\"><p>选拔赛组件尚未连接，请更新配套脚本。</p></div></div><details class=\"card1\"><summary>当前剧情 · 第16卷 · 序章 · 进行中</summary><p>时间未确认 · 地点未确认</p><button type=\"button\" onclick=\"openStoryControls()\">展开剧情控制</button></details><div class=\"card1\"><div class=\"ct\">其他日程与约定</div>尚无其他已确定日期的日程。<p><button type=\"button\" onclick=\"openApp('calendar')\">打开手机日历</button></p></div><details class=\"card1\"><summary>已发生事件 · 3 条</summary><div class=\"noble-art-block\"><div class=\"noble-art-title\">旧卷记录</div><div class=\"noble-art-desc\">保留的本局事件</div></div><div class=\"noble-art-block\"><div class=\"noble-art-title\">本卷记录</div><div class=\"noble-art-desc\">&lt;img src=x&gt;</div></div><div class=\"noble-art-block\"><div class=\"noble-art-title\">待升级事件</div><div class=\"noble-art-desc\">旧数据</div></div></details>`\n\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:349:10\n    at async check (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:11:9)\n    at async file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/smoke-test.mjs:341:1"
+        }
+      ]
+    }
+  ],
+  "sourceAndArtifact": {
+    "phoneSourceHashesChecked": 92,
+    "allPhoneSourceHashesMatch": true,
+    "phoneManifest": "../../../世界书规则/MVU/构建记录/N03-OC头像/component-validation.json",
+    "bubbleArtifactReport": "../../正文气泡/验证记录/artifact-check.json"
+  },
+  "knownSmokeBaseline": {
+    "currentPassed": 24,
+    "currentTotal": 30,
+    "existingFailures": 6,
+    "newFailedNames": false,
+    "source": "../../../世界书规则/MVU/验证记录/终值成长/smoke基线审计.json"
+  },
+  "runtime": {
+    "realSillyTavern": false,
+    "level": "Actual maintained sources/regex/artifacts, offline Node VM and lightweight DOM; parse5 integration does not emulate Markdown/sanitization or CSS layout",
+    "browserAttempt": "CUA getState failed: browser request-header policy unavailable and Statsig initialization timeout; no connected Tavern tab or live chat used",
+    "pending": [
+      "Import phone and three regexes, confirm only one enabled instance and known→candidate→style order",
+      "Save avatar and alias in independent test chat; full MVU name differs from persona, fixed player and alias share avatar",
+      "Reload/close terminal panel/swipe/edit/new-message show same avatar, cross-chat settings stay separate",
+      "320px width, dark/light theme, long dialogue, image errors and actual Markdown/sanitizer pipeline"
+    ]
+  },
+  "acceptanceExample": {
+    "mvuName": "清泉朝阳",
+    "personaName": "different persona",
+    "registeredAlias": "朝阳",
+    "samePortraitSpeakers": [
+      "玩家",
+      "清泉朝阳",
+      "朝阳"
+    ],
+    "untouched": [
+      "NPC portraits",
+      "时间:上午",
+      "analysis and MVU update blocks"
+    ],
+    "candidateRestore": "Closing runtime restores the original full text node"
+  },
+  "limitations": [
+    "Unregistered misspellings or arbitrary truncated names are not guessed; use the stable 玩家 marker or register a unique alias.",
+    "Plain NPC/static player bubbles retain static regex styling when the terminal script is disabled; custom portraits and dynamic OC alias conversion require the terminal script running."
+  ]
+}

@@ -3,19 +3,18 @@
 // 只裁剪发给模型的副本；当前楼层的事件与结算历史原样保存。
 const rkCurrent = getvar('stat_data');
 const rkPromptState = rkCurrent && typeof rkCurrent === 'object' ? JSON.parse(JSON.stringify(rkCurrent)) : null;
+const rkObject = value => value !== null && typeof value === 'object' && !Array.isArray(value);
 if (rkPromptState) {
   delete rkPromptState.$internal;
   // 本回复关系收据只用于代码防重，不占提示词；存档中的原件保留。
-  if (rkPromptState.系统) delete rkPromptState.系统.关系计分;
-  if (rkPromptState.场景) delete rkPromptState.场景.已发生事件;
-  if (rkPromptState.玩家 && rkPromptState.玩家.成长) {
-    delete rkPromptState.玩家.成长.记录;
-    delete rkPromptState.玩家.成长.回合结算;
-    delete rkPromptState.玩家.成长.境界;
-    delete rkPromptState.玩家.成长.境界依据;
+  if (rkObject(rkPromptState.系统)) delete rkPromptState.系统.关系计分;
+  if (rkObject(rkPromptState.场景)) delete rkPromptState.场景.已发生事件;
+  if (rkObject(rkPromptState.玩家) && rkObject(rkPromptState.玩家.成长)) {
+    const growth = rkPromptState.玩家.成长;
+    rkPromptState.玩家.成长 = Object.hasOwn(growth, '经验') ? { 经验: growth.经验 } : {};
   }
 }
 %>
-<%- JSON.stringify(rkPromptState, null, 2) %>
+<%- JSON.stringify(rkPromptState) %>
 </status_current_variable>
-历史事件与结算明细仍在存档，省略不代表未发生，不重复领奖。主副共用事实权限；数字写最终值，关系及时随实际回应更新，支援独立。觉醒只看玩家.魔人觉醒的true/false。成长类型/方式自由描述，多目标单经验是总量均分，经验数组逐项对应；每目标每完整回复奖励上限9999，达到门槛连续晋级并保留余量。已有经验终值与同目标申请不重复相加。选拔赛T02程序战况是日历与本局事实合成的只读结果；AI只登记真正发生的比赛，OC战胜正典必须忠实写胜者。不得写初始战绩、赛前胜场、派生积分与排名；玩家漏记历史不当成0胜或自动全胜。
+历史与收据留在存档，省略不代表未发生。主副读当前终值，只补漏纠错、不重复奖励；成长直接提交经验与六维终值，不创建申请。关系随实际回应更新，支援独立，觉醒用true/false。选拔赛T02程序战况只读；只登记实际比赛与胜者，不写初始战绩、赛前胜场、派生积分或排名，玩家漏记历史不当成0胜或自动全胜。

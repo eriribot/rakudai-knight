@@ -1,0 +1,62 @@
+{
+  "scope": "Offline regression with pinned MVU core and host/iframe substitutes; no real chat writes.",
+  "passed": true,
+  "count": 194,
+  "results": [
+    {
+      "command": "node scripts/check-mvu-native.mjs",
+      "passed": true,
+      "count": 14
+    },
+    {
+      "command": "node scripts/check-mvu-native-core.mjs",
+      "passed": true,
+      "count": 13
+    },
+    {
+      "command": "node --test --test-reporter=tap scripts/check-mvu-growth.mjs scripts/check-tournament-guard.mjs",
+      "passed": true,
+      "count": 22
+    },
+    {
+      "command": "node scripts/check-mvu-runtime-schema.mjs",
+      "passed": true,
+      "count": 23
+    },
+    {
+      "command": "node --test --test-reporter=tap scripts/check-mvu-bootstrap.mjs",
+      "passed": true,
+      "count": 13
+    },
+    {
+      "command": "node scripts/check-state-controller.mjs",
+      "passed": true,
+      "count": 22
+    },
+    {
+      "command": "node scripts/check-state-browser.mjs",
+      "passed": true,
+      "count": 32
+    },
+    {
+      "command": "node scripts/黑白ADV轮盘终端/correction-readiness-test.mjs",
+      "passed": true,
+      "count": 35
+    },
+    {
+      "command": "node scripts/黑白ADV轮盘终端/correction-exclusions-test.mjs",
+      "passed": true,
+      "count": 11
+    },
+    {
+      "command": "node scripts/黑白ADV轮盘终端/packaging-test.mjs",
+      "passed": true,
+      "count": 9
+    }
+  ],
+  "knownBaseline": {
+    "stateV4": "HEAD and current both 20/23; the same three pre-existing assertions fail.",
+    "relationshipScoring": "HEAD and current both fail the existing 121 !== 100 assertion; this change does not alter the relationship rule."
+  },
+  "runtimePending": "Chrome inspection failed twice with request-header policy unavailable; real import/swipe/reload persistence is unverified."
+}

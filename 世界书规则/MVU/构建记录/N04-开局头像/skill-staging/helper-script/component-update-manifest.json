@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "deliveryMode": "component",
+  "kind": "helper-script",
+  "artifacts": [
+    {
+      "artifactName": "phone-v1-3-19",
+      "id": "ee190b2f-d2ba-44b4-9f1b-0695c07fefc5",
+      "kind": "helper-script",
+      "relativePath": "phone-v1-3-19.script.json",
+      "sha256": "329988b6a53d71aa95a0f70dbb2f599100bd3b6eca96de6870aeb75b9751249f"
+    },
+    {
+      "artifactName": "native-mvu-n03",
+      "id": "0ad18dbe-5a59-4cad-acfd-50c2bce0d9ec",
+      "kind": "helper-script",
+      "relativePath": "native-mvu-n03.script.json",
+      "sha256": "a42e6122f97f6a0ff2c7d674f3545e0aa01712c9bb2a326ea69475ca94835b87"
+    }
+  ]
+}

@@ -55,23 +55,36 @@ function esc(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
-function resolveKnightAvatar(name) {
-  if (typeof RK_KNIGHT_AVATARS === 'undefined') return null;
+function resolveKnightAvatar(name, roleOptions) {
+  var portrait = bridge && bridge.playerPortrait;
+  if (roleOptions && roleOptions.player && portrait && typeof portrait.resolve === 'function') {
+    try { var playerAvatar = portrait.resolve('玩家'); if (playerAvatar) return playerAvatar; } catch (_) {}
+  }
   var key = String(name || '').normalize('NFKC').replace(/[\s·・･‧•．.]/g, '');
-  var catalog = RK_KNIGHT_AVATARS;
-  var id = Object.prototype.hasOwnProperty.call(catalog.byName, key) ? catalog.byName[key] : null;
-  return id && Object.prototype.hasOwnProperty.call(catalog.entries, id) ? catalog.entries[id] : null;
+  var catalog = typeof RK_KNIGHT_AVATARS === 'undefined' ? null : RK_KNIGHT_AVATARS;
+  var id = catalog && Object.prototype.hasOwnProperty.call(catalog.byName, key) ? catalog.byName[key] : null;
+  if (id && Object.prototype.hasOwnProperty.call(catalog.entries, id)) return catalog.entries[id];
+  if (portrait && typeof portrait.resolve === 'function') {
+    try { return portrait.resolve(name) || null; } catch (_) {}
+  }
+  return null;
 }
 
-function renderCompanionAvatar(name, compact) {
-  var avatar = resolveKnightAvatar(name);
+function renderKnightAvatar(name, compact, roleOptions) {
+  var avatar = resolveKnightAvatar(name, roleOptions);
   var initial = esc(Array.from(String(name || '?'))[0] || '?');
-  if (!avatar) return '<div class="roster-ava" aria-hidden="true">' + initial + '</div>';
+  if (roleOptions && roleOptions.square) {
+    return '<span class="rk-player-avatar" data-rk-avatar data-rk-player-avatar="true" aria-hidden="true">' +
+      '<span class="rk-avatar-initial">' + initial + '</span>' +
+      (avatar && avatar.src ? '<img class="rk-avatar-image" data-rk-avatar-image src="' + esc(avatar.src) + '" alt="" decoding="async">' : '') + '</span>';
+  }
+  if (!avatar || !avatar.src) return '<div class="roster-ava" aria-hidden="true">' + initial + '</div>';
   var framed = avatar.hasShieldFrame || avatar.prepared;
-  var shield = RK_KNIGHT_AVATARS.shield;
+  var shield = typeof RK_KNIGHT_AVATARS === 'undefined' ? null : RK_KNIGHT_AVATARS.shield;
   var aperture = shield && shield.aperture;
   var position = !framed && aperture ? 'left:' + aperture.x + '%;top:' + aperture.y + '%;width:' + aperture.width + '%;height:' + aperture.height + '%;' : '';
   if (!framed && avatar.portraitScale > 1) position += 'transform:scale(' + avatar.portraitScale + ');transform-origin:center top;';
+  if (avatar.player) position += 'object-position:center top;';
   position = position ? ' style="' + position + '"' : '';
   var ratio = !framed && shield && shield.aspectRatio;
   var slotRatio = compact ? 56 / 74 : 60 / 80;
@@ -79,12 +92,14 @@ function renderCompanionAvatar(name, compact) {
   var mask = !framed && shield && shield.mask;
   var maskStyle = mask ? ' style="mask-image:url(' + esc(mask) + ');-webkit-mask-image:url(' + esc(mask) + ');"' : '';
   return '<div class="roster-ava rk-knight-avatar' + (compact ? ' rk-knight-avatar--compact' : '') +
-    (framed ? ' rk-knight-avatar--native' : ' rk-knight-avatar--plain') + '" data-rk-avatar aria-hidden="true">' +
+    (framed ? ' rk-knight-avatar--native' : ' rk-knight-avatar--plain') + '" data-rk-avatar' + (avatar.player ? ' data-rk-player-avatar="true"' : '') + ' aria-hidden="true">' +
     '<span class="rk-avatar-initial">' + initial + '</span>' +
     '<span class="rk-avatar-canvas"' + canvasStyle + '><span class="rk-avatar-portrait' + (mask ? ' rk-avatar-portrait--masked' : '') + '"' + maskStyle + '>' +
       '<img class="rk-avatar-image" data-rk-avatar-image src="' + esc(avatar.src) + '" alt="" decoding="async"' + position + '></span>' +
       (!avatar.hasShieldFrame && shield ? '<img class="rk-avatar-frame" src="' + esc(shield.src) + '" alt="" decoding="async">' : '') + '</span></div>';
 }
+
+function renderCompanionAvatar(name, compact) { return renderKnightAvatar(name, compact); }
 
 // error 不冒泡；捕获监听同样覆盖名册刷新后新生成的头像，失败时保留首字。
 document.addEventListener('load', function(event) {
@@ -215,7 +230,10 @@ function updateHomeScreen() {
   if (nameEl) nameEl.textContent = pl.name;
 
   var avaEl = document.getElementById('home-ava');
-  if (avaEl) avaEl.textContent = pl.name.slice(0, 1);
+  if (avaEl) {
+    var avatarHtml = renderKnightAvatar(pl.name, false, { player: true, square: true });
+    if (avaEl.innerHTML !== avatarHtml) avaEl.innerHTML = avatarHtml;
+  }
 
   var classEl = document.getElementById('home-class');
   if (classEl) classEl.textContent = pl.affiliation;
@@ -356,17 +374,12 @@ function renderGrowthProgress(pl) {
       (evidence ? '<p class="gba-note">依据：' + esc(evidence) + '</p>' : '') +
       (receipt.成果 && receipt.说明 && receipt.说明 !== receipt.成果 ? '<p class="gba-note">结算：' + esc(receipt.说明) + '</p>' : '') + '</div>';
   }).join('');
-  // 成果类型与奖励幅度分开，避免界面继续暗示旧的低额固定档位。
-  var awardNote = rules ? '基础训练巩固熟练度，纠正训练修正问题，重大突破形成新成果；经验按实际成长核定，上限不是固定奖励' : '';
   return '<div class="card1" id="growth-progress"><div class="ct">成长记录</div>' + renderAwakeningStatus(pl) +
     '<p class="gba-note">' + (pl.awakened ? '已开放魔力量成长；觉醒本身不提升评级。' :
       '魔力控制与体能可成长；魔力量维持当前评级，觉醒后开放成长。') + '</p>' + progress +
-    (awardNote ? '<p class="gba-note">' + awardNote + '。</p>' : '') +
-    (rules && Number.isInteger(rules.perReplyCap) ? '<p class="gba-note">每条完整回复，每项合计最多 ' + rules.perReplyCap +
-      ' 点；拆分申请不增加上限。达标按门槛连续升级，扣除对应经验，余下经验保留。</p>' : '') +
-    '<p class="gba-note">按本轮实际成果结算，重复申请不重复计入。登记等级不随经验自动提升。</p>' +
+    '<p class="gba-note">主 API 按实际成长写入经验与评级终值；经验是当前档位内的进度，晋级后保留余量。可选字段约束校验类型与门槛。登记等级只随实际登记改变。</p>' +
     (growth.最近提示 ? '<p role="status" class="gba-note">最近结算：' + esc(growth.最近提示) + '</p>' : '') +
-    (history ? '<details open><summary>最近成长结算（最多 3 条）</summary>' + history + '</details>' : '<p class="gba-note">尚无已结算成长。</p>') + '</div>';
+    (history ? '<details open><summary>历史成长记录（最多 3 条）</summary>' + history + '</details>' : '') + '</div>';
 }
 
 function renderBlazer() {
@@ -386,7 +399,7 @@ function renderBlazer() {
       '<div class="card1">' +
         '<div class="ct">本局角色档案</div>' +
         '<div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">' +
-          '<div class="card-avatar" style="width:54px;height:54px;font-size:22px;">' + esc(pl.name.slice(0, 1)) + '</div>' +
+          '<div class="card-avatar" style="width:54px;height:54px;font-size:22px;">' + renderKnightAvatar(pl.name, false, { player: true, square: true }) + '</div>' +
           '<div>' +
             '<div style="font-size:17px;font-weight:800;color:var(--ink);">' + esc(pl.name) + ' <span class="card-rank-badge">' + esc(pl.rank) + '级</span></div>' +
             '<div style="font-size:12px;color:var(--muted);margin-top:2px;">所属：' + esc(pl.affiliation) + '</div>' +
@@ -1545,11 +1558,123 @@ window.openCalendarStory = openCalendarStory;
 window.closeCalendarStory = closeCalendarStory;
 
 // ===== 终端配置 (Settings) =====
+var playerPortraitDraft = null;
+var playerPortraitError = '';
+function playerPortraitIdentity(snapshot) {
+  return JSON.stringify([snapshot.version, snapshot.scope, snapshot.primaryName, snapshot.personaName, snapshot.revision,
+    snapshot.profileName, snapshot.profileMismatch]);
+}
+function readPlayerPortraitSnapshot() {
+  var api = bridge && bridge.playerPortrait;
+  if (!api || typeof api.get !== 'function') throw new Error('玩家称呼设置尚未连接，请更新终端后重载。');
+  var snapshot = api.get();
+  if (!snapshot || snapshot.version !== 1 || !snapshot.scope) throw new Error('请先打开本局聊天，再设置玩家称呼。');
+  return JSON.parse(JSON.stringify(snapshot));
+}
+function beginPlayerPortraitDraft(snapshot) {
+  playerPortraitDraft = { snapshot: snapshot, identity: playerPortraitIdentity(snapshot),
+    aliasesText: (snapshot.aliases || []).join('\n'), dirty: false, invalidated: snapshot.profileMismatch === true };
+  playerPortraitError = snapshot.profileMismatch === true ? '当前照片属于另一人物；请在开局页为当前姓名应用照片后重新读取。暂可用“玩家:台词”。' : '';
+}
+function syncPlayerPortraitDraft() {
+  try {
+    var snapshot = readPlayerPortraitSnapshot();
+    if (!playerPortraitDraft) { beginPlayerPortraitDraft(snapshot); return true; }
+    if (playerPortraitIdentity(snapshot) !== playerPortraitDraft.identity) {
+      if (playerPortraitDraft.dirty) {
+        playerPortraitDraft.invalidated = true;
+        playerPortraitError = '聊天、玩家身份或已保存设置已变化；请重新读取后编辑。';
+      } else { beginPlayerPortraitDraft(snapshot); return true; }
+    }
+    if (snapshot.profileMismatch === true) {
+      playerPortraitDraft.invalidated = true;
+      playerPortraitError = '当前照片属于另一人物；请在开局页为当前姓名应用照片后重新读取。暂可用“玩家:台词”。';
+    }
+    return false;
+  } catch (error) {
+    if (playerPortraitDraft) playerPortraitDraft.invalidated = true;
+    playerPortraitError = error && error.message || '当前聊天的称呼设置不可用。';
+    return false;
+  }
+}
+function paintPlayerPortraitSettings() {
+  var draft = playerPortraitDraft, message = document.getElementById('rk-player-portrait-message');
+  if (message) message.textContent = playerPortraitError || (draft && draft.dirty ? '别名尚未保存。' : '别名已保存于本机，仅用于当前聊天。');
+  ['save', 'clear'].forEach(function(action) {
+    var button = document.getElementById('rk-player-portrait-' + action);
+    if (button) button.disabled = !draft || draft.invalidated;
+  });
+  var preview = document.getElementById('rk-player-portrait-preview');
+  if (preview) {
+    var name = draft && (draft.snapshot.primaryName || draft.snapshot.personaName) || resolvePlayer().name;
+    var html = renderKnightAvatar(name, false, { player: true, square: true });
+    if (preview.innerHTML !== html) preview.innerHTML = html;
+  }
+}
+function renderPlayerPortraitSettings() {
+  var section = document.getElementById('rk-player-portrait-settings');
+  if (!section) return;
+  syncPlayerPortraitDraft();
+  var draft = playerPortraitDraft;
+  var name = draft && (draft.snapshot.primaryName || draft.snapshot.personaName) || resolvePlayer().name;
+  section.innerHTML = '<div class="ct">玩家称呼 / 别名</div>' +
+    '<p>头像沿用开局页载入或上传的照片，首页、人物档案与正文气泡共用。这里仅登记明确称呼，不改变正式角色档案。</p>' +
+    '<div class="rk-player-portrait-heading"><div class="card-avatar" id="rk-player-portrait-preview"></div><div><b>' + esc(name) +
+    '</b><p>当前头像预览。更换照片请在开局页核对姓名后点击“应用头像到本局”，无需重新建档。</p></div></div>' +
+    '<label for="rk-player-portrait-aliases">别名（选填）<textarea id="rk-player-portrait-aliases" name="aliasesText" rows="3" maxlength="2048" placeholder="黎恩，教官\n舒华泽" oninput="editPlayerPortraitDraft(this)">' +
+    esc(draft && draft.aliasesText || '') + '</textarea></label>' +
+    '<p>用逗号或换行分隔。正文推荐固定写“玩家:台词”；简称请明确登记，避免与其他人物重名。别名只保存在本机当前聊天。</p>' +
+    '<p id="rk-player-portrait-message" role="status" aria-live="polite"></p>' +
+    '<div class="rk-player-portrait-actions"><button id="rk-player-portrait-save" type="button" onclick="savePlayerAliases()">保存别名</button>' +
+    '<button id="rk-player-portrait-clear" type="button" onclick="clearPlayerAliases()">清除别名</button>' +
+    '<button type="button" onclick="reloadPlayerPortraitSettings()">重新读取</button></div>';
+  paintPlayerPortraitSettings();
+}
+function refreshPlayerPortraitSettings() {
+  var replaced = syncPlayerPortraitDraft();
+  if (currentStack[currentStack.length - 1] !== 'scr-settings') return;
+  if (replaced) renderPlayerPortraitSettings(); else paintPlayerPortraitSettings();
+}
+function editPlayerPortraitDraft(input) {
+  if (!playerPortraitDraft || !input || input.name !== 'aliasesText') return;
+  playerPortraitDraft[input.name] = String(input.value || '');
+  playerPortraitDraft.dirty = true;
+  if (!playerPortraitDraft.invalidated) playerPortraitError = '';
+  paintPlayerPortraitSettings();
+}
+function savePlayerAliases() {
+  syncPlayerPortraitDraft();
+  var draft = playerPortraitDraft;
+  if (!draft || draft.invalidated) { paintPlayerPortraitSettings(); return; }
+  try {
+    var api = bridge && bridge.playerPortrait;
+    if (!api || typeof api.saveAliases !== 'function') throw new Error('别名保存接口尚未连接。');
+    api.saveAliases(draft.snapshot, { aliases: [...new Set(draft.aliasesText.split(/[,，\r\n]+/u).map(function(value) { return value.trim(); }).filter(Boolean))] });
+    beginPlayerPortraitDraft(readPlayerPortraitSnapshot());
+    renderPlayerPortraitSettings(); refreshTerminalView(); toast('已保存本局玩家别名。');
+  } catch (error) { playerPortraitError = error && error.message || '别名未保存，请重试。'; paintPlayerPortraitSettings(); }
+}
+function clearPlayerAliases() {
+  syncPlayerPortraitDraft();
+  var draft = playerPortraitDraft;
+  if (!draft || draft.invalidated) { paintPlayerPortraitSettings(); return; }
+  try {
+    var api = bridge && bridge.playerPortrait;
+    if (!api || typeof api.clearAliases !== 'function') throw new Error('别名清除接口尚未连接。');
+    api.clearAliases(draft.snapshot);
+    beginPlayerPortraitDraft(readPlayerPortraitSnapshot());
+    renderPlayerPortraitSettings(); refreshTerminalView(); toast('已清除本局玩家别名，头像保持原样。');
+  } catch (error) { playerPortraitError = error && error.message || '别名未清除，请重试。'; paintPlayerPortraitSettings(); }
+}
+function reloadPlayerPortraitSettings() {
+  try { beginPlayerPortraitDraft(readPlayerPortraitSnapshot()); } catch (error) { playerPortraitError = error.message; }
+  renderPlayerPortraitSettings();
+}
 function renderSettings() {
   var body = document.getElementById('settings-body');
   if (!body) return;
 
-  body.innerHTML = 
+  body.innerHTML = '<section class="card1 rk-player-portrait-settings" id="rk-player-portrait-settings" aria-label="玩家称呼与别名"></section>' +
     '<div class="card1">' +
       '<div class="ct">视觉与个性化</div>' +
       '<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--hair);">' +
@@ -1573,6 +1698,7 @@ function renderSettings() {
         '<div>内核驱动：TavernHelper / MVU Data Bridge</div>' +
       '</div>' +
     '</div>';
+  renderPlayerPortraitSettings();
 }
 
 function toggleTheme() {
@@ -1595,6 +1721,7 @@ var bridgeUnsubscribe = null;
 var stateSignature = '';
 function refreshTerminalView() {
   updateHomeScreen();
+  refreshPlayerPortraitSettings();
   var renderers = {
     'scr-blazer': renderBlazer,
     'scr-lime': renderLime,
@@ -1608,6 +1735,7 @@ function refreshTerminalView() {
   if (render) render();
 }
 function refreshTerminalState(event) {
+  if (event && event.type === 'player-portrait') { refreshTerminalView(); return Promise.resolve(); }
   var revision = ++bridgeRevision;
   var retainDisplay = !!event && (!event.reset || event.retainDisplay === true);
   if (!retainDisplay) {
