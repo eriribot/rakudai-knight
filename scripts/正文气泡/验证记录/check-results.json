@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-06T14:02:57.570Z",
+  "generatedAt": "2026-10-07T02:03:30.001Z",
   "nodeVersion": "v25.6.0",
   "sourceHashes": {
-    "scripts/正文气泡/build.mjs": "aa47e12316de1260a33b7d75f8c87874884978e62378f79b049b01f8d3f23ede",
-    "scripts/正文气泡/context-guard.mjs": "e980447cf89d41dbfa64ede80c51b516827b2da1afcb3e789164dd6a78a7a0bf",
+    "scripts/正文气泡/build.mjs": "5484491b97f5e135d3e2c3368a470d27af10bddcf026ae7ec274df83ebf270fa",
+    "scripts/正文气泡/context-guard.mjs": "5d24512978429da26d5a327fb9c0512a393022e9ba938acb024723ebb7145ae4",
     "scripts/正文气泡/bubble.css": "a546dcf2b07d446c4f0167af6faad23b58a5ebdbb4f0c4b39487872387b84961",
     "resource/knightavatars/manifest.json": "c9490d77d00ca95702ab8a667831ea373796a3c769ed2e7fffeea2bd26c6e596"
   },
@@ -33,27 +33,27 @@
   "manifestCharacters": 31,
   "uniqueNamesChecked": 163,
   "ambiguousNames": [],
-  "total": 337,
-  "passed": 337,
+  "total": 434,
+  "passed": 434,
   "failed": 0,
   "measurements": [
     {
       "name": "十万字旁白夹少量对白",
       "inputCharacters": 96014,
-      "outputCharacters": 108853,
-      "elapsedMs": 11.69
+      "outputCharacters": 108871,
+      "elapsedMs": 4.24
     },
     {
       "name": "数万字连续对白",
       "inputCharacters": 37889,
-      "outputCharacters": 283739,
-      "elapsedMs": 2355.45
+      "outputCharacters": 283757,
+      "elapsedMs": 464.25
     },
     {
       "name": "八万字单行对白",
       "inputCharacters": 80003,
-      "outputCharacters": 92647,
-      "elapsedMs": 8.08
+      "outputCharacters": 92665,
+      "elapsedMs": 0.99
     }
   ],
   "results": [
@@ -90,7 +90,7 @@
       "passed": true
     },
     {
-      "name": "玩家英文正则元字符与单引号按字面匹配，大小写沿用 i",
+      "name": "玩家英文正则元字符与单引号按字面匹配，变体大小写走惰性候选",
       "passed": true
     },
     {
@@ -918,27 +918,139 @@
       "passed": true
     },
     {
-      "name": "消息含 ``` 时整条保留：```text\n一辉:代码内容。\n```",
+      "name": "当前处于 ``` 代码块时保持原文",
       "passed": true
     },
     {
-      "name": "消息含 ``` 时整条保留：史黛菈:围栏前的对白也保持原文。\n```",
+      "name": "``` 代码块前后正文仍转换",
       "passed": true
     },
     {
-      "name": "消息含 ``` 时整条保留：一辉:正文中间有 ``` 标记。",
+      "name": "行内 ``` 文本不充当代码块开启符",
       "passed": true
     },
     {
-      "name": "消息含 ~~~ 时整条保留：~~~text\n一辉:代码内容。\n~~~",
+      "name": "``` 姓名冒号信息开启行在 EOF 也不能变候选 :",
       "passed": true
     },
     {
-      "name": "消息含 ~~~ 时整条保留：史黛菈:围栏前的对白也保持原文。\n~~~",
+      "name": "``` 姓名冒号信息开启行保护后续行 :",
       "passed": true
     },
     {
-      "name": "消息含 ~~~ 时整条保留：一辉:正文中间有 ~~~ 标记。",
+      "name": "``` 姓名冒号信息开启行在 EOF 也不能变候选 ：",
+      "passed": true
+    },
+    {
+      "name": "``` 姓名冒号信息开启行保护后续行 ：",
+      "passed": true
+    },
+    {
+      "name": "当前处于 ~~~ 代码块时保持原文",
+      "passed": true
+    },
+    {
+      "name": "~~~ 代码块前后正文仍转换",
+      "passed": true
+    },
+    {
+      "name": "行内 ~~~ 文本不充当代码块开启符",
+      "passed": true
+    },
+    {
+      "name": "~~~ 姓名冒号信息开启行在 EOF 也不能变候选 :",
+      "passed": true
+    },
+    {
+      "name": "~~~ 姓名冒号信息开启行保护后续行 :",
+      "passed": true
+    },
+    {
+      "name": "~~~ 姓名冒号信息开启行在 EOF 也不能变候选 ：",
+      "passed": true
+    },
+    {
+      "name": "~~~ 姓名冒号信息开启行保护后续行 ：",
+      "passed": true
+    },
+    {
+      "name": "位置围栏保护：未闭合反引号",
+      "passed": true
+    },
+    {
+      "name": "位置围栏保护：未闭合波浪号",
+      "passed": true
+    },
+    {
+      "name": "位置围栏保护：关闭符比开启符短",
+      "passed": true
+    },
+    {
+      "name": "位置围栏保护：更长关闭符",
+      "passed": true
+    },
+    {
+      "name": "位置围栏保护：错误类型不能关闭",
+      "passed": true
+    },
+    {
+      "name": "位置围栏保护：多个不同类型代码块",
+      "passed": true
+    },
+    {
+      "name": "位置围栏保护：关闭行带普通文字不闭合",
+      "passed": true
+    },
+    {
+      "name": "位置围栏保护：反引号开启行信息不得含反引号",
+      "passed": true
+    },
+    {
+      "name": "位置围栏保护：波浪号开启行信息可含反引号",
+      "passed": true
+    },
+    {
+      "name": "位置围栏保护：带三个空格的开闭围栏",
+      "passed": true
+    },
+    {
+      "name": "位置围栏保护：四空格不是普通围栏开启行",
+      "passed": true
+    },
+    {
+      "name": "位置围栏保护：CRLF围栏",
+      "passed": true
+    },
+    {
+      "name": "位置围栏保护：Unicode行边界围栏",
+      "passed": true
+    },
+    {
+      "name": "共享样式贴近首个有效节点，保持前置思考完整并防后置清理吞CSS",
+      "passed": true
+    },
+    {
+      "name": "共享样式零长度插入，不捕获回填包含宿主宏的前文",
+      "passed": true
+    },
+    {
+      "name": "样式保护wrapper只包style，正文节点在pre之外",
+      "passed": true
+    },
+    {
+      "name": "残余未闭合planning仍保守保护，不能为第三方贪婪美化猜边界",
+      "passed": true
+    },
+    {
+      "name": "原始planning中的闭合内嵌details不会取消planning保护",
+      "passed": true
+    },
+    {
+      "name": "允许正文的平行线details仍需保护其中planning块",
+      "passed": true
+    },
+    {
+      "name": "日轻单双直角引号与普通方括号均保留对白",
       "passed": true
     },
     {
@@ -1114,6 +1226,62 @@
       "passed": true
     },
     {
+      "name": "尚未闭合的保护块不处理：<konatan_planning~>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<KONATAN_PLANNING~>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<tucao>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<TUCAO>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<konatan_chat>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<KONATAN_CHAT>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<options>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<OPTIONS>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<selection>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<SELECTION>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<special_status>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<SPECIAL_STATUS>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<secure_log>",
+      "passed": true
+    },
+    {
+      "name": "尚未闭合的保护块不处理：<SECURE_LOG>",
+      "passed": true
+    },
+    {
       "name": "尚未闭合的保护块不处理：<!--",
       "passed": true
     },
@@ -1195,6 +1363,34 @@
     },
     {
       "name": "保护块闭合后恢复正文：<affinity>",
+      "passed": true
+    },
+    {
+      "name": "保护块闭合后恢复正文：<konatan_planning~>",
+      "passed": true
+    },
+    {
+      "name": "保护块闭合后恢复正文：<tucao>",
+      "passed": true
+    },
+    {
+      "name": "保护块闭合后恢复正文：<konatan_chat>",
+      "passed": true
+    },
+    {
+      "name": "保护块闭合后恢复正文：<options>",
+      "passed": true
+    },
+    {
+      "name": "保护块闭合后恢复正文：<selection>",
+      "passed": true
+    },
+    {
+      "name": "保护块闭合后恢复正文：<special_status>",
+      "passed": true
+    },
+    {
+      "name": "保护块闭合后恢复正文：<secure_log>",
       "passed": true
     },
     {
@@ -1295,6 +1491,198 @@
     },
     {
       "name": "同名保护标签嵌套允许保守保留后文：UpdateVariable",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：闭合代码内假options开启 / 已知姓名",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：闭合代码内假options开启 / OC候选",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：闭合代码内假注释开启 / 已知姓名",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：闭合代码内假注释开启 / OC候选",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：闭合代码内假属性开启 / 已知姓名",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：闭合代码内假属性开启 / OC候选",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：真实options跨代码保护 / 已知姓名",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：真实options跨代码保护 / OC候选",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：代码内假options关闭 / 已知姓名",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：代码内假options关闭 / OC候选",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：代码内假script关闭 / 已知姓名",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：代码内假script关闭 / OC候选",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：代码后真实options关闭 / 已知姓名",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：代码后真实options关闭 / OC候选",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：闭合注释内假options开启 / 已知姓名",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：闭合注释内假options开启 / OC候选",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：闭合注释内假script开启 / 已知姓名",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：闭合注释内假script开启 / OC候选",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：双引号属性内假options开启 / 已知姓名",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：双引号属性内假options开启 / OC候选",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：单引号属性内假script开启 / 已知姓名",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：单引号属性内假script开启 / OC候选",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：details关闭不取消未闭script / 已知姓名",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：details关闭不取消未闭script / OC候选",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：options关闭不取消未闭textarea / 已知姓名",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：options关闭不取消未闭textarea / OC候选",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：不同标签全闭后恢复 / 已知姓名",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：不同标签全闭后恢复 / OC候选",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：不同标签script全闭后恢复 / 已知姓名",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：不同标签script全闭后恢复 / OC候选",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：script原始文本假开启 / 已知姓名",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：script原始文本假开启 / OC候选",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：script原始文本假关闭 / 已知姓名",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：script原始文本假关闭 / OC候选",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：script真实未闭 / 已知姓名",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：script真实未闭 / OC候选",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：style原始文本假开启 / 已知姓名",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：style原始文本假开启 / OC候选",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：style原始文本假关闭 / 已知姓名",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：style原始文本假关闭 / OC候选",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：style真实未闭 / 已知姓名",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：style真实未闭 / OC候选",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：textarea原始文本假开启 / 已知姓名",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：textarea原始文本假开启 / OC候选",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：textarea原始文本假关闭 / 已知姓名",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：textarea原始文本假关闭 / OC候选",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：textarea真实未闭 / 已知姓名",
+      "passed": true
+    },
+    {
+      "name": "词法容器边界：textarea真实未闭 / OC候选",
       "passed": true
     },
     {

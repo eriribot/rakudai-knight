@@ -1,0 +1,45 @@
+{
+  "status": "passed",
+  "recordedAt": "2026-10-07T00:48:45Z",
+  "productVersion": "1.3.20",
+  "probe": "../player-bubble-browser-probe.mjs",
+  "execution": {
+    "surface": "Root agent CUA in-app browser",
+    "browser": "Chrome 154",
+    "url": "http://127.0.0.1:18978/",
+    "evidence": "Root read the page's rendered JSON: status passed, 13 of 13 checks passed.",
+    "fixture": "Synthetic names and DOM, memory-only display store, generated 2x2 PNG data URL",
+    "observer": "Native window.MutationObserver, wrapped only to count callbacks",
+    "automaticRepair": "Morph checks relied on native observer callbacks; no manual binder.refresh calls."
+  },
+  "modules": [
+    {
+      "name": "player-display-store.js",
+      "sha256": "eb5926fbb0adcd3ae1180c39bde122e556da83688f4f68c8d4d63ed958028b93"
+    },
+    {
+      "name": "player-portrait.js",
+      "sha256": "86770b1d19248be8d4fbb0ff0e91416824a533b7aae7734406e813f77ae03d17"
+    }
+  ],
+  "passed": 13,
+  "total": 13,
+  "checks": [
+    { "name": "native observer and real modules", "passed": true },
+    { "name": "initial promotion and data image load", "passed": true },
+    { "name": "preserved outer shell, replaced avatar", "passed": true },
+    { "name": "cleared avatar children", "passed": true },
+    { "name": "removed avatar recreated", "passed": true },
+    { "name": "copied decoration deduplicated and late image events ignored", "passed": true },
+    { "name": "candidate source and attributes reset, player matched", "passed": true },
+    { "name": "candidate reset, unknown new source preserved", "passed": true },
+    { "name": "unavailable dependency preserves host source", "passed": true },
+    { "name": "scope switch preserves new source and drops old alias", "passed": true },
+    { "name": "observer becomes idle without repeated writes", "passed": true, "stableForMs": 120 },
+    { "name": "destroy restores latest matching source", "passed": true },
+    { "name": "memory storage remains isolated to synthetic scopes", "passed": true }
+  ],
+  "metrics": { "observerCallbacks": 22, "serviceGets": 13 },
+  "cleanup": { "temporaryServerSession": 28113, "terminated": true },
+  "boundary": "Isolated real-browser DOM acceptance only. No live Tavern chat, third-party settings, remote avatars, MVU writes or component import were tested."
+}

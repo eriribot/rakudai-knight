@@ -3,7 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 import { buildKnightAvatarCatalog } from '../黑白ADV轮盘终端/knight-avatars.mjs';
-import { buildContextGuard } from './context-guard.mjs';
+import { buildContextGuard, caseFoldLiteral } from './context-guard.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 export const root = path.resolve(here, '../..');
@@ -36,39 +36,49 @@ export function buildRules() {
     const selectors = aliases.map(name => '[data-rkd="bubble"][data-rkd-name=' + cssString(name) + ' i]');
     imageRules.push(selectors.join(',') + '{--rkd-image:url(' + cssString(catalog.entries[character.id].src) + ')}');
   }
-  const alternatives = [...names.keys()].sort((a, b) => b.length - a.length).map(regexEscape).join('|');
+  const alternatives = [...names.keys()].sort((a, b) => b.length - a.length).map(caseFoldLiteral).join('|');
   // The same remaining suffix pins the end of the name exactly, including for
   // malformed multiline personas. Only the safe single-line name is rendered.
   // Regex escaping alone does not make a macro value HTML-safe.
   const playerName = '(?={{user}}(?<rkdPersonaTail>[\\s\\S]*)(?![\\s\\S]))[^\\x00-\\x1f\\x7f<>"&{}:：\\u2028\\u2029]+(?=\\k<rkdPersonaTail>(?![\\s\\S]))';
-  // Check context only after a candidate dialogue has matched. Closed reasoning
-  // blocks and story wrappers must not disable all subsequent dialogue.
-  const beforeGuard = '(?<!(?:```|~~~)[\\s\\S]*)';
-  const afterGuard = '(?![\\s\\S]*(?:```|~~~))';
-  const safetyTail = beforeGuard + afterGuard + buildContextGuard();
+  // Check context at the name/colon checkpoint before the speech quantifier.
+  // Speech cannot contain HTML delimiters, so this scope remains constant;
+  // rejected code lines cannot retry the same guard at every speech character.
+  // Cheap structural exclusions run before the prefix fence lexer, especially
+  // for CSS/JS lines inside preset option iframes.
+  // ASCII literals fold explicitly. The long fence suffix must compare exact
+  // bytes without global /i, and no newer inline-modifier syntax is required.
+  const contextAtColon = buildContextGuard();
   const speech = '(?![^\\r\\n\\u2028\\u2029]*\\{\\{)[ \\t]*(?<rkdSpeech>[^<>&\\r\\n\\u2028\\u2029]*[^<>&\\s])[ \\t]*(?=\\r?$)';
-  const pattern = '^[ ]{0,3}(?<rkdName>(?<rkdPlayer>' + playerName + '|玩家|player|user|OC)|' + alternatives + ')[ \\t]*[:：]' + speech + safetyTail;
+  const fixedPlayers = ['玩家', 'player', 'user', 'OC'].map(caseFoldLiteral).join('|');
+  const pattern = '^[ ]{0,3}(?<rkdName>(?<rkdPlayer>' + playerName + '|' + fixedPlayers + ')|' + alternatives + ')[ \\t]*[:：]' + contextAtColon + speech;
   // Candidate names are inert display text. Only the terminal's shared identity
   // resolver may promote one to a player bubble; never guess from a substring.
   // A named whole-line capture keeps indentation and separator spaces. The
   // pinned host expands numeric/named captures itself and does not expand $&.
   const candidateName = '[^ \\t\\x00-\\x1f\\x7f<>"&{}:：\\u2028\\u2029][^\\x00-\\x1f\\x7f<>"&{}:：\\u2028\\u2029]{0,63}?';
-  const candidate = '(?<rkdCandidateSource>^[ ]{0,3}(?<rkdCandidateName>' + candidateName + ')[ \\t]*[:：]' + speech + ')' + safetyTail;
+  const candidate = '(?<rkdCandidateSource>^[ ]{0,3}(?<rkdCandidateName>' + candidateName + ')[ \\t]*[:：]' + contextAtColon + speech + ')';
   const shared = {trimStrings: [], placement: [2], disabled: false, markdownOnly: true, promptOnly: false,
     runOnEdit: true, substituteRegex: 0, minDepth: null, maxDepth: null};
   const css = fs.readFileSync(cssPath, 'utf8') + '\n' + imageRules.join('\n');
   return [
-    {...shared, id: 'cf3083f8-42e4-4e2e-8e70-a65817a2c881', scriptName: '01 盾形对白 · 姓名与台词 v0.4', substituteRegex: 2,
-      findRegex: '/' + pattern + '/gim',
+    {...shared, id: 'cf3083f8-42e4-4e2e-8e70-a65817a2c881', scriptName: '01 盾形对白 · 姓名与台词 v0.5', substituteRegex: 2,
+      findRegex: '/' + pattern + '/gm',
       replaceString: '<div data-rkd="bubble" data-rkd-name="$<rkdName>" data-rkd-player="$<rkdPlayer>"><span data-rkd-avatar aria-hidden="true"></span><div data-rkd-body><span data-rkd-speaker>$<rkdName></span><div data-rkd-line>$<rkdSpeech></div></div></div>'},
-    {...shared, id: 'bea21af8-9a41-4b0c-9009-1811e54bb8e4', scriptName: '02 盾形对白 · OC 姓名候选 v0.4',
-      findRegex: '/' + candidate + '/gim',
+    {...shared, id: 'bea21af8-9a41-4b0c-9009-1811e54bb8e4', scriptName: '02 盾形对白 · OC 姓名候选 v0.5',
+      findRegex: '/' + candidate + '/gm',
       replaceString: '<span data-rkd="candidate" data-rkd-name="$<rkdCandidateName>"><span data-rkd-source>$<rkdCandidateSource></span></span>'},
-    {...shared, id: 'cf3083f8-42e4-4e2e-8e70-a65817a2c882', scriptName: '03 盾形对白 · 共享样式 v0.4',
+    {...shared, id: 'cf3083f8-42e4-4e2e-8e70-a65817a2c882', scriptName: '03 盾形对白 · 共享样式 v0.5',
       // ST 1.18.0 encodeStyleTags only preserves a bare <style> opener.
       // Keep the deduplication marker in CSS, never on the style element.
-      findRegex: '/^(?![\\s\\S]*\/\\* rkd-dialogue-style:)(?=[\\s\\S]*<(?:div|span) data-rkd="(?:bubble|candidate)")/',
-      replaceString: '<style>/* rkd-dialogue-style:v0.4 */\n' + css + '</style>\n\n'},
+      // Keep preceding analysis unchanged and place CSS next to the first
+      // eligible display node. Later preset prefix cleanup must not eat CSS.
+      // Insert at a zero-length position. ST applies substituteParams to the
+      // replacement; recapturing narrative would expand its literal macros.
+      findRegex: '/(?=<(?:div|span) data-rkd="(?:bubble|candidate)")(?<!\/\\* rkd-dialogue-style:[\\s\\S]*)(?![\\s\\S]*\/\\* rkd-dialogue-style:)' + contextAtColon + '/m',
+      // The host stream segmenter skips PRE elements. Hide only the stylesheet
+      // wrapper so its CSS text cannot be split into fade-in spans; body is outside.
+      replaceString: '<pre hidden><style>/* rkd-dialogue-style:v0.5 */\n' + css + '</style></pre>\n\n'},
   ];
 }
 
@@ -90,8 +100,8 @@ function previewPage(rules) {
   for (const item of readManifest().characters) {
     if (item.imageUrl) demo = demo.split(item.imageUrl).join('../../../resource/knightavatars/' + (item.displayFile || item.file));
   }
-  const parts = demo.match(/^(<style[\s\S]*?<\/style>)([\s\S]*)$/);
-  demo = parts[1] + parts[2].split('\n').filter(line => line.trim()).map(line =>
+  const parts = demo.match(/^([\s\S]*?)<pre hidden>(<style[\s\S]*?<\/style>)<\/pre>([\s\S]*)$/);
+  demo = parts[2] + (parts[1] + parts[3]).split('\n').filter(line => line.trim()).map(line =>
     line.startsWith('<div') ? line : '<p>' + line + '</p>').join('\n');
   const examples = '史黛菈:别误会，我只是顺路。\n一辉:那就一起走吧。';
   return '<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>盾形对白 · 第一版预览</title><style>' +
@@ -108,14 +118,14 @@ export function build() {
     items: rules.map((value, i) => ({artifactName: artifactNames[i], value}))}, null, 2) + '\n');
   fs.writeFileSync(path.join(output, 'format-rule.txt'), formatRule + '\n');
   fs.writeFileSync(path.join(output, 'preview.html'), previewPage(rules));
-  fs.writeFileSync(path.join(output, 'source-receipt.json'), JSON.stringify({version: '0.4', deliveryMode: 'component',
+  fs.writeFileSync(path.join(output, 'source-receipt.json'), JSON.stringify({version: '0.5', deliveryMode: 'component',
     scope: '三条角色局部显示正则、格式规则、离线预览；只更新对应组件，不重打整卡或修改聊天原文',
     sourceHashes: Object.fromEntries([manifestPath, cssPath, formatRulePath, path.join(here,'context-guard.mjs'), fileURLToPath(import.meta.url)].map(p => [path.relative(root,p).replaceAll('\\','/'),digest(fs.readFileSync(p))])),
     library: {snapshot: '2026-08-18', routes: ['sillytavern-render-regex-pipeline','sillytavern-embedded-ui','sillytavern-component-update','sillytavern-api-reference'], guides: ['A0','A5','A6','C3','D7'], adoptedDesignCandidates: []},
     dependencies: {host: 'SillyTavern Regex + message HTML/CSS sanitization', image: '现有 manifest HTTPS 图片（远程加载）', helper: 'NPC、固定玩家标记及完整 persona 名不需要 Tavern Helper；OC 候选提升与玩家自选头像由新版终端运行时提供'},
-    apiEvidence: {referenceVersion:'SillyTavern 1.18.0', source:'https://raw.githubusercontent.com/SillyTavern/SillyTavern/1.18.0/public/scripts/extensions/regex/engine.js', fields:'AI_OUTPUT=2; dialogue substitute_find_regex.ESCAPED=2; style NONE=0; markdownOnly display gate', userMacro:'当前 persona name1；只替换查找模式，安全字符捕获后输出', runtimeVerified:false},
+    apiEvidence: {referenceVersion:'SillyTavern 1.18.0', source:'https://raw.githubusercontent.com/SillyTavern/SillyTavern/1.18.0/public/scripts/extensions/regex/engine.js', fields:'AI_OUTPUT=2; dialogue substitute_find_regex.ESCAPED=2; style NONE=0; markdownOnly display gate', mergeOrder:'Object.values(SCRIPT_TYPES): global → preset → scoped', userMacro:'当前 persona name1；只替换查找模式，安全字符捕获后输出', runtimeVerified:false},
     candidateContract: {selector:'span[data-rkd="candidate"]', name:'data-rkd-name', source:'span[data-rkd-source].textContent 保留完整原行', promotion:'仅共享身份解析器唯一命中玩家时提升；未知或歧义保持原文', playerMarker:'非空 data-rkd-player 表示玩家或固定标记；NPC 为 ""'},
-    realSillyTavern: 'not run；当前产物需要重新导入及验收，旧 output 中的实机记录不能证明 v0.4', modelCompliance: 'not run; 不宣称绝对最少 token 或保证遵守率'},null,2)+'\n');
+    realSillyTavern: 'not run；当前产物需要重新导入及验收，旧 output 中的实机记录不能证明 v0.5', modelCompliance: 'not run; 不宣称绝对最少 token 或保证遵守率'},null,2)+'\n');
   console.log(JSON.stringify({output,characters:readManifest().characters.length,rules:rules.length}));
 }
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) build();

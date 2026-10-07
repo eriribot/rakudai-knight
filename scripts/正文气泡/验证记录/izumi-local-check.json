@@ -1,0 +1,330 @@
+{
+  "schemaVersion": 1,
+  "version": "local-Izumi-0.1",
+  "generatedAt": "2026-10-07T02:04:44.352Z",
+  "nodeVersion": "v25.6.0",
+  "evidenceType": "read-only-neutral-enabled-regex-composition",
+  "external": {
+    "file": "Izumi 1002.json",
+    "bytes": 1346933,
+    "sha256": "588899351f35ab21c45e857c81a33336b03e1885ef34459034b170925eaef850",
+    "unchanged": true
+  },
+  "sourceHashes": {
+    "local-izumi-compat.mjs": "662ec0621b30301a07cbae68ebe3e0ea3cc724e4f1693f4957534ff24ccaedcd",
+    "check-izumi-local.mjs": "3adccd111de8a881bd58d2e079f60b68a6df29c8d5026017ea809aaa9dd1b585"
+  },
+  "order": "unchanged original PRESET → this card SCOPED addon → this card SCOPED core",
+  "gate": {
+    "depth": 0,
+    "isEdit": false,
+    "AI_OUTPUT": 2,
+    "destination": "display"
+  },
+  "regexCompiler": {
+    "algorithm": "ST 1.18.0 utils.js regexFromString",
+    "source": "https://raw.githubusercontent.com/SillyTavern/SillyTavern/1.18.0/public/scripts/utils.js",
+    "actualAlgorithmUsed": true,
+    "findFieldLiteralLineTerminators": 0
+  },
+  "boundary": "只做字符串regex复放；不执行附件脚本、不改原global/preset、不同ID不会覆盖。只恢复固定模板前缀、保护固定CSS、补已知模板foreign planning边界；原清理已删用户文本不可恢复。真实宿主scope admission/Markdown/净化/流式还需host replay。",
+  "total": 23,
+  "passed": 23,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "原preset对象完全不变，本卡三条使用新ID/显示范围/原深度",
+      "passed": true
+    },
+    {
+      "name": "未知原模板/查找/ID在构建时拒绝",
+      "passed": true
+    },
+    {
+      "name": "三条findRegex无原始行终止符，真实regexFromString与完整pattern编译一致",
+      "passed": true
+    },
+    {
+      "name": "普通日轻正文",
+      "passed": true
+    },
+    {
+      "name": "思考清理后正文",
+      "passed": true
+    },
+    {
+      "name": "原规划美化残留foreign opener",
+      "passed": true
+    },
+    {
+      "name": "思考清理删掉规划前缀",
+      "passed": true
+    },
+    {
+      "name": "规划与选项同时存在",
+      "passed": true
+    },
+    {
+      "name": "幸存字面宏前文不回填",
+      "passed": true
+    },
+    {
+      "name": "原始未闭合规划保持",
+      "passed": true
+    },
+    {
+      "name": "规划尾部未知保持",
+      "passed": true
+    },
+    {
+      "name": "围栏内完整模板保持",
+      "passed": true
+    },
+    {
+      "name": "未闭合围栏内完整模板保持",
+      "passed": true
+    },
+    {
+      "name": "注释内完整模板保持",
+      "passed": true
+    },
+    {
+      "name": "属性中的固定CSS保持",
+      "passed": true
+    },
+    {
+      "name": "options内完整模板保持",
+      "passed": true
+    },
+    {
+      "name": "selection内完整模板保持",
+      "passed": true
+    },
+    {
+      "name": "prefix/close匹配零长度，完全不捕获回填用户内容",
+      "passed": true
+    },
+    {
+      "name": "其他卡未加载本卡scope时原display结果完全相同",
+      "passed": true
+    },
+    {
+      "name": "原清理已经删除的前置文本不可恢复，不捏造文本",
+      "passed": true
+    },
+    {
+      "name": "local性能预算：50k无匹配",
+      "passed": true
+    },
+    {
+      "name": "local性能预算：50k真实未闭合规划",
+      "passed": true
+    },
+    {
+      "name": "local性能预算：43k围栏内模板复刻",
+      "passed": true
+    }
+  ],
+  "traces": [
+    {
+      "name": "普通日轻正文",
+      "fixture": "史黛菈:「正文甲。」\n玩家:『正文乙。』",
+      "stages": [
+        {
+          "stage": "original-Izumi",
+          "bubbles": 0,
+          "bubbleCSS": 0,
+          "rawPlanOpen": 0,
+          "rawPlanClose": 0,
+          "hiddenStyles": 0
+        },
+        {
+          "stage": "local-addon",
+          "bubbles": 0,
+          "bubbleCSS": 0,
+          "rawPlanOpen": 0,
+          "rawPlanClose": 0,
+          "hiddenStyles": 0
+        },
+        {
+          "stage": "local-core",
+          "bubbles": 2,
+          "bubbleCSS": 1,
+          "rawPlanOpen": 0,
+          "rawPlanClose": 0,
+          "hiddenStyles": 1
+        }
+      ]
+    },
+    {
+      "name": "思考清理后正文",
+      "fixture": "<think>中性思考。</think>\n史黛菈:「正文甲。」\n玩家:『正文乙。』",
+      "stages": [
+        {
+          "stage": "original-Izumi",
+          "bubbles": 0,
+          "bubbleCSS": 0,
+          "rawPlanOpen": 0,
+          "rawPlanClose": 0,
+          "hiddenStyles": 0
+        },
+        {
+          "stage": "local-addon",
+          "bubbles": 0,
+          "bubbleCSS": 0,
+          "rawPlanOpen": 0,
+          "rawPlanClose": 0,
+          "hiddenStyles": 0
+        },
+        {
+          "stage": "local-core",
+          "bubbles": 2,
+          "bubbleCSS": 1,
+          "rawPlanOpen": 0,
+          "rawPlanClose": 0,
+          "hiddenStyles": 1
+        }
+      ]
+    },
+    {
+      "name": "原规划美化残留foreign opener",
+      "fixture": "<konatan_planning~>\n中性计划。\n</konatan_planning~>\n史黛菈:「正文甲。」\n玩家:『正文乙。』",
+      "stages": [
+        {
+          "stage": "original-Izumi",
+          "bubbles": 0,
+          "bubbleCSS": 0,
+          "rawPlanOpen": 1,
+          "rawPlanClose": 0,
+          "hiddenStyles": 0
+        },
+        {
+          "stage": "local-addon",
+          "bubbles": 0,
+          "bubbleCSS": 0,
+          "rawPlanOpen": 1,
+          "rawPlanClose": 1,
+          "hiddenStyles": 1
+        },
+        {
+          "stage": "local-core",
+          "bubbles": 2,
+          "bubbleCSS": 1,
+          "rawPlanOpen": 1,
+          "rawPlanClose": 1,
+          "hiddenStyles": 2
+        }
+      ]
+    },
+    {
+      "name": "思考清理删掉规划前缀",
+      "fixture": "<think>中性思考。</think>\n<konatan_planning~>\n中性计划。\n</konatan_planning~>\n史黛菈:「正文甲。」\n玩家:『正文乙。』",
+      "stages": [
+        {
+          "stage": "original-Izumi",
+          "bubbles": 0,
+          "bubbleCSS": 0,
+          "rawPlanOpen": 1,
+          "rawPlanClose": 0,
+          "hiddenStyles": 0
+        },
+        {
+          "stage": "local-addon",
+          "bubbles": 0,
+          "bubbleCSS": 0,
+          "rawPlanOpen": 1,
+          "rawPlanClose": 1,
+          "hiddenStyles": 1
+        },
+        {
+          "stage": "local-core",
+          "bubbles": 2,
+          "bubbleCSS": 1,
+          "rawPlanOpen": 1,
+          "rawPlanClose": 1,
+          "hiddenStyles": 2
+        }
+      ]
+    },
+    {
+      "name": "规划与选项同时存在",
+      "fixture": "<think>中性思考。</think>\n<konatan_planning~>\n中性计划。\n</konatan_planning~>\n史黛菈:「正文甲。」\n玩家:『正文乙。』\n<options>\n>中性选项\n</options>",
+      "stages": [
+        {
+          "stage": "original-Izumi",
+          "bubbles": 0,
+          "bubbleCSS": 0,
+          "rawPlanOpen": 1,
+          "rawPlanClose": 0,
+          "hiddenStyles": 0
+        },
+        {
+          "stage": "local-addon",
+          "bubbles": 0,
+          "bubbleCSS": 0,
+          "rawPlanOpen": 1,
+          "rawPlanClose": 1,
+          "hiddenStyles": 1
+        },
+        {
+          "stage": "local-core",
+          "bubbles": 2,
+          "bubbleCSS": 1,
+          "rawPlanOpen": 1,
+          "rawPlanClose": 1,
+          "hiddenStyles": 2
+        }
+      ]
+    },
+    {
+      "name": "幸存字面宏前文不回填",
+      "fixture": "<think>中性思考。</think>\n<konatan_planning~>\n中性计划。\n</konatan_planning~>\n字面 {{user}} {{getvar::example}} $1。\n史黛菈:「正文甲。」\n玩家:『正文乙。』",
+      "stages": [
+        {
+          "stage": "original-Izumi",
+          "bubbles": 0,
+          "bubbleCSS": 0,
+          "rawPlanOpen": 1,
+          "rawPlanClose": 0,
+          "hiddenStyles": 0
+        },
+        {
+          "stage": "local-addon",
+          "bubbles": 0,
+          "bubbleCSS": 0,
+          "rawPlanOpen": 1,
+          "rawPlanClose": 1,
+          "hiddenStyles": 1
+        },
+        {
+          "stage": "local-core",
+          "bubbles": 2,
+          "bubbleCSS": 1,
+          "rawPlanOpen": 1,
+          "rawPlanClose": 1,
+          "hiddenStyles": 2
+        }
+      ]
+    }
+  ],
+  "measurements": [
+    {
+      "name": "50k无匹配",
+      "characters": 50000,
+      "elapsedMs": 2.51,
+      "budgetMs": 1000
+    },
+    {
+      "name": "50k真实未闭合规划",
+      "characters": 49520,
+      "elapsedMs": 1.32,
+      "budgetMs": 1000
+    },
+    {
+      "name": "43k围栏内模板复刻",
+      "characters": 43224,
+      "elapsedMs": 3.23,
+      "budgetMs": 1000
+    }
+  ]
+}

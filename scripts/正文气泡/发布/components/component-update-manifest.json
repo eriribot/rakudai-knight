@@ -8,21 +8,21 @@
       "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
       "kind": "regex",
       "relativePath": "dialogue-bubbles.regex.json",
-      "sha256": "7a9bc8c26c355a5dc499c46c365ac35438fcab9a48a48f7cad62dba36f9727a3"
+      "sha256": "ad3c7d89a8e6b9971e037ea610885b364bbb6c6b36e21ac3494017242cf23d61"
     },
     {
       "artifactName": "dialogue-player-candidates",
       "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
       "kind": "regex",
       "relativePath": "dialogue-player-candidates.regex.json",
-      "sha256": "cc90d639bd77e05a2c53042b71ec6f46fe6332cd49ae14b50265530f17a68440"
+      "sha256": "f35b706cda15d0f628252f4e1f20074e29283f1f424f1e5366d8988ba49b12d1"
     },
     {
       "artifactName": "dialogue-bubble-style",
       "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
       "kind": "regex",
       "relativePath": "dialogue-bubble-style.regex.json",
-      "sha256": "d2a1d6ad0e55199e6fe3b2cf5de17cfc451a76224d0ec92388d1584d12cad686"
+      "sha256": "24e708178a47126ff9680d972203e89071122f4ea90f0fff18444e2206e27209"
     }
   ]
 }

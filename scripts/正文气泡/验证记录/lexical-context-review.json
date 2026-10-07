@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "kind": "independent-read-only-source-review",
+  "generatedAt": "2026-10-07T02:04:51.331Z",
+  "sourceSha256": {
+    "context": "5d24512978429da26d5a327fb9c0512a393022e9ba938acb024723ebb7145ae4",
+    "build": "5484491b97f5e135d3e2c3368a470d27af10bddcf026ae7ec274df83ebf270fa"
+  },
+  "scope": {
+    "entry": "buildRules + applyRules; only neutral in-memory strings",
+    "cases": 108,
+    "pairedAndNestedCases": 24,
+    "asciiCaseClosureCases": 84,
+    "protectedTagCount": 28,
+    "productFilesEdited": false,
+    "thirdPartyScriptsExecuted": false,
+    "hostSettingsChanged": false,
+    "fullSuiteRun": false
+  },
+  "assertions": [
+    "False protected openers/closers inside closed comments, quoted attributes, and closed typed fences do not change lexical state.",
+    "True unclosed protected scopes spanning closed fences still suppress bubbles and candidates.",
+    "Different protected tags remain independent: partial closure suppresses dialogue; complete closure restores it.",
+    "Same-tag nesting retains conservative protection after closing markup.",
+    "Each protected tag supports uppercase/lowercase closure combinations under legacy gm flags.",
+    "Suppressed inputs remain byte-for-byte unchanged; no inert candidates leak."
+  ],
+  "results": {
+    "passed": 108,
+    "total": 108,
+    "failed": 0,
+    "failures": []
+  },
+  "performance": {
+    "coldFirstFixture": "closed-comment fake options",
+    "coldFirstFixtureMs": 58.12,
+    "totalBuildAndApplyMs": 155.4,
+    "patternChars": [
+      87996,
+      85233,
+      85112
+    ],
+    "note": "One independent process sample; this is a regression review, not the official performance budget suite."
+  },
+  "earlierPreFreezeSample": {
+    "sourceSha256": {
+      "context": "bde870365d8cd2416a74a222271fcb52130a5884009e86d6a8b348a7f47e989f",
+      "build": "5484491b97f5e135d3e2c3368a470d27af10bddcf026ae7ec274df83ebf270fa"
+    },
+    "passed": 108,
+    "total": 108,
+    "coldFirstFixtureMs": 39.77,
+    "totalBuildAndApplyMs": 106.91
+  },
+  "acceptance": "Source fixture assertions only. Real SillyTavern import/settings and rendering acceptance belong to the separate host replay evidence."
+}

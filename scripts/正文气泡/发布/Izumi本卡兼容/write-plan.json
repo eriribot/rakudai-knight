@@ -1,0 +1,16 @@
+{
+  "errors": [],
+  "plan": {
+    "schemaVersion": 1,
+    "deliveryMode": "component",
+    "kind": "regex",
+    "outRoot": "scripts/正文气泡/发布/Izumi本卡兼容/components",
+    "files": [
+      "izumi-local-prefix.regex.json",
+      "izumi-local-style.regex.json",
+      "izumi-local-planning-close.regex.json",
+      "component-update-manifest.json"
+    ],
+    "requiresPipeline": false
+  }
+}

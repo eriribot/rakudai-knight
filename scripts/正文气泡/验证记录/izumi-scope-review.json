@@ -1,0 +1,139 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-07T01:33:01.149Z",
+  "hostVersion": "1.18.0",
+  "purpose": "Scope evidence before character-local postprocessing; no product or live-host writes.",
+  "sources": {
+    "public/scripts/extensions/regex/engine.js": {
+      "sha256LF": "091bb3402a12552cf1754d6e4d2b44df38d3553aa374539896c716e78905d350"
+    },
+    "public/scripts/extensions/regex/index.js": {
+      "sha256LF": "7a43b7d6e40a1b6f38a8a7c53a4d552e1aa56c4a13e893224fddf79b663ecb7f"
+    },
+    "public/scripts/util/stream-fadein.js": {
+      "sha256LF": "a3dfddb3a69431927b35d68739d29daefb199eae28564d916b083adf6f2bdb33"
+    }
+  },
+  "originalRule": {
+    "id": "a1a57b61-8f66-4956-bd0c-386c0356e232",
+    "findRegex": "/([\\s\\S]*)<\\/konatan_planning~>/g",
+    "replacementSha256": "36a1ab14368980692e15879b9cd06bb22ed1c004266fdc745700ae572956d062",
+    "replacementBareStyleAtStart": true,
+    "attachmentInstructionsExecuted": false
+  },
+  "oldAddon": {
+    "ruleSha256": "e7e93948d4699dda6896074bece880446e60354b0bb123fe0356c418c861c1da",
+    "unwrappedReplacementByteEqualToOriginal": true
+  },
+  "counterfactual": {
+    "method": "Original attachment idx7 find and replacement loaded as text data into in-memory host-render-replay; fixture Izumi getRegexedString identity disables all bubble regex. Exact fixed host formatting/segmentation, jsdom 29.1.1. No --write/--serve.",
+    "fixture": "<think>中性思考。</think>\n<konatan_planning~>中性计划。</konatan_planning~>\n史黛菈:中性正文。",
+    "original": {
+      "bubblesBefore": 0,
+      "bubblesAfter": 0,
+      "styleCountBefore": 1,
+      "styleRulesBefore": 45,
+      "styleRulesAfter": 0,
+      "thinkingRulesBefore": 36,
+      "thinkingRulesAfter": 0,
+      "styleElementChildrenAfter": 3461,
+      "scriptDOM": 0
+    },
+    "onlyStyleWrapperAdded": {
+      "styleRulesBefore": 45,
+      "styleRulesAfter": 45,
+      "thinkingRulesBefore": 36,
+      "thinkingRulesAfter": 36,
+      "styleElementChildrenAfter": 0,
+      "hiddenPreCount": 1,
+      "scriptDOM": 0
+    },
+    "nativeCorroborationReport": "izumi-host-style-current.json",
+    "nativeCorroborationScope": "Chrome 154 derived original replacement with narrowed find; not exact full preset/runtime.",
+    "counterfactualConclusion": "Bare Izumi style segmentation failure occurs without bubble content/CSS; it does not exclude other bugs in our bubble implementation."
+  },
+  "duplicateIds": {
+    "method": "Exact getRegexScripts/getScriptsByType/getRegexedString/runRegexScript/filterString extracted from fixed engine and executed in memory with neutral data bindings.",
+    "fixture": {
+      "sameId": "same-id",
+      "global": {
+        "findRegex": "$",
+        "replaceString": "[G]"
+      },
+      "preset": {
+        "findRegex": "$",
+        "replaceString": "[P]"
+      },
+      "scoped": {
+        "findRegex": "$",
+        "replaceString": "[S]"
+      },
+      "markdown": true,
+      "placement": 2,
+      "depth": 1
+    },
+    "mergedIds": [
+      "same-id",
+      "same-id",
+      "same-id"
+    ],
+    "mergedOrder": [
+      "global",
+      "preset",
+      "scoped"
+    ],
+    "actualResult": "neutral[G][P][S]",
+    "deduplicated": false,
+    "sourceLines": [
+      11,
+      98,
+      108,
+      334,
+      346,
+      374
+    ]
+  },
+  "oldPresetThenOldAddon": {
+    "method": "Exact runRegexScript pure text replacement only; original idx7 before narrowed-find addon, same id.",
+    "resultUnchangedByAddon": true,
+    "hiddenPreAfterBoth": false,
+    "styleCountAfterBoth": 1,
+    "remainingPlanningOpenTags": 1,
+    "remainingPlanningCloseTags": 0,
+    "conclusion": "Existing replacement-style addon cannot override an already executed preset/global rule by sharing its id."
+  },
+  "nativeImport": {
+    "method": "Read-only source audit, no import performed.",
+    "source": "public/scripts/extensions/regex/index.js",
+    "lines": [
+      1499,
+      1505,
+      1508,
+      1509
+    ],
+    "behavior": "Assign uuidv4 unconditionally, then push into selected category array.",
+    "sameIdJsonDoesNotAutoReplace": true,
+    "defaultTarget": "GLOBAL",
+    "defaultTargetSourceLines": [
+      1750,
+      1751,
+      1753,
+      1754,
+      1761
+    ],
+    "requiredInstallationScope": "Explicitly select SCOPED/current-character when importing a current-card-only addon; native import does not encode scope in RegexScriptData and same IDs do not replace old rules."
+  },
+  "boundary": {
+    "currentCardPostprocessorMayProtectAlreadyGeneratedStyles": true,
+    "crossScopeSameIdOverrideSupported": false,
+    "globalPresetModificationWouldAffectOtherCardsUsingIt": true,
+    "currentV04HadOwnContextGuardAndBareStyleIssues": true,
+    "fullPresetAndCharacterLocalPostprocessorAcceptance": "pending separate replay",
+    "liveRuntimeAndUserThemes": "not tested"
+  },
+  "limits": [
+    "No supplied preset/option scripts or prompts were executed.",
+    "Counterfactual only tests neutral input and style formatting/segmentation; full morphdom/live host remains pending.",
+    "Same-id override and import behavior are fixed ST1.18 evidence, not an assertion about all future versions."
+  ]
+}

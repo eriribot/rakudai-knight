@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-07T02:06:28.218Z",
+  "surface": "Root CUA in-app browser, Chrome 154",
+  "fixture": "http://127.0.0.1:18979/",
+  "evidenceType": "Read-only native DOM #results observation through CUA",
+  "hostReportSha256": "f7e9859d9b3a4480b96f2ac1029436aa18b804780be0d97b48f7b4d60ec5b1bf",
+  "observedCases": 24,
+  "artifacts": {
+    "dialogue-bubbles": {
+      "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+      "sha256": "ad3c7d89a8e6b9971e037ea610885b364bbb6c6b36e21ac3494017242cf23d61"
+    },
+    "dialogue-player-candidates": {
+      "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+      "sha256": "f35b706cda15d0f628252f4e1f20074e29283f1f424f1e5366d8988ba49b12d1"
+    },
+    "dialogue-bubble-style": {
+      "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+      "sha256": "24e708178a47126ff9680d972203e89071122f4ea90f0fff18444e2206e27209"
+    }
+  },
+  "localArtifacts": {
+    "izumi-local-prefix": {
+      "id": "f426b5a6-56a3-48dc-96c2-0e4d6208e6e2",
+      "sha256": "32e37c8bc5a1a4b7d8d34f829e95822895a231acdd2b5b3ef93ff2e4fd6d9489"
+    },
+    "izumi-local-style": {
+      "id": "ace941a3-9609-4a8d-a9da-a42981401db8",
+      "sha256": "efc07347ee14da5bd58d6bacd6272ee54834c8f3173a7b57bcdab9fcc47889a0"
+    },
+    "izumi-local-planning-close": {
+      "id": "72f31f2b-ba16-4653-9fbc-5b52389c1129",
+      "sha256": "c75c0129db2299f0943bd4de8d942735de61fabb6a841a4ad6d2fdf3d63ad8e0"
+    }
+  },
+  "coldRegex": {
+    "parserSourceSha256LF": "7236069f0d6c95b0d959e3c574bc7acbd4dc088459371abf38a6a7a77a076067",
+    "cases": [
+      {
+        "name": "ordinary",
+        "expected": 1,
+        "actual": 1,
+        "coldMs": 17.1,
+        "passed": true
+      },
+      {
+        "name": "closed-fence-options-literal",
+        "expected": 1,
+        "actual": 1,
+        "coldMs": 0.1,
+        "passed": true
+      },
+      {
+        "name": "real-unclosed-options-across-fence",
+        "expected": 0,
+        "actual": 0,
+        "coldMs": 0.2,
+        "passed": true
+      }
+    ]
+  },
+  "positiveCases": {
+    "names": [
+      "artifact-current",
+      "artifact-current-media-blocked",
+      "artifact-current-closed-fence-prefix",
+      "artifact-current-think-prefix",
+      "artifact-current-user-macro-prefix",
+      "izumi-chain-planning",
+      "izumi-chain-think-planning",
+      "izumi-chain-options",
+      "izumi-chain-literal-macro",
+      "izumi-chain-repeat-local",
+      "izumi-chain-media-blocked",
+      "core-closed-fence-options-literal"
+    ],
+    "total": 12,
+    "passed": 12,
+    "allBodyBubbles": [
+      1,
+      1
+    ],
+    "allPlanningBubbles": [
+      0,
+      0
+    ],
+    "bubbleCssRules": [
+      40,
+      40
+    ],
+    "mediaBlockedBubbleCssRules": [
+      9,
+      9
+    ],
+    "localIzumiCssRules": [
+      45,
+      45
+    ],
+    "allStyleChildren": [
+      0,
+      0
+    ],
+    "computedBubbleDisplay": "flex",
+    "allStyleContainersDisplay": "none",
+    "scriptsExecuted": false
+  },
+  "limits": [
+    "Isolated fixed host mechanisms, not an authenticated live Tavern chat",
+    "Other-card registry exclusion is covered by the separate host report",
+    "No supplied option or preset scripts executed"
+  ]
+}

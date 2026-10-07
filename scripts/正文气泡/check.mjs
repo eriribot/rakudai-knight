@@ -24,7 +24,7 @@ const bubbleCount = value => bubbleOpenings(value).length;
 const candidateCount = value => [...value.matchAll(/<span data-rkd="candidate" /g)].length;
 const styleCount = value => [...value.matchAll(/<style>\/\* rkd-dialogue-style:/gi)].length;
 function inertText(value) {
-  return value.replace(/^<style>\/\* rkd-dialogue-style:[\s\S]*?<\/style>\n\n/, '')
+  return value.replace(/<pre hidden><style>\/\* rkd-dialogue-style:[\s\S]*?<\/style><\/pre>\n\n/, '')
     .replace(/<span data-rkd="candidate" data-rkd-name="[^"]+"><span data-rkd-source>([^<>&]*)<\/span><\/span>/g, '$1');
 }
 function check(name, run) {
@@ -146,7 +146,7 @@ check('当前玩家动态匹配，换名后旧名与其他未知人物不放行'
     unchanged('其他未知人物:不能借玩家分支显示。', { user }, true);
   }
 });
-check('玩家英文正则元字符与单引号按字面匹配，大小写沿用 i', () => {
+check('玩家英文正则元字符与单引号按字面匹配，变体大小写走惰性候选', () => {
   for (const user of ['A.[B](C)+D?^E$|F\\G/H', "O'Brien"]) {
     const output = rendered(`${user}:Literal player name.`, 1, { user });
     assert.ok(bubbleOpenings(output)[0].includes(`data-rkd-name="${user}"`), '姓名不能被正则元字符或引号改写');
@@ -154,8 +154,11 @@ check('玩家英文正则元字符与单引号按字面匹配，大小写沿用 
   unchanged('AxB:点号不可当成通配符。', { user: 'A.B' }, true);
   unchanged('AB:括号不可变成捕获语法。', { user: 'A(B)' }, true);
   for (const spelling of ['ari player', 'ARI PLAYER', 'aRi pLaYeR']) {
-    const output = rendered(`${spelling}:Case stays as written.`, 1, { user: 'Ari Player' });
-    assert.ok(bubbleOpenings(output)[0].includes(`data-rkd-name="${spelling}"`));
+    const input = `${spelling}:Case stays as written.`;
+    const output = applyRules(input,rules,{user:'Ari Player'});
+    assert.equal(bubbleCount(output),0);
+    assert.equal(candidateCount(output),1);
+    assert.equal(inertText(output),input,'终端唯一确认玩家后才提升，原写法保持');
   }
 });
 check('空名、HTML、宏、冒号及换行玩家名不制造气泡或跨行捕获', () => {
@@ -238,7 +241,7 @@ check('CRLF 不吞相邻行和末尾换行', () => {
   const output = rendered(input, 2);
   assert.ok(output.includes('前置旁白\r\n'));
   assert.ok(output.endsWith('\r\n后置旁白\r\n'));
-  const body = output.replace(/^<style>\/\* rkd-dialogue-style:[\s\S]*?<\/style>\n\n/, '');
+  const body = output.replace(/<pre hidden><style>\/\* rkd-dialogue-style:[\s\S]*?<\/style><\/pre>\n\n/, '');
   assert.equal(body.split('\r\n').length, input.split('\r\n').length, '排除独立样式后，正文原始 CRLF 数量应保留');
 });
 for (const indent of ['', ' ', '  ', '   ']) {
@@ -266,20 +269,94 @@ for (const [index, input] of untouchedInputs.entries()) {
 }
 
 for (const fence of ['```', '~~~']) {
-  for (const input of [
-    `${fence}text\n一辉:代码内容。\n${fence}`,
-    `史黛菈:围栏前的对白也保持原文。\n${fence}\n普通代码\n${fence}\n一辉:围栏后也保持原文。`,
-    `一辉:正文中间有 ${fence} 标记。`,
-  ]) {
-    check(`消息含 ${fence} 时整条保留：${input.slice(0, 20)}`, () => unchanged(input));
+  check(`当前处于 ${fence} 代码块时保持原文`, () => unchanged(`${fence}text\n一辉:代码内容。\n${fence}`));
+  check(`${fence} 代码块前后正文仍转换`, () => {
+    const block = `${fence}\n普通代码\n一辉:代码区对白。\n${fence}`;
+    const output = rendered(`史黛菈:围栏前的对白。\n${block}\n一辉:围栏后的对白。`, 2);
+    assert.ok(output.includes(block));
+  });
+  check(`行内 ${fence} 文本不充当代码块开启符`, () => rendered(`一辉:正文中间有 ${fence} 标记。`));
+  for (const separator of [':', '：']) {
+    check(`${fence} 姓名冒号信息开启行在 EOF 也不能变候选 ${separator}`, () => unchanged(`${fence}未知姓名${separator}台词。`));
+    check(`${fence} 姓名冒号信息开启行保护后续行 ${separator}`, () => unchanged(`${fence}未知姓名${separator}台词。\n一辉:代码内的对白。`));
   }
 }
+
+for (const [name, input, expected] of [
+  ['未闭合反引号', '史黛菈:前句。\n```html\n一辉:代码。', 1],
+  ['未闭合波浪号', '史黛菈:前句。\n~~~html\n一辉:代码。', 1],
+  ['关闭符比开启符短', '````html\n```\n一辉:仍在代码。\n````\n史黛菈:正文。', 1],
+  ['更长关闭符', '```html\n一辉:代码。\n`````\n史黛菈:正文。', 1],
+  ['错误类型不能关闭', '~~~html\n```\n一辉:代码。\n~~~\n史黛菈:正文。', 1],
+  ['多个不同类型代码块', '```\n一辉:代码一。\n```\n史黛菈:正文一。\n~~~~html\n一辉:代码二。\n~~~~~\n史黛菈:正文二。', 2],
+  ['关闭行带普通文字不闭合', '```html\n```不是关闭\n一辉:代码。\n```\n史黛菈:正文。', 1],
+  ['反引号开启行信息不得含反引号', '```info ` invalid\n一辉:普通正文。', 1],
+  ['波浪号开启行信息可含反引号', '~~~info ` valid\n一辉:代码。\n~~~\n史黛菈:正文。', 1],
+  ['带三个空格的开闭围栏', '   ````html\n一辉:代码。\n  ````\n史黛菈:正文。', 1],
+  ['四空格不是普通围栏开启行', '    ```html\n一辉:无普通围栏。', 1],
+  ['CRLF围栏', '```html\r\n一辉:代码。\r\n```\r\n史黛菈:正文。', 1],
+  ['Unicode行边界围栏', '~~~html\u2028一辉:代码。\u2028~~~\u2029史黛菈:正文。', 1],
+]) {
+  check(`位置围栏保护：${name}`, () => {
+    const output = rendered(input, expected);
+    assert.equal(candidateCount(output), 0, '代码块中的已知姓名也不得降为候选');
+    for (const text of input.split(/\r\n|[\n\r\u2028\u2029]/).filter(line => line.includes('代码'))) {
+      assert.ok(output.includes(text), '代码块原文字句保留');
+    }
+  });
+}
+
+check('共享样式贴近首个有效节点，保持前置思考完整并防后置清理吞CSS', () => {
+  const prefix = '<think>前置思考。</think>\n普通旁白。\n';
+  const output = rendered(prefix + '史黛菈:「我们走吧。」');
+  assert.ok(output.startsWith(prefix + '<pre hidden><style>/* rkd-dialogue-style:'));
+  assert.ok(output.indexOf('<style>') > output.indexOf('</think>'));
+  assert.equal(applyRules(output, rules), output);
+});
+check('共享样式零长度插入，不捕获回填包含宿主宏的前文', () => {
+  const prefix = '字面宏 {{getvar::example}} {{user}} $1。\n';
+  const output = rendered(prefix + '史黛菈:正文。');
+  assert.ok(output.startsWith(prefix + '<pre hidden>'));
+  const literal = rules[2].findRegex.match(/^\/([\s\S]*)\/([a-z]*)$/);
+  const matches = [...(prefix + '<div data-rkd="bubble" data-rkd-name="史黛菈">').matchAll(new RegExp(literal[1], literal[2] + 'g'))];
+  assert.equal(matches.length,1);
+  assert.equal(matches[0][0],'');
+  assert.ok(!rules[2].replaceString.includes('$<rkdStylePrefix>'));
+});
+check('样式保护wrapper只包style，正文节点在pre之外', () => {
+  const output = rendered('史黛菈:流式正文。');
+  assert.equal([...output.matchAll(/<pre hidden>/g)].length, 1);
+  const wrapper = output.match(/<pre hidden>([\s\S]*?)<\/pre>/)?.[1];
+  assert.ok(/^<style>[\s\S]*<\/style>$/.test(wrapper));
+  assert.ok(!wrapper.includes('<div data-rkd="bubble"'));
+  assert.ok(output.indexOf('</pre>') < output.indexOf('<div data-rkd="bubble"'));
+});
+check('残余未闭合planning仍保守保护，不能为第三方贪婪美化猜边界', () => {
+  const block = '<details><summary>预设思考</summary><div>\n<konatan_planning~>\n一辉:思考中的示例。\n</div></details>';
+  unchanged(block + '\n史黛菈:无法确认已结束的原始思考。');
+});
+check('原始planning中的闭合内嵌details不会取消planning保护', () => {
+  const block = '<konatan_planning~>\n<details><summary>内层</summary>一段说明</details>\n一辉:仍在原始思考。\n</konatan_planning~>';
+  const output = rendered(block + '\n史黛菈:正文。');
+  assert.ok(output.includes(block));
+});
+check('允许正文的平行线details仍需保护其中planning块', () => {
+  const block = '<konatan_planning~>\n一辉:思考。\n</konatan_planning~>';
+  const output = rendered('<details><summary>平行线事件</summary>\n' + block + '\n史黛菈:正文。\n</details>');
+  assert.ok(output.includes(block));
+});
+check('日轻单双直角引号与普通方括号均保留对白', () => {
+  for (const speech of ['「我们走吧。」', '『我们走吧。』', '[我们走吧。]']) {
+    assert.ok(rendered('史黛菈:' + speech).includes(speech));
+  }
+});
 
 const protectedMarkers = [
   '<UpdateVariable>', '<update>', '<Analysis>', '<JSONPatch>', '<think>',
   '<thinking>', '<reasoning>', '<script>', '<style>', '<pre>', '<code>', '<textarea>',
   '<acg_think>', '<combat_driver>', '<story_driver>', '<parallel_line_drive>',
-  '<memory_log>', '<wlog>', '<status>', '<affinity>', '<!--',
+  '<memory_log>', '<wlog>', '<status>', '<affinity>', '<konatan_planning~>',
+  '<tucao>', '<konatan_chat>', '<options>', '<selection>', '<special_status>', '<secure_log>', '<!--',
 ];
 for (const marker of protectedMarkers) {
   for (const variant of new Set([marker, marker.toLowerCase(), marker.toUpperCase()])) {
@@ -365,6 +442,43 @@ for (const tag of ['acg_think', 'story_driver', 'status', 'UpdateVariable']) {
     assert.ok(output.includes(outer), '不得因为内层关闭而转换尚处在外层的对白');
     assert.ok(bubbleOpenings(output).every(opening => opening.includes('data-rkd-name="刀华"')), '仅允许恢复外层结束后的正文；也允许全部保守回退');
   });
+}
+// Code/comment/attribute text cannot create or close a scope outside its
+// lexical container. Test both known dialogue and inert OC candidates.
+const lexicalFixtures = [
+  ['闭合代码内假options开启', '```html\n<options>\n```\n', 1],
+  ['闭合代码内假注释开启', '```html\n<!-- literal comment opener\n```\n', 1],
+  ['闭合代码内假属性开启', '```html\n<div title="\n```\n', 1],
+  ['真实options跨代码保护', '<options>\n```html\n普通代码\n```\n', 0],
+  ['代码内假options关闭', '<options>\n```html\n</options>\n```\n', 0],
+  ['代码内假script关闭', '<script>\n~~~~html\n</script>\n~~~~\n', 0],
+  ['代码后真实options关闭', '<options>\n```html\n</options>\n```\n</options>\n', 1],
+  ['闭合注释内假options开启', '<!-- <options> -->\n', 1],
+  ['闭合注释内假script开启', '<!-- <ScRiPt> -->\n', 1],
+  ['双引号属性内假options开启', '<div title="<options>">普通文字。</div>\n', 1],
+  ['单引号属性内假script开启', "<div title='<script>'>普通文字。</div>\n", 1],
+  ['details关闭不取消未闭script', '<details><script>text</details>\n', 0],
+  ['options关闭不取消未闭textarea', '<options><textarea>text</options>\n', 0],
+  ['不同标签全闭后恢复', '<details><pre><code>text</code></pre></details>\n', 1],
+  ['不同标签script全闭后恢复', '<details><script>text</script></details>\n', 1],
+  ...['script','style','textarea'].flatMap(tag => [
+    [`${tag}原始文本假开启`, `<${tag}>const s="<options>";</${tag}>\n`, 1],
+    [`${tag}原始文本假关闭`, `<options><${tag}>const s="</options>";</${tag}>\n`, 0],
+    [`${tag}真实未闭`, `<${tag}>普通文字\n`, 0],
+  ]),
+];
+for (const [label, prefix, visible] of lexicalFixtures) {
+  for (const [name, known] of [['史黛菈',true],['朝阳',false]]) {
+    check(`词法容器边界：${label} / ${known?'已知姓名':'OC候选'}`, () => {
+      const input = prefix + name + ':中性正文。';
+      const output = applyRules(input,rules);
+      assert.equal(bubbleCount(output),visible && known ? 1 : 0);
+      assert.equal(candidateCount(output),visible && !known ? 1 : 0);
+      assert.equal(styleCount(output),visible);
+      if (visible) assert.ok(output.startsWith(prefix),'容器原始字节和宏不得回填改写');
+      else assert.equal(output,input,'真实未闭范围保守保持整段原文');
+    });
+  }
 }
 for (const separator of ['\u2028', '\u2029']) {
   check(`Unicode 行分隔 U+${separator.codePointAt(0).toString(16)} 不合并两句对白`, () => {

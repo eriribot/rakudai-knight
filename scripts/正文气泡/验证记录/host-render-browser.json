@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-07",
+  "sourceReplayReport": "host-render-baseline.json",
+  "replayProgram": "../host-render-replay.mjs",
+  "evidence": "Observed through CUA Chrome accessibility state, executing only a neutral isolated localhost fixture. Exact ST 1.18.0 messageFormatting output was prepared in memory and the pinned segmentTextInElement ran in Chrome.",
+  "hostVersion": "1.18.0",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+  "fixtureUrl": "http://127.0.0.1:18976/",
+  "cases": [
+    {
+      "name": "bare-allowed",
+      "before": { "styleRules": 40, "styleChildren": 0, "firstChildType": 3, "imageMapping": true, "image": "url(\"https://eriribot.github.io/rakudai-knight/resource/knightavatars/stella.png\")", "bubbleDisplay": "flex" },
+      "after": { "styleRules": 0, "styleChildren": 7001, "firstChildType": 1, "imageMapping": true, "image": "none", "bubbleDisplay": "block" }
+    },
+    {
+      "name": "pre-hidden-allowed",
+      "before": { "styleRules": 40, "styleChildren": 0, "firstChildType": 3, "hiddenContainerDisplay": "none", "imageMapping": true, "image": "url(\"https://eriribot.github.io/rakudai-knight/resource/knightavatars/stella.png\")", "bubbleDisplay": "flex" },
+      "after": { "styleRules": 40, "styleChildren": 0, "firstChildType": 3, "hiddenContainerDisplay": "none", "imageMapping": true, "image": "url(\"https://eriribot.github.io/rakudai-knight/resource/knightavatars/stella.png\")", "bubbleDisplay": "flex" }
+    },
+    {
+      "name": "pre-hidden-media-blocked",
+      "before": { "styleRules": 9, "styleChildren": 0, "firstChildType": 3, "hiddenContainerDisplay": "none", "imageMapping": false, "image": "none", "bubbleDisplay": "flex" },
+      "after": { "styleRules": 9, "styleChildren": 0, "firstChildType": 3, "hiddenContainerDisplay": "none", "imageMapping": false, "image": "none", "bubbleDisplay": "flex" }
+    },
+    {
+      "name": "code-hidden-allowed",
+      "before": { "styleRules": 40, "styleChildren": 0, "firstChildType": 3, "hiddenContainerDisplay": "none", "imageMapping": true, "image": "url(\"https://eriribot.github.io/rakudai-knight/resource/knightavatars/stella.png\")", "bubbleDisplay": "flex" },
+      "after": { "styleRules": 40, "styleChildren": 0, "firstChildType": 3, "hiddenContainerDisplay": "none", "imageMapping": true, "image": "url(\"https://eriribot.github.io/rakudai-knight/resource/knightavatars/stella.png\")", "bubbleDisplay": "flex" }
+    }
+  ],
+  "minimalMechanism": {
+    "fixtureUrl": "http://127.0.0.1:18975/",
+    "sameTextContent": true,
+    "before": { "styleRules": 2, "styleChildren": 0, "firstChildType": 3, "bubbleColor": "rgb(255, 0, 0)", "image": "linear-gradient(rgb(0, 128, 0), rgb(0, 128, 0))" },
+    "after": { "styleRules": 0, "styleChildren": 85, "firstChildType": 1, "bubbleColor": "rgb(0, 0, 0)", "image": "none" }
+  },
+  "limits": [
+    "This proves a browser rendering mechanism and wrapper strategy, not live SillyTavern integration or the user's installed settings.",
+    "Images were verified through computed backgroundImage; remote image availability/loading was not asserted.",
+    "No preset/option script was executed and no attachment text was treated as an instruction.",
+    "Fixture servers are temporary and the recorded localhost URLs are not permanent deliverables."
+  ]
+}

@@ -1,0 +1,583 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-07T00:56:35.870Z",
+  "hostVersion": "1.18.0",
+  "artifactRef": "HEAD",
+  "replayProgramSha256": "424f6d2e73fcaafd8833c8ad911285bf111b843bc488e3a9b497b0c511f997c4",
+  "izumiEvidence": {
+    "id": "a1a57b61-8f66-4956-bd0c-386c0356e232",
+    "ruleSha256": "9f62c9b7a132c62d4a0c42a6b8a403e5c62b17a73f646eeda43c210cfd7a6d73",
+    "replacementSha256": "36a1ab14368980692e15879b9cd06bb22ed1c004266fdc745700ae572956d062",
+    "fixture": "<think>中性思考。</think>\n<konatan_planning~>中性计划。</konatan_planning~>\n史黛菈:中性正文。",
+    "executedPresetScripts": false,
+    "scriptsExplicitlyForbiddenBeforeBrowserInsertion": true
+  },
+  "sources": {
+    "public/script.js": {
+      "sha256LF": "606762e1e36805a12429708defcafac7287a3df78393813bf460c53524a27403"
+    },
+    "public/scripts/chats.js": {
+      "sha256LF": "2b870d44c55f99c622b5afcd7b1fd563219b9444bc70e8653611327d6e7f7be6"
+    },
+    "public/scripts/extensions/regex/engine.js": {
+      "sha256LF": "091bb3402a12552cf1754d6e4d2b44df38d3553aa374539896c716e78905d350"
+    },
+    "public/scripts/showdown-underscore.js": {
+      "sha256LF": "ffbb3fd54f7a0d3c973c8bf839188c767ed200948f00393875242bbce01e4835"
+    },
+    "public/scripts/util/stream-fadein.js": {
+      "sha256LF": "a3dfddb3a69431927b35d68739d29daefb199eae28564d916b083adf6f2bdb33"
+    }
+  },
+  "dependencies": [
+    {
+      "name": "@adobe/css-tools",
+      "version": "4.4.4",
+      "url": "https://unpkg.com/@adobe/css-tools@4.4.4/dist/cjs/adobe-css-tools.cjs",
+      "sha256": "e4e01cf5995178a62a311a33b37c352ab69bac34825218c17bdd19bc7d35a527"
+    },
+    {
+      "name": "dompurify",
+      "version": "3.4.2",
+      "url": "https://unpkg.com/dompurify@3.4.2/dist/purify.cjs.js",
+      "sha256": "8af9bb19d1ddd1bfd8cfbded4768fc3fa76b5024e3b48e0c0e841151579d7a30"
+    },
+    {
+      "name": "showdown",
+      "version": "2.1.0",
+      "url": "https://unpkg.com/showdown@2.1.0/dist/showdown.js",
+      "sha256": "bc97235c81dd34b4c2d6b1b14e71eb54ce57144c4e55e7b2694e473947a7ac0b"
+    }
+  ],
+  "jsdomVersion": "29.1.1",
+  "artifacts": {
+    "dialogue-bubbles": {
+      "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+      "sha256": "7a9bc8c26c355a5dc499c46c365ac35438fcab9a48a48f7cad62dba36f9727a3"
+    },
+    "dialogue-player-candidates": {
+      "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+      "sha256": "cc90d639bd77e05a2c53042b71ec6f46fe6332cd49ae14b50265530f17a68440"
+    },
+    "dialogue-bubble-style": {
+      "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+      "sha256": "d2a1d6ad0e55199e6fe3b2cf5de17cfc451a76224d0ec92388d1584d12cad686"
+    }
+  },
+  "neutralMessage": "史黛菈:中性验证。",
+  "cases": [
+    {
+      "name": "artifact-current",
+      "before": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 40,
+        "styleChildren": 0,
+        "hiddenContainers": 0,
+        "imageMapping": true,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      },
+      "after": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 0,
+        "styleChildren": 6813,
+        "hiddenContainers": 0,
+        "imageMapping": true,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      },
+      "prefixRetained": true
+    },
+    {
+      "name": "artifact-current-media-blocked",
+      "before": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 9,
+        "styleChildren": 0,
+        "hiddenContainers": 0,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      },
+      "after": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 0,
+        "styleChildren": 998,
+        "hiddenContainers": 0,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      },
+      "prefixRetained": true
+    },
+    {
+      "name": "artifact-current-closed-fence-prefix",
+      "before": {
+        "bubbles": 0,
+        "styleCount": 0,
+        "styleRules": null,
+        "styleChildren": null,
+        "hiddenContainers": 0,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      },
+      "after": {
+        "bubbles": 0,
+        "styleCount": 0,
+        "styleRules": null,
+        "styleChildren": null,
+        "hiddenContainers": 0,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      },
+      "prefixRetained": true
+    },
+    {
+      "name": "artifact-current-unclosed-fence",
+      "before": {
+        "bubbles": 0,
+        "styleCount": 0,
+        "styleRules": null,
+        "styleChildren": null,
+        "hiddenContainers": 0,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      },
+      "after": {
+        "bubbles": 0,
+        "styleCount": 0,
+        "styleRules": null,
+        "styleChildren": null,
+        "hiddenContainers": 0,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      },
+      "prefixRetained": true
+    },
+    {
+      "name": "artifact-current-think-prefix",
+      "before": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 40,
+        "styleChildren": 0,
+        "hiddenContainers": 0,
+        "imageMapping": true,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [
+          "中性思考"
+        ],
+        "scripts": 0
+      },
+      "after": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 0,
+        "styleChildren": 6813,
+        "hiddenContainers": 0,
+        "imageMapping": true,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [
+          "中性思考"
+        ],
+        "scripts": 0
+      },
+      "prefixRetained": true
+    },
+    {
+      "name": "artifact-current-user-macro-prefix",
+      "before": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 40,
+        "styleChildren": 0,
+        "hiddenContainers": 0,
+        "imageMapping": true,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      },
+      "after": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 0,
+        "styleChildren": 6813,
+        "hiddenContainers": 0,
+        "imageMapping": true,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      },
+      "prefixRetained": true
+    },
+    {
+      "name": "bare-allowed",
+      "before": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 40,
+        "styleChildren": 0,
+        "hiddenContainers": 0,
+        "imageMapping": true,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      },
+      "after": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 0,
+        "styleChildren": 6813,
+        "hiddenContainers": 0,
+        "imageMapping": true,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      }
+    },
+    {
+      "name": "pre-hidden-allowed",
+      "before": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 40,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "imageMapping": true,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      },
+      "after": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 40,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "imageMapping": true,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      }
+    },
+    {
+      "name": "pre-hidden-media-blocked",
+      "before": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 9,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      },
+      "after": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 9,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      }
+    },
+    {
+      "name": "code-hidden-allowed",
+      "before": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 40,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "imageMapping": true,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      },
+      "after": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 40,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "imageMapping": true,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      }
+    },
+    {
+      "name": "closed-fence-elsewhere",
+      "formatted": {
+        "bubbles": 0,
+        "styleCount": 0,
+        "styleRules": null,
+        "styleChildren": null,
+        "hiddenContainers": 0,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      }
+    },
+    {
+      "name": "ordinary-details",
+      "formatted": {
+        "bubbles": 0,
+        "styleCount": 0,
+        "styleRules": null,
+        "styleChildren": null,
+        "hiddenContainers": 0,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      }
+    },
+    {
+      "name": "parallel-details",
+      "formatted": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 40,
+        "styleChildren": 0,
+        "hiddenContainers": 0,
+        "imageMapping": true,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      }
+    },
+    {
+      "name": "div-context",
+      "formatted": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 40,
+        "styleChildren": 0,
+        "hiddenContainers": 0,
+        "imageMapping": true,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      }
+    },
+    {
+      "name": "span-context",
+      "formatted": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 40,
+        "styleChildren": 0,
+        "hiddenContainers": 0,
+        "imageMapping": true,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      }
+    },
+    {
+      "name": "bare-style-in-div",
+      "formatted": {
+        "bubbles": 0,
+        "styleCount": 1,
+        "styleRules": 1,
+        "styleChildren": 0,
+        "hiddenContainers": 0,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      },
+      "neutralHtml": "<div><style>.mes_text .custom-foo {\n  color: red;\n}</style><span class=\"custom-foo\" style=\"color:blue\">OK</span></div>"
+    },
+    {
+      "name": "bare-style-in-span",
+      "formatted": {
+        "bubbles": 0,
+        "styleCount": 1,
+        "styleRules": 1,
+        "styleChildren": 0,
+        "hiddenContainers": 0,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      },
+      "neutralHtml": "<p><span><style>.mes_text .custom-foo {\n  color: red;\n}</style><span class=\"custom-foo\" style=\"color:blue\">OK</span></span></p>"
+    },
+    {
+      "name": "attribute-style-in-div",
+      "formatted": {
+        "bubbles": 0,
+        "styleCount": 1,
+        "styleRules": 1,
+        "styleChildren": 0,
+        "hiddenContainers": 0,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      },
+      "neutralHtml": "<div><style data-test=\"neutral\">.foo{color:red}</style><span class=\"custom-foo\" style=\"color:blue\">OK</span></div>"
+    },
+    {
+      "name": "bare-style-at-root",
+      "formatted": {
+        "bubbles": 0,
+        "styleCount": 1,
+        "styleRules": 1,
+        "styleChildren": 0,
+        "hiddenContainers": 0,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      },
+      "neutralHtml": "<style>.mes_text .custom-foo {\n  color: red;\n}</style>\n<p><span class=\"custom-foo\">OK</span></p>"
+    },
+    {
+      "name": "attribute-style-at-root",
+      "formatted": {
+        "bubbles": 0,
+        "styleCount": 0,
+        "styleRules": null,
+        "styleChildren": null,
+        "hiddenContainers": 0,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      },
+      "neutralHtml": "<p><span class=\"custom-foo\">OK</span></p>"
+    },
+    {
+      "name": "izumi-original-bare-style",
+      "before": {
+        "bubbles": 0,
+        "styleCount": 1,
+        "styleRules": 45,
+        "styleChildren": 0,
+        "hiddenContainers": 0,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 36,
+        "neutralOrder": [
+          "中性思考",
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0
+      },
+      "after": {
+        "bubbles": 0,
+        "styleCount": 1,
+        "styleRules": 0,
+        "styleChildren": 3461,
+        "hiddenContainers": 0,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [
+          "中性思考",
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0
+      },
+      "textReplacementScriptCount": 1
+    },
+    {
+      "name": "izumi-pre-hidden-style",
+      "before": {
+        "bubbles": 0,
+        "styleCount": 1,
+        "styleRules": 45,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 36,
+        "neutralOrder": [
+          "中性思考",
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0
+      },
+      "after": {
+        "bubbles": 0,
+        "styleCount": 1,
+        "styleRules": 45,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 36,
+        "neutralOrder": [
+          "中性思考",
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0
+      },
+      "textReplacementScriptCount": 1
+    }
+  ],
+  "limits": [
+    "Not a complete ST runtime: registry ordering, arbitrary macros, edit/depth eligibility and other extensions are outside this replay.",
+    "Actual pinned host functions are used; settings and read-only user macro are supplied by the fixture.",
+    "jsdom CSSOM replay is distinct from browser verification; isolated browser results are recorded separately.",
+    "No third-party preset/option scripts are executed; no host-head injection or media-policy bypass is applied."
+  ]
+}

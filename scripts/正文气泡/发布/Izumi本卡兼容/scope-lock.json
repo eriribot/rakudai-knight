@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "deliveryMode": "component",
+  "runtimeOwner": "当前落第角色卡，仅 SCOPED 显示正则",
+  "source": {
+    "file": "Izumi 1002.json",
+    "sha256": "588899351f35ab21c45e857c81a33336b03e1885ef34459034b170925eaef850",
+    "treatedAs": "untrusted regex data; no scripts executed"
+  },
+  "sourceHashes": {
+    "build-izumi-local.mjs": "a7053cecb20b400659ae3380e500ebd0d00f4654c81a10832cfbc74f913df527",
+    "local-izumi-compat.mjs": "662ec0621b30301a07cbae68ebe3e0ea3cc724e4f1693f4957534ff24ccaedcd",
+    "context-guard.mjs": "5d24512978429da26d5a327fb9c0512a393022e9ba938acb024723ebb7145ae4"
+  },
+  "scopeLock": {
+    "intendedGroup": "SCOPED",
+    "order": [
+      "Izumi 本卡兼容 01 · 已知前缀恢复 v0.1",
+      "Izumi 本卡兼容 02 · 固定样式保护 v0.1",
+      "Izumi 本卡兼容 03 · 已知规划边界 v0.1",
+      "01 盾形对白 · 姓名与台词 v0.5",
+      "02 盾形对白 · OC 姓名候选 v0.5",
+      "03 盾形对白 · 共享样式 v0.5"
+    ],
+    "publicIzumiRuleChanges": 0,
+    "sourcePresetChanges": 0,
+    "import": "Native ST import creates a new ID and appends. Remove or disable older copies manually; ID equality is not an override.",
+    "redLines": [
+      "No global/preset rule changes",
+      "No output writes",
+      "No complete card or preset export",
+      "No live chat or MVU writes"
+    ]
+  },
+  "library": {
+    "snapshotVersion": "2026-08-18",
+    "routeIds": [
+      "sillytavern-component-update"
+    ],
+    "loadedGuideIds": [
+      "ST-A0",
+      "ST-A2",
+      "ST-A5",
+      "ST-A6",
+      "ST-B2"
+    ],
+    "adoptedCandidates": []
+  },
+  "pendingRuntime": [
+    "Import into the current character local regex group only",
+    "Live user theme, complete stream lifecycle and option iframe interaction"
+  ]
+}

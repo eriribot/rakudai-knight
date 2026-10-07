@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "deliveryMode": "component",
+  "kind": "regex",
+  "artifacts": [
+    {
+      "artifactName": "izumi-planning-compat",
+      "id": "a1a57b61-8f66-4956-bd0c-386c0356e232",
+      "kind": "regex",
+      "relativePath": "izumi-planning-compat.regex.json",
+      "sha256": "e7e93948d4699dda6896074bece880446e60354b0bb123fe0356c418c861c1da"
+    }
+  ]
+}

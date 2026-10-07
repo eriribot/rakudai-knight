@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-07",
+  "sourceReplayReport": "izumi-host-style-replay.json",
+  "replayProgram": "../host-render-replay.mjs",
+  "hostVersion": "1.18.0",
+  "fixtureUrl": "http://127.0.0.1:18977/",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+  "fixtureSafety": {
+    "presetPromptsExecuted": false,
+    "thirdPartyScriptsExecuted": false,
+    "scriptTagsExplicitlyForbiddenByDOMPurify": true,
+    "nativeDetailsOpenedForVisibleContentProbe": true,
+    "neutralTokens": ["中性思考", "中性计划", "中性正文"]
+  },
+  "cases": [
+    {
+      "name": "izumi-original-bare-style",
+      "before": { "styleRules": 45, "konataRules": 36, "styleChildren": 0, "firstChildType": 3, "scripts": 0, "hiddenContainers": 0, "thinkingWrapperTop": 55.333335876464844, "thinkingContentTop": 103.2737045288086, "thinkingContentDisplay": "block", "neutralOrder": ["中性思考", "中性计划", "中性正文"] },
+      "after": { "styleRules": 0, "konataRules": 0, "styleChildren": 3475, "firstChildType": 1, "scripts": 0, "hiddenContainers": 0, "thinkingWrapperTop": 55.333335876464844, "thinkingContentTop": 78.66667175292969, "thinkingContentDisplay": "block", "neutralOrder": ["中性思考", "中性计划", "中性正文"] }
+    },
+    {
+      "name": "izumi-pre-hidden-style",
+      "before": { "styleRules": 45, "konataRules": 36, "styleChildren": 0, "firstChildType": 3, "scripts": 0, "hiddenContainers": 1, "hiddenContainerDisplay": "none", "thinkingWrapperTop": 55.333335876464844, "thinkingContentTop": 103.2737045288086, "thinkingContentDisplay": "block", "neutralOrder": ["中性思考", "中性计划", "中性正文"] },
+      "after": { "styleRules": 45, "konataRules": 36, "styleChildren": 0, "firstChildType": 3, "scripts": 0, "hiddenContainers": 1, "hiddenContainerDisplay": "none", "thinkingWrapperTop": 55.333335876464844, "thinkingContentTop": 103.2737045288086, "thinkingContentDisplay": "block", "neutralOrder": ["中性思考", "中性计划", "中性正文"] }
+    }
+  ],
+  "finding": "Changing only Izumi's findRegex does not protect its own bare style from the pinned ST fade segmenter. Wrapping only that style block in a hidden pre preserves CSS and visible content position in this isolated browser fixture.",
+  "limits": [
+    "Isolated browser rendering proof, not live SillyTavern/preset integration acceptance.",
+    "Third-party JavaScript behavior is intentionally outside the fixture.",
+    "The original attachment and product components were not changed by this experiment.",
+    "The localhost fixture is temporary and not a public or persistent deliverable."
+  ]
+}

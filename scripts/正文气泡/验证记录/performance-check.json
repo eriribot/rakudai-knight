@@ -1,0 +1,1026 @@
+{
+  "schemaVersion": 1,
+  "version": "0.5",
+  "generatedAt": "2026-10-07T02:03:39.579Z",
+  "nodeVersion": "v25.6.0",
+  "evidenceType": "isolated-offline-JavaScript-regex-performance",
+  "boundary": "单worker顺序运行；首次build+RegExp编译+完整转换单独计时，之后三次完整转换。一行冷启动200ms，其他冷启动硬门槛1s；普通正文热预算200ms，围栏/保护块硬门槛1s。结果随硬件变化，不等于实际酒馆流式帧时间。",
+  "sourceHashes": {
+    "build.mjs": "5484491b97f5e135d3e2c3368a470d27af10bddcf026ae7ec274df83ebf270fa",
+    "context-guard.mjs": "5d24512978429da26d5a327fb9c0512a393022e9ba938acb024723ebb7145ae4",
+    "check-performance.mjs": "e894d2639e289ea9947a470a5199107cd6a5b1e6c29fe63819b3a90783d63f70"
+  },
+  "total": 14,
+  "passed": 14,
+  "failed": 0,
+  "results": [
+    {
+      "name": "冷启动一行正文",
+      "characters": 9,
+      "inputHash": "8ecd957fdcd4bebaf0a24a1bf20b3528e5780ecb45ebc02123a729a72fc7fbdf",
+      "budgetMs": 200,
+      "coldBudgetMs": 200,
+      "cold": {
+        "elapsedMs": 76.03,
+        "bubbles": 1,
+        "candidates": 0
+      },
+      "samples": [
+        {
+          "elapsedMs": 17.16,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 1.33
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 0.19
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 15.59
+            }
+          ],
+          "bubbles": 1,
+          "candidates": 0
+        },
+        {
+          "elapsedMs": 0.58,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 0.25
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 0.16
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 0.16
+            }
+          ],
+          "bubbles": 1,
+          "candidates": 0
+        },
+        {
+          "elapsedMs": 0.5,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 0.2
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 0.15
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 0.15
+            }
+          ],
+          "bubbles": 1,
+          "candidates": 0
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "20k普通正文100句",
+      "characters": 21039,
+      "inputHash": "90b56b122abc5711912428a5d3f69a26a4309a6688976efea2f2b42749987193",
+      "budgetMs": 200,
+      "coldBudgetMs": 1000,
+      "cold": {
+        "elapsedMs": 84.61,
+        "bubbles": 100,
+        "candidates": 0
+      },
+      "samples": [
+        {
+          "elapsedMs": 24.52,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 22.22
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 2.01
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 0.24
+            }
+          ],
+          "bubbles": 100,
+          "candidates": 0
+        },
+        {
+          "elapsedMs": 21.85,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 21.35
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 0.29
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 0.2
+            }
+          ],
+          "bubbles": 100,
+          "candidates": 0
+        },
+        {
+          "elapsedMs": 21.66,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 21.09
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 0.33
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 0.23
+            }
+          ],
+          "bubbles": 100,
+          "candidates": 0
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "50k普通正文200句",
+      "characters": 50589,
+      "inputHash": "feb0400b6b01e437b996595537b8e2084d9e2c51021e131b4183aa386f6a8b98",
+      "budgetMs": 200,
+      "coldBudgetMs": 1000,
+      "cold": {
+        "elapsedMs": 160.92,
+        "bubbles": 200,
+        "candidates": 0
+      },
+      "samples": [
+        {
+          "elapsedMs": 99.22,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 98.54
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 0.42
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 0.24
+            }
+          ],
+          "bubbles": 200,
+          "candidates": 0
+        },
+        {
+          "elapsedMs": 101.92,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 101.24
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 0.4
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 0.23
+            }
+          ],
+          "bubbles": 200,
+          "candidates": 0
+        },
+        {
+          "elapsedMs": 102.16,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 101.47
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 0.42
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 0.25
+            }
+          ],
+          "bubbles": 200,
+          "candidates": 0
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "50k未知姓名200行",
+      "characters": 51179,
+      "inputHash": "3ba92301060a6ec925ac6e9b48646889082e53d3faba02f6a24709b50a28b8af",
+      "budgetMs": 200,
+      "coldBudgetMs": 1000,
+      "cold": {
+        "elapsedMs": 160.09,
+        "bubbles": 0,
+        "candidates": 200
+      },
+      "samples": [
+        {
+          "elapsedMs": 101.73,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 0.33
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 101.1
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 0.25
+            }
+          ],
+          "bubbles": 0,
+          "candidates": 200
+        },
+        {
+          "elapsedMs": 100.47,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 0.33
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 99.83
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 0.28
+            }
+          ],
+          "bubbles": 0,
+          "candidates": 200
+        },
+        {
+          "elapsedMs": 99.41,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 0.32
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 98.82
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 0.25
+            }
+          ],
+          "bubbles": 0,
+          "candidates": 200
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "50k无匹配",
+      "characters": 50000,
+      "inputHash": "d72d7bfc92cf3a0af95d4239766579b49dd6bdffcad519ea6f1c84c7ea046496",
+      "budgetMs": 200,
+      "coldBudgetMs": 1000,
+      "cold": {
+        "elapsedMs": 62.9,
+        "bubbles": 0,
+        "candidates": 0
+      },
+      "samples": [
+        {
+          "elapsedMs": 0.84,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 0.31
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 0.25
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 0.26
+            }
+          ],
+          "bubbles": 0,
+          "candidates": 0
+        },
+        {
+          "elapsedMs": 1.79,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 0.28
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 0.25
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 1.26
+            }
+          ],
+          "bubbles": 0,
+          "candidates": 0
+        },
+        {
+          "elapsedMs": 0.84,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 0.32
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 0.26
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 0.24
+            }
+          ],
+          "bubbles": 0,
+          "candidates": 0
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "50k闭合围栏夹200句",
+      "characters": 52649,
+      "inputHash": "f954c3eb1ab668ebc40591638ab43082d53e52c9015db32beb3084a770ba1239",
+      "budgetMs": 1000,
+      "coldBudgetMs": 1000,
+      "cold": {
+        "elapsedMs": 226.56,
+        "bubbles": 151,
+        "candidates": 0
+      },
+      "samples": [
+        {
+          "elapsedMs": 161.44,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 97.11
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 64.01
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 0.28
+            }
+          ],
+          "bubbles": 151,
+          "candidates": 0
+        },
+        {
+          "elapsedMs": 160,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 96.36
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 63.29
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 0.32
+            }
+          ],
+          "bubbles": 151,
+          "candidates": 0
+        },
+        {
+          "elapsedMs": 164.2,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 100.01
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 63.87
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 0.28
+            }
+          ],
+          "bubbles": 151,
+          "candidates": 0
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "50k未闭合反引号100句",
+      "characters": 50443,
+      "inputHash": "df8c7cb17e0a4406495f5e2ab1219c6f5b26c9e4fb47d4a86a1f610b3057ba44",
+      "budgetMs": 1000,
+      "coldBudgetMs": 1000,
+      "cold": {
+        "elapsedMs": 110.73,
+        "bubbles": 0,
+        "candidates": 0
+      },
+      "samples": [
+        {
+          "elapsedMs": 48.77,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 23.91
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 22.75
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 2.06
+            }
+          ],
+          "bubbles": 0,
+          "candidates": 0
+        },
+        {
+          "elapsedMs": 46.23,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 23.32
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 22.62
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 0.27
+            }
+          ],
+          "bubbles": 0,
+          "candidates": 0
+        },
+        {
+          "elapsedMs": 46.36,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 23.29
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 22.77
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 0.28
+            }
+          ],
+          "bubbles": 0,
+          "candidates": 0
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "50k未闭合波浪号100句",
+      "characters": 50447,
+      "inputHash": "1da572fc1a447f8f5820067bb43196c41fbe3d580c3f669a7bdc12c9ce731d89",
+      "budgetMs": 1000,
+      "coldBudgetMs": 1000,
+      "cold": {
+        "elapsedMs": 110.87,
+        "bubbles": 0,
+        "candidates": 0
+      },
+      "samples": [
+        {
+          "elapsedMs": 50.41,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 24.57
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 25.5
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 0.29
+            }
+          ],
+          "bubbles": 0,
+          "candidates": 0
+        },
+        {
+          "elapsedMs": 47.19,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 23.48
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 23.41
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 0.27
+            }
+          ],
+          "bubbles": 0,
+          "candidates": 0
+        },
+        {
+          "elapsedMs": 46.8,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 23.43
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 23.08
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 0.27
+            }
+          ],
+          "bubbles": 0,
+          "candidates": 0
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "50k十六个混合围栏192句",
+      "characters": 50304,
+      "inputHash": "0b0939939daa90c92414c2be446697fccd36712c016b9a0ff6351605c48bc508",
+      "budgetMs": 1000,
+      "coldBudgetMs": 1000,
+      "cold": {
+        "elapsedMs": 165,
+        "bubbles": 64,
+        "candidates": 0
+      },
+      "samples": [
+        {
+          "elapsedMs": 97.75,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 53.45
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 44.01
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 0.24
+            }
+          ],
+          "bubbles": 64,
+          "candidates": 0
+        },
+        {
+          "elapsedMs": 104.28,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 57.33
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 46.65
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 0.26
+            }
+          ],
+          "bubbles": 64,
+          "candidates": 0
+        },
+        {
+          "elapsedMs": 98.44,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 54.03
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 44.14
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 0.25
+            }
+          ],
+          "bubbles": 64,
+          "candidates": 0
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "50k关闭run较长100句",
+      "characters": 50535,
+      "inputHash": "7f52764a3fa58ebe6ae6b2245ba806de0375e7bf9d787c74ed819a778ec4c5c6",
+      "budgetMs": 1000,
+      "coldBudgetMs": 1000,
+      "cold": {
+        "elapsedMs": 100.67,
+        "bubbles": 50,
+        "candidates": 0
+      },
+      "samples": [
+        {
+          "elapsedMs": 37.98,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 30.48
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 6.7
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 0.77
+            }
+          ],
+          "bubbles": 50,
+          "candidates": 0
+        },
+        {
+          "elapsedMs": 37.73,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 30.44
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 6.52
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 0.76
+            }
+          ],
+          "bubbles": 50,
+          "candidates": 0
+        },
+        {
+          "elapsedMs": 37.8,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 30.41
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 6.63
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 0.75
+            }
+          ],
+          "bubbles": 50,
+          "candidates": 0
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "50k长关闭前缀不是关闭100句",
+      "characters": 50539,
+      "inputHash": "754559fd4cc6d44c557817aa711bc50cf91afe68c724ccc255981712d1f02c0c",
+      "budgetMs": 1000,
+      "coldBudgetMs": 1000,
+      "cold": {
+        "elapsedMs": 110.03,
+        "bubbles": 0,
+        "candidates": 0
+      },
+      "samples": [
+        {
+          "elapsedMs": 46.76,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 23.48
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 22.96
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 0.28
+            }
+          ],
+          "bubbles": 0,
+          "candidates": 0
+        },
+        {
+          "elapsedMs": 46.16,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 22.89
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 22.97
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 0.28
+            }
+          ],
+          "bubbles": 0,
+          "candidates": 0
+        },
+        {
+          "elapsedMs": 46.05,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 22.81
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 22.96
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 0.27
+            }
+          ],
+          "bubbles": 0,
+          "candidates": 0
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "50k选项保护块夹200句",
+      "characters": 52650,
+      "inputHash": "7403bf34ca083de5bc91c1175d18a2812b547f64c23e7bdf1b430637e28284e1",
+      "budgetMs": 1000,
+      "coldBudgetMs": 1000,
+      "cold": {
+        "elapsedMs": 200.18,
+        "bubbles": 150,
+        "candidates": 0
+      },
+      "samples": [
+        {
+          "elapsedMs": 142.92,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 86.82
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 55.77
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 0.28
+            }
+          ],
+          "bubbles": 150,
+          "candidates": 0
+        },
+        {
+          "elapsedMs": 142.31,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 88.09
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 53.92
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 0.26
+            }
+          ],
+          "bubbles": 150,
+          "candidates": 0
+        },
+        {
+          "elapsedMs": 140.89,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 86.41
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 54.16
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 0.28
+            }
+          ],
+          "bubbles": 150,
+          "candidates": 0
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "50k闭合选项代码假tag后200句",
+      "characters": 50644,
+      "inputHash": "e79e1d72e76b75cf4218ddf8e7a299992c77f5e69e49115da70d6d79b3af3112",
+      "budgetMs": 1000,
+      "coldBudgetMs": 1000,
+      "cold": {
+        "elapsedMs": 117.94,
+        "bubbles": 200,
+        "candidates": 0
+      },
+      "samples": [
+        {
+          "elapsedMs": 61.58,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 60.38
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 0.4
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 0.78
+            }
+          ],
+          "bubbles": 200,
+          "candidates": 0
+        },
+        {
+          "elapsedMs": 63.35,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 62.15
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 0.4
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 0.77
+            }
+          ],
+          "bubbles": 200,
+          "candidates": 0
+        },
+        {
+          "elapsedMs": 61.64,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 60.4
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 0.41
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 0.79
+            }
+          ],
+          "bubbles": 200,
+          "candidates": 0
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "50k真实未闭选项跨代码假close200句",
+      "characters": 50622,
+      "inputHash": "a2c44c335a9d1837f507f3d03096e853928fff474e10683654fa6b032df6e699",
+      "budgetMs": 1000,
+      "coldBudgetMs": 1000,
+      "cold": {
+        "elapsedMs": 156.4,
+        "bubbles": 0,
+        "candidates": 0
+      },
+      "samples": [
+        {
+          "elapsedMs": 98.4,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 48.06
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 49.99
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 0.3
+            }
+          ],
+          "bubbles": 0,
+          "candidates": 0
+        },
+        {
+          "elapsedMs": 101.71,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 48.58
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 50.67
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 2.4
+            }
+          ],
+          "bubbles": 0,
+          "candidates": 0
+        },
+        {
+          "elapsedMs": 101.77,
+          "stages": [
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+              "elapsedMs": 49.87
+            },
+            {
+              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 51.55
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+              "elapsedMs": 0.3
+            }
+          ],
+          "bubbles": 0,
+          "candidates": 0
+        }
+      ],
+      "passed": true
+    }
+  ]
+}

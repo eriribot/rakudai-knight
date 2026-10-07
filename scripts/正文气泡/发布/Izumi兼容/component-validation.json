@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "deliveryMode": "component",
+  "scope": "Replace only the existing Izumi planning display regex in its original group",
+  "source": {
+    "file": "Izumi 1002.json",
+    "sha256": "588899351f35ab21c45e857c81a33336b03e1885ef34459034b170925eaef850",
+    "id": "a1a57b61-8f66-4956-bd0c-386c0356e232"
+  },
+  "sourceHashes": {
+    "build-izumi-compat.mjs": "95d2976d19fcd6fa138532bf8a6e60210e2aeea06de4cc31577e98f76b46556a",
+    "preset-compatibility.mjs": "f51f64a237978ad21e4491d9b49ea453c7a3ab7c7b4ea05a5efca64fe6a8cccd"
+  },
+  "changedFields": [
+    "findRegex",
+    "replaceString"
+  ],
+  "before": "/([\\s\\S]*)<\\/konatan_planning~>/g",
+  "after": "/<konatan_planning~>([\\s\\S]*?)<\\/konatan_planning~>/g",
+  "styleProtection": "Wrap only the leading bare style block in pre[hidden]; CSS and visible template stay exact",
+  "preservation": {
+    "presetFileNotWritten": true,
+    "metadataUnchanged": true,
+    "cssAndVisibleTemplateUnchanged": true
+  },
+  "library": {
+    "snapshotVersion": "2026-08-18",
+    "routeIds": [
+      "sillytavern-component-update"
+    ],
+    "loadedGuideIds": [
+      "ST-A0",
+      "ST-A2",
+      "ST-A5",
+      "ST-A6",
+      "ST-B2"
+    ],
+    "adoptedCandidates": []
+  },
+  "pendingRuntime": [
+    "Import into the same original regex group and keep only one enabled rule with this ID",
+    "Real preset rendering, iframe interaction and stream/reload acceptance"
+  ],
+  "passed": true,
+  "artifact": {
+    "file": "scripts/正文气泡/发布/Izumi兼容/components/izumi-planning-compat.regex.json",
+    "id": "a1a57b61-8f66-4956-bd0c-386c0356e232",
+    "sha256": "e7e93948d4699dda6896074bece880446e60354b0bb123fe0356c418c861c1da"
+  },
+  "validation": {
+    "schemaVersion": 1,
+    "target": "scripts/正文气泡/发布/Izumi兼容/components",
+    "deliveryMode": "component",
+    "errors": [],
+    "files": [
+      {
+        "file": "scripts/正文气泡/发布/Izumi兼容/components/izumi-planning-compat.regex.json",
+        "kind": "regex",
+        "errors": []
+      }
+    ]
+  }
+}

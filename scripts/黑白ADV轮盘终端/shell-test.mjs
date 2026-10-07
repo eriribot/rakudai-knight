@@ -60,7 +60,7 @@ function fixture() {
     addEventListener: (name, fn) => listen(hostListeners, name, fn),
     removeEventListener: (name, fn) => unlisten(hostListeners, name, fn),
   };
-  const eventNames = ['CHAT_CHANGED', 'MESSAGE_SWIPED', 'MESSAGE_SWIPE_DELETED', 'MESSAGE_DELETED', 'MESSAGE_UPDATED', 'MESSAGE_EDITED', 'MESSAGE_RECEIVED', 'CHARACTER_FIRST_MESSAGE_SELECTED', 'GENERATION_ENDED'];
+  const eventNames = ['CHAT_CHANGED', 'MESSAGE_SWIPED', 'MESSAGE_SWIPE_DELETED', 'MESSAGE_DELETED', 'MESSAGE_UPDATED', 'MESSAGE_EDITED', 'MESSAGE_RECEIVED', 'CHARACTER_MESSAGE_RENDERED', 'CHARACTER_FIRST_MESSAGE_SELECTED', 'GENERATION_ENDED', 'GENERATION_STOPPED'];
   const W = {
     tavern_events: Object.fromEntries(eventNames.map(name => [name, 'event:' + name])),
     addEventListener: (name, fn) => listen(pageListeners, name, fn),
@@ -93,7 +93,7 @@ function fixture() {
     showOrbTip: (...args) => tips.push(args), recenter() {}, toggleWheel() {}, openPhoneApp() {},
   });
   vm.runInContext("const SLOT = '__RK_PHONE_SHELL__';\n" + versionDeclaration + '\n' + stateDeclaration + '\n' + read('state-reader.js') + '\n' + read('player-display-store.js') + '\n' + read('player-portrait.js') + '\n' + shellFunctions + '\n' +
-    'globalThis.shell = { SS, show, hide, destroy, makeBridge, wireEvents };', realm);
+    'globalThis.shell = { SS, show, hide, destroy, makeBridge, wireEvents, emit, setBubbleBinder(value) { playerBubbleBinder = value; } };', realm);
   realm.shell.SS.host = node();
   realm.shell.SS.orb = node();
   realm.shell.SS.style = node();
@@ -165,12 +165,30 @@ await check('分支变动清空旧名册，主回复更新保留只读展示等�
   f.api.destroy();
 });
 
+await check('消息重绘、完成和中止事件在终端收起时仍强制核对头像，普通轮询保持缓存', () => {
+  const f = fixture(), refreshes = [], updates = [];
+  f.api.setBubbleBinder({ refresh: force => refreshes.push(force), destroy() {} });
+  f.api.makeBridge().onUpdate(event => updates.push(event));
+  assert.equal(f.api.SS.visible, false);
+  for (const name of ['MESSAGE_RECEIVED', 'MESSAGE_UPDATED', 'MESSAGE_EDITED', 'MESSAGE_SWIPED',
+    'CHARACTER_MESSAGE_RENDERED', 'GENERATION_ENDED', 'GENERATION_STOPPED']) {
+    const before = updates.length;
+    f.event(name); assert.equal(refreshes.at(-1), true, name);
+    if (name === 'CHARACTER_MESSAGE_RENDERED') assert.equal(updates.length, before, '纯重绘不重置 MVU 读取或编辑草稿');
+  }
+  assert.equal(refreshes.length, 7);
+  f.api.emit({ type: 'poll' }); assert.equal(refreshes.at(-1), false);
+  f.api.destroy();
+  const count = refreshes.length;
+  f.event('CHARACTER_MESSAGE_RENDERED'); assert.equal(refreshes.length, count);
+});
+
 await check('pagehide销毁会注销宿主事件、停止轮询且不再向旧页面推送', async () => {
   const f = fixture(), received = [];
   f.api.SS.booted = true;
   f.api.makeBridge().onUpdate(event => received.push(event));
   await f.api.show();
-  assert.equal(f.events.size, 9);
+  assert.equal(f.events.size, 11);
   const count = received.length;
   f.pagehide();
   assert.equal(f.api.SS.destroyed, true);

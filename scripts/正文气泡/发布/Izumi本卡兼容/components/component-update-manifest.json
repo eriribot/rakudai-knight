@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "deliveryMode": "component",
+  "kind": "regex",
+  "artifacts": [
+    {
+      "artifactName": "izumi-local-prefix",
+      "id": "f426b5a6-56a3-48dc-96c2-0e4d6208e6e2",
+      "kind": "regex",
+      "relativePath": "izumi-local-prefix.regex.json",
+      "sha256": "32e37c8bc5a1a4b7d8d34f829e95822895a231acdd2b5b3ef93ff2e4fd6d9489"
+    },
+    {
+      "artifactName": "izumi-local-style",
+      "id": "ace941a3-9609-4a8d-a9da-a42981401db8",
+      "kind": "regex",
+      "relativePath": "izumi-local-style.regex.json",
+      "sha256": "efc07347ee14da5bd58d6bacd6272ee54834c8f3173a7b57bcdab9fcc47889a0"
+    },
+    {
+      "artifactName": "izumi-local-planning-close",
+      "id": "72f31f2b-ba16-4653-9fbc-5b52389c1129",
+      "kind": "regex",
+      "relativePath": "izumi-local-planning-close.regex.json",
+      "sha256": "c75c0129db2299f0943bd4de8d942735de61fabb6a841a4ad6d2fdf3d63ad8e0"
+    }
+  ]
+}

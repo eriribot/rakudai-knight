@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "deliveryMode": "component",
+  "runtimeOwner": "当前落第角色卡，仅 SCOPED 显示正则",
+  "source": {
+    "file": "Izumi 1002.json",
+    "sha256": "588899351f35ab21c45e857c81a33336b03e1885ef34459034b170925eaef850",
+    "treatedAs": "untrusted regex data; no scripts executed"
+  },
+  "sourceHashes": {
+    "build-izumi-local.mjs": "a7053cecb20b400659ae3380e500ebd0d00f4654c81a10832cfbc74f913df527",
+    "local-izumi-compat.mjs": "662ec0621b30301a07cbae68ebe3e0ea3cc724e4f1693f4957534ff24ccaedcd",
+    "context-guard.mjs": "5d24512978429da26d5a327fb9c0512a393022e9ba938acb024723ebb7145ae4"
+  },
+  "scopeLock": {
+    "intendedGroup": "SCOPED",
+    "order": [
+      "Izumi 本卡兼容 01 · 已知前缀恢复 v0.1",
+      "Izumi 本卡兼容 02 · 固定样式保护 v0.1",
+      "Izumi 本卡兼容 03 · 已知规划边界 v0.1",
+      "01 盾形对白 · 姓名与台词 v0.5",
+      "02 盾形对白 · OC 姓名候选 v0.5",
+      "03 盾形对白 · 共享样式 v0.5"
+    ],
+    "publicIzumiRuleChanges": 0,
+    "sourcePresetChanges": 0,
+    "import": "Native ST import creates a new ID and appends. Remove or disable older copies manually; ID equality is not an override.",
+    "redLines": [
+      "No global/preset rule changes",
+      "No output writes",
+      "No complete card or preset export",
+      "No live chat or MVU writes"
+    ]
+  },
+  "library": {
+    "snapshotVersion": "2026-08-18",
+    "routeIds": [
+      "sillytavern-component-update"
+    ],
+    "loadedGuideIds": [
+      "ST-A0",
+      "ST-A2",
+      "ST-A5",
+      "ST-A6",
+      "ST-B2"
+    ],
+    "adoptedCandidates": []
+  },
+  "pendingRuntime": [
+    "Import into the current character local regex group only",
+    "Live user theme, complete stream lifecycle and option iframe interaction"
+  ],
+  "passed": true,
+  "artifacts": [
+    {
+      "file": "scripts/正文气泡/发布/Izumi本卡兼容/components/izumi-local-prefix.regex.json",
+      "id": "f426b5a6-56a3-48dc-96c2-0e4d6208e6e2",
+      "sha256": "32e37c8bc5a1a4b7d8d34f829e95822895a231acdd2b5b3ef93ff2e4fd6d9489"
+    },
+    {
+      "file": "scripts/正文气泡/发布/Izumi本卡兼容/components/izumi-local-style.regex.json",
+      "id": "ace941a3-9609-4a8d-a9da-a42981401db8",
+      "sha256": "efc07347ee14da5bd58d6bacd6272ee54834c8f3173a7b57bcdab9fcc47889a0"
+    },
+    {
+      "file": "scripts/正文气泡/发布/Izumi本卡兼容/components/izumi-local-planning-close.regex.json",
+      "id": "72f31f2b-ba16-4653-9fbc-5b52389c1129",
+      "sha256": "c75c0129db2299f0943bd4de8d942735de61fabb6a841a4ad6d2fdf3d63ad8e0"
+    }
+  ],
+  "validation": {
+    "schemaVersion": 1,
+    "target": "scripts/正文气泡/发布/Izumi本卡兼容/components",
+    "deliveryMode": "component",
+    "errors": [],
+    "files": [
+      {
+        "file": "scripts/正文气泡/发布/Izumi本卡兼容/components/izumi-local-prefix.regex.json",
+        "kind": "regex",
+        "errors": []
+      },
+      {
+        "file": "scripts/正文气泡/发布/Izumi本卡兼容/components/izumi-local-style.regex.json",
+        "kind": "regex",
+        "errors": []
+      },
+      {
+        "file": "scripts/正文气泡/发布/Izumi本卡兼容/components/izumi-local-planning-close.regex.json",
+        "kind": "regex",
+        "errors": []
+      }
+    ]
+  },
+  "preservation": {
+    "presetFileNotWritten": true,
+    "presetDataUnchanged": true,
+    "independentLocalIds": true
+  }
+}

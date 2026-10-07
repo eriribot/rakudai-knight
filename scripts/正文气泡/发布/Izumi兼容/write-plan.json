@@ -1,0 +1,14 @@
+{
+  "errors": [],
+  "plan": {
+    "schemaVersion": 1,
+    "deliveryMode": "component",
+    "kind": "regex",
+    "outRoot": "scripts/正文气泡/发布/Izumi兼容/components",
+    "files": [
+      "izumi-planning-compat.regex.json",
+      "component-update-manifest.json"
+    ],
+    "requiresPipeline": false
+  }
+}

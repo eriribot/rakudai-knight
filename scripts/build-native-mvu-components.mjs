@@ -12,7 +12,7 @@ import { validateTarget } from '../.agents/skills/sillytavern-component-update/s
 // Only standalone components are emitted; the source card is a read-only metadata fixture.
 const ROOT = fileURLToPath(new URL('../', import.meta.url));
 const OUT = '世界书规则/MVU';
-const RECORDS = `${OUT}/构建记录/N04-开局头像`;
+const RECORDS = `${OUT}/构建记录/N04-气泡渲染`;
 const NATIVE_ID = '0ad18dbe-5a59-4cad-acfd-50c2bce0d9ec';
 const OPENING_ID = '4f9bda79-82bd-4d2f-9a66-2497349df26e';
 const PHONE_ROOT = 'scripts/黑白ADV轮盘终端';
@@ -25,6 +25,8 @@ const SOURCES = {
   stateControllerBuilder: 'scripts/build-state-controller.mjs',
   avatarManifest: 'resource/knightavatars/manifest.json',
   guard: `${OUT}/落第骑士-MVU-v4字段约束.json`,
+  existingNative: `${OUT}/落第骑士-MVU-原生兼容-N03.json`,
+  existingOpening: `${OUT}/落第骑士-开局页面-N04.regex.json`,
   structure: 'scripts/rakudai-mvu-structure.mjs',
   native: 'scripts/rakudai-mvu-native.mjs',
   schema: `${OUT}/schema.mjs`,
@@ -86,7 +88,7 @@ if (matches.length !== 1 || matches[0].scriptName !== '[开局]') throw new Erro
 const openingOriginal = structuredClone(matches[0]);
 const opening = { ...structuredClone(openingOriginal), replaceString: read(SOURCES.opening).toString('utf8') };
 const { artifact: phone, version: phoneVersion } = buildTerminal(), guard = json(SOURCES.guard);
-if (phone.type !== 'script' || phoneVersion !== '1.3.19' || !phone.name.includes('v1.3.19') || guard.type !== 'script') {
+if (phone.type !== 'script' || phoneVersion !== '1.3.20' || !phone.name.includes('v1.3.20') || guard.type !== 'script') {
   throw new Error('Unexpected source component version or dialect');
 }
 const wrap = (body, run) => '// GENERATED: node scripts/build-native-mvu-components.mjs --write\n(function () {\n"use strict";\n' + body + '\n' + run + '\n})();\n';
@@ -103,13 +105,19 @@ const native = {
   button: { enabled: true, buttons: [] }, data: {}, export_with: { data: false, button: false },
 };
 const selected = [
-  { name: 'phone-v1-3-19', kind: 'helper-script', value: phone, file: `${OUT}/落第骑士-小手机-v1.3.19.json` },
-  { name: 'native-mvu-n03', kind: 'helper-script', value: native, file: `${OUT}/落第骑士-MVU-原生兼容-N03.json` },
-  { name: 'opening-state-n04', kind: 'regex', value: opening, file: `${OUT}/落第骑士-开局页面-N04.regex.json` },
+  { name: 'phone-v1-3-20', kind: 'helper-script', value: phone, file: `${OUT}/落第骑士-小手机-v1.3.20.json` },
 ];
+const reused = [
+  { file: SOURCES.guard, id: guard.id, sha256: sourceHashes[SOURCES.guard], enabled: guard.enabled },
+  { file: SOURCES.existingNative, id: NATIVE_ID, sha256: sourceHashes[SOURCES.existingNative], enabled: native.enabled },
+  { file: SOURCES.existingOpening, id: OPENING_ID, sha256: sourceHashes[SOURCES.existingOpening], enabled: !opening.disabled },
+];
+if (canonicalJson(json(SOURCES.existingNative)) !== canonicalJson(native) || canonicalJson(json(SOURCES.existingOpening)) !== canonicalJson(opening)) {
+  throw new Error('Reused native/opening components differ from their maintained source');
+}
 const worldbookEntryFiles = ['变量列表.txt', '变量更新规则.txt', '变量输出格式.txt', '[initvar]变量初始化.yaml'].map(file => `${OUT}/${file}`);
-if (new Set([...selected.map(item => item.value.id), guard.id]).size !== selected.length + 1) throw new Error('Duplicate component IDs');
-const batches = ['helper-script', 'regex'].map(kind => ({
+if (new Set([...selected.map(item => item.value.id), ...reused.map(item => item.id)]).size !== selected.length + reused.length) throw new Error('Duplicate component IDs');
+const batches = [...new Set(selected.map(item => item.kind))].map(kind => ({
   kind, specFile: `${RECORDS}/specs/${kind === 'regex' ? 'opening-regex' : 'helper-scripts'}.json`,
   stage: `${RECORDS}/skill-staging/${kind}`,
   spec: { schemaVersion: 1, deliveryMode: 'component', kind,
@@ -122,13 +130,13 @@ const scopeLock = {
   versions: { state: 4, native: 'N03', opening: 'N04', growthProtocol: 'final-values-v1', phone: phoneVersion, guard: guard.name }, sourceHashes,
   phoneBuild: { method: 'buildTerminal in memory', artifactSha256: hash(canonicalJson(phone)) },
   library: { skill: 'sillytavern-component-update', routeIds: ['sillytavern-component-update'], snapshotVersion: '2026-08-18',
-    loadedGuideIds: ['ST-A0', 'ST-A2', 'ST-A6', 'ST-B2', 'ST-C1', 'ST-C10'], adoptedCandidates: [],
-    a0: { goal: 'Reuse the original opening photo input for shared display, emit phone 1.3.19 and opening N04; preserve native N03 and the optional guard',
+    loadedGuideIds: ['ST-A0', 'ST-A2', 'ST-A5', 'ST-A6', 'ST-B2'], adoptedCandidates: [],
+    a0: { goal: 'Emit phone 1.3.20 to repair player portrait after message redraw, paired with bubble v0.5; reuse opening N04, native N03 and the optional guard',
       redLines: 'No output writes, full card, PNG, worldbook package, live import, model request or source-state write',
       acceptance: 'Skill plan/build/validation, stable IDs and metadata, no independent growth output, bounded paths and unchanged source hashes' } },
   selected: selected.map(item => ({ id: item.value.id, kind: item.kind, output: item.file,
     runtimeOwner: 'current Rakudai character; message-floor MVU data', enabled: item.kind === 'regex' ? !item.value.disabled : item.value.enabled })),
-  reused: [{ file: SOURCES.guard, id: guard.id, sha256: sourceHashes[SOURCES.guard], enabled: guard.enabled }],
+  reused,
   worldbookEntryFiles,
   upgrade: { disableLegacyIndependentGrowth: '43a80755-9084-5356-ac85-cc60f8e93886', preserveLegacyArtifacts: true },
   untouched: ['all source files', 'historical N02/G04 artifacts and records', 'other regexes and scripts', 'complete card and worldbook', 'all real chats and historical floors'],
@@ -138,11 +146,11 @@ if (preparing || writing) {
   for (const batch of batches) writeJson(batch.specFile, batch.spec);
   writeJson(`${RECORDS}/scope-lock.json`, scopeLock);
   writeJson(`${RECORDS}/write-plan.json`, portable({ schemaVersion: 1, deliveryMode: 'component', skillPlans: plans,
-    finalFiles: selected.map(item => item.file), reusedFiles: [SOURCES.guard], worldbookEntryFiles }));
+    finalFiles: selected.map(item => item.file), reusedFiles: reused.map(item => item.file), worldbookEntryFiles }));
 }
 if (!writing) {
   console.log(canonicalJson(portable({ deliveryMode: 'component', prepared: preparing, plans,
-    finalFiles: selected.map(item => item.file), reusedFiles: [SOURCES.guard], worldbookEntryFiles })));
+    finalFiles: selected.map(item => item.file), reusedFiles: reused.map(item => item.file), worldbookEntryFiles })));
 } else {
   const stageResults = batches.map(batch => build(batch.spec, target(batch.stage), true));
   for (const result of stageResults) {
@@ -160,15 +168,16 @@ if (!writing) {
   });
   writeJson(`${RECORDS}/component-update-manifest.json`, { schemaVersion: 1, deliveryMode: 'component', artifactRoot: OUT,
     artifacts, reused: scopeLock.reused, worldbookEntryFiles });
-  const finalValidation = [...selected.map(item => validateTarget(target(item.file))), validateTarget(target(SOURCES.guard))];
+  const finalValidation = [...selected.map(item => validateTarget(target(item.file))), ...reused.map(item => validateTarget(target(item.file)))];
   if (finalValidation.some(report => report.errors.length)) throw new Error(JSON.stringify(portable(finalValidation)));
   const sameSourceHashes = Object.entries(sourceHashes).every(([file, expected]) => hash(read(file)) === expected);
   const { replaceString: beforeReplace, ...beforeMetadata } = openingOriginal;
-  const { replaceString: afterReplace, ...afterMetadata } = json(selected.find(item => item.kind === 'regex').file);
+  const { replaceString: afterReplace, ...afterMetadata } = json(SOURCES.existingOpening);
   const preservation = {
     sourceHashesUnchanged: sameSourceHashes,
     phoneAllFieldsPreserved: canonicalJson(json(selected[0].file)) === canonicalJson(phone),
     guardFileReusedWithoutWrite: hash(read(SOURCES.guard)) === sourceHashes[SOURCES.guard],
+    reusedComponentsUnchanged: reused.every(item => hash(read(item.file)) === item.sha256),
     openingMetadataPreserved: canonicalJson(beforeMetadata) === canonicalJson(afterMetadata),
     openingReplacementMatchesSource: afterReplace === read(SOURCES.opening).toString('utf8'),
     nativeStableIdAndEnabled: native.id === NATIVE_ID && native.enabled && native.button.enabled,
@@ -178,7 +187,7 @@ if (!writing) {
   };
   if (Object.values(preservation).some(passed => !passed)) throw new Error('Component preservation failed: ' + JSON.stringify(preservation));
   const report = { schemaVersion: 1, deliveryMode: 'component', passed: true, versions: scopeLock.versions, sourceHashes,
-    artifactCount: artifacts.length, reusedCount: 1, artifacts, reused: scopeLock.reused, worldbookEntryFiles, preservation,
+    artifactCount: artifacts.length, reusedCount: reused.length, artifacts, reused: scopeLock.reused, worldbookEntryFiles, preservation,
     skill: { stagingValidation, finalValidation }, runtime: 'Static artifact validation; no live import, model request or full-card packaging',
     pendingRuntime: scopeLock.pendingRuntime };
   writeJson(`${RECORDS}/component-validation.json`, portable(report));

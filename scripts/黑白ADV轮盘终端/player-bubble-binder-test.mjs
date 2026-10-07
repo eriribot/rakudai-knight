@@ -11,11 +11,14 @@ const storeSource = fs.readFileSync(new URL('player-display-store.js', import.me
 class Node {
   constructor(tag) { this.tagName = tag; this.attrs = new Map(); this.children = []; this.parentNode = null; this.events = new Map(); this._text = ''; this.hidden = false; }
   setAttribute(key, value) { this.attrs.set(key, String(value)); }
+  set src(value) { this.attrs.set('src', String(value)); }
+  get src() { return this.attrs.get('src') || ''; }
   getAttribute(key) { return this.attrs.has(key) ? this.attrs.get(key) : null; }
   removeAttribute(key) { this.attrs.delete(key); }
   set textContent(value) { this.children.forEach(node => { node.parentNode = null; }); this.children = []; this._text = String(value); }
   get textContent() { return this._text + this.children.map(node => node.textContent).join(''); }
   append(...nodes) { nodes.forEach(node => { node.remove(); node.parentNode = this; this.children.push(node); }); }
+  prepend(node) { node.remove(); node.parentNode = this; this.children.unshift(node); }
   appendChild(node) { this.append(node); return node; }
   replaceChildren(...nodes) { this.children.forEach(node => { node.parentNode = null; }); this.children = []; this._text = ''; this.append(...nodes); }
   remove() { if (!this.parentNode) return; const list = this.parentNode.children; const index = list.indexOf(this); if (index >= 0) list.splice(index, 1); this.parentNode = null; }
@@ -146,6 +149,127 @@ test('同一身份轮询跳过全树遍历，外部 DOM 观察强制绑定新候
   f.observers[0].listener([{ target: f.chat }]); await Promise.resolve();
   assert.equal(scans, 1); assert.equal(added.getAttribute('data-rkd'), 'bubble');
   assert.equal(added.querySelector('[data-rkd-oc-image]').src, f.snapshot.avatarUrl);
+});
+
+test('流式保留气泡外壳而替换 avatar，强制刷新重新附图且多次刷新幂等', () => {
+  const f = fixture(), oldAvatar = f.candidate.querySelector('[data-rkd-avatar]');
+  const replacement = new Node('span'); replacement.setAttribute('data-rkd-avatar', '');
+  oldAvatar.remove(); f.candidate.prepend(replacement); f.binder.refresh(true);
+  const image = replacement.querySelector('[data-rkd-oc-image]');
+  assert.ok(image); assert.equal(image.src, f.snapshot.avatarUrl);
+  assert.equal(oldAvatar.querySelector('[data-rkd-oc-image]'), null);
+  for (let i = 0; i < 5; i++) f.binder.refresh(true);
+  assert.equal(replacement.querySelector('[data-rkd-oc-image]'), image);
+  assert.equal(replacement.querySelectorAll('[data-rkd-oc-image]').length, 1);
+  assert.equal(replacement.querySelectorAll('[data-rkd-oc-initial]').length, 1);
+});
+
+test('流式清空已有 avatar 内容，观察器独立识别外部删除并补回头像', async () => {
+  const f = fixture(), avatar = f.candidate.querySelector('[data-rkd-avatar]');
+  avatar.replaceChildren(); f.observers[0].listener([{ target: avatar, type: 'childList' }]); await Promise.resolve();
+  assert.equal(avatar.querySelector('[data-rkd-oc-image]').src, f.snapshot.avatarUrl);
+  assert.equal(avatar.querySelectorAll('[data-rkd-oc-initial]').length, 1);
+});
+
+test('头像节点完全移除时重建槽位，保留已有正文和台词', async () => {
+  const f = fixture(), line = f.candidate.querySelector('[data-rkd-line]'), body = f.candidate.querySelector('[data-rkd-body]');
+  f.candidate.querySelector('[data-rkd-avatar]').remove();
+  f.observers[0].listener([{ target: f.candidate, type: 'childList' }]); await Promise.resolve();
+  assert.equal(f.candidate.querySelector('[data-rkd-oc-image]').src, f.snapshot.avatarUrl);
+  assert.equal(f.candidate.querySelector('[data-rkd-body]'), body); assert.equal(f.candidate.querySelector('[data-rkd-line]'), line);
+  assert.equal(line.textContent, '我来试试。');
+});
+
+test('candidate 被 morph 重置属性和整棵内部 source 后重新提升，并在销毁时恢复最终原文', async () => {
+  const f = fixture(), finalText = '  黎恩： 最终台词更新。  ', replacement = new Node('span');
+  replacement.setAttribute('data-rkd-source', ''); replacement.textContent = finalText;
+  f.candidate.setAttribute('data-rkd', 'candidate'); f.candidate.removeAttribute('data-rkd-player');
+  f.candidate.removeAttribute('data-rkd-runtime-player'); f.candidate.replaceChildren(replacement);
+  f.observers[0].listener([{ target: f.candidate, type: 'attributes' }, { target: f.candidate, type: 'childList' }]); await Promise.resolve();
+  assert.equal(f.candidate.getAttribute('data-rkd'), 'bubble');
+  assert.equal(f.candidate.querySelector('[data-rkd-line]').textContent, '最终台词更新。');
+  assert.equal(f.candidate.querySelector('[data-rkd-oc-image]').src, f.snapshot.avatarUrl);
+  f.binder.destroy(); assert.equal(f.candidate.textContent, finalText); assert.equal(f.candidate.querySelector('[data-rkd-source]'), replacement);
+});
+
+for (const scenario of ['未命中人物', '服务暂不可用', '切换聊天 scope']) {
+  test(`宿主的新 source 在${scenario}时保留，缓存恢复不覆盖新台词`, async () => {
+    const f = fixture(), replacement = new Node('span');
+    const name = scenario === '未命中人物' ? '史黛菈' : '黎恩';
+    const finalText = '  ' + name + '：这是重绘后的最终台词。  ';
+    replacement.setAttribute('data-rkd-source', ''); replacement.textContent = finalText;
+    f.candidate.setAttribute('data-rkd', 'candidate'); f.candidate.setAttribute('data-rkd-name', name);
+    f.candidate.replaceChildren(replacement);
+    if (scenario === '服务暂不可用') f.available = false;
+    if (scenario === '切换聊天 scope') f.snapshot = { ...f.snapshot, scope: 'chat-b', primaryName: '另一人物', aliases: [], revision: '2' };
+    f.observers[0].listener([{ target: f.candidate, type: 'childList' }]); await Promise.resolve();
+    assert.equal(f.candidate.getAttribute('data-rkd'), 'candidate');
+    assert.equal(f.candidate.querySelector('[data-rkd-source]'), replacement);
+    assert.equal(f.candidate.textContent, finalText);
+    assert.equal(f.candidate.getAttribute('data-rkd-runtime-player'), null);
+    assert.equal(f.candidate.getAttribute('data-rkd-player'), null);
+    assert.equal(f.candidate.querySelector('[data-rkd-oc-image]'), null);
+    f.binder.refresh(true); f.binder.destroy();
+    assert.equal(f.candidate.querySelector('[data-rkd-source]'), replacement);
+    assert.equal(f.candidate.textContent, finalText);
+  });
+}
+
+test('运行时标记或 avatar/图的属性被外部重置时恢复装饰，自身已完整的 mutation 不循环', async () => {
+  const f = fixture(), observer = f.observers[0]; let reads = 0; const get = f.service.get;
+  f.service.get = () => { reads++; return get(); };
+  assert.ok(observer.options.attributes); assert.ok(observer.options.attributeFilter.includes('data-rkd-runtime-player'));
+  f.candidate.removeAttribute('data-rkd-runtime-player');
+  observer.listener([{ target: f.candidate, type: 'attributes', attributeName: 'data-rkd-runtime-player' }]); await Promise.resolve();
+  assert.equal(f.candidate.getAttribute('data-rkd-runtime-player'), 'true'); assert.equal(reads, 1);
+  const image = f.candidate.querySelector('[data-rkd-oc-image]'); image.removeAttribute('data-rkd-oc-image');
+  observer.listener([{ target: image, type: 'attributes', attributeName: 'data-rkd-oc-image' }]); await Promise.resolve();
+  assert.equal(reads, 2); assert.equal(f.candidate.querySelectorAll('[data-rkd-oc-image]').length, 1);
+  observer.listener([{ target: f.candidate, type: 'attributes' }, { target: f.candidate.querySelector('[data-rkd-avatar]'), type: 'childList' }]);
+  await Promise.resolve(); assert.equal(reads, 2);
+});
+
+test('正文姓名变为未登记人物时撤销玩家头像和提升，保守恢复原文', async () => {
+  const f = fixture(); f.candidate.setAttribute('data-rkd-name', '史黛菈');
+  f.observers[0].listener([{ target: f.candidate, type: 'attributes', attributeName: 'data-rkd-name' }]); await Promise.resolve();
+  assert.equal(f.candidate.getAttribute('data-rkd'), 'candidate'); assert.equal(f.candidate.querySelector('[data-rkd-oc-image]'), null);
+  assert.equal(f.candidate.querySelector('[data-rkd-source]'), f.original);
+});
+
+test('图片失败 fallback 不因自身移图 mutation 或强制重绘反复请求；新 revision 可重试', async () => {
+  const f = fixture(), avatar = f.candidate.querySelector('[data-rkd-avatar]'), image = avatar.querySelector('[data-rkd-oc-image]');
+  image.dispatch('load'); image.dispatch('error'); const initial = avatar.querySelector('[data-rkd-oc-initial]');
+  assert.equal(initial.hidden, false);
+  let reads = 0; const get = f.service.get; f.service.get = () => { reads++; return get(); };
+  f.observers[0].listener([{ target: avatar, type: 'childList' }]); await Promise.resolve(); assert.equal(reads, 0);
+  for (let i = 0; i < 3; i++) f.binder.refresh(true);
+  assert.equal(avatar.querySelector('[data-rkd-oc-image]'), null); assert.equal(avatar.querySelector('[data-rkd-oc-initial]'), initial);
+  avatar.replaceChildren(); f.observers[0].listener([{ target: avatar, type: 'childList' }]); await Promise.resolve();
+  assert.equal(avatar.querySelector('[data-rkd-oc-image]'), null); assert.equal(avatar.querySelector('[data-rkd-oc-initial]').hidden, false);
+  f.snapshot = { ...f.snapshot, revision: 'retry' }; f.binder.refresh();
+  assert.equal(avatar.querySelector('[data-rkd-oc-image]').src, f.snapshot.avatarUrl);
+});
+
+test('宿主 segmenter 拆分首字文本和浏览器 src 规范化不导致误判重建', async () => {
+  const f = fixture(); f.snapshot = { ...f.snapshot, avatarUrl: 'https://example.test', revision: 'raw-address' }; f.binder.refresh();
+  const avatar = f.candidate.querySelector('[data-rkd-avatar]'), image = avatar.querySelector('[data-rkd-oc-image]'), initial = avatar.querySelector('[data-rkd-oc-initial]');
+  const segment = new Node('span'); segment.textContent = '黎'; initial.replaceChildren(segment);
+  // Real image.src may normalize a raw HTTPS address; getAttribute retains the supplied value.
+  Object.defineProperty(image, 'src', { get: () => 'https://example.test/' });
+  f.observers[0].listener([{ target: segment, type: 'characterData' }]); await Promise.resolve(); f.binder.refresh(true);
+  assert.equal(avatar.querySelector('[data-rkd-oc-image]'), image); assert.equal(avatar.querySelector('[data-rkd-oc-initial]'), initial);
+});
+
+test('重绘带有旧头像副本的 avatar 只保留一组可响应的新装饰，旧图事件不干扰新图', () => {
+  const f = fixture(), oldAvatar = f.candidate.querySelector('[data-rkd-avatar]'), oldImage = oldAvatar.querySelector('[data-rkd-oc-image]');
+  const replacement = new Node('span'); replacement.setAttribute('data-rkd-avatar', '');
+  const copiedInitial = new Node('span'); copiedInitial.setAttribute('data-rkd-oc-initial', ''); copiedInitial.textContent = '黎';
+  const copiedImage = new Node('img'); copiedImage.setAttribute('data-rkd-oc-image', ''); copiedImage.src = f.snapshot.avatarUrl;
+  replacement.append(copiedInitial, copiedImage); oldAvatar.remove(); f.candidate.prepend(replacement); f.binder.refresh(true);
+  assert.equal(replacement.querySelectorAll('[data-rkd-oc-image]').length, 1); assert.equal(replacement.querySelectorAll('[data-rkd-oc-initial]').length, 1);
+  const newImage = replacement.querySelector('[data-rkd-oc-image]'), initial = replacement.querySelector('[data-rkd-oc-initial]');
+  assert.notEqual(newImage, copiedImage); newImage.dispatch('load'); oldImage.dispatch('error');
+  assert.equal(initial.hidden, true); assert.equal(newImage.parentNode, replacement);
 });
 
 test('实际气泡规则→HTML解析→实际头像服务→绑定器：稳定标记、MVU全名和别名共用头像', () => {

@@ -106,7 +106,14 @@ function createPlayerBubbleBinder({ host, document: doc, service, css = '' }) {
   function restore(node) {
     const original = originals.get(node);
     if (!original) return;
+    const currentSource = node.querySelector('[data-rkd-source]');
     removeDecoration(node);
+    if (currentSource && currentSource !== original.source) {
+      // A host redraw owns its new source; cached text must not replace it.
+      originals.delete(node);
+      node.removeAttribute('data-rkd-player');
+      return;
+    }
     node.replaceChildren(original.source);
     node.setAttribute('data-rkd', 'candidate');
     node.removeAttribute('data-rkd-player');
@@ -125,20 +132,48 @@ function createPlayerBubbleBinder({ host, document: doc, service, css = '' }) {
     node.setAttribute('data-rkd', 'bubble'); node.setAttribute('data-rkd-player', 'true');
     return true;
   }
+  function decorationComplete(node, record) {
+    if (!record || node.getAttribute('data-rkd') !== 'bubble' ||
+        node.getAttribute('data-rkd-name') !== record.name || node.getAttribute('data-rkd-runtime-player') !== 'true' ||
+        node.querySelector('[data-rkd-avatar]') !== record.avatar ||
+        record.initial.parentNode !== record.avatar || record.initial.textContent !== record.initialText ||
+        record.avatar.querySelectorAll('[data-rkd-oc-initial]').length !== 1) return false;
+    const images = record.avatar.querySelectorAll('[data-rkd-oc-image]');
+    if (!record.src || record.imageFailed) return images.length === 0 && !record.initial.hidden;
+    return images.length === 1 && images[0] === record.image && record.image.parentNode === record.avatar &&
+      record.image.getAttribute('src') === record.src && record.initial.hidden === record.imageLoaded;
+  }
   function decorate(node, identity, snapshot) {
-    const avatar = node.querySelector('[data-rkd-avatar]');
-    if (!avatar) return;
+    let avatar = node.querySelector('[data-rkd-avatar]');
+    if (!avatar) {
+      if (!node.querySelector('[data-rkd-body]')) return;
+      avatar = element('span', 'data-rkd-avatar'); avatar.setAttribute('aria-hidden', 'true');
+      node.prepend(avatar);
+    }
     const signature = snapshot.scope + '\n' + snapshot.revision + '\n' + snapshot.primaryName + '\n' + snapshot.personaName + '\n' + identity.src;
-    if (decorated.get(node)?.signature === signature) return;
+    const previous = decorated.get(node);
+    if (previous?.signature === signature && decorationComplete(node, previous)) return;
+    const imageFailed = previous?.signature === signature && previous.imageFailed;
     removeDecoration(node);
-    decorated.set(node, { avatar, signature, runtimeAttribute: node.getAttribute('data-rkd-runtime-player') });
-    node.setAttribute('data-rkd-runtime-player', 'true');
-    const initial = element('span', 'data-rkd-oc-initial', Array.from(snapshot.primaryName || snapshot.personaName || '玩家')[0]);
+    avatar.querySelectorAll('[data-rkd-oc-image],[data-rkd-oc-initial]').forEach(child => child.remove());
+    const initialText = Array.from(snapshot.primaryName || snapshot.personaName || '玩家')[0];
+    const initial = element('span', 'data-rkd-oc-initial', initialText);
+    const record = { avatar, signature, name: node.getAttribute('data-rkd-name'), src: identity.src,
+      initial, initialText, image: null, imageFailed: !!imageFailed, imageLoaded: false,
+      runtimeAttribute: node.getAttribute('data-rkd-runtime-player') };
+    decorated.set(node, record); node.setAttribute('data-rkd-runtime-player', 'true');
     avatar.append(initial);
-    if (identity.src) {
+    if (identity.src && !record.imageFailed) {
       const image = element('img', 'data-rkd-oc-image'); image.alt = ''; image.decoding = 'async';
-      image.addEventListener('error', () => { initial.hidden = false; image.remove(); });
-      image.addEventListener('load', () => { if (image.parentNode === avatar) initial.hidden = true; });
+      record.image = image;
+      image.addEventListener('error', () => {
+        if (decorated.get(node) !== record) return;
+        record.imageFailed = true; record.imageLoaded = false; initial.hidden = false; image.remove();
+      });
+      image.addEventListener('load', () => {
+        if (decorated.get(node) !== record || image.parentNode !== avatar) return;
+        record.imageLoaded = true; initial.hidden = true;
+      });
       image.src = identity.src; avatar.append(image);
     }
   }
@@ -177,10 +212,17 @@ function createPlayerBubbleBinder({ host, document: doc, service, css = '' }) {
     doc.head.appendChild(style);
     if (typeof host.MutationObserver === 'function' && doc.body) {
       observer = new host.MutationObserver(records => {
-        if (records.some(record => !record.target?.closest?.('[data-rkd-runtime-player]') ||
-          record.target?.matches?.('[data-rkd]'))) schedule();
+        if (records.some(record => {
+          const target = record.target?.closest ? record.target : record.target?.parentElement || record.target?.parentNode;
+          const node = target?.closest?.('[data-rkd]'), current = decorated.get(node);
+          // Our complete decoration and image fallback need no second pass.
+          // A host morph may keep the outer node while replacing its descendants.
+          return !current || !decorationComplete(node, current);
+        })) schedule();
       });
-      observer.observe(doc.body, { childList: true, subtree: true, characterData: true });
+      observer.observe(doc.body, { childList: true, subtree: true, characterData: true, attributes: true,
+        attributeFilter: ['data-rkd', 'data-rkd-name', 'data-rkd-runtime-player', 'data-rkd-player',
+          'data-rkd-avatar', 'data-rkd-oc-initial', 'data-rkd-oc-image', 'src'] });
     }
     refresh(true);
   }

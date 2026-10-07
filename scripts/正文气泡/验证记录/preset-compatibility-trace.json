@@ -1,0 +1,3916 @@
+{
+  "schemaVersion": 1,
+  "version": "0.5",
+  "generatedAt": "2026-10-07T02:04:46.513Z",
+  "nodeVersion": "v25.6.0",
+  "evidenceType": "offline-enabled-display-regex-composition",
+  "externalFiles": [
+    {
+      "file": "Izumi 1002.json",
+      "sha256": "588899351f35ab21c45e857c81a33336b03e1885ef34459034b170925eaef850",
+      "bytes": 1346933
+    },
+    {
+      "file": "咩咩预设 - ver 5.8.1.json",
+      "sha256": "4e7b0e7c8ff3affe92a66004b96d7366774e2ee47c174865381aa55e3709d40f",
+      "bytes": 368114
+    },
+    {
+      "file": "咩咩预设-专用正则-ver7.1-大字体版(PC端推荐).json",
+      "sha256": "f1215cc83aff154b9c37666cf1cf76764beb55648e6cb5080f78949ea573ed97",
+      "bytes": 65416
+    }
+  ],
+  "sourceHashes": {
+    "build.mjs": "5484491b97f5e135d3e2c3368a470d27af10bddcf026ae7ec274df83ebf270fa",
+    "context-guard.mjs": "5d24512978429da26d5a327fb9c0512a393022e9ba938acb024723ebb7145ae4",
+    "check-preset-compatibility.mjs": "816cca3d190116b6298d26068207959179fe5cfc57b45584b3b9df7e44796728",
+    "preset-compatibility.mjs": "f51f64a237978ad21e4491d9b49ea453c7a3ab7c7b4ea05a5efca64fe6a8cccd"
+  },
+  "authority": "https://raw.githubusercontent.com/SillyTavern/SillyTavern/1.18.0/public/scripts/extensions/regex/engine.js",
+  "mergeOrder": "Object.values(SCRIPT_TYPES): global → preset → scoped",
+  "admission": {
+    "depth": 0,
+    "isEdit": false,
+    "placement": 2,
+    "destination": "display",
+    "disabled": false,
+    "ruleGate": "markdownOnly sufficient, including promptOnly + markdownOnly; depth bounds respected"
+  },
+  "appliedSourceRepair": {
+    "id": "a1a57b61-8f66-4956-bd0c-386c0356e232",
+    "originalFindRegex": "/([\\s\\S]*)<\\/konatan_planning~>/g",
+    "findRegex": "/<konatan_planning~>([\\s\\S]*?)<\\/konatan_planning~>/g",
+    "replacementHash": "d51ad8fe5527e5fa1e3abc9db260b20c022f80acdb1781def5ea14b3027e7458",
+    "scope": "仅复放中替换该 existing rule 的查找模式与首段样式包装；附件文件未改，正式同 ID 组件另由组件构建阶段生成"
+  },
+  "boundary": "附件提示词与脚本只当数据；不执行HTML脚本、不复制整份附件。仅回放启用display规则、depth gate与编号/命名捕获；其他宏、实际分组准入、Markdown、净化、iframe、CSS布局及宿主生命周期未模拟。",
+  "realSillyTavern": "not run",
+  "total": 39,
+  "passed": 39,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "附件Izumi两处导出regex副本一致，但仅复放一份",
+      "passed": true
+    },
+    {
+      "name": "Izumi修复只改稳定ID的findRegex与首段style保护，模板/CSS/metadata精确保留",
+      "passed": true
+    },
+    {
+      "name": "日轻引号、无扩展块 / Izumi → bubble",
+      "passed": true
+    },
+    {
+      "name": "日轻引号、无扩展块 / bubble → Izumi",
+      "passed": true
+    },
+    {
+      "name": "日轻引号、无扩展块 / Mee → bubble",
+      "passed": true
+    },
+    {
+      "name": "日轻引号、无扩展块 / bubble → Mee",
+      "passed": true
+    },
+    {
+      "name": "日轻引号、无扩展块 / global-Mee → preset-Izumi → scoped-bubble",
+      "passed": true
+    },
+    {
+      "name": "日轻引号、无扩展块 / bubble → Mee → Izumi",
+      "passed": true
+    },
+    {
+      "name": "Izumi思考清理 / Izumi → bubble",
+      "passed": true
+    },
+    {
+      "name": "Izumi思考清理 / bubble → Izumi",
+      "passed": true
+    },
+    {
+      "name": "Izumi思考清理 / Mee → bubble",
+      "passed": true
+    },
+    {
+      "name": "Izumi思考清理 / bubble → Mee",
+      "passed": true
+    },
+    {
+      "name": "Izumi思考清理 / global-Mee → preset-Izumi → scoped-bubble",
+      "passed": true
+    },
+    {
+      "name": "Izumi思考清理 / bubble → Mee → Izumi",
+      "passed": true
+    },
+    {
+      "name": "Izumi选项iframe / Izumi → bubble",
+      "passed": true
+    },
+    {
+      "name": "Izumi选项iframe / bubble → Izumi",
+      "passed": true
+    },
+    {
+      "name": "Izumi选项iframe / Mee → bubble",
+      "passed": true
+    },
+    {
+      "name": "Izumi选项iframe / bubble → Mee",
+      "passed": true
+    },
+    {
+      "name": "Izumi选项iframe / global-Mee → preset-Izumi → scoped-bubble",
+      "passed": true
+    },
+    {
+      "name": "Izumi选项iframe / bubble → Mee → Izumi",
+      "passed": true
+    },
+    {
+      "name": "咩咩选项iframe / Izumi → bubble",
+      "passed": true
+    },
+    {
+      "name": "咩咩选项iframe / bubble → Izumi",
+      "passed": true
+    },
+    {
+      "name": "咩咩选项iframe / Mee → bubble",
+      "passed": true
+    },
+    {
+      "name": "咩咩选项iframe / bubble → Mee",
+      "passed": true
+    },
+    {
+      "name": "咩咩选项iframe / global-Mee → preset-Izumi → scoped-bubble",
+      "passed": true
+    },
+    {
+      "name": "咩咩选项iframe / bubble → Mee → Izumi",
+      "passed": true
+    },
+    {
+      "name": "两套选项与多种思考封套 / Izumi → bubble",
+      "passed": true
+    },
+    {
+      "name": "两套选项与多种思考封套 / bubble → Izumi",
+      "passed": true
+    },
+    {
+      "name": "两套选项与多种思考封套 / Mee → bubble",
+      "passed": true
+    },
+    {
+      "name": "两套选项与多种思考封套 / bubble → Mee",
+      "passed": true
+    },
+    {
+      "name": "两套选项与多种思考封套 / global-Mee → preset-Izumi → scoped-bubble",
+      "passed": true
+    },
+    {
+      "name": "两套选项与多种思考封套 / bubble → Mee → Izumi",
+      "passed": true
+    },
+    {
+      "name": "选项内同形对白不能变气泡 / Izumi → bubble",
+      "passed": true
+    },
+    {
+      "name": "选项内同形对白不能变气泡 / bubble → Izumi",
+      "passed": true
+    },
+    {
+      "name": "选项内同形对白不能变气泡 / Mee → bubble",
+      "passed": true
+    },
+    {
+      "name": "选项内同形对白不能变气泡 / bubble → Mee",
+      "passed": true
+    },
+    {
+      "name": "选项内同形对白不能变气泡 / global-Mee → preset-Izumi → scoped-bubble",
+      "passed": true
+    },
+    {
+      "name": "选项内同形对白不能变气泡 / bubble → Mee → Izumi",
+      "passed": true
+    },
+    {
+      "name": "咩咩深度5起显示裁剪按原设计移除正文，气泡不绕过",
+      "passed": true
+    }
+  ],
+  "cases": [
+    {
+      "name": "日轻引号、无扩展块",
+      "order": "Izumi → bubble",
+      "assumption": "Izumi 启用显示规则先于角色组件",
+      "depth": 0,
+      "fixture": "史黛菈:「我们走吧。」\n玩家:『我准备好了。』",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 23,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "bubble",
+          "index": 0,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "name": "01 盾形对白 · 姓名与台词 v0.5",
+          "before": {
+            "characters": 23,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 414,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 2,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+          "name": "03 盾形对白 · 共享样式 v0.5",
+          "before": {
+            "characters": 414,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 12882,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          }
+        }
+      ],
+      "final": {
+        "characters": 12882,
+        "bubbles": 2,
+        "candidates": 0,
+        "styles": 1,
+        "fenceBlocks": 0
+      },
+      "optionBlocks": [],
+      "optionIntegrity": "exact parity with enabled external display regex sequence"
+    },
+    {
+      "name": "日轻引号、无扩展块",
+      "order": "bubble → Izumi",
+      "assumption": "Izumi 逆序压力测试",
+      "depth": 0,
+      "fixture": "史黛菈:「我们走吧。」\n玩家:『我准备好了。』",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 23,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "bubble",
+          "index": 0,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "name": "01 盾形对白 · 姓名与台词 v0.5",
+          "before": {
+            "characters": 23,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 414,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 2,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+          "name": "03 盾形对白 · 共享样式 v0.5",
+          "before": {
+            "characters": 414,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 12882,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          }
+        }
+      ],
+      "final": {
+        "characters": 12882,
+        "bubbles": 2,
+        "candidates": 0,
+        "styles": 1,
+        "fenceBlocks": 0
+      },
+      "optionBlocks": [],
+      "optionIntegrity": "exact parity with enabled external display regex sequence"
+    },
+    {
+      "name": "日轻引号、无扩展块",
+      "order": "Mee → bubble",
+      "assumption": "咩咩启用显示规则先于角色组件",
+      "depth": 0,
+      "fixture": "史黛菈:「我们走吧。」\n玩家:『我准备好了。』",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 23,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "bubble",
+          "index": 0,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "name": "01 盾形对白 · 姓名与台词 v0.5",
+          "before": {
+            "characters": 23,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 414,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 2,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+          "name": "03 盾形对白 · 共享样式 v0.5",
+          "before": {
+            "characters": 414,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 12882,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          }
+        }
+      ],
+      "final": {
+        "characters": 12882,
+        "bubbles": 2,
+        "candidates": 0,
+        "styles": 1,
+        "fenceBlocks": 0
+      },
+      "optionBlocks": [],
+      "optionIntegrity": "exact parity with enabled external display regex sequence"
+    },
+    {
+      "name": "日轻引号、无扩展块",
+      "order": "bubble → Mee",
+      "assumption": "咩咩逆序压力测试",
+      "depth": 0,
+      "fixture": "史黛菈:「我们走吧。」\n玩家:『我准备好了。』",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 23,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "bubble",
+          "index": 0,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "name": "01 盾形对白 · 姓名与台词 v0.5",
+          "before": {
+            "characters": 23,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 414,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 2,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+          "name": "03 盾形对白 · 共享样式 v0.5",
+          "before": {
+            "characters": 414,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 12882,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          }
+        }
+      ],
+      "final": {
+        "characters": 12882,
+        "bubbles": 2,
+        "candidates": 0,
+        "styles": 1,
+        "fenceBlocks": 0
+      },
+      "optionBlocks": [],
+      "optionIntegrity": "exact parity with enabled external display regex sequence"
+    },
+    {
+      "name": "日轻引号、无扩展块",
+      "order": "global-Mee → preset-Izumi → scoped-bubble",
+      "assumption": "SillyTavern 1.18.0 官方类型合并顺序；实际导入分组尚未确认",
+      "depth": 0,
+      "fixture": "史黛菈:「我们走吧。」\n玩家:『我准备好了。』",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 23,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "bubble",
+          "index": 0,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "name": "01 盾形对白 · 姓名与台词 v0.5",
+          "before": {
+            "characters": 23,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 414,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 2,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+          "name": "03 盾形对白 · 共享样式 v0.5",
+          "before": {
+            "characters": 414,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 12882,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          }
+        }
+      ],
+      "final": {
+        "characters": 12882,
+        "bubbles": 2,
+        "candidates": 0,
+        "styles": 1,
+        "fenceBlocks": 0
+      },
+      "optionBlocks": [],
+      "optionIntegrity": "exact parity with enabled external display regex sequence"
+    },
+    {
+      "name": "日轻引号、无扩展块",
+      "order": "bubble → Mee → Izumi",
+      "assumption": "相反顺序压力测试；不声称当前宿主如此分组",
+      "depth": 0,
+      "fixture": "史黛菈:「我们走吧。」\n玩家:『我准备好了。』",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 23,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "bubble",
+          "index": 0,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "name": "01 盾形对白 · 姓名与台词 v0.5",
+          "before": {
+            "characters": 23,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 414,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 2,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+          "name": "03 盾形对白 · 共享样式 v0.5",
+          "before": {
+            "characters": 414,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 12882,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          }
+        }
+      ],
+      "final": {
+        "characters": 12882,
+        "bubbles": 2,
+        "candidates": 0,
+        "styles": 1,
+        "fenceBlocks": 0
+      },
+      "optionBlocks": [],
+      "optionIntegrity": "exact parity with enabled external display regex sequence"
+    },
+    {
+      "name": "Izumi思考清理",
+      "order": "Izumi → bubble",
+      "assumption": "Izumi 启用显示规则先于角色组件",
+      "depth": 0,
+      "fixture": "<think>中立思考。</think>\n史黛菈:「我们走吧。」\n玩家:『我准备好了。』",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 44,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "Izumi",
+          "index": 1,
+          "id": "eaa3a430-958d-413c-9bd3-7c43c1f8c2e6",
+          "name": "0清理思维链内标签",
+          "before": {
+            "characters": 44,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 42,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "Izumi",
+          "index": 8,
+          "id": "ce63db67-3566-4c6f-bc46-43d4c2da990a",
+          "name": "2去多余内容",
+          "before": {
+            "characters": 42,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 24,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 0,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "name": "01 盾形对白 · 姓名与台词 v0.5",
+          "before": {
+            "characters": 24,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 415,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 2,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+          "name": "03 盾形对白 · 共享样式 v0.5",
+          "before": {
+            "characters": 415,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 12883,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          }
+        }
+      ],
+      "final": {
+        "characters": 12883,
+        "bubbles": 2,
+        "candidates": 0,
+        "styles": 1,
+        "fenceBlocks": 0
+      },
+      "optionBlocks": [],
+      "optionIntegrity": "exact parity with enabled external display regex sequence"
+    },
+    {
+      "name": "Izumi思考清理",
+      "order": "bubble → Izumi",
+      "assumption": "Izumi 逆序压力测试",
+      "depth": 0,
+      "fixture": "<think>中立思考。</think>\n史黛菈:「我们走吧。」\n玩家:『我准备好了。』",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 44,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "bubble",
+          "index": 0,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "name": "01 盾形对白 · 姓名与台词 v0.5",
+          "before": {
+            "characters": 44,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 435,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 2,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+          "name": "03 盾形对白 · 共享样式 v0.5",
+          "before": {
+            "characters": 435,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 12903,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "Izumi",
+          "index": 1,
+          "id": "eaa3a430-958d-413c-9bd3-7c43c1f8c2e6",
+          "name": "0清理思维链内标签",
+          "before": {
+            "characters": 12903,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 12901,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "Izumi",
+          "index": 8,
+          "id": "ce63db67-3566-4c6f-bc46-43d4c2da990a",
+          "name": "2去多余内容",
+          "before": {
+            "characters": 12901,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 12883,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          }
+        }
+      ],
+      "final": {
+        "characters": 12883,
+        "bubbles": 2,
+        "candidates": 0,
+        "styles": 1,
+        "fenceBlocks": 0
+      },
+      "optionBlocks": [],
+      "optionIntegrity": "exact parity with enabled external display regex sequence"
+    },
+    {
+      "name": "Izumi思考清理",
+      "order": "Mee → bubble",
+      "assumption": "咩咩启用显示规则先于角色组件",
+      "depth": 0,
+      "fixture": "<think>中立思考。</think>\n史黛菈:「我们走吧。」\n玩家:『我准备好了。』",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 44,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "bubble",
+          "index": 0,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "name": "01 盾形对白 · 姓名与台词 v0.5",
+          "before": {
+            "characters": 44,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 435,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 2,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+          "name": "03 盾形对白 · 共享样式 v0.5",
+          "before": {
+            "characters": 435,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 12903,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          }
+        }
+      ],
+      "final": {
+        "characters": 12903,
+        "bubbles": 2,
+        "candidates": 0,
+        "styles": 1,
+        "fenceBlocks": 0
+      },
+      "optionBlocks": [],
+      "optionIntegrity": "exact parity with enabled external display regex sequence"
+    },
+    {
+      "name": "Izumi思考清理",
+      "order": "bubble → Mee",
+      "assumption": "咩咩逆序压力测试",
+      "depth": 0,
+      "fixture": "<think>中立思考。</think>\n史黛菈:「我们走吧。」\n玩家:『我准备好了。』",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 44,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "bubble",
+          "index": 0,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "name": "01 盾形对白 · 姓名与台词 v0.5",
+          "before": {
+            "characters": 44,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 435,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 2,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+          "name": "03 盾形对白 · 共享样式 v0.5",
+          "before": {
+            "characters": 435,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 12903,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          }
+        }
+      ],
+      "final": {
+        "characters": 12903,
+        "bubbles": 2,
+        "candidates": 0,
+        "styles": 1,
+        "fenceBlocks": 0
+      },
+      "optionBlocks": [],
+      "optionIntegrity": "exact parity with enabled external display regex sequence"
+    },
+    {
+      "name": "Izumi思考清理",
+      "order": "global-Mee → preset-Izumi → scoped-bubble",
+      "assumption": "SillyTavern 1.18.0 官方类型合并顺序；实际导入分组尚未确认",
+      "depth": 0,
+      "fixture": "<think>中立思考。</think>\n史黛菈:「我们走吧。」\n玩家:『我准备好了。』",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 44,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "Izumi",
+          "index": 1,
+          "id": "eaa3a430-958d-413c-9bd3-7c43c1f8c2e6",
+          "name": "0清理思维链内标签",
+          "before": {
+            "characters": 44,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 42,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "Izumi",
+          "index": 8,
+          "id": "ce63db67-3566-4c6f-bc46-43d4c2da990a",
+          "name": "2去多余内容",
+          "before": {
+            "characters": 42,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 24,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 0,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "name": "01 盾形对白 · 姓名与台词 v0.5",
+          "before": {
+            "characters": 24,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 415,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 2,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+          "name": "03 盾形对白 · 共享样式 v0.5",
+          "before": {
+            "characters": 415,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 12883,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          }
+        }
+      ],
+      "final": {
+        "characters": 12883,
+        "bubbles": 2,
+        "candidates": 0,
+        "styles": 1,
+        "fenceBlocks": 0
+      },
+      "optionBlocks": [],
+      "optionIntegrity": "exact parity with enabled external display regex sequence"
+    },
+    {
+      "name": "Izumi思考清理",
+      "order": "bubble → Mee → Izumi",
+      "assumption": "相反顺序压力测试；不声称当前宿主如此分组",
+      "depth": 0,
+      "fixture": "<think>中立思考。</think>\n史黛菈:「我们走吧。」\n玩家:『我准备好了。』",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 44,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "bubble",
+          "index": 0,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "name": "01 盾形对白 · 姓名与台词 v0.5",
+          "before": {
+            "characters": 44,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 435,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 2,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+          "name": "03 盾形对白 · 共享样式 v0.5",
+          "before": {
+            "characters": 435,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 12903,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "Izumi",
+          "index": 1,
+          "id": "eaa3a430-958d-413c-9bd3-7c43c1f8c2e6",
+          "name": "0清理思维链内标签",
+          "before": {
+            "characters": 12903,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 12901,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "Izumi",
+          "index": 8,
+          "id": "ce63db67-3566-4c6f-bc46-43d4c2da990a",
+          "name": "2去多余内容",
+          "before": {
+            "characters": 12901,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 12883,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          }
+        }
+      ],
+      "final": {
+        "characters": 12883,
+        "bubbles": 2,
+        "candidates": 0,
+        "styles": 1,
+        "fenceBlocks": 0
+      },
+      "optionBlocks": [],
+      "optionIntegrity": "exact parity with enabled external display regex sequence"
+    },
+    {
+      "name": "Izumi选项iframe",
+      "order": "Izumi → bubble",
+      "assumption": "Izumi 启用显示规则先于角色组件",
+      "depth": 0,
+      "fixture": "史黛菈:「我们走吧。」\n玩家:『我准备好了。』\n<options>\n>选项一：一起走\n</options>",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 53,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "Izumi",
+          "index": 2,
+          "id": "6d75d31a-05e7-4996-b681-05f5ca71187b",
+          "name": "0可爱美化选项栏（任意数量·不发送）",
+          "before": {
+            "characters": 53,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 8296,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 0,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "name": "01 盾形对白 · 姓名与台词 v0.5",
+          "before": {
+            "characters": 8296,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          },
+          "after": {
+            "characters": 8687,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 2,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+          "name": "03 盾形对白 · 共享样式 v0.5",
+          "before": {
+            "characters": 8687,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          },
+          "after": {
+            "characters": 21155,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 1
+          }
+        }
+      ],
+      "final": {
+        "characters": 21155,
+        "bubbles": 2,
+        "candidates": 0,
+        "styles": 1,
+        "fenceBlocks": 1
+      },
+      "optionBlocks": [
+        {
+          "sha256": "72e16fb66166e2f7192e24518a0f46782bca3c177c65dbb5be74154e8473e05f",
+          "characters": 8271
+        }
+      ],
+      "optionIntegrity": "exact parity with enabled external display regex sequence"
+    },
+    {
+      "name": "Izumi选项iframe",
+      "order": "bubble → Izumi",
+      "assumption": "Izumi 逆序压力测试",
+      "depth": 0,
+      "fixture": "史黛菈:「我们走吧。」\n玩家:『我准备好了。』\n<options>\n>选项一：一起走\n</options>",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 53,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "bubble",
+          "index": 0,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "name": "01 盾形对白 · 姓名与台词 v0.5",
+          "before": {
+            "characters": 53,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 444,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 2,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+          "name": "03 盾形对白 · 共享样式 v0.5",
+          "before": {
+            "characters": 444,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 12912,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "Izumi",
+          "index": 2,
+          "id": "6d75d31a-05e7-4996-b681-05f5ca71187b",
+          "name": "0可爱美化选项栏（任意数量·不发送）",
+          "before": {
+            "characters": 12912,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 21155,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 1
+          }
+        }
+      ],
+      "final": {
+        "characters": 21155,
+        "bubbles": 2,
+        "candidates": 0,
+        "styles": 1,
+        "fenceBlocks": 1
+      },
+      "optionBlocks": [
+        {
+          "sha256": "72e16fb66166e2f7192e24518a0f46782bca3c177c65dbb5be74154e8473e05f",
+          "characters": 8271
+        }
+      ],
+      "optionIntegrity": "exact parity with enabled external display regex sequence"
+    },
+    {
+      "name": "Izumi选项iframe",
+      "order": "Mee → bubble",
+      "assumption": "咩咩启用显示规则先于角色组件",
+      "depth": 0,
+      "fixture": "史黛菈:「我们走吧。」\n玩家:『我准备好了。』\n<options>\n>选项一：一起走\n</options>",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 53,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "bubble",
+          "index": 0,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "name": "01 盾形对白 · 姓名与台词 v0.5",
+          "before": {
+            "characters": 53,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 444,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 2,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+          "name": "03 盾形对白 · 共享样式 v0.5",
+          "before": {
+            "characters": 444,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 12912,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          }
+        }
+      ],
+      "final": {
+        "characters": 12912,
+        "bubbles": 2,
+        "candidates": 0,
+        "styles": 1,
+        "fenceBlocks": 0
+      },
+      "optionBlocks": [],
+      "optionIntegrity": "exact parity with enabled external display regex sequence"
+    },
+    {
+      "name": "Izumi选项iframe",
+      "order": "bubble → Mee",
+      "assumption": "咩咩逆序压力测试",
+      "depth": 0,
+      "fixture": "史黛菈:「我们走吧。」\n玩家:『我准备好了。』\n<options>\n>选项一：一起走\n</options>",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 53,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "bubble",
+          "index": 0,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "name": "01 盾形对白 · 姓名与台词 v0.5",
+          "before": {
+            "characters": 53,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 444,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 2,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+          "name": "03 盾形对白 · 共享样式 v0.5",
+          "before": {
+            "characters": 444,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 12912,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          }
+        }
+      ],
+      "final": {
+        "characters": 12912,
+        "bubbles": 2,
+        "candidates": 0,
+        "styles": 1,
+        "fenceBlocks": 0
+      },
+      "optionBlocks": [],
+      "optionIntegrity": "exact parity with enabled external display regex sequence"
+    },
+    {
+      "name": "Izumi选项iframe",
+      "order": "global-Mee → preset-Izumi → scoped-bubble",
+      "assumption": "SillyTavern 1.18.0 官方类型合并顺序；实际导入分组尚未确认",
+      "depth": 0,
+      "fixture": "史黛菈:「我们走吧。」\n玩家:『我准备好了。』\n<options>\n>选项一：一起走\n</options>",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 53,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "Izumi",
+          "index": 2,
+          "id": "6d75d31a-05e7-4996-b681-05f5ca71187b",
+          "name": "0可爱美化选项栏（任意数量·不发送）",
+          "before": {
+            "characters": 53,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 8296,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 0,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "name": "01 盾形对白 · 姓名与台词 v0.5",
+          "before": {
+            "characters": 8296,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          },
+          "after": {
+            "characters": 8687,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 2,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+          "name": "03 盾形对白 · 共享样式 v0.5",
+          "before": {
+            "characters": 8687,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          },
+          "after": {
+            "characters": 21155,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 1
+          }
+        }
+      ],
+      "final": {
+        "characters": 21155,
+        "bubbles": 2,
+        "candidates": 0,
+        "styles": 1,
+        "fenceBlocks": 1
+      },
+      "optionBlocks": [
+        {
+          "sha256": "72e16fb66166e2f7192e24518a0f46782bca3c177c65dbb5be74154e8473e05f",
+          "characters": 8271
+        }
+      ],
+      "optionIntegrity": "exact parity with enabled external display regex sequence"
+    },
+    {
+      "name": "Izumi选项iframe",
+      "order": "bubble → Mee → Izumi",
+      "assumption": "相反顺序压力测试；不声称当前宿主如此分组",
+      "depth": 0,
+      "fixture": "史黛菈:「我们走吧。」\n玩家:『我准备好了。』\n<options>\n>选项一：一起走\n</options>",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 53,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "bubble",
+          "index": 0,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "name": "01 盾形对白 · 姓名与台词 v0.5",
+          "before": {
+            "characters": 53,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 444,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 2,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+          "name": "03 盾形对白 · 共享样式 v0.5",
+          "before": {
+            "characters": 444,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 12912,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "Izumi",
+          "index": 2,
+          "id": "6d75d31a-05e7-4996-b681-05f5ca71187b",
+          "name": "0可爱美化选项栏（任意数量·不发送）",
+          "before": {
+            "characters": 12912,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 21155,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 1
+          }
+        }
+      ],
+      "final": {
+        "characters": 21155,
+        "bubbles": 2,
+        "candidates": 0,
+        "styles": 1,
+        "fenceBlocks": 1
+      },
+      "optionBlocks": [
+        {
+          "sha256": "72e16fb66166e2f7192e24518a0f46782bca3c177c65dbb5be74154e8473e05f",
+          "characters": 8271
+        }
+      ],
+      "optionIntegrity": "exact parity with enabled external display regex sequence"
+    },
+    {
+      "name": "咩咩选项iframe",
+      "order": "Izumi → bubble",
+      "assumption": "Izumi 启用显示规则先于角色组件",
+      "depth": 0,
+      "fixture": "史黛菈:「我们走吧。」\n玩家:『我准备好了。』\n<selection>\nA.一起走\n</selection>",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 54,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "bubble",
+          "index": 0,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "name": "01 盾形对白 · 姓名与台词 v0.5",
+          "before": {
+            "characters": 54,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 445,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 2,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+          "name": "03 盾形对白 · 共享样式 v0.5",
+          "before": {
+            "characters": 445,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 12913,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          }
+        }
+      ],
+      "final": {
+        "characters": 12913,
+        "bubbles": 2,
+        "candidates": 0,
+        "styles": 1,
+        "fenceBlocks": 0
+      },
+      "optionBlocks": [],
+      "optionIntegrity": "exact parity with enabled external display regex sequence"
+    },
+    {
+      "name": "咩咩选项iframe",
+      "order": "bubble → Izumi",
+      "assumption": "Izumi 逆序压力测试",
+      "depth": 0,
+      "fixture": "史黛菈:「我们走吧。」\n玩家:『我准备好了。』\n<selection>\nA.一起走\n</selection>",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 54,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "bubble",
+          "index": 0,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "name": "01 盾形对白 · 姓名与台词 v0.5",
+          "before": {
+            "characters": 54,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 445,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 2,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+          "name": "03 盾形对白 · 共享样式 v0.5",
+          "before": {
+            "characters": 445,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 12913,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          }
+        }
+      ],
+      "final": {
+        "characters": 12913,
+        "bubbles": 2,
+        "candidates": 0,
+        "styles": 1,
+        "fenceBlocks": 0
+      },
+      "optionBlocks": [],
+      "optionIntegrity": "exact parity with enabled external display regex sequence"
+    },
+    {
+      "name": "咩咩选项iframe",
+      "order": "Mee → bubble",
+      "assumption": "咩咩启用显示规则先于角色组件",
+      "depth": 0,
+      "fixture": "史黛菈:「我们走吧。」\n玩家:『我准备好了。』\n<selection>\nA.一起走\n</selection>",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 54,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "Mee",
+          "index": 23,
+          "id": "229e6f69-4a28-4a10-96d0-5cb55cb6d338",
+          "name": "选项美化-SillyTavern",
+          "before": {
+            "characters": 54,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 6584,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 0,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "name": "01 盾形对白 · 姓名与台词 v0.5",
+          "before": {
+            "characters": 6584,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          },
+          "after": {
+            "characters": 6975,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 2,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+          "name": "03 盾形对白 · 共享样式 v0.5",
+          "before": {
+            "characters": 6975,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          },
+          "after": {
+            "characters": 19443,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 1
+          }
+        }
+      ],
+      "final": {
+        "characters": 19443,
+        "bubbles": 2,
+        "candidates": 0,
+        "styles": 1,
+        "fenceBlocks": 1
+      },
+      "optionBlocks": [
+        {
+          "sha256": "cf9d509ae85fdc63717f71573f7c666d82511fd06d821b8b8773b2efa5cf5c7f",
+          "characters": 6559
+        }
+      ],
+      "optionIntegrity": "exact parity with enabled external display regex sequence"
+    },
+    {
+      "name": "咩咩选项iframe",
+      "order": "bubble → Mee",
+      "assumption": "咩咩逆序压力测试",
+      "depth": 0,
+      "fixture": "史黛菈:「我们走吧。」\n玩家:『我准备好了。』\n<selection>\nA.一起走\n</selection>",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 54,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "bubble",
+          "index": 0,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "name": "01 盾形对白 · 姓名与台词 v0.5",
+          "before": {
+            "characters": 54,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 445,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 2,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+          "name": "03 盾形对白 · 共享样式 v0.5",
+          "before": {
+            "characters": 445,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 12913,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "Mee",
+          "index": 23,
+          "id": "229e6f69-4a28-4a10-96d0-5cb55cb6d338",
+          "name": "选项美化-SillyTavern",
+          "before": {
+            "characters": 12913,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 19443,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 1
+          }
+        }
+      ],
+      "final": {
+        "characters": 19443,
+        "bubbles": 2,
+        "candidates": 0,
+        "styles": 1,
+        "fenceBlocks": 1
+      },
+      "optionBlocks": [
+        {
+          "sha256": "cf9d509ae85fdc63717f71573f7c666d82511fd06d821b8b8773b2efa5cf5c7f",
+          "characters": 6559
+        }
+      ],
+      "optionIntegrity": "exact parity with enabled external display regex sequence"
+    },
+    {
+      "name": "咩咩选项iframe",
+      "order": "global-Mee → preset-Izumi → scoped-bubble",
+      "assumption": "SillyTavern 1.18.0 官方类型合并顺序；实际导入分组尚未确认",
+      "depth": 0,
+      "fixture": "史黛菈:「我们走吧。」\n玩家:『我准备好了。』\n<selection>\nA.一起走\n</selection>",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 54,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "Mee",
+          "index": 23,
+          "id": "229e6f69-4a28-4a10-96d0-5cb55cb6d338",
+          "name": "选项美化-SillyTavern",
+          "before": {
+            "characters": 54,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 6584,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 0,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "name": "01 盾形对白 · 姓名与台词 v0.5",
+          "before": {
+            "characters": 6584,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          },
+          "after": {
+            "characters": 6975,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 2,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+          "name": "03 盾形对白 · 共享样式 v0.5",
+          "before": {
+            "characters": 6975,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          },
+          "after": {
+            "characters": 19443,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 1
+          }
+        }
+      ],
+      "final": {
+        "characters": 19443,
+        "bubbles": 2,
+        "candidates": 0,
+        "styles": 1,
+        "fenceBlocks": 1
+      },
+      "optionBlocks": [
+        {
+          "sha256": "cf9d509ae85fdc63717f71573f7c666d82511fd06d821b8b8773b2efa5cf5c7f",
+          "characters": 6559
+        }
+      ],
+      "optionIntegrity": "exact parity with enabled external display regex sequence"
+    },
+    {
+      "name": "咩咩选项iframe",
+      "order": "bubble → Mee → Izumi",
+      "assumption": "相反顺序压力测试；不声称当前宿主如此分组",
+      "depth": 0,
+      "fixture": "史黛菈:「我们走吧。」\n玩家:『我准备好了。』\n<selection>\nA.一起走\n</selection>",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 54,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "bubble",
+          "index": 0,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "name": "01 盾形对白 · 姓名与台词 v0.5",
+          "before": {
+            "characters": 54,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 445,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 2,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+          "name": "03 盾形对白 · 共享样式 v0.5",
+          "before": {
+            "characters": 445,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 12913,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "Mee",
+          "index": 23,
+          "id": "229e6f69-4a28-4a10-96d0-5cb55cb6d338",
+          "name": "选项美化-SillyTavern",
+          "before": {
+            "characters": 12913,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 19443,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 1
+          }
+        }
+      ],
+      "final": {
+        "characters": 19443,
+        "bubbles": 2,
+        "candidates": 0,
+        "styles": 1,
+        "fenceBlocks": 1
+      },
+      "optionBlocks": [
+        {
+          "sha256": "cf9d509ae85fdc63717f71573f7c666d82511fd06d821b8b8773b2efa5cf5c7f",
+          "characters": 6559
+        }
+      ],
+      "optionIntegrity": "exact parity with enabled external display regex sequence"
+    },
+    {
+      "name": "两套选项与多种思考封套",
+      "order": "Izumi → bubble",
+      "assumption": "Izumi 启用显示规则先于角色组件",
+      "depth": 0,
+      "fixture": "<think>中立思考。</think>\n<konatan_planning~>\n史黛菈:「思考区示例。」\n</konatan_planning~>\n<story_scene>\n史黛菈:「我们走吧。」\n玩家:『我准备好了。』\n</story_scene>\n<options>\n>选项一：一起走\n</options>\n<selection>\nA.一起走\n</selection>",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 188,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "Izumi",
+          "index": 1,
+          "id": "eaa3a430-958d-413c-9bd3-7c43c1f8c2e6",
+          "name": "0清理思维链内标签",
+          "before": {
+            "characters": 188,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 186,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "Izumi",
+          "index": 2,
+          "id": "6d75d31a-05e7-4996-b681-05f5ca71187b",
+          "name": "0可爱美化选项栏（任意数量·不发送）",
+          "before": {
+            "characters": 186,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 8429,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          }
+        },
+        {
+          "stage": "Izumi",
+          "index": 7,
+          "id": "a1a57b61-8f66-4956-bd0c-386c0356e232",
+          "name": "1美化最近2层思维链（流式）",
+          "before": {
+            "characters": 8429,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          },
+          "after": {
+            "characters": 19185,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          }
+        },
+        {
+          "stage": "Izumi",
+          "index": 8,
+          "id": "ce63db67-3566-4c6f-bc46-43d4c2da990a",
+          "name": "2去多余内容",
+          "before": {
+            "characters": 19185,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          },
+          "after": {
+            "characters": 19167,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 0,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "name": "01 盾形对白 · 姓名与台词 v0.5",
+          "before": {
+            "characters": 19167,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          },
+          "after": {
+            "characters": 19558,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 2,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+          "name": "03 盾形对白 · 共享样式 v0.5",
+          "before": {
+            "characters": 19558,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          },
+          "after": {
+            "characters": 32026,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 1
+          }
+        }
+      ],
+      "final": {
+        "characters": 32026,
+        "bubbles": 2,
+        "candidates": 0,
+        "styles": 1,
+        "fenceBlocks": 1
+      },
+      "optionBlocks": [
+        {
+          "sha256": "72e16fb66166e2f7192e24518a0f46782bca3c177c65dbb5be74154e8473e05f",
+          "characters": 8271
+        }
+      ],
+      "optionIntegrity": "exact parity with enabled external display regex sequence"
+    },
+    {
+      "name": "两套选项与多种思考封套",
+      "order": "bubble → Izumi",
+      "assumption": "Izumi 逆序压力测试",
+      "depth": 0,
+      "fixture": "<think>中立思考。</think>\n<konatan_planning~>\n史黛菈:「思考区示例。」\n</konatan_planning~>\n<story_scene>\n史黛菈:「我们走吧。」\n玩家:『我准备好了。』\n</story_scene>\n<options>\n>选项一：一起走\n</options>\n<selection>\nA.一起走\n</selection>",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 188,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "bubble",
+          "index": 0,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "name": "01 盾形对白 · 姓名与台词 v0.5",
+          "before": {
+            "characters": 188,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 579,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 2,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+          "name": "03 盾形对白 · 共享样式 v0.5",
+          "before": {
+            "characters": 579,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 13047,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "Izumi",
+          "index": 1,
+          "id": "eaa3a430-958d-413c-9bd3-7c43c1f8c2e6",
+          "name": "0清理思维链内标签",
+          "before": {
+            "characters": 13047,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 13045,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "Izumi",
+          "index": 2,
+          "id": "6d75d31a-05e7-4996-b681-05f5ca71187b",
+          "name": "0可爱美化选项栏（任意数量·不发送）",
+          "before": {
+            "characters": 13045,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 21288,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 1
+          }
+        },
+        {
+          "stage": "Izumi",
+          "index": 7,
+          "id": "a1a57b61-8f66-4956-bd0c-386c0356e232",
+          "name": "1美化最近2层思维链（流式）",
+          "before": {
+            "characters": 21288,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 1
+          },
+          "after": {
+            "characters": 32044,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 1
+          }
+        },
+        {
+          "stage": "Izumi",
+          "index": 8,
+          "id": "ce63db67-3566-4c6f-bc46-43d4c2da990a",
+          "name": "2去多余内容",
+          "before": {
+            "characters": 32044,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 1
+          },
+          "after": {
+            "characters": 32026,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 1
+          }
+        }
+      ],
+      "final": {
+        "characters": 32026,
+        "bubbles": 2,
+        "candidates": 0,
+        "styles": 1,
+        "fenceBlocks": 1
+      },
+      "optionBlocks": [
+        {
+          "sha256": "72e16fb66166e2f7192e24518a0f46782bca3c177c65dbb5be74154e8473e05f",
+          "characters": 8271
+        }
+      ],
+      "optionIntegrity": "exact parity with enabled external display regex sequence"
+    },
+    {
+      "name": "两套选项与多种思考封套",
+      "order": "Mee → bubble",
+      "assumption": "咩咩启用显示规则先于角色组件",
+      "depth": 0,
+      "fixture": "<think>中立思考。</think>\n<konatan_planning~>\n史黛菈:「思考区示例。」\n</konatan_planning~>\n<story_scene>\n史黛菈:「我们走吧。」\n玩家:『我准备好了。』\n</story_scene>\n<options>\n>选项一：一起走\n</options>\n<selection>\nA.一起走\n</selection>",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 188,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "Mee",
+          "index": 23,
+          "id": "229e6f69-4a28-4a10-96d0-5cb55cb6d338",
+          "name": "选项美化-SillyTavern",
+          "before": {
+            "characters": 188,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 6718,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 0,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "name": "01 盾形对白 · 姓名与台词 v0.5",
+          "before": {
+            "characters": 6718,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          },
+          "after": {
+            "characters": 7109,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 2,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+          "name": "03 盾形对白 · 共享样式 v0.5",
+          "before": {
+            "characters": 7109,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          },
+          "after": {
+            "characters": 19577,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 1
+          }
+        }
+      ],
+      "final": {
+        "characters": 19577,
+        "bubbles": 2,
+        "candidates": 0,
+        "styles": 1,
+        "fenceBlocks": 1
+      },
+      "optionBlocks": [
+        {
+          "sha256": "cf9d509ae85fdc63717f71573f7c666d82511fd06d821b8b8773b2efa5cf5c7f",
+          "characters": 6559
+        }
+      ],
+      "optionIntegrity": "exact parity with enabled external display regex sequence"
+    },
+    {
+      "name": "两套选项与多种思考封套",
+      "order": "bubble → Mee",
+      "assumption": "咩咩逆序压力测试",
+      "depth": 0,
+      "fixture": "<think>中立思考。</think>\n<konatan_planning~>\n史黛菈:「思考区示例。」\n</konatan_planning~>\n<story_scene>\n史黛菈:「我们走吧。」\n玩家:『我准备好了。』\n</story_scene>\n<options>\n>选项一：一起走\n</options>\n<selection>\nA.一起走\n</selection>",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 188,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "bubble",
+          "index": 0,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "name": "01 盾形对白 · 姓名与台词 v0.5",
+          "before": {
+            "characters": 188,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 579,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 2,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+          "name": "03 盾形对白 · 共享样式 v0.5",
+          "before": {
+            "characters": 579,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 13047,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "Mee",
+          "index": 23,
+          "id": "229e6f69-4a28-4a10-96d0-5cb55cb6d338",
+          "name": "选项美化-SillyTavern",
+          "before": {
+            "characters": 13047,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 19577,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 1
+          }
+        }
+      ],
+      "final": {
+        "characters": 19577,
+        "bubbles": 2,
+        "candidates": 0,
+        "styles": 1,
+        "fenceBlocks": 1
+      },
+      "optionBlocks": [
+        {
+          "sha256": "cf9d509ae85fdc63717f71573f7c666d82511fd06d821b8b8773b2efa5cf5c7f",
+          "characters": 6559
+        }
+      ],
+      "optionIntegrity": "exact parity with enabled external display regex sequence"
+    },
+    {
+      "name": "两套选项与多种思考封套",
+      "order": "global-Mee → preset-Izumi → scoped-bubble",
+      "assumption": "SillyTavern 1.18.0 官方类型合并顺序；实际导入分组尚未确认",
+      "depth": 0,
+      "fixture": "<think>中立思考。</think>\n<konatan_planning~>\n史黛菈:「思考区示例。」\n</konatan_planning~>\n<story_scene>\n史黛菈:「我们走吧。」\n玩家:『我准备好了。』\n</story_scene>\n<options>\n>选项一：一起走\n</options>\n<selection>\nA.一起走\n</selection>",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 188,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "Mee",
+          "index": 23,
+          "id": "229e6f69-4a28-4a10-96d0-5cb55cb6d338",
+          "name": "选项美化-SillyTavern",
+          "before": {
+            "characters": 188,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 6718,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          }
+        },
+        {
+          "stage": "Izumi",
+          "index": 1,
+          "id": "eaa3a430-958d-413c-9bd3-7c43c1f8c2e6",
+          "name": "0清理思维链内标签",
+          "before": {
+            "characters": 6718,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          },
+          "after": {
+            "characters": 6716,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          }
+        },
+        {
+          "stage": "Izumi",
+          "index": 2,
+          "id": "6d75d31a-05e7-4996-b681-05f5ca71187b",
+          "name": "0可爱美化选项栏（任意数量·不发送）",
+          "before": {
+            "characters": 6716,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          },
+          "after": {
+            "characters": 14959,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 2
+          }
+        },
+        {
+          "stage": "Izumi",
+          "index": 7,
+          "id": "a1a57b61-8f66-4956-bd0c-386c0356e232",
+          "name": "1美化最近2层思维链（流式）",
+          "before": {
+            "characters": 14959,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 2
+          },
+          "after": {
+            "characters": 25715,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 2
+          }
+        },
+        {
+          "stage": "Izumi",
+          "index": 8,
+          "id": "ce63db67-3566-4c6f-bc46-43d4c2da990a",
+          "name": "2去多余内容",
+          "before": {
+            "characters": 25715,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 2
+          },
+          "after": {
+            "characters": 25697,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 2
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 0,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "name": "01 盾形对白 · 姓名与台词 v0.5",
+          "before": {
+            "characters": 25697,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 2
+          },
+          "after": {
+            "characters": 26088,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 2
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 2,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+          "name": "03 盾形对白 · 共享样式 v0.5",
+          "before": {
+            "characters": 26088,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 2
+          },
+          "after": {
+            "characters": 38556,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 2
+          }
+        }
+      ],
+      "final": {
+        "characters": 38556,
+        "bubbles": 2,
+        "candidates": 0,
+        "styles": 1,
+        "fenceBlocks": 2
+      },
+      "optionBlocks": [
+        {
+          "sha256": "72e16fb66166e2f7192e24518a0f46782bca3c177c65dbb5be74154e8473e05f",
+          "characters": 8271
+        },
+        {
+          "sha256": "cf9d509ae85fdc63717f71573f7c666d82511fd06d821b8b8773b2efa5cf5c7f",
+          "characters": 6559
+        }
+      ],
+      "optionIntegrity": "exact parity with enabled external display regex sequence"
+    },
+    {
+      "name": "两套选项与多种思考封套",
+      "order": "bubble → Mee → Izumi",
+      "assumption": "相反顺序压力测试；不声称当前宿主如此分组",
+      "depth": 0,
+      "fixture": "<think>中立思考。</think>\n<konatan_planning~>\n史黛菈:「思考区示例。」\n</konatan_planning~>\n<story_scene>\n史黛菈:「我们走吧。」\n玩家:『我准备好了。』\n</story_scene>\n<options>\n>选项一：一起走\n</options>\n<selection>\nA.一起走\n</selection>",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 188,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "bubble",
+          "index": 0,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "name": "01 盾形对白 · 姓名与台词 v0.5",
+          "before": {
+            "characters": 188,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 579,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 2,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+          "name": "03 盾形对白 · 共享样式 v0.5",
+          "before": {
+            "characters": 579,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 13047,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "Mee",
+          "index": 23,
+          "id": "229e6f69-4a28-4a10-96d0-5cb55cb6d338",
+          "name": "选项美化-SillyTavern",
+          "before": {
+            "characters": 13047,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 19577,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 1
+          }
+        },
+        {
+          "stage": "Izumi",
+          "index": 1,
+          "id": "eaa3a430-958d-413c-9bd3-7c43c1f8c2e6",
+          "name": "0清理思维链内标签",
+          "before": {
+            "characters": 19577,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 1
+          },
+          "after": {
+            "characters": 19575,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 1
+          }
+        },
+        {
+          "stage": "Izumi",
+          "index": 2,
+          "id": "6d75d31a-05e7-4996-b681-05f5ca71187b",
+          "name": "0可爱美化选项栏（任意数量·不发送）",
+          "before": {
+            "characters": 19575,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 1
+          },
+          "after": {
+            "characters": 27818,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 2
+          }
+        },
+        {
+          "stage": "Izumi",
+          "index": 7,
+          "id": "a1a57b61-8f66-4956-bd0c-386c0356e232",
+          "name": "1美化最近2层思维链（流式）",
+          "before": {
+            "characters": 27818,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 2
+          },
+          "after": {
+            "characters": 38574,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 2
+          }
+        },
+        {
+          "stage": "Izumi",
+          "index": 8,
+          "id": "ce63db67-3566-4c6f-bc46-43d4c2da990a",
+          "name": "2去多余内容",
+          "before": {
+            "characters": 38574,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 2
+          },
+          "after": {
+            "characters": 38556,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 2
+          }
+        }
+      ],
+      "final": {
+        "characters": 38556,
+        "bubbles": 2,
+        "candidates": 0,
+        "styles": 1,
+        "fenceBlocks": 2
+      },
+      "optionBlocks": [
+        {
+          "sha256": "72e16fb66166e2f7192e24518a0f46782bca3c177c65dbb5be74154e8473e05f",
+          "characters": 8271
+        },
+        {
+          "sha256": "cf9d509ae85fdc63717f71573f7c666d82511fd06d821b8b8773b2efa5cf5c7f",
+          "characters": 6559
+        }
+      ],
+      "optionIntegrity": "exact parity with enabled external display regex sequence"
+    },
+    {
+      "name": "选项内同形对白不能变气泡",
+      "order": "Izumi → bubble",
+      "assumption": "Izumi 启用显示规则先于角色组件",
+      "depth": 0,
+      "fixture": "史黛菈:「我们走吧。」\n玩家:『我准备好了。』\n<options>\n史黛菈:「选项文字。」\n</options>\n<selection>\n玩家:「选项文字。」\n</selection>",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 92,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "Izumi",
+          "index": 2,
+          "id": "6d75d31a-05e7-4996-b681-05f5ca71187b",
+          "name": "0可爱美化选项栏（任意数量·不发送）",
+          "before": {
+            "characters": 92,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 8332,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 0,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "name": "01 盾形对白 · 姓名与台词 v0.5",
+          "before": {
+            "characters": 8332,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          },
+          "after": {
+            "characters": 8723,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 2,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+          "name": "03 盾形对白 · 共享样式 v0.5",
+          "before": {
+            "characters": 8723,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          },
+          "after": {
+            "characters": 21191,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 1
+          }
+        }
+      ],
+      "final": {
+        "characters": 21191,
+        "bubbles": 2,
+        "candidates": 0,
+        "styles": 1,
+        "fenceBlocks": 1
+      },
+      "optionBlocks": [
+        {
+          "sha256": "72e16fb66166e2f7192e24518a0f46782bca3c177c65dbb5be74154e8473e05f",
+          "characters": 8271
+        }
+      ],
+      "optionIntegrity": "exact parity with enabled external display regex sequence"
+    },
+    {
+      "name": "选项内同形对白不能变气泡",
+      "order": "bubble → Izumi",
+      "assumption": "Izumi 逆序压力测试",
+      "depth": 0,
+      "fixture": "史黛菈:「我们走吧。」\n玩家:『我准备好了。』\n<options>\n史黛菈:「选项文字。」\n</options>\n<selection>\n玩家:「选项文字。」\n</selection>",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 92,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "bubble",
+          "index": 0,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "name": "01 盾形对白 · 姓名与台词 v0.5",
+          "before": {
+            "characters": 92,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 483,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 2,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+          "name": "03 盾形对白 · 共享样式 v0.5",
+          "before": {
+            "characters": 483,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 12951,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "Izumi",
+          "index": 2,
+          "id": "6d75d31a-05e7-4996-b681-05f5ca71187b",
+          "name": "0可爱美化选项栏（任意数量·不发送）",
+          "before": {
+            "characters": 12951,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 21191,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 1
+          }
+        }
+      ],
+      "final": {
+        "characters": 21191,
+        "bubbles": 2,
+        "candidates": 0,
+        "styles": 1,
+        "fenceBlocks": 1
+      },
+      "optionBlocks": [
+        {
+          "sha256": "72e16fb66166e2f7192e24518a0f46782bca3c177c65dbb5be74154e8473e05f",
+          "characters": 8271
+        }
+      ],
+      "optionIntegrity": "exact parity with enabled external display regex sequence"
+    },
+    {
+      "name": "选项内同形对白不能变气泡",
+      "order": "Mee → bubble",
+      "assumption": "咩咩启用显示规则先于角色组件",
+      "depth": 0,
+      "fixture": "史黛菈:「我们走吧。」\n玩家:『我准备好了。』\n<options>\n史黛菈:「选项文字。」\n</options>\n<selection>\n玩家:「选项文字。」\n</selection>",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 92,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "Mee",
+          "index": 23,
+          "id": "229e6f69-4a28-4a10-96d0-5cb55cb6d338",
+          "name": "选项美化-SillyTavern",
+          "before": {
+            "characters": 92,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 6622,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 0,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "name": "01 盾形对白 · 姓名与台词 v0.5",
+          "before": {
+            "characters": 6622,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          },
+          "after": {
+            "characters": 7013,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 2,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+          "name": "03 盾形对白 · 共享样式 v0.5",
+          "before": {
+            "characters": 7013,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          },
+          "after": {
+            "characters": 19481,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 1
+          }
+        }
+      ],
+      "final": {
+        "characters": 19481,
+        "bubbles": 2,
+        "candidates": 0,
+        "styles": 1,
+        "fenceBlocks": 1
+      },
+      "optionBlocks": [
+        {
+          "sha256": "a3b5f46f8baa92aeef7cede5330db29f4dff6058dba922e1f6e350cbcbc1c213",
+          "characters": 6564
+        }
+      ],
+      "optionIntegrity": "exact parity with enabled external display regex sequence"
+    },
+    {
+      "name": "选项内同形对白不能变气泡",
+      "order": "bubble → Mee",
+      "assumption": "咩咩逆序压力测试",
+      "depth": 0,
+      "fixture": "史黛菈:「我们走吧。」\n玩家:『我准备好了。』\n<options>\n史黛菈:「选项文字。」\n</options>\n<selection>\n玩家:「选项文字。」\n</selection>",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 92,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "bubble",
+          "index": 0,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "name": "01 盾形对白 · 姓名与台词 v0.5",
+          "before": {
+            "characters": 92,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 483,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 2,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+          "name": "03 盾形对白 · 共享样式 v0.5",
+          "before": {
+            "characters": 483,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 12951,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "Mee",
+          "index": 23,
+          "id": "229e6f69-4a28-4a10-96d0-5cb55cb6d338",
+          "name": "选项美化-SillyTavern",
+          "before": {
+            "characters": 12951,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 19481,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 1
+          }
+        }
+      ],
+      "final": {
+        "characters": 19481,
+        "bubbles": 2,
+        "candidates": 0,
+        "styles": 1,
+        "fenceBlocks": 1
+      },
+      "optionBlocks": [
+        {
+          "sha256": "a3b5f46f8baa92aeef7cede5330db29f4dff6058dba922e1f6e350cbcbc1c213",
+          "characters": 6564
+        }
+      ],
+      "optionIntegrity": "exact parity with enabled external display regex sequence"
+    },
+    {
+      "name": "选项内同形对白不能变气泡",
+      "order": "global-Mee → preset-Izumi → scoped-bubble",
+      "assumption": "SillyTavern 1.18.0 官方类型合并顺序；实际导入分组尚未确认",
+      "depth": 0,
+      "fixture": "史黛菈:「我们走吧。」\n玩家:『我准备好了。』\n<options>\n史黛菈:「选项文字。」\n</options>\n<selection>\n玩家:「选项文字。」\n</selection>",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 92,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "Mee",
+          "index": 23,
+          "id": "229e6f69-4a28-4a10-96d0-5cb55cb6d338",
+          "name": "选项美化-SillyTavern",
+          "before": {
+            "characters": 92,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 6622,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          }
+        },
+        {
+          "stage": "Izumi",
+          "index": 2,
+          "id": "6d75d31a-05e7-4996-b681-05f5ca71187b",
+          "name": "0可爱美化选项栏（任意数量·不发送）",
+          "before": {
+            "characters": 6622,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 1
+          },
+          "after": {
+            "characters": 14862,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 2
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 0,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "name": "01 盾形对白 · 姓名与台词 v0.5",
+          "before": {
+            "characters": 14862,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 2
+          },
+          "after": {
+            "characters": 15253,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 2
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 2,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+          "name": "03 盾形对白 · 共享样式 v0.5",
+          "before": {
+            "characters": 15253,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 2
+          },
+          "after": {
+            "characters": 27721,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 2
+          }
+        }
+      ],
+      "final": {
+        "characters": 27721,
+        "bubbles": 2,
+        "candidates": 0,
+        "styles": 1,
+        "fenceBlocks": 2
+      },
+      "optionBlocks": [
+        {
+          "sha256": "72e16fb66166e2f7192e24518a0f46782bca3c177c65dbb5be74154e8473e05f",
+          "characters": 8271
+        },
+        {
+          "sha256": "a3b5f46f8baa92aeef7cede5330db29f4dff6058dba922e1f6e350cbcbc1c213",
+          "characters": 6564
+        }
+      ],
+      "optionIntegrity": "exact parity with enabled external display regex sequence"
+    },
+    {
+      "name": "选项内同形对白不能变气泡",
+      "order": "bubble → Mee → Izumi",
+      "assumption": "相反顺序压力测试；不声称当前宿主如此分组",
+      "depth": 0,
+      "fixture": "史黛菈:「我们走吧。」\n玩家:『我准备好了。』\n<options>\n史黛菈:「选项文字。」\n</options>\n<selection>\n玩家:「选项文字。」\n</selection>",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 92,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "bubble",
+          "index": 0,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "name": "01 盾形对白 · 姓名与台词 v0.5",
+          "before": {
+            "characters": 92,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 483,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 2,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+          "name": "03 盾形对白 · 共享样式 v0.5",
+          "before": {
+            "characters": 483,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 12951,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "Mee",
+          "index": 23,
+          "id": "229e6f69-4a28-4a10-96d0-5cb55cb6d338",
+          "name": "选项美化-SillyTavern",
+          "before": {
+            "characters": 12951,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 19481,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 1
+          }
+        },
+        {
+          "stage": "Izumi",
+          "index": 2,
+          "id": "6d75d31a-05e7-4996-b681-05f5ca71187b",
+          "name": "0可爱美化选项栏（任意数量·不发送）",
+          "before": {
+            "characters": 19481,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 1
+          },
+          "after": {
+            "characters": 27721,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 2
+          }
+        }
+      ],
+      "final": {
+        "characters": 27721,
+        "bubbles": 2,
+        "candidates": 0,
+        "styles": 1,
+        "fenceBlocks": 2
+      },
+      "optionBlocks": [
+        {
+          "sha256": "72e16fb66166e2f7192e24518a0f46782bca3c177c65dbb5be74154e8473e05f",
+          "characters": 8271
+        },
+        {
+          "sha256": "a3b5f46f8baa92aeef7cede5330db29f4dff6058dba922e1f6e350cbcbc1c213",
+          "characters": 6564
+        }
+      ],
+      "optionIntegrity": "exact parity with enabled external display regex sequence"
+    },
+    {
+      "name": "既有旧楼层显示裁剪",
+      "order": "Mee → bubble",
+      "depth": 5,
+      "fixture": "史黛菈:「我们走吧。」\n玩家:『我准备好了。』\n<memory_log>中立记录。</memory_log>",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 54,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "Mee",
+          "index": 2,
+          "id": "aa5075ee-c051-46b5-ab17-757314a875b5",
+          "name": "display清空AI历史记录仅保留总结",
+          "before": {
+            "characters": 54,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 30,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "Mee",
+          "index": 16,
+          "id": "4080a87c-67bc-47a8-829f-929f6e9cd2d0",
+          "name": "剧情记忆归档美化",
+          "before": {
+            "characters": 30,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 1265,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        }
+      ],
+      "final": {
+        "characters": 1265,
+        "bubbles": 0,
+        "candidates": 0,
+        "styles": 0,
+        "fenceBlocks": 0
+      }
+    },
+    {
+      "name": "既有旧楼层显示裁剪",
+      "order": "bubble → Mee",
+      "depth": 5,
+      "fixture": "史黛菈:「我们走吧。」\n玩家:『我准备好了。』\n<memory_log>中立记录。</memory_log>",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 54,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "bubble",
+          "index": 0,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "name": "01 盾形对白 · 姓名与台词 v0.5",
+          "before": {
+            "characters": 54,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 445,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 2,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+          "name": "03 盾形对白 · 共享样式 v0.5",
+          "before": {
+            "characters": 445,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 12913,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "Mee",
+          "index": 2,
+          "id": "aa5075ee-c051-46b5-ab17-757314a875b5",
+          "name": "display清空AI历史记录仅保留总结",
+          "before": {
+            "characters": 12913,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 30,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "Mee",
+          "index": 16,
+          "id": "4080a87c-67bc-47a8-829f-929f6e9cd2d0",
+          "name": "剧情记忆归档美化",
+          "before": {
+            "characters": 30,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 1265,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        }
+      ],
+      "final": {
+        "characters": 1265,
+        "bubbles": 0,
+        "candidates": 0,
+        "styles": 0,
+        "fenceBlocks": 0
+      }
+    },
+    {
+      "name": "既有旧楼层显示裁剪",
+      "order": "global-Mee → preset-Izumi → scoped-bubble",
+      "depth": 5,
+      "fixture": "史黛菈:「我们走吧。」\n玩家:『我准备好了。』\n<memory_log>中立记录。</memory_log>",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 54,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "Mee",
+          "index": 2,
+          "id": "aa5075ee-c051-46b5-ab17-757314a875b5",
+          "name": "display清空AI历史记录仅保留总结",
+          "before": {
+            "characters": 54,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 30,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "Mee",
+          "index": 16,
+          "id": "4080a87c-67bc-47a8-829f-929f6e9cd2d0",
+          "name": "剧情记忆归档美化",
+          "before": {
+            "characters": 30,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 1265,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        }
+      ],
+      "final": {
+        "characters": 1265,
+        "bubbles": 0,
+        "candidates": 0,
+        "styles": 0,
+        "fenceBlocks": 0
+      }
+    },
+    {
+      "name": "既有旧楼层显示裁剪",
+      "order": "bubble → Mee → Izumi",
+      "depth": 5,
+      "fixture": "史黛菈:「我们走吧。」\n玩家:『我准备好了。』\n<memory_log>中立记录。</memory_log>",
+      "trace": [
+        {
+          "stage": "input",
+          "characters": 54,
+          "bubbles": 0,
+          "candidates": 0,
+          "styles": 0,
+          "fenceBlocks": 0
+        },
+        {
+          "stage": "bubble",
+          "index": 0,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "name": "01 盾形对白 · 姓名与台词 v0.5",
+          "before": {
+            "characters": 54,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 445,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "bubble",
+          "index": 2,
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+          "name": "03 盾形对白 · 共享样式 v0.5",
+          "before": {
+            "characters": 445,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 12913,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "Mee",
+          "index": 2,
+          "id": "aa5075ee-c051-46b5-ab17-757314a875b5",
+          "name": "display清空AI历史记录仅保留总结",
+          "before": {
+            "characters": 12913,
+            "bubbles": 2,
+            "candidates": 0,
+            "styles": 1,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 30,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        },
+        {
+          "stage": "Mee",
+          "index": 16,
+          "id": "4080a87c-67bc-47a8-829f-929f6e9cd2d0",
+          "name": "剧情记忆归档美化",
+          "before": {
+            "characters": 30,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          },
+          "after": {
+            "characters": 1265,
+            "bubbles": 0,
+            "candidates": 0,
+            "styles": 0,
+            "fenceBlocks": 0
+          }
+        }
+      ],
+      "final": {
+        "characters": 1265,
+        "bubbles": 0,
+        "candidates": 0,
+        "styles": 0,
+        "fenceBlocks": 0
+      }
+    }
+  ]
+}

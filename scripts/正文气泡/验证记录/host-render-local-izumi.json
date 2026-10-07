@@ -1,0 +1,1823 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-07T02:04:47.163Z",
+  "hostVersion": "1.18.0",
+  "artifactRef": "working-tree",
+  "replayProgramSha256": "6c66c3f4115f23a2afb70cb7d5849dac39337bcd006de55978d70736df8c6439",
+  "izumiEvidence": {
+    "id": "a1a57b61-8f66-4956-bd0c-386c0356e232",
+    "ruleSha256": "e7e93948d4699dda6896074bece880446e60354b0bb123fe0356c418c861c1da",
+    "replacementSha256": "d51ad8fe5527e5fa1e3abc9db260b20c022f80acdb1781def5ea14b3027e7458",
+    "derivedBareReplacementSha256": "36a1ab14368980692e15879b9cd06bb22ed1c004266fdc745700ae572956d062",
+    "fixture": "<think>中性思考。</think>\n<konatan_planning~>中性计划。</konatan_planning~>\n史黛菈:中性正文。",
+    "executedPresetScripts": false,
+    "scriptsExplicitlyForbiddenBeforeBrowserInsertion": true
+  },
+  "izumiLocalEvidence": {
+    "presetSha256": "588899351f35ab21c45e857c81a33336b03e1885ef34459034b170925eaef850",
+    "originalRulesSha256": "4f50b004b1e396bfca67d11ed4a5ae84af8ff192c96272254b67845ec59bd8c3",
+    "originalRulesCanonicalUnchanged": true,
+    "templateScope": {
+      "supportedRuleId": "a1a57b61-8f66-4956-bd0c-386c0356e232",
+      "supportedReplacementSha256": "36a1ab14368980692e15879b9cd06bb22ed1c004266fdc745700ae572956d062",
+      "unknownSourceTemplateRejectedByBuilder": true,
+      "arbitraryPresetRevisionsAccepted": false,
+      "runtimeRepair": "Only known fixed template bytes and owned boundaries; unknown runtime revisions remain unchanged/fail closed"
+    },
+    "originalRuleCount": 30,
+    "originalRules": [
+      {
+        "id": "716bb7d4-ede0-4504-9269-53330f5f6cb9",
+        "disabled": false,
+        "markdownOnly": true,
+        "promptOnly": false,
+        "placement": [
+          2
+        ],
+        "minDepth": null,
+        "maxDepth": null,
+        "ruleSha256": "df98c8f3268da3f1842ced691ebfb74122ac09217b3463df59944dec42a0f3f8"
+      },
+      {
+        "id": "eaa3a430-958d-413c-9bd3-7c43c1f8c2e6",
+        "disabled": false,
+        "markdownOnly": true,
+        "promptOnly": true,
+        "placement": [
+          2
+        ],
+        "minDepth": null,
+        "maxDepth": null,
+        "ruleSha256": "4e1f51b2dbc54c31a86b5875da4ac85871e3db3456efc0306aed4ae4bade243d"
+      },
+      {
+        "id": "6d75d31a-05e7-4996-b681-05f5ca71187b",
+        "disabled": false,
+        "markdownOnly": true,
+        "promptOnly": false,
+        "placement": [
+          1,
+          2
+        ],
+        "minDepth": null,
+        "maxDepth": 2,
+        "ruleSha256": "1734c91962a87cfb647aa9dcb43f62b9961714b6e72a70c1c7f10d1e96b8357a"
+      },
+      {
+        "id": "3985affa-af67-4c4a-a5c6-a853d212f209",
+        "disabled": true,
+        "markdownOnly": true,
+        "promptOnly": false,
+        "placement": [
+          1,
+          2
+        ],
+        "minDepth": null,
+        "maxDepth": 2,
+        "ruleSha256": "d0d2b5df6d6e13db2c688b522973a2e57ccf674de129a59cab4fd744d2fe9f7a"
+      },
+      {
+        "id": "18ac3aa0-48f2-48c9-843f-5fec393ebe35",
+        "disabled": false,
+        "markdownOnly": true,
+        "promptOnly": false,
+        "placement": [
+          2
+        ],
+        "minDepth": null,
+        "maxDepth": 5,
+        "ruleSha256": "4ddf47fb72976db5e47614fec6a7a417131594d1b7d836cc87c1ab378a4a80dd"
+      },
+      {
+        "id": "af0520bc-7399-4ef8-935f-9f1e4aa96be0",
+        "disabled": true,
+        "markdownOnly": true,
+        "promptOnly": false,
+        "placement": [
+          2
+        ],
+        "minDepth": null,
+        "maxDepth": 2,
+        "ruleSha256": "4a14a86950b749c1422b6f785219fc8481c573f21c8b4cbcd96e893024272c5e"
+      },
+      {
+        "id": "5c7c4aa4-304a-4d8c-a0a4-a142405477b7",
+        "disabled": true,
+        "markdownOnly": true,
+        "promptOnly": false,
+        "placement": [
+          2
+        ],
+        "minDepth": null,
+        "maxDepth": 2,
+        "ruleSha256": "a189ca534bada66ab9cc345bf2a55d703bf58d07f4e001654e04a3d57a0fcb12"
+      },
+      {
+        "id": "a1a57b61-8f66-4956-bd0c-386c0356e232",
+        "disabled": false,
+        "markdownOnly": true,
+        "promptOnly": false,
+        "placement": [
+          2
+        ],
+        "minDepth": null,
+        "maxDepth": 2,
+        "ruleSha256": "6f1f33c714a6a3b7b52423f422fd0f1745aa365bcc7a338a2a4d6fd5f19017b0"
+      },
+      {
+        "id": "ce63db67-3566-4c6f-bc46-43d4c2da990a",
+        "disabled": false,
+        "markdownOnly": true,
+        "promptOnly": true,
+        "placement": [
+          2
+        ],
+        "minDepth": null,
+        "maxDepth": null,
+        "ruleSha256": "046b0a7c54e51bba905153cd7cd083278e9f8d37e4458c87cd5e78a7dc607cf2"
+      },
+      {
+        "id": "c2b955d0-0ae2-4d35-8d94-e244705a0814",
+        "disabled": true,
+        "markdownOnly": true,
+        "promptOnly": false,
+        "placement": [
+          2
+        ],
+        "minDepth": null,
+        "maxDepth": null,
+        "ruleSha256": "e78a787ff764c9486048fb0bfa9ad91b617230970413adbb96c1f2a5f97a3f79"
+      },
+      {
+        "id": "8710e95a-8b83-44f4-9505-de1c83252225",
+        "disabled": false,
+        "markdownOnly": false,
+        "promptOnly": true,
+        "placement": [
+          2
+        ],
+        "minDepth": null,
+        "maxDepth": null,
+        "ruleSha256": "04b7d8968bbd54bbc8e8b1ef258b1983d1eed88b8261d47f6abecf557674ad57"
+      },
+      {
+        "id": "b06e650d-5467-498d-931b-bc76d81453bb",
+        "disabled": false,
+        "markdownOnly": true,
+        "promptOnly": true,
+        "placement": [
+          2
+        ],
+        "minDepth": 2,
+        "maxDepth": null,
+        "ruleSha256": "deb746764d44996081de815c44b784d6aa67b73a3d0a925b2e4be7674d916a81"
+      },
+      {
+        "id": "4c369a25-bf59-47bc-bcf5-510d02d6326d",
+        "disabled": true,
+        "markdownOnly": false,
+        "promptOnly": true,
+        "placement": [
+          2
+        ],
+        "minDepth": null,
+        "maxDepth": 10,
+        "ruleSha256": "50fdb8296be780bff4d979e8ae2c0bc6423e742a777f547322cb90a8f6e18dc1"
+      },
+      {
+        "id": "b9f51abf-13ad-4d57-aa1e-2a04a456ce98",
+        "disabled": true,
+        "markdownOnly": false,
+        "promptOnly": true,
+        "placement": [
+          2
+        ],
+        "minDepth": 11,
+        "maxDepth": null,
+        "ruleSha256": "817ab8299d7351c7476ae17b34e30fad9858f597ec307d9b0164141c75faff3f"
+      },
+      {
+        "id": "0d90e123-6f62-42b2-aa1a-1e19b71e9581",
+        "disabled": true,
+        "markdownOnly": true,
+        "promptOnly": false,
+        "placement": [
+          2
+        ],
+        "minDepth": null,
+        "maxDepth": 10,
+        "ruleSha256": "95176c4ad46e670c854ecd483c2c8afd470551ad33ec3b55f7a898e0a092b420"
+      },
+      {
+        "id": "cf29048e-fd3d-49c9-a18e-ad1ce5862a6e",
+        "disabled": false,
+        "markdownOnly": true,
+        "promptOnly": false,
+        "placement": [
+          1,
+          2
+        ],
+        "minDepth": null,
+        "maxDepth": 10,
+        "ruleSha256": "ee5621440c107ccf68af4e8a7aba171f098c0f7ab5985c39894a0ca45cb3d9e1"
+      },
+      {
+        "id": "e475633f-9e50-407c-81e8-9ee94758c2a8",
+        "disabled": true,
+        "markdownOnly": true,
+        "promptOnly": false,
+        "placement": [
+          1,
+          2
+        ],
+        "minDepth": null,
+        "maxDepth": 10,
+        "ruleSha256": "cc03a4a00f97a6333532f0a02c29e446a11ef6d73493eb831085aedb9d0d0804"
+      },
+      {
+        "id": "2026416e-2401-4ceb-8a92-800463ae50ef",
+        "disabled": true,
+        "markdownOnly": true,
+        "promptOnly": false,
+        "placement": [
+          1,
+          2
+        ],
+        "minDepth": null,
+        "maxDepth": 10,
+        "ruleSha256": "b724f8ceeb3004695c009683f1a35cd8b5ce6e374d4c75eab2df5291ac2c9db3"
+      },
+      {
+        "id": "7f4c0efa-733a-46a5-beab-d529e1291208",
+        "disabled": false,
+        "markdownOnly": true,
+        "promptOnly": false,
+        "placement": [
+          1,
+          2
+        ],
+        "minDepth": null,
+        "maxDepth": 10,
+        "ruleSha256": "8d477383c8bbeac45003f4835f0bd0754f9a3b36fce0bfc83a9d38e0a5e50155"
+      },
+      {
+        "id": "6ceb3992-4a13-4e03-b90d-8e3ed47b7d6f",
+        "disabled": false,
+        "markdownOnly": true,
+        "promptOnly": false,
+        "placement": [
+          2
+        ],
+        "minDepth": null,
+        "maxDepth": 2,
+        "ruleSha256": "006dacecd5e808a267548e5b5212efbc51f7e0240bf902f987eb0c463d9e2809"
+      },
+      {
+        "id": "a542e188-70c5-4364-9ef8-ffd78a39dd90",
+        "disabled": false,
+        "markdownOnly": false,
+        "promptOnly": true,
+        "placement": [
+          2
+        ],
+        "minDepth": 11,
+        "maxDepth": null,
+        "ruleSha256": "600edfcece0bede9dc6c39c6224211da87c2ab2154765a0e7c32db958d520880"
+      },
+      {
+        "id": "7dbe5b2a-72ca-4ebc-a5ba-e0291c9bf210",
+        "disabled": false,
+        "markdownOnly": false,
+        "promptOnly": true,
+        "placement": [
+          2
+        ],
+        "minDepth": 4,
+        "maxDepth": 10,
+        "ruleSha256": "65423d1a7f5af79562b60537f19b60660950440cd4f995f54fb1fa5f84c95a01"
+      },
+      {
+        "id": "7ea9ba2c-1fb0-403c-b62b-0425792734a8",
+        "disabled": false,
+        "markdownOnly": true,
+        "promptOnly": true,
+        "placement": [
+          1,
+          2
+        ],
+        "minDepth": 6,
+        "maxDepth": null,
+        "ruleSha256": "c473227f631176cc7cc6534c679db98b86224702933cd2b2dca387a391e43ba0"
+      },
+      {
+        "id": "b48d4b94-0408-4f27-b3e7-0bc1c9d6105f",
+        "disabled": false,
+        "markdownOnly": true,
+        "promptOnly": false,
+        "placement": [
+          2
+        ],
+        "minDepth": null,
+        "maxDepth": null,
+        "ruleSha256": "474614918a410b2e1a0fc86c6b2964e52280671911f97824700e20a4783ce102"
+      },
+      {
+        "id": "f5cd0208-8eb0-4aa0-9c2b-8e7bfe2bd528",
+        "disabled": false,
+        "markdownOnly": true,
+        "promptOnly": false,
+        "placement": [
+          1,
+          2
+        ],
+        "minDepth": null,
+        "maxDepth": 4,
+        "ruleSha256": "ebd508149e6d0198c263d3fcb5a511064f8c68d1537b2efa42b303fea2776e9c"
+      },
+      {
+        "id": "ce0ec3ab-7d23-409a-b90a-608bba26d413",
+        "disabled": false,
+        "markdownOnly": true,
+        "promptOnly": false,
+        "placement": [
+          1,
+          2
+        ],
+        "minDepth": null,
+        "maxDepth": 3,
+        "ruleSha256": "20088161c561790f9fd00984095e1cf2dcda715d212a65ecf90d5708ed41c207"
+      },
+      {
+        "id": "1b66712f-21a2-443e-b33d-e3557bb83dab",
+        "disabled": false,
+        "markdownOnly": false,
+        "promptOnly": true,
+        "placement": [
+          2
+        ],
+        "minDepth": 3,
+        "maxDepth": null,
+        "ruleSha256": "c8e25e0d8747c59a0f6017b2440ba46ca3b0e70130c464e43abbc91e5fd341da"
+      },
+      {
+        "id": "65a36f7f-56d5-486b-a66f-7a29b505348a",
+        "disabled": true,
+        "markdownOnly": true,
+        "promptOnly": false,
+        "placement": [
+          1,
+          2
+        ],
+        "minDepth": null,
+        "maxDepth": 3,
+        "ruleSha256": "79fc05674ce4ebaaff0ffbb2b4f86a50dec3195156edd3dd02bf4b28911611a2"
+      },
+      {
+        "id": "7fc09250-25bb-4c7a-9222-0a15f45bbfb9",
+        "disabled": true,
+        "markdownOnly": true,
+        "promptOnly": false,
+        "placement": [
+          1,
+          2
+        ],
+        "minDepth": null,
+        "maxDepth": 4,
+        "ruleSha256": "95d86a0b369135c1eb59e4ab39b01aca41e34b6248bdbbe11bb34fd0db4054b8"
+      },
+      {
+        "id": "926ee4b1-f089-4053-b0b2-5498353aac26",
+        "disabled": false,
+        "markdownOnly": false,
+        "promptOnly": true,
+        "placement": [
+          2
+        ],
+        "minDepth": null,
+        "maxDepth": null,
+        "ruleSha256": "09a27a2488591005a3ed15e3607c8f2f29d8ef0602c451de76163d403f476aed"
+      }
+    ],
+    "localArtifacts": {
+      "izumi-local-prefix": {
+        "id": "f426b5a6-56a3-48dc-96c2-0e4d6208e6e2",
+        "sha256": "32e37c8bc5a1a4b7d8d34f829e95822895a231acdd2b5b3ef93ff2e4fd6d9489"
+      },
+      "izumi-local-style": {
+        "id": "ace941a3-9609-4a8d-a9da-a42981401db8",
+        "sha256": "efc07347ee14da5bd58d6bacd6272ee54834c8f3173a7b57bcdab9fcc47889a0"
+      },
+      "izumi-local-planning-close": {
+        "id": "72f31f2b-ba16-4653-9fbc-5b52389c1129",
+        "sha256": "c75c0129db2299f0943bd4de8d942735de61fabb6a841a4ad6d2fdf3d63ad8e0"
+      }
+    },
+    "chain": [
+      "original preset regex data (PRESET, unchanged)",
+      "local compatibility 01/02/03 (SCOPED)",
+      "core 01/02/03 (SCOPED)"
+    ],
+    "registryAndEligibility": "Actual pinned getRegexScripts/getScriptsByType/getRegexedString; Markdown display, placement=2, depth=0 (latest assistant floor), both scopes allowed",
+    "executedPresetScripts": false,
+    "scriptsExplicitlyForbiddenBeforeBrowserInsertion": true
+  },
+  "sources": {
+    "public/script.js": {
+      "sha256LF": "606762e1e36805a12429708defcafac7287a3df78393813bf460c53524a27403"
+    },
+    "public/scripts/chats.js": {
+      "sha256LF": "2b870d44c55f99c622b5afcd7b1fd563219b9444bc70e8653611327d6e7f7be6"
+    },
+    "public/scripts/extensions/regex/engine.js": {
+      "sha256LF": "091bb3402a12552cf1754d6e4d2b44df38d3553aa374539896c716e78905d350"
+    },
+    "public/scripts/showdown-underscore.js": {
+      "sha256LF": "ffbb3fd54f7a0d3c973c8bf839188c767ed200948f00393875242bbce01e4835"
+    },
+    "public/scripts/util/stream-fadein.js": {
+      "sha256LF": "a3dfddb3a69431927b35d68739d29daefb199eae28564d916b083adf6f2bdb33"
+    },
+    "public/scripts/utils.js": {
+      "sha256LF": "7236069f0d6c95b0d959e3c574bc7acbd4dc088459371abf38a6a7a77a076067"
+    }
+  },
+  "dependencies": [
+    {
+      "name": "@adobe/css-tools",
+      "version": "4.4.4",
+      "url": "https://unpkg.com/@adobe/css-tools@4.4.4/dist/cjs/adobe-css-tools.cjs",
+      "sha256": "e4e01cf5995178a62a311a33b37c352ab69bac34825218c17bdd19bc7d35a527"
+    },
+    {
+      "name": "dompurify",
+      "version": "3.4.2",
+      "url": "https://unpkg.com/dompurify@3.4.2/dist/purify.cjs.js",
+      "sha256": "8af9bb19d1ddd1bfd8cfbded4768fc3fa76b5024e3b48e0c0e841151579d7a30"
+    },
+    {
+      "name": "showdown",
+      "version": "2.1.0",
+      "url": "https://unpkg.com/showdown@2.1.0/dist/showdown.js",
+      "sha256": "bc97235c81dd34b4c2d6b1b14e71eb54ce57144c4e55e7b2694e473947a7ac0b"
+    }
+  ],
+  "jsdomVersion": "29.1.1",
+  "artifacts": {
+    "dialogue-bubbles": {
+      "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+      "sha256": "ad3c7d89a8e6b9971e037ea610885b364bbb6c6b36e21ac3494017242cf23d61"
+    },
+    "dialogue-player-candidates": {
+      "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+      "sha256": "f35b706cda15d0f628252f4e1f20074e29283f1f424f1e5366d8988ba49b12d1"
+    },
+    "dialogue-bubble-style": {
+      "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+      "sha256": "24e708178a47126ff9680d972203e89071122f4ea90f0fff18444e2206e27209"
+    }
+  },
+  "neutralMessage": "史黛菈:中性验证。",
+  "cases": [
+    {
+      "name": "artifact-current",
+      "before": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 40,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "imageMapping": true,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      },
+      "after": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 40,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "imageMapping": true,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      },
+      "prefixRetained": true
+    },
+    {
+      "name": "artifact-current-media-blocked",
+      "before": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 9,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      },
+      "after": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 9,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      },
+      "prefixRetained": true
+    },
+    {
+      "name": "artifact-current-closed-fence-prefix",
+      "before": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 40,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "imageMapping": true,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      },
+      "after": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 40,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "imageMapping": true,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      },
+      "prefixRetained": true
+    },
+    {
+      "name": "artifact-current-unclosed-fence",
+      "before": {
+        "bubbles": 0,
+        "styleCount": 0,
+        "styleRules": null,
+        "styleChildren": null,
+        "hiddenContainers": 0,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      },
+      "after": {
+        "bubbles": 0,
+        "styleCount": 0,
+        "styleRules": null,
+        "styleChildren": null,
+        "hiddenContainers": 0,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      },
+      "prefixRetained": true
+    },
+    {
+      "name": "artifact-current-think-prefix",
+      "before": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 40,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "imageMapping": true,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [
+          "中性思考"
+        ],
+        "scripts": 0
+      },
+      "after": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 40,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "imageMapping": true,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [
+          "中性思考"
+        ],
+        "scripts": 0
+      },
+      "prefixRetained": true
+    },
+    {
+      "name": "artifact-current-user-macro-prefix",
+      "before": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 40,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "imageMapping": true,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      },
+      "after": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 40,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "imageMapping": true,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      },
+      "prefixRetained": true
+    },
+    {
+      "name": "bare-allowed",
+      "before": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 40,
+        "styleChildren": 0,
+        "hiddenContainers": 0,
+        "imageMapping": true,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      },
+      "after": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 0,
+        "styleChildren": 6813,
+        "hiddenContainers": 0,
+        "imageMapping": true,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      }
+    },
+    {
+      "name": "pre-hidden-allowed",
+      "before": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 40,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "imageMapping": true,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      },
+      "after": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 40,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "imageMapping": true,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      }
+    },
+    {
+      "name": "pre-hidden-media-blocked",
+      "before": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 9,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      },
+      "after": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 9,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      }
+    },
+    {
+      "name": "code-hidden-allowed",
+      "before": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 40,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "imageMapping": true,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      },
+      "after": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 40,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "imageMapping": true,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      }
+    },
+    {
+      "name": "closed-fence-elsewhere",
+      "formatted": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 40,
+        "styleChildren": 0,
+        "hiddenContainers": 0,
+        "imageMapping": true,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      }
+    },
+    {
+      "name": "ordinary-details",
+      "formatted": {
+        "bubbles": 0,
+        "styleCount": 0,
+        "styleRules": null,
+        "styleChildren": null,
+        "hiddenContainers": 0,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      }
+    },
+    {
+      "name": "parallel-details",
+      "formatted": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 40,
+        "styleChildren": 0,
+        "hiddenContainers": 0,
+        "imageMapping": true,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      }
+    },
+    {
+      "name": "div-context",
+      "formatted": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 40,
+        "styleChildren": 0,
+        "hiddenContainers": 0,
+        "imageMapping": true,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      }
+    },
+    {
+      "name": "span-context",
+      "formatted": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 40,
+        "styleChildren": 0,
+        "hiddenContainers": 0,
+        "imageMapping": true,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      }
+    },
+    {
+      "name": "bare-style-in-div",
+      "formatted": {
+        "bubbles": 0,
+        "styleCount": 1,
+        "styleRules": 1,
+        "styleChildren": 0,
+        "hiddenContainers": 0,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      },
+      "neutralHtml": "<div><style>.mes_text .custom-foo {\n  color: red;\n}</style><span class=\"custom-foo\" style=\"color:blue\">OK</span></div>"
+    },
+    {
+      "name": "bare-style-in-span",
+      "formatted": {
+        "bubbles": 0,
+        "styleCount": 1,
+        "styleRules": 1,
+        "styleChildren": 0,
+        "hiddenContainers": 0,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      },
+      "neutralHtml": "<p><span><style>.mes_text .custom-foo {\n  color: red;\n}</style><span class=\"custom-foo\" style=\"color:blue\">OK</span></span></p>"
+    },
+    {
+      "name": "attribute-style-in-div",
+      "formatted": {
+        "bubbles": 0,
+        "styleCount": 1,
+        "styleRules": 1,
+        "styleChildren": 0,
+        "hiddenContainers": 0,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      },
+      "neutralHtml": "<div><style data-test=\"neutral\">.foo{color:red}</style><span class=\"custom-foo\" style=\"color:blue\">OK</span></div>"
+    },
+    {
+      "name": "bare-style-at-root",
+      "formatted": {
+        "bubbles": 0,
+        "styleCount": 1,
+        "styleRules": 1,
+        "styleChildren": 0,
+        "hiddenContainers": 0,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      },
+      "neutralHtml": "<style>.mes_text .custom-foo {\n  color: red;\n}</style>\n<p><span class=\"custom-foo\">OK</span></p>"
+    },
+    {
+      "name": "attribute-style-at-root",
+      "formatted": {
+        "bubbles": 0,
+        "styleCount": 0,
+        "styleRules": null,
+        "styleChildren": null,
+        "hiddenContainers": 0,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [],
+        "scripts": 0
+      },
+      "neutralHtml": "<p><span class=\"custom-foo\">OK</span></p>"
+    },
+    {
+      "name": "izumi-artifact-current",
+      "before": {
+        "bubbles": 0,
+        "styleCount": 1,
+        "styleRules": 45,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 36,
+        "neutralOrder": [
+          "中性思考",
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0
+      },
+      "after": {
+        "bubbles": 0,
+        "styleCount": 1,
+        "styleRules": 45,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 36,
+        "neutralOrder": [
+          "中性思考",
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0
+      },
+      "textReplacementScriptCount": 1
+    },
+    {
+      "name": "izumi-original-bare-style",
+      "before": {
+        "bubbles": 0,
+        "styleCount": 1,
+        "styleRules": 45,
+        "styleChildren": 0,
+        "hiddenContainers": 0,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 36,
+        "neutralOrder": [
+          "中性思考",
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0
+      },
+      "after": {
+        "bubbles": 0,
+        "styleCount": 1,
+        "styleRules": 0,
+        "styleChildren": 3461,
+        "hiddenContainers": 0,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [
+          "中性思考",
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0
+      },
+      "textReplacementScriptCount": 1
+    },
+    {
+      "name": "izumi-pre-hidden-style",
+      "before": {
+        "bubbles": 0,
+        "styleCount": 1,
+        "styleRules": 45,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 36,
+        "neutralOrder": [
+          "中性思考",
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0
+      },
+      "after": {
+        "bubbles": 0,
+        "styleCount": 1,
+        "styleRules": 45,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 36,
+        "neutralOrder": [
+          "中性思考",
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0
+      },
+      "textReplacementScriptCount": 1
+    },
+    {
+      "name": "izumi-chain-without-local",
+      "fixture": "<konatan_planning~>中性计划。</konatan_planning~>\n\n史黛菈:中性正文。",
+      "localEnabled": false,
+      "duplicateLocal": false,
+      "before": {
+        "bubbles": 0,
+        "styleCount": 1,
+        "styleRules": 45,
+        "styleChildren": 0,
+        "hiddenContainers": 0,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 36,
+        "neutralOrder": [
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          45
+        ],
+        "styleChildrenTotal": 0,
+        "bubbleStyleRules": [],
+        "thinkingStyleRules": [
+          45
+        ],
+        "bubbleStyleChildren": 0,
+        "thinkingStyleChildren": 0,
+        "bubbleStylesHidden": 0,
+        "thinkingStylesHidden": 0,
+        "allImageMapping": false,
+        "bodyBubbles": 0,
+        "planningBubbles": 0,
+        "literalMacroPreserved": false
+      },
+      "after": {
+        "bubbles": 0,
+        "styleCount": 1,
+        "styleRules": 0,
+        "styleChildren": 3461,
+        "hiddenContainers": 0,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          0
+        ],
+        "styleChildrenTotal": 3461,
+        "bubbleStyleRules": [],
+        "thinkingStyleRules": [
+          0
+        ],
+        "bubbleStyleChildren": 0,
+        "thinkingStyleChildren": 3461,
+        "bubbleStylesHidden": 0,
+        "thinkingStylesHidden": 0,
+        "allImageMapping": false,
+        "bodyBubbles": 0,
+        "planningBubbles": 0,
+        "literalMacroPreserved": false
+      },
+      "repeatedRenderIdentical": true,
+      "duplicateLocalIdentical": true,
+      "sanitizedHtmlSha256": "9cce64c1c00d1aa56b05b8e01d9b97a700dee0ec50e0389e89194178a02a4bfe"
+    },
+    {
+      "name": "izumi-chain-planning",
+      "fixture": "<konatan_planning~>中性计划。</konatan_planning~>\n\n史黛菈:中性正文。",
+      "localEnabled": true,
+      "duplicateLocal": false,
+      "before": {
+        "bubbles": 1,
+        "styleCount": 2,
+        "styleRules": 45,
+        "styleChildren": 0,
+        "hiddenContainers": 2,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 36,
+        "neutralOrder": [
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          45,
+          40
+        ],
+        "styleChildrenTotal": 0,
+        "bubbleStyleRules": [
+          40
+        ],
+        "thinkingStyleRules": [
+          45
+        ],
+        "bubbleStyleChildren": 0,
+        "thinkingStyleChildren": 0,
+        "bubbleStylesHidden": 1,
+        "thinkingStylesHidden": 1,
+        "allImageMapping": true,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "literalMacroPreserved": false
+      },
+      "after": {
+        "bubbles": 1,
+        "styleCount": 2,
+        "styleRules": 45,
+        "styleChildren": 0,
+        "hiddenContainers": 2,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 36,
+        "neutralOrder": [
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          45,
+          40
+        ],
+        "styleChildrenTotal": 0,
+        "bubbleStyleRules": [
+          40
+        ],
+        "thinkingStyleRules": [
+          45
+        ],
+        "bubbleStyleChildren": 0,
+        "thinkingStyleChildren": 0,
+        "bubbleStylesHidden": 1,
+        "thinkingStylesHidden": 1,
+        "allImageMapping": true,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "literalMacroPreserved": false
+      },
+      "repeatedRenderIdentical": true,
+      "duplicateLocalIdentical": true,
+      "sanitizedHtmlSha256": "8793f8119a7312d7a9e6611f68dd9e8de7f1baa7361faa721a9fe6c2774d7034"
+    },
+    {
+      "name": "izumi-chain-think-planning",
+      "fixture": "<think>中性思考。</think>\n<konatan_planning~>中性计划。</konatan_planning~>\n\n史黛菈:中性正文。",
+      "localEnabled": true,
+      "duplicateLocal": false,
+      "before": {
+        "bubbles": 1,
+        "styleCount": 2,
+        "styleRules": 45,
+        "styleChildren": 0,
+        "hiddenContainers": 2,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 36,
+        "neutralOrder": [
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          45,
+          40
+        ],
+        "styleChildrenTotal": 0,
+        "bubbleStyleRules": [
+          40
+        ],
+        "thinkingStyleRules": [
+          45
+        ],
+        "bubbleStyleChildren": 0,
+        "thinkingStyleChildren": 0,
+        "bubbleStylesHidden": 1,
+        "thinkingStylesHidden": 1,
+        "allImageMapping": true,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "literalMacroPreserved": false
+      },
+      "after": {
+        "bubbles": 1,
+        "styleCount": 2,
+        "styleRules": 45,
+        "styleChildren": 0,
+        "hiddenContainers": 2,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 36,
+        "neutralOrder": [
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          45,
+          40
+        ],
+        "styleChildrenTotal": 0,
+        "bubbleStyleRules": [
+          40
+        ],
+        "thinkingStyleRules": [
+          45
+        ],
+        "bubbleStyleChildren": 0,
+        "thinkingStyleChildren": 0,
+        "bubbleStylesHidden": 1,
+        "thinkingStylesHidden": 1,
+        "allImageMapping": true,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "literalMacroPreserved": false
+      },
+      "repeatedRenderIdentical": true,
+      "duplicateLocalIdentical": true,
+      "sanitizedHtmlSha256": "8793f8119a7312d7a9e6611f68dd9e8de7f1baa7361faa721a9fe6c2774d7034"
+    },
+    {
+      "name": "izumi-chain-options",
+      "fixture": "<konatan_planning~>中性计划。</konatan_planning~>\n\n<options>\n1. 中性选项一\n2. 中性选项二\n</options>\n\n史黛菈:中性正文。",
+      "localEnabled": true,
+      "duplicateLocal": false,
+      "before": {
+        "bubbles": 1,
+        "styleCount": 2,
+        "styleRules": 45,
+        "styleChildren": 0,
+        "hiddenContainers": 2,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 36,
+        "neutralOrder": [
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          45,
+          40
+        ],
+        "styleChildrenTotal": 0,
+        "bubbleStyleRules": [
+          40
+        ],
+        "thinkingStyleRules": [
+          45
+        ],
+        "bubbleStyleChildren": 0,
+        "thinkingStyleChildren": 0,
+        "bubbleStylesHidden": 1,
+        "thinkingStylesHidden": 1,
+        "allImageMapping": true,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "literalMacroPreserved": false
+      },
+      "after": {
+        "bubbles": 1,
+        "styleCount": 2,
+        "styleRules": 45,
+        "styleChildren": 0,
+        "hiddenContainers": 2,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 36,
+        "neutralOrder": [
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          45,
+          40
+        ],
+        "styleChildrenTotal": 0,
+        "bubbleStyleRules": [
+          40
+        ],
+        "thinkingStyleRules": [
+          45
+        ],
+        "bubbleStyleChildren": 0,
+        "thinkingStyleChildren": 0,
+        "bubbleStylesHidden": 1,
+        "thinkingStylesHidden": 1,
+        "allImageMapping": true,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "literalMacroPreserved": false
+      },
+      "repeatedRenderIdentical": true,
+      "duplicateLocalIdentical": true,
+      "sanitizedHtmlSha256": "7f8b4b2011f2dcd85b74072f88833a71b046ee88afce4d9a2065687bdab3a280"
+    },
+    {
+      "name": "izumi-chain-literal-macro",
+      "fixture": "<konatan_planning~>中性计划。</konatan_planning~>\n\n<details><summary>中性说明</summary>宏字面量{{user}}</details>\n\n史黛菈:中性正文。",
+      "localEnabled": true,
+      "duplicateLocal": false,
+      "before": {
+        "bubbles": 1,
+        "styleCount": 2,
+        "styleRules": 45,
+        "styleChildren": 0,
+        "hiddenContainers": 2,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 36,
+        "neutralOrder": [
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          45,
+          40
+        ],
+        "styleChildrenTotal": 0,
+        "bubbleStyleRules": [
+          40
+        ],
+        "thinkingStyleRules": [
+          45
+        ],
+        "bubbleStyleChildren": 0,
+        "thinkingStyleChildren": 0,
+        "bubbleStylesHidden": 1,
+        "thinkingStylesHidden": 1,
+        "allImageMapping": true,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "literalMacroPreserved": true
+      },
+      "after": {
+        "bubbles": 1,
+        "styleCount": 2,
+        "styleRules": 45,
+        "styleChildren": 0,
+        "hiddenContainers": 2,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 36,
+        "neutralOrder": [
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          45,
+          40
+        ],
+        "styleChildrenTotal": 0,
+        "bubbleStyleRules": [
+          40
+        ],
+        "thinkingStyleRules": [
+          45
+        ],
+        "bubbleStyleChildren": 0,
+        "thinkingStyleChildren": 0,
+        "bubbleStylesHidden": 1,
+        "thinkingStylesHidden": 1,
+        "allImageMapping": true,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "literalMacroPreserved": true
+      },
+      "repeatedRenderIdentical": true,
+      "duplicateLocalIdentical": true,
+      "sanitizedHtmlSha256": "47b45dbb8141e4f9a84fe1c8020aa1ddafe88ee221a810317edc0eee61e0b13d"
+    },
+    {
+      "name": "izumi-chain-unclosed-raw-planning",
+      "fixture": "<konatan_planning~>中性计划。\n史黛菈:中性正文。",
+      "localEnabled": true,
+      "duplicateLocal": false,
+      "before": {
+        "bubbles": 0,
+        "styleCount": 0,
+        "styleRules": null,
+        "styleChildren": null,
+        "hiddenContainers": 0,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [],
+        "styleChildrenTotal": 0,
+        "bubbleStyleRules": [],
+        "thinkingStyleRules": [],
+        "bubbleStyleChildren": 0,
+        "thinkingStyleChildren": 0,
+        "bubbleStylesHidden": 0,
+        "thinkingStylesHidden": 0,
+        "allImageMapping": false,
+        "bodyBubbles": 0,
+        "planningBubbles": 0,
+        "literalMacroPreserved": false
+      },
+      "after": {
+        "bubbles": 0,
+        "styleCount": 0,
+        "styleRules": null,
+        "styleChildren": null,
+        "hiddenContainers": 0,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [],
+        "styleChildrenTotal": 0,
+        "bubbleStyleRules": [],
+        "thinkingStyleRules": [],
+        "bubbleStyleChildren": 0,
+        "thinkingStyleChildren": 0,
+        "bubbleStylesHidden": 0,
+        "thinkingStylesHidden": 0,
+        "allImageMapping": false,
+        "bodyBubbles": 0,
+        "planningBubbles": 0,
+        "literalMacroPreserved": false
+      },
+      "repeatedRenderIdentical": true,
+      "duplicateLocalIdentical": true,
+      "sanitizedHtmlSha256": "7ce0cc1525aecf542b782d4f82232ba4fda0c720cc257fc99f2b842722284f64"
+    },
+    {
+      "name": "izumi-chain-repeat-local",
+      "fixture": "<konatan_planning~>中性计划。</konatan_planning~>\n\n史黛菈:中性正文。",
+      "localEnabled": true,
+      "duplicateLocal": true,
+      "before": {
+        "bubbles": 1,
+        "styleCount": 2,
+        "styleRules": 45,
+        "styleChildren": 0,
+        "hiddenContainers": 2,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 36,
+        "neutralOrder": [
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          45,
+          40
+        ],
+        "styleChildrenTotal": 0,
+        "bubbleStyleRules": [
+          40
+        ],
+        "thinkingStyleRules": [
+          45
+        ],
+        "bubbleStyleChildren": 0,
+        "thinkingStyleChildren": 0,
+        "bubbleStylesHidden": 1,
+        "thinkingStylesHidden": 1,
+        "allImageMapping": true,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "literalMacroPreserved": false
+      },
+      "after": {
+        "bubbles": 1,
+        "styleCount": 2,
+        "styleRules": 45,
+        "styleChildren": 0,
+        "hiddenContainers": 2,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 36,
+        "neutralOrder": [
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          45,
+          40
+        ],
+        "styleChildrenTotal": 0,
+        "bubbleStyleRules": [
+          40
+        ],
+        "thinkingStyleRules": [
+          45
+        ],
+        "bubbleStyleChildren": 0,
+        "thinkingStyleChildren": 0,
+        "bubbleStylesHidden": 1,
+        "thinkingStylesHidden": 1,
+        "allImageMapping": true,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "literalMacroPreserved": false
+      },
+      "repeatedRenderIdentical": true,
+      "duplicateLocalIdentical": true,
+      "sanitizedHtmlSha256": "8793f8119a7312d7a9e6611f68dd9e8de7f1baa7361faa721a9fe6c2774d7034"
+    },
+    {
+      "name": "izumi-chain-media-blocked",
+      "fixture": "<konatan_planning~>中性计划。</konatan_planning~>\n\n史黛菈:中性正文。",
+      "localEnabled": true,
+      "duplicateLocal": false,
+      "before": {
+        "bubbles": 1,
+        "styleCount": 2,
+        "styleRules": 45,
+        "styleChildren": 0,
+        "hiddenContainers": 2,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 36,
+        "neutralOrder": [
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          45,
+          9
+        ],
+        "styleChildrenTotal": 0,
+        "bubbleStyleRules": [
+          9
+        ],
+        "thinkingStyleRules": [
+          45
+        ],
+        "bubbleStyleChildren": 0,
+        "thinkingStyleChildren": 0,
+        "bubbleStylesHidden": 1,
+        "thinkingStylesHidden": 1,
+        "allImageMapping": false,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "literalMacroPreserved": false
+      },
+      "after": {
+        "bubbles": 1,
+        "styleCount": 2,
+        "styleRules": 45,
+        "styleChildren": 0,
+        "hiddenContainers": 2,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 36,
+        "neutralOrder": [
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          45,
+          9
+        ],
+        "styleChildrenTotal": 0,
+        "bubbleStyleRules": [
+          9
+        ],
+        "thinkingStyleRules": [
+          45
+        ],
+        "bubbleStyleChildren": 0,
+        "thinkingStyleChildren": 0,
+        "bubbleStylesHidden": 1,
+        "thinkingStylesHidden": 1,
+        "allImageMapping": false,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "literalMacroPreserved": false
+      },
+      "repeatedRenderIdentical": true,
+      "duplicateLocalIdentical": true,
+      "sanitizedHtmlSha256": "5b21325c5c8b61c609c41caaa04187ab6a00555b3125fb1cb7c1b3a66bfa64ab"
+    },
+    {
+      "name": "izumi-chain-other-card",
+      "fixture": "<konatan_planning~>中性计划。</konatan_planning~>\n\n史黛菈:中性正文。",
+      "localEligible": false,
+      "activeAddonCount": 0,
+      "outputIdenticalWithAndWithoutLocal": true,
+      "before": {
+        "bubbles": 0,
+        "styleCount": 1,
+        "styleRules": 45,
+        "styleChildren": 0,
+        "hiddenContainers": 0,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 36,
+        "neutralOrder": [
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          45
+        ],
+        "styleChildrenTotal": 0,
+        "bubbleStyleRules": [],
+        "thinkingStyleRules": [
+          45
+        ],
+        "bubbleStyleChildren": 0,
+        "thinkingStyleChildren": 0,
+        "bubbleStylesHidden": 0,
+        "thinkingStylesHidden": 0,
+        "allImageMapping": false,
+        "bodyBubbles": 0,
+        "planningBubbles": 0,
+        "literalMacroPreserved": false
+      },
+      "after": {
+        "bubbles": 0,
+        "styleCount": 1,
+        "styleRules": 0,
+        "styleChildren": 3461,
+        "hiddenContainers": 0,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          0
+        ],
+        "styleChildrenTotal": 3461,
+        "bubbleStyleRules": [],
+        "thinkingStyleRules": [
+          0
+        ],
+        "bubbleStyleChildren": 0,
+        "thinkingStyleChildren": 3461,
+        "bubbleStylesHidden": 0,
+        "thinkingStylesHidden": 0,
+        "allImageMapping": false,
+        "bodyBubbles": 0,
+        "planningBubbles": 0,
+        "literalMacroPreserved": false
+      }
+    },
+    {
+      "name": "core-closed-fence-options-literal",
+      "fixture": "```html\n<options>\n```\n\n史黛菈:中性正文。",
+      "thirdPartyRegex": false,
+      "expectedBodyBubbles": 1,
+      "before": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 40,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "imageMapping": true,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          40
+        ],
+        "styleChildrenTotal": 0,
+        "bubbleStyleRules": [
+          40
+        ],
+        "thinkingStyleRules": [],
+        "bubbleStyleChildren": 0,
+        "thinkingStyleChildren": 0,
+        "bubbleStylesHidden": 1,
+        "thinkingStylesHidden": 0,
+        "allImageMapping": true,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "literalMacroPreserved": false
+      },
+      "after": {
+        "bubbles": 1,
+        "styleCount": 1,
+        "styleRules": 40,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "imageMapping": true,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          40
+        ],
+        "styleChildrenTotal": 0,
+        "bubbleStyleRules": [
+          40
+        ],
+        "thinkingStyleRules": [],
+        "bubbleStyleChildren": 0,
+        "thinkingStyleChildren": 0,
+        "bubbleStylesHidden": 1,
+        "thinkingStylesHidden": 0,
+        "allImageMapping": true,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "literalMacroPreserved": false
+      }
+    },
+    {
+      "name": "core-real-unclosed-options-across-fence",
+      "fixture": "<options>\n```html\n中性代码\n```\n\n史黛菈:中性正文。",
+      "thirdPartyRegex": false,
+      "expectedBodyBubbles": 0,
+      "before": {
+        "bubbles": 0,
+        "styleCount": 0,
+        "styleRules": null,
+        "styleChildren": null,
+        "hiddenContainers": 0,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [],
+        "styleChildrenTotal": 0,
+        "bubbleStyleRules": [],
+        "thinkingStyleRules": [],
+        "bubbleStyleChildren": 0,
+        "thinkingStyleChildren": 0,
+        "bubbleStylesHidden": 0,
+        "thinkingStylesHidden": 0,
+        "allImageMapping": false,
+        "bodyBubbles": 0,
+        "planningBubbles": 0,
+        "literalMacroPreserved": false
+      },
+      "after": {
+        "bubbles": 0,
+        "styleCount": 0,
+        "styleRules": null,
+        "styleChildren": null,
+        "hiddenContainers": 0,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [],
+        "styleChildrenTotal": 0,
+        "bubbleStyleRules": [],
+        "thinkingStyleRules": [],
+        "bubbleStyleChildren": 0,
+        "thinkingStyleChildren": 0,
+        "bubbleStylesHidden": 0,
+        "thinkingStylesHidden": 0,
+        "allImageMapping": false,
+        "bodyBubbles": 0,
+        "planningBubbles": 0,
+        "literalMacroPreserved": false
+      }
+    }
+  ],
+  "validationFailures": [],
+  "limits": [
+    "Not a complete ST runtime: arbitrary macros and other extensions are outside this replay. Local Izumi cases replay actual registry ordering and display/depth eligibility; legacy comparison cases directly run supplied rules.",
+    "Actual pinned host functions are used; settings and read-only user macro are supplied by the fixture.",
+    "jsdom CSSOM replay is distinct from browser verification; isolated browser results are recorded separately.",
+    "Original options HTML remains inert fenced code in the host replay; Tavern Helper iframe/option interactions and scripts are not exercised.",
+    "Character-local Izumi compatibility is limited to the known template hash, not permanent compatibility with all preset revisions.",
+    "No third-party preset/option scripts are executed; no host-head injection or media-policy bypass is applied."
+  ]
+}

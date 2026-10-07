@@ -349,7 +349,10 @@
   let rosterEditBusy = false;
   function emit(ev) {
     if (ev?.reset && !['show', 'correction-applied'].includes(ev.type)) { rosterEditRevision++; correctionHostReset(ev.type); }
-    playerBubbleBinder?.refresh();
+    const redraw = ['CHAT_CHANGED', 'MESSAGE_RECEIVED', 'MESSAGE_UPDATED', 'MESSAGE_EDITED',
+      'MESSAGE_SWIPED', 'MESSAGE_SWIPE_DELETED', 'MESSAGE_DELETED',
+      'CHARACTER_FIRST_MESSAGE_SELECTED', 'story-turn'].includes(ev?.type);
+    playerBubbleBinder?.refresh(redraw);
     updateCbs.forEach(cb => { try { cb(ev); } catch(_) {} });
   }
 
@@ -577,6 +580,8 @@
     }
 
     wireAutomaticCorrection(safeOn, TE);
+    // 纯显示重绘只修补头像，不使 MVU 来源或终端编辑草稿失效。
+    if (TE.CHARACTER_MESSAGE_RENDERED) safeOn(TE.CHARACTER_MESSAGE_RENDERED, () => playerBubbleBinder?.refresh(true));
 
     // 主生成开始前留下只读显示；新回复的 MVU 仍由框架独立结算。
     if (TE.GENERATION_AFTER_COMMANDS) safeOn(TE.GENERATION_AFTER_COMMANDS, (type, options = {}, dryRun = false) => {

@@ -1,0 +1,349 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-07T01:05:31.033Z",
+  "hostVersion": "1.18.0",
+  "sourceReplayReport": "host-render-current.json",
+  "sourceBrowserReport": "host-render-current-browser.json",
+  "sourceReplayReportSha256": "e5d65930758397bb81b1ade054563630f03927a36d2f1ff05d9edba2d8eba36d",
+  "sourceBrowserReportSha256": "6ecb0a21e166fdb74492826e8ece0acf262e74013092adb7ab0e57dfa1489dc7",
+  "replayProgramSha256": "28d76faf77d39d00cb70248188f1dfd75e3b1d25727e7f5c7dfbded3d27c4cc6",
+  "artifacts": {
+    "dialogue-bubbles": {
+      "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+      "sha256": "2043846ad59035bd6eeaabfb12340ff5b4209f07e52d93a861c5b28846eab4a7"
+    },
+    "dialogue-player-candidates": {
+      "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+      "sha256": "97ebe08ced405fa5e1a52f48c0d3f24b196f597b9db22779936bf9ad7e890cdc"
+    },
+    "dialogue-bubble-style": {
+      "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+      "sha256": "6c46564eca1c83098ab7e039a08ae4a0e530d4fff7055647e4c3b27b442dc49b"
+    }
+  },
+  "izumiEvidence": {
+    "id": "a1a57b61-8f66-4956-bd0c-386c0356e232",
+    "ruleSha256": "e7e93948d4699dda6896074bece880446e60354b0bb123fe0356c418c861c1da",
+    "replacementSha256": "d51ad8fe5527e5fa1e3abc9db260b20c022f80acdb1781def5ea14b3027e7458",
+    "derivedBareReplacementSha256": "36a1ab14368980692e15879b9cd06bb22ed1c004266fdc745700ae572956d062",
+    "fixture": "<think>中性思考。</think>\n<konatan_planning~>中性计划。</konatan_planning~>\n史黛菈:中性正文。",
+    "executedPresetScripts": false,
+    "scriptsExplicitlyForbiddenBeforeBrowserInsertion": true
+  },
+  "sources": {
+    "public/script.js": {
+      "sha256LF": "606762e1e36805a12429708defcafac7287a3df78393813bf460c53524a27403"
+    },
+    "public/scripts/chats.js": {
+      "sha256LF": "2b870d44c55f99c622b5afcd7b1fd563219b9444bc70e8653611327d6e7f7be6"
+    },
+    "public/scripts/extensions/regex/engine.js": {
+      "sha256LF": "091bb3402a12552cf1754d6e4d2b44df38d3553aa374539896c716e78905d350"
+    },
+    "public/scripts/showdown-underscore.js": {
+      "sha256LF": "ffbb3fd54f7a0d3c973c8bf839188c767ed200948f00393875242bbce01e4835"
+    },
+    "public/scripts/util/stream-fadein.js": {
+      "sha256LF": "a3dfddb3a69431927b35d68739d29daefb199eae28564d916b083adf6f2bdb33"
+    }
+  },
+  "dependencies": [
+    {
+      "name": "@adobe/css-tools",
+      "version": "4.4.4",
+      "url": "https://unpkg.com/@adobe/css-tools@4.4.4/dist/cjs/adobe-css-tools.cjs",
+      "sha256": "e4e01cf5995178a62a311a33b37c352ab69bac34825218c17bdd19bc7d35a527"
+    },
+    {
+      "name": "dompurify",
+      "version": "3.4.2",
+      "url": "https://unpkg.com/dompurify@3.4.2/dist/purify.cjs.js",
+      "sha256": "8af9bb19d1ddd1bfd8cfbded4768fc3fa76b5024e3b48e0c0e841151579d7a30"
+    },
+    {
+      "name": "showdown",
+      "version": "2.1.0",
+      "url": "https://unpkg.com/showdown@2.1.0/dist/showdown.js",
+      "sha256": "bc97235c81dd34b4c2d6b1b14e71eb54ce57144c4e55e7b2694e473947a7ac0b"
+    }
+  ],
+  "nodeCases": [
+    {
+      "name": "izumi-artifact-current",
+      "before": {
+        "bubbles": 0,
+        "styleCount": 1,
+        "styleRules": 45,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 36,
+        "neutralOrder": [
+          "中性思考",
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0
+      },
+      "after": {
+        "bubbles": 0,
+        "styleCount": 1,
+        "styleRules": 45,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 36,
+        "neutralOrder": [
+          "中性思考",
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0
+      },
+      "textReplacementScriptCount": 1
+    },
+    {
+      "name": "izumi-original-bare-style",
+      "before": {
+        "bubbles": 0,
+        "styleCount": 1,
+        "styleRules": 45,
+        "styleChildren": 0,
+        "hiddenContainers": 0,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 36,
+        "neutralOrder": [
+          "中性思考",
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0
+      },
+      "after": {
+        "bubbles": 0,
+        "styleCount": 1,
+        "styleRules": 0,
+        "styleChildren": 3461,
+        "hiddenContainers": 0,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [
+          "中性思考",
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0
+      },
+      "textReplacementScriptCount": 1
+    },
+    {
+      "name": "izumi-pre-hidden-style",
+      "before": {
+        "bubbles": 0,
+        "styleCount": 1,
+        "styleRules": 45,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 36,
+        "neutralOrder": [
+          "中性思考",
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0
+      },
+      "after": {
+        "bubbles": 0,
+        "styleCount": 1,
+        "styleRules": 45,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 36,
+        "neutralOrder": [
+          "中性思考",
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0
+      },
+      "textReplacementScriptCount": 1
+    }
+  ],
+  "browser": "Chrome 154 (native Windows browser via CUA)",
+  "browserCases": [
+    {
+      "name": "izumi-artifact-current",
+      "before": {
+        "bubbles": 0,
+        "styleCount": 1,
+        "styleRules": 45,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 36,
+        "neutralOrder": [
+          "中性思考",
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "firstChildType": 3,
+        "hiddenContainerDisplay": "none",
+        "image": null,
+        "bubbleDisplay": null,
+        "thinkingWrapperTop": 55.333335876464844,
+        "thinkingContentTop": 103.2737045288086,
+        "thinkingContentDisplay": "block"
+      },
+      "after": {
+        "bubbles": 0,
+        "styleCount": 1,
+        "styleRules": 45,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 36,
+        "neutralOrder": [
+          "中性思考",
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "firstChildType": 3,
+        "hiddenContainerDisplay": "none",
+        "image": null,
+        "bubbleDisplay": null,
+        "thinkingWrapperTop": 55.333335876464844,
+        "thinkingContentTop": 103.2737045288086,
+        "thinkingContentDisplay": "block"
+      }
+    },
+    {
+      "name": "izumi-original-bare-style",
+      "before": {
+        "bubbles": 0,
+        "styleCount": 1,
+        "styleRules": 45,
+        "styleChildren": 0,
+        "hiddenContainers": 0,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 36,
+        "neutralOrder": [
+          "中性思考",
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "firstChildType": 3,
+        "hiddenContainerDisplay": "block",
+        "image": null,
+        "bubbleDisplay": null,
+        "thinkingWrapperTop": 55.333335876464844,
+        "thinkingContentTop": 103.2737045288086,
+        "thinkingContentDisplay": "block"
+      },
+      "after": {
+        "bubbles": 0,
+        "styleCount": 1,
+        "styleRules": 0,
+        "styleChildren": 3475,
+        "hiddenContainers": 0,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 0,
+        "neutralOrder": [
+          "中性思考",
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "firstChildType": 1,
+        "hiddenContainerDisplay": "block",
+        "image": null,
+        "bubbleDisplay": null,
+        "thinkingWrapperTop": 55.333335876464844,
+        "thinkingContentTop": 78.66667175292969,
+        "thinkingContentDisplay": "block"
+      }
+    },
+    {
+      "name": "izumi-pre-hidden-style",
+      "before": {
+        "bubbles": 0,
+        "styleCount": 1,
+        "styleRules": 45,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 36,
+        "neutralOrder": [
+          "中性思考",
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "firstChildType": 3,
+        "hiddenContainerDisplay": "none",
+        "image": null,
+        "bubbleDisplay": null,
+        "thinkingWrapperTop": 55.333335876464844,
+        "thinkingContentTop": 103.2737045288086,
+        "thinkingContentDisplay": "block"
+      },
+      "after": {
+        "bubbles": 0,
+        "styleCount": 1,
+        "styleRules": 45,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "imageMapping": false,
+        "cssError": false,
+        "konataRules": 36,
+        "neutralOrder": [
+          "中性思考",
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "firstChildType": 3,
+        "hiddenContainerDisplay": "none",
+        "image": null,
+        "bubbleDisplay": null,
+        "thinkingWrapperTop": 55.333335876464844,
+        "thinkingContentTop": 103.2737045288086,
+        "thinkingContentDisplay": "block"
+      }
+    }
+  ],
+  "acceptance": {
+    "currentArtifactStyleRulesBefore": 45,
+    "currentArtifactStyleRulesAfter": 45,
+    "currentArtifactThinkingRulesBefore": 36,
+    "currentArtifactThinkingRulesAfter": 36,
+    "currentArtifactStyleElementChildrenAfter": 0,
+    "currentArtifactThinkingContentTopBefore": 103.2737045288086,
+    "currentArtifactThinkingContentTopAfter": 103.2737045288086,
+    "neutralTextOrderPreserved": true,
+    "presetScriptsExecuted": false,
+    "originalBareReplacementRecoveredByteForByte": true
+  },
+  "limits": [
+    "Isolated neutral fixtures using extracted pinned ST 1.18 formatting and segmentation, not a logged-in live SillyTavern session.",
+    "Preset scripts and inline replacement scripts were not executed; scripts and iframe explicitly forbidden before DOM insertion.",
+    "No user theme, custom CSS, third-party runtime postprocessor, browser viewport override or full ST stylesheet loaded.",
+    "Native Chrome checks segmentTextInElement directly after the actual messageFormatting pipeline; full morphdom and application lifecycle remain pending.",
+    "Media-policy denial retains image:none; the fix does not override the host media gate."
+  ]
+}

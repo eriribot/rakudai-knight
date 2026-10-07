@@ -10,11 +10,16 @@ const rules = contents.map(bytes => JSON.parse(bytes.toString('utf8')));
 assert.deepEqual(rules, buildRules(), '导入文件必须与当前维护源码完全一致');
 const candidateLine = '  朝阳 ：  我先走了。  ';
 const html = applyRules('史黛菈:一起走吧。\n一辉:好。\n玩家:我准备好了。\n' + candidateLine, rules);
-const counts = {scripts: 0, bubbles: 0, candidates: 0, styles: 0};
+const counts = {scripts: 0, bubbles: 0, candidates: 0, styles: 0, hiddenStyles:0};
 const candidateSources = [];
 function visit(node) {
   if (node.tagName === 'script') counts.scripts++;
   if (node.tagName === 'style') counts.styles++;
+  if (node.tagName === 'pre' && node.attrs?.some(a => a.name === 'hidden')) {
+    const elements = (node.childNodes || []).filter(child => child.tagName);
+    assert.deepEqual(elements.map(child => child.tagName), ['style'], '隐藏pre只能包样式，不能包正文');
+    counts.hiddenStyles++;
+  }
   if (node.tagName === 'div' && node.attrs?.some(a => a.name === 'data-rkd' && a.value === 'bubble')) counts.bubbles++;
   if (node.tagName === 'span' && node.attrs?.some(a => a.name === 'data-rkd' && a.value === 'candidate')) counts.candidates++;
   if (node.tagName === 'span' && node.attrs?.some(a => a.name === 'data-rkd-source')) {
@@ -24,7 +29,7 @@ function visit(node) {
   for (const child of node.childNodes || []) visit(child);
 }
 visit(parseFragment(html));
-assert.deepEqual(counts, {scripts: 0, bubbles: 3, candidates: 1, styles: 1});
+assert.deepEqual(counts, {scripts: 0, bubbles: 3, candidates: 1, styles: 1,hiddenStyles:1});
 assert.deepEqual(candidateSources, [candidateLine], '候选姓名、分隔符和空白均须原样保留');
 // Same style-tag acceptance boundary as ST 1.18.0 chats.js encodeStyleTags.
 assert.equal([...html.matchAll(/<style>(.+?)<\/style>/gims)].length, 1,

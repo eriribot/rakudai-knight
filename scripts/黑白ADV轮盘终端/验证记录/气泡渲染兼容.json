@@ -1,0 +1,357 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-07T02:08:08.731Z",
+  "status": "passed-with-live-runtime-pending",
+  "deliveryMode": "component",
+  "versions": {
+    "bubbles": "0.5",
+    "phone": "1.3.20",
+    "hostReference": "1.18.0"
+  },
+  "scope": "Current-character display fixes; original public Izumi rules and source preset remain unchanged",
+  "artifacts": [
+    {
+      "file": "scripts/正文气泡/发布/components/dialogue-bubbles.regex.json",
+      "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+      "sha256": "ad3c7d89a8e6b9971e037ea610885b364bbb6c6b36e21ac3494017242cf23d61"
+    },
+    {
+      "file": "scripts/正文气泡/发布/components/dialogue-player-candidates.regex.json",
+      "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+      "sha256": "f35b706cda15d0f628252f4e1f20074e29283f1f424f1e5366d8988ba49b12d1"
+    },
+    {
+      "file": "scripts/正文气泡/发布/components/dialogue-bubble-style.regex.json",
+      "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+      "sha256": "24e708178a47126ff9680d972203e89071122f4ea90f0fff18444e2206e27209"
+    },
+    {
+      "file": "scripts/正文气泡/发布/Izumi本卡兼容/components/izumi-local-prefix.regex.json",
+      "id": "f426b5a6-56a3-48dc-96c2-0e4d6208e6e2",
+      "sha256": "32e37c8bc5a1a4b7d8d34f829e95822895a231acdd2b5b3ef93ff2e4fd6d9489"
+    },
+    {
+      "file": "scripts/正文气泡/发布/Izumi本卡兼容/components/izumi-local-style.regex.json",
+      "id": "ace941a3-9609-4a8d-a9da-a42981401db8",
+      "sha256": "efc07347ee14da5bd58d6bacd6272ee54834c8f3173a7b57bcdab9fcc47889a0"
+    },
+    {
+      "file": "scripts/正文气泡/发布/Izumi本卡兼容/components/izumi-local-planning-close.regex.json",
+      "id": "72f31f2b-ba16-4653-9fbc-5b52389c1129",
+      "sha256": "c75c0129db2299f0943bd4de8d942735de61fabb6a841a4ad6d2fdf3d63ad8e0"
+    },
+    {
+      "file": "世界书规则/MVU/落第骑士-小手机-v1.3.20.json",
+      "id": "ee190b2f-d2ba-44b4-9f1b-0695c07fefc5",
+      "sha256": "d0017a48e5e9069f064b8d8cb13dff2960ff8e02288334630913c655233bb3ca"
+    }
+  ],
+  "fixes": [
+    "Position-based lexical protection ignores tag/comment/attribute literals inside closed fences; real unclosed scopes remain protected",
+    "Known original Izumi template receives a current-character prefix/style/closing-boundary adapter after unchanged original rules",
+    "CSS only is protected by hidden pre against stream segmentation, preserving media filtering",
+    "Display insertion does not refill narrative or expand its literal macros",
+    "Previously built phone v1.3.20 retains portrait binding repair after descendant redraw"
+  ],
+  "tests": [
+    {
+      "name": "dialogue rules",
+      "passed": 434,
+      "total": 434,
+      "report": "scripts/正文气泡/验证记录/check-results.json"
+    },
+    {
+      "name": "regex performance including cold start",
+      "passed": 14,
+      "total": 14,
+      "report": "scripts/正文气泡/验证记录/performance-check.json"
+    },
+    {
+      "name": "original Izumi current-character compatibility",
+      "passed": 23,
+      "total": 23,
+      "report": "scripts/正文气泡/验证记录/izumi-local-check.json"
+    },
+    {
+      "name": "independent lexical boundary review",
+      "passed": 108,
+      "total": 108,
+      "failed": 0,
+      "failures": [],
+      "report": "scripts/正文气泡/验证记录/lexical-context-review.json"
+    },
+    {
+      "name": "source and import artifact parity",
+      "status": "passed",
+      "report": "scripts/正文气泡/验证记录/artifact-check.json"
+    },
+    {
+      "name": "player store, binder and settings UI",
+      "passed": 84,
+      "total": 84,
+      "command": "node --test scripts/黑白ADV轮盘终端/player-portrait-service-test.mjs scripts/黑白ADV轮盘终端/player-bubble-binder-test.mjs scripts/黑白ADV轮盘终端/player-portrait-ui-test.mjs"
+    },
+    {
+      "name": "shell event lifecycle",
+      "passed": 11,
+      "total": 11,
+      "command": "node scripts/黑白ADV轮盘终端/shell-test.mjs"
+    },
+    {
+      "name": "phone artifact packaging",
+      "passed": 9,
+      "total": 9,
+      "command": "node scripts/黑白ADV轮盘终端/packaging-test.mjs"
+    },
+    {
+      "name": "avatar catalog",
+      "passed": 17,
+      "total": 17,
+      "command": "node scripts/黑白ADV轮盘终端/avatar-test.mjs"
+    },
+    {
+      "name": "native browser player binder",
+      "passed": 13,
+      "total": 13,
+      "report": "scripts/黑白ADV轮盘终端/验证记录/气泡头像浏览器.json"
+    },
+    {
+      "name": "pinned original Izumi/local registry and render replay",
+      "completedCases": 34,
+      "validationFailures": 0,
+      "report": "scripts/正文气泡/验证记录/host-render-local-izumi.json"
+    },
+    {
+      "name": "root native browser cold regex probe",
+      "passed": 3,
+      "total": 3,
+      "report": "scripts/正文气泡/验证记录/host-render-local-izumi-root-browser.json"
+    },
+    {
+      "name": "root native browser positive render cases",
+      "passed": 12,
+      "total": 12,
+      "report": "scripts/正文气泡/验证记录/host-render-local-izumi-root-browser.json"
+    }
+  ],
+  "independentCaseReview": {
+    "currentFreeze": {
+      "passed": 108,
+      "total": 108,
+      "sourceSha256": {
+        "context": "5d24512978429da26d5a327fb9c0512a393022e9ba938acb024723ebb7145ae4",
+        "build": "5484491b97f5e135d3e2c3368a470d27af10bddcf026ae7ec274df83ebf270fa"
+      },
+      "report": "scripts/正文气泡/验证记录/lexical-context-review.json"
+    },
+    "historicalVariants": {
+      "npcAsciiVariants": {
+        "passed": 274,
+        "total": 274
+      },
+      "protectedHtmlCaseVariants": {
+        "passed": 31,
+        "total": 31
+      },
+      "playerUnicodeCaseNfkc": {
+        "passed": 4,
+        "total": 4
+      },
+      "evidence": "Read-only isolated JavaScript review by avatar_settings; no product edits"
+    }
+  },
+  "nativeBrowser": {
+    "surface": "Root CUA in-app browser, Chrome 154",
+    "fixture": "http://127.0.0.1:18979/",
+    "productArtifactHashesMatched": true,
+    "observedCases": 24,
+    "positiveCases": 12,
+    "bubbleCssRules": [
+      40,
+      40
+    ],
+    "mediaForbiddenCssRules": [
+      9,
+      9
+    ],
+    "izumiCssRules": [
+      45,
+      45
+    ],
+    "styleSegmentChildren": 0,
+    "coldRegex": [
+      {
+        "name": "ordinary",
+        "expected": 1,
+        "actual": 1,
+        "coldMs": 17.1,
+        "passed": true
+      },
+      {
+        "name": "closed-fence-options-literal",
+        "expected": 1,
+        "actual": 1,
+        "coldMs": 0.1,
+        "passed": true
+      },
+      {
+        "name": "real-unclosed-options-across-fence",
+        "expected": 0,
+        "actual": 0,
+        "coldMs": 0.2,
+        "passed": true
+      }
+    ],
+    "report": "scripts/正文气泡/验证记录/host-render-local-izumi-root-browser.json",
+    "evidenceSha256": "848c232236ef5fb7f9fa2f9430180dcd9e18495df424089aa2cf7678e3f59e65",
+    "scriptsExecuted": false
+  },
+  "preservation": {
+    "downloadsUnchanged": [
+      {
+        "file": "Izumi 1002.json",
+        "sha256": "588899351f35ab21c45e857c81a33336b03e1885ef34459034b170925eaef850",
+        "bytes": 1346933
+      },
+      {
+        "file": "咩咩预设 - ver 5.8.1.json",
+        "sha256": "4e7b0e7c8ff3affe92a66004b96d7366774e2ee47c174865381aa55e3709d40f",
+        "bytes": 368114
+      },
+      {
+        "file": "咩咩预设-专用正则-ver7.1-大字体版(PC端推荐).json",
+        "sha256": "f1215cc83aff154b9c37666cf1cf76764beb55648e6cb5080f78949ea573ed97",
+        "bytes": 65416
+      }
+    ],
+    "izumiPresetNotWritten": true,
+    "izumiChangedFields": [],
+    "izumi": {
+      "presetFileNotWritten": true,
+      "publicRuleChanges": 0,
+      "originalRuleCount": 30,
+      "originalRulesCanonicalUnchanged": true,
+      "originalRulesSha256": "4f50b004b1e396bfca67d11ed4a5ae84af8ff192c96272254b67845ec59bd8c3"
+    },
+    "reusedMvu": [
+      {
+        "file": "世界书规则/MVU/落第骑士-MVU-v4字段约束.json",
+        "id": "06117475-a08c-4d78-a886-3d26426c4b37",
+        "sha256": "5bcaaedf23077fda01f81917ca247edda16231923e25d8cf9ddcdf92baa8cde6",
+        "enabled": true
+      },
+      {
+        "file": "世界书规则/MVU/落第骑士-MVU-原生兼容-N03.json",
+        "id": "0ad18dbe-5a59-4cad-acfd-50c2bce0d9ec",
+        "sha256": "a42e6122f97f6a0ff2c7d674f3545e0aa01712c9bb2a326ea69475ca94835b87",
+        "enabled": true
+      },
+      {
+        "file": "世界书规则/MVU/落第骑士-开局页面-N04.regex.json",
+        "id": "4f9bda79-82bd-4d2f-9a66-2497349df26e",
+        "sha256": "070da1a7a17070d5d695827271db6aacfa9c5aaf6c34a9662a6f7aff006bb278",
+        "enabled": true
+      }
+    ],
+    "noOutputWrites": true,
+    "noLiveChatWrites": true,
+    "noThirdPartyScriptsExecuted": true,
+    "noModelRequest": true,
+    "regexScope": {
+      "otherCardActiveAddonCount": 0,
+      "otherCardHtmlIdentical": true,
+      "eligibility": "Actual pinned getRegexScripts({allowedOnly:true}) registry gate",
+      "conditionalOnScopedInstallation": true
+    }
+  },
+  "acceptanceSignal": "In native Chrome, the final local Izumi chain retains 40 bubble and 45 Izumi CSS rules after segmentation; options followed by dialogue yield one body bubble; a different card excludes all local adapters and produces identical baseline HTML",
+  "pending": [
+    "Live Tavern import and current player theme/extension ordering",
+    "Complete generation, swipe and chat reload lifecycle in the live host",
+    "Option iframe interaction and third-party scripts",
+    "Remote avatar image availability"
+  ],
+  "realSillyTavern": {
+    "status": "not run",
+    "reason": "The attempted local Tavern URL required unavailable browser authentication"
+  },
+  "fullLegacySuite": "Not rerun for this component change; no claim of a fully green legacy suite",
+  "cleanup": {
+    "temporaryFixturePorts": [
+      18975,
+      18976,
+      18977,
+      18978,
+      18979
+    ],
+    "closed": true,
+    "remainingListeners": 0
+  },
+  "installation": {
+    "regexGroup": "Explicitly import the six regex components as SCOPED/current character and enable character regex",
+    "nativeImport": "Imports append with new UUID; remove/disable old copies manually",
+    "order": [
+      "original Izumi rule, if already SCOPED",
+      "local prefix",
+      "local style",
+      "local planning close",
+      "core 01",
+      "core 02",
+      "core 03"
+    ],
+    "scopeNotEncodedInRegexJson": true,
+    "guide": "scripts/黑白ADV轮盘终端/QUICKSTART.md"
+  },
+  "historicalArtifacts": [
+    {
+      "file": "scripts/正文气泡/发布/Izumi兼容/components/izumi-planning-compat.regex.json",
+      "id": "a1a57b61-8f66-4956-bd0c-386c0356e232",
+      "sha256": "e7e93948d4699dda6896074bece880446e60354b0bb123fe0356c418c861c1da"
+    }
+  ],
+  "legacyValidation": {
+    "name": "Direct-rule-revision display regex combinations, retained as historical comparison",
+    "passed": 39,
+    "total": 39,
+    "traces": 40,
+    "report": "scripts/正文气泡/验证记录/preset-compatibility-trace.json",
+    "provesNewLocalScheme": false
+  },
+  "historicalNativeBrowser": {
+    "surface": "Root CUA in-app browser, Chrome 154",
+    "fixture": "http://127.0.0.1:18978/",
+    "productArtifactHashesMatched": true,
+    "bubbleCssRules": [
+      40,
+      40
+    ],
+    "mediaForbiddenCssRules": [
+      9,
+      9
+    ],
+    "izumiCssRules": [
+      45,
+      45
+    ],
+    "izumiKonataSelectors": [
+      36,
+      36
+    ],
+    "styleSegmentChildren": 0,
+    "thinkingContentTopBeforeAfter": [
+      103.2737045288086,
+      103.2737045288086
+    ],
+    "scriptsExecuted": false,
+    "report": "scripts/正文气泡/验证记录/host-render-current-browser.json",
+    "evidenceSha256": "6ecb0a21e166fdb74492826e8ece0acf262e74013092adb7ab0e57dfa1489dc7",
+    "izumiFinalReport": "scripts/正文气泡/验证记录/izumi-host-style-current.json"
+  },
+  "templateScope": {
+    "supportedRuleId": "a1a57b61-8f66-4956-bd0c-386c0356e232",
+    "supportedReplacementSha256": "36a1ab14368980692e15879b9cd06bb22ed1c004266fdc745700ae572956d062",
+    "unknownSourceTemplateRejectedByBuilder": true,
+    "arbitraryPresetRevisionsAccepted": false,
+    "runtimeRepair": "Only known fixed template bytes and owned boundaries; unknown runtime revisions remain unchanged/fail closed"
+  }
+}

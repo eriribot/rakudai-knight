@@ -1,0 +1,1628 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-07T02:09:26.995Z",
+  "hostVersion": "1.18.0",
+  "captureMethod": "CUA Chrome #results JSON fully read; common numeric fields cross-checked with host-render-local-izumi.json and observed native CSS segmentation/layout values manually transcribed. Compact observation, not an automatic file export.",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+  "url": "http://127.0.0.1:18979/",
+  "coldRegex": {
+    "ruleId": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+    "parserSourceSha256LF": "7236069f0d6c95b0d959e3c574bc7acbd4dc088459371abf38a6a7a77a076067",
+    "artifacts": {
+      "dialogue-bubbles": {
+        "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+        "sha256": "ad3c7d89a8e6b9971e037ea610885b364bbb6c6b36e21ac3494017242cf23d61",
+        "findRegexSha256": "2f01358359474f7b6880beb4867e16b1d310bdb667403949cc496532bf983b88"
+      },
+      "dialogue-player-candidates": {
+        "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+        "sha256": "f35b706cda15d0f628252f4e1f20074e29283f1f424f1e5366d8988ba49b12d1",
+        "findRegexSha256": "5fbe54b1ed8bdaed4393aac30785c6219059794b208fadc6bd1b958fdcbf6069"
+      },
+      "dialogue-bubble-style": {
+        "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+        "sha256": "24e708178a47126ff9680d972203e89071122f4ea90f0fff18444e2206e27209",
+        "findRegexSha256": "f12734013359274bb9e618caf4dbd8e0e868f02f283f93bf9dd03f1099c689bd"
+      }
+    },
+    "neutralFindRegexSha256": "b16117d1bf67ed353fc6a1d71f1ce0c204f53850a2638a2e7d31874d886a3694",
+    "userMacro": "Replaced literally by (?!) for a neutral no-persona probe; no macro engine or preset scripts run",
+    "sourceDataContainsThreeFinalCoreFindAndReplace": true,
+    "firstCorePatternExecutionInPage": true,
+    "cases": [
+      {
+        "name": "cold-ordinary",
+        "expectedCount": 1,
+        "actualCount": 1,
+        "passed": true,
+        "parsed": true,
+        "coldMs": 19.59999999962747
+      },
+      {
+        "name": "cold-closed-fence-options-literal",
+        "expectedCount": 1,
+        "actualCount": 1,
+        "passed": true,
+        "parsed": true,
+        "coldMs": 0.10000000055879354
+      },
+      {
+        "name": "cold-real-unclosed-options-across-fence",
+        "expectedCount": 0,
+        "actualCount": 0,
+        "passed": true,
+        "parsed": true,
+        "coldMs": 0.20000000018626451
+      }
+    ]
+  },
+  "cases": [
+    {
+      "name": "artifact-current",
+      "before": {
+        "bubbles": 1,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "styleCount": 1,
+        "styleRules": 40,
+        "konataRules": 0,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "neutralOrder": [],
+        "scripts": 0,
+        "styleRuleCounts": [
+          40
+        ],
+        "styleHiddenContainerDisplays": [
+          "none"
+        ],
+        "image": "url(\"https://eriribot.github.io/rakudai-knight/resource/knightavatars/stella.png\")",
+        "bubbleDisplay": "flex",
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": null,
+        "thinkingContentTop": null,
+        "thinkingContentDisplay": null
+      },
+      "after": {
+        "bubbles": 1,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "styleCount": 1,
+        "styleRules": 40,
+        "konataRules": 0,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "neutralOrder": [],
+        "scripts": 0,
+        "styleRuleCounts": [
+          40
+        ],
+        "styleHiddenContainerDisplays": [
+          "none"
+        ],
+        "image": "url(\"https://eriribot.github.io/rakudai-knight/resource/knightavatars/stella.png\")",
+        "bubbleDisplay": "flex",
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": null,
+        "thinkingContentTop": null,
+        "thinkingContentDisplay": null
+      }
+    },
+    {
+      "name": "artifact-current-media-blocked",
+      "before": {
+        "bubbles": 1,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "styleCount": 1,
+        "styleRules": 9,
+        "konataRules": 0,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "neutralOrder": [],
+        "scripts": 0,
+        "styleRuleCounts": [
+          9
+        ],
+        "styleHiddenContainerDisplays": [
+          "none"
+        ],
+        "image": "none",
+        "bubbleDisplay": "flex",
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": null,
+        "thinkingContentTop": null,
+        "thinkingContentDisplay": null
+      },
+      "after": {
+        "bubbles": 1,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "styleCount": 1,
+        "styleRules": 9,
+        "konataRules": 0,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "neutralOrder": [],
+        "scripts": 0,
+        "styleRuleCounts": [
+          9
+        ],
+        "styleHiddenContainerDisplays": [
+          "none"
+        ],
+        "image": "none",
+        "bubbleDisplay": "flex",
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": null,
+        "thinkingContentTop": null,
+        "thinkingContentDisplay": null
+      }
+    },
+    {
+      "name": "artifact-current-closed-fence-prefix",
+      "before": {
+        "bubbles": 1,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "styleCount": 1,
+        "styleRules": 40,
+        "konataRules": 0,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "neutralOrder": [],
+        "scripts": 0,
+        "styleRuleCounts": [
+          40
+        ],
+        "styleHiddenContainerDisplays": [
+          "none"
+        ],
+        "image": "url(\"https://eriribot.github.io/rakudai-knight/resource/knightavatars/stella.png\")",
+        "bubbleDisplay": "flex",
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": null,
+        "thinkingContentTop": null,
+        "thinkingContentDisplay": null
+      },
+      "after": {
+        "bubbles": 1,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "styleCount": 1,
+        "styleRules": 40,
+        "konataRules": 0,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "neutralOrder": [],
+        "scripts": 0,
+        "styleRuleCounts": [
+          40
+        ],
+        "styleHiddenContainerDisplays": [
+          "none"
+        ],
+        "image": "url(\"https://eriribot.github.io/rakudai-knight/resource/knightavatars/stella.png\")",
+        "bubbleDisplay": "flex",
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": null,
+        "thinkingContentTop": null,
+        "thinkingContentDisplay": null
+      }
+    },
+    {
+      "name": "artifact-current-unclosed-fence",
+      "before": {
+        "bubbles": 0,
+        "bodyBubbles": 0,
+        "planningBubbles": 0,
+        "styleCount": 0,
+        "styleRules": null,
+        "konataRules": 0,
+        "styleChildren": null,
+        "hiddenContainers": 0,
+        "neutralOrder": [],
+        "scripts": 0,
+        "styleRuleCounts": [],
+        "styleHiddenContainerDisplays": [],
+        "image": null,
+        "bubbleDisplay": null,
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": null,
+        "thinkingContentTop": null,
+        "thinkingContentDisplay": null
+      },
+      "after": {
+        "bubbles": 0,
+        "bodyBubbles": 0,
+        "planningBubbles": 0,
+        "styleCount": 0,
+        "styleRules": null,
+        "konataRules": 0,
+        "styleChildren": null,
+        "hiddenContainers": 0,
+        "neutralOrder": [],
+        "scripts": 0,
+        "styleRuleCounts": [],
+        "styleHiddenContainerDisplays": [],
+        "image": null,
+        "bubbleDisplay": null,
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": null,
+        "thinkingContentTop": null,
+        "thinkingContentDisplay": null
+      }
+    },
+    {
+      "name": "artifact-current-think-prefix",
+      "before": {
+        "bubbles": 1,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "styleCount": 1,
+        "styleRules": 40,
+        "konataRules": 0,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "neutralOrder": [
+          "中性思考"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          40
+        ],
+        "styleHiddenContainerDisplays": [
+          "none"
+        ],
+        "image": "url(\"https://eriribot.github.io/rakudai-knight/resource/knightavatars/stella.png\")",
+        "bubbleDisplay": "flex",
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": null,
+        "thinkingContentTop": null,
+        "thinkingContentDisplay": null
+      },
+      "after": {
+        "bubbles": 1,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "styleCount": 1,
+        "styleRules": 40,
+        "konataRules": 0,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "neutralOrder": [
+          "中性思考"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          40
+        ],
+        "styleHiddenContainerDisplays": [
+          "none"
+        ],
+        "image": "url(\"https://eriribot.github.io/rakudai-knight/resource/knightavatars/stella.png\")",
+        "bubbleDisplay": "flex",
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": null,
+        "thinkingContentTop": null,
+        "thinkingContentDisplay": null
+      }
+    },
+    {
+      "name": "artifact-current-user-macro-prefix",
+      "before": {
+        "bubbles": 1,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "styleCount": 1,
+        "styleRules": 40,
+        "konataRules": 0,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "neutralOrder": [],
+        "scripts": 0,
+        "styleRuleCounts": [
+          40
+        ],
+        "styleHiddenContainerDisplays": [
+          "none"
+        ],
+        "image": "url(\"https://eriribot.github.io/rakudai-knight/resource/knightavatars/stella.png\")",
+        "bubbleDisplay": "flex",
+        "literalMacroPreserved": true,
+        "thinkingWrapperTop": null,
+        "thinkingContentTop": null,
+        "thinkingContentDisplay": null
+      },
+      "after": {
+        "bubbles": 1,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "styleCount": 1,
+        "styleRules": 40,
+        "konataRules": 0,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "neutralOrder": [],
+        "scripts": 0,
+        "styleRuleCounts": [
+          40
+        ],
+        "styleHiddenContainerDisplays": [
+          "none"
+        ],
+        "image": "url(\"https://eriribot.github.io/rakudai-knight/resource/knightavatars/stella.png\")",
+        "bubbleDisplay": "flex",
+        "literalMacroPreserved": true,
+        "thinkingWrapperTop": null,
+        "thinkingContentTop": null,
+        "thinkingContentDisplay": null
+      }
+    },
+    {
+      "name": "bare-allowed",
+      "before": {
+        "bubbles": 1,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "styleCount": 1,
+        "styleRules": 40,
+        "konataRules": 0,
+        "styleChildren": 0,
+        "hiddenContainers": 0,
+        "neutralOrder": [],
+        "scripts": 0,
+        "styleRuleCounts": [
+          40
+        ],
+        "styleHiddenContainerDisplays": [
+          null
+        ],
+        "image": "url(\"https://eriribot.github.io/rakudai-knight/resource/knightavatars/stella.png\")",
+        "bubbleDisplay": "flex",
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": null,
+        "thinkingContentTop": null,
+        "thinkingContentDisplay": null
+      },
+      "after": {
+        "bubbles": 1,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "styleCount": 1,
+        "styleRules": 0,
+        "konataRules": 0,
+        "styleChildren": 7001,
+        "hiddenContainers": 0,
+        "neutralOrder": [],
+        "scripts": 0,
+        "styleRuleCounts": [
+          0
+        ],
+        "styleHiddenContainerDisplays": [
+          null
+        ],
+        "image": "none",
+        "bubbleDisplay": "block",
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": null,
+        "thinkingContentTop": null,
+        "thinkingContentDisplay": null
+      }
+    },
+    {
+      "name": "pre-hidden-allowed",
+      "before": {
+        "bubbles": 1,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "styleCount": 1,
+        "styleRules": 40,
+        "konataRules": 0,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "neutralOrder": [],
+        "scripts": 0,
+        "styleRuleCounts": [
+          40
+        ],
+        "styleHiddenContainerDisplays": [
+          "none"
+        ],
+        "image": "url(\"https://eriribot.github.io/rakudai-knight/resource/knightavatars/stella.png\")",
+        "bubbleDisplay": "flex",
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": null,
+        "thinkingContentTop": null,
+        "thinkingContentDisplay": null
+      },
+      "after": {
+        "bubbles": 1,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "styleCount": 1,
+        "styleRules": 40,
+        "konataRules": 0,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "neutralOrder": [],
+        "scripts": 0,
+        "styleRuleCounts": [
+          40
+        ],
+        "styleHiddenContainerDisplays": [
+          "none"
+        ],
+        "image": "url(\"https://eriribot.github.io/rakudai-knight/resource/knightavatars/stella.png\")",
+        "bubbleDisplay": "flex",
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": null,
+        "thinkingContentTop": null,
+        "thinkingContentDisplay": null
+      }
+    },
+    {
+      "name": "pre-hidden-media-blocked",
+      "before": {
+        "bubbles": 1,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "styleCount": 1,
+        "styleRules": 9,
+        "konataRules": 0,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "neutralOrder": [],
+        "scripts": 0,
+        "styleRuleCounts": [
+          9
+        ],
+        "styleHiddenContainerDisplays": [
+          "none"
+        ],
+        "image": "none",
+        "bubbleDisplay": "flex",
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": null,
+        "thinkingContentTop": null,
+        "thinkingContentDisplay": null
+      },
+      "after": {
+        "bubbles": 1,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "styleCount": 1,
+        "styleRules": 9,
+        "konataRules": 0,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "neutralOrder": [],
+        "scripts": 0,
+        "styleRuleCounts": [
+          9
+        ],
+        "styleHiddenContainerDisplays": [
+          "none"
+        ],
+        "image": "none",
+        "bubbleDisplay": "flex",
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": null,
+        "thinkingContentTop": null,
+        "thinkingContentDisplay": null
+      }
+    },
+    {
+      "name": "code-hidden-allowed",
+      "before": {
+        "bubbles": 1,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "styleCount": 1,
+        "styleRules": 40,
+        "konataRules": 0,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "neutralOrder": [],
+        "scripts": 0,
+        "styleRuleCounts": [
+          40
+        ],
+        "styleHiddenContainerDisplays": [
+          "none"
+        ],
+        "image": "url(\"https://eriribot.github.io/rakudai-knight/resource/knightavatars/stella.png\")",
+        "bubbleDisplay": "flex",
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": null,
+        "thinkingContentTop": null,
+        "thinkingContentDisplay": null
+      },
+      "after": {
+        "bubbles": 1,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "styleCount": 1,
+        "styleRules": 40,
+        "konataRules": 0,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "neutralOrder": [],
+        "scripts": 0,
+        "styleRuleCounts": [
+          40
+        ],
+        "styleHiddenContainerDisplays": [
+          "none"
+        ],
+        "image": "url(\"https://eriribot.github.io/rakudai-knight/resource/knightavatars/stella.png\")",
+        "bubbleDisplay": "flex",
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": null,
+        "thinkingContentTop": null,
+        "thinkingContentDisplay": null
+      }
+    },
+    {
+      "name": "izumi-artifact-current",
+      "before": {
+        "bubbles": 0,
+        "bodyBubbles": 0,
+        "planningBubbles": 0,
+        "styleCount": 1,
+        "styleRules": 45,
+        "konataRules": 36,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "neutralOrder": [
+          "中性思考",
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          45
+        ],
+        "styleHiddenContainerDisplays": [
+          "none"
+        ],
+        "image": null,
+        "bubbleDisplay": null,
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": 55.333335876464844,
+        "thinkingContentTop": 103.2737045288086,
+        "thinkingContentDisplay": "block"
+      },
+      "after": {
+        "bubbles": 0,
+        "bodyBubbles": 0,
+        "planningBubbles": 0,
+        "styleCount": 1,
+        "styleRules": 45,
+        "konataRules": 36,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "neutralOrder": [
+          "中性思考",
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          45
+        ],
+        "styleHiddenContainerDisplays": [
+          "none"
+        ],
+        "image": null,
+        "bubbleDisplay": null,
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": 55.333335876464844,
+        "thinkingContentTop": 103.2737045288086,
+        "thinkingContentDisplay": "block"
+      }
+    },
+    {
+      "name": "izumi-original-bare-style",
+      "before": {
+        "bubbles": 0,
+        "bodyBubbles": 0,
+        "planningBubbles": 0,
+        "styleCount": 1,
+        "styleRules": 45,
+        "konataRules": 36,
+        "styleChildren": 0,
+        "hiddenContainers": 0,
+        "neutralOrder": [
+          "中性思考",
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          45
+        ],
+        "styleHiddenContainerDisplays": [
+          null
+        ],
+        "image": null,
+        "bubbleDisplay": null,
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": 55.333335876464844,
+        "thinkingContentTop": 103.2737045288086,
+        "thinkingContentDisplay": "block"
+      },
+      "after": {
+        "bubbles": 0,
+        "bodyBubbles": 0,
+        "planningBubbles": 0,
+        "styleCount": 1,
+        "styleRules": 0,
+        "konataRules": 0,
+        "styleChildren": 3475,
+        "hiddenContainers": 0,
+        "neutralOrder": [
+          "中性思考",
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          0
+        ],
+        "styleHiddenContainerDisplays": [
+          null
+        ],
+        "image": null,
+        "bubbleDisplay": null,
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": 55.333335876464844,
+        "thinkingContentTop": 78.66667175292969,
+        "thinkingContentDisplay": "block"
+      }
+    },
+    {
+      "name": "izumi-pre-hidden-style",
+      "before": {
+        "bubbles": 0,
+        "bodyBubbles": 0,
+        "planningBubbles": 0,
+        "styleCount": 1,
+        "styleRules": 45,
+        "konataRules": 36,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "neutralOrder": [
+          "中性思考",
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          45
+        ],
+        "styleHiddenContainerDisplays": [
+          "none"
+        ],
+        "image": null,
+        "bubbleDisplay": null,
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": 55.333335876464844,
+        "thinkingContentTop": 103.2737045288086,
+        "thinkingContentDisplay": "block"
+      },
+      "after": {
+        "bubbles": 0,
+        "bodyBubbles": 0,
+        "planningBubbles": 0,
+        "styleCount": 1,
+        "styleRules": 45,
+        "konataRules": 36,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "neutralOrder": [
+          "中性思考",
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          45
+        ],
+        "styleHiddenContainerDisplays": [
+          "none"
+        ],
+        "image": null,
+        "bubbleDisplay": null,
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": 55.333335876464844,
+        "thinkingContentTop": 103.2737045288086,
+        "thinkingContentDisplay": "block"
+      }
+    },
+    {
+      "name": "izumi-chain-without-local",
+      "before": {
+        "bubbles": 0,
+        "bodyBubbles": 0,
+        "planningBubbles": 0,
+        "styleCount": 1,
+        "styleRules": 45,
+        "konataRules": 36,
+        "styleChildren": 0,
+        "hiddenContainers": 0,
+        "neutralOrder": [
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          45
+        ],
+        "styleHiddenContainerDisplays": [
+          null
+        ],
+        "image": null,
+        "bubbleDisplay": null,
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": 10,
+        "thinkingContentTop": 57.94036865234375,
+        "thinkingContentDisplay": "block",
+        "bubbleStyleRules": [],
+        "thinkingStyleRules": [
+          45
+        ],
+        "bubbleStylesHidden": 0,
+        "thinkingStylesHidden": 0
+      },
+      "after": {
+        "bubbles": 0,
+        "bodyBubbles": 0,
+        "planningBubbles": 0,
+        "styleCount": 1,
+        "styleRules": 0,
+        "konataRules": 0,
+        "styleChildren": 3475,
+        "hiddenContainers": 0,
+        "neutralOrder": [
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          0
+        ],
+        "styleHiddenContainerDisplays": [
+          null
+        ],
+        "image": null,
+        "bubbleDisplay": null,
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": 8,
+        "thinkingContentTop": 31.33333396911621,
+        "thinkingContentDisplay": "block",
+        "bubbleStyleRules": [],
+        "thinkingStyleRules": [
+          0
+        ],
+        "bubbleStylesHidden": 0,
+        "thinkingStylesHidden": 0
+      }
+    },
+    {
+      "name": "izumi-chain-planning",
+      "before": {
+        "bubbles": 1,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "styleCount": 2,
+        "styleRules": 45,
+        "konataRules": 36,
+        "styleChildren": 0,
+        "hiddenContainers": 2,
+        "neutralOrder": [
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          45,
+          40
+        ],
+        "styleHiddenContainerDisplays": [
+          "none",
+          "none"
+        ],
+        "image": "url(\"https://eriribot.github.io/rakudai-knight/resource/knightavatars/stella.png\")",
+        "bubbleDisplay": "flex",
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": 10,
+        "thinkingContentTop": 57.94036865234375,
+        "thinkingContentDisplay": "block",
+        "bubbleStyleRules": [
+          40
+        ],
+        "thinkingStyleRules": [
+          45
+        ],
+        "bubbleStylesHidden": 1,
+        "thinkingStylesHidden": 1
+      },
+      "after": {
+        "bubbles": 1,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "styleCount": 2,
+        "styleRules": 45,
+        "konataRules": 36,
+        "styleChildren": 0,
+        "hiddenContainers": 2,
+        "neutralOrder": [
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          45,
+          40
+        ],
+        "styleHiddenContainerDisplays": [
+          "none",
+          "none"
+        ],
+        "image": "url(\"https://eriribot.github.io/rakudai-knight/resource/knightavatars/stella.png\")",
+        "bubbleDisplay": "flex",
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": 10,
+        "thinkingContentTop": 57.94036865234375,
+        "thinkingContentDisplay": "block",
+        "bubbleStyleRules": [
+          40
+        ],
+        "thinkingStyleRules": [
+          45
+        ],
+        "bubbleStylesHidden": 1,
+        "thinkingStylesHidden": 1
+      }
+    },
+    {
+      "name": "izumi-chain-think-planning",
+      "before": {
+        "bubbles": 1,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "styleCount": 2,
+        "styleRules": 45,
+        "konataRules": 36,
+        "styleChildren": 0,
+        "hiddenContainers": 2,
+        "neutralOrder": [
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          45,
+          40
+        ],
+        "styleHiddenContainerDisplays": [
+          "none",
+          "none"
+        ],
+        "image": "url(\"https://eriribot.github.io/rakudai-knight/resource/knightavatars/stella.png\")",
+        "bubbleDisplay": "flex",
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": 10,
+        "thinkingContentTop": 57.94036865234375,
+        "thinkingContentDisplay": "block",
+        "bubbleStyleRules": [
+          40
+        ],
+        "thinkingStyleRules": [
+          45
+        ],
+        "bubbleStylesHidden": 1,
+        "thinkingStylesHidden": 1
+      },
+      "after": {
+        "bubbles": 1,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "styleCount": 2,
+        "styleRules": 45,
+        "konataRules": 36,
+        "styleChildren": 0,
+        "hiddenContainers": 2,
+        "neutralOrder": [
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          45,
+          40
+        ],
+        "styleHiddenContainerDisplays": [
+          "none",
+          "none"
+        ],
+        "image": "url(\"https://eriribot.github.io/rakudai-knight/resource/knightavatars/stella.png\")",
+        "bubbleDisplay": "flex",
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": 10,
+        "thinkingContentTop": 57.94036865234375,
+        "thinkingContentDisplay": "block",
+        "bubbleStyleRules": [
+          40
+        ],
+        "thinkingStyleRules": [
+          45
+        ],
+        "bubbleStylesHidden": 1,
+        "thinkingStylesHidden": 1
+      }
+    },
+    {
+      "name": "izumi-chain-options",
+      "before": {
+        "bubbles": 1,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "styleCount": 2,
+        "styleRules": 45,
+        "konataRules": 36,
+        "styleChildren": 0,
+        "hiddenContainers": 2,
+        "neutralOrder": [
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          45,
+          40
+        ],
+        "styleHiddenContainerDisplays": [
+          "none",
+          "none"
+        ],
+        "image": "url(\"https://eriribot.github.io/rakudai-knight/resource/knightavatars/stella.png\")",
+        "bubbleDisplay": "flex",
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": 10,
+        "thinkingContentTop": 57.94036865234375,
+        "thinkingContentDisplay": "block",
+        "bubbleStyleRules": [
+          40
+        ],
+        "thinkingStyleRules": [
+          45
+        ],
+        "bubbleStylesHidden": 1,
+        "thinkingStylesHidden": 1
+      },
+      "after": {
+        "bubbles": 1,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "styleCount": 2,
+        "styleRules": 45,
+        "konataRules": 36,
+        "styleChildren": 0,
+        "hiddenContainers": 2,
+        "neutralOrder": [
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          45,
+          40
+        ],
+        "styleHiddenContainerDisplays": [
+          "none",
+          "none"
+        ],
+        "image": "url(\"https://eriribot.github.io/rakudai-knight/resource/knightavatars/stella.png\")",
+        "bubbleDisplay": "flex",
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": 10,
+        "thinkingContentTop": 57.94036865234375,
+        "thinkingContentDisplay": "block",
+        "bubbleStyleRules": [
+          40
+        ],
+        "thinkingStyleRules": [
+          45
+        ],
+        "bubbleStylesHidden": 1,
+        "thinkingStylesHidden": 1
+      }
+    },
+    {
+      "name": "izumi-chain-literal-macro",
+      "before": {
+        "bubbles": 1,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "styleCount": 2,
+        "styleRules": 45,
+        "konataRules": 36,
+        "styleChildren": 0,
+        "hiddenContainers": 2,
+        "neutralOrder": [
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          45,
+          40
+        ],
+        "styleHiddenContainerDisplays": [
+          "none",
+          "none"
+        ],
+        "image": "url(\"https://eriribot.github.io/rakudai-knight/resource/knightavatars/stella.png\")",
+        "bubbleDisplay": "flex",
+        "literalMacroPreserved": true,
+        "thinkingWrapperTop": 10,
+        "thinkingContentTop": 57.94036865234375,
+        "thinkingContentDisplay": "block",
+        "bubbleStyleRules": [
+          40
+        ],
+        "thinkingStyleRules": [
+          45
+        ],
+        "bubbleStylesHidden": 1,
+        "thinkingStylesHidden": 1
+      },
+      "after": {
+        "bubbles": 1,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "styleCount": 2,
+        "styleRules": 45,
+        "konataRules": 36,
+        "styleChildren": 0,
+        "hiddenContainers": 2,
+        "neutralOrder": [
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          45,
+          40
+        ],
+        "styleHiddenContainerDisplays": [
+          "none",
+          "none"
+        ],
+        "image": "url(\"https://eriribot.github.io/rakudai-knight/resource/knightavatars/stella.png\")",
+        "bubbleDisplay": "flex",
+        "literalMacroPreserved": true,
+        "thinkingWrapperTop": 10,
+        "thinkingContentTop": 57.94036865234375,
+        "thinkingContentDisplay": "block",
+        "bubbleStyleRules": [
+          40
+        ],
+        "thinkingStyleRules": [
+          45
+        ],
+        "bubbleStylesHidden": 1,
+        "thinkingStylesHidden": 1
+      }
+    },
+    {
+      "name": "izumi-chain-unclosed-raw-planning",
+      "before": {
+        "bubbles": 0,
+        "bodyBubbles": 0,
+        "planningBubbles": 0,
+        "styleCount": 0,
+        "styleRules": null,
+        "konataRules": 0,
+        "styleChildren": null,
+        "hiddenContainers": 0,
+        "neutralOrder": [
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [],
+        "styleHiddenContainerDisplays": [],
+        "image": null,
+        "bubbleDisplay": null,
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": null,
+        "thinkingContentTop": null,
+        "thinkingContentDisplay": null,
+        "bubbleStyleRules": [],
+        "thinkingStyleRules": [],
+        "bubbleStylesHidden": 0,
+        "thinkingStylesHidden": 0
+      },
+      "after": {
+        "bubbles": 0,
+        "bodyBubbles": 0,
+        "planningBubbles": 0,
+        "styleCount": 0,
+        "styleRules": null,
+        "konataRules": 0,
+        "styleChildren": null,
+        "hiddenContainers": 0,
+        "neutralOrder": [
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [],
+        "styleHiddenContainerDisplays": [],
+        "image": null,
+        "bubbleDisplay": null,
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": null,
+        "thinkingContentTop": null,
+        "thinkingContentDisplay": null,
+        "bubbleStyleRules": [],
+        "thinkingStyleRules": [],
+        "bubbleStylesHidden": 0,
+        "thinkingStylesHidden": 0
+      }
+    },
+    {
+      "name": "izumi-chain-repeat-local",
+      "before": {
+        "bubbles": 1,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "styleCount": 2,
+        "styleRules": 45,
+        "konataRules": 36,
+        "styleChildren": 0,
+        "hiddenContainers": 2,
+        "neutralOrder": [
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          45,
+          40
+        ],
+        "styleHiddenContainerDisplays": [
+          "none",
+          "none"
+        ],
+        "image": "url(\"https://eriribot.github.io/rakudai-knight/resource/knightavatars/stella.png\")",
+        "bubbleDisplay": "flex",
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": 10,
+        "thinkingContentTop": 57.94036865234375,
+        "thinkingContentDisplay": "block",
+        "bubbleStyleRules": [
+          40
+        ],
+        "thinkingStyleRules": [
+          45
+        ],
+        "bubbleStylesHidden": 1,
+        "thinkingStylesHidden": 1
+      },
+      "after": {
+        "bubbles": 1,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "styleCount": 2,
+        "styleRules": 45,
+        "konataRules": 36,
+        "styleChildren": 0,
+        "hiddenContainers": 2,
+        "neutralOrder": [
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          45,
+          40
+        ],
+        "styleHiddenContainerDisplays": [
+          "none",
+          "none"
+        ],
+        "image": "url(\"https://eriribot.github.io/rakudai-knight/resource/knightavatars/stella.png\")",
+        "bubbleDisplay": "flex",
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": 10,
+        "thinkingContentTop": 57.94036865234375,
+        "thinkingContentDisplay": "block",
+        "bubbleStyleRules": [
+          40
+        ],
+        "thinkingStyleRules": [
+          45
+        ],
+        "bubbleStylesHidden": 1,
+        "thinkingStylesHidden": 1
+      }
+    },
+    {
+      "name": "izumi-chain-media-blocked",
+      "before": {
+        "bubbles": 1,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "styleCount": 2,
+        "styleRules": 45,
+        "konataRules": 36,
+        "styleChildren": 0,
+        "hiddenContainers": 2,
+        "neutralOrder": [
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          45,
+          9
+        ],
+        "styleHiddenContainerDisplays": [
+          "none",
+          "none"
+        ],
+        "image": "none",
+        "bubbleDisplay": "flex",
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": 10,
+        "thinkingContentTop": 57.94036865234375,
+        "thinkingContentDisplay": "block",
+        "bubbleStyleRules": [
+          9
+        ],
+        "thinkingStyleRules": [
+          45
+        ],
+        "bubbleStylesHidden": 1,
+        "thinkingStylesHidden": 1
+      },
+      "after": {
+        "bubbles": 1,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "styleCount": 2,
+        "styleRules": 45,
+        "konataRules": 36,
+        "styleChildren": 0,
+        "hiddenContainers": 2,
+        "neutralOrder": [
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          45,
+          9
+        ],
+        "styleHiddenContainerDisplays": [
+          "none",
+          "none"
+        ],
+        "image": "none",
+        "bubbleDisplay": "flex",
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": 10,
+        "thinkingContentTop": 57.94036865234375,
+        "thinkingContentDisplay": "block",
+        "bubbleStyleRules": [
+          9
+        ],
+        "thinkingStyleRules": [
+          45
+        ],
+        "bubbleStylesHidden": 1,
+        "thinkingStylesHidden": 1
+      }
+    },
+    {
+      "name": "izumi-chain-other-card",
+      "before": {
+        "bubbles": 0,
+        "bodyBubbles": 0,
+        "planningBubbles": 0,
+        "styleCount": 1,
+        "styleRules": 45,
+        "konataRules": 36,
+        "styleChildren": 0,
+        "hiddenContainers": 0,
+        "neutralOrder": [
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          45
+        ],
+        "styleHiddenContainerDisplays": [
+          null
+        ],
+        "image": null,
+        "bubbleDisplay": null,
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": 10,
+        "thinkingContentTop": 57.94036865234375,
+        "thinkingContentDisplay": "block",
+        "bubbleStyleRules": [],
+        "thinkingStyleRules": [
+          45
+        ],
+        "bubbleStylesHidden": 0,
+        "thinkingStylesHidden": 0
+      },
+      "after": {
+        "bubbles": 0,
+        "bodyBubbles": 0,
+        "planningBubbles": 0,
+        "styleCount": 1,
+        "styleRules": 0,
+        "konataRules": 0,
+        "styleChildren": 3475,
+        "hiddenContainers": 0,
+        "neutralOrder": [
+          "中性计划",
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          0
+        ],
+        "styleHiddenContainerDisplays": [
+          null
+        ],
+        "image": null,
+        "bubbleDisplay": null,
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": 8,
+        "thinkingContentTop": 31.33333396911621,
+        "thinkingContentDisplay": "block",
+        "bubbleStyleRules": [],
+        "thinkingStyleRules": [
+          0
+        ],
+        "bubbleStylesHidden": 0,
+        "thinkingStylesHidden": 0
+      }
+    },
+    {
+      "name": "core-closed-fence-options-literal",
+      "before": {
+        "bubbles": 1,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "styleCount": 1,
+        "styleRules": 40,
+        "konataRules": 0,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "neutralOrder": [
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          40
+        ],
+        "styleHiddenContainerDisplays": [
+          "none"
+        ],
+        "image": "url(\"https://eriribot.github.io/rakudai-knight/resource/knightavatars/stella.png\")",
+        "bubbleDisplay": "flex",
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": null,
+        "thinkingContentTop": null,
+        "thinkingContentDisplay": null,
+        "bubbleStyleRules": [
+          40
+        ],
+        "thinkingStyleRules": [],
+        "bubbleStylesHidden": 1,
+        "thinkingStylesHidden": 0
+      },
+      "after": {
+        "bubbles": 1,
+        "bodyBubbles": 1,
+        "planningBubbles": 0,
+        "styleCount": 1,
+        "styleRules": 40,
+        "konataRules": 0,
+        "styleChildren": 0,
+        "hiddenContainers": 1,
+        "neutralOrder": [
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [
+          40
+        ],
+        "styleHiddenContainerDisplays": [
+          "none"
+        ],
+        "image": "url(\"https://eriribot.github.io/rakudai-knight/resource/knightavatars/stella.png\")",
+        "bubbleDisplay": "flex",
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": null,
+        "thinkingContentTop": null,
+        "thinkingContentDisplay": null,
+        "bubbleStyleRules": [
+          40
+        ],
+        "thinkingStyleRules": [],
+        "bubbleStylesHidden": 1,
+        "thinkingStylesHidden": 0
+      }
+    },
+    {
+      "name": "core-real-unclosed-options-across-fence",
+      "before": {
+        "bubbles": 0,
+        "bodyBubbles": 0,
+        "planningBubbles": 0,
+        "styleCount": 0,
+        "styleRules": null,
+        "konataRules": 0,
+        "styleChildren": null,
+        "hiddenContainers": 0,
+        "neutralOrder": [
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [],
+        "styleHiddenContainerDisplays": [],
+        "image": null,
+        "bubbleDisplay": null,
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": null,
+        "thinkingContentTop": null,
+        "thinkingContentDisplay": null,
+        "bubbleStyleRules": [],
+        "thinkingStyleRules": [],
+        "bubbleStylesHidden": 0,
+        "thinkingStylesHidden": 0
+      },
+      "after": {
+        "bubbles": 0,
+        "bodyBubbles": 0,
+        "planningBubbles": 0,
+        "styleCount": 0,
+        "styleRules": null,
+        "konataRules": 0,
+        "styleChildren": null,
+        "hiddenContainers": 0,
+        "neutralOrder": [
+          "中性正文"
+        ],
+        "scripts": 0,
+        "styleRuleCounts": [],
+        "styleHiddenContainerDisplays": [],
+        "image": null,
+        "bubbleDisplay": null,
+        "literalMacroPreserved": false,
+        "thinkingWrapperTop": null,
+        "thinkingContentTop": null,
+        "thinkingContentDisplay": null,
+        "bubbleStyleRules": [],
+        "thinkingStyleRules": [],
+        "bubbleStylesHidden": 0,
+        "thinkingStylesHidden": 0
+      }
+    }
+  ],
+  "provenance": {
+    "replayProgramSha256": "6c66c3f4115f23a2afb70cb7d5849dac39337bcd006de55978d70736df8c6439",
+    "nodeReport": "host-render-local-izumi.json",
+    "nodeReportSha256": "f7e9859d9b3a4480b96f2ac1029436aa18b804780be0d97b48f7b4d60ec5b1bf",
+    "coreArtifacts": {
+      "dialogue-bubbles": {
+        "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+        "sha256": "ad3c7d89a8e6b9971e037ea610885b364bbb6c6b36e21ac3494017242cf23d61"
+      },
+      "dialogue-player-candidates": {
+        "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+        "sha256": "f35b706cda15d0f628252f4e1f20074e29283f1f424f1e5366d8988ba49b12d1"
+      },
+      "dialogue-bubble-style": {
+        "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+        "sha256": "24e708178a47126ff9680d972203e89071122f4ea90f0fff18444e2206e27209"
+      }
+    },
+    "localArtifacts": {
+      "izumi-local-prefix": {
+        "id": "f426b5a6-56a3-48dc-96c2-0e4d6208e6e2",
+        "sha256": "32e37c8bc5a1a4b7d8d34f829e95822895a231acdd2b5b3ef93ff2e4fd6d9489"
+      },
+      "izumi-local-style": {
+        "id": "ace941a3-9609-4a8d-a9da-a42981401db8",
+        "sha256": "efc07347ee14da5bd58d6bacd6272ee54834c8f3173a7b57bcdab9fcc47889a0"
+      },
+      "izumi-local-planning-close": {
+        "id": "72f31f2b-ba16-4653-9fbc-5b52389c1129",
+        "sha256": "c75c0129db2299f0943bd4de8d942735de61fabb6a841a4ad6d2fdf3d63ad8e0"
+      }
+    },
+    "sources": {
+      "public/script.js": {
+        "sha256LF": "606762e1e36805a12429708defcafac7287a3df78393813bf460c53524a27403"
+      },
+      "public/scripts/chats.js": {
+        "sha256LF": "2b870d44c55f99c622b5afcd7b1fd563219b9444bc70e8653611327d6e7f7be6"
+      },
+      "public/scripts/extensions/regex/engine.js": {
+        "sha256LF": "091bb3402a12552cf1754d6e4d2b44df38d3553aa374539896c716e78905d350"
+      },
+      "public/scripts/showdown-underscore.js": {
+        "sha256LF": "ffbb3fd54f7a0d3c973c8bf839188c767ed200948f00393875242bbce01e4835"
+      },
+      "public/scripts/util/stream-fadein.js": {
+        "sha256LF": "a3dfddb3a69431927b35d68739d29daefb199eae28564d916b083adf6f2bdb33"
+      },
+      "public/scripts/utils.js": {
+        "sha256LF": "7236069f0d6c95b0d959e3c574bc7acbd4dc088459371abf38a6a7a77a076067"
+      }
+    },
+    "dependencies": [
+      {
+        "name": "@adobe/css-tools",
+        "version": "4.4.4",
+        "url": "https://unpkg.com/@adobe/css-tools@4.4.4/dist/cjs/adobe-css-tools.cjs",
+        "sha256": "e4e01cf5995178a62a311a33b37c352ab69bac34825218c17bdd19bc7d35a527"
+      },
+      {
+        "name": "dompurify",
+        "version": "3.4.2",
+        "url": "https://unpkg.com/dompurify@3.4.2/dist/purify.cjs.js",
+        "sha256": "8af9bb19d1ddd1bfd8cfbded4768fc3fa76b5024e3b48e0c0e841151579d7a30"
+      },
+      {
+        "name": "showdown",
+        "version": "2.1.0",
+        "url": "https://unpkg.com/showdown@2.1.0/dist/showdown.js",
+        "sha256": "bc97235c81dd34b4c2d6b1b14e71eb54ce57144c4e55e7b2694e473947a7ac0b"
+      }
+    ],
+    "presetSha256": "588899351f35ab21c45e857c81a33336b03e1885ef34459034b170925eaef850",
+    "original30RulesSha256": "4f50b004b1e396bfca67d11ed4a5ae84af8ff192c96272254b67845ec59bd8c3",
+    "originalRulesCanonicalUnchanged": true
+  },
+  "scopeChecks": {
+    "nodeCaseCount": 34,
+    "nativeCaseCount": 24,
+    "positiveArtifactAndChainCases": 12,
+    "otherCardActiveAddonCount": 0,
+    "otherCardHtmlIdenticalWithAndWithoutLocal": true,
+    "duplicateLocalOutputIdentical": true,
+    "originalPresetRuleCount": 30,
+    "executedPresetScripts": false,
+    "scriptTagsInBrowserFixtures": 0,
+    "unknownTemplateRevisionsAccepted": false
+  },
+  "cleanup": {
+    "stoppedExecSession": 41716,
+    "ports": [
+      18975,
+      18976,
+      18977,
+      18978,
+      18979
+    ],
+    "listenersAfterCleanup": 0
+  },
+  "limits": [
+    "Isolated fixed SillyTavern 1.18.0 pipeline replay; actual Tavern import/runtime not tested.",
+    "No user theme or Tavern Helper options iframe/postprocessor loaded; original preset scripts never executed.",
+    "Character-local addon supports this exact known Izumi template hash, not arbitrary future preset revisions.",
+    "Counterfactual bare styles intentionally lose CSS after fade; other-card case intentionally remains byte-identical to no-addon rendering."
+  ]
+}
