@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-07T02:03:30.001Z",
+  "generatedAt": "2026-10-08T04:45:54.230Z",
   "nodeVersion": "v25.6.0",
   "sourceHashes": {
-    "scripts/正文气泡/build.mjs": "5484491b97f5e135d3e2c3368a470d27af10bddcf026ae7ec274df83ebf270fa",
-    "scripts/正文气泡/context-guard.mjs": "5d24512978429da26d5a327fb9c0512a393022e9ba938acb024723ebb7145ae4",
+    "scripts/正文气泡/build.mjs": "fa1e950d02bd454d4efa5e268feba308c706bb1c1ce3adb5f3a0153baf031386",
+    "scripts/正文气泡/context-guard.mjs": "c1c0210d51184f3e22029514d6cd0211630e9a3cc9d70bf360e7d958bae6be31",
     "scripts/正文气泡/bubble.css": "a546dcf2b07d446c4f0167af6faad23b58a5ebdbb4f0c4b39487872387b84961",
     "resource/knightavatars/manifest.json": "c9490d77d00ca95702ab8a667831ea373796a3c769ed2e7fffeea2bd26c6e596"
   },
@@ -33,30 +33,34 @@
   "manifestCharacters": 31,
   "uniqueNamesChecked": 163,
   "ambiguousNames": [],
-  "total": 434,
-  "passed": 434,
+  "total": 468,
+  "passed": 468,
   "failed": 0,
   "measurements": [
     {
       "name": "十万字旁白夹少量对白",
       "inputCharacters": 96014,
       "outputCharacters": 108871,
-      "elapsedMs": 4.24
+      "elapsedMs": 4.85
     },
     {
       "name": "数万字连续对白",
       "inputCharacters": 37889,
       "outputCharacters": 283757,
-      "elapsedMs": 464.25
+      "elapsedMs": 482.57
     },
     {
       "name": "八万字单行对白",
       "inputCharacters": 80003,
       "outputCharacters": 92665,
-      "elapsedMs": 0.99
+      "elapsedMs": 1.45
     }
   ],
   "results": [
+    {
+      "name": "驱动原子显式启用，默认及Izumi excludedTags生成字节保持兼容",
+      "passed": true
+    },
     {
       "name": "规则结构：恰好三条，既有 ID 保持、候选在样式前、AI 显示侧",
       "passed": true
@@ -1455,6 +1459,138 @@
     },
     {
       "name": "普通 details 保护内部，结束后恢复",
+      "passed": true
+    },
+    {
+      "name": "完整驱动内协议标签引用不屏蔽外部对白：原始 story_driver",
+      "passed": true
+    },
+    {
+      "name": "完整驱动的假闭合留在词法容器内：原始 story_driver / 注释",
+      "passed": true
+    },
+    {
+      "name": "完整驱动的假闭合留在词法容器内：原始 story_driver / 属性",
+      "passed": true
+    },
+    {
+      "name": "完整驱动的假闭合留在词法容器内：原始 story_driver / 闭合代码围栏",
+      "passed": true
+    },
+    {
+      "name": "完整驱动的假闭合留在词法容器内：原始 story_driver / 闭合 script",
+      "passed": true
+    },
+    {
+      "name": "完整驱动的假闭合留在词法容器内：原始 story_driver / 闭合 textarea",
+      "passed": true
+    },
+    {
+      "name": "驱动外壳不覆盖真实未闭词法范围：原始 story_driver / 未闭 script",
+      "passed": true
+    },
+    {
+      "name": "驱动外壳不覆盖真实未闭词法范围：原始 story_driver / 未闭 textarea",
+      "passed": true
+    },
+    {
+      "name": "驱动外壳不覆盖真实未闭词法范围：原始 story_driver / 未闭注释",
+      "passed": true
+    },
+    {
+      "name": "驱动外壳不覆盖真实未闭词法范围：原始 story_driver / 未闭属性",
+      "passed": true
+    },
+    {
+      "name": "驱动外壳不覆盖真实未闭词法范围：原始 story_driver / 未闭围栏",
+      "passed": true
+    },
+    {
+      "name": "外部保护标签不能借驱动内的假闭标签解除：原始 story_driver / wlog",
+      "passed": true
+    },
+    {
+      "name": "外部保护标签不能借驱动内的假闭标签解除：原始 story_driver / details",
+      "passed": true
+    },
+    {
+      "name": "外部保护标签不能借驱动内的假闭标签解除：原始 story_driver / pre",
+      "passed": true
+    },
+    {
+      "name": "外部保护标签不能借驱动内的假闭标签解除：原始 story_driver / code",
+      "passed": true
+    },
+    {
+      "name": "完整驱动内协议标签引用不屏蔽外部对白：已知咩咩故事展示壳",
+      "passed": true
+    },
+    {
+      "name": "完整驱动的假闭合留在词法容器内：已知咩咩故事展示壳 / 注释",
+      "passed": true
+    },
+    {
+      "name": "完整驱动的假闭合留在词法容器内：已知咩咩故事展示壳 / 属性",
+      "passed": true
+    },
+    {
+      "name": "完整驱动的假闭合留在词法容器内：已知咩咩故事展示壳 / 闭合代码围栏",
+      "passed": true
+    },
+    {
+      "name": "完整驱动的假闭合留在词法容器内：已知咩咩故事展示壳 / 闭合 script",
+      "passed": true
+    },
+    {
+      "name": "完整驱动的假闭合留在词法容器内：已知咩咩故事展示壳 / 闭合 textarea",
+      "passed": true
+    },
+    {
+      "name": "驱动外壳不覆盖真实未闭词法范围：已知咩咩故事展示壳 / 未闭 script",
+      "passed": true
+    },
+    {
+      "name": "驱动外壳不覆盖真实未闭词法范围：已知咩咩故事展示壳 / 未闭 textarea",
+      "passed": true
+    },
+    {
+      "name": "驱动外壳不覆盖真实未闭词法范围：已知咩咩故事展示壳 / 未闭注释",
+      "passed": true
+    },
+    {
+      "name": "驱动外壳不覆盖真实未闭词法范围：已知咩咩故事展示壳 / 未闭属性",
+      "passed": true
+    },
+    {
+      "name": "驱动外壳不覆盖真实未闭词法范围：已知咩咩故事展示壳 / 未闭围栏",
+      "passed": true
+    },
+    {
+      "name": "外部保护标签不能借驱动内的假闭标签解除：已知咩咩故事展示壳 / wlog",
+      "passed": true
+    },
+    {
+      "name": "外部保护标签不能借驱动内的假闭标签解除：已知咩咩故事展示壳 / details",
+      "passed": true
+    },
+    {
+      "name": "外部保护标签不能借驱动内的假闭标签解除：已知咩咩故事展示壳 / pre",
+      "passed": true
+    },
+    {
+      "name": "外部保护标签不能借驱动内的假闭标签解除：已知咩咩故事展示壳 / code",
+      "passed": true
+    },
+    {
+      "name": "外部保护标签不能借驱动内的假闭标签解除：已知咩咩故事展示壳 / story_driver",
+      "passed": true
+    },
+    {
+      "name": "未知 details 不因 orb-content 字面属性或协议引用获得豁免",
+      "passed": true
+    },
+    {
+      "name": "缺失咩咩外壳结尾不能从下一个 details 借闭合",
       "passed": true
     },
     {

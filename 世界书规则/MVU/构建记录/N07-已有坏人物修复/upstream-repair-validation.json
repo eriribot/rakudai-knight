@@ -1,0 +1,55 @@
+{
+  "scope": "offline pinned source execution; no real host writes or API requests",
+  "upstreamCommit": "61010dab47bc3a08a1b626320bf7fc8c9573eca4",
+  "bridgeCommit": "dee97e8c3e24e1e75efe21141743e4b5c0af776e",
+  "passed": true,
+  "normalizedPaths": [
+    "/人际",
+    "/场景/地点"
+  ],
+  "checks": {
+    "twoInvalidPeopleRepairedTogether": true,
+    "unrelatedPersonSemanticallyUnchanged": true,
+    "omittedKnownProfilePreserved": true,
+    "hiddenFlagPreserved": true,
+    "scorePreserved": [
+      10,
+      20
+    ],
+    "explicitAliasesRemoved": true,
+    "stageDerived": true,
+    "sameBatchSceneUpdate": true,
+    "playerUnchanged": true,
+    "otherSceneFieldsUnchanged": true,
+    "inputUnmodified": true,
+    "fullSchemaValid": true
+  },
+  "warnings": [],
+  "executionDate": "2026-10-07",
+  "testData": "Synthetic started custom-protagonist save; no user chat, credentials or live host data.",
+  "realComponents": [
+    "Current correction.js normalizeCorrectionPatch",
+    "Current guard.parseRepair and reply source binding",
+    "Pinned upstream updateVariables and supporting source bodies",
+    "Complete pinned mvu_zod bridge",
+    "Current createSchema and ownership/contact/score/growth/tournament enforcement"
+  ],
+  "doubles": [
+    "Host chat identity and getChatMessages",
+    "Event transport",
+    "Notification UI",
+    "toDotPath error formatting"
+  ],
+  "limitations": [
+    "Does not exercise actual browser persistence or network requests.",
+    "Does not assert secondary can repair invalid data outside the 人际 domain.",
+    "Initial save is 已建档; 待建档 ownership protection intentionally rejects AI state edits."
+  ],
+  "lfNormalizedSha256": {
+    "scripts/黑白ADV轮盘终端/correction.js": "ca5f4c451d15a1f6163a6e4c7d966f1b7629e62f7d9986419c2b9470aafa7942",
+    "scripts/rakudai-mvu-guard.js": "eba80cc5f57e2e5e38bdc9482abf6b343011732f9a341267182504e8c859d356",
+    "scripts/rakudai-mvu-reply-source.mjs": "1914a771cc70aaa792ac51b5e2c51bb9bec0dbbb7657f642754a951f60d82282",
+    "世界书规则/MVU/schema.mjs": "68ba1357525f0e53de2680d48fa921298adf82930d69e4b114538a35948db6eb",
+    "output/guard-readiness/mvu_zod-cdn.jsdelivr.net.js": "78c40f52d81022d9d769a923a49e673b8babb562656051a7d0410b6b19f45184"
+  }
+}

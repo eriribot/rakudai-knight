@@ -575,6 +575,7 @@
     const eon = fn('eventOn');
     if (!eon) return;
     const TE = window.tavern_events || {};
+    let nativeStart = null;
     function safeOn(ev, cb) {
       try { const r = eon(ev, cb); r && r.stop && SS.disposers.push(() => r.stop()); } catch(_) {}
     }
@@ -583,9 +584,20 @@
     // 纯显示重绘只修补头像，不使 MVU 来源或终端编辑草稿失效。
     if (TE.CHARACTER_MESSAGE_RENDERED) safeOn(TE.CHARACTER_MESSAGE_RENDERED, () => playerBubbleBinder?.refresh(true));
 
-    // 主生成开始前留下只读显示；新回复的 MVU 仍由框架独立结算。
+    // ST 8172dcd 的 START/AFTER 参数键值一致；Helper 380be3c 只发 AFTER('normal', {}, false)。
+    // 先记录原生开始，不取消正在保存的主轮；助手请求不能消费这份原生开始记录。
+    if (TE.GENERATION_STARTED) safeOn(TE.GENERATION_STARTED, (type, options = {}, dryRun = false) => {
+      if (dryRun || options?.dryRun || ![undefined, null, '', 'normal', 'continue', 'regenerate', 'swipe'].includes(type)) return;
+      const ctx = correctionContext();
+      if (ctx && options && Object.keys(options).length) nativeStart = { type, options: { ...options }, chat: ctx.chat, chatKey: correctionChatKey() };
+    });
+    // 仅配对成功的原生主生成进入保存门禁；新回复的 MVU 仍由框架独立结算。
     if (TE.GENERATION_AFTER_COMMANDS) safeOn(TE.GENERATION_AFTER_COMMANDS, (type, options = {}, dryRun = false) => {
       if (dryRun || options?.dryRun || ![undefined, null, '', 'normal', 'continue', 'regenerate', 'swipe'].includes(type)) return;
+      if (!nativeStart || nativeStart.type !== type || nativeStart.chat !== correctionContext()?.chat || nativeStart.chatKey !== correctionChatKey() ||
+          !options || Object.keys(options).length !== Object.keys(nativeStart.options).length ||
+          !Object.keys(nativeStart.options).every(key => Object.hasOwn(options, key) && Object.is(options[key], nativeStart.options[key]))) return;
+      nativeStart = null;
       try { readSnapshot(); } catch (_) {}
       generationPending = true;
       try { readSnapshot(); } catch (_) {}
@@ -599,12 +611,19 @@
           'MESSAGE_SWIPED', 'MESSAGE_SWIPE_DELETED', 'MESSAGE_DELETED'].includes(name);
         if (clearDisplay) terminalStateReader?.clear();
         // 重 roll 的删除/切页事件不提前解除生成写锁。
-        if (name === 'CHAT_CHANGED' || name === 'CHARACTER_FIRST_MESSAGE_SELECTED') generationPending = false;
+        if (name === 'CHAT_CHANGED' || name === 'CHARACTER_FIRST_MESSAGE_SELECTED') { generationPending = false; nativeStart = null; }
         emit({ type: name, reset: true, retainDisplay: !clearDisplay });
       });
     }
     for (const name of ['GENERATION_ENDED', 'GENERATION_STOPPED']) {
-      if (TE[name]) safeOn(TE[name], messageCount => { generationPending = false; endAutomaticCorrection(name === 'GENERATION_STOPPED', messageCount); emit({ type: 'story-turn', retainDisplay: true }); });
+      if (TE[name]) safeOn(TE[name], messageCount => {
+        // Helper 按请求 ID 停止首楼建议时也发宿主 STOP；不能中断真实剧情轮。
+        if (name === 'GENERATION_STOPPED' && typeof messageCount === 'string' && messageCount.startsWith('rk-opening:')) return;
+        nativeStart = null;
+        generationPending = false;
+        endAutomaticCorrection(name === 'GENERATION_STOPPED', messageCount);
+        emit({ type: 'story-turn', retainDisplay: true });
+      });
     }
   }
 

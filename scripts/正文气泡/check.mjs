@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { createHash } from 'node:crypto';
 import { buildRules, applyRules, reports } from './build.mjs';
+import { buildContextGuard } from './context-guard.mjs';
 
 // This checks declared card-regex fields and JavaScript string replacement only.
 // Markdown, installed host versions, extension ordering and actual prompt assembly
@@ -47,6 +48,19 @@ function rendered(input, expectedBubbles = 1, context) {
   assert.equal(styleCount(output), expectedBubbles ? 1 : 0, '每消息样式至多一份');
   return output;
 }
+
+check('驱动原子显式启用，默认及Izumi excludedTags生成字节保持兼容', () => {
+  for (const [options, expected] of [
+    [{}, 'b7052ae594dee18475279bc785a62ea13b4fc804d8f041ca28a64bafb015ea39'],
+    [{excludedTags:['details','konatan_planning~']}, 'ba7db5f913d18c1f733036d7a3b83dc312e287d9c69326472dd818e40cce95b2'],
+  ]) {
+    const legacy = buildContextGuard(options);
+    assert.equal(legacy, buildContextGuard({...options,opaqueDrivers:false}));
+    assert.equal(createHash('sha256').update(legacy).digest('hex'), expected,
+      '未启用新功能的共享调用方不得引起现有局部兼容产物漂移');
+    assert.notEqual(legacy, buildContextGuard({...options,opaqueDrivers:true}));
+  }
+});
 
 check('规则结构：恰好三条，既有 ID 保持、候选在样式前、AI 显示侧', () => {
   assert.ok(Array.isArray(rules));
@@ -416,6 +430,55 @@ check('普通 details 保护内部，结束后恢复', () => {
   const block = '<details open><summary>剧情驱动</summary>\n一辉:这是折叠分析。\n</details>';
   const output = rendered(`${block}\n史黛菈:这是正文。`);
   assert.ok(output.includes(block));
+});
+// Neutral reproductions only: no captured chat, private planning or preset CSS.
+// The known driver shell is identified by structure, its sheep summary and the
+// orb-content slot; ordinary details must keep the existing conservative scope.
+const meeStoryDriver = body => '<details><summary>🐑</summary><div><div>' +
+  '<div class="orb-content"><span><span></span></span>' + body +
+  '</div><div><div></div></div></div></div></details>';
+for (const [label, wrap] of [
+  ['原始 story_driver', body => `<story_driver>${body}</story_driver>`],
+  ['已知咩咩故事展示壳', meeStoryDriver],
+]) {
+  check(`完整驱动内协议标签引用不屏蔽外部对白：${label}`, () => {
+    const block = wrap('校验<wlog>名单。\n一辉:这是驱动里的示例。');
+    const output = rendered(`${block}\n新宫寺黑乃:「进来」`);
+    assert.ok(output.startsWith(block), '驱动内容必须逐字保留且内部不能生成气泡');
+    assert.ok(bubbleOpenings(output)[0].includes('data-rkd-name="新宫寺黑乃"'));
+  });
+  for (const [kind, body] of [
+    ['注释', '校验<wlog>名单。<!-- </story_driver></details> -->'],
+    ['属性', '校验<wlog>名单。<span title="</story_driver></details>">文字</span>'],
+    ['闭合代码围栏', '校验<wlog>名单。\n```html\n</story_driver></details>\n```\n'],
+    ['闭合 script', '校验<wlog>名单。<script>const s="</story_driver></details>";</script>'],
+    ['闭合 textarea', '校验<wlog>名单。<textarea></story_driver></details></textarea>'],
+  ]) check(`完整驱动的假闭合留在词法容器内：${label} / ${kind}`, () => {
+    const block = wrap(body+'\n珠雫:假闭合之后仍在驱动中。');
+    const output = rendered(`${block}\n史黛菈:外部正文。`);
+    assert.ok(output.startsWith(block));
+  });
+  for (const [kind, body] of [
+    ['未闭 script', '<script>未闭原始文本'],
+    ['未闭 textarea', '<textarea>未闭原始文本'],
+    ['未闭注释', '<!-- 未闭注释'],
+    ['未闭属性', '<span title="未闭属性'],
+    ['未闭围栏', '\n```html\n未闭代码'],
+  ]) check(`驱动外壳不覆盖真实未闭词法范围：${label} / ${kind}`, () => {
+    unchanged(`${wrap(body)}\n史黛菈:仍须保护。`);
+  });
+  for (const tag of ['wlog','details','pre','code',...(label.startsWith('已知')?['story_driver']:[])]) {
+    check(`外部保护标签不能借驱动内的假闭标签解除：${label} / ${tag}`, () => {
+      unchanged(`<${tag}>${wrap('字面 </'+tag+'> 引用。')}\n史黛菈:仍须保护。`);
+    });
+  }
+}
+check('未知 details 不因 orb-content 字面属性或协议引用获得豁免', () => {
+  unchanged('<details><summary>普通折叠</summary><div class="orb-content">校验<wlog>名单。</div></details>\n史黛菈:仍须保护。');
+});
+check('缺失咩咩外壳结尾不能从下一个 details 借闭合', () => {
+  const broken = meeStoryDriver('校验<wlog>名单。').replace('</details>', '');
+  unchanged(`${broken}<details><summary>后一个折叠</summary></details>\n史黛菈:仍须保护。`);
 });
 check('平行线事件 details 的正文可显示气泡', () => {
   const opener = '<details open><summary>支线 · 平行线事件</summary>';

@@ -1,0 +1,20 @@
+{
+  "project": "E:\\web\\新卡1",
+  "candidate_files": 218,
+  "unique_thread_ids": 214,
+  "deleted_rollout_bytes": 3881942131,
+  "codex_bytes_before": 11900698048,
+  "codex_bytes_after": 8020321933,
+  "c_free_bytes_before": 131187818496,
+  "c_free_bytes_after": 135075450880,
+  "remaining_candidate_files": [],
+  "remaining_history_rows": {
+    "thread_items": 0,
+    "thread_turns": 0,
+    "thread_history_projection_state": 0,
+    "thread_realtime_items": 0
+  },
+  "out_of_scope_removed_sessions": [],
+  "missing_preserved_media": [],
+  "removed_duplicate_rollouts": 0
+}

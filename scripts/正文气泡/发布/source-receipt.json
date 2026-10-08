@@ -1,13 +1,13 @@
 {
-  "version": "0.5",
+  "version": "0.6",
   "deliveryMode": "component",
   "scope": "三条角色局部显示正则、格式规则、离线预览；只更新对应组件，不重打整卡或修改聊天原文",
   "sourceHashes": {
     "resource/knightavatars/manifest.json": "c9490d77d00ca95702ab8a667831ea373796a3c769ed2e7fffeea2bd26c6e596",
     "scripts/正文气泡/bubble.css": "a546dcf2b07d446c4f0167af6faad23b58a5ebdbb4f0c4b39487872387b84961",
     "scripts/正文气泡/format-rule.txt": "045e0145da92912faf75f6785a8a299c1654c3fc4d0864de9e963cad757691c6",
-    "scripts/正文气泡/context-guard.mjs": "5d24512978429da26d5a327fb9c0512a393022e9ba938acb024723ebb7145ae4",
-    "scripts/正文气泡/build.mjs": "5484491b97f5e135d3e2c3368a470d27af10bddcf026ae7ec274df83ebf270fa"
+    "scripts/正文气泡/context-guard.mjs": "c1c0210d51184f3e22029514d6cd0211630e9a3cc9d70bf360e7d958bae6be31",
+    "scripts/正文气泡/build.mjs": "f5bf71ed230c3abcfbff41cc7fd1f6a395c12833c42b834fcbf2b57906343f4d"
   },
   "library": {
     "snapshot": "2026-08-18",
@@ -46,6 +46,6 @@
     "promotion": "仅共享身份解析器唯一命中玩家时提升；未知或歧义保持原文",
     "playerMarker": "非空 data-rkd-player 表示玩家或固定标记；NPC 为 \"\""
   },
-  "realSillyTavern": "not run；当前产物需要重新导入及验收，旧 output 中的实机记录不能证明 v0.5",
+  "realSillyTavern": "构建本身不确认实机验收；现场只读复放记录另见 验证记录/现场掉气泡-20261008/live-preview.json，需核对产物哈希与验证范围，不代表已安装或已完成最终画面验收",
   "modelCompliance": "not run; 不宣称绝对最少 token 或保证遵守率"
 }

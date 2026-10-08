@@ -285,6 +285,15 @@ function fixture(storage = new Map([[configKey, clone(defaultConnection)]])) {
   HW.top = HW; HW.parent = HW;
   const helper = { getChatMessages(id) { const m = ctx.chat[id];
     return m ? [{ message_id: id, swipe_id: m.swipe_id, message: m.mes }] : []; },
+    eventMakeLast(name, callback) {
+      helper.eventRemoveListener(name, callback);
+      if (!listeners.has(name)) listeners.set(name, []);
+      listeners.get(name).push(callback);
+    },
+    eventRemoveListener(name, callback) {
+      const remaining = (listeners.get(name) || []).filter(item => item !== callback);
+      if (remaining.length) listeners.set(name, remaining); else listeners.delete(name);
+    },
     updateVariablesWith() { throw new Error('Empty patch must not write MVU'); } };
   function timer(fn, ms, interval = false) {
     const id = ++timerId; timers.set(id, { fn, due: now + Number(ms), interval: interval ? Number(ms) : 0 }); return id;
@@ -308,6 +317,9 @@ function fixture(storage = new Map([[configKey, clone(defaultConnection)]])) {
     if (!listeners.has(event)) listeners.set(event, []);
     listeners.get(event).push(callback);
   }, TE);
+  // 模拟约束桥接在 for_zod 阶段重建 delta；真实校正模块的尾钩子须随后重盖保存收据。
+  const tailEvent = mvu.events.VARIABLE_UPDATE_ENDED + '_for_zod';
+  listeners.set(tailEvent, [variables => { variables.delta_data = {}; }]);
   const event = (name, ...args) => { for (const cb of listeners.get(name) || []) cb(...args); };
   async function automatic() {
     api.startAutomaticCorrection();
@@ -316,6 +328,8 @@ function fixture(storage = new Map([[configKey, clone(defaultConnection)]])) {
     candidate.stat_data.场景.地点 = '走廊';
     event(mvu.events.COMMAND_PARSED, candidate, [], ctx.chat.at(-1).mes);
     event(mvu.events.VARIABLE_UPDATE_ENDED, candidate, previous);
+    event(tailEvent, candidate, previous);
+    assert.ok(candidate.delta_data.$internal.__rk_main_save.id, '主保存必须携带真实校正模块写入的收据');
     persisted = clone(candidate);
     event(TE.CHARACTER_MESSAGE_RENDERED, ctx.chat.length - 1);
     api.endAutomaticCorrection(false, ctx.chat.length);
@@ -330,6 +344,7 @@ function fixture(storage = new Map([[configKey, clone(defaultConnection)]])) {
     }
     now = until;
     assert.equal(api.getCorrectionStatus().state, 'unchanged');
+    assert.equal(api.getCorrectionStatus().mainSave, 'saved');
   }
   return { api, storage, storageWrites, ctx, mainConfig, automatic, ...t,
     save: changes => api.saveCorrectionConfig({ ...api.getCorrectionConfig(), ...changes }) };

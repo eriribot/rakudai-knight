@@ -6,11 +6,12 @@ const bundle = '// GENERATED: node scripts/build-state-controller.mjs --write\n(
   inlineStoryCatalog() + '\n' +
   inlineTournamentSource() + '\n' +
   stripModuleSyntax(read('./rakudai-mvu-structure.mjs')) + '\n' +
+  stripModuleSyntax(read('./rakudai-mvu-patch.mjs')) + '\n' +
   stripModuleSyntax(read('./rakudai-mvu-native.mjs')) + '\n' +
   stripModuleSyntax(read('../世界书规则/MVU/schema.mjs')) + '\n' +
   stripModuleSyntax(read('./rakudai-state-core.mjs')) + '\n' +
   read('./黑白ADV轮盘终端/player-display-store.js') + '\n' +
-  'window.RakudaiMvuNative = { version: "N03", runtime: rakudaiMvuRuntime, prepare: prepareRakudaiNativeMvu, install: installRakudaiNativeMvu };\n' +
+  'window.RakudaiMvuNative = { version: "N04", runtime: rakudaiMvuRuntime, prepare: prepareRakudaiNativeMvu, install: installRakudaiNativeMvu };\n' +
   read('./rakudai-state-browser.js') + '\n})();\n';
 new vm.Script(bundle);
 const file = new URL('./rakudai-state-controller.js', import.meta.url);

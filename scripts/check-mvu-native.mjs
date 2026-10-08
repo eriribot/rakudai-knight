@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import { INITIAL_STATE } from '../世界书规则/MVU/schema.mjs';
 import { prepareRakudaiNativeMvu, rakudaiMvuRuntime, installRakudaiNativeMvu } from './rakudai-mvu-native.mjs';
 import { repairRakudaiMvuStructure } from './rakudai-mvu-structure.mjs';
+import { normalizeRakudaiMvuCommands } from './rakudai-mvu-patch.mjs';
 
 const checks = [];
 async function check(name, run) {
@@ -161,7 +162,7 @@ function fixture() {
 }
 await check('独立监听只处理本卡事件参数；关闭/重开不重复注册、不写楼层', async () => {
   const f = fixture(); const first = await installRakudaiNativeMvu(f.W);
-  assert.equal(first.state, 'ready'); assert.equal(first.version, 'N03'); assert.equal(f.handlers.size, 1);
+  assert.equal(first.state, 'ready'); assert.equal(first.version, 'N04'); assert.equal(f.handlers.size, 1);
   assert.equal(await installRakudaiNativeMvu(f.W), first); assert.equal(f.handlers.size, 1);
   const data = sample(); f.emit(data); assert.equal(data.schema.properties.人际.extensible, true);
   const other = legacy(); f.switchCard(); f.emit(other); assert.equal(other.schema, '没有用别管这个');
@@ -183,12 +184,12 @@ await check('STARTED事件在两种模式及加载/失败状态补齐父容器�
     f.unload(); assert.equal(f.handlers.size, 0);
   }
 });
-await check('N03沿用原slot替换N01/N02且重复安装保持唯一监听', async () => {
-  for (const version of ['N01', 'N02']) {
+await check('N04沿用原slot替换N01/N02/N03且重复安装保持唯一监听', async () => {
+  for (const version of ['N01', 'N02', 'N03']) {
     const f = fixture(); let destroyed = 0;
     f.W.__RK_MVU_NATIVE_N01__ = { version, state: 'ready', destroy: () => destroyed++ };
     const marker = await installRakudaiNativeMvu(f.W);
-    assert.equal(destroyed, 1); assert.equal(marker.version, 'N03'); assert.equal(f.W.__RK_MVU_NATIVE_N01__, marker);
+    assert.equal(destroyed, 1); assert.equal(marker.version, 'N04'); assert.equal(f.W.__RK_MVU_NATIVE_N01__, marker);
     assert.equal(await installRakudaiNativeMvu(f.W), marker); assert.equal(f.handlers.size, 1);
     f.unload(); assert.equal(f.handlers.size, 0);
   }
@@ -201,9 +202,46 @@ await check('加载失败可重试；其他结构版本不会被迁移', async (
   assert.equal((await installRakudaiNativeMvu(f.W)).state, 'ready'); assert.equal(f.handlers.size, 1);
   const other = sample(); other.stat_data.系统.结构版本 = 3; f.emit(other); assert.equal(other.schema, '没有用别管这个'); f.unload();
 });
+const nativeCommand = (op, path, value) => {
+  const parts = path.slice(1).split('/'), commandPath = keys => keys.map(key => '[' + JSON.stringify(key) + ']').join('');
+  return { type: op === 'replace' ? 'set' : 'insert', reason: 'json_patch', full_match: JSON.stringify({ op, path, value }),
+    args: op === 'replace' ? [commandPath(parts), JSON.stringify(value)] :
+      [commandPath(parts.slice(0, -1)), JSON.stringify(parts.at(-1)), JSON.stringify(value)] };
+};
+await check('N04纯归一合并缺父记录并纠正replace缺字段，不修改输入', () => {
+  const state = sample().stat_data;
+  const commands = [nativeCommand('replace', '/人际/新人/关系', '同学'), nativeCommand('add', '/人际/新人/好感', 4),
+    nativeCommand('replace', '/场景/地点', '教室')];
+  const before = structuredClone({ state, commands }), normalized = normalizeRakudaiMvuCommands(commands, state);
+  assert.deepEqual({ state, commands }, before);
+  assert.equal(normalized.length, 2);
+  assert.deepEqual(JSON.parse(normalized[0].full_match), { op: 'add', path: '/人际/新人', value: { 关系: '同学', 好感: 4 } });
+  assert.equal(normalized[1], commands[2]);
+  assert.equal(normalizeRakudaiMvuCommands(normalized, state), normalized);
+});
+await check('N04遇到混合操作、数组路径、坏父或既有容器替换时完全保留原命令', () => {
+  const state = sample().stat_data;
+  state.人际.坏父 = null; state.场景.日程 = [];
+  const normal = nativeCommand('replace', '/人际/新人/好感', 4);
+  const cases = [
+    [normal, { ...normal, reason: 'script' }],
+    [normal, { ...normal, full_match: '{"op":"remove","path":"/人际/旧人物"}' }],
+    [normal, nativeCommand('add', '/人际/坏父/好感', 4)],
+    [normal, nativeCommand('add', '/场景/日程/0', {})],
+    [normal, nativeCommand('replace', '/人际', {})],
+    [normal, nativeCommand('add', '/系统/新字段', 1)],
+    [normal, nativeCommand('add', '/人际/__proto__/污染', true)],
+    [normal, { ...normal, args: ['其他监听器已修改'] }],
+  ];
+  for (const commands of cases) {
+    const before = structuredClone({ state, commands });
+    assert.equal(normalizeRakudaiMvuCommands(commands, state), commands);
+    assert.deepEqual({ state, commands }, before);
+  }
+});
 const report = { passed: checks.every(item => item.passed), checks };
 const reportDirectory = new URL('../世界书规则/MVU/验证记录/终值成长/', import.meta.url);
 fs.mkdirSync(reportDirectory, { recursive: true });
-fs.writeFileSync(new URL('N03结构兼容验证.json', reportDirectory), JSON.stringify(report, null, 2) + '\n');
+fs.writeFileSync(new URL('N04结构兼容验证.json', reportDirectory), JSON.stringify(report, null, 2) + '\n');
 console.log(JSON.stringify(report, null, 2));
 if (checks.some(item => !item.passed)) process.exitCode = 1;

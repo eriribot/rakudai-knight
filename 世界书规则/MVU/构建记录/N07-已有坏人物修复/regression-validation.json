@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "revision": "N07 / phone 1.3.23",
+  "passed": true,
+  "testCases": 214,
+  "checks": [
+    {
+      "command": "node scripts/check-state-browser.mjs",
+      "exitCode": 0,
+      "passed": 52,
+      "total": 52,
+      "failures": []
+    },
+    {
+      "command": "node scripts/黑白ADV轮盘终端/correction-readiness-test.mjs",
+      "exitCode": 0,
+      "passed": 74,
+      "total": 74,
+      "failures": []
+    },
+    {
+      "command": "node scripts/黑白ADV轮盘终端/correction-exclusions-test.mjs",
+      "exitCode": 0,
+      "passed": 11,
+      "total": 11,
+      "failures": []
+    },
+    {
+      "command": "node scripts/黑白ADV轮盘终端/state-panel-test.mjs",
+      "exitCode": 0,
+      "passed": 18,
+      "total": 18,
+      "failures": []
+    },
+    {
+      "command": "node scripts/黑白ADV轮盘终端/shell-test.mjs",
+      "exitCode": 0,
+      "passed": 27,
+      "total": 27,
+      "failures": []
+    },
+    {
+      "command": "node scripts/黑白ADV轮盘终端/packaging-test.mjs",
+      "exitCode": 0,
+      "passed": 9,
+      "total": 9,
+      "failures": []
+    },
+    {
+      "command": "node scripts/check-opening-ai-isolation.mjs",
+      "exitCode": 0,
+      "passed": true
+    },
+    {
+      "command": "node scripts/check-mvu-repair-source.mjs",
+      "exitCode": 0,
+      "passed": true
+    },
+    {
+      "command": "node scripts/build-state-controller.mjs --page",
+      "exitCode": 0,
+      "passed": true
+    },
+    {
+      "command": "node scripts/sync-worldbook-calibration.mjs --script-only --check",
+      "exitCode": 0,
+      "passed": true
+    }
+  ],
+  "runtime": "Offline tests, pinned real MVU and bridge source execution; live browser inspection only. No chat variables were written by this task."
+}

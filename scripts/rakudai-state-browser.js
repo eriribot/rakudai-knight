@@ -78,6 +78,14 @@
     if (now.ctx.chat.length !== 1 || now.messageId !== 0) throw new Error('本局已经产生后续聊天，不能替换开局人物；请在新聊天使用该档案。');
     assertOpeningReplacementState(now.data.stat_data);
   }
+  function validateState(value) {
+    // 页面与副校正仅校验内存候选，不重算人际，也不创建楼层写入凭据。
+    const parsed = createSchema(runtime().Z, { normalizeRelationships: false }).parse(value);
+    const state = cloneState(value);
+    state.场景.当前章 = parsed.场景.当前章;
+    for (const name of Object.keys(state.场景.已发生事件)) state.场景.已发生事件[name].章段 = parsed.场景.已发生事件[name].章段;
+    return state;
+  }
   const api = createStateController({
     capture: async ({ messageId } = {}) => {
       // MVU 可能在本 iframe 创建后初始化；用本 iframe 的 Helper 安装动态 getter。
@@ -86,15 +94,7 @@
       return position(messageId);
     },
     current, assertOpeningReplacement,
-    validate: value => {
-      // 页面事务只验证，不借迁移或切章重算人际、补入人物默认字段。
-      const parsed = createSchema(runtime().Z, { normalizeRelationships: false }).parse(value);
-      const state = cloneState(value);
-      // 仅规范已经存在的卷章别名，避免合法别名在终端目录中失配。
-      state.场景.当前章 = parsed.场景.当前章;
-      for (const name of Object.keys(state.场景.已发生事件)) state.场景.已发生事件[name].章段 = parsed.场景.已发生事件[name].章段;
-      return state;
-    },
+    validate: validateState,
     migrate: value => prepareStateMigration(value, runtime().Z),
     write: (saved, expected, state, { openingReplacement = false } = {}) => {
       if (openingReplacement) assertOpeningReplacement(saved);
@@ -115,7 +115,9 @@
       return undefined;
     },
   });
-  W.RakudaiStateController = api;
+  const publicApi = Object.defineProperties({}, Object.getOwnPropertyDescriptors(api));
+  Object.defineProperty(publicApi, 'validateState', { value: validateState, enumerable: true });
+  W.RakudaiStateController = Object.freeze(publicApi);
   // 开局页已有的照片入口只保存显示信息；沿用宿主聊天 scope，不进入 MVU。
   const displayTokens = new WeakMap();
   function displayStore(H) {

@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "deliveryMode": "component",
+  "kind": "helper-script",
+  "artifacts": [
+    {
+      "artifactName": "phone-v1-3-21",
+      "id": "ee190b2f-d2ba-44b4-9f1b-0695c07fefc5",
+      "kind": "helper-script",
+      "relativePath": "phone-v1-3-21.script.json",
+      "sha256": "ebf71d5b5bef9e716d34a32e8a1a19d6c7cc5f98f2d01a44206ff81ea21f00db"
+    }
+  ]
+}

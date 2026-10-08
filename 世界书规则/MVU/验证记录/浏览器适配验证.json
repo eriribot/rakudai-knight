@@ -1,8 +1,12 @@
 {
-  "passed": 51,
-  "total": 51,
+  "passed": 52,
+  "total": 52,
   "runtime": "离线固定API语义模拟，未连接真实酒馆",
   "results": [
+    {
+      "name": "副校正候选可独立完整校验，坏人物不通过且不读取或改写存档",
+      "passed": true
+    },
     {
       "name": "旧v4虽同为4.0.0也必须在建档前提示缺少觉醒schema，不写入存档",
       "passed": true

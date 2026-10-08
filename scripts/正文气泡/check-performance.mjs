@@ -84,7 +84,7 @@ if (!isMainThread) {
       results.push({name:fixture.name,characters:fixture.input.length,passed:false,error:error.message});
     } finally {if(worker) await worker.terminate();}
   }
-  const report = {schemaVersion:1,version:'0.5',generatedAt:new Date().toISOString(),nodeVersion:process.version,
+  const report = {schemaVersion:1,version:'0.6',generatedAt:new Date().toISOString(),nodeVersion:process.version,
     evidenceType:'isolated-offline-JavaScript-regex-performance',
     boundary:'单worker顺序运行；首次build+RegExp编译+完整转换单独计时，之后三次完整转换。一行冷启动200ms，其他冷启动硬门槛1s；普通正文热预算200ms，围栏/保护块硬门槛1s。结果随硬件变化，不等于实际酒馆流式帧时间。',
     sourceHashes:Object.fromEntries(['build.mjs','context-guard.mjs','check-performance.mjs'].map(name =>

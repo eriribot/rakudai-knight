@@ -3,16 +3,26 @@
   let panelBusy = false, panelReading = false, panelRequest = 0, panelEpoch = 0;
   let panelCatalogue = [], panelUpdate = null, panelBackupUrl = null;
   let panelDisplayState = null, panelDisplaySource = null, panelReadOnly = true;
+  let panelReadReason = 'loading';
   let injectionPreviewRequest = 0;
   const routeCaptures = { jump: null, nextVolume: null };
 
   function stateService() {
     const service = window.RakudaiStateController;
-    if (!service || service.version !== '4.0.0' || typeof service.capture !== 'function' || typeof service.transition !== 'function') throw new Error('剧情状态服务尚未就绪，请更新终端与 v4 约束后刷新。');
+    if (!service || service.version !== '4.0.0' || typeof service.capture !== 'function' || typeof service.transition !== 'function') {
+      const error = new Error('剧情状态服务尚未就绪，请检查终端是否完整加载后刷新；手动切章不需要启用字段约束。');
+      error.code = 'RK_STATE_UNAVAILABLE';
+      throw error;
+    }
     return service;
   }
   function panelNode(selector) { return statePanel && statePanel.querySelector(selector); }
   function panelText(selector, value) { const node = panelNode(selector); if (node) node.textContent = value; }
+  function panelValidationMessage(error) {
+    const paths = [...new Set(error.issues.map(issue => Array.isArray(issue.path) && issue.path.length ? issue.path.join(' / ') : '存档根对象'))];
+    return '当前已保存数据的字段缺失或格式不合法：' + paths.slice(0, 8).join('；') +
+      (paths.length > 8 ? '；另有 ' + (paths.length - 8) + ' 项' : '') + '。请修复后刷新，剧情操作暂不可用。';
+  }
   function panelVolume(volume) { return panelCatalogue.find(item => item.volume === volume); }
   function panelPosition(volume, chapter) {
     let position = 0;
@@ -82,13 +92,18 @@
     panelText('[data-story-system]', '系统：' + (system.开局状态 || '未读取') + ' · ' + (system.主角模式 || '未选择'));
     panelText('[data-story-scene]', (book ? book.title + ' · ' : '') + sceneLabel(scene));
     panelText('[data-story-location]', '时间：' + (scene.时间 || '未确认') + '　地点：' + (scene.地点 || '未确认'));
-    panelText('[data-story-display-source]', panelDisplayState && (generationPending || panelReadOnly)
-      ? '暂显最近已保存状态 · ' + sourceLabel(panelDisplaySource) + '；等待当前回复 MVU，剧情操作暂不可用。' : '');
+    const displayReason = generationPending ? 'pending' : panelReadReason;
+    const displayNotes = {
+      pending: '暂显最近已保存状态 · ' + sourceLabel(panelDisplaySource) + '；等待当前回复 MVU，剧情操作暂不可用。',
+      invalid: '已保存状态 · ' + sourceLabel(panelDisplaySource) + '；字段校验未通过，剧情操作暂不可用。',
+      unavailable: '已读取状态 · ' + sourceLabel(panelDisplaySource) + '；剧情状态服务暂不可用。',
+      loading: '已读取状态 · ' + sourceLabel(panelDisplaySource) + '；正在核对当前回复。',
+    };
+    panelText('[data-story-display-source]', panelDisplayState && panelReadOnly ? displayNotes[displayReason] || '' : '');
     setPanelOptions(panelNode('[data-story-start-chapter]'), [{ value: '', label: '请选择章节' }, ...(book?.chapters || []).map(chapter => ({ value: chapter.key, label: chapter.key + ' · ' + chapter.title }))], scene.当前章 === '待选择' ? undefined : scene.当前章);
-    let hint = 'AI 按当前世界书条目的完成标识，在 MVU 更新时自动进入相邻下一章；按钮保留为手动兜底。事件、人际与能力仍依据本局实际记录。';
+    let hint = '手动切章和 AI 直接提交相邻目标卷章不需要字段约束。若 AI 只提交本章“已结束”，需启用可选字段约束才能由代码进入下一章。';
     if (panelMigration) hint = '当前为 v3 存档，先核对下方差异，再明确确认升级。预览不会修改聊天。';
     else if (system.开局状态 !== '已建档') hint = '请先完成开局建档。';
-    else if (HW.__RK_MVU_GUARD_V4__?.automaticStoryProgress !== true) hint = '自动切章需要同步更新并启用 MVU v4 字段约束脚本；当前可使用按钮手动兜底。';
     else if (scene.当前卷 === 19 && scene.当前章 === book?.chapters.at(-1)?.key && scene.阶段 === '已结束') hint = '已到第 19 卷末。回看已有剧情请使用聊天分支或已有回复页。';
     else if (!scene.时间 || !scene.地点) hint = '请先在本局确认时间和地点，再开始本章。';
     panelText('[data-story-hint]', hint);
@@ -136,14 +151,15 @@
   async function refreshStatePanel() {
     if (!statePanel || SS.destroyed || panelBusy || panelReading) return;
     const request = ++panelRequest; panelReading = true; updatePanelActions();
-    let snapshot = null;
+    let snapshot = null, snapshotError = null;
     try {
       const service = stateService(); panelCatalogue = service.catalogue;
       if (!Array.isArray(panelCatalogue) || !panelCatalogue.length) throw new Error('剧情目录尚未就绪，请更新终端。');
-      try { snapshot = await readSnapshot(); } catch (_) {}
+      try { snapshot = await readSnapshot(); snapshotError = null; } catch (error) { snapshotError = error; }
       if (request !== panelRequest || SS.destroyed || !statePanel) return;
       if (generationPending || snapshot?.pending) {
-        stateCapture = null; panelMigration = null; panelReadOnly = true; closeRouteForms();
+        stateCapture = null; panelMigration = null; panelReadOnly = true;
+        panelReadReason = snapshot?.incomplete && !generationPending ? 'invalid' : 'pending'; closeRouteForms();
         if (snapshot?.state) { panelDisplayState = snapshot.state; panelDisplaySource = snapshot.source || null; }
         renderStatePanel();
         panelText('[data-story-status]', snapshot?.message || '等待当前回复 MVU，暂时保留已保存状态。');
@@ -155,7 +171,7 @@
       if (request !== panelRequest || SS.destroyed || !statePanel) return;
       if (captured && (!captured.state || !captured.token)) throw new Error('未取得可用的剧情状态。');
       if (generationPending) throw new Error('正在生成，等待当前回复 MVU。');
-      stateCapture = captured || null; panelMigration = migration || null; panelReadOnly = false;
+      stateCapture = captured || null; panelMigration = migration || null; panelReadOnly = false; panelReadReason = '';
       panelDisplayState = captured?.state || migration?.before || null;
       panelDisplaySource = snapshot?.source || null;
       renderStatePanel();
@@ -163,11 +179,15 @@
     } catch (error) {
       if (request !== panelRequest || SS.destroyed || !statePanel) return;
       stateCapture = null; panelMigration = null; panelReadOnly = true; closeRouteForms();
-      try { snapshot = await readSnapshot(); } catch (_) {}
+      try { snapshot = await readSnapshot(); snapshotError = null; } catch (readError) { snapshotError = readError; }
       if (request !== panelRequest || SS.destroyed || !statePanel) return;
+      const invalid = Array.isArray(error.issues) && error.issues.length > 0;
+      const pending = error.code !== 'RK_STATE_UNAVAILABLE' && (generationPending || error.code === 'MVU_PENDING' || snapshotError?.code === 'MVU_PENDING');
+      panelReadReason = invalid ? 'invalid' : pending ? 'pending' : 'unavailable';
       if (snapshot?.state) { panelDisplayState = snapshot.state; panelDisplaySource = snapshot.source || null; }
       renderStatePanel();
-      panelText('[data-story-status]', error.message || String(error));
+      panelText('[data-story-status]', invalid ? panelValidationMessage(error) : pending
+        ? snapshotError?.message || '等待当前回复 MVU，剧情操作暂不可用。' : error.message || String(error));
     } finally {
       if (request === panelRequest && statePanel) { panelReading = false; updatePanelActions(); refreshInjectionPreview(); }
     }
@@ -286,10 +306,10 @@
     statePanel.addEventListener('toggle', event => { if (event.target === statePanel && statePanel.open) refreshStatePanel(); });
     panelUpdate = event => {
       if (event?.reset) {
-        ++panelEpoch; ++panelRequest; ++injectionPreviewRequest; panelReading = false; stateCapture = null; panelMigration = null; panelReadOnly = true;
+        ++panelEpoch; ++panelRequest; ++injectionPreviewRequest; panelReading = false; stateCapture = null; panelMigration = null; panelReadOnly = true; panelReadReason = generationPending ? 'pending' : 'loading';
         if (!event.retainDisplay) { panelDisplayState = null; panelDisplaySource = null; }
         closeRouteForms(true); renderStatePanel();
-        panelText('[data-story-status]', event.retainDisplay ? '等待当前回复 MVU，剧情操作暂不可用。' : '正在读取当前聊天状态。');
+        panelText('[data-story-status]', generationPending ? '等待当前回复 MVU，剧情操作暂不可用。' : '正在读取当前聊天状态。');
       }
       if (SS.visible && statePanel?.open) refreshStatePanel();
     };
@@ -300,6 +320,6 @@
     if (panelUpdate) { const index = updateCbs.indexOf(panelUpdate); if (index >= 0) updateCbs.splice(index, 1); }
     if (panelBackupUrl) (HW.URL || URL).revokeObjectURL(panelBackupUrl);
     panelBackupUrl = null; panelUpdate = null; stateCapture = null; panelMigration = null; statePanel = null;
-    panelDisplayState = null; panelDisplaySource = null; panelReadOnly = true;
+    panelDisplayState = null; panelDisplaySource = null; panelReadOnly = true; panelReadReason = 'loading';
     routeCaptures.jump = null; routeCaptures.nextVolume = null; panelReading = false;
   }

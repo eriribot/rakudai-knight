@@ -12,7 +12,7 @@ import { validateTarget } from '../.agents/skills/sillytavern-component-update/s
 // Only standalone components are emitted; the source card is a read-only metadata fixture.
 const ROOT = fileURLToPath(new URL('../', import.meta.url));
 const OUT = '世界书规则/MVU';
-const RECORDS = `${OUT}/构建记录/N04-气泡渲染`;
+const RECORDS = `${OUT}/构建记录/N07-已有坏人物修复`;
 const NATIVE_ID = '0ad18dbe-5a59-4cad-acfd-50c2bce0d9ec';
 const OPENING_ID = '4f9bda79-82bd-4d2f-9a66-2497349df26e';
 const PHONE_ROOT = 'scripts/黑白ADV轮盘终端';
@@ -25,9 +25,10 @@ const SOURCES = {
   stateControllerBuilder: 'scripts/build-state-controller.mjs',
   avatarManifest: 'resource/knightavatars/manifest.json',
   guard: `${OUT}/落第骑士-MVU-v4字段约束.json`,
-  existingNative: `${OUT}/落第骑士-MVU-原生兼容-N03.json`,
-  existingOpening: `${OUT}/落第骑士-开局页面-N04.regex.json`,
+  existingNative: `${OUT}/落第骑士-MVU-原生兼容-N04.json`,
+  existingOpening: `${OUT}/落第骑士-开局页面-N06.regex.json`,
   structure: 'scripts/rakudai-mvu-structure.mjs',
+  patch: 'scripts/rakudai-mvu-patch.mjs',
   native: 'scripts/rakudai-mvu-native.mjs',
   schema: `${OUT}/schema.mjs`,
   initialization: `${OUT}/[initvar]变量初始化.yaml`,
@@ -88,32 +89,34 @@ if (matches.length !== 1 || matches[0].scriptName !== '[开局]') throw new Erro
 const openingOriginal = structuredClone(matches[0]);
 const opening = { ...structuredClone(openingOriginal), replaceString: read(SOURCES.opening).toString('utf8') };
 const { artifact: phone, version: phoneVersion } = buildTerminal(), guard = json(SOURCES.guard);
-if (phone.type !== 'script' || phoneVersion !== '1.3.20' || !phone.name.includes('v1.3.20') || guard.type !== 'script') {
+if (phone.type !== 'script' || phoneVersion !== '1.3.23' || !phone.name.includes('v1.3.23') || guard.type !== 'script') {
   throw new Error('Unexpected source component version or dialect');
 }
 const wrap = (body, run) => '// GENERATED: node scripts/build-native-mvu-components.mjs --write\n(function () {\n"use strict";\n' + body + '\n' + run + '\n})();\n';
-const nativeContent = wrap([source(SOURCES.structure), source(SOURCES.native)].join('\n'),
-  'window.RakudaiMvuNative = { version: "N03", runtime: rakudaiMvuRuntime, prepare: prepareRakudaiNativeMvu, install: installRakudaiNativeMvu };\nvoid installRakudaiNativeMvu(window);');
+const nativeContent = wrap([source(SOURCES.structure), source(SOURCES.patch), source(SOURCES.native)].join('\n'),
+  'window.RakudaiMvuNative = { version: "N04", runtime: rakudaiMvuRuntime, prepare: prepareRakudaiNativeMvu, install: installRakudaiNativeMvu };\nvoid installRakudaiNativeMvu(window);');
 const noApiOrRemoteImport = content => !/\b(?:fetch|XMLHttpRequest|ChatCompletionService|generateRaw)\b|\bimport\s*\(/.test(content);
-for (const [name, content] of [['native-mvu-n03', nativeContent]]) {
+for (const [name, content] of [['native-mvu-n04', nativeContent]]) {
   new vm.Script(content, { filename: `${name}.js` });
   if (!noApiOrRemoteImport(content)) throw new Error(`${name} must not request APIs or remote modules`);
 }
 const native = {
-  type: 'script', enabled: true, name: '落第骑士·原生 MVU 写入兼容 [N03]', id: NATIVE_ID, content: nativeContent,
-  info: 'N03：沿用 N01/N02 的脚本 ID。真实 MVU 更新开始时补本卡 v4 缺失的玩家.成长、成长.经验与历史申请父容器，经验缺轴补0；已有经验、六维、旧申请、收据、未知字段和坏类型保留。主API直接写经验与六维终值，原生模式由模型计算门槛与余量；需要准确门槛校正可另开当前v4字段约束。约束关闭时才重建原生schema，加载或失败不视为关闭。不兑现旧申请、不结算奖励、不注册Zod、不调用API、不重放旧失败补丁、不批量改历史楼层。升级后关闭旧独立成长G04，只启用一份兼容脚本。',
+  type: 'script', enabled: true, name: '落第骑士·原生 MVU 写入兼容 [N04]', id: NATIVE_ID, content: nativeContent,
+  info: 'N04：沿用 N01/N02/N03 的脚本 ID。真实 MVU 更新开始时补本卡 v4 缺失的玩家.成长、成长.经验与历史申请父容器，经验缺轴补0；已有经验、六维、旧申请、收据、未知字段和坏类型保留。安全整合已解析的对象型 add/replace 批次，将缺失父对象的子字段合并为完整新增记录；已有容器、数组及其他操作保持原命令语义。主API直接写经验与六维终值，原生模式由模型计算门槛与余量；需要准确门槛校正可另开当前v4字段约束。约束关闭时才重建原生schema，加载或失败不视为关闭。不兑现旧申请、不结算奖励、不注册Zod、不调用API、不重放旧失败补丁、不批量改历史楼层。升级后关闭旧独立成长G04，只启用一份兼容脚本。',
   button: { enabled: true, buttons: [] }, data: {}, export_with: { data: false, button: false },
 };
 const selected = [
-  { name: 'phone-v1-3-20', kind: 'helper-script', value: phone, file: `${OUT}/落第骑士-小手机-v1.3.20.json` },
+  { name: 'phone-v1-3-23', kind: 'helper-script', value: phone, file: `${OUT}/落第骑士-小手机-v1.3.23.json` },
 ];
 const reused = [
   { file: SOURCES.guard, id: guard.id, sha256: sourceHashes[SOURCES.guard], enabled: guard.enabled },
-  { file: SOURCES.existingNative, id: NATIVE_ID, sha256: sourceHashes[SOURCES.existingNative], enabled: native.enabled },
-  { file: SOURCES.existingOpening, id: OPENING_ID, sha256: sourceHashes[SOURCES.existingOpening], enabled: !opening.disabled },
+  ...[SOURCES.existingNative, SOURCES.existingOpening].map(file => {
+    const value = json(file);
+    return { file, id: value.id, sha256: sourceHashes[file], enabled: value.type === 'script' ? value.enabled : !value.disabled };
+  }),
 ];
-if (canonicalJson(json(SOURCES.existingNative)) !== canonicalJson(native) || canonicalJson(json(SOURCES.existingOpening)) !== canonicalJson(opening)) {
-  throw new Error('Reused native/opening components differ from their maintained source');
+if (opening.replaceString !== '```\n' + read(SOURCES.openingPage).toString('utf8') + '```') {
+  throw new Error('Opening replacement differs from its maintained page');
 }
 const worldbookEntryFiles = ['变量列表.txt', '变量更新规则.txt', '变量输出格式.txt', '[initvar]变量初始化.yaml'].map(file => `${OUT}/${file}`);
 if (new Set([...selected.map(item => item.value.id), ...reused.map(item => item.id)]).size !== selected.length + reused.length) throw new Error('Duplicate component IDs');
@@ -127,19 +130,19 @@ const plans = batches.map(batch => ({ spec: batch.specFile, ...planSpec(batch.sp
 if (plans.some(report => report.errors.length)) throw new Error(JSON.stringify(portable(plans)));
 const scopeLock = {
   schemaVersion: 1, deliveryMode: 'component', outputRoot: OUT, recordsRoot: RECORDS, builder: 'scripts/build-native-mvu-components.mjs',
-  versions: { state: 4, native: 'N03', opening: 'N04', growthProtocol: 'final-values-v1', phone: phoneVersion, guard: guard.name }, sourceHashes,
+  versions: { state: 4, native: 'N04', opening: 'N06', growthProtocol: 'final-values-v1', phone: phoneVersion, guard: guard.name }, sourceHashes,
   phoneBuild: { method: 'buildTerminal in memory', artifactSha256: hash(canonicalJson(phone)) },
   library: { skill: 'sillytavern-component-update', routeIds: ['sillytavern-component-update'], snapshotVersion: '2026-08-18',
-    loadedGuideIds: ['ST-A0', 'ST-A2', 'ST-A5', 'ST-A6', 'ST-B2'], adoptedCandidates: [],
-    a0: { goal: 'Emit phone 1.3.20 to repair player portrait after message redraw, paired with bubble v0.5; reuse opening N04, native N03 and the optional guard',
-      redLines: 'No output writes, full card, PNG, worldbook package, live import, model request or source-state write',
+    loadedGuideIds: ['ST-A0', 'ST-A2', 'ST-A6', 'ST-C1', 'ST-C10'], adoptedCandidates: [],
+    a0: { goal: 'Emit only phone 1.3.23 with atomic relationship repair, full candidate validation and accurate state-panel diagnostics; reuse native N04, opening N06 and MVU02 guard without writes',
+      redLines: 'Only selected component artifacts and records inside outputRoot; no writes to output/, full card, PNG, worldbook package, live import, model request or source-state write',
       acceptance: 'Skill plan/build/validation, stable IDs and metadata, no independent growth output, bounded paths and unchanged source hashes' } },
   selected: selected.map(item => ({ id: item.value.id, kind: item.kind, output: item.file,
     runtimeOwner: 'current Rakudai character; message-floor MVU data', enabled: item.kind === 'regex' ? !item.value.disabled : item.value.enabled })),
   reused,
   worldbookEntryFiles,
   upgrade: { disableLegacyIndependentGrowth: '43a80755-9084-5356-ac85-cc60f8e93886', preserveLegacyArtifacts: true },
-  untouched: ['all source files', 'historical N02/G04 artifacts and records', 'other regexes and scripts', 'complete card and worldbook', 'all real chats and historical floors'],
+  untouched: ['all source files', 'historical N02/N03/N04/N05/N06/G04 artifacts and records', 'other regexes and scripts', 'complete card and worldbook', 'all real chats and historical floors'],
   pendingRuntime: ['target SillyTavern, Tavern Helper and MVU versions', 'component import, execution, current-reply saving and reload persistence in user runtime'],
 };
 if (preparing || writing) {
@@ -179,7 +182,7 @@ if (!writing) {
     guardFileReusedWithoutWrite: hash(read(SOURCES.guard)) === sourceHashes[SOURCES.guard],
     reusedComponentsUnchanged: reused.every(item => hash(read(item.file)) === item.sha256),
     openingMetadataPreserved: canonicalJson(beforeMetadata) === canonicalJson(afterMetadata),
-    openingReplacementMatchesSource: afterReplace === read(SOURCES.opening).toString('utf8'),
+    openingReplacementReused: hash(read(SOURCES.existingOpening)) === sourceHashes[SOURCES.existingOpening],
     nativeStableIdAndEnabled: native.id === NATIVE_ID && native.enabled && native.button.enabled,
     noIndependentGrowthOutput: selected.every(item => item.name !== 'growth-g04'),
     nativeNoApiOrRemoteImport: noApiOrRemoteImport(nativeContent),

@@ -52,6 +52,15 @@ function fixture({ deferredMvu = false, nestedIframe = false, guarded = true } =
     get waitCalls() { return waitCalls; }, get proxyReads() { return { iframe: iframeProxyReads, parent: parentProxyReads }; } };
 }
 async function check(name, run) { try { await run(); results.push({ name, passed: true }); } catch (error) { results.push({ name, passed: false, error: error.message }); } }
+await check('副校正候选可独立完整校验，坏人物不通过且不读取或改写存档', () => {
+  const f = fixture({ guarded: false }), state = clone(INITIAL_STATE), before = clone(f.ctx.chat);
+  const valid = f.api.validateState(state);
+  valid.场景.地点 = '仅改返回副本';
+  assert.notEqual(state.场景.地点, valid.场景.地点);
+  state.人际.黑铁一辉 = { 关系: '初识学长', 好感: 10, 支援: 0, 印象: '礼貌懂事的新生' };
+  assert.throws(() => f.api.validateState(state), error => error.issues.some(issue => issue.path.includes('态度印象')));
+  assert.deepEqual(f.ctx.chat, before); assert.equal(f.writes, 0); assert.equal(f.waitCalls, 0);
+});
 await check('旧v4虽同为4.0.0也必须在建档前提示缺少觉醒schema，不写入存档', async () => {
   const f = fixture(); delete f.H.__RK_MVU_GUARD_V4__.growth;
   await assert.rejects(f.api.capture(), /旧v4约束.*魔人觉醒/); assert.equal(f.writes, 0);

@@ -1,4 +1,5 @@
 import { isRakudaiMvuState, repairRakudaiMvuStructure } from './rakudai-mvu-structure.mjs';
+import { normalizeRakudaiMvuCommands } from './rakudai-mvu-patch.mjs';
 export { isRakudaiMvuState };
 
 // 本卡的 MVU 兼容层；补缺失经验容器/零初值，兼容旧申请父容器，不注册 Zod、不调用模型。
@@ -63,13 +64,13 @@ export function prepareRakudaiNativeMvu(data, scopes = [], { repairStructure = t
 
 export async function installRakudaiNativeMvu(W) {
   const slot = '__RK_MVU_NATIVE_N01__';
-  if (W[slot]?.version === 'N03' && W[slot].state !== 'failed') return W[slot];
+  if (W[slot]?.version === 'N04' && W[slot].state !== 'failed') return W[slot];
   W[slot]?.destroy?.();
-  const marker = { version: 'N03', state: 'loading', destroy: null };
+  const marker = { version: 'N04', state: 'loading', destroy: null };
   W[slot] = marker;
-  let disposed = false, listener = null;
+  let disposed = false, listener = null, commandListener = null;
   function destroy() {
-    disposed = true; listener?.stop();
+    disposed = true; listener?.stop(); commandListener?.stop();
     if (W[slot] === marker) delete W[slot];
     W.removeEventListener?.('pagehide', destroy);
   }
@@ -91,11 +92,19 @@ export async function installRakudaiNativeMvu(W) {
     if (owner.characterId == null && owner.groupId == null) throw new Error('请在角色聊天中加载原生 MVU 兼容。');
     const mvu = W.Mvu || H.Mvu;
     if (!mvu?.events?.VARIABLE_UPDATE_STARTED) throw new Error('MVU 缺少变量更新开始事件。');
-    listener = helper('eventOn')(mvu.events.VARIABLE_UPDATE_STARTED, variables => {
-      if (disposed) return;
+    const owned = () => {
+      if (disposed) return false;
       const current = H.SillyTavern.getContext();
-      if (current.characterId !== owner.characterId || (current.groupId ?? null) !== owner.groupId) return;
+      return current.characterId === owner.characterId && (current.groupId ?? null) === owner.groupId;
+    };
+    listener = helper('eventOn')(mvu.events.VARIABLE_UPDATE_STARTED, variables => {
+      if (!owned()) return;
       prepareRakudaiNativeMvu(variables, scopes);
+    });
+    if (mvu.events.COMMAND_PARSED) commandListener = helper('eventOn')(mvu.events.COMMAND_PARSED, (variables, commands) => {
+      if (!owned() || !isRakudaiMvuState(variables?.stat_data)) return;
+      const normalized = normalizeRakudaiMvuCommands(commands, variables.stat_data);
+      if (normalized !== commands) commands.splice(0, commands.length, ...normalized);
     });
     marker.state = 'ready';
   } catch (error) {

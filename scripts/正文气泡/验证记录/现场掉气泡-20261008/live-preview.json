@@ -1,0 +1,146 @@
+{
+  "checkedAt": "2026-10-08T04:50:08.360Z",
+  "browser": "154.0.8037.98",
+  "componentSha256": {
+    "dialogue-bubbles": "f080e31e6d5350ca830b79260575f78fbf3735d902b28de617399d7df7fcdd97",
+    "dialogue-player-candidates": "a548f8b4d27ef1db3ef8a969051833477a05370bbc45af4dbff2fb6194fb1f38",
+    "dialogue-bubble-style": "e86d2b7fd49e8897b3d1f3d8ffc6571143af4368f9648cca3e00d5ced5f3806f"
+  },
+  "mode": "read-only-replay",
+  "cases": [
+    {
+      "id": 4,
+      "depth": 2,
+      "before": {
+        "bubbles": 22,
+        "styles": 1
+      },
+      "after": {
+        "bubbles": 22,
+        "styles": 1
+      },
+      "elapsedMs": 23.59999999962747
+    },
+    {
+      "id": 6,
+      "depth": 0,
+      "before": {
+        "bubbles": 0,
+        "styles": 0
+      },
+      "after": {
+        "bubbles": 13,
+        "styles": 1
+      },
+      "elapsedMs": 23.40000000037253
+    }
+  ],
+  "chatSha256": "f174e61f219900605138e374f78e23a9bdd3327a5c2b530370718172038bf3ff",
+  "consoleErrors": [
+    {
+      "phase": "replay",
+      "message": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')",
+      "stack": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')\n    at AutoComplete.updateFloatingPosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:576:42)\n    at AutoComplete.updatePosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:518:18)\n    at http://127.0.0.1:8000/scripts/utils.js:578:41"
+    },
+    {
+      "phase": "replay",
+      "message": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')",
+      "stack": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')\n    at AutoComplete.updateFloatingPosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:576:42)\n    at AutoComplete.updatePosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:518:18)\n    at http://127.0.0.1:8000/scripts/utils.js:578:41"
+    },
+    {
+      "phase": "replay",
+      "message": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')",
+      "stack": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')\n    at AutoComplete.updateFloatingPosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:576:42)\n    at AutoComplete.updatePosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:518:18)\n    at http://127.0.0.1:8000/scripts/utils.js:578:41"
+    },
+    {
+      "phase": "replay",
+      "message": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')",
+      "stack": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')\n    at AutoComplete.updateFloatingPosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:576:42)\n    at AutoComplete.updatePosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:518:18)\n    at http://127.0.0.1:8000/scripts/utils.js:578:41"
+    },
+    {
+      "phase": "replay",
+      "message": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')",
+      "stack": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')\n    at AutoComplete.updateFloatingPosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:576:42)\n    at AutoComplete.updatePosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:518:18)\n    at http://127.0.0.1:8000/scripts/utils.js:578:41"
+    },
+    {
+      "phase": "replay",
+      "message": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')",
+      "stack": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')\n    at AutoComplete.updateFloatingPosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:576:42)\n    at AutoComplete.updatePosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:518:18)\n    at http://127.0.0.1:8000/scripts/utils.js:578:41"
+    },
+    {
+      "phase": "replay",
+      "message": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')",
+      "stack": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')\n    at AutoComplete.updateFloatingPosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:576:42)\n    at AutoComplete.updatePosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:518:18)\n    at http://127.0.0.1:8000/scripts/utils.js:578:41"
+    },
+    {
+      "phase": "replay",
+      "message": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')",
+      "stack": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')\n    at AutoComplete.updateFloatingPosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:576:42)\n    at AutoComplete.updatePosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:518:18)\n    at http://127.0.0.1:8000/scripts/utils.js:578:41"
+    },
+    {
+      "phase": "replay",
+      "message": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')",
+      "stack": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')\n    at AutoComplete.updateFloatingPosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:576:42)\n    at AutoComplete.updatePosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:518:18)\n    at http://127.0.0.1:8000/scripts/utils.js:578:41"
+    },
+    {
+      "phase": "replay",
+      "message": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')",
+      "stack": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')\n    at AutoComplete.updateFloatingPosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:576:42)\n    at AutoComplete.updatePosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:518:18)\n    at http://127.0.0.1:8000/scripts/utils.js:578:41"
+    },
+    {
+      "phase": "replay",
+      "message": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')",
+      "stack": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')\n    at AutoComplete.updateFloatingPosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:576:42)\n    at AutoComplete.updatePosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:518:18)\n    at http://127.0.0.1:8000/scripts/utils.js:578:41"
+    },
+    {
+      "phase": "replay",
+      "message": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')",
+      "stack": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')\n    at AutoComplete.updateFloatingPosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:576:42)\n    at AutoComplete.updatePosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:518:18)\n    at http://127.0.0.1:8000/scripts/utils.js:578:41"
+    },
+    {
+      "phase": "replay",
+      "message": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')",
+      "stack": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')\n    at AutoComplete.updateFloatingPosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:576:42)\n    at AutoComplete.updatePosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:518:18)\n    at http://127.0.0.1:8000/scripts/utils.js:578:41"
+    },
+    {
+      "phase": "replay",
+      "message": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')",
+      "stack": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')\n    at AutoComplete.updateFloatingPosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:576:42)\n    at AutoComplete.updatePosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:518:18)\n    at http://127.0.0.1:8000/scripts/utils.js:578:41"
+    },
+    {
+      "phase": "replay",
+      "message": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')",
+      "stack": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')\n    at AutoComplete.updateFloatingPosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:576:42)\n    at AutoComplete.updatePosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:518:18)\n    at http://127.0.0.1:8000/scripts/utils.js:578:41"
+    },
+    {
+      "phase": "replay",
+      "message": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')",
+      "stack": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')\n    at AutoComplete.updateFloatingPosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:576:42)\n    at AutoComplete.updatePosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:518:18)\n    at http://127.0.0.1:8000/scripts/utils.js:578:41"
+    },
+    {
+      "phase": "replay",
+      "message": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')",
+      "stack": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')\n    at AutoComplete.updateFloatingPosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:576:42)\n    at AutoComplete.updatePosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:518:18)\n    at http://127.0.0.1:8000/scripts/utils.js:578:41"
+    },
+    {
+      "phase": "replay",
+      "message": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')",
+      "stack": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')\n    at AutoComplete.updateFloatingPosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:576:42)\n    at AutoComplete.updatePosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:518:18)\n    at http://127.0.0.1:8000/scripts/utils.js:578:41"
+    },
+    {
+      "phase": "replay",
+      "message": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')",
+      "stack": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')\n    at AutoComplete.updateFloatingPosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:576:42)\n    at AutoComplete.updatePosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:518:18)\n    at http://127.0.0.1:8000/scripts/utils.js:578:41"
+    },
+    {
+      "phase": "replay",
+      "message": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')",
+      "stack": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')\n    at AutoComplete.updateFloatingPosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:576:42)\n    at AutoComplete.updatePosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:518:18)\n    at http://127.0.0.1:8000/scripts/utils.js:578:41"
+    },
+    {
+      "phase": "replay",
+      "message": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')",
+      "stack": "TypeError: Cannot read properties of null (reading 'getBoundingClientRect')\n    at AutoComplete.updateFloatingPosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:576:42)\n    at AutoComplete.updatePosition (http://127.0.0.1:8000/scripts/autocomplete/AutoComplete.js:518:18)\n    at http://127.0.0.1:8000/scripts/utils.js:578:41"
+    }
+  ]
+}

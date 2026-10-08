@@ -48,7 +48,7 @@ export function buildRules() {
   // for CSS/JS lines inside preset option iframes.
   // ASCII literals fold explicitly. The long fence suffix must compare exact
   // bytes without global /i, and no newer inline-modifier syntax is required.
-  const contextAtColon = buildContextGuard();
+  const contextAtColon = buildContextGuard({opaqueDrivers: true});
   const speech = '(?![^\\r\\n\\u2028\\u2029]*\\{\\{)[ \\t]*(?<rkdSpeech>[^<>&\\r\\n\\u2028\\u2029]*[^<>&\\s])[ \\t]*(?=\\r?$)';
   const fixedPlayers = ['玩家', 'player', 'user', 'OC'].map(caseFoldLiteral).join('|');
   const pattern = '^[ ]{0,3}(?<rkdName>(?<rkdPlayer>' + playerName + '|' + fixedPlayers + ')|' + alternatives + ')[ \\t]*[:：]' + contextAtColon + speech;
@@ -62,13 +62,13 @@ export function buildRules() {
     runOnEdit: true, substituteRegex: 0, minDepth: null, maxDepth: null};
   const css = fs.readFileSync(cssPath, 'utf8') + '\n' + imageRules.join('\n');
   return [
-    {...shared, id: 'cf3083f8-42e4-4e2e-8e70-a65817a2c881', scriptName: '01 盾形对白 · 姓名与台词 v0.5', substituteRegex: 2,
+    {...shared, id: 'cf3083f8-42e4-4e2e-8e70-a65817a2c881', scriptName: '01 盾形对白 · 姓名与台词 v0.6', substituteRegex: 2,
       findRegex: '/' + pattern + '/gm',
       replaceString: '<div data-rkd="bubble" data-rkd-name="$<rkdName>" data-rkd-player="$<rkdPlayer>"><span data-rkd-avatar aria-hidden="true"></span><div data-rkd-body><span data-rkd-speaker>$<rkdName></span><div data-rkd-line>$<rkdSpeech></div></div></div>'},
-    {...shared, id: 'bea21af8-9a41-4b0c-9009-1811e54bb8e4', scriptName: '02 盾形对白 · OC 姓名候选 v0.5',
+    {...shared, id: 'bea21af8-9a41-4b0c-9009-1811e54bb8e4', scriptName: '02 盾形对白 · OC 姓名候选 v0.6',
       findRegex: '/' + candidate + '/gm',
       replaceString: '<span data-rkd="candidate" data-rkd-name="$<rkdCandidateName>"><span data-rkd-source>$<rkdCandidateSource></span></span>'},
-    {...shared, id: 'cf3083f8-42e4-4e2e-8e70-a65817a2c882', scriptName: '03 盾形对白 · 共享样式 v0.5',
+    {...shared, id: 'cf3083f8-42e4-4e2e-8e70-a65817a2c882', scriptName: '03 盾形对白 · 共享样式 v0.6',
       // ST 1.18.0 encodeStyleTags only preserves a bare <style> opener.
       // Keep the deduplication marker in CSS, never on the style element.
       // Keep preceding analysis unchanged and place CSS next to the first
@@ -78,7 +78,7 @@ export function buildRules() {
       findRegex: '/(?=<(?:div|span) data-rkd="(?:bubble|candidate)")(?<!\/\\* rkd-dialogue-style:[\\s\\S]*)(?![\\s\\S]*\/\\* rkd-dialogue-style:)' + contextAtColon + '/m',
       // The host stream segmenter skips PRE elements. Hide only the stylesheet
       // wrapper so its CSS text cannot be split into fade-in spans; body is outside.
-      replaceString: '<pre hidden><style>/* rkd-dialogue-style:v0.5 */\n' + css + '</style></pre>\n\n'},
+      replaceString: '<pre hidden><style>/* rkd-dialogue-style:v0.6 */\n' + css + '</style></pre>\n\n'},
   ];
 }
 
@@ -118,14 +118,14 @@ export function build() {
     items: rules.map((value, i) => ({artifactName: artifactNames[i], value}))}, null, 2) + '\n');
   fs.writeFileSync(path.join(output, 'format-rule.txt'), formatRule + '\n');
   fs.writeFileSync(path.join(output, 'preview.html'), previewPage(rules));
-  fs.writeFileSync(path.join(output, 'source-receipt.json'), JSON.stringify({version: '0.5', deliveryMode: 'component',
+  fs.writeFileSync(path.join(output, 'source-receipt.json'), JSON.stringify({version: '0.6', deliveryMode: 'component',
     scope: '三条角色局部显示正则、格式规则、离线预览；只更新对应组件，不重打整卡或修改聊天原文',
     sourceHashes: Object.fromEntries([manifestPath, cssPath, formatRulePath, path.join(here,'context-guard.mjs'), fileURLToPath(import.meta.url)].map(p => [path.relative(root,p).replaceAll('\\','/'),digest(fs.readFileSync(p))])),
     library: {snapshot: '2026-08-18', routes: ['sillytavern-render-regex-pipeline','sillytavern-embedded-ui','sillytavern-component-update','sillytavern-api-reference'], guides: ['A0','A5','A6','C3','D7'], adoptedDesignCandidates: []},
     dependencies: {host: 'SillyTavern Regex + message HTML/CSS sanitization', image: '现有 manifest HTTPS 图片（远程加载）', helper: 'NPC、固定玩家标记及完整 persona 名不需要 Tavern Helper；OC 候选提升与玩家自选头像由新版终端运行时提供'},
     apiEvidence: {referenceVersion:'SillyTavern 1.18.0', source:'https://raw.githubusercontent.com/SillyTavern/SillyTavern/1.18.0/public/scripts/extensions/regex/engine.js', fields:'AI_OUTPUT=2; dialogue substitute_find_regex.ESCAPED=2; style NONE=0; markdownOnly display gate', mergeOrder:'Object.values(SCRIPT_TYPES): global → preset → scoped', userMacro:'当前 persona name1；只替换查找模式，安全字符捕获后输出', runtimeVerified:false},
     candidateContract: {selector:'span[data-rkd="candidate"]', name:'data-rkd-name', source:'span[data-rkd-source].textContent 保留完整原行', promotion:'仅共享身份解析器唯一命中玩家时提升；未知或歧义保持原文', playerMarker:'非空 data-rkd-player 表示玩家或固定标记；NPC 为 ""'},
-    realSillyTavern: 'not run；当前产物需要重新导入及验收，旧 output 中的实机记录不能证明 v0.5', modelCompliance: 'not run; 不宣称绝对最少 token 或保证遵守率'},null,2)+'\n');
+    realSillyTavern: '构建本身不确认实机验收；现场只读复放记录另见 验证记录/现场掉气泡-20261008/live-preview.json，需核对产物哈希与验证范围，不代表已安装或已完成最终画面验收', modelCompliance: 'not run; 不宣称绝对最少 token 或保证遵守率'},null,2)+'\n');
   console.log(JSON.stringify({output,characters:readManifest().characters.length,rules:rules.length}));
 }
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) build();

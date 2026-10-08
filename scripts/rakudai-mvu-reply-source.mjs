@@ -14,6 +14,14 @@ export function replyMvuBlock(content) {
   catch (_) { return ''; }
 }
 
+// 副修复由调用方明确绑定真实回复；无有效主补丁时保留正文作为来源。
+// MVU 自动追加的末尾显示占位符不是剧情编辑，不应让同一回复的修复过期。
+export function repairReplyText(content) {
+  if (typeof content !== 'string') return '';
+  return replyMvuBlock(content) || content.replace(/\r\n?/g, '\n')
+    .replace(/(?:\s*<StatusPlaceHolderImpl\s*\/>)+\s*$/i, '').trim();
+}
+
 function replyPatchOperations(content) {
   const block = replyMvuBlock(content), patch = block.match(/<(json_?patch)>([\s\S]*?)<\/\1>/i);
   try { return patch ? JSON.parse(patch[2].trim()) : []; }
@@ -92,16 +100,17 @@ export function createRakudaiMvuReplySource(W, { mvu = W.Mvu, enrichRepairSource
     const owner = typeof W.getChatMessages === 'function' ? W : W.TavernHelper;
     return typeof owner?.getChatMessages === 'function' ? owner : null;
   }
-  function readReply(ctx, owner, messageId) {
+  function readReply(ctx, owner, messageId, repairBound = false) {
     if (!Number.isInteger(messageId) || messageId < 0 || messageId >= ctx.chat.length) return null;
     // mes 是宿主正在保存的正文，swipes 可能稍后更新；它仅提供当前页号。
     const active = owner.getChatMessages(String(messageId), { role: 'assistant' })?.[0];
     const page = owner.getChatMessages(String(messageId), { role: 'assistant', include_swipes: true })?.[0];
     if (active?.message_id !== messageId || page?.message_id !== messageId || !Number.isInteger(page.swipe_id)) return null;
-    const block = replyMvuBlock(active.message), messageRef = ctx.chat[messageId];
+    const block = repairBound ? repairReplyText(active.message) : replyMvuBlock(active.message), messageRef = ctx.chat[messageId];
     if (!block || !messageRef) return null;
     return { chatId: ctx.chatId, characterId: ctx.characterId, groupId: ctx.groupId,
       messageId, swipeId: page.swipe_id, chatRef: ctx.chat, messageRef, text: block,
+      ...(repairBound ? { repairBound: true } : {}),
       key: JSON.stringify([ctx.characterId ?? null, ctx.groupId ?? null, ctx.chatId, messageId, page.swipe_id]) };
   }
   function locateBoundReply(content, identity) {
@@ -112,6 +121,18 @@ export function createRakudaiMvuReplySource(W, { mvu = W.Mvu, enrichRepairSource
     const source = readReply(ctx, owner, identity.messageId);
     return source && source.messageRef === identity.messageRef && source.swipeId === identity.swipeId &&
       source.text === block ? source : null;
+  }
+  function locateRepairReply(content, identity) {
+    const text = repairReplyText(content), ctx = replyContext(), owner = replyOwner();
+    if (!text || !ctx || !owner || !identity || typeof identity !== 'object' || Array.isArray(identity) ||
+        !Number.isSafeInteger(identity.messageId) || identity.messageId < 0 ||
+        !Number.isSafeInteger(identity.swipeId) || identity.swipeId < 0 ||
+        identity.chatRef !== ctx.chat || identity.chatId !== ctx.chatId ||
+        (identity.characterId ?? null) !== (ctx.characterId ?? null) ||
+        (identity.groupId ?? null) !== (ctx.groupId ?? null)) return null;
+    const source = readReply(ctx, owner, identity.messageId, true);
+    return source && source.messageRef === identity.messageRef && source.swipeId === identity.swipeId &&
+      source.text === text ? source : null;
   }
   function locateReply(content) {
     const block = replyMvuBlock(content), ctx = replyContext(), owner = replyOwner();
@@ -145,7 +166,7 @@ export function createRakudaiMvuReplySource(W, { mvu = W.Mvu, enrichRepairSource
     let replyKey = '';
     if (source) {
       try {
-        const now = locateBoundReply(source.text, source);
+        const now = source.repairBound ? locateRepairReply(source.text, source) : locateBoundReply(source.text, source);
         if (now && now.key === source.key) replyKey = source.key;
       } catch (_) {}
     }
@@ -156,7 +177,7 @@ export function createRakudaiMvuReplySource(W, { mvu = W.Mvu, enrichRepairSource
     if (repairSession) throw new Error('已有副 API 补丁正在解析。');
     try { if (!Array.isArray(JSON.parse(content))) throw new Error(); }
     catch (_) { throw new Error('副 API 补丁必须是完整的 JSON 数组，未解析。'); }
-    const source = locateBoundReply(sourceText, identity);
+    const source = locateRepairReply(sourceText, identity);
     if (!source) throw new Error('无法唯一确认补丁对应的助手回复，未解析。');
     const nonce = Math.random().toString(36).slice(2);
     const wrapped = '<UpdateVariable><Analysis>repair:' + nonce + '</Analysis><JSONPatch>' +
@@ -166,9 +187,9 @@ export function createRakudaiMvuReplySource(W, { mvu = W.Mvu, enrichRepairSource
     try {
       const result = await mvu.parseMessage(wrapped, structuredClone(data));
       assertRepairAvailable();
-      if (!locateBoundReply(source.text, source)) throw new Error('聊天、回复页或 MVU 来源已变化，未采用补丁。');
+      if (!locateRepairReply(source.text, source)) throw new Error('聊天、回复页或 MVU 来源已变化，未采用补丁。');
       return result;
     } finally { repairSession = null; }
   }
-  return { host: H, capture, take, locateReply, locateBoundReply, parseRepair };
+  return { host: H, capture, take, locateReply, locateBoundReply, locateRepairReply, parseRepair };
 }

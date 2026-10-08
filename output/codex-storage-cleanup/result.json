@@ -1,0 +1,17 @@
+{
+  "candidate_files": 22,
+  "deleted_rollout_bytes": 541890003,
+  "codex_bytes_before": 12441790626,
+  "codex_bytes_after": 11899899534,
+  "c_free_bytes_before": 130900713472,
+  "c_free_bytes_after": 131468857344,
+  "remaining_candidate_files": [],
+  "remaining_state_ids": [],
+  "remaining_history_rows": {
+    "thread_items": 0,
+    "thread_turns": 0,
+    "thread_history_projection_state": 0,
+    "thread_realtime_items": 0
+  },
+  "out_of_scope_removed_sessions": []
+}

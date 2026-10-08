@@ -4,9 +4,9 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
-import { stripTypeScriptTypes } from 'node:module';
+import { createRequire, stripTypeScriptTypes } from 'node:module';
 import { fileURLToPath } from 'node:url';
-import { INITIAL_STATE } from '../世界书规则/MVU/schema.mjs';
+import { createSchema, INITIAL_STATE } from '../世界书规则/MVU/schema.mjs';
 import { installRakudaiNativeMvu } from './rakudai-mvu-native.mjs';
 import { repairRakudaiMvuStructure } from './rakudai-mvu-structure.mjs';
 import { createRakudaiNativeSchema } from './rakudai-mvu-native.mjs';
@@ -15,7 +15,7 @@ import { installRakudaiMvuGrowth } from './rakudai-mvu-growth.mjs';
 const commit = '61010dab47bc3a08a1b626320bf7fc8c9573eca4';
 const directory = new URL('../output/native-mvu-repair/', import.meta.url);
 const cacheDirectory = new URL('../世界书规则/MVU/验证记录/upstream/', import.meta.url);
-const reportFile = new URL('../世界书规则/MVU/验证记录/终值成长/native-core-report.json', import.meta.url);
+const reportFile = new URL('../世界书规则/MVU/验证记录/终值成长/N04-native-core-report.json', import.meta.url);
 const sources = Object.fromEntries([
   ['variable-def', 'src/variable_def.ts'], ['schema', 'src/function/schema.ts'],
   ['util', 'src/util.ts'], ['common', 'util/common.ts'],
@@ -123,6 +123,60 @@ W.Mvu.parseMessage = async (content, original) => {
 };
 const installation = await installRakudaiNativeMvu(W);
 assert.equal(installation.state, 'ready', installation.message);
+await check('N04 actual upstream folds missing people and schedule parents before applying child fields', async () => {
+  const data = sample(), before = clone(data.stat_data);
+  const operations = Object.entries(person).map(([key, value]) => ({ op: 'replace', path: '/人际/新同学/' + key, value }));
+  operations.push({ op: 'add', path: '/场景/日程/训练约定/类型', value: '训练' },
+    { op: 'replace', path: '/场景/日程/训练约定/说明', value: '明天实际安排' });
+  const start = warnings.length;
+  assert.equal(await context.updateVariables(patch(operations), data), true);
+  assert.deepEqual(clone(data.stat_data.人际.新同学), person);
+  assert.deepEqual(clone(data.stat_data.场景.日程), { 训练约定: { 类型: '训练', 说明: '明天实际安排' } });
+  assert.deepEqual(clone(data.stat_data.人际.旧同伴), before.人际.旧同伴);
+  assert.deepEqual(warnings.slice(start), []);
+});
+await check('N04 actual upstream adapts a missing optional leaf and preserves mixed unsupported batches', async () => {
+  const data = sample();
+  assert.equal(await context.updateVariables(patch([{ op: 'replace', path: '/人际/旧同伴/联系状态', value: '已建立联系' }]), data), true);
+  assert.equal(data.stat_data.人际.旧同伴.联系状态, '已建立联系');
+  const start = warnings.length;
+  assert.equal(await context.updateVariables(patch([
+    { op: 'replace', path: '/场景/地点', value: '教学楼' },
+    { op: 'remove', path: '/人际/旧同伴/联系状态' },
+    { op: 'add', path: '/人际/缺父新人/好感', value: 3 },
+  ]), data), true);
+  assert.equal(data.stat_data.场景.地点, '教学楼');
+  assert.equal(data.stat_data.人际.旧同伴.联系状态, undefined);
+  assert.equal(data.stat_data.人际.缺父新人, undefined);
+  assert.ok(warnings.slice(start).some(value => value.includes('assignPrimitive')));
+});
+await check('N04 folds a complete new record before per-command strict schema validation without inventing missing fields', async () => {
+  const { z } = createRequire(import.meta.url)('../output/worldbook-calibration/dev/node_modules/zod');
+  const schema = createSchema(z), rejected = [], shapes = [];
+  // Matching bridge order, real schema; the bridge listener is the only doubled validation component.
+  const validation = W.eventOn(W.Mvu.events.COMMAND_PARSED + '_for_zod', (variables, commands) => {
+    for (const command of commands) {
+      const op = JSON.parse(command.full_match), next = clone(variables.stat_data), parts = op.path.slice(1).split('/');
+      shapes.push(op.path);
+      const key = parts.pop(), parent = parts.reduce((node, part) => node[part], next);
+      parent[key] = op.value;
+      const parsed = schema.safeParse(next);
+      if (parsed.success) variables.stat_data = parsed.data;
+      else rejected.push(op.path);
+    }
+    commands.length = 0;
+  });
+  try {
+    const data = { stat_data: repairRakudaiMvuStructure(clone(INITIAL_STATE)) };
+    const full = { ...person, 变化依据: '本轮初次交谈' };
+    await context.updateVariables(patch(Object.entries(full).map(([key, value]) => ({ op: 'replace', path: '/人际/新同学/' + key, value }))), data);
+    assert.deepEqual(shapes, ['/人际/新同学']);
+    assert.deepEqual(rejected, []); assert.equal(data.stat_data.人际.新同学.好感, 20);
+    await context.updateVariables(patch([{ op: 'replace', path: '/人际/缺资料者/好感', value: 3 }]), data);
+    assert.equal(data.stat_data.人际.缺资料者, undefined);
+    assert.deepEqual(rejected, ['/人际/缺资料者']);
+  } finally { validation.stop(); }
+});
 await check('N03 repairs parents before the original screenshot request and preserves other data', async () => {
   const data = sample(); delete data.stat_data.玩家.成长;
   const wrapper = clone(data.external), people = clone(data.stat_data.人际);
@@ -252,9 +306,58 @@ await check('Pinned upstream N03 + G04 preserves ordinary patch data while an en
 });
 growthInstallation.destroy();
 installation.destroy();
+await check('Pinned handleVariablesInMessage persists a fresh ENDED delta receipt only after the message write, including a >300ms delayed no-op', async () => {
+  const oldSettings = context.useDataStore, oldChat = context.SillyTavern.chat;
+  try {
+    for (const delayAt of ['text', 'chat']) {
+      const data = sample(); data.schema = createRakudaiNativeSchema(data.stat_data);
+      data.delta_data = { $internal: { __rk_main_save: { id: 'previous' } } };
+      const chat = [
+        { role: 'assistant', mes: '旧楼层', variables: [clone(data)], swipe_id: 0 },
+        { role: 'assistant', mes: '完整正文，没有变量补丁。', variables: [clone(data)], swipe_id: 0 },
+      ];
+      context.SillyTavern.chat = chat;
+      context.useDataStore = () => ({ settings: { 通知: { 变量更新出错: false } }, effective_settings: { 兼容性: { 更新到聊天变量: delayAt === 'chat' } } });
+      context.getChatMessages = id => [{ role: chat[id].role, message: chat[id].mes, message_id: id }];
+      const id = 'current-' + delayAt, phases = [];
+      let unblock, reached;
+      const barrier = new Promise(resolve => { unblock = resolve; }), suspended = new Promise(resolve => { reached = resolve; });
+      const receipt = W.eventOn(W.Mvu.events.VARIABLE_UPDATE_ENDED, variables => {
+        assert.equal(variables.delta_data.$internal, undefined);
+        variables.delta_data.$internal = { __rk_main_save: { id } };
+        phases.push('receipt');
+      });
+      context.setChatMessages = async changes => {
+        for (const change of changes) if (Object.hasOwn(change, 'message')) {
+          chat[change.message_id].mes = change.message;
+          if (delayAt === 'text') { reached(); await barrier; }
+        }
+      };
+      context.updateVariablesWith = async (updater, options) => {
+        if (options.type === 'chat') { reached(); await barrier; return; }
+        phases.push('message-write');
+        chat[options.message_id].variables[0] = updater(chat[options.message_id].variables[0]);
+      };
+      const main = context.handleVariablesInMessage(1);
+      try {
+        await suspended;
+        await new Promise(resolve => setTimeout(resolve, 325));
+        assert.notEqual(chat[1].variables[0].delta_data?.$internal?.__rk_main_save?.id, id);
+        assert.deepEqual(phases, ['receipt']);
+        unblock(); await main;
+        assert.equal(chat[1].variables[0].delta_data.$internal.__rk_main_save.id, id);
+        assert.deepEqual(phases, ['receipt', 'message-write']);
+        receipt.stop();
+        const next = clone(chat[1].variables[0]);
+        await context.updateVariables(patch([]), next);
+        assert.equal(next.delta_data.$internal, undefined, 'next update replaces the old delta and cannot reuse its receipt');
+      } finally { unblock(); await main; receipt.stop(); }
+    }
+  } finally { context.useDataStore = oldSettings; context.SillyTavern.chat = oldChat; }
+});
 const report = { evidence: 'Actual pinned upstream TypeScript bodies executed after type stripping; host/events doubled; no live Tavern writes.',
   commit, runtime: process.version,
-  nativeVersion: 'N03', nativeSha256: createHash('sha256').update(fs.readFileSync(new URL('./rakudai-mvu-native.mjs', import.meta.url))).digest('hex'),
+  nativeVersion: 'N04', nativeSha256: createHash('sha256').update(fs.readFileSync(new URL('./rakudai-mvu-native.mjs', import.meta.url))).digest('hex'),
   hashes, checks, passed: checks.every(value => value.passed),
   events: [...new Set(events)], uncovered: ['invalid JSON/YAML/math fallback', 'host floor/swipe persistence', 'real iframe lifecycle', 'Zod bridge listeners'] };
 fs.mkdirSync(new URL('./', reportFile), { recursive: true });

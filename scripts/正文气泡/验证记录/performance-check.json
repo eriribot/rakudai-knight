@@ -1,90 +1,24 @@
 {
   "schemaVersion": 1,
-  "version": "0.5",
-  "generatedAt": "2026-10-07T02:03:39.579Z",
+  "version": "0.6",
+  "generatedAt": "2026-10-08T04:51:16.804Z",
   "nodeVersion": "v25.6.0",
   "evidenceType": "isolated-offline-JavaScript-regex-performance",
   "boundary": "单worker顺序运行；首次build+RegExp编译+完整转换单独计时，之后三次完整转换。一行冷启动200ms，其他冷启动硬门槛1s；普通正文热预算200ms，围栏/保护块硬门槛1s。结果随硬件变化，不等于实际酒馆流式帧时间。",
   "sourceHashes": {
-    "build.mjs": "5484491b97f5e135d3e2c3368a470d27af10bddcf026ae7ec274df83ebf270fa",
-    "context-guard.mjs": "5d24512978429da26d5a327fb9c0512a393022e9ba938acb024723ebb7145ae4",
-    "check-performance.mjs": "e894d2639e289ea9947a470a5199107cd6a5b1e6c29fe63819b3a90783d63f70"
+    "build.mjs": "fa1e950d02bd454d4efa5e268feba308c706bb1c1ce3adb5f3a0153baf031386",
+    "context-guard.mjs": "c1c0210d51184f3e22029514d6cd0211630e9a3cc9d70bf360e7d958bae6be31",
+    "check-performance.mjs": "7e7dccb8f58d1e75e674d1cc74e24bbca948b25e307d7c8d378d709424d75100"
   },
   "total": 14,
-  "passed": 14,
-  "failed": 0,
+  "passed": 13,
+  "failed": 1,
   "results": [
     {
       "name": "冷启动一行正文",
       "characters": 9,
-      "inputHash": "8ecd957fdcd4bebaf0a24a1bf20b3528e5780ecb45ebc02123a729a72fc7fbdf",
-      "budgetMs": 200,
-      "coldBudgetMs": 200,
-      "cold": {
-        "elapsedMs": 76.03,
-        "bubbles": 1,
-        "candidates": 0
-      },
-      "samples": [
-        {
-          "elapsedMs": 17.16,
-          "stages": [
-            {
-              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 1.33
-            },
-            {
-              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 0.19
-            },
-            {
-              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 15.59
-            }
-          ],
-          "bubbles": 1,
-          "candidates": 0
-        },
-        {
-          "elapsedMs": 0.58,
-          "stages": [
-            {
-              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 0.25
-            },
-            {
-              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 0.16
-            },
-            {
-              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 0.16
-            }
-          ],
-          "bubbles": 1,
-          "candidates": 0
-        },
-        {
-          "elapsedMs": 0.5,
-          "stages": [
-            {
-              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 0.2
-            },
-            {
-              "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 0.15
-            },
-            {
-              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 0.15
-            }
-          ],
-          "bubbles": 1,
-          "candidates": 0
-        }
-      ],
-      "passed": true
+      "passed": false,
+      "error": "cold build/compile/replace 211.96ms exceeds 200ms"
     },
     {
       "name": "20k普通正文100句",
@@ -93,63 +27,63 @@
       "budgetMs": 200,
       "coldBudgetMs": 1000,
       "cold": {
-        "elapsedMs": 84.61,
+        "elapsedMs": 183.62,
         "bubbles": 100,
         "candidates": 0
       },
       "samples": [
         {
-          "elapsedMs": 24.52,
+          "elapsedMs": 23.71,
           "stages": [
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 22.22
+              "elapsedMs": 22.71
             },
             {
               "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 2.01
+              "elapsedMs": 0.54
             },
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 0.24
+              "elapsedMs": 0.39
             }
           ],
           "bubbles": 100,
           "candidates": 0
         },
         {
-          "elapsedMs": 21.85,
+          "elapsedMs": 23.67,
           "stages": [
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 21.35
+              "elapsedMs": 22.83
             },
             {
               "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 0.29
+              "elapsedMs": 0.47
             },
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 0.2
+              "elapsedMs": 0.35
             }
           ],
           "bubbles": 100,
           "candidates": 0
         },
         {
-          "elapsedMs": 21.66,
+          "elapsedMs": 23.36,
           "stages": [
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 21.09
+              "elapsedMs": 22.51
             },
             {
               "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 0.33
+              "elapsedMs": 0.48
             },
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 0.23
+              "elapsedMs": 0.35
             }
           ],
           "bubbles": 100,
@@ -165,63 +99,63 @@
       "budgetMs": 200,
       "coldBudgetMs": 1000,
       "cold": {
-        "elapsedMs": 160.92,
+        "elapsedMs": 263.08,
         "bubbles": 200,
         "candidates": 0
       },
       "samples": [
         {
-          "elapsedMs": 99.22,
+          "elapsedMs": 106.33,
           "stages": [
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 98.54
+              "elapsedMs": 105.13
             },
             {
               "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 0.42
+              "elapsedMs": 0.68
             },
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 0.24
+              "elapsedMs": 0.45
             }
           ],
           "bubbles": 200,
           "candidates": 0
         },
         {
-          "elapsedMs": 101.92,
+          "elapsedMs": 104.22,
           "stages": [
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 101.24
+              "elapsedMs": 103.22
             },
             {
               "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+              "elapsedMs": 0.57
+            },
+            {
+              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
               "elapsedMs": 0.4
-            },
-            {
-              "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 0.23
             }
           ],
           "bubbles": 200,
           "candidates": 0
         },
         {
-          "elapsedMs": 102.16,
+          "elapsedMs": 104.93,
           "stages": [
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 101.47
+              "elapsedMs": 103.93
             },
             {
               "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 0.42
+              "elapsedMs": 0.57
             },
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 0.25
+              "elapsedMs": 0.4
             }
           ],
           "bubbles": 200,
@@ -237,63 +171,63 @@
       "budgetMs": 200,
       "coldBudgetMs": 1000,
       "cold": {
-        "elapsedMs": 160.09,
+        "elapsedMs": 301.02,
         "bubbles": 0,
         "candidates": 200
       },
       "samples": [
         {
-          "elapsedMs": 101.73,
+          "elapsedMs": 124.49,
           "stages": [
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 0.33
+              "elapsedMs": 0.5
             },
             {
               "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 101.1
+              "elapsedMs": 123.54
             },
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 0.25
+              "elapsedMs": 0.39
             }
           ],
           "bubbles": 0,
           "candidates": 200
         },
         {
-          "elapsedMs": 100.47,
+          "elapsedMs": 128.47,
           "stages": [
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 0.33
+              "elapsedMs": 0.46
             },
             {
               "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 99.83
+              "elapsedMs": 127.44
             },
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 0.28
+              "elapsedMs": 0.52
             }
           ],
           "bubbles": 0,
           "candidates": 200
         },
         {
-          "elapsedMs": 99.41,
+          "elapsedMs": 126.76,
           "stages": [
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 0.32
+              "elapsedMs": 0.8
             },
             {
               "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 98.82
+              "elapsedMs": 125.54
             },
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 0.25
+              "elapsedMs": 0.39
             }
           ],
           "bubbles": 0,
@@ -309,63 +243,63 @@
       "budgetMs": 200,
       "coldBudgetMs": 1000,
       "cold": {
-        "elapsedMs": 62.9,
+        "elapsedMs": 171.13,
         "bubbles": 0,
         "candidates": 0
       },
       "samples": [
         {
-          "elapsedMs": 0.84,
+          "elapsedMs": 1.31,
           "stages": [
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 0.31
+              "elapsedMs": 0.5
             },
             {
               "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 0.25
+              "elapsedMs": 0.39
             },
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 0.26
+              "elapsedMs": 0.39
             }
           ],
           "bubbles": 0,
           "candidates": 0
         },
         {
-          "elapsedMs": 1.79,
+          "elapsedMs": 1.2,
           "stages": [
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 0.28
+              "elapsedMs": 0.44
             },
             {
               "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 0.25
+              "elapsedMs": 0.38
             },
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 1.26
+              "elapsedMs": 0.38
             }
           ],
           "bubbles": 0,
           "candidates": 0
         },
         {
-          "elapsedMs": 0.84,
+          "elapsedMs": 1.18,
           "stages": [
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 0.32
+              "elapsedMs": 0.43
             },
             {
               "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 0.26
+              "elapsedMs": 0.39
             },
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 0.24
+              "elapsedMs": 0.36
             }
           ],
           "bubbles": 0,
@@ -381,63 +315,63 @@
       "budgetMs": 1000,
       "coldBudgetMs": 1000,
       "cold": {
-        "elapsedMs": 226.56,
+        "elapsedMs": 344.44,
         "bubbles": 151,
         "candidates": 0
       },
       "samples": [
         {
-          "elapsedMs": 161.44,
+          "elapsedMs": 170.43,
           "stages": [
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 97.11
+              "elapsedMs": 103.35
             },
             {
               "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 64.01
+              "elapsedMs": 66.58
             },
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 0.28
+              "elapsedMs": 0.43
             }
           ],
           "bubbles": 151,
           "candidates": 0
         },
         {
-          "elapsedMs": 160,
+          "elapsedMs": 173.06,
           "stages": [
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 96.36
+              "elapsedMs": 104.95
             },
             {
               "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 63.29
+              "elapsedMs": 67.62
             },
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 0.32
+              "elapsedMs": 0.43
             }
           ],
           "bubbles": 151,
           "candidates": 0
         },
         {
-          "elapsedMs": 164.2,
+          "elapsedMs": 174.21,
           "stages": [
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 100.01
+              "elapsedMs": 103.13
             },
             {
               "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 63.87
+              "elapsedMs": 70.6
             },
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 0.28
+              "elapsedMs": 0.44
             }
           ],
           "bubbles": 151,
@@ -453,63 +387,63 @@
       "budgetMs": 1000,
       "coldBudgetMs": 1000,
       "cold": {
-        "elapsedMs": 110.73,
+        "elapsedMs": 236.02,
         "bubbles": 0,
         "candidates": 0
       },
       "samples": [
         {
-          "elapsedMs": 48.77,
+          "elapsedMs": 68.05,
           "stages": [
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 23.91
+              "elapsedMs": 34.16
             },
             {
               "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 22.75
+              "elapsedMs": 33.09
             },
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 2.06
+              "elapsedMs": 0.73
             }
           ],
           "bubbles": 0,
           "candidates": 0
         },
         {
-          "elapsedMs": 46.23,
+          "elapsedMs": 62.64,
           "stages": [
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 23.32
+              "elapsedMs": 33.18
             },
             {
               "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 22.62
+              "elapsedMs": 29.02
             },
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 0.27
+              "elapsedMs": 0.42
             }
           ],
           "bubbles": 0,
           "candidates": 0
         },
         {
-          "elapsedMs": 46.36,
+          "elapsedMs": 66.29,
           "stages": [
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 23.29
+              "elapsedMs": 33.52
             },
             {
               "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 22.77
+              "elapsedMs": 32.04
             },
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 0.28
+              "elapsedMs": 0.7
             }
           ],
           "bubbles": 0,
@@ -525,63 +459,63 @@
       "budgetMs": 1000,
       "coldBudgetMs": 1000,
       "cold": {
-        "elapsedMs": 110.87,
+        "elapsedMs": 241.75,
         "bubbles": 0,
         "candidates": 0
       },
       "samples": [
         {
-          "elapsedMs": 50.41,
+          "elapsedMs": 67.27,
           "stages": [
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 24.57
+              "elapsedMs": 28.54
             },
             {
               "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 25.5
+              "elapsedMs": 38.22
             },
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 0.29
+              "elapsedMs": 0.45
             }
           ],
           "bubbles": 0,
           "candidates": 0
         },
         {
-          "elapsedMs": 47.19,
+          "elapsedMs": 64.18,
           "stages": [
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 23.48
+              "elapsedMs": 32.64
             },
             {
               "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 23.41
+              "elapsedMs": 31.09
             },
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 0.27
+              "elapsedMs": 0.43
             }
           ],
           "bubbles": 0,
           "candidates": 0
         },
         {
-          "elapsedMs": 46.8,
+          "elapsedMs": 63.45,
           "stages": [
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 23.43
+              "elapsedMs": 31.98
             },
             {
               "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 23.08
+              "elapsedMs": 31.03
             },
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 0.27
+              "elapsedMs": 0.43
             }
           ],
           "bubbles": 0,
@@ -597,63 +531,63 @@
       "budgetMs": 1000,
       "coldBudgetMs": 1000,
       "cold": {
-        "elapsedMs": 165,
+        "elapsedMs": 335.36,
         "bubbles": 64,
         "candidates": 0
       },
       "samples": [
         {
-          "elapsedMs": 97.75,
+          "elapsedMs": 189.64,
           "stages": [
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 53.45
+              "elapsedMs": 121.55
             },
             {
               "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 44.01
+              "elapsedMs": 67.4
             },
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 0.24
+              "elapsedMs": 0.62
             }
           ],
           "bubbles": 64,
           "candidates": 0
         },
         {
-          "elapsedMs": 104.28,
+          "elapsedMs": 133.13,
           "stages": [
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 57.33
+              "elapsedMs": 75.94
             },
             {
               "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 46.65
+              "elapsedMs": 56.72
             },
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 0.26
+              "elapsedMs": 0.43
             }
           ],
           "bubbles": 64,
           "candidates": 0
         },
         {
-          "elapsedMs": 98.44,
+          "elapsedMs": 128.75,
           "stages": [
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 54.03
+              "elapsedMs": 75.16
             },
             {
               "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 44.14
+              "elapsedMs": 53.13
             },
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 0.25
+              "elapsedMs": 0.43
             }
           ],
           "bubbles": 64,
@@ -669,63 +603,63 @@
       "budgetMs": 1000,
       "coldBudgetMs": 1000,
       "cold": {
-        "elapsedMs": 100.67,
+        "elapsedMs": 228.04,
         "bubbles": 50,
         "candidates": 0
       },
       "samples": [
         {
-          "elapsedMs": 37.98,
+          "elapsedMs": 61.36,
           "stages": [
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 30.48
+              "elapsedMs": 50.14
             },
             {
               "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 6.7
+              "elapsedMs": 9.99
             },
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 0.77
+              "elapsedMs": 1.13
             }
           ],
           "bubbles": 50,
           "candidates": 0
         },
         {
-          "elapsedMs": 37.73,
+          "elapsedMs": 53.42,
           "stages": [
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 30.44
+              "elapsedMs": 43.45
             },
             {
               "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 6.52
+              "elapsedMs": 8.99
             },
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 0.76
+              "elapsedMs": 0.96
             }
           ],
           "bubbles": 50,
           "candidates": 0
         },
         {
-          "elapsedMs": 37.8,
+          "elapsedMs": 52.78,
           "stages": [
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 30.41
+              "elapsedMs": 42.5
             },
             {
               "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 6.63
+              "elapsedMs": 8.68
             },
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 0.75
+              "elapsedMs": 1.57
             }
           ],
           "bubbles": 50,
@@ -741,63 +675,63 @@
       "budgetMs": 1000,
       "coldBudgetMs": 1000,
       "cold": {
-        "elapsedMs": 110.03,
+        "elapsedMs": 245.66,
         "bubbles": 0,
         "candidates": 0
       },
       "samples": [
         {
-          "elapsedMs": 46.76,
+          "elapsedMs": 71.29,
           "stages": [
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 23.48
+              "elapsedMs": 33.54
             },
             {
               "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 22.96
+              "elapsedMs": 36.88
             },
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 0.28
+              "elapsedMs": 0.78
             }
           ],
           "bubbles": 0,
           "candidates": 0
         },
         {
-          "elapsedMs": 46.16,
+          "elapsedMs": 64.75,
           "stages": [
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 22.89
+              "elapsedMs": 35.14
             },
             {
               "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 22.97
+              "elapsedMs": 29.15
             },
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 0.28
+              "elapsedMs": 0.43
             }
           ],
           "bubbles": 0,
           "candidates": 0
         },
         {
-          "elapsedMs": 46.05,
+          "elapsedMs": 67.19,
           "stages": [
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 22.81
+              "elapsedMs": 35.72
             },
             {
               "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 22.96
+              "elapsedMs": 30.69
             },
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 0.27
+              "elapsedMs": 0.73
             }
           ],
           "bubbles": 0,
@@ -813,63 +747,63 @@
       "budgetMs": 1000,
       "coldBudgetMs": 1000,
       "cold": {
-        "elapsedMs": 200.18,
+        "elapsedMs": 393.46,
         "bubbles": 150,
         "candidates": 0
       },
       "samples": [
         {
-          "elapsedMs": 142.92,
+          "elapsedMs": 230.39,
           "stages": [
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 86.82
+              "elapsedMs": 159.69
             },
             {
               "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 55.77
+              "elapsedMs": 69.97
             },
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 0.28
+              "elapsedMs": 0.64
             }
           ],
           "bubbles": 150,
           "candidates": 0
         },
         {
-          "elapsedMs": 142.31,
+          "elapsedMs": 187.52,
           "stages": [
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 88.09
+              "elapsedMs": 116.74
             },
             {
               "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 53.92
+              "elapsedMs": 70.19
             },
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 0.26
+              "elapsedMs": 0.55
             }
           ],
           "bubbles": 150,
           "candidates": 0
         },
         {
-          "elapsedMs": 140.89,
+          "elapsedMs": 190.53,
           "stages": [
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 86.41
+              "elapsedMs": 115.83
             },
             {
               "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 54.16
+              "elapsedMs": 74
             },
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 0.28
+              "elapsedMs": 0.66
             }
           ],
           "bubbles": 150,
@@ -885,63 +819,63 @@
       "budgetMs": 1000,
       "coldBudgetMs": 1000,
       "cold": {
-        "elapsedMs": 117.94,
+        "elapsedMs": 252.06,
         "bubbles": 200,
         "candidates": 0
       },
       "samples": [
         {
-          "elapsedMs": 61.58,
+          "elapsedMs": 78.09,
           "stages": [
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 60.38
+              "elapsedMs": 76.44
             },
             {
               "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 0.4
+              "elapsedMs": 0.57
             },
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 0.78
+              "elapsedMs": 1.03
             }
           ],
           "bubbles": 200,
           "candidates": 0
         },
         {
-          "elapsedMs": 63.35,
+          "elapsedMs": 78.27,
           "stages": [
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 62.15
+              "elapsedMs": 76.16
             },
             {
               "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 0.4
+              "elapsedMs": 1.02
             },
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 0.77
+              "elapsedMs": 1.06
             }
           ],
           "bubbles": 200,
           "candidates": 0
         },
         {
-          "elapsedMs": 61.64,
+          "elapsedMs": 80.65,
           "stages": [
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 60.4
+              "elapsedMs": 79.14
             },
             {
               "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 0.41
+              "elapsedMs": 0.56
             },
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 0.79
+              "elapsedMs": 0.93
             }
           ],
           "bubbles": 200,
@@ -957,63 +891,63 @@
       "budgetMs": 1000,
       "coldBudgetMs": 1000,
       "cold": {
-        "elapsedMs": 156.4,
+        "elapsedMs": 293.75,
         "bubbles": 0,
         "candidates": 0
       },
       "samples": [
         {
-          "elapsedMs": 98.4,
+          "elapsedMs": 133.04,
           "stages": [
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 48.06
+              "elapsedMs": 67.16
             },
             {
               "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 49.99
+              "elapsedMs": 65.31
             },
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 0.3
+              "elapsedMs": 0.49
             }
           ],
           "bubbles": 0,
           "candidates": 0
         },
         {
-          "elapsedMs": 101.71,
+          "elapsedMs": 147.49,
           "stages": [
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 48.58
+              "elapsedMs": 66.33
             },
             {
               "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 50.67
+              "elapsedMs": 80.34
             },
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 2.4
+              "elapsedMs": 0.77
             }
           ],
           "bubbles": 0,
           "candidates": 0
         },
         {
-          "elapsedMs": 101.77,
+          "elapsedMs": 196.92,
           "stages": [
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
-              "elapsedMs": 49.87
+              "elapsedMs": 96.12
             },
             {
               "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
-              "elapsedMs": 51.55
+              "elapsedMs": 99.96
             },
             {
               "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
-              "elapsedMs": 0.3
+              "elapsedMs": 0.79
             }
           ],
           "bubbles": 0,

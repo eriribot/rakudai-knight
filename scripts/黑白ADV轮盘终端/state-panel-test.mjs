@@ -62,10 +62,10 @@ function saved(volume = 1, chapter = '终章', phase = '已结束') {
   state.场景 = { ...state.场景, 当前卷: volume, 当前章: chapter, 阶段: phase, 时间: '当前已确认时间', 地点: '当前已确认地点' };
   return state;
 }
-function fixture(initial = saved()) {
-  let data = { stat_data: clone(initial), extra: { retained: true } }, scope = 0, writes = 0;
+function fixture(initial = saved(), { serviceAvailable = true, snapshot } = {}) {
+  let data = { stat_data: clone(initial), extra: { retained: true } }, scope = 0, writes = 0, captures = 0, snapshotOverride = snapshot;
   const adapter = {
-    capture: () => ({ data: clone(data), scope }), current: snapshot => { if (snapshot.scope !== scope) throw new Error('当前分支已变化'); return { data: clone(data) }; },
+    capture: () => { captures++; return { data: clone(data), scope }; }, current: snapshot => { if (snapshot.scope !== scope) throw new Error('当前分支已变化'); return { data: clone(data) }; },
     validate: value => { createSchema(z, { normalizeRelationships: false }).parse(value); return clone(value); }, migrate: value => prepareStateMigration(value, z),
     write: (snapshot, expected, state) => { assert.equal(scope, snapshot.scope); assert.deepEqual(data, expected); data = { ...clone(data), stat_data: clone(state) }; writes++; },
   };
@@ -74,11 +74,15 @@ function fixture(initial = saved()) {
   const HW = { Blob, URL: { createObjectURL(blob) { const key = 'blob:backup-' + blobs.size; blobs.set(key, blob); return key; }, revokeObjectURL: value => revoked.push(value) } };
   const SS = { host, visible: true, destroyed: false }, updates = [];
   const emit = event => [...updates].forEach(callback => callback(event));
-  const realm = vm.createContext({ window: { RakudaiStateController: service }, HD, HW, SS, updateCbs: updates, emit, structuredClone, Blob, console,
-    generationPending: false, correctionMainBusy: () => false });
+  const realm = vm.createContext({ window: { RakudaiStateController: serviceAvailable ? service : undefined }, HD, HW, SS, updateCbs: updates, emit, structuredClone, Blob, console,
+    generationPending: false, correctionMainBusy: () => false,
+    readSnapshot: () => snapshotOverride === undefined
+      ? { state: clone(data.stat_data), source: { messageId: 2, swipeId: 0 }, pending: false }
+      : typeof snapshotOverride === 'function' ? snapshotOverride() : clone(snapshotOverride) });
   vm.runInContext(source + '\nglobalThis.panel = { buildStatePanel, refreshStatePanel, disposeStatePanel };', realm); realm.panel.buildStatePanel();
   return { realm, api, service, HW, SS, HD, updates, downloads, blobs, revoked, emit,
-    node: selector => host.querySelector(selector), get writes() { return writes; }, get state() { return data.stat_data; },
+    node: selector => host.querySelector(selector), get writes() { return writes; }, get captures() { return captures; }, get state() { return data.stat_data; },
+    setSnapshot: value => { snapshotOverride = value; },
     mutate: fn => fn(data), switch: state => { data = { stat_data: clone(state) }; scope++; },
     openJump() { const details = host.querySelector('[data-story-jump]'); details.open = true; details.dispatch('toggle'); },
   };
@@ -157,6 +161,7 @@ await check('切聊天会清理旧表单与凭据；晚到读取不能覆盖新�
   const f = fixture(); await settle(); f.openJump(); fill(f.node('[data-story-form="jump"]'));
   const capture = f.service.capture, old = await capture(); let resolve;
   f.service.capture = () => new Promise(done => { resolve = done; }); f.realm.panel.refreshStatePanel();
+  await settle(); assert.equal(typeof resolve, 'function');
   f.switch(saved(16, '终章Ⅱ', '进行中')); f.service.capture = capture; f.emit({ reset: true }); await settle(); resolve(old); await settle();
   assert.match(f.node('[data-story-summary]').textContent, /第16卷.*终章Ⅱ/); assert.equal(f.node('[data-story-jump]').open, false); assert.equal(f.node('[data-story-form="jump"]').elements.time.value, ''); assert.equal(f.writes, 0);
 });
@@ -164,6 +169,85 @@ await check('销毁面板会注销现有刷新回调，收起期间轮询不额�
   const f = fixture(); await settle(); let captures = 0; const capture = f.service.capture; f.service.capture = () => { captures++; return capture(); };
   f.SS.visible = false; f.emit({ type: 'poll' }); await settle(); assert.equal(captures, 0);
   f.realm.panel.disposeStatePanel(); assert.equal(f.updates.length, 0); f.emit({ type: 'poll' }); assert.equal(captures, 0);
+});
+
+await check('未启用约束时准确说明两种切章方式，合法存档按钮仍可写入', async () => {
+  const f = fixture(saved(1, '第一章', '进行中')); await settle();
+  assert.equal(f.HW.__RK_MVU_GUARD_V4__, undefined);
+  const hint = f.node('[data-story-hint]').textContent;
+  assert.match(hint, /手动切章和 AI 直接提交相邻目标卷章不需要字段约束/);
+  assert.match(hint, /只提交本章“已结束”.*可选字段约束/);
+  assert.equal(f.node('[data-story-display-source]').textContent, '');
+  assert.equal(f.node('[data-story-action="end"]').disabled, false);
+  f.node('[data-story-action="end"]').click(); await settle();
+  assert.equal(f.state.场景.阶段, '已结束'); assert.equal(f.writes, 1);
+});
+await check('当前已保存人际缺字段显示准确路径，不冒充等待MVU或自动补齐人物', async () => {
+  const initial = saved(1, '第一章', '进行中');
+  initial.人际.黑铁一辉 = { 关系: '同学', 好感: 10, 支援度: 0 };
+  const f = fixture(initial); await settle();
+  const status = f.node('[data-story-status]').textContent, source = f.node('[data-story-display-source]').textContent;
+  assert.match(source, /已保存状态.*第 2 楼.*回复 1.*字段校验未通过/);
+  assert.doesNotMatch(source, /暂显最近|等待.*MVU/);
+  assert.match(status, /当前已保存数据.*字段缺失或格式不合法/);
+  for (const field of ['态度印象', '羁绊阶段', '变化依据']) assert.ok(status.includes('人际 / 黑铁一辉 / ' + field));
+  assert.doesNotMatch(status, /启用.*约束|等待.*MVU/);
+  assert.equal(f.node('[data-story-action="end"]').disabled, true);
+  f.node('[data-story-action="end"]').click(); assert.equal(f.writes, 0); assert.deepEqual(f.state, initial);
+  f.mutate(data => Object.assign(data.stat_data.人际.黑铁一辉, { 态度印象: '已认识', 羁绊阶段: '未建立', 变化依据: '实际相识' }));
+  await f.realm.panel.refreshStatePanel();
+  assert.equal(f.node('[data-story-display-source]').textContent, '');
+  assert.equal(f.node('[data-story-action="end"]').disabled, false); assert.equal(f.writes, 0);
+});
+await check('服务不可用保留只读资料并指出终端加载问题，不要求启用约束', async () => {
+  const f = fixture(saved(1, '第一章', '进行中'), { serviceAvailable: false }); await settle();
+  assert.match(f.node('[data-story-display-source]').textContent, /已读取状态.*第 2 楼.*服务暂不可用/);
+  assert.doesNotMatch(f.node('[data-story-display-source]').textContent, /等待.*MVU|字段校验/);
+  assert.match(f.node('[data-story-status]').textContent, /检查终端是否完整加载/);
+  assert.match(f.node('[data-story-status]').textContent, /手动切章不需要启用字段约束/);
+  assert.equal(f.node('[data-story-action="end"]').disabled, true); assert.equal(f.writes, 0);
+  f.realm.window.RakudaiStateController = f.service; await f.realm.panel.refreshStatePanel();
+  assert.equal(f.node('[data-story-action="end"]').disabled, false);
+  assert.equal(f.node('[data-story-display-source]').textContent, '');
+});
+await check('真实pending暂显旧楼层并禁用操作，当前保存就绪后重新读取', async () => {
+  const initial = saved(1, '第一章', '进行中');
+  const f = fixture(initial, { snapshot: { state: initial, source: { messageId: 1, swipeId: 0 },
+    targetSource: { messageId: 2, swipeId: 0 }, pending: true, message: '当前回复尚未写入 MVU，等待更新。' } }); await settle();
+  assert.match(f.node('[data-story-display-source]').textContent, /暂显最近已保存状态.*第 1 楼.*等待当前回复 MVU/);
+  assert.match(f.node('[data-story-status]').textContent, /当前回复尚未写入 MVU/);
+  assert.equal(f.node('[data-story-action="end"]').disabled, true); assert.equal(f.captures, 0); assert.equal(f.writes, 0);
+  f.setSnapshot(undefined); await f.realm.panel.refreshStatePanel();
+  assert.equal(f.captures, 1); assert.equal(f.node('[data-story-action="end"]').disabled, false);
+  assert.equal(f.node('[data-story-display-source]').textContent, '');
+});
+await check('本页只有部分已保存档案时说明字段不完整，不标成旧楼层等待', async () => {
+  const f = fixture(saved(), { snapshot: { state: { 人际: {} }, source: { messageId: 2, swipeId: 0 },
+    pending: true, incomplete: true, message: '当前回复的人际字段已读取，其他档案字段尚未完整；补齐前仅可查看。' } }); await settle();
+  assert.match(f.node('[data-story-display-source]').textContent, /已保存状态.*第 2 楼.*字段校验未通过/);
+  assert.doesNotMatch(f.node('[data-story-display-source]').textContent, /暂显最近|等待.*MVU/);
+  assert.match(f.node('[data-story-status]').textContent, /字段尚未完整/);
+  assert.equal(f.node('[data-story-action="start"]').disabled, true); assert.equal(f.captures, 0); assert.equal(f.writes, 0);
+});
+await check('当前没有MVU数据时保留pending诊断，不误报服务或字段校验失败', async () => {
+  const f = fixture(saved(1, '第一章', '进行中')); await settle();
+  f.setSnapshot(() => { const error = new Error('当前回复及此前助手楼层都没有可显示的 MVU 数据'); error.code = 'MVU_PENDING'; throw error; });
+  f.service.capture = async () => { throw new Error('当前楼层没有 MVU 初始化数据'); };
+  await f.realm.panel.refreshStatePanel();
+  assert.match(f.node('[data-story-display-source]').textContent, /等待当前回复 MVU/);
+  assert.match(f.node('[data-story-status]').textContent, /没有可显示的 MVU 数据/);
+  assert.doesNotMatch(f.node('[data-story-display-source]').textContent, /字段校验未通过|服务暂不可用/);
+  assert.equal(f.node('[data-story-action="end"]').disabled, true); assert.equal(f.writes, 0);
+});
+await check('保留显示的普通刷新仅说明正在核对，不伪报等待MVU', async () => {
+  const f = fixture(saved(1, '第一章', '进行中')); await settle(); f.SS.visible = false;
+  f.emit({ reset: true, retainDisplay: true });
+  assert.match(f.node('[data-story-display-source]').textContent, /正在核对当前回复/);
+  assert.doesNotMatch(f.node('[data-story-status]').textContent, /等待.*MVU/);
+  assert.equal(f.node('[data-story-action="end"]').disabled, true); assert.equal(f.writes, 0);
+  f.realm.generationPending = true; f.emit({ reset: true, retainDisplay: true });
+  assert.match(f.node('[data-story-display-source]').textContent, /等待当前回复 MVU/);
+  assert.match(f.node('[data-story-status]').textContent, /等待当前回复 MVU/);
 });
 
 const failed = results.filter(result => !result.passed);

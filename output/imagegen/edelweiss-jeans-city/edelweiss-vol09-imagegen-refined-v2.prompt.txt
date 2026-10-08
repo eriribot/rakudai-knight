@@ -1,0 +1,26 @@
+Use case: style-transfer / identity-preserving color refinement.
+Create one finished colorized illustration by editing Image 1, the original monochrome Won illustration of Edelweiss from Chivalry of a Failed Knight, volume 9.
+
+INPUT ROLES, in order:
+Image 1 = ORIGINAL MONOCHROME EDIT TARGET. This controls every shape, the character identity and all composition.
+Image 2 = previous colorization, COLOR PLAN ONLY. Use its white blouse, classic indigo-blue jeans and softly colored street setting. Its flat rendering and cyan edges are defects to correct.
+Image 3 = official Won color illustration close-up of Edelweiss. Reference for the original artist's face, white hair, delicate colored linework, clear highlights, and subtle colored shading.
+Image 4 = official Won full-color novel cover. Reference only for Won's coloring and finish: fine warm/cool linework, crisp designed shadow shapes balanced with smooth local gradients, lively yet restrained reflected color, ivory skin and polished light-novel illustration finish. Do not copy its characters, armor, costume, lettering, cover layout or props into the target.
+
+PRIMARY REQUEST:
+Professionally refine the coloring of the EXACT original volume 9 drawing, so it feels like a genuine full-color Won novel illustration rather than a grayscale image with flat color masks. Repaint color, light, shadow and surface finish thoughtfully while preserving the original drawing. This is an adult woman in her late twenties wearing her existing casual white short-sleeve blouse and blue denim jeans in a daytime city street.
+
+LOCKED INVARIANTS:
+Retain the precise original face shape, restrained smile, eye shapes, mature appearance, bangs, long hair silhouette and wisps, shoulders, anatomy, both hanging arms and hands, stance, tilted camera angle, 2:3 portrait framing and crop. Keep the exact asymmetric wide blouse neckline and its existing black strap, white blouse silhouette and folds, fitted indigo jeans, dark belt and belt tail, two wrist accessories. The long narrow shape beside her left side in the picture is her hanging arm, partly occluded by the trousers: retain it as skin, not hair. Keep all street objects, awning, windows, trees, paving, the existing background people and their positions. Preserve existing tiny source credit; add no new text, signature or logo.
+
+COLOR AND PAINTING:
+Hair stays brilliant silver-white with pearl highlights and delicate low-saturation silver-gray shadow strands, tiny muted gray-green or gray-violet reflected accents, clear broken highlight bands following the original drawing. No blue, blond or purple hair.
+Eyes remain silver-gray with layered neutral iris shading and small luminous highlights; never bright blue. Match the original eye shapes exactly.
+Skin is luminous warm ivory with subtly varied peach/coral at cheeks, eyes, ears and knuckles; translucent warm gray/rose shadows under the chin, hair, neckline and sleeve. Model the existing volumes with soft transitions and convincing contact shadows, avoiding uniform orange-peach flat fills.
+White blouse has clean white highlights, delicate neutral warm-gray folds plus selective pale cool lavender-gray bounce light. Follow every original fold and crease. Its fabric finish is soft and matte, distinct from skin.
+Jeans are classic indigo blue, sophisticated and moderately saturated, with original fine denim hatching retained as woven texture, natural lighter blue wear highlights, shaded seams and gentle cool/warm variation. Matte woven cloth, no latex or plastic gloss.
+Fine original linework remains legible and delicate, with warm gray/brown accents where appropriate. Remove accidental cyan outlines, mask seams, polygon blocks and white cross-shaped overbright strands from the previous colorization; make the existing floating hair wisps integrate naturally.
+Render the full background in coherent daylight: pale blue sky, warm neutral buildings and pavement, green trees, gray-brown awning, cool glass reflections, subdued distant people. Soft warm daylight from upper left and restrained cool reflected light unify subject and setting. Background has atmospheric depth while retaining the existing illustrated scene.
+
+FINISH:
+High-quality detailed Japanese light-novel coloring specifically matching the Won references, with designed cel-like shadow forms and refined soft gradients in harmony. Maintain delicate ink, natural material separation, tasteful chroma and bright clean whites. Avoid generic modern anime face redesign, over-airbrushed 3D shading, photorealism, heavy bloom, excessive blur or extra sparkling decorations. Output a single complete portrait illustration, no comparison panel.

@@ -18,10 +18,10 @@ const correctionSeen = new Set();
 // 可在设置中编辑的内置指令；变量规则和JSON格式随后由代码附加，正文/事件始终自动读取。
 const DEFAULT_CORRECTION_PROMPT = [
   '你是本卡MVU校正助手。依据本轮正文、本轮事件、当前变量及玩家补充说明核对实际变化。本局事实优先于原著和训练记忆，不补未来经历。只返回JSONPatch数组；无实际变化返回[]。',
-  '玩家资料、能力、六维、登记等级、成长经验，场景与事件，以及人物资料、好感和支援都可修正。已有数字提交最终值；当前变量已含主回复结算，同一成果不重复加分或发经验。',
+  '玩家资料、能力、六维、登记等级、成长经验，场景与事件，以及人物资料、好感和支援都可修正。已有数字提交最终值；当前变量是实际保存结果，主补丁可能漏写或部分失败。对照正文补漏纠错，同一成果不重复加分或发经验。',
   '分别核对好感与支援，不用态度印象代替数值变化。普通正向回应+2—10，新生轻微好感、认可或防备缓和+11—20，重大关系事件+21—40；校正错误旧分数可直接给正确终值，不受这些单轮参考区间限制。支援按实际协作判断。',
   '父对象可只写要改的键，代码会合并并保留省略字段；数组按最终内容更新。add/replace会按存在性适配，remove可删除过时能力、人物、事件等条目。新条目提供完整资料，能力也可用说明文字简写。',
-  '成长直接提交经验及六维评级的最终值，不创建申请。经验是所提交评级的档内进度；达到门槛连续晋级、扣除门槛并保留余量。魔力控制与体能分别按实际成果判断，魔力量新成长须已觉醒。当前变量已含主回复结果，只补漏或纠错，不再加一遍本轮经验；登记等级仅随实际登记改变。',
+  '成长直接提交经验及六维评级的最终值，不创建申请。经验是所提交评级的档内进度；达到门槛连续晋级、扣除门槛并保留余量。魔力控制与体能分别按实际成果判断，魔力量新成长须已觉醒。按当前已保存值补漏纠错，不把主补丁的提交意图当成已落实结果，不再加一遍已保存的本轮经验；登记等级仅随实际登记改变。',
   '魔人觉醒使用JSON布尔true/false，可纠正错误状态。卷章按本轮已落实的完成事实修正，主回复已经推进时不重复结束下一章。',
   '选拔赛只登记本局实际参赛者、安排和赛果；同一比赛沿用ID修正。程序按剧情日历推演场外背景并计算战绩、积分与排名；不抄写推演对局，不写初始战绩或赛前胜场。若本轮OC战胜珠雫等正典人物，按实际胜者登记，绝不能为迎合原著或背景推演改回败局。'
 ].join('\n');
@@ -167,9 +167,10 @@ function correctionGuard(runtime = correctionRuntime()) {
   if (boot?.state === 'loading') fail('MVU v4 约束正在初始化：' + (boot.message || '正在等待依赖加载。'), true);
   if (!guard) fail('尚未检测到 MVU v4 约束注册。若脚本已开启，请检查约束脚本日志中的 MVU、Zod 4 或桥接加载错误。', true);
   if (boot && (boot.state !== 'ready' || boot.guard !== guard)) fail('MVU v4 约束注册已变化，请重新启用当前约束脚本后重试。');
-  const required = { growthProtocol: 'final-values-v1', repair: 'P02', repairSource: 'MVU01', storyRepair: 'S01',
+  const required = { growthProtocol: 'final-values-v1', repair: 'P02', storyRepair: 'S01',
     flexibleRepair: 'F01', growthSettlement: 'G04', tournament: 'T01', tournamentEngine: 'T02' };
   const missing = Object.entries(required).filter(([key, value]) => guard[key] !== value).map(([, value]) => value);
+  if (!['MVU01', 'MVU02'].includes(guard.repairSource)) missing.push('MVU02');
   if (typeof guard.parseRepair !== 'function') missing.push('parseRepair');
   if (missing.length) fail('已检测到 MVU v4 约束，但缺少能力：' + missing.join(' / ') + '。请替换为配套终值成长 / T02 约束并重载酒馆；仅切换开关不能更新旧脚本。');
   return guard;
@@ -184,11 +185,12 @@ function ensureCorrectionGrowthMode(runtime) {
     if (growth && growth.state !== 'failed') throw new Error('当前使用成长终值，请关闭旧独立成长 G04 并重载酒馆后校正，避免旧申请被再次结算。');
   }
 }
-function captureCorrection(checkingSettlement = false, requireGuard = true) {
+function captureCorrection(checkingSettlement = false, requireGuard = true, copyData = true) {
   if (SS.destroyed || correctionMainBusy(checkingSettlement)) throw new Error('请等本轮 MVU 标签完整并保存后再校正。');
   const ctx = correctionContext(), reply = correctionReply();
-  if (!reply?.mvuBlock) throw new Error('当前回复没有完整且唯一的 UpdateVariable / JSONPatch（或 json_patch），暂不校正。');
+  if (!reply?.sourceText) throw new Error('当前助手回复内容为空，暂不校正。');
   const runtime = correctionRuntime(), guard = requireGuard ? correctionGuard(runtime) : null;
+  if (guard && !reply.mvuBlock && guard.repairSource !== 'MVU02') throw new Error('修复缺失或损坏的主补丁需要配套 MVU02 字段约束，请更新后重试。');
   ensureCorrectionGrowthMode(runtime);
   const mvu = window.Mvu || HW.Mvu;
   if (typeof mvu?.getMvuData !== 'function' || requireGuard && typeof mvu.parseMessage !== 'function') throw new Error('MVU 解析接口尚未就绪。');
@@ -203,12 +205,12 @@ function captureCorrection(checkingSettlement = false, requireGuard = true) {
   const storyBefore = candidate?.ended && correctionSameReply(reply, candidate.reply) && candidate.storyBefore
     ? structuredClone(candidate.storyBefore) : undefined;
   // 正文只在请求时读取一次作为分析材料；后续一致性检查仅看来源、MVU 标签和实际变量。
-  return { ...reply, ctx, guard, mvu, runtimeMode: runtime.mode, scopes: runtime.scopes, data: structuredClone(data), options,
+  return { ...reply, ctx, guard, mvu, runtimeMode: runtime.mode, scopes: runtime.scopes, data: copyData ? structuredClone(data) : data, options,
     chatId: ctx.chatId, characterId: ctx.characterId ?? null, groupId: ctx.groupId ?? null,
     storyBefore, stateKey: correctionMvuKey(data) };
 }
 function ensureCorrectionCurrent(saved) {
-  const now = captureCorrection();
+  const now = captureCorrection(false, true, false);
   if (!correctionSameReply(now, saved) || now.stateKey !== saved.stateKey || now.guard !== saved.guard || now.runtimeMode !== saved.runtimeMode || now.mvu !== saved.mvu)
     throw new Error('聊天、回复页、MVU 标签或实际变量已变化，请重新请求校正。');
   return now;
@@ -284,12 +286,15 @@ function correctionInput(saved) {
   delete state.$internal;
   if (state.系统) delete state.系统.关系计分;
   if (state.场景) delete state.场景.已发生事件;
+  // 该只读派生摘要已单独发送；保留全部真实赛制账本，不重复发送程序背景。
+  if (state.场景?.选拔赛) delete state.场景.选拔赛.程序战况;
   if (state.玩家?.成长 && typeof state.玩家.成长 === 'object' && !Array.isArray(state.玩家.成长)) {
     const growth = state.玩家.成长;
     state.玩家.成长 = Object.hasOwn(growth, '经验') ? { 经验: growth.经验 } : {};
   }
   return { source: '楼层 ' + saved.messageId + ' · 回复页 ' + (saved.swipeId + 1),
-    text: saved.text.replace(/<UpdateVariable>[\s\S]*?<\/UpdateVariable>/gi, '').trim(), events, submittedRelations, submittedStory, storyBefore: saved.storyBefore, state };
+    text: saved.text.replace(/<UpdateVariable>[\s\S]*?<\/UpdateVariable>/gi, '').trim(), events, submittedRelations, submittedStory, storyBefore: saved.storyBefore, state,
+    mainPatch: saved.mvuBlock ? '主补丁格式完整；已提交项仍须与当前变量核对' : '主补丁缺失或格式损坏；根据正文与当前实际保存值补漏，提交最终值' };
 }
 function getCorrectionInput() { return correctionInput(captureCorrection()); }
 function correctionTournamentSummary(state) {
@@ -346,8 +351,9 @@ function normalizeCorrectionPatch(operations, state) {
           parts[4] === '入赛轮次' && Object.hasOwn(state.场景?.选拔赛?.名册 || {}, parts[3]))) return true;
       if (child === '比赛' && parts.length >= 5 && ['甲赛前胜场', '乙赛前胜场', '积分', '程序推演', '推演版本'].includes(parts[4])) return true;
     }
-    // 新人物保留模型提供的初始占位；已有阶段由最终分数派生，忽略它不影响同批业务改动。
-    return root === '人际' && parts.length >= 3 && ['恋爱阶段', '羁绊阶段'].includes(child) && Object.hasOwn(state.人际 || {}, field);
+    // 已保存的阶段由分数派生；旧坏记录缺阶段时允许补齐，不能把缺字段也当成受保护的值。
+    return root === '人际' && parts.length >= 3 && ['恋爱阶段', '羁绊阶段'].includes(child) &&
+      Object.hasOwn(state.人际?.[field] || {}, child);
   }
   function ignore(parts, value, removing = false) {
     if (!protectedField(parts, removing)) return false;
@@ -430,15 +436,26 @@ function normalizeCorrectionPatch(operations, state) {
       if (!same(correctionValue(draft, parts), op.value)) throw new Error('补丁前置值已不匹配：' + op.path);
     } else put(parts, op.value, op.op);
   }
+  // 多个既有人物可能同时缺字段；逐字段、甚至逐人物校验都会被另一条坏记录阻断。
+  // 先组装完整名册，再提交一次；省略的资料保留，错键只有显式 remove 才删除。
+  for (const [name, relation] of Object.entries(draft.人际 || {})) {
+    if (!object(relation) || same(state.人际?.[name], relation)) continue;
+    if (relation.支援度 === null) relation.羁绊阶段 = '未定';
+    else if (Number.isInteger(relation.支援度) && relation.支援度 >= 0 && relation.支援度 <= 320)
+      relation.羁绊阶段 = supportStage(relation.支援度);
+  }
   const result = [];
+  if (!same(state.人际, draft.人际)) result.push({ op: Object.hasOwn(state, '人际') ? 'replace' : 'add',
+    path: '/人际', value: structuredClone(draft.人际) });
   function diff(before, after, parts) {
+    if (parts.length === 1 && parts[0] === '人际') return;
     if (same(before, after)) return;
     if (object(before) && object(after)) {
       for (const key of new Set([...Object.keys(before), ...Object.keys(after)])) diff(before[key], after[key], [...parts, key]);
     } else result.push(after === undefined ? { op: 'remove', path: pointer(parts) } :
       { op: before === undefined ? 'add' : 'replace', path: pointer(parts), value: structuredClone(after) });
   }
-  // 新事件、人物或能力作为完整对象添加；数组索引操作折叠成最终数组，兼容 MVU 的逐项校验。
+  // 名册修复先于其他字段，避免本可修复的人物结构阻断同批其它业务；新事件与能力保留完整对象。
   diff(state, draft, []);
   Object.defineProperty(result, 'skipped', { value: [...skipped] });
   return result;
@@ -451,20 +468,22 @@ function validateCorrectionPatch(operations, state) {
 function correctionRules(state) {
   // 副校正不再拼入主模型的字段所有权禁令；旧设置中保存的同类禁令由本次权限声明覆盖。
   return 'F01校正权限以本次为准：允许修改玩家、场景、人际的业务字段及现有对象，不限于补建。系统/框架元数据、固定玩家性别、综合初评、已有关系派生阶段和成长自动记录由程序维护，混入补丁时自动略过，不影响其他修改。' +
-    '保持现有schema字段名称、类型与范围：好感0—1000或null，支援0—320整数或null，觉醒只用true/false；卷章须属现有目录。' +
-    '本次成长统一采用终值：只写/玩家/成长/经验/<目标>与/玩家/六维/<目标>的最终值，不创建或修改成长申请；旧申请与记录只留档。经验为所提交评级的档内进度，门槛F100、F+100、E150、E+150、D250、D+250、C400、C+400、B600、B+900、A1200、A+1600，达标连续晋级、逐档扣除并保留余量，S保留余量。无约束时由模型完成计算；可选约束校验类型与门槛。读取主回复已经保存的结果，只补漏或纠错，不再次加本轮经验；未知评级不猜起点。魔力量新成长须魔人觉醒:true，觉醒本身不赠经验。登记等级仅随实际登记改变。' +
+    '保持现有schema字段名称、类型与范围：好感0—1000或null，支援度0—320整数或null，觉醒只用true/false；卷章须属现有目录。' +
+    '人际以人物姓名为键。新增人物或修复不完整人物必须补齐关系、态度印象、好感、支援度、羁绊阶段、变化依据；文本字段使用字符串，分数无依据时用null，不编造关系、态度、经历或奖励。未知资料明确写待确认，保留已有事实。羁绊阶段由最终支援度派生：null为未定，0—79未建立、80—159为C、160—239为B、240—319为A、320为S。' +
+    '准确字段名是态度印象和支援度，不能写印象或支援。修复错键时先把有依据的内容写入正确字段，再显式remove旧错键；整个人物replace按提供字段合并，省略字段仍保留，不会自动删除旧键或其它已知资料。同批补齐所有已发现的坏人物，不靠反复逐字段试错。' +
+    '本次成长统一采用终值：只写/玩家/成长/经验/<目标>与/玩家/六维/<目标>的最终值，不创建或修改成长申请；旧申请与记录只留档。经验为所提交评级的档内进度，门槛F100、F+100、E150、E+150、D250、D+250、C400、C+400、B600、B+900、A1200、A+1600，达标连续晋级、逐档扣除并保留余量，S保留余量。无约束时由模型完成计算；可选约束校验类型与门槛。读取当前实际保存值，主补丁可能漏写或部分失败；补漏纠错，不再次加已经落实的本轮经验；未知评级不猜起点。魔力量新成长须魔人觉醒:true，觉醒本身不赠经验。登记等级仅随实际登记改变。' +
     'T02日期结算沿用T01账本/场景/选拔赛，默认20轮6席。名册按稳定ID记录{姓名,来源:正典/原创/玩家,参赛状态:参赛/退选/取消资格}；只登记本局实际参赛者，初始战绩只读，禁止新增、修改或清除。新参赛者可按实际事实填入赛轮次，已有参赛者的入赛轮次不可修改；退赛日期及赛季结束日期完全由程序维护，只按事实修改参赛状态或赛季状态，不新增、改写或删除这些日期。' +
     '比赛按稳定ID记录{轮次,甲方:名册ID,乙方:名册ID,日期,时间,地点,状态:待定/已安排/已完成/已取消,胜者?:名册ID,弃权方?:名册ID,依据}；同场纠错沿用ID，结束填实际胜者及结果依据。排期不等于完赛；双方不能相同、重复对战或同轮多赛。' +
     '程序选拔赛摘要按场景/时间读取2013年赛程，场外背景默认沿正典走势、普通选手固定生成；当天排期不自动完赛，玩家缺场保留待补。只登记本轮实际事实，禁止把背景推演批量写回；本轮OC战胜珠雫等正典人物时据实登记，绝不能按原著或程序背景改回失败。' +
     '胜局积分=10+10×对手赛前胜场，败局不扣历史分；赛前胜场、战绩、积分、排名、程序战况、程序推演及推演版本由代码控制，禁止写入。现存初始战绩是玩家手动接管旧档的只读基线，不与逐场记录重复。摘要null为未知，不是0。当前模式' + String(state?.系统?.主角模式 || '未选择') + '，本局事实始终优先。' +
-    '已有值按最终结果纠正，无需为了通过校验重复提交变化依据；资料足够时可核定原null或缺失分数。只输出裸JSONPatch数组，支持add/replace/remove/copy/move/test，不输出Analysis或UpdateVariable标签。';
+    '已有值按最终结果纠正；已有且完整的变化依据无需重复提交，缺失时必须根据本轮正文或现有事实补齐。资料足够时可核定原null或缺失分数。只输出裸JSONPatch数组，支持add/replace/remove/copy/move/test，不输出Analysis或UpdateVariable标签。';
 }
 // 只重试请求阶段的临时连接故障；鉴权、格式、字段和保存错误交明确提示处理。
 function correctionRequestFailure(error, timedOut) {
   const status = Number(error?.status ?? error?.statusCode ?? error?.response?.status ?? String(error?.message || '').match(/\b(401|403|408|429|5\d\d)\b/)?.[1]);
   const transient = timedOut || error instanceof TypeError || [408, 429].includes(status) || status >= 500 && status <= 599 ||
     !status && /network|fetch failed|failed to fetch|timeout|timed out|ECONNRESET|ECONNREFUSED/i.test(String(error?.message || ''));
-  return { retryable: transient, message: timedOut ? '副 API 请求超时。' : status === 401 || status === 403 ? '副 API 认证失败，请核对密钥和权限后保存配置。'
+  return { retryable: !timedOut && transient, message: timedOut ? '副 API 请求超时，已停止自动重试；可检查连接后手动重试。' : status === 401 || status === 403 ? '副 API 认证失败，请核对密钥和权限后保存配置。'
     : status ? '副 API 请求失败（HTTP ' + status + '）。' : '副 API 连接失败，请核对地址、模型及密钥。' };
 }
 async function requestCorrection(automatic = false) {
@@ -484,7 +503,7 @@ async function requestCorrection(automatic = false) {
     if (typeof saved.ctx.ChatCompletionService?.processRequest !== 'function') throw new Error('当前 SillyTavern 缺少独立请求转发接口，请更新宿主。');
     const input = correctionInput(saved), state = input.state;
     const system = config.prompt + '\n' + correctionRules(state);
-    setCorrectionStatus('requesting', automatic ? '正在自动核对本轮正文、好感与支援…' : '正在请求本轮校正预览…');
+    setCorrectionStatus('requesting', automatic ? '正在全面核对本轮正文与业务变量…' : '正在请求本轮校正预览…');
     timer = setTimeout(() => { timedOut = true; abort.abort(); }, 120000);
     watch = setInterval(() => { try { ensureCorrectionCurrent(saved); } catch (_) { abort.abort(); } }, 350);
     requesting = true;
@@ -494,7 +513,7 @@ async function requestCorrection(automatic = false) {
       custom_exclude_body: JSON.stringify(config.excludedParams),
       model: config.model, messages: [{ role: 'system', content: system }, { role: 'user', content: JSON.stringify({
         当前变量: state, 程序选拔赛: correctionTournamentSummary(state), 本轮正文: input.text, 本轮已发生事件: input.events, 本轮已提交人际更新: input.submittedRelations,
-        本轮已提交进度: input.submittedStory, 主结算前场景: input.storyBefore,
+        本轮已提交进度: input.submittedStory, 主结算前场景: input.storyBefore, 主补丁状态: input.mainPatch,
         玩家补充说明: config.deviation, 最新回复楼层: saved.messageId, 当前回复页: saved.swipeId }) }],
       max_tokens: config.maxTokens, stream: false }, {}, true, abort.signal);
     if (response?.error) {
@@ -507,11 +526,8 @@ async function requestCorrection(automatic = false) {
     ensureCorrectionCurrent(saved);
     const raw = typeof response === 'string' ? response : response?.content;
     if (typeof raw !== 'string' || raw.length > 300000) throw new Error('副 API 未返回可用的补丁文本。');
-    let ops;
-    try { ops = JSON.parse(raw.trim().replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '')); }
-    catch (_) { throw new Error('副模型未返回完整 JSON 数组，请调整模型或输出上限后重试。'); }
+    let ops = parseCorrectionPatch(raw);
     ops = normalizeCorrectionPatch(ops, saved.data.stat_data);
-    validateCorrectionPatch(ops, saved.data.stat_data);
     const skipped = ops.skipped || [];
     correctionDraft = ops.length ? { saved, ops, skipped } : null;
     if (!ops.length) correctionRetry = null;
@@ -537,17 +553,25 @@ async function applyCorrection() {
   let writeStarted = false;
   setCorrectionStatus('applying', '正在通过 MVU 校验并写入本轮校正…');
   try {
-    ensureCorrectionCurrent(draft.saved);
     const parseBase = ensureCorrectionCurrent(draft.saved);
     const parser = draft.saved.guard;
     const parsed = parser
-      ? await parser.parseRepair(JSON.stringify(draft.ops), prepareRakudaiNativeMvu(structuredClone(parseBase.data), parseBase.scopes), draft.saved.mvuBlock, draft.saved)
+      ? await parser.parseRepair(JSON.stringify(draft.ops), prepareRakudaiNativeMvu(structuredClone(parseBase.data), parseBase.scopes), draft.saved.sourceText, draft.saved)
       : await draft.saved.mvu.parseMessage('<UpdateVariable><JSONPatch>' + JSON.stringify(draft.ops) + '</JSONPatch></UpdateVariable>',
         prepareRakudaiNativeMvu(structuredClone(parseBase.data), parseBase.scopes));
     if (lock.signal.aborted) throw new Error('本次校正已取消，未写入。');
     ensureCorrectionCurrent(draft.saved);
     if (!parsed?.stat_data) throw new Error('MVU 未返回可保存的状态，请查看 MVU 通知。');
     if (!draft.saved.guard) prepareRakudaiNativeMvu(parsed, parseBase.scopes);
+    // 解析可能只接受了部分命令；“有变化”不等于坏记录已经修好。两种模式都检查真实候选，检查不改值。
+    const service = stateService();
+    if (typeof service.validateState !== 'function') throw new Error('状态服务缺少完整档案检查接口，请更新配套终端后重试；未写入。');
+    try { service.validateState(parsed.stat_data); }
+    catch (error) {
+      const issues = Array.isArray(error?.issues) ? error.issues.slice(0, 8).map(issue =>
+        '/' + issue.path.join('/') + '：' + issue.message).join('；') : String(error?.message || error);
+      throw new Error('校正结果仍不符合档案结构，未写入：' + issues);
+    }
     if (correctionMvuKey(parsed) === draft.saved.stateKey) {
       // 同轮已推进时，重复的卷章提议属于无变化，不再显示连接或写入失败。
       const scene = draft.saved.data.stat_data.场景, start = draft.saved.storyBefore;
@@ -599,6 +623,21 @@ function correctionMvuBlock(content) {
   try { return patch && Array.isArray(JSON.parse(patch[2].trim())) ? block : ''; }
   catch (_) { return ''; }
 }
+function correctionReplyIdentity(content) {
+  return correctionMvuBlock(content) || String(content || '').replace(/\r\n?/g, '\n')
+    .replace(/(?:\s*<StatusPlaceHolderImpl\s*\/>)+\s*$/i, '').trim();
+}
+function parseCorrectionPatch(raw) {
+  let text = raw.trim().replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim();
+  const block = correctionMvuBlock(text);
+  if (block === text) text = block.match(/<(JSONPatch|json_patch)>([\s\S]*?)<\/\1>/i)[2].trim();
+  else {
+    const wrapped = text.match(/^<(JSONPatch|json_patch)>([\s\S]*?)<\/\1>$/i);
+    if (wrapped) text = wrapped[2].trim();
+  }
+  try { const operations = JSON.parse(text); if (Array.isArray(operations)) return operations; } catch (_) {}
+  throw new Error('副模型未返回完整 JSON 数组，请调整模型或输出上限后重试。');
+}
 function correctionReply() {
   const ctx = correctionContext(), read = fn('getChatMessages');
   if (!ctx || !read || !Array.isArray(ctx.chat)) throw new Error('当前聊天不可读。');
@@ -608,9 +647,9 @@ function correctionReply() {
     const active = read(id, { role: 'assistant' })?.[0];
     const swipeId = message.swipe_id, raw = active?.message;
     if (message.message_id !== id || active?.message_id !== id || !Number.isInteger(swipeId) || typeof raw !== 'string') throw new Error('当前回复页不完整。');
-    const chatKey = correctionChatKey(), mvuBlock = correctionMvuBlock(raw);
-    return { chatKey, chatRef: ctx.chat, messageRef: ctx.chat[id], messageId: id, swipeId, text: raw, mvuBlock,
-      key: JSON.stringify([chatKey, id, swipeId, mvuBlock]) };
+    const chatKey = correctionChatKey(), mvuBlock = correctionMvuBlock(raw), sourceText = correctionReplyIdentity(raw);
+    return { chatKey, chatRef: ctx.chat, messageRef: ctx.chat[id], messageId: id, swipeId, text: raw, mvuBlock, sourceText,
+      key: JSON.stringify([chatKey, id, swipeId, sourceText]) };
   }
   return null;
 }
@@ -623,9 +662,10 @@ function correctionSameReply(a, b) {
 }
 function correctionMvuKey(data) {
   // display_data、schema、图片元数据不决定本次校正是否过期；真正的变量冲突仍阻止写入。
-  const state = structuredClone(data?.stat_data || {});
-  delete state.$internal;
-  return JSON.stringify(state);
+  const { $internal, ...state } = data?.stat_data || {};
+  // Zod 会按 schema 重排键，合并保存则沿用现有键序；业务比较忽略对象键序，数组仍按原顺序。
+  return JSON.stringify(state, (_key, value) => value && typeof value === 'object' && !Array.isArray(value)
+    ? Object.fromEntries(Object.keys(value).sort().map(key => [key, value[key]])) : value);
 }
 function correctionHostReset(type) {
   if (['generation-start', 'CHAT_CHANGED', 'CHARACTER_FIRST_MESSAGE_SELECTED'].includes(type)) {
@@ -657,6 +697,8 @@ function startAutomaticCorrection() {
   let before;
   try { before = correctionReply()?.key; }
   catch (error) { setCorrectionStatus('failed', '无法读取当前回复：' + error.message, { scope: 'main' }); return; }
+  // 原生生成入口已隔离辅助请求；同页续写即使沿用相同补丁，也属于需要全面核验的新一轮。
+  if (before) correctionSeen.delete(before);
   const turn = { phase: 'waiting', chatRef: ctx.chat, chatKey: correctionChatKey(), before,
     candidate: null, finished: false, settled: false };
   correctionMainTurn = turn;
@@ -689,6 +731,18 @@ function scheduleAutomaticCorrection() {
   const waiting = correctionMainTurn?.phase === 'waiting' && !correctionMainTurn.waitFailed;
   const correcting = ['guard', 'retrying'].includes(correctionAutoTurn?.phase) && !correctionAutoTurn.waitFailed;
   if ((waiting || correcting) && !SS.destroyed) correctionAutoTimer = setTimeout(checkAutomaticCorrection, 200);
+}
+function resumeCorrectionWait(turn) {
+  if (correctionMainTurn !== turn || turn.phase !== 'waiting') return;
+  if (turn.waitFailed) {
+    // 迟到的本轮事件恢复原任务的自动意图；用户取消或改配置已清掉重试记录，不擅自重开。
+    const retry = correctionRetry?.waiting === turn ? correctionRetry : null;
+    turn.waitFailed = false; turn.deadline = Date.now() + 180000;
+    if (retry?.automatic) correctionAutoTurn = turn;
+    if (retry) correctionRetry = null;
+    setCorrectionStatus('waiting', '已收到本轮 MVU 更新，正在核对当前回复页的保存结果。', { scope: 'main' });
+  }
+  scheduleAutomaticCorrection();
 }
 function rememberCorrection(key) {
   correctionSeen.add(key);
@@ -761,11 +815,15 @@ async function checkAutomaticCorrection() {
     const ctx = correctionContext();
     if (ctx?.chat !== turn.chatRef || correctionChatKey() !== turn.chatKey) throw new Error('聊天已切换，本轮校正已取消。');
     const candidate = turn.candidate;
-    if (!candidate?.ended || !candidate.rendered) { scheduleAutomaticCorrection(); return; }
+    if (!candidate?.ended) { scheduleAutomaticCorrection(); return; }
+    if (candidate.receiptTailError && correctionRuntime().mode !== 'native') throw new Error(candidate.receiptTailError);
     if (!correctionSameReply(correctionReply(), candidate.reply)) throw new Error('回复页或 MVU 标签已变化，本轮校正已取消。');
-    // 主保存只依赖 MVU 核心事件和同一活动页回读，不等待副 API 的字段约束。
+    // 解析结束收据必须随主 MVU 真正落到本页；同值或空补丁不能冒充尚未完成的主写入。
     const saved = captureCorrection(true, false), current = correctionMvuKey(saved.data), expected = correctionMvuKey(candidate.variables);
     if (turn.phase === 'waiting') {
+      if (!candidate.receiptId || saved.data.delta_data?.$internal?.__rk_main_save?.id !== candidate.receiptId) {
+        turn.persisted = null; scheduleAutomaticCorrection(); return;
+      }
       if (current !== expected) { turn.persisted = null; scheduleAutomaticCorrection(); return; }
       const stable = current + saved.mvuBlock;
       if (turn.persisted !== stable) { turn.persisted = stable; turn.stableSince = Date.now(); scheduleAutomaticCorrection(); return; }
@@ -806,28 +864,69 @@ async function checkAutomaticCorrection() {
 }
 function wireAutomaticCorrection(safeOn, TE) {
   let bound = false;
+  function stampReceipt(candidate) {
+    const variables = candidate.variables;
+    if (!variables.delta_data || typeof variables.delta_data !== 'object' || Array.isArray(variables.delta_data)) variables.delta_data = {};
+    const delta = variables.delta_data;
+    if (!delta.$internal || typeof delta.$internal !== 'object' || Array.isArray(delta.$internal)) delta.$internal = {};
+    delta.$internal.__rk_main_save = { id: candidate.receiptId };
+  }
+  const receiptTail = variables => {
+    const turn = correctionMainTurn, candidate = turn?.candidate;
+    if (turn?.phase !== 'waiting' || !candidate?.ended || candidate.variables !== variables) return;
+    try {
+      if (!correctionSameReply(correctionReply(), candidate.reply)) return;
+      stampReceipt(candidate);
+      resumeCorrectionWait(turn);
+    } catch (_) {
+      candidate.receiptTailError = 'MVU 约束结束后的保存收据未能注册，主保存尚未确认。';
+      resumeCorrectionWait(turn);
+    }
+  };
   correctionBindMvu = () => {
     if (bound) return true;
     const events = (window.Mvu || HW.Mvu)?.events;
-    if (!events?.COMMAND_PARSED || !events.VARIABLE_UPDATE_ENDED || !TE.CHARACTER_MESSAGE_RENDERED) return false;
+    if (!events?.COMMAND_PARSED || !events.VARIABLE_UPDATE_ENDED) return false;
     bound = true;
+    const tailEvent = events.VARIABLE_UPDATE_ENDED + '_for_zod';
+    SS.disposers.push(() => fn('eventRemoveListener')?.(tailEvent, receiptTail));
     safeOn(events.COMMAND_PARSED, (variables, commands, content) => {
       const turn = correctionMainTurn;
       // 上一轮已取消的慢请求仍持有网络锁，也要接住新主回复的结算；发请求时再等待锁释放。
       if (!turn || turn.phase !== 'waiting') return;
       try {
         const reply = correctionReply();
-        if (!reply || reply.chatRef !== turn.chatRef || reply.chatKey !== turn.chatKey || reply.key === turn.before ||
-            !reply.mvuBlock || reply.mvuBlock !== correctionMvuBlock(content)) return;
-        turn.candidate = { variables, reply, ended: false, rendered: false };
+        if (!reply || reply.chatRef !== turn.chatRef || reply.chatKey !== turn.chatKey ||
+            reply.sourceText !== correctionReplyIdentity(content)) return;
+        turn.candidate = { variables, reply, ended: false };
         turn.deadline = Date.now() + 180000;
         turn.persisted = null;
-        if (turn.waitFailed) { turn.waitFailed = false; turn.deadline = Date.now() + 180000; }
+        resumeCorrectionWait(turn);
       } catch (_) { /* 无法唯一绑定当前回复时不开放自动写入。 */ }
     });
     safeOn(events.VARIABLE_UPDATE_ENDED, (variables, previous) => {
       const turn = correctionMainTurn;
       if (turn?.phase !== 'waiting' || turn.candidate?.variables !== variables) return;
+      try {
+        if (!correctionSameReply(correctionReply(), turn.candidate.reply)) return;
+        // 两版 MVU 都先设置 delta_data 再发 ENDED；随后会清 stat_data.$internal，但保留 delta_data。
+        // 将唯一收据放入本轮真实写入包装，直到当前楼层回读同 id 才释放主保存锁。
+        turn.candidate.receiptId = Date.now().toString(36) + ':' + Math.random().toString(36).slice(2);
+        stampReceipt(turn.candidate);
+        const makeLast = fn('eventMakeLast'), remove = fn('eventRemoveListener');
+        if (typeof makeLast !== 'function' || typeof remove !== 'function') {
+          turn.candidate.receiptTailError = '当前酒馆助手缺少 eventMakeLast / eventRemoveListener，无法确认约束处理后的主保存；请更新配套运行环境。';
+        } else {
+          try {
+            // 桥接可以后加载；每轮都显式移到其后，并使用原回调解绑，避免依赖包装后的 stop。
+            remove(tailEvent, receiptTail);
+            makeLast(tailEvent, receiptTail);
+            delete turn.candidate.receiptTailError;
+          } catch (_) {
+            turn.candidate.receiptTailError = '保存收据尾部监听注册失败，无法确认约束处理后的主保存；请检查酒馆助手事件接口。';
+          }
+        }
+      } catch (_) { return; /* 无法绑定真实当前页时不制造主写入收据。 */ }
       // 保留引用，等待后续守卫与 Zod 完成，而不是在本回调中提前复制旧中间态。
       turn.candidate.ended = true;
       // previous 是主 MVU 本次结算前的快照；不从正文或当前卷章倒推起点。
@@ -836,8 +935,7 @@ function wireAutomaticCorrection(safeOn, TE) {
           ['未开始', '进行中', '已结束'].includes(scene.阶段)) {
         turn.candidate.storyBefore = { 当前卷: scene.当前卷, 当前章: scene.当前章, 阶段: scene.阶段 };
       }
-      if (turn.waitFailed) { turn.waitFailed = false; turn.deadline = Date.now() + 180000; }
-      scheduleAutomaticCorrection();
+      resumeCorrectionWait(turn);
     });
     return true;
   };
@@ -849,11 +947,9 @@ function wireAutomaticCorrection(safeOn, TE) {
     if (turn?.phase !== 'waiting') return;
     try {
       const reply = correctionReply();
-      if (!reply || reply.messageId !== messageId || reply.chatRef !== turn.chatRef || reply.chatKey !== turn.chatKey || reply.key === turn.before) return;
-      // 渲染事件只确认同一 MVU 块已回到当前页，不要求正文/生图插件的全部渲染结束。
-      if (turn.candidate?.ended && correctionSameReply(reply, turn.candidate.reply)) turn.candidate.rendered = true;
-      if (turn.waitFailed) { turn.waitFailed = false; turn.deadline = Date.now() + 180000; }
-      scheduleAutomaticCorrection();
+      if (!reply || reply.messageId !== messageId || reply.chatRef !== turn.chatRef || reply.chatKey !== turn.chatKey) return;
+      // 渲染只唤醒保存核验，不把界面已经显示当作变量已写入。
+      resumeCorrectionWait(turn);
     } catch (_) {}
   });
 }

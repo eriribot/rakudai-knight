@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "deliveryMode": "component",
+  "artifactRoot": "世界书规则/MVU",
+  "artifacts": [
+    {
+      "artifactName": "phone-v1-3-21",
+      "id": "ee190b2f-d2ba-44b4-9f1b-0695c07fefc5",
+      "kind": "helper-script",
+      "relativePath": "落第骑士-小手机-v1.3.21.json",
+      "file": "世界书规则/MVU/落第骑士-小手机-v1.3.21.json",
+      "sha256": "ebf71d5b5bef9e716d34a32e8a1a19d6c7cc5f98f2d01a44206ff81ea21f00db"
+    },
+    {
+      "artifactName": "opening-state-n05",
+      "id": "4f9bda79-82bd-4d2f-9a66-2497349df26e",
+      "kind": "regex",
+      "relativePath": "落第骑士-开局页面-N05.regex.json",
+      "file": "世界书规则/MVU/落第骑士-开局页面-N05.regex.json",
+      "sha256": "01c8f4475e5b1884a2192ecc806a65322489ff65f40b6b87a080fe1a202cb095"
+    }
+  ],
+  "reused": [
+    {
+      "file": "世界书规则/MVU/落第骑士-MVU-v4字段约束.json",
+      "id": "06117475-a08c-4d78-a886-3d26426c4b37",
+      "sha256": "5bcaaedf23077fda01f81917ca247edda16231923e25d8cf9ddcdf92baa8cde6",
+      "enabled": true
+    },
+    {
+      "file": "世界书规则/MVU/落第骑士-MVU-原生兼容-N03.json",
+      "id": "0ad18dbe-5a59-4cad-acfd-50c2bce0d9ec",
+      "sha256": "a42e6122f97f6a0ff2c7d674f3545e0aa01712c9bb2a326ea69475ca94835b87",
+      "enabled": true
+    }
+  ],
+  "worldbookEntryFiles": [
+    "世界书规则/MVU/变量列表.txt",
+    "世界书规则/MVU/变量更新规则.txt",
+    "世界书规则/MVU/变量输出格式.txt",
+    "世界书规则/MVU/[initvar]变量初始化.yaml"
+  ]
+}

@@ -1,0 +1,113 @@
+【Rakudai · MVU Output Format v5】
+
+Follow 变量更新规则-v5-优化版 and 字段定义表-v5.
+End narrative with exactly one <UpdateVariable> containing <Analysis> then <JSONPatch>.
+
+═══════════════════════════════════════════════════
+【Analysis Section】
+═══════════════════════════════════════════════════
+
+Language: Concise English
+
+Check each area separately:
+  - Scene: changes or no-change reason
+  - Growth: each target (魔力控制/体能/魔力量) old→final or skip reason
+  - Relationships: each person's 好感 and 支援度 separately, old→final or no-change
+  - Tournament: match results or skip reason
+
+Rules:
+  - Everyday friendly interaction can have affection changes
+  - State old→final values explicitly
+  - If retry/correction: note "read saved value, correcting only"
+
+═══════════════════════════════════════════════════
+【JSONPatch Section】
+═══════════════════════════════════════════════════
+
+Format: One complete JSON array
+  - No fences (```), headings, comments, ellipses
+  - No escaped tags
+
+Path Rules:
+  - Start with /玩家, /场景, or /人际
+  - Never /stat_data
+  - Names: stable, no /, ~, __proto__, prototype, constructor
+
+Operation Types:
+  - add: missing entries or parent objects
+  - replace: existing values
+  - remove: confirmed erroneous dynamic entries
+
+Submit final values, not increments.
+Prefer changed child fields.
+When supplying object, preserve unrelated data.
+
+Type Constraints per 字段定义表-v5:
+  - boolean: true/false (not string "true")
+  - integer: no decimals
+  - string: empty "" when unknown
+  - null has special meaning
+
+Do NOT reset through parent replacements:
+  - /系统 fields
+  - /玩家/性别
+  - /玩家/综合初评
+  - Growth receipts
+
+═══════════════════════════════════════════════════
+【Quick Reference】—— Full spec in 字段定义表-v5
+═══════════════════════════════════════════════════
+
+Awakening:
+  <% if (getvar('stat_data.玩家.魔人觉醒') === true) { %>
+  Awakened: 魔力控制/体能/魔力量 can all grow.
+  <% } else { %>
+  Not awakened: 魔力控制/体能 can grow; 魔力量 no new growth (can correct old values).
+  <% } %>
+
+Growth Thresholds:
+  F→F+:100 | F+→E:100 | E→E+:150 | E+→D:150 | D→D+:250 | D+→C:250
+  C→C+:400 | C+→B:400 | B→B+:600 | B+→A:900 | A→A+:1200 | A+→S:1600
+  S retains excess. Calculate repeated promotions by subtracting thresholds.
+
+Grades: F, F+, E, E+, D, D+, C, C+, B, B+, A, A+, S (empty "" = unconfirmed)
+
+Relationships:
+  好感: 0-1000 or null (attitude, can change in friendly dialogue)
+  支援度: 0-320 or null (actions, not promises)
+  Independent: judge separately, write 变化依据
+
+Scene:
+  当前卷: 1-19 | 当前章: exact key | 阶段: 未开始|进行中|已结束
+  Main/secondary share one chapter advance per reply.
+
+Tournament (when active):
+  AI writes: match ID, participants, winner, basis
+  AI NEVER writes: points, rankings, 初始战绩, 赛前胜场
+
+═══════════════════════════════════════════════════
+【Empty Result】
+═══════════════════════════════════════════════════
+
+Use [] only after checking every area:
+
+<UpdateVariable>
+<Analysis>Scene: no changes. Growth: no practice. Relationships: no score updates. Tournament: no matches.</Analysis>
+<JSONPatch>[]</JSONPatch>
+</UpdateVariable>
+
+═══════════════════════════════════════════════════
+【Five Iron Laws】
+═══════════════════════════════════════════════════
+
+1. Independent: 魔力控制/魔力量/体能/好感/支援度 don't auto-link
+2. Deduplication: same result once per reply, read saved values before retry
+3. Facts Only: record this turn's events, no future/unknown/computed values
+4. Type Strict: boolean=true/false, integer no decimals, string="" when unknown
+5. Patch Boundary: correction OK, retry≠new reward, code fields protected
+
+═══════════════════════════════════════════════════
+
+Full definitions: 字段定义表-v5.txt
+Full rules: 变量更新规则-v5-优化版.txt
+Tournament: injected when 状态=进行中
