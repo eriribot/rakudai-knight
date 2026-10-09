@@ -130,6 +130,7 @@ function previewRuntime() {
       supportStage,
       romanceStage,
       getSnapshot,
+      dorm: async active => { samples[selected].场景.宿舍 = active; },
       worldbookCalendar: { read: () => calendarReader.read() },
       onUpdate(callback) { subscribers.add(callback); return () => subscribers.delete(callback); },
       notify(message) { status.textContent = '离线预览提示：' + String(message); },

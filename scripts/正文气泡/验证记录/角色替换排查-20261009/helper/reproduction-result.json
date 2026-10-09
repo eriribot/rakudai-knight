@@ -1,0 +1,118 @@
+{
+  "method": "Pinned official scripts.ts executed in isolated Node VM; synchronous host stubs; no browser/card/user-settings access or writes.",
+  "limitation": "Conditional source-level test only. Reporting player helper version and before/after switches are unknown; this does not establish their actual cause, prompt outcome, or native regex behavior.",
+  "cases": [
+    {
+      "test": "rename-only replacement, same avatar",
+      "version": "4.8.19",
+      "sha": "36d8889a99f1cf09d3d1f8aabd0eba33975dc64d",
+      "key": "name",
+      "before": {
+        "containerEnabled": true,
+        "itemEnabled": true,
+        "runningCandidates": 1
+      },
+      "after": {
+        "containerEnabled": false,
+        "itemEnabled": true,
+        "runningCandidates": 0
+      },
+      "allowlist": [
+        "Neutral Card v0.07"
+      ],
+      "pass": true
+    },
+    {
+      "test": "incoming item disabled, container enabled",
+      "version": "4.8.19",
+      "containerEnabled": true,
+      "itemEnabled": false,
+      "runningCandidates": 0,
+      "pass": true
+    },
+    {
+      "test": "rename-only replacement, same avatar",
+      "version": "4.10.0",
+      "sha": "cd689ceae578282f35003c12be9752ff5386edd7",
+      "key": "name",
+      "before": {
+        "containerEnabled": true,
+        "itemEnabled": true,
+        "runningCandidates": 1
+      },
+      "after": {
+        "containerEnabled": false,
+        "itemEnabled": true,
+        "runningCandidates": 0
+      },
+      "allowlist": [
+        "Neutral Card v0.07"
+      ],
+      "pass": true
+    },
+    {
+      "test": "incoming item disabled, container enabled",
+      "version": "4.10.0",
+      "containerEnabled": true,
+      "itemEnabled": false,
+      "runningCandidates": 0,
+      "pass": true
+    },
+    {
+      "test": "rename-only replacement, same avatar",
+      "version": "4.11.0",
+      "sha": "360db45dff7e1c221ccc5e9d07d9445b179a1272",
+      "key": "avatar",
+      "before": {
+        "containerEnabled": true,
+        "itemEnabled": true,
+        "runningCandidates": 1
+      },
+      "after": {
+        "containerEnabled": true,
+        "itemEnabled": true,
+        "runningCandidates": 1
+      },
+      "allowlist": [
+        "neutral-fixed-avatar.png"
+      ],
+      "pass": true
+    },
+    {
+      "test": "incoming item disabled, container enabled",
+      "version": "4.11.0",
+      "containerEnabled": true,
+      "itemEnabled": false,
+      "runningCandidates": 0,
+      "pass": true
+    },
+    {
+      "test": "rename-only replacement, same avatar",
+      "version": "4.11.3",
+      "sha": "ed8b2360b32d9cfb96770d44e5c4ae45c2071a86",
+      "key": "avatar",
+      "before": {
+        "containerEnabled": true,
+        "itemEnabled": true,
+        "runningCandidates": 1
+      },
+      "after": {
+        "containerEnabled": true,
+        "itemEnabled": true,
+        "runningCandidates": 1
+      },
+      "allowlist": [
+        "neutral-fixed-avatar.png"
+      ],
+      "pass": true
+    },
+    {
+      "test": "incoming item disabled, container enabled",
+      "version": "4.11.3",
+      "containerEnabled": true,
+      "itemEnabled": false,
+      "runningCandidates": 0,
+      "pass": true
+    }
+  ]
+}

@@ -524,6 +524,13 @@
   function makeBridge() {
     return {
       version: BUILD_VERSION,
+      dorm: async (active, source) => {
+        if (SS.destroyed || generationPending || correctionMainBusy() || readSnapshot().pending) throw new Error('请等待当前回复保存后再切换宿舍。');
+        const saved = await stateService().capture({ messageId: source?.messageId });
+        if (!source || SS.destroyed || generationPending || correctionMainBusy() || readSnapshot().pending || JSON.stringify(readSnapshot().source) !== JSON.stringify(source)) throw new Error('聊天或回复页已变化，请刷新后重试。');
+        await stateService().setDorm(saved.token, active);
+        terminalStateReader?.clear(); emit({ type: 'dorm' });
+      },
       relationshipRules: RELATIONSHIP_SCORING,
       get mvuRuntimeMode() { return rakudaiMvuRuntime([window, HW]).mode; },
       get contactBaselineVersion() { return (HW.__RK_MVU_GUARD_V4__ || window.__RK_MVU_GUARD_V4__)?.contactBaseline || null; },
@@ -579,6 +586,20 @@
     function safeOn(ev, cb) {
       try { const r = eon(ev, cb); r && r.stop && SS.disposers.push(() => r.stop()); } catch(_) {}
     }
+    // 模板先展开世界书，再对最终发送副本的号池提示按当前 MVU 日期做门禁。
+    const makeLast = fn('eventMakeLast'), removeListener = fn('eventRemoveListener');
+    const filterPool = request => {
+      let state = null;
+      try {
+        const snapshot = readSnapshot(), source = snapshot.source, target = snapshot.targetSource;
+        if (source && target && source.messageId === target.messageId && source.swipeId === target.swipeId) state = snapshot.state;
+      } catch (_) { /* 日期无法确认时关闭程序号池提示。 */ }
+      filterTournamentPoolPrompt(request?.messages, state);
+    };
+    const armPool = () => TE.CHAT_COMPLETION_SETTINGS_READY && makeLast && removeListener && makeLast(TE.CHAT_COMPLETION_SETTINGS_READY, filterPool);
+    if (TE.CHAT_COMPLETION_SETTINGS_READY && makeLast && removeListener) {
+      armPool(); SS.disposers.push(() => removeListener(TE.CHAT_COMPLETION_SETTINGS_READY, filterPool));
+    } else console.warn('[号池日期门禁] 未注册：需要 CHAT_COMPLETION_SETTINGS_READY、eventMakeLast 和 eventRemoveListener。');
 
     wireAutomaticCorrection(safeOn, TE);
     // 纯显示重绘只修补头像，不使 MVU 来源或终端编辑草稿失效。
@@ -587,12 +608,14 @@
     // ST 8172dcd 的 START/AFTER 参数键值一致；Helper 380be3c 只发 AFTER('normal', {}, false)。
     // 先记录原生开始，不取消正在保存的主轮；助手请求不能消费这份原生开始记录。
     if (TE.GENERATION_STARTED) safeOn(TE.GENERATION_STARTED, (type, options = {}, dryRun = false) => {
+      armPool();
       if (dryRun || options?.dryRun || ![undefined, null, '', 'normal', 'continue', 'regenerate', 'swipe'].includes(type)) return;
       const ctx = correctionContext();
       if (ctx && options && Object.keys(options).length) nativeStart = { type, options: { ...options }, chat: ctx.chat, chatKey: correctionChatKey() };
     });
     // 仅配对成功的原生主生成进入保存门禁；新回复的 MVU 仍由框架独立结算。
     if (TE.GENERATION_AFTER_COMMANDS) safeOn(TE.GENERATION_AFTER_COMMANDS, (type, options = {}, dryRun = false) => {
+      armPool();
       if (dryRun || options?.dryRun || ![undefined, null, '', 'normal', 'continue', 'regenerate', 'swipe'].includes(type)) return;
       if (!nativeStart || nativeStart.type !== type || nativeStart.chat !== correctionContext()?.chat || nativeStart.chatKey !== correctionChatKey() ||
           !options || Object.keys(options).length !== Object.keys(nativeStart.options).length ||

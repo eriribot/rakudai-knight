@@ -1,0 +1,21 @@
+{
+  "revision": "panorama-drag",
+  "passed": 10,
+  "total": 10,
+  "method": "Node VM执行实际生成预览、iframe脚本及事件属性；DOM滚动几何夹具",
+  "checks": [
+    "实际预览内联完整1672×941原图，禁用图片默认拖拽",
+    "进入宿舍默认居中，背景启用键盘焦点",
+    "实际事件可左右拖动，两端完整可达，滚动边界受限",
+    "释放指针后停止拖动",
+    "右键不启动拖动",
+    "触摸不执行手写位移，交给原生横滑",
+    "打开档案和刷新后返回，保留视角",
+    "窄屏完整高度横滚、宽屏居中，档案下背景稳定",
+    "离开后恢复首页并移除背景焦点",
+    "未连接桥接保护仍有效"
+  ],
+  "browserVerification": "not rerun: prior file protocol safety denial",
+  "realSillyTavern": "not verified",
+  "touchDevice": "native pan-x wiring verified; physical device not tested"
+}

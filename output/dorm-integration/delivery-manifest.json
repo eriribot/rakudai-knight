@@ -1,0 +1,73 @@
+{
+  "version": "dorm-v0.2",
+  "lines": {
+    "feature": 47,
+    "testAdaptation": 3
+  },
+  "artifacts": [
+    {
+      "file": "世界书规则/MVU/落第骑士-小手机-v1.3.24.json",
+      "sha256": "9fce590b21237a68d6eaf1b39f682ba9083c44a713fde5667a1d1f0ac4a1072f"
+    },
+    {
+      "file": "世界书规则/MVU/落第骑士-MVU-v4字段约束.json",
+      "sha256": "62d1304e1e44b4fe9c636d993b744c82336b7ce94ee91a286416e03100ae10f4"
+    },
+    {
+      "file": "世界书规则/MVU/落第骑士-MVU-原生兼容-N04.json",
+      "sha256": "4483ccd958902683970722f28b0016302fe0c8c1832fe44bbed88c36f7a83830"
+    },
+    {
+      "file": "世界书规则/MVU/落第骑士-开局页面-N06.regex.json",
+      "sha256": "3de3841abc2210a97418d7299cbaed5840fb1031a31449c1ff618687be644b7c"
+    },
+    {
+      "file": "世界书规则/v0.3/导出/落第骑士英雄谭.json",
+      "sha256": "82985a09f1d291a971afb62880f26671278aa0bc33eda0fb91925ffd6bdba841"
+    }
+  ],
+  "acceptance": {
+    "offlineIframe": "prior revision browser check passed; current repair verified in Node VM",
+    "transactionAndCommandFixture": "passed",
+    "realSillyTavern": "pending: HTTP 401",
+    "packaging": "9/9 passed",
+    "schemaAndBuildSync": "passed",
+    "previewRepair": "prior revision: 9/9 Node VM passed",
+    "dormTransactionRepair": "4/4 passed",
+    "stateController": "22/22 passed",
+    "stateBrowserSimulation": "52/52 passed",
+    "currentBrowserVerification": "blocked: file protocol security policy",
+    "panoramaDrag": "10/10 actual generated scripts and pointer attributes in Node VM; touch wiring only"
+  },
+  "regression": {
+    "smoke": {
+      "baseline": "24/30",
+      "current": "24/30",
+      "sameSixFailures": true
+    },
+    "stateReader": "three existing failures, source and test unchanged",
+    "legacyWorldbookCheck": "legacy synchronous bootstrap fixture incompatible with current async guard; not green",
+    "panSmoke": {
+      "current": "24/30",
+      "sameSixFailures": true
+    }
+  },
+  "revision": "2026-10-09 panorama drag",
+  "preview": {
+    "file": "scripts/黑白ADV轮盘终端/dist/preview.html",
+    "sha256": "bc37fd6307933a35d48e264ed8803665edb00632c5aa5b7acb7c7e72a7eba087",
+    "data": "virtual samples only"
+  },
+  "panorama": {
+    "imageSize": [
+      1672,
+      941
+    ],
+    "scale": "full height; original aspect ratio",
+    "mouse": "left-button horizontal drag, pointer capture",
+    "touch": "native horizontal scroll",
+    "initialPosition": "center",
+    "scrollState": "local DOM only, retained while opening archive",
+    "browserVerification": "not rerun due prior file protocol policy denial"
+  }
+}

@@ -64,9 +64,9 @@ export function prepareRakudaiNativeMvu(data, scopes = [], { repairStructure = t
 
 export async function installRakudaiNativeMvu(W) {
   const slot = '__RK_MVU_NATIVE_N01__';
-  if (W[slot]?.version === 'N04' && W[slot].state !== 'failed') return W[slot];
+  if (W[slot]?.version === 'N04' && W[slot].dorm === 'D01' && W[slot].state !== 'failed') return W[slot];
   W[slot]?.destroy?.();
-  const marker = { version: 'N04', state: 'loading', destroy: null };
+  const marker = { version: 'N04', dorm: 'D01', state: 'loading', destroy: null };
   W[slot] = marker;
   let disposed = false, listener = null, commandListener = null;
   function destroy() {
@@ -101,9 +101,17 @@ export async function installRakudaiNativeMvu(W) {
       if (!owned()) return;
       prepareRakudaiNativeMvu(variables, scopes);
     });
-    if (mvu.events.COMMAND_PARSED) commandListener = helper('eventOn')(mvu.events.COMMAND_PARSED, (variables, commands) => {
+    if (mvu.events.COMMAND_PARSED) commandListener = helper('eventOn')(mvu.events.COMMAND_PARSED, (variables, commands, content) => {
       if (!owned() || !isRakudaiMvuState(variables?.stat_data)) return;
-      const normalized = normalizeRakudaiMvuCommands(commands, variables.stat_data);
+      const chat = H.SillyTavern.getContext().chat || [], replies = chat.flatMap((message, index) => !message.is_user && message.mes === content ? [index] : []);
+      const resting = /^(?:宿舍)?休息[。！!\s]*$/.test(chat.slice(0, replies.length === 1 ? replies[0] : chat.length).findLast(message => message.is_user)?.mes?.trim() || ''), inDorm = variables.stat_data.场景?.宿舍 === true;
+      const normalized = normalizeRakudaiMvuCommands(commands.filter(command => {
+        if (resting && !inDorm) return false;
+        let patch; try { patch = JSON.parse(command.full_match); if (!patch || typeof patch !== 'object') return false; } catch (_) { return !inDorm && typeof variables.stat_data.场景?.宿舍 !== 'boolean'; }
+        const protectedPath = path => typeof path !== 'string' || !path.startsWith('/') || path.includes('//') || path.endsWith('/') || ['/场景', '/场景/宿舍'].includes(path) || path.startsWith('/场景/宿舍/') || resting && replies.length !== 1 && (path === '/场景/时间' || path.startsWith('/场景/时间/')) || inDorm && (path === '/场景/地点' || path.startsWith('/场景/地点/'));
+        if (patch.path === '/场景/宿舍') return inDorm && resting && replies.length === 1 && ['add', 'replace'].includes(patch.op) && patch.value === false;
+        return !protectedPath(patch.path) && !(patch.op === 'move' && protectedPath(patch.from));
+      }), variables.stat_data);
       if (normalized !== commands) commands.splice(0, commands.length, ...normalized);
     });
     marker.state = 'ready';

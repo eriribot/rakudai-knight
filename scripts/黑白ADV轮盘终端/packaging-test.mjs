@@ -83,7 +83,7 @@ check('打包页面包含当前维护的全部 JS 与 CSS 模块，没有滞留�
   const cssFiles = [...template.matchAll(/<link rel="stylesheet" href="\.\/([^"<>]+)"/g)].map(match => match[1]);
   const styles = [...built.html.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/g)];
   assert.equal(styles.length, cssFiles.length);
-  cssFiles.forEach((file, index) => assert.equal(styles[index][1], '\n' + read(file), file));
+  cssFiles.forEach((file, index) => assert.equal(styles[index][1], ('\n' + read(file)).replaceAll('../../resource/dorm/B-entrance-to-balcony.webp', 'data:image/webp;base64,' + fs.readFileSync(new URL('../../resource/dorm/B-entrance-to-balcony.webp', import.meta.url)).toString('base64')), file));
 });
 check('交付脚本中注入的关系函数可独立执行，共享新上限且不缺闭包依赖', () => {
   const content = built.artifact.content;

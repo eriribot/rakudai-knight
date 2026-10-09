@@ -3,6 +3,7 @@ import vm from 'node:vm';
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 import { stripModuleSyntax } from '../story-build.mjs';
+import { shouldInjectTournament } from '../rakudai-tournament-calendar.mjs';
 
 // The dev workspace is already required by the project's schema checks. Missing
 // yaml is a setup failure, never a reason to substitute JSON.parse or skip tests.
@@ -299,7 +300,7 @@ function fixture(storage = new Map([[configKey, clone(defaultConnection)]])) {
     const id = ++timerId; timers.set(id, { fn, due: now + Number(ms), interval: interval ? Number(ms) : 0 }); return id;
   }
   class FixtureDate extends Date { static now() { return now; } }
-  const realm = vm.createContext({ HW, window: { parent: HW, top: HW, Mvu: mvu },
+  const realm = vm.createContext({ HW, window: { parent: HW, top: HW, Mvu: mvu, RakudaiStateController: { shouldInjectTournament } },
     SS: { destroyed: false, disposers: [] }, Date: FixtureDate, AbortController, URL, structuredClone,
     LS: { get: (key, fallback) => storage.has(key) ? clone(storage.get(key)) : fallback,
       set: (key, value) => { storageWrites.push(key); storage.set(key, clone(value)); } },

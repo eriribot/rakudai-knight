@@ -1,0 +1,13 @@
+{
+  "surface": "actual compiled iframe, offline virtual MVU bridge",
+  "phase1": true,
+  "phase2": true,
+  "phase3StateSync": true,
+  "backgroundFill": "cover",
+  "restClearsBackground": true,
+  "explicitExit": true,
+  "narrow320": true,
+  "pageErrors": [],
+  "realSillyTavern": "pending: HTTP 401",
+  "revisionNote": "上一修订的浏览器记录，测试时注入虚拟 dorm 桥接；本轮修复未重新进行浏览器访问。当前生成预览的实际脚本验证见 preview-repair-check.json。"
+}

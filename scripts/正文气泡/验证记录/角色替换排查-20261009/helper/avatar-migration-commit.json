@@ -1,0 +1,341 @@
+{
+  "sha": "bf19f07d87a2a6723b124c9a400393bb14549053",
+  "node_id": "C_kwDOM5bh8toAKGJmMTlmMDdkODdhMmE2NzIzYjEyNGM5YTQwMDM5M2JiMTQ1NDkwNTM",
+  "commit": {
+    "author": {
+      "name": "StageDog",
+      "email": "aksanajw845@gmail.com",
+      "date": "2026-09-21T20:51:54Z"
+    },
+    "committer": {
+      "name": "StageDog",
+      "email": "aksanajw845@gmail.com",
+      "date": "2026-09-21T20:51:54Z"
+    },
+    "message": "feat(#96): 从 character.name 变成依赖 character.avatar [release minor]",
+    "tree": {
+      "sha": "93afcddfec627aba42ba5553ea12a9f7d9132ba8",
+      "url": "https://api.github.com/repos/N0VI028/JS-Slash-Runner/git/trees/93afcddfec627aba42ba5553ea12a9f7d9132ba8"
+    },
+    "url": "https://api.github.com/repos/N0VI028/JS-Slash-Runner/git/commits/bf19f07d87a2a6723b124c9a400393bb14549053",
+    "comment_count": 0,
+    "verification": {
+      "verified": false,
+      "reason": "unsigned",
+      "signature": null,
+      "payload": null,
+      "verified_at": null
+    }
+  },
+  "url": "https://api.github.com/repos/N0VI028/JS-Slash-Runner/commits/bf19f07d87a2a6723b124c9a400393bb14549053",
+  "html_url": "https://github.com/N0VI028/JS-Slash-Runner/commit/bf19f07d87a2a6723b124c9a400393bb14549053",
+  "comments_url": "https://api.github.com/repos/N0VI028/JS-Slash-Runner/commits/bf19f07d87a2a6723b124c9a400393bb14549053/comments",
+  "author": {
+    "login": "StageDog",
+    "id": 192069929,
+    "node_id": "U_kgDOC3LBKQ",
+    "avatar_url": "https://avatars.githubusercontent.com/u/192069929?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/StageDog",
+    "html_url": "https://github.com/StageDog",
+    "followers_url": "https://api.github.com/users/StageDog/followers",
+    "following_url": "https://api.github.com/users/StageDog/following{/other_user}",
+    "gists_url": "https://api.github.com/users/StageDog/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/StageDog/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/StageDog/subscriptions",
+    "organizations_url": "https://api.github.com/users/StageDog/orgs",
+    "repos_url": "https://api.github.com/users/StageDog/repos",
+    "events_url": "https://api.github.com/users/StageDog/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/StageDog/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "StageDog",
+    "id": 192069929,
+    "node_id": "U_kgDOC3LBKQ",
+    "avatar_url": "https://avatars.githubusercontent.com/u/192069929?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/StageDog",
+    "html_url": "https://github.com/StageDog",
+    "followers_url": "https://api.github.com/users/StageDog/followers",
+    "following_url": "https://api.github.com/users/StageDog/following{/other_user}",
+    "gists_url": "https://api.github.com/users/StageDog/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/StageDog/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/StageDog/subscriptions",
+    "organizations_url": "https://api.github.com/users/StageDog/orgs",
+    "repos_url": "https://api.github.com/users/StageDog/repos",
+    "events_url": "https://api.github.com/users/StageDog/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/StageDog/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "e9aa5ba146d0f13b7a26742c26dd04d9132a30da",
+      "url": "https://api.github.com/repos/N0VI028/JS-Slash-Runner/commits/e9aa5ba146d0f13b7a26742c26dd04d9132a30da",
+      "html_url": "https://github.com/N0VI028/JS-Slash-Runner/commit/e9aa5ba146d0f13b7a26742c26dd04d9132a30da"
+    }
+  ],
+  "stats": {
+    "total": 337,
+    "additions": 186,
+    "deletions": 151
+  },
+  "files": [
+    {
+      "sha": "5e43188883dee481848e4850e3e3c75c3af8d6c3",
+      "filename": "@types/function/character.d.ts",
+      "status": "modified",
+      "additions": 35,
+      "deletions": 33,
+      "changes": 68,
+      "blob_url": "https://github.com/N0VI028/JS-Slash-Runner/blob/bf19f07d87a2a6723b124c9a400393bb14549053/%40types%2Ffunction%2Fcharacter.d.ts",
+      "raw_url": "https://github.com/N0VI028/JS-Slash-Runner/raw/bf19f07d87a2a6723b124c9a400393bb14549053/%40types%2Ffunction%2Fcharacter.d.ts",
+      "contents_url": "https://api.github.com/repos/N0VI028/JS-Slash-Runner/contents/%40types%2Ffunction%2Fcharacter.d.ts?ref=bf19f07d87a2a6723b124c9a400393bb14549053",
+      "patch": "@@ -19,52 +19,52 @@ type Character = {\n };\n \n /**\n- * 获取角色卡名称列表\n+ * 获取角色卡的显示名称列表\n  *\n- * @returns 角色卡名称列表\n+ * @returns 角色卡的显示名称列表, 如 ['少女歌剧', '少女歌剧', '神乐光']\n  */\n declare function getCharacterNames(): string[];\n \n /**\n- * 获取角色卡头像 id 列表\n+ * 获取角色卡的头像 id 列表\n  *\n- * @returns 角色卡头像 id 列表\n+ * @returns 角色卡的头像 id 列表, 也是角色卡的文件名称列表, 如 ['少女歌剧.png', '少女歌剧_1.png', '神乐光.png']\n  */\n declare function getCharacterIds(): string[];\n \n /**\n- * 获取当前角色卡名称\n+ * 获取当前角色卡的显示名称\n  *\n- * @returns 当前角色卡名称, 如果当前没有角色卡, 则返回 `null`\n+ * @returns 当前角色卡的显示名称; 如果当前没有角色卡, 则返回 `null`\n  */\n declare function getCurrentCharacterName(): string | null;\n \n /**\n- * 获取当前角色卡头像 id\n+ * 获取当前角色卡的头像 id\n  *\n- * @returns 当前角色卡头像 id, 如果当前没有角色卡, 则返回 `null`\n+ * @returns 当前角色卡的头像 id, 也是角色卡的文件名称; 如果当前没有角色卡, 则返回 `null`\n  */\n declare function getCurrentCharacterId(): string | null;\n \n /**\n- * 新建 `character_name` 角色卡, 内容为 `character`\n+ * 新建 `character_name_or_id` 角色卡, 内容为 `character`\n  *\n- * @param character_name 角色卡名称\n+ * @param character_name_or_id 角色卡显示名称如 '少女歌剧', 或头像 id 如 '少女歌剧.png'\n  * @param character 角色卡数据; 不填则使用默认数据\n  *\n  * @returns 是否成功创建, 如果已经存在同名角色卡或尝试创建名为 `'current'` 的角色卡会失败\n  *\n  * @throws 如果访问后端失败, 将会抛出异常\n  */\n declare function createCharacter(\n-  character_name: Exclude<string, 'current'>,\n+  character_name_or_id: Exclude<string | `${string}.png`, 'current'>,\n   character?: TypeFest.PartialDeep<Character>,\n ): Promise<boolean>;\n \n /**\n- * 创建或替换名为 `character_name` 的角色卡, 内容为 `character`\n+ * 创建或替换名为 `character_name_or_id` 的角色卡, 内容为 `character`\n  *\n- * @param character_name 角色卡名称\n+ * @param character_name_or_id 角色卡显示名称如 '少女歌剧', 或头像 id 如 '少女歌剧.png'; 'current' 表示当前打开的角色卡\n  * @param character 角色卡数据; 不填则使用默认数据\n  * @param options 可选选项\n  *   - `render:'debounced'|'immediate'|'none'`: 酒馆网页应该防抖渲染 (debounced)、立即渲染 (immediate) 还是不刷新前端显示 (none)? 默认为性能更好的防抖渲染\n@@ -74,45 +74,47 @@ declare function createCharacter(\n  * @throws 如果访问后端失败, 将会抛出异常\n  */\n declare function createOrReplaceCharacter(\n-  character_name: Exclude<string, 'current'>,\n+  character_name_or_id: TypeFest.LiteralUnion<'current', string | `${string}.png`>,\n   character?: TypeFest.PartialDeep<Character>,\n   options?: ReplaceCharacterOptions,\n ): Promise<boolean>;\n \n /**\n- * 删除 `character_name` 角色卡\n+ * 删除 `character_name_or_id` 角色卡\n  *\n- * @param character_name 角色卡名称\n+ * @param character_name_or_id 角色卡显示名称如 '少女歌剧', 或头像 id 如 '少女歌剧.png'; 'current' 表示当前打开的角色卡\n  * @param options 可选选项\n  *   - `delete_chats:boolean`: 是否要同时删除角色卡的聊天文件\n  *\n  * @returns 是否成功删除, 可能因角色卡不存在等原因而失败\n  */\n declare function deleteCharacter(\n-  character_name: TypeFest.LiteralUnion<'current', string>,\n+  character_name_or_id: TypeFest.LiteralUnion<'current', string | `${string}.png`>,\n   options?: { delete_chats?: boolean },\n ): Promise<boolean>;\n \n /**\n- * 获取 `character_name` 角色卡的内容\n+ * 获取 `character_name_or_id` 角色卡的内容\n  *\n- * @param character_name 角色卡名称\n+ * @param character_name_or_id 角色卡显示名称如 '少女歌剧', 或头像 id 如 '少女歌剧.png'; 'current' 表示当前打开的角色卡\n  *\n  * @returns 角色卡内容\n  *\n  * @throws 如果角色卡不存在, 将会抛出异常\n  */\n-declare function getCharacter(character_name: TypeFest.LiteralUnion<'current', string>): Promise<Character>;\n+declare function getCharacter(\n+  character_name_or_id: TypeFest.LiteralUnion<'current', string | `${string}.png`>,\n+): Promise<Character>;\n \n type ReplaceCharacterOptions = {\n   /** 酒馆网页应该防抖渲染 (debounced)、立即渲染 (immediate) 还是不刷新前端显示 (none)? 默认为性能更好的防抖渲染 */\n   render?: 'debounced' | 'immediate' | 'none';\n };\n \n /**\n- * 完全替换 `character_name` 角色卡的内容为 `character`\n+ * 完全替换 `character_name_or_id` 角色卡的内容为 `character`\n  *\n- * @param character_name 角色卡名称\n+ * @param character_name_or_id 角色卡显示名称如 '少女歌剧', 或头像 id 如 '少女歌剧.png'; 'current' 表示当前打开的角色卡\n  * @param character 角色卡数据\n  * @param options 可选选项\n  *   - `render:'debounced'|'immediate'|'none'`: 酒馆网页应该防抖渲染 (debounced)、立即渲染 (immediate) 还是不刷新前端显示 (none)? 默认为性能更好的防抖渲染\n@@ -122,34 +124,34 @@ type ReplaceCharacterOptions = {\n  *\n  * @example\n  * // 为角色卡更改开场白\n- * const character = await getCharacter('角色卡名称');\n+ * const character = await getCharacter('角色卡显示名称');\n  * character.first_messages = ['新的开场白1', '新的开场白2'];\n- * await replaceCharacter('角色卡名称', character);\n+ * await replaceCharacter('角色卡显示名称', character);\n  *\n  * @example\n  * // 清空角色卡的局部正则\n- * const character = await getCharacter('角色卡名称');\n+ * const character = await getCharacter('角色卡头像id.png');\n  * character.extensions.regex_scripts = [];\n- * await replaceCharacter('角色卡名称', character);\n+ * await replaceCharacter('角色卡头像id.png', character);\n  *\n  * @example\n  * // 更换角色卡头像\n- * const character = await getCharacter('角色卡名称');\n+ * const character = await getCharacter('角色卡显示名称');\n  * character.avatar = await fetch('https://example.com/avatar.png').then(response => response.blob());\n- * await replaceCharacter('角色卡名称', character);\n+ * await replaceCharacter('角色卡显示名称', character);\n  */\n declare function replaceCharacter(\n-  character_name: Exclude<string, 'current'>,\n+  character_name_or_id: TypeFest.LiteralUnion<'current', string | `${string}.png`>,\n   character: TypeFest.PartialDeep<Character>,\n   options?: ReplaceCharacterOptions,\n ): Promise<void>;\n \n type CharacterUpdater = ((character: Character) => Character) | ((character: Character) => Promise<Character>);\n \n /**\n- * 用 `updater` 函数更新 `character_name` 角色卡\n+ * 用 `updater` 函数更新 `character_name_or_id` 角色卡\n  *\n- * @param character_name 角色卡名称\n+ * @param character_name_or_id 角色卡显示名称或头像 id, 'current' 表示当前打开的角色卡\n  * @param updater 用于更新角色卡的函数. 它应该接收角色卡内容作为参数, 并返回更新后的角色卡内容.\n  * @param options 可选选项\n  *   - `render:'debounced'|'immediate'|'none'`: 如果对角色卡进行操作, 应该防抖渲染 (debounced)、立即渲染 (immediate) 还是不刷新前端显示 (none)? 默认为性能更好的防抖渲染\n@@ -168,7 +170,7 @@ type CharacterUpdater = ((character: Character) => Character) | ((character: Cha\n  *\n  * @example\n  * // 清空角色卡的局部正则\n- * await updateCharacterWith('角色卡名称', character => {\n+ * await updateCharacterWith('角色卡头像id.png', character => {\n  *   character.extensions.regex_scripts = [];\n  *   return character;\n  * });\n@@ -181,6 +183,6 @@ type CharacterUpdater = ((character: Character) => Character) | ((character: Cha\n  * });\n  */\n declare function updateCharacterWith(\n-  character_name: TypeFest.LiteralUnion<'current', string>,\n+  character_name_or_id: TypeFest.LiteralUnion<'current', string | `${string}.png`>,\n   updater: CharacterUpdater,\n ): Promise<Character>;"
+    },
+    {
+      "sha": "871212dba978761c1e8c450d23ac72180eed8f46",
+      "filename": "@types/function/raw_character.d.ts",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 7,
+      "changes": 8,
+      "blob_url": "https://github.com/N0VI028/JS-Slash-Runner/blob/bf19f07d87a2a6723b124c9a400393bb14549053/%40types%2Ffunction%2Fraw_character.d.ts",
+      "raw_url": "https://github.com/N0VI028/JS-Slash-Runner/raw/bf19f07d87a2a6723b124c9a400393bb14549053/%40types%2Ffunction%2Fraw_character.d.ts",
+      "contents_url": "https://api.github.com/repos/N0VI028/JS-Slash-Runner/contents/%40types%2Ffunction%2Fraw_character.d.ts?ref=bf19f07d87a2a6723b124c9a400393bb14549053",
+      "patch": "@@ -10,13 +10,7 @@ declare class RawCharacter {\n    * @param options 查找选项\n    * @returns 找到的角色卡数据，找不到为null\n    */\n-  static find({\n-    name,\n-    allowAvatar,\n-  }?: {\n-    name: TypeFest.LiteralUnion<'current', string>;\n-    allowAvatar?: boolean;\n-  }): SillyTavern.v1CharData;\n+  static find({ name }?: { name: TypeFest.LiteralUnion<'current', string> }): SillyTavern.v1CharData;\n \n   /**\n    * 根据名称查找角色卡数据在characters数组中的索引（类似this_chid）"
+    },
+    {
+      "sha": "f5baa4e13fd250a1f462abd32b7333fe80c1bec8",
+      "filename": "@types/function/tavern_regex.d.ts",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 2,
+      "changes": 4,
+      "blob_url": "https://github.com/N0VI028/JS-Slash-Runner/blob/bf19f07d87a2a6723b124c9a400393bb14549053/%40types%2Ffunction%2Ftavern_regex.d.ts",
+      "raw_url": "https://github.com/N0VI028/JS-Slash-Runner/raw/bf19f07d87a2a6723b124c9a400393bb14549053/%40types%2Ffunction%2Ftavern_regex.d.ts",
+      "contents_url": "https://api.github.com/repos/N0VI028/JS-Slash-Runner/contents/%40types%2Ffunction%2Ftavern_regex.d.ts?ref=bf19f07d87a2a6723b124c9a400393bb14549053",
+      "patch": "@@ -68,12 +68,12 @@ type TavernRegexOptionGlobal = {\n type TavernRegexOptionCharacter = {\n   /** 对角色卡局部 (`'character'`) 进行操作 */\n   type: 'character';\n-  name?: string | 'current';\n+  name?: TypeFest.LiteralUnion<'current', string | `${string}.png`>;\n };\n type TavernRegexOptionPreset = {\n   /** 对预设正则 (`'preset'`) 进行操作 */\n   type: 'preset';\n-  name?: string | 'in_use';\n+  name?: TypeFest.LiteralUnion<'in_use', string>;\n };\n type TavernRegexOption = TavernRegexOptionGlobal | TavernRegexOptionCharacter | TavernRegexOptionPreset;\n "
+    },
+    {
+      "sha": "7344ad9a20476b5f75477a8900d4fca81a6586fb",
+      "filename": "@types/function/worldbook.d.ts",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 4,
+      "changes": 8,
+      "blob_url": "https://github.com/N0VI028/JS-Slash-Runner/blob/bf19f07d87a2a6723b124c9a400393bb14549053/%40types%2Ffunction%2Fworldbook.d.ts",
+      "raw_url": "https://github.com/N0VI028/JS-Slash-Runner/raw/bf19f07d87a2a6723b124c9a400393bb14549053/%40types%2Ffunction%2Fworldbook.d.ts",
+      "contents_url": "https://api.github.com/repos/N0VI028/JS-Slash-Runner/contents/%40types%2Ffunction%2Fworldbook.d.ts?ref=bf19f07d87a2a6723b124c9a400393bb14549053",
+      "patch": "@@ -25,18 +25,18 @@ type CharWorldbooks = {\n /**\n  * 获取角色卡绑定的世界书\n  *\n- * @param character_name 要查询的角色卡名称, 'current' 表示当前打开的角色卡\n+ * @param character_name_or_id 要查询的角色卡显示名称如 '少女歌剧', 或头像 id 如 '少女歌剧.png'; 'current' 表示当前打开的角色卡\n  *\n  * @returns 角色卡绑定的世界书\n  */\n-declare function getCharWorldbookNames(character_name: TypeFest.LiteralUnion<'current' | string>): CharWorldbooks;\n+declare function getCharWorldbookNames(character_name_or_id: TypeFest.LiteralUnion<'current', string | `${string}.png`>): CharWorldbooks;\n /**\n  * 重新绑定角色卡世界书\n  *\n- * @param character_name 角色卡名称, 'current' 表示当前打开的角色卡\n+ * @param character_name_or_id 角色卡显示名称如 '少女歌剧', 或头像 id 如 '少女歌剧.png'; 'current' 表示当前打开的角色卡\n  * @param char_worldbooks 要对该角色卡绑定的世界书\n  */\n-declare function rebindCharWorldbooks(character_name: 'current', char_worldbooks: CharWorldbooks): Promise<void>;\n+declare function rebindCharWorldbooks(character_name_or_id: TypeFest.LiteralUnion<'current', string | `${string}.png`>, char_worldbooks: CharWorldbooks): Promise<void>;\n \n /**\n  * 获取聊天文件绑定的世界书"
+    },
+    {
+      "sha": "bc7363ca7d9d05e7f4c6d07cc94d112f99c0d86e",
+      "filename": "CHANGELOG.md",
+      "status": "modified",
+      "additions": 18,
+      "deletions": 0,
+      "changes": 18,
+      "blob_url": "https://github.com/N0VI028/JS-Slash-Runner/blob/bf19f07d87a2a6723b124c9a400393bb14549053/CHANGELOG.md",
+      "raw_url": "https://github.com/N0VI028/JS-Slash-Runner/raw/bf19f07d87a2a6723b124c9a400393bb14549053/CHANGELOG.md",
+      "contents_url": "https://api.github.com/repos/N0VI028/JS-Slash-Runner/contents/CHANGELOG.md?ref=bf19f07d87a2a6723b124c9a400393bb14549053",
+      "patch": "@@ -1,4 +1,22 @@\n <!-- markdownlint-disable MD041 MD036 -->\n+## 4.11.0\n+\n+### 📦函数\n+\n+- 现在 `getCharacter`、`replaceCharacter` 等函数支持使用角色卡的头像id/文件名称作为参数. 例如如果你在酒馆网页上复制了一张 `'少女歌剧'` 角色卡, 两张角色卡虽然都显示成 `'少女歌剧'`, 但它们的头像id/文件名称将分别是 `'少女歌剧.png'` 和 `'少女歌剧_1.png'`——现在你可以使用 `'少女歌剧.png'` 或 `'少女歌剧_1.png'` 来操作对应角色卡.\n+\n+  ```ts\n+  const character_names = getCharacterNames(); // 显示名称: ['少女歌剧', '少女歌剧']\n+  const character_ids   = getCharacterIds();   // 头像id/文件名称: ['少女歌剧.png', '少女歌剧_1.png']\n+\n+  // 获取 '少女歌剧_1.png' 角色卡对应的数据\n+  const character = getCharacter('少女歌剧_1.png');\n+  ```\n+\n+### 🐛修复\n+\n+- 修复了有多张显示名称相同的角色卡时，酒馆助手脚本只会对其中一张角色卡生效的问题\n+\n ## 4.10.0\n \n ### 📦函数"
+    },
+    {
+      "sha": "e7aa6212a8fe4fd24a8a41d8880d8b8c640a9ada",
+      "filename": "src/function/character.ts",
+      "status": "modified",
+      "additions": 45,
+      "deletions": 40,
+      "changes": 85,
+      "blob_url": "https://github.com/N0VI028/JS-Slash-Runner/blob/bf19f07d87a2a6723b124c9a400393bb14549053/src%2Ffunction%2Fcharacter.ts",
+      "raw_url": "https://github.com/N0VI028/JS-Slash-Runner/raw/bf19f07d87a2a6723b124c9a400393bb14549053/src%2Ffunction%2Fcharacter.ts",
+      "contents_url": "https://api.github.com/repos/N0VI028/JS-Slash-Runner/contents/src%2Ffunction%2Fcharacter.ts?ref=bf19f07d87a2a6723b124c9a400393bb14549053",
+      "patch": "@@ -53,9 +53,6 @@ export function getCharacterNames(): string[] {\n   return characters.map(character => character.name);\n }\n \n-/**\n- * 获取角色卡头像 id 列表\n- */\n export function getCharacterIds(): string[] {\n   return characters.map(character => character.avatar);\n }\n@@ -64,9 +61,6 @@ export function getCurrentCharacterName(): string | null {\n   return name2 === '' ? null : name2;\n }\n \n-/**\n- * 获取当前角色卡头像 id\n- */\n export function getCurrentCharacterId(): string | null {\n   const current_character = RawCharacter.find({ name: 'current' });\n   return current_character?.avatar ?? null;\n@@ -106,13 +100,13 @@ function toCharacter(character: v1CharData): Character {\n   ]);\n \n   return {\n-    avatar: `${character.name ?? data.name}.png`,\n+    avatar: (character.avatar as `${string}.png`) ?? `${data.name}.png`,\n     version: data.character_version ?? '',\n     creator: data.creator ?? '',\n     creator_notes: character.creatorcomment ?? data.creator_notes ?? '',\n     description: character.description ?? data.description ?? '',\n     first_messages: first_messages,\n-    worldbook: getCharWorldbookNames(character.name).primary,\n+    worldbook: getCharWorldbookNames(character.avatar ?? character.name).primary,\n     // @ts-expect-error 类型是正确的, extensions 里必然有 regex_scripts 和 tavern_helper\n     extensions: extensions,\n   };\n@@ -143,7 +137,7 @@ type Payload = {\n   tags?: string[];\n };\n function fromCharacterToPayload(\n-  character_name: string,\n+  character_name_or_id: string | `${string}.png`,\n   new_data: PartialDeep<Character>,\n   old_data?: v1CharData,\n ): Payload {\n@@ -157,10 +151,14 @@ function fromCharacterToPayload(\n     _.set(extensions, 'regex_scripts', new_data.extensions.regex_scripts.map(from_tavern_regex));\n   }\n \n+  const is_id = character_name_or_id.endsWith('.png');\n+  const display_name = old_data?.name ?? (is_id ? character_name_or_id.replace('.png', '') : character_name_or_id);\n+  const unique_name = old_data?.avatar ?? (is_id ? character_name_or_id : character_name_or_id + '.png');\n+\n   return {\n-    ch_name: character_name,\n-    avatar_url: character_name + '.png',\n-    avatar: isBlob(new_data.avatar) ? new File([new_data.avatar], character_name + '.png') : undefined,\n+    ch_name: display_name,\n+    avatar_url: unique_name,\n+    avatar: isBlob(new_data.avatar) ? new File([new_data.avatar], unique_name) : undefined,\n     character_version: new_data.version ?? old_data?.data.character_version,\n     creator: new_data.creator ?? old_data?.data.creator,\n     creator_notes: new_data.creator_notes ?? old_data?.data.creator_notes,\n@@ -182,14 +180,14 @@ function fromCharacterToPayload(\n }\n \n export async function createCharacter(\n-  character_name: Exclude<string, 'current'>,\n+  character_name_or_id: Exclude<string | `${string}.png`, 'current'>,\n   character: PartialDeep<Character> = {},\n ): Promise<boolean> {\n-  if (character_name === 'current' || RawCharacter.findIndex(character_name) !== -1) {\n+  if (character_name_or_id === 'current' || RawCharacter.findIndex(character_name_or_id) !== -1) {\n     return false;\n   }\n \n-  const payload = fromCharacterToPayload(character_name, character);\n+  const payload = fromCharacterToPayload(character_name_or_id, character);\n \n   const headers = getRequestHeaders();\n   _.unset(headers, 'Content-Type');\n@@ -202,7 +200,7 @@ export async function createCharacter(\n   });\n \n   if (!response.ok) {\n-    throw new Error(`创建角色卡 '${character_name}' 失败: (${response.status}) ${await response.text()}`);\n+    throw new Error(`创建角色卡 '${character_name_or_id}' 失败: (${response.status}) ${await response.text()}`);\n   }\n \n   await getCharacters();\n@@ -211,36 +209,38 @@ export async function createCharacter(\n }\n \n export async function createOrReplaceCharacter(\n-  character_name: Exclude<string, 'current'>,\n+  character_name_or_id: LiteralUnion<'current', string | `${string}.png`>,\n   character: PartialDeep<Character> = {},\n   options: ReplaceCharacterOptions = {},\n ): Promise<boolean> {\n-  const index = RawCharacter.findIndex(character_name);\n+  const index = RawCharacter.findIndex(character_name_or_id);\n   if (index !== -1) {\n-    await replaceCharacter(character_name, character, options);\n+    await replaceCharacter(character_name_or_id, character, options);\n     return false;\n   } else {\n-    await createCharacter(character_name, character);\n+    await createCharacter(character_name_or_id, character);\n     return true;\n   }\n }\n \n export async function deleteCharacter(\n-  character_name: LiteralUnion<'current', string>,\n+  character_name_or_id: LiteralUnion<'current', string | `${string}.png`>,\n   option: { delete_chats?: boolean } = {},\n ): Promise<boolean> {\n-  const character = RawCharacter.find({ name: character_name });\n+  const character = RawCharacter.find({ name: character_name_or_id });\n   if (!character) {\n     return false;\n   }\n   await deleteCharacterInternal(character.avatar, { deleteChats: option.delete_chats ?? true });\n   return true;\n }\n \n-export async function getCharacter(name: LiteralUnion<'current', string>): Promise<Character> {\n-  const index = RawCharacter.findIndex(name);\n+export async function getCharacter(\n+  character_name_or_id: LiteralUnion<'current', string | `${string}.png`>,\n+): Promise<Character> {\n+  const index = RawCharacter.findIndex(character_name_or_id);\n   if (index === -1) {\n-    throw Error(`角色卡 '${name}' 不存在`);\n+    throw Error(`角色卡 '${character_name_or_id}' 不存在`);\n   }\n \n   await unshallowCharacter(String(index));\n@@ -251,9 +251,14 @@ type ReplaceCharacterOptions = {\n   render?: 'debounced' | 'immediate' | 'none';\n };\n \n-export async function render_character(character_name: string, character: PartialDeep<Character>, is_current: boolean) {\n+export async function render_character(\n+  character_name: string,\n+  character_id: `${string}.png`,\n+  character: PartialDeep<Character>,\n+  is_current: boolean,\n+) {\n   if (isBlob(character.avatar)) {\n-    const avatar_url = getThumbnailUrl('avatar', character_name + '.png');\n+    const avatar_url = getThumbnailUrl('avatar', character_id);\n     await fetch(avatar_url, {\n       method: 'GET',\n       cache: 'reload',\n@@ -290,24 +295,24 @@ export async function render_character(character_name: string, character: Partia\n   }\n \n   if (is_current) {\n-    await selectCharacterById(RawCharacter.findIndex(character_name));\n+    await selectCharacterById(RawCharacter.findIndex(character_id));\n   }\n   await printCharacters(true);\n }\n const renderCharacterDebounced = _.debounce(render_character, 1000);\n \n export async function replaceCharacter(\n-  character_name: Exclude<string, 'current'>,\n+  character_name_or_id: LiteralUnion<'current', string | `${string}.png`>,\n   character: PartialDeep<Character>,\n   { render = 'debounced' }: ReplaceCharacterOptions = {},\n ): Promise<void> {\n-  const index = RawCharacter.findIndex(character_name);\n+  const index = RawCharacter.findIndex(character_name_or_id);\n   if (index === -1) {\n-    throw Error(`角色卡 '${character_name}' 不存在`);\n+    throw Error(`角色卡 '${character_name_or_id}' 不存在`);\n   }\n \n   const target = characters[index];\n-  const payload = fromCharacterToPayload(character_name, character, target);\n+  const payload = fromCharacterToPayload(character_name_or_id, character, target);\n \n   const headers = getRequestHeaders();\n   _.unset(headers, 'Content-Type');\n@@ -320,14 +325,14 @@ export async function replaceCharacter(\n   });\n \n   if (!response.ok) {\n-    throw new Error(`修改角色卡 '${character_name}' 失败: (${response.status}) ${await response.text()}`);\n+    throw new Error(`修改角色卡 '${character_name_or_id}' 失败: (${response.status}) ${await response.text()}`);\n   }\n \n   const store = useCharacterSettingsStore();\n-  const is_current = character_name === store.name;\n+  const is_current = target.avatar === store.avatar;\n \n   // TODO: 可以直接更新 `target` 里的内容\n-  await getOneCharacter(character_name + '.png');\n+  await getOneCharacter(target.avatar);\n \n   if (is_current) {\n     if (character.extensions?.tavern_helper !== undefined) {\n@@ -337,10 +342,10 @@ export async function replaceCharacter(\n \n   switch (render) {\n     case 'debounced':\n-      renderCharacterDebounced(character_name, character, is_current);\n+      renderCharacterDebounced(target.name, target.avatar, character, is_current);\n       break;\n     case 'immediate':\n-      await render_character(character_name, character, is_current);\n+      await render_character(target.name, target.avatar, character, is_current);\n       break;\n     case 'none':\n       break;\n@@ -350,10 +355,10 @@ export async function replaceCharacter(\n type CharacterUpdater = ((character: Character) => Character) | ((character: Character) => Promise<Character>);\n \n export async function updateCharacterWith(\n-  character_name: LiteralUnion<'current', string>,\n+  character_name_or_id: LiteralUnion<'current', string | `${string}.png`>,\n   updater: CharacterUpdater,\n ): Promise<Character> {\n-  const character = await updater(await getCharacter(character_name)!);\n-  await replaceCharacter(character_name, character);\n+  const character = await updater(await getCharacter(character_name_or_id)!);\n+  await replaceCharacter(character_name_or_id, character);\n   return character;\n }"
+    },
+    {
+      "sha": "86aa78c6df2e973d4a48f937393225bf46c2a216",
+      "filename": "src/function/import_raw.ts",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 3,
+      "changes": 7,
+      "blob_url": "https://github.com/N0VI028/JS-Slash-Runner/blob/bf19f07d87a2a6723b124c9a400393bb14549053/src%2Ffunction%2Fimport_raw.ts",
+      "raw_url": "https://github.com/N0VI028/JS-Slash-Runner/raw/bf19f07d87a2a6723b124c9a400393bb14549053/src%2Ffunction%2Fimport_raw.ts",
+      "contents_url": "https://api.github.com/repos/N0VI028/JS-Slash-Runner/contents/src%2Ffunction%2Fimport_raw.ts?ref=bf19f07d87a2a6723b124c9a400393bb14549053",
+      "patch": "@@ -9,9 +9,10 @@ import { extension_settings } from '@sillytavern/scripts/extensions';\n import { uuidv4 } from '@sillytavern/scripts/utils';\n import { convertCharacterBook, saveWorldInfo, world_names } from '@sillytavern/scripts/world-info';\n \n+// TODO: name -> name_or_avatar? 但是 .json 后缀怎么办\n export async function importRawCharacter(name: string, content: Blob): Promise<Response> {\n   name = name.replace(/\\.(?:png|json)$/, '');\n-  const avatar = name + '.png';\n+  const avatar = name + '.png' as `${string}.png`;\n \n   const old_worldbook_name = RawCharacter.find({ name })?.data?.extensions?.world;\n \n@@ -33,11 +34,11 @@ export async function importRawCharacter(name: string, content: Blob): Promise<R\n     $('#character_search_bar').val('').trigger('input');\n \n     const store = useCharacterSettingsStore();\n-    const is_current = store.name === name;\n+    const is_current = store.avatar === avatar;\n \n     await getCharacters();\n     await getOneCharacter(avatar);\n-    await render_character(name, await getCharacter(name), is_current);\n+    await render_character(name, avatar, await getCharacter(name), is_current);\n \n     if (old_worldbook_name) {\n       const worldbook = (characters as any[]).find(character => character.avatar === avatar)?.data?.character_book;"
+    },
+    {
+      "sha": "dc5bb21e3175a4b7abad31327b53d23b6760d78b",
+      "filename": "src/function/tavern_regex.ts",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "blob_url": "https://github.com/N0VI028/JS-Slash-Runner/blob/bf19f07d87a2a6723b124c9a400393bb14549053/src%2Ffunction%2Ftavern_regex.ts",
+      "raw_url": "https://github.com/N0VI028/JS-Slash-Runner/raw/bf19f07d87a2a6723b124c9a400393bb14549053/src%2Ffunction%2Ftavern_regex.ts",
+      "contents_url": "https://api.github.com/repos/N0VI028/JS-Slash-Runner/contents/src%2Ffunction%2Ftavern_regex.ts?ref=bf19f07d87a2a6723b124c9a400393bb14549053",
+      "patch": "@@ -104,7 +104,7 @@ type TavernRegexOptionGlobal = {\n };\n type TavernRegexOptionCharacter = {\n   type: 'character';\n-  name?: string | 'current';\n+  name?: string | `${string}.png` | 'current';\n };\n type TavernRegexOptionPreset = {\n   type: 'preset';"
+    },
+    {
+      "sha": "377a1c6138b953be4ffe328d9025a7290588010c",
+      "filename": "src/function/variables.ts",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "blob_url": "https://github.com/N0VI028/JS-Slash-Runner/blob/bf19f07d87a2a6723b124c9a400393bb14549053/src%2Ffunction%2Fvariables.ts",
+      "raw_url": "https://github.com/N0VI028/JS-Slash-Runner/raw/bf19f07d87a2a6723b124c9a400393bb14549053/src%2Ffunction%2Fvariables.ts",
+      "contents_url": "https://api.github.com/repos/N0VI028/JS-Slash-Runner/contents/src%2Ffunction%2Fvariables.ts?ref=bf19f07d87a2a6723b124c9a400393bb14549053",
+      "patch": "@@ -155,7 +155,7 @@ export function replaceVariables(variables: Record<string, any>, option: Variabl\n     }\n     case 'character': {\n       const store = useCharacterSettingsStore();\n-      if (store.name === undefined) {\n+      if (store.avatar === undefined) {\n         throw new Error('当前没有打开角色卡，保存角色卡变量失败');\n       }\n       toRef(store.settings, 'variables').value = variables;"
+    },
+    {
+      "sha": "64c4a3b190582c7efbe51ceb2782066c8caefb14",
+      "filename": "src/function/worldbook.ts",
+      "status": "modified",
+      "additions": 6,
+      "deletions": 6,
+      "changes": 12,
+      "blob_url": "https://github.com/N0VI028/JS-Slash-Runner/blob/bf19f07d87a2a6723b124c9a400393bb14549053/src%2Ffunction%2Fworldbook.ts",
+      "raw_url": "https://github.com/N0VI028/JS-Slash-Runner/raw/bf19f07d87a2a6723b124c9a400393bb14549053/src%2Ffunction%2Fworldbook.ts",
+      "contents_url": "https://api.github.com/repos/N0VI028/JS-Slash-Runner/contents/src%2Ffunction%2Fworldbook.ts?ref=bf19f07d87a2a6723b124c9a400393bb14549053",
+      "patch": "@@ -47,16 +47,16 @@ type CharWorldbooks = {\n   primary: string | null;\n   additional: string[];\n };\n-export function getCharWorldbookNames(character_name: LiteralUnion<'current', string>): CharWorldbooks {\n-  return getCharLorebooks({ name: character_name });\n+export function getCharWorldbookNames(character_name_or_id: LiteralUnion<'current', string | `${string}.png`>): CharWorldbooks {\n+  return getCharLorebooks({ name: character_name_or_id });\n }\n-export async function rebindCharWorldbooks(character_name: 'current', char_worldbooks: CharWorldbooks): Promise<void> {\n-  if (character_name !== 'current') {\n+export async function rebindCharWorldbooks(character_name_or_id: LiteralUnion<'current', string | `${string}.png`>, char_worldbooks: CharWorldbooks): Promise<void> {\n+  if (character_name_or_id !== 'current') {\n     throw Error(`目前不支持对非当前角色卡调用 bindCharWorldbooks`);\n   }\n-  const character = RawCharacter.find({ name: character_name });\n+  const character = RawCharacter.find({ name: character_name_or_id });\n   if (!character) {\n-    throw Error(`角色卡 '${character_name}' 不存在`);\n+    throw Error(`角色卡 '${character_name_or_id}' 不存在`);\n   }\n   // TODO: 重做 characters.ts, 然后直接访问后端来修改这里\n   return setCurrentCharLorebooks(char_worldbooks);"
+    },
+    {
+      "sha": "be330fc9e228dbcf662c7401f41a524e0617cef3",
+      "filename": "src/panel/Script.vue",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 4,
+      "changes": 8,
+      "blob_url": "https://github.com/N0VI028/JS-Slash-Runner/blob/bf19f07d87a2a6723b124c9a400393bb14549053/src%2Fpanel%2FScript.vue",
+      "raw_url": "https://github.com/N0VI028/JS-Slash-Runner/raw/bf19f07d87a2a6723b124c9a400393bb14549053/src%2Fpanel%2FScript.vue",
+      "contents_url": "https://api.github.com/repos/N0VI028/JS-Slash-Runner/contents/src%2Fpanel%2FScript.vue?ref=bf19f07d87a2a6723b124c9a400393bb14549053",
+      "patch": "@@ -12,7 +12,7 @@\n     <Divider />\n     <Container v-model=\"global_scripts\" :title=\"t`全局脚本`\" :description=\"t`酒馆全局可用`\" target=\"global\" />\n \n-    <template v-if=\"character_name !== undefined\">\n+    <template v-if=\"character_avatar !== undefined\">\n       <Divider />\n       <Container\n         v-model=\"character_scripts\"\n@@ -75,15 +75,15 @@ provide('search_input', search_input);\n provide('during_sorting_item', ref(false));\n \n const { name: preset_name } = storeToRefs(usePresetSettingsStore());\n-const { name: character_name } = storeToRefs(useCharacterSettingsStore());\n+const { avatar: character_avatar } = storeToRefs(useCharacterSettingsStore());\n \n const global_settings = useGlobalSettingsStore();\n const global_scripts = useGlobalScriptsStore();\n const preset_scripts = usePresetScriptsStore();\n const character_scripts = useCharacterScriptsStore();\n \n-useResolveIdConflict(preset_name, character_name, global_scripts, preset_scripts, character_scripts);\n-useCheckEnablementPopup(preset_name, character_name, global_settings, preset_scripts, character_scripts);\n+useResolveIdConflict(preset_name, character_avatar, global_scripts, preset_scripts, character_scripts);\n+useCheckEnablementPopup(preset_name, character_avatar, global_settings, preset_scripts, character_scripts);\n \n const { runtimes, button_map } = toRefs(useScriptIframeRuntimesStore());\n const { use_blob_url, use_cleanup_protector } = toRefs(useGlobalSettingsStore().settings.render);"
+    },
+    {
+      "sha": "1a70dfdb6ab5d4e171b43e5416b8bcc3025a6daf",
+      "filename": "src/panel/script/TargetSelector.vue",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "blob_url": "https://github.com/N0VI028/JS-Slash-Runner/blob/bf19f07d87a2a6723b124c9a400393bb14549053/src%2Fpanel%2Fscript%2FTargetSelector.vue",
+      "raw_url": "https://github.com/N0VI028/JS-Slash-Runner/raw/bf19f07d87a2a6723b124c9a400393bb14549053/src%2Fpanel%2Fscript%2FTargetSelector.vue",
+      "contents_url": "https://api.github.com/repos/N0VI028/JS-Slash-Runner/contents/src%2Fpanel%2Fscript%2FTargetSelector.vue?ref=bf19f07d87a2a6723b124c9a400393bb14549053",
+      "patch": "@@ -29,7 +29,7 @@ const target = ref<'global' | 'character' | 'preset'>(props.target);\n const options = computed(() => {\n   let result = _<{ label: string; value: 'global' | 'character' | 'preset' }>([]);\n   result = result.push({ label: t`全局脚本库`, value: 'global' });\n-  if (useCharacterSettingsStore().name !== undefined) {\n+  if (useCharacterSettingsStore().avatar !== undefined) {\n     result = result.push({ label: t`角色脚本库`, value: 'character' });\n   }\n   result = result.push({ label: t`预设脚本库`, value: 'preset' });"
+    },
+    {
+      "sha": "e3a75d8293c5819b8d50e66501ed0298884fb5d5",
+      "filename": "src/panel/script/use_check_enablement_popup.ts",
+      "status": "modified",
+      "additions": 15,
+      "deletions": 17,
+      "changes": 32,
+      "blob_url": "https://github.com/N0VI028/JS-Slash-Runner/blob/bf19f07d87a2a6723b124c9a400393bb14549053/src%2Fpanel%2Fscript%2Fuse_check_enablement_popup.ts",
+      "raw_url": "https://github.com/N0VI028/JS-Slash-Runner/raw/bf19f07d87a2a6723b124c9a400393bb14549053/src%2Fpanel%2Fscript%2Fuse_check_enablement_popup.ts",
+      "contents_url": "https://api.github.com/repos/N0VI028/JS-Slash-Runner/contents/src%2Fpanel%2Fscript%2Fuse_check_enablement_popup.ts?ref=bf19f07d87a2a6723b124c9a400393bb14549053",
+      "patch": "@@ -8,7 +8,7 @@ import { compare } from 'compare-versions';\n \n export function useCheckEnablementPopup(\n   preset_name: Readonly<Ref<string>>,\n-  character_name: Readonly<Ref<string | undefined>>,\n+  character_avatar: Readonly<Ref<string | undefined>>,\n   global_settings: ReturnType<typeof useGlobalSettingsStore>,\n   preset_scripts: ReturnType<typeof usePresetScriptsStore>,\n   character_scripts: ReturnType<typeof useCharacterScriptsStore>,\n@@ -83,14 +83,14 @@ export function useCheckEnablementPopup(\n \n   eventSource.once('chatLoaded', () => {\n     watch(\n-      character_name,\n-      new_name => {\n-        if (!new_name || character_scripts.script_trees.length === 0 || character_scripts.enabled) {\n+      character_avatar,\n+      new_avatar => {\n+        if (!new_avatar || character_scripts.script_trees.length === 0 || character_scripts.enabled) {\n           return;\n         }\n \n-        if (!global_settings.settings.script.popuped.characters.includes(new_name)) {\n-          global_settings.settings.script.popuped.characters.push(new_name);\n+        if (!global_settings.settings.script.popuped.characters.includes(new_avatar)) {\n+          global_settings.settings.script.popuped.characters.push(new_avatar);\n           useModal({\n             component: Popup,\n             attrs: {\n@@ -107,7 +107,7 @@ export function useCheckEnablementPopup(\n               ],\n             },\n             slots: {\n-              default: `<div><h4>角色卡 '${new_name}' 中包含酒馆助手可用的嵌入式脚本</h4><h4>是否现在就启用它们?</h4><small>您可以选择否, 稍后在“酒馆助手-脚本库-角色脚本”中手动启用它们</small></div>`,\n+              default: t`<div><h4>角色卡 '${new_avatar}' 中包含酒馆助手可用的嵌入式脚本</h4><h4>是否现在就启用它们?</h4><small>您可以选择否, 稍后在“酒馆助手-脚本库-角色脚本”中手动启用它们</small></div>`,\n             },\n           }).open();\n         }\n@@ -116,19 +116,17 @@ export function useCheckEnablementPopup(\n     );\n   });\n   eventSource.on(event_types.CHARACTER_RENAMED, (old_avatar: string, new_avatar: string) => {\n-    const old_name = old_avatar.replace('.png', '');\n-    const new_name = new_avatar.replace('.png', '');\n-    if (global_settings.settings.script.popuped.characters.includes(old_name)) {\n-      _.pull(global_settings.settings.script.popuped.characters, old_name);\n-      global_settings.settings.script.popuped.characters.push(new_name);\n+    if (global_settings.settings.script.popuped.characters.includes(old_avatar)) {\n+      _.pull(global_settings.settings.script.popuped.characters, old_avatar);\n+      global_settings.settings.script.popuped.characters.push(new_avatar);\n     }\n-    if (global_settings.settings.script.enabled.characters.includes(old_name)) {\n-      _.pull(global_settings.settings.script.enabled.characters, old_name);\n-      global_settings.settings.script.enabled.characters.push(new_name);\n+    if (global_settings.settings.script.enabled.characters.includes(old_avatar)) {\n+      _.pull(global_settings.settings.script.enabled.characters, old_avatar);\n+      global_settings.settings.script.enabled.characters.push(new_avatar);\n     }\n   });\n   eventSource.on(event_types.CHARACTER_DELETED, ({ character }: { character: v1CharData }) => {\n-    _.pull(global_settings.settings.script.popuped.characters, character.name);\n-    _.pull(global_settings.settings.script.enabled.characters, character.name);\n+    _.pull(global_settings.settings.script.popuped.characters, character.avatar);\n+    _.pull(global_settings.settings.script.enabled.characters, character.avatar);\n   });\n }"
+    },
+    {
+      "sha": "3c53a0f5eec6ab77b0528f62893dc390d76208d0",
+      "filename": "src/panel/script/use_resolve_id_conflict.ts",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 2,
+      "changes": 4,
+      "blob_url": "https://github.com/N0VI028/JS-Slash-Runner/blob/bf19f07d87a2a6723b124c9a400393bb14549053/src%2Fpanel%2Fscript%2Fuse_resolve_id_conflict.ts",
+      "raw_url": "https://github.com/N0VI028/JS-Slash-Runner/raw/bf19f07d87a2a6723b124c9a400393bb14549053/src%2Fpanel%2Fscript%2Fuse_resolve_id_conflict.ts",
+      "contents_url": "https://api.github.com/repos/N0VI028/JS-Slash-Runner/contents/src%2Fpanel%2Fscript%2Fuse_resolve_id_conflict.ts?ref=bf19f07d87a2a6723b124c9a400393bb14549053",
+      "patch": "@@ -26,12 +26,12 @@ function resolveConflictScriptTrees(script_trees: ScriptTree[], ...stores: Retur\n \n export function useResolveIdConflict(\n   preset_name: Readonly<Ref<string>>,\n-  character_name: Readonly<Ref<string | undefined>>,\n+  character_avatar: Readonly<Ref<string | undefined>>,\n   global_scripts: ReturnType<typeof useGlobalScriptsStore>,\n   preset_scripts: ReturnType<typeof usePresetScriptsStore>,\n   character_scripts: ReturnType<typeof useCharacterScriptsStore>,\n ) {\n-  watch(character_name, () => {\n+  watch(character_avatar, () => {\n     resolveConflictScriptTrees(character_scripts.script_trees, global_scripts, preset_scripts);\n   });\n   watch(preset_name, () => {"
+    },
+    {
+      "sha": "21b785c304df88fe09861c8afba68e2e503aa6d5",
+      "filename": "src/panel/toolbox/VariableManager.vue",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "blob_url": "https://github.com/N0VI028/JS-Slash-Runner/blob/bf19f07d87a2a6723b124c9a400393bb14549053/src%2Fpanel%2Ftoolbox%2FVariableManager.vue",
+      "raw_url": "https://github.com/N0VI028/JS-Slash-Runner/raw/bf19f07d87a2a6723b124c9a400393bb14549053/src%2Fpanel%2Ftoolbox%2FVariableManager.vue",
+      "contents_url": "https://api.github.com/repos/N0VI028/JS-Slash-Runner/contents/src%2Fpanel%2Ftoolbox%2FVariableManager.vue?ref=bf19f07d87a2a6723b124c9a400393bb14549053",
+      "patch": "@@ -32,7 +32,7 @@ const tabs = computed(() =>\n     { name: t`全局`, component: Global },\n     { name: t`预设`, component: Preset },\n   ]\n-    .concat(character.name ? [{ name: '角色', component: Character }] : [])\n+    .concat(character.avatar ? [{ name: '角色', component: Character }] : [])\n     .concat([\n       { name: t`聊天`, component: Chat },\n       { name: t`消息楼层`, component: Message },"
+    },
+    {
+      "sha": "a4ba3ed630412362d045cd612c783b3ae108ff1f",
+      "filename": "src/store/scripts.ts",
+      "status": "modified",
+      "additions": 6,
+      "deletions": 6,
+      "changes": 12,
+      "blob_url": "https://github.com/N0VI028/JS-Slash-Runner/blob/bf19f07d87a2a6723b124c9a400393bb14549053/src%2Fstore%2Fscripts.ts",
+      "raw_url": "https://github.com/N0VI028/JS-Slash-Runner/raw/bf19f07d87a2a6723b124c9a400393bb14549053/src%2Fstore%2Fscripts.ts",
+      "contents_url": "https://api.github.com/repos/N0VI028/JS-Slash-Runner/contents/src%2Fstore%2Fscripts.ts?ref=bf19f07d87a2a6723b124c9a400393bb14549053",
+      "patch": "@@ -56,16 +56,16 @@ function createScriptsStore(type: 'global' | 'character' | 'preset') {\n         const character_store = useCharacterSettingsStore();\n         enabled = computed({\n           get: () =>\n-            character_store.name !== undefined &&\n-            global_store.settings.script.enabled.characters.includes(character_store.name),\n+            character_store.avatar !== undefined &&\n+            global_store.settings.script.enabled.characters.includes(character_store.avatar),\n           set: value => {\n-            if (character_store.name === undefined) {\n+            if (character_store.avatar === undefined) {\n               return;\n             }\n             if (value) {\n-              global_store.settings.script.enabled.characters.push(character_store.name);\n+              global_store.settings.script.enabled.characters.push(character_store.avatar);\n             } else {\n-              _.pull(global_store.settings.script.enabled.characters, character_store.name);\n+              _.pull(global_store.settings.script.enabled.characters, character_store.avatar);\n             }\n           },\n         });\n@@ -75,7 +75,7 @@ function createScriptsStore(type: 'global' | 'character' | 'preset') {\n             character_store.settings.scripts = value;\n           },\n         });\n-        source = computed(() => character_store.name ?? 'unknown');\n+        source = computed(() => character_store.avatar ?? 'unknown');\n         break;\n       }\n     }"
+    },
+    {
+      "sha": "e264f2846ca4d2bfd65a513df73da673900e8717",
+      "filename": "src/store/settings/character.ts",
+      "status": "modified",
+      "additions": 21,
+      "deletions": 18,
+      "changes": 39,
+      "blob_url": "https://github.com/N0VI028/JS-Slash-Runner/blob/bf19f07d87a2a6723b124c9a400393bb14549053/src%2Fstore%2Fsettings%2Fcharacter.ts",
+      "raw_url": "https://github.com/N0VI028/JS-Slash-Runner/raw/bf19f07d87a2a6723b124c9a400393bb14549053/src%2Fstore%2Fsettings%2Fcharacter.ts",
+      "contents_url": "https://api.github.com/repos/N0VI028/JS-Slash-Runner/contents/src%2Fstore%2Fsettings%2Fcharacter.ts?ref=bf19f07d87a2a6723b124c9a400393bb14549053",
+      "patch": "@@ -22,7 +22,7 @@ function getSettings(id: string | undefined): CharacterSettings {\n         variables: backward_variables ?? {},\n       } satisfies z.infer<typeof BackwardCharacterSettings>);\n       if (parsed.success) {\n-        saveSettings(id as string, characters[id as unknown as number]?.name as string, parsed.data);\n+        saveSettings(id as string, characters[id as unknown as number]?.avatar as string, parsed.data);\n       } else {\n         toastr.warning(parsed.error.message, t`[酒馆助手]迁移旧数据失败, 将使用空数据`);\n       }\n@@ -42,28 +42,30 @@ function getSettings(id: string | undefined): CharacterSettings {\n   return CharacterSettings.parse(parsed.data);\n }\n \n-async function saveSettings(id: string, name: string, settings: CharacterSettings, affect_memory: boolean = true) {\n-  if (name === characters[id as unknown as number]?.name) {\n+async function saveSettings(id: string, avatar: string, settings: CharacterSettings, affect_memory: boolean = true) {\n+  if (avatar === characters[id as unknown as number]?.avatar) {\n     await writeExtensionField(id, setting_field, settings, affect_memory);\n   }\n }\n \n export const useCharacterSettingsStore = defineStore('character_setttings', () => {\n   const id = ref<string | undefined>(this_chid);\n   const name = ref<string | undefined>(characters?.[this_chid as unknown as number]?.name);\n+  const avatar = ref<string | undefined>(characters?.[this_chid as unknown as number]?.avatar);\n   // 切换角色卡时刷新 id\n   eventSource.makeFirst(event_types.CHAT_CHANGED, () => {\n-    const new_name = characters?.[this_chid as unknown as number]?.name;\n-    if (id.value !== this_chid || name.value !== new_name) {\n+    const new_avatar = characters?.[this_chid as unknown as number]?.avatar;\n+    if (avatar.value !== new_avatar) {\n       id.value = this_chid;\n-      name.value = new_name;\n+      name.value = characters?.[this_chid as unknown as number]?.name;\n+      avatar.value = new_avatar;\n     }\n   });\n \n   const settings = ref<CharacterSettings>(getSettings(id.value));\n \n   // 切换角色卡时刷新 settings, 但不触发 settings 保存\n-  watch([id, name], ([new_id]) => {\n+  watch([id, avatar], ([new_id]) => {\n     ignoreUpdates(() => {\n       settings.value = getSettings(new_id);\n     });\n@@ -80,7 +82,7 @@ export const useCharacterSettingsStore = defineStore('character_setttings', () =\n         if ($('#world_button').hasClass('world_set')) {\n           const book = characters[Number(current_id)]?.data?.character_book;\n           if (book) {\n-            const book_name = book.name || `${characters[Number(current_id)]?.name}'s Lorebook`;\n+            const book_name = book.name || `${characters[Number(current_id)]?.avatar?.replace('.png', '')}'s Lorebook`;\n             await saveWorldInfo(book_name, fromCharacterBook(book), true);\n             await updateWorldInfoList();\n             $('#character_world').val(book_name).trigger('change');\n@@ -112,7 +114,7 @@ export const useCharacterSettingsStore = defineStore('character_setttings', () =\n       return response;\n     };\n     $('#export_button').on('click', async () => {\n-      if (id.value !== undefined && name.value !== undefined) {\n+      if (id.value !== undefined && avatar.value !== undefined) {\n         const cleared_settings = klona(settings.value);\n         cleared_settings.scripts.flatMap(flattenScriptTree).forEach(script => {\n           if (!script.export_with.data) {\n@@ -124,11 +126,11 @@ export const useCharacterSettingsStore = defineStore('character_setttings', () =\n         });\n         scripts_summary = collectExportSummaryItems(settings.value.scripts, cleared_settings.scripts);\n \n-        await saveSettings(id.value, name.value, cleared_settings, false);\n+        await saveSettings(id.value, avatar.value, cleared_settings, false);\n \n         const timeout_id = setTimeout(async () => {\n-          if (id.value !== undefined && name.value !== undefined) {\n-            await saveSettings(id.value, name.value, klona(settings.value), false);\n+          if (id.value !== undefined && avatar.value !== undefined) {\n+            await saveSettings(id.value, avatar.value, klona(settings.value), false);\n             scripts_summary = [];\n           }\n         }, 10000);\n@@ -140,8 +142,8 @@ export const useCharacterSettingsStore = defineStore('character_setttings', () =\n     eventSource.on(\n       'character_export_ready',\n       async ({ scripts_summary }: { scripts_summary: ScriptExportSummaryItem[] }) => {\n-        if (id.value !== undefined && name.value !== undefined) {\n-          await saveSettings(id.value, name.value, klona(settings.value), false);\n+        if (id.value !== undefined && avatar.value !== undefined) {\n+          await saveSettings(id.value, avatar.value, klona(settings.value), false);\n           showExportSummaryToast(t`角色卡`, scripts_summary);\n         }\n       },\n@@ -152,26 +154,27 @@ export const useCharacterSettingsStore = defineStore('character_setttings', () =\n   const { ignoreUpdates } = watchIgnorable(\n     settings,\n     async new_settings => {\n-      if (id.value !== undefined && name.value !== undefined) {\n+      if (id.value !== undefined && avatar.value !== undefined) {\n         // 酒馆经常读取角色卡数据, 所以这里需要立即保存\n-        await saveSettings(id.value, name.value, klona(new_settings));\n+        await saveSettings(id.value, avatar.value, klona(new_settings));\n       }\n     },\n     { deep: true },\n   );\n \n   const forceReload = () => {\n     ignoreUpdates(() => {\n-      if (id.value !== undefined && name.value !== undefined) {\n+      if (id.value !== undefined && avatar.value !== undefined) {\n         settings.value = getSettings(id.value);\n       }\n     });\n   };\n \n-  // 在外应同时监听 id 和 name: 同名角色卡的 id 不同, 导入角色卡时 id 也可能不变\n+  // 监听 id 不能正确反映导入新角色卡时的情况, 在外应该监听 avatar\n   return {\n     id: readonly(id),\n     name: readonly(name),\n+    avatar: readonly(avatar),\n     settings,\n     forceReload,\n   };"
+    },
+    {
+      "sha": "78a96721da94cfd5b0459a6cba7b12616b066835",
+      "filename": "src/store/settings/global.ts",
+      "status": "modified",
+      "additions": 15,
+      "deletions": 0,
+      "changes": 15,
+      "blob_url": "https://github.com/N0VI028/JS-Slash-Runner/blob/bf19f07d87a2a6723b124c9a400393bb14549053/src%2Fstore%2Fsettings%2Fglobal.ts",
+      "raw_url": "https://github.com/N0VI028/JS-Slash-Runner/raw/bf19f07d87a2a6723b124c9a400393bb14549053/src%2Fstore%2Fsettings%2Fglobal.ts",
+      "contents_url": "https://api.github.com/repos/N0VI028/JS-Slash-Runner/contents/src%2Fstore%2Fsettings%2Fglobal.ts?ref=bf19f07d87a2a6723b124c9a400393bb14549053",
+      "patch": "@@ -37,6 +37,21 @@ export const useGlobalSettingsStore = defineStore('global_settings', () => {\n   );\n \n   const settings = ref<GlobalSettings>(getSettings());\n+\n+  // 调整旧数据: 判定从 name 更换为 avatar\n+  if (\n+    settings.value.script.enabled.characters.length > 0 &&\n+    !settings.value.script.enabled.characters[0].endsWith('.png')\n+  ) {\n+    settings.value.script.enabled.characters = settings.value.script.enabled.characters.map(item => item + '.png');\n+  }\n+  if (\n+    settings.value.script.popuped.characters.length > 0 &&\n+    !settings.value.script.popuped.characters[0].endsWith('.png')\n+  ) {\n+    settings.value.script.popuped.characters = settings.value.script.popuped.characters.map(item => item + '.png');\n+  }\n+\n   watch(\n     settings,\n     new_settings => {"
+    },
+    {
+      "sha": "407b7601bb9fbe7c730cbcd4937ec4f29e23af68",
+      "filename": "src/store/variable_schemas.ts",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "blob_url": "https://github.com/N0VI028/JS-Slash-Runner/blob/bf19f07d87a2a6723b124c9a400393bb14549053/src%2Fstore%2Fvariable_schemas.ts",
+      "raw_url": "https://github.com/N0VI028/JS-Slash-Runner/raw/bf19f07d87a2a6723b124c9a400393bb14549053/src%2Fstore%2Fvariable_schemas.ts",
+      "contents_url": "https://api.github.com/repos/N0VI028/JS-Slash-Runner/contents/src%2Fstore%2Fvariable_schemas.ts?ref=bf19f07d87a2a6723b124c9a400393bb14549053",
+      "patch": "@@ -17,7 +17,7 @@ export const useVariableSchemasStore = defineStore('variable_schemas', () => {\n   const message = ref<z.ZodType<any>>();\n   const character_settings = useCharacterSettingsStore();\n   watch(\n-    [() => character_settings.id, () => character_settings.name],\n+    () => character_settings.avatar,\n     () => {\n       character.value = undefined;\n       chat.value = undefined;"
+    },
+    {
+      "sha": "9fe4d527f584738dfcc2e62191f6e8a9a2556b71",
+      "filename": "src/type/backward.ts",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 3,
+      "changes": 5,
+      "blob_url": "https://github.com/N0VI028/JS-Slash-Runner/blob/bf19f07d87a2a6723b124c9a400393bb14549053/src%2Ftype%2Fbackward.ts",
+      "raw_url": "https://github.com/N0VI028/JS-Slash-Runner/raw/bf19f07d87a2a6723b124c9a400393bb14549053/src%2Ftype%2Fbackward.ts",
+      "contents_url": "https://api.github.com/repos/N0VI028/JS-Slash-Runner/contents/src%2Ftype%2Fbackward.ts?ref=bf19f07d87a2a6723b124c9a400393bb14549053",
+      "patch": "@@ -43,7 +43,7 @@ export const ScriptData = z\n       export_with: {\n         data: true,\n         button: true,\n-      }\n+      },\n     } satisfies NewScript);\n   });\n \n@@ -101,8 +101,7 @@ export const GlobalSettings = z\n           .array(z.union([z.string(), z.null()]))\n           .default([])\n           .catch([])\n-          .transform(characters => characters.filter(character => character !== null))\n-          .transform(characters => characters.map(character => character.replace('.png', ''))),\n+          .transform(characters => characters.filter(character => character !== null)),\n       })\n       .prefault({}),\n   })"
+    },
+    {
+      "sha": "8e17704de4af1c1aa8e05373b5c0a4dfaf11bc9f",
+      "filename": "src/util/tavern.ts",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "blob_url": "https://github.com/N0VI028/JS-Slash-Runner/blob/bf19f07d87a2a6723b124c9a400393bb14549053/src%2Futil%2Ftavern.ts",
+      "raw_url": "https://github.com/N0VI028/JS-Slash-Runner/raw/bf19f07d87a2a6723b124c9a400393bb14549053/src%2Futil%2Ftavern.ts",
+      "contents_url": "https://api.github.com/repos/N0VI028/JS-Slash-Runner/contents/src%2Futil%2Ftavern.ts?ref=bf19f07d87a2a6723b124c9a400393bb14549053",
+      "patch": "@@ -244,7 +244,7 @@ export async function writeExtensionField(\n \n   const payload = {\n     ch_name: character.name,\n-    avatar_url: character.name + '.png',\n+    avatar_url: character.avatar,\n     character_version: character.data.character_version,\n     creator: character.data.creator,\n     creator_notes: character.data.creator_notes,"
+    }
+  ]
+}

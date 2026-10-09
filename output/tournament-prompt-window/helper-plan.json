@@ -1,0 +1,14 @@
+{
+  "errors": [],
+  "plan": {
+    "schemaVersion": 1,
+    "deliveryMode": "component",
+    "kind": "helper-script",
+    "outRoot": "E:\\web\\落第\\output\\tournament-prompt-window\\components\\helper",
+    "files": [
+      "terminal.script.json",
+      "component-update-manifest.json"
+    ],
+    "requiresPipeline": false
+  }
+}

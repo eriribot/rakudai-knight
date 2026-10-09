@@ -1,0 +1,18 @@
+{
+  "deliveryMode": "component",
+  "scope": "Program pool prompt interception only; original worldbook order, entries and MVU history unchanged",
+  "bounds": {
+    "start": "2013-04-22",
+    "end": "2013-07-08",
+    "inclusive": true,
+    "source": "scripts/story/tournament-calendar-2013.json"
+  },
+  "sourcesBefore": {
+    "scripts/rakudai-tournament-calendar.mjs": "b6df2265a4e9ad3eea78c55a4579430aea9488155abe6e8e98e32aa77816384e",
+    "scripts/rakudai-state-core.mjs": "b4bf4b594a97492b4ee80a221970af19324dc6d559386ea70a5b9c5c1f76681a",
+    "scripts/黑白ADV轮盘终端/correction.js": "09cac1e6b0105f0004cb3a49f905b8a45de633f89a76651d67adcdb75f024ed6",
+    "scripts/黑白ADV轮盘终端/package.json": "21b5b381cedc9681e556c92aad5ca409ed79369454daa63dc0791fb791adef50",
+    "世界书规则/MVU/变量列表.txt": "cf39c56716c969970e300b39e4a632a0ee62d5a1c1f7f33b795a8f4c7999a1bf",
+    "世界书规则/v0.3/导出/落第骑士英雄谭.json": "82985a09f1d291a971afb62880f26671278aa0bc33eda0fb91925ffd6bdba841"
+  }
+}

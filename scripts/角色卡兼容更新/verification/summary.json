@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "date": "2026-10-09",
+  "unitTests": 31,
+  "publishedCardScenarios": 6,
+  "sourceHashes": {
+    "core.mjs": "a37967814d22f0eb79cc7a8106864fc523e08573507a0d584f270bafdd433d8e",
+    "core.test.mjs": "9039bb55184ed80a702f868f0863ca526de28934d4356d4b0ab0966d9956c174",
+    "compat-update.mjs": "c232a386252c66db1bdaf7125fecfbedf4bf742835cb7623c606f0e2a1be1be7",
+    "cli.test.mjs": "fc6b3a6e5710cc6f95fdcb2c23ab13c0923cd90ec2ba2e95f4aa340446a5957d",
+    "known-components.json": "85ecb6a4e27f25c9562c87ae6155d5d8abb6dd8516faefecf662b885e31e150f",
+    "check-published.mjs": "1aee0c4c6686d17048d3b5ef56dfb05d6050dd592bf30debe2f461e9b1913a3e"
+  },
+  "review": "Independent read-only review: no remaining P1/P2 blockers",
+  "runtimeAcceptance": "pending; no card imported or browser settings changed",
+  "releasePackaging": "not executed; author tool and in-memory artifact verification completed"
+}

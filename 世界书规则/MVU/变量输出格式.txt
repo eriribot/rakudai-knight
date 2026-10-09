@@ -19,6 +19,7 @@ Experience is progress within the submitted grade. Calculate repeated promotions
 Read the currently saved result before updating. Secondary correction fills omissions or corrects final values after the main reply; never add the same result again during correction or retry.
 
 【Scene, Events and Schedule】
+Optional /场景/宿舍 is a JSON boolean owned by the dorm button. Only an explicit 休息 or 宿舍休息 command while its previous value is true may write false together with the contextual next-morning time; never move location automatically or clear history. Otherwise do not write this flag.
 场景 fields: 当前卷 (integer 1—19), 当前章 (exact injected directory key), 阶段 (未开始|进行中|已结束), 时间, 地点, 切入说明 (strings). Follow actual completion markers. Main and secondary share one chapter advance per reply; do not finish the next chapter again during correction.
 已发生事件 maps stable names to {卷号:integer,章段:string,结果:non-empty string,参与者:string[],知情者:string[]}. Record the chapter where it happened, not a future chapter. Existing event names stay stable.
 日程 is optional and maps stable names to {类型:比赛|训练|约定|其他,日期:string,时间:string,地点:string,参与者:string[],状态:待定|已安排|进行中|已完成|已取消,说明:string}. 日期 is a real YYYY-MM-DD or empty. Plans and elapsed dates do not prove completion.

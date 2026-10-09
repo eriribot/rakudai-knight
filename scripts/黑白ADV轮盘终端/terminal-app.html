@@ -13,6 +13,7 @@
 <!-- 状态栏 -->
 <div id="sys">
   <span class="sys-brand">HAGUN / OS</span>
+  <button id="dorm-toggle" type="button" disabled title="读取本局存档后可进入；本地查看请使用离线预览" aria-pressed="false" onclick="toggleDorm(this)">宿舍 ↔</button>
   <span id="mono-source" title="等待读取本局档案">读取中</span><span class="sys-clk num" id="sys-clk">时间未确认</span>
   <div class="sys-icons">
     <i class="ti ti-flame" title="魔力炉心正常" style="color:#ef4444"></i>
@@ -26,7 +27,10 @@
 
   <!-- 1. 首页 (Home) -->
   <div class="scr on" id="scr-home">
-    <div class="home-wallpaper"></div>
+    <div class="home-wallpaper" id="dorm-pan" tabindex="-1" aria-label="宿舍全景，左右拖动查看" onpointerdown="if(event.pointerType==='mouse' &amp;&amp; event.button===0){this.setPointerCapture(event.pointerId);this._dragX=event.clientX;}" onpointermove="if(event.pointerType==='mouse' &amp;&amp; this.hasPointerCapture(event.pointerId)){this.scrollLeft+=this._dragX-event.clientX;this._dragX=event.clientX;}">
+      <img class="dorm-image" src="../../resource/dorm/B-entrance-to-balcony.webp" width="1672" height="941" alt="破军宿舍完整入口视角" draggable="false">
+    </div>
+    <div class="dorm-actions mono-layout-switch"><span>↔ 拖动查看全景</span><button type="button" onclick="switchBlazerTab('overview');openApp('blazer')">查看档案</button></div>
     <div class="home-content" data-layout="wheel">
       <!-- 伐刀者学生证 Widget -->
       <div class="blazer-license-card" id="home-license-card" onclick="openApp('blazer')">

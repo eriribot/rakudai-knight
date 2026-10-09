@@ -98,6 +98,7 @@ function buildApp(version) {
     return '<script>' + builder.finish().code + '</script>';
   });
   for (const file of [...appModules, ...cssModules]) if (!seen.has(file)) throw new Error('页面未引入模块：' + file);
+  html = html.replaceAll('../../resource/dorm/B-entrance-to-balcony.webp', 'data:image/webp;base64,' + fs.readFileSync(path.resolve(directory, '../../resource/dorm/B-entrance-to-balcony.webp')).toString('base64'));
   const parsed = extractScripts(html);
   if (parsed.length !== appModules.length || parsed.some(script => script.attrs.src)) throw new Error('页面打包后脚本数量或来源不符');
   parsed.forEach((script, index) => new vm.Script(script.content, { filename: appModules[index] }));
@@ -147,5 +148,6 @@ export function buildTerminal() {
   artifact.info += ' N05首楼辅助隔离：配套开局建议使用带请求ID的静默生成；终端仅跟踪原生START/AFTER成对的正式剧情请求，忽略首楼辅助请求的定向停止，不改变自动全面校正或手动校验。';
   artifact.info += ' N06保存确认与补丁修复：主MVU以本轮保存收据在当前回复页落地确认主保存，渲染先到、漏发或业务值未变都不替代保存证明。N04整合安全的缺失父对象补丁，MVU02允许已绑定真实回复的缺失或损坏主补丁进入副校正，始终保留业务约束、来源冲突检查和回读。自动模式全面核验，关闭自动仍可手动预览保存。副请求120秒超时后停止自动重试，不连等三轮；输入仅去重只读程序战况和内部自动历史，保留真实业务变量。';
   artifact.info += ' N07已有坏人物修复：副校正先在内存组装人际修改，保留未改人物，整个人际一次交给MVU校验，避免逐字段修复互相阻塞；错误别名仅按明确删除操作清理，缺失派生阶段按最终有效分数恢复，保存前完整校验。剧情面板区分正在保存和已保存数据不合法，手动切章不要求开启可选字段约束。本次只替换小手机，沿用N04原生、N06开局与MVU02约束。';
+  artifact.info += ' v1.3.27号池提示日期门禁：读取当前MVU场景时间，仅在2013-04-22至2013-07-08（含首尾）且赛季未结束时放行程序号池背景。主请求发送前只省略变量列表中的程序战况，副API只关闭独立程序摘要；真实名册、比赛和历史缓存保留。沿用世界书原条目、原order与结构，不指定UID、不替换变量列表正文。门禁随终端脚本启用，依赖现有Tavern Helper的eventMakeLast和CHAT_COMPLETION_SETTINGS_READY。';
   return { artifact, html, map: built.map, version };
 }

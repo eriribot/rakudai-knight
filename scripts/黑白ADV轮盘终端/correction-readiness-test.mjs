@@ -4,6 +4,8 @@ import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 import { stripModuleSyntax } from '../story-build.mjs';
 import { createSchema, INITIAL_STATE, supportStage } from '../../世界书规则/MVU/schema.mjs';
+import { shouldInjectTournament, parseTournamentDate } from '../rakudai-tournament-calendar.mjs';
+import { deriveTournament } from '../rakudai-tournament.mjs';
 
 const { z } = createRequire(new URL('../../output/worldbook-calibration/dev/package.json', import.meta.url))('zod');
 const stateSchema = createSchema(z, { normalizeRelationships: false });
@@ -27,7 +29,7 @@ const flush = () => new Promise(resolve => setImmediate(resolve));
 function fixture({ autoApply = true, connected = true, hostRenderEvent = true, tailEvents = true, respond,
   patch = [{ op: 'replace', path: '/场景/地点', value: '演武场' }] } = {}) {
   let now = 1000000, timerId = 0;
-  const timers = new Map(), listeners = new Map(), requests = [], writes = [], parses = [];
+  const timers = new Map(), listeners = new Map(), requests = [], writes = [], parses = [], tournamentInputs = [];
   const storage = new Map([['rk:correction:connection', {
     endpoint: connected ? 'https://correction.invalid/v1' : '', model: connected ? 'offline-model' : '', apiKey: '', autoApply,
   }]]);
@@ -90,7 +92,7 @@ function fixture({ autoApply = true, connected = true, hostRenderEvent = true, t
   top.top = top; top.parent = top;
   const middle = { top, parent: top };
   const HW = { top, parent: middle, SillyTavern: { getContext: () => context }, Mvu: mvu };
-  const window = { parent: HW, top, Mvu: mvu };
+  const window = { parent: HW, top, Mvu: mvu, RakudaiStateController: { shouldInjectTournament } };
   const SS = { destroyed: false, disposers: [] };
   const helper = {
     ...(tailEvents ? {
@@ -128,7 +130,7 @@ function fixture({ autoApply = true, connected = true, hostRenderEvent = true, t
       set: (key, value) => storage.set(key, value) },
     generationPending: false, terminalStateReader: { clear() {} },
     fn: name => helper[name], emit() {},
-    stateService: () => ({ tournamentView: () => ({ calendar: {}, roster: [], warnings: [] }),
+    stateService: () => ({ tournamentView: state => { tournamentInputs.push(clone(state)); return deriveTournament(state); },
       validateState: value => { stateSchema.parse(value); return clone(value); } }),
     setTimeout: (fn, ms) => setTimer(fn, ms, false), clearTimeout: id => timers.delete(id),
     setInterval: (fn, ms) => setTimer(fn, ms, true), clearInterval: id => timers.delete(id),
@@ -189,7 +191,7 @@ function fixture({ autoApply = true, connected = true, hostRenderEvent = true, t
     assert.equal(parses.length, 0, 'Readiness must gate repair parsing.');
     assert.equal(writes.length, 0, 'Readiness must gate MVU writes.');
   }
-  return { api, HW, window, middle, top, guard, context, mvu, requests, writes, parses, ready, loading, listeners,
+  return { api, HW, window, middle, top, guard, context, mvu, requests, writes, parses, tournamentInputs, ready, loading, listeners,
     advance, startTurn, assertNoWork, event, TE,
     dispose() { for (const stop of SS.disposers.slice().reverse()) stop(); },
     now: () => now, state: () => clone(persisted), save: value => { persisted = clone(value); },
@@ -849,6 +851,7 @@ await check('副 API 满120秒超时只发一次，保留显式重试而不再�
 
 await check('全面校验保留全部真实业务字段，只去重程序战况和内部自动历史', async () => {
   const f = fixture(), data = f.state();
+  Object.assign(data.stat_data.场景, { 当前卷: 1, 当前章: '第四章', 时间: '2013-06-01' });
   data.stat_data.玩家 = { 姓名: '测试角色', 六维: { 魔力控制: 'B' }, 魔人觉醒: false,
     成长: { 经验: { 魔力控制: 35 }, 申请: { 旧: {} } }, 其他能力: { 探测: { 说明: '感知魔力' } } };
   data.stat_data.人际 = { 测试同学: { 好感: 23, 支援度: 12, 态度印象: '认可' } };
@@ -867,6 +870,61 @@ await check('全面校验保留全部真实业务字段，只去重程序战况�
   assert.equal(sent.当前变量.场景.选拔赛.程序战况, undefined);
   assert.ok(sent.程序选拔赛);
   assert.deepEqual(f.state(), data);
+});
+
+for (const [name, volume, chapter, time, status, inject] of [
+  ['日期下界前一天', 1, '第四章', '2013-04-21', '进行中', false],
+  ['日期下界当天', 1, '第一章', '2013-04-22', '未开始', true],
+  ['黄金周日期区间内', 2, '第一章', '2013-04-30', '进行中', true],
+  ['日期上界当天', 3, '第四章', '2013-07-08', '进行中', true],
+  ['日期上界后一天', 1, '第四章', '2013-07-09', '进行中', false],
+  ['存量账本跨年', 2, '第一章', '2014-06-01', '进行中', false],
+  ['未知日期', 1, '第四章', '次日清晨', '进行中', false],
+  ['日期非法', 2, '第一章', '2013-04-31', '进行中', false],
+  ['日期区间内且卷章在后续剧情', 4, '序章', '2013-06-01', '进行中', true],
+  ['日期区间内且选拔赛已结束', 2, '第一章', '2013-06-01', '已结束', false],
+]) await check(name + '：副API只门禁程序号池摘要，实际账本、原存档及其它变量保留', async () => {
+  const f = fixture(), data = f.state();
+  Object.assign(data.stat_data.场景, { 当前卷: volume, 当前章: chapter, 时间: time, 额外剧情事实: { 天气: '晴' }, 选拔赛: {
+    版本: 'T01', 赛季: '破军学园选拔赛', 状态: status,
+    名册: { player: { 姓名: '测试角色', 来源: '玩家', 参赛状态: '参赛' } },
+    比赛: {}, 程序战况: { 版本: 'T02', 名册: [{ 姓名: '缓存' }] },
+  } });
+  f.save(data); f.context.chat[0].mes += block;
+  await f.api.requestCorrection();
+  assert.equal(f.requests.length, 1);
+  const sent = JSON.parse(f.requests[0].messages[1].content);
+  assert.equal(Object.hasOwn(sent.当前变量.场景, '选拔赛'), true, '关闭程序号池不得省略真实赛程账本。');
+  assert.equal(Object.hasOwn(sent, '程序选拔赛'), inject, '关闭时整个摘要字段应不进入 JSON，而非发空对象或 null。');
+  assert.equal(sent.当前变量.场景.当前卷, volume);
+  assert.equal(sent.当前变量.场景.当前章, chapter);
+  assert.equal(sent.当前变量.场景.时间, time);
+  assert.equal(sent.当前变量.场景.地点, data.stat_data.场景.地点);
+  assert.deepEqual(sent.当前变量.场景.额外剧情事实, { 天气: '晴' });
+  assert.equal(sent.当前变量.玩家.姓名, data.stat_data.玩家.姓名);
+  const expectedLedger = clone(data.stat_data.场景.选拔赛); delete expectedLedger.程序战况;
+  assert.deepEqual(sent.当前变量.场景.选拔赛, expectedLedger);
+  if (inject) {
+    assert.equal(sent.程序选拔赛.日历.date ?? null, parseTournamentDate(time)?.key ?? null);
+    assert.ok(sent.程序选拔赛.名册.some(row => row.name === '测试角色'));
+    assert.deepEqual(f.tournamentInputs, [data.stat_data], '摘要应读取未经提示词裁剪的原快照。');
+  } else assert.equal(f.tournamentInputs.length, 0, '关闭注入时不计算或发送背景名册。');
+  assert.deepEqual(f.state(), data);
+  assert.equal(f.writes.length, 0);
+});
+
+await check('日期区间内未建账本也发送程序预览，但不写回实际变量', async () => {
+  const f = fixture(), data = f.state();
+  Object.assign(data.stat_data.场景, { 当前卷: 1, 当前章: '第四章', 时间: '2013-04-22' });
+  delete data.stat_data.场景.选拔赛;
+  f.save(data); f.context.chat[0].mes += block;
+  await f.api.requestCorrection();
+  const sent = JSON.parse(f.requests[0].messages[1].content);
+  assert.equal(Object.hasOwn(sent.当前变量.场景, '选拔赛'), false);
+  assert.equal(sent.程序选拔赛.背景预览, true);
+  assert.ok(sent.程序选拔赛.名册.some(row => row.name === '测试角色'));
+  assert.deepEqual(f.state(), data);
+  assert.equal(f.writes.length, 0);
 });
 
 await check('json_patch 的已保存事件、人际和进度提交参与核对，Analysis 不生成补丁', () => {

@@ -51,6 +51,14 @@ function parseTournamentDate(text) {
     key: String(year).padStart(4, '0') + '-' + String(month).padStart(2, '0') + '-' + String(day).padStart(2, '0') };
 }
 
+// 只控制号池提示副本；日期进度、历史账本和世界书顺序不受影响。
+function shouldInjectTournament(state) {
+  const scene = (state?.stat_data || state)?.场景;
+  const date = parseTournamentDate(scene?.时间);
+  return Boolean(date && date.key >= tournamentCalendar2013.openingDate &&
+    date.key <= tournamentCalendar2013.finalDate && scene?.选拔赛?.状态 !== '已结束');
+}
+
 /**
  * 输入为剧情时间文字、stat_data 本体或 { stat_data } 包装。
  * currentRound 包含当天排期；elapsedRound 仅计过去排期，均不表示已完成比赛。
@@ -812,9 +820,9 @@ function prepareRakudaiNativeMvu(data, scopes = [], { repairStructure = true } =
 
 async function installRakudaiNativeMvu(W) {
   const slot = '__RK_MVU_NATIVE_N01__';
-  if (W[slot]?.version === 'N04' && W[slot].state !== 'failed') return W[slot];
+  if (W[slot]?.version === 'N04' && W[slot].dorm === 'D01' && W[slot].state !== 'failed') return W[slot];
   W[slot]?.destroy?.();
-  const marker = { version: 'N04', state: 'loading', destroy: null };
+  const marker = { version: 'N04', dorm: 'D01', state: 'loading', destroy: null };
   W[slot] = marker;
   let disposed = false, listener = null, commandListener = null;
   function destroy() {
@@ -849,9 +857,17 @@ async function installRakudaiNativeMvu(W) {
       if (!owned()) return;
       prepareRakudaiNativeMvu(variables, scopes);
     });
-    if (mvu.events.COMMAND_PARSED) commandListener = helper('eventOn')(mvu.events.COMMAND_PARSED, (variables, commands) => {
+    if (mvu.events.COMMAND_PARSED) commandListener = helper('eventOn')(mvu.events.COMMAND_PARSED, (variables, commands, content) => {
       if (!owned() || !isRakudaiMvuState(variables?.stat_data)) return;
-      const normalized = normalizeRakudaiMvuCommands(commands, variables.stat_data);
+      const chat = H.SillyTavern.getContext().chat || [], replies = chat.flatMap((message, index) => !message.is_user && message.mes === content ? [index] : []);
+      const resting = /^(?:宿舍)?休息[。！!\s]*$/.test(chat.slice(0, replies.length === 1 ? replies[0] : chat.length).findLast(message => message.is_user)?.mes?.trim() || ''), inDorm = variables.stat_data.场景?.宿舍 === true;
+      const normalized = normalizeRakudaiMvuCommands(commands.filter(command => {
+        if (resting && !inDorm) return false;
+        let patch; try { patch = JSON.parse(command.full_match); if (!patch || typeof patch !== 'object') return false; } catch (_) { return !inDorm && typeof variables.stat_data.场景?.宿舍 !== 'boolean'; }
+        const protectedPath = path => typeof path !== 'string' || !path.startsWith('/') || path.includes('//') || path.endsWith('/') || ['/场景', '/场景/宿舍'].includes(path) || path.startsWith('/场景/宿舍/') || resting && replies.length !== 1 && (path === '/场景/时间' || path.startsWith('/场景/时间/')) || inDorm && (path === '/场景/地点' || path.startsWith('/场景/地点/'));
+        if (patch.path === '/场景/宿舍') return inDorm && resting && replies.length === 1 && ['add', 'replace'].includes(patch.op) && patch.value === false;
+        return !protectedPath(patch.path) && !(patch.op === 'move' && protectedPath(patch.from));
+      }), variables.stat_data);
       if (normalized !== commands) commands.splice(0, commands.length, ...normalized);
     });
     marker.state = 'ready';
@@ -1131,6 +1147,7 @@ function createStateSchema(z, version, { normalizeRelationships = true } = {}) {
       当前章: version === 3 ? z.enum(CHAPTERS) : text.min(1),
       阶段: z.enum(['未开始', '进行中', '已结束']),
       时间: text, 地点: text, 切入说明: text.default(''),
+      ...(version === 4 ? { 宿舍: z.boolean().optional() } : {}),
       已发生事件: record(z.object({ ...(version === 4 ? { 卷号: volumeNumber } : {}), 章段: version === 3 ? z.enum(CHAPTERS.slice(1)) : text.min(1), 结果: text.min(1), 参与者: z.array(text.min(1)), 知情者: z.array(text.min(1)) }).strict()),
       // 可选字段兼容现有 v4 存档；未来约定不占用已发生事件。
       ...(version === 4 ? { 日程: record(schedule).optional(), 选拔赛: createTournamentSchema(z).optional() } : {}),
@@ -1750,6 +1767,11 @@ function createStateController(adapter) {
       tournament: 'T01', tournamentEngine: 'T02', nativeMvu: 'N01' }),
     get growthRules() { return cloneState(GROWTH_RULES); },
     tournamentView: state => deriveTournament(state),
+    shouldInjectTournament,
+    setDorm: (token, active) => commit(token, state => {
+      if (typeof active !== 'boolean' || state.系统.开局状态 !== '已建档') throw new Error('请先完成建档，再进入宿舍。');
+      return { ...state, 场景: { ...state.场景, 宿舍: active } };
+    }),
     tournamentAction: (token, request) => commit(token, state => prepareTournamentAction(state, request)),
     tournamentOpponents: (state, options) => suggestTournamentOpponents(state, options),
     tournamentParticipant: (state, options) => createTournamentParticipant(state, options),

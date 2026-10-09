@@ -1,0 +1,35 @@
+{
+  "auditDate": "2026-10-09",
+  "scope": "只读排查角色卡替换后手机/正则停用；官方固定源码、实际发布PNG库存与中性内存测试",
+  "playerIncident": {
+    "authorCanReproduce": false,
+    "playerVersionsKnown": false,
+    "switchStateConfirmed": false,
+    "rootCauseConfirmed": false
+  },
+  "confirmedFindings": [
+    "Downloads中的v0.08含10条正则且全部disabled:false，气泡为v0.6；小手机v1.3.23 enabled:true，与v0.07完整对象相同。",
+    "原生替换保留旧avatar文件名及当前聊天标识，但新卡扩展字段覆盖旧卡扩展字段，不执行本地组件合并。",
+    "酒馆助手4.8.19/4.10.0使用显示名作为本卡脚本允许键；固定源码隔离测试中，v0.07改名v0.08使总启用许可失配，单项enabled仍true。",
+    "酒馆助手4.11.0/4.11.3改用avatar作为允许键，同一隔离测试保留许可。",
+    "SillyTavern原生局部正则使用avatar作为允许键；保留avatar的替换没有复现自动关闭正则。"
+  ],
+  "separateUnresolvedRegexCandidates": [
+    "玩家实际执行重新导入/重命名，导致与原文件身份不同。",
+    "此前拒绝本卡正则许可，且已询问标记阻止再次弹出。",
+    "条目与许可均开启，但发生独立的渲染或预设冲突。"
+  ],
+  "nextEvidence": [
+    "失败玩家的SillyTavern与酒馆助手版本。",
+    "失败后、手动修改前的角色局部正则总开关与三条气泡条目截图。",
+    "失败后酒馆助手角色脚本总开关与小手机条目截图。"
+  ],
+  "evidence": {
+    "cards": "card-inventory.json",
+    "coreFixture": "core/neutral-core-fixture.mjs",
+    "helperFixture": "helper/reproduce-enablement.mjs",
+    "coreCommit": "8172dcd0ee672d3cd9a5e5f7af134f91a45cd2b8",
+    "helperMigration": "https://github.com/N0VI028/JS-Slash-Runner/commit/bf19f07d87a2a6723b124c9a400393bb14549053"
+  },
+  "mutations": "仅新增本地诊断证据；未执行真实角色替换，未修改角色卡、聊天存档或浏览器配置。"
+}

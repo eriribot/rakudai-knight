@@ -1,0 +1,19 @@
+{
+  "revision": "null-dorm-repair",
+  "method": "Node VM 执行实际生成预览与 iframe 脚本；无浏览器访问",
+  "passed": 9,
+  "total": 9,
+  "checks": [
+    "源 HTML 初始禁用无桥接宿舍按钮",
+    "无桥接时程序调用给出中文提示，无 null.dorm 报错",
+    "实际生成预览提供宿舍虚拟桥接且就绪后启用",
+    "点击进入：虚拟样本、背景类和按钮状态同步",
+    "点击离开：恢复背景，其他样本字段保持原值",
+    "空回复槽维持禁用，不尝试宿舍写入",
+    "缺少 dorm 能力的桥接维持禁用",
+    "保存失败不提前切背景，来源参数正确且就绪时可重试",
+    "失败时已转为等待状态，按钮不会被 finally 误启用"
+  ],
+  "browserVerification": "blocked: file protocol security policy",
+  "realSillyTavern": "not verified"
+}

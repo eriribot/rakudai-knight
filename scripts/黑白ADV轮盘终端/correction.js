@@ -286,7 +286,7 @@ function correctionInput(saved) {
   delete state.$internal;
   if (state.系统) delete state.系统.关系计分;
   if (state.场景) delete state.场景.已发生事件;
-  // 该只读派生摘要已单独发送；保留全部真实赛制账本，不重复发送程序背景。
+  // 程序号池摘要单独按日期放行；原名册和实际比赛照常用于校正。
   if (state.场景?.选拔赛) delete state.场景.选拔赛.程序战况;
   if (state.玩家?.成长 && typeof state.玩家.成长 === 'object' && !Array.isArray(state.玩家.成长)) {
     const growth = state.玩家.成长;
@@ -297,7 +297,26 @@ function correctionInput(saved) {
     mainPatch: saved.mvuBlock ? '主补丁格式完整；已提交项仍须与当前变量核对' : '主补丁缺失或格式损坏；根据正文与当前实际保存值补漏，提交最终值' };
 }
 function getCorrectionInput() { return correctionInput(captureCorrection()); }
+// 世界书沿用原条目与 order；只在已展开的发送副本中过滤程序号池缓存。
+function filterTournamentPoolPrompt(messages, state) {
+  if (!Array.isArray(messages) || window.RakudaiStateController.shouldInjectTournament(state)) return;
+  const filter = text => typeof text !== 'string' ? text : text.replace(/<status_current_variable>([\s\S]*?)<\/status_current_variable>/g, (block, json) => {
+    let current;
+    try { current = JSON.parse(json); } catch (_) { return block; }
+    const tournament = current?.场景?.选拔赛;
+    if (!tournament || !Object.hasOwn(tournament, '程序战况')) return block;
+    delete tournament.程序战况;
+    return block.replace(json, () => JSON.stringify(current));
+  });
+  for (const message of messages) {
+    if (typeof message?.content === 'string') message.content = filter(message.content);
+    else if (Array.isArray(message?.content)) for (const part of message.content) {
+      if (part?.type === 'text') part.text = filter(part.text);
+    }
+  }
+}
 function correctionTournamentSummary(state) {
+  if (!window.RakudaiStateController.shouldInjectTournament(state)) return undefined;
   const view = stateService().tournamentView(state), calendar = view.calendar || {};
   return { 引擎: view.engine, 背景预览: Boolean(view.virtual),
     日历: { valid: calendar.valid, reason: calendar.reason, date: calendar.date?.key,
@@ -512,7 +531,7 @@ async function requestCorrection(automatic = false) {
       // 固定宿主源码在最终请求体组装后排除顶层字段；JSON 数组也是合法 YAML，避免手拼配置语法。
       custom_exclude_body: JSON.stringify(config.excludedParams),
       model: config.model, messages: [{ role: 'system', content: system }, { role: 'user', content: JSON.stringify({
-        当前变量: state, 程序选拔赛: correctionTournamentSummary(state), 本轮正文: input.text, 本轮已发生事件: input.events, 本轮已提交人际更新: input.submittedRelations,
+        当前变量: state, 程序选拔赛: correctionTournamentSummary(saved.data.stat_data), 本轮正文: input.text, 本轮已发生事件: input.events, 本轮已提交人际更新: input.submittedRelations,
         本轮已提交进度: input.submittedStory, 主结算前场景: input.storyBefore, 主补丁状态: input.mainPatch,
         玩家补充说明: config.deviation, 最新回复楼层: saved.messageId, 当前回复页: saved.swipeId }) }],
       max_tokens: config.maxTokens, stream: false }, {}, true, abort.signal);

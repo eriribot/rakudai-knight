@@ -31,12 +31,13 @@ function uiFixture() {
       set innerHTML(value) { this._html = value; this.writes++; }, get innerHTML() { return this._html; },
       contains(child) { return child.container === this; },
       classList: { add() {}, remove() {}, toggle() {} },
+      setAttribute() {},
     });
     return elements.get(id);
   }
   const realm = vm.createContext({
     structuredClone, console, setTimeout, clearTimeout,
-    document: { getElementById: element, querySelectorAll: () => [], querySelector: () => null,
+    document: { body: element('body'), getElementById: element, querySelectorAll: () => [], querySelector: () => null,
       addEventListener: (type, fn) => documentListeners.set(type, fn) },
     addEventListener: (type, fn) => listeners.set(type, fn),
   });

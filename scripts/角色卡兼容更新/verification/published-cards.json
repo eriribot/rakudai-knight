@@ -1,0 +1,68 @@
+{
+  "status": "passed",
+  "cases": [
+    {
+      "baseVersion": "0.06",
+      "userDisabledPhoneAndBubble": false,
+      "namePreserved": true,
+      "implementationAndWorldbookUnchanged": true,
+      "authorDisabledGuardStillDisabled": true,
+      "pngRoundtrip": true,
+      "imageChunksUnchanged": true,
+      "outputSha256": "e05eb8d26237eb7c984d2533f58050d3483907193f5bf0d9ed2d7a6230284143"
+    },
+    {
+      "baseVersion": "0.06",
+      "userDisabledPhoneAndBubble": true,
+      "namePreserved": true,
+      "implementationAndWorldbookUnchanged": true,
+      "authorDisabledGuardStillDisabled": true,
+      "pngRoundtrip": true,
+      "imageChunksUnchanged": true,
+      "outputSha256": "ccb4f1a3bcc73047352e50ef20fd9d11a8e87c425091c61d3992b1b92ac6d390"
+    },
+    {
+      "baseVersion": "0.07",
+      "userDisabledPhoneAndBubble": false,
+      "namePreserved": true,
+      "implementationAndWorldbookUnchanged": true,
+      "authorDisabledGuardStillDisabled": true,
+      "pngRoundtrip": true,
+      "imageChunksUnchanged": true,
+      "outputSha256": "5eb58cb47db7bc46f12614378b7f7ca63d448221c701b58ffebd0cb33cdbc91e"
+    },
+    {
+      "baseVersion": "0.07",
+      "userDisabledPhoneAndBubble": true,
+      "namePreserved": true,
+      "implementationAndWorldbookUnchanged": true,
+      "authorDisabledGuardStillDisabled": true,
+      "pngRoundtrip": true,
+      "imageChunksUnchanged": true,
+      "outputSha256": "9d6baaac1a6b45a1a4a2b322057bd5ab32d6216306c0ef71603e232d4fde0875"
+    },
+    {
+      "baseVersion": "0.08",
+      "userDisabledPhoneAndBubble": false,
+      "namePreserved": true,
+      "implementationAndWorldbookUnchanged": true,
+      "authorDisabledGuardStillDisabled": true,
+      "pngRoundtrip": true,
+      "imageChunksUnchanged": true,
+      "outputSha256": "d57c9eb5a997543ec258b9675b49d05de946f63e6415c8e2d7dff635fbb087cf"
+    },
+    {
+      "baseVersion": "0.08",
+      "userDisabledPhoneAndBubble": true,
+      "namePreserved": true,
+      "implementationAndWorldbookUnchanged": true,
+      "authorDisabledGuardStillDisabled": true,
+      "pngRoundtrip": true,
+      "imageChunksUnchanged": true,
+      "outputSha256": "e473f0fc05f7a0566ae4f4489a03a109a318487cfb886d2243e72df8f970a849"
+    }
+  ],
+  "inputFilesUnchanged": true,
+  "boundary": "真实发布PNG只读；兼容输出仅在内存中检查。未生成或导入整卡，未修改用户许可/聊天。",
+  "hostAcceptance": "pending"
+}

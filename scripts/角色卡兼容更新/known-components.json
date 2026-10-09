@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "family": "落第骑士英雄谭",
+  "provenance": "v0.06/v0.07/v0.08 已发布 PNG 的 card-inventory.json；只声明确定的 ID 对应，不按名称猜测。",
+  "regexAliasGroups": [
+    ["9a39d70d-27ae-4fe9-b1b6-c77d03f532aa", "32fd2ea7-350c-44a1-98ff-c01bb8828772"],
+    ["f86aac30-06e3-47ac-b3cc-d2d87f9ce96d", "339601a8-28af-42a2-9359-107ebe50bc73", "cf3083f8-42e4-4e2e-8e70-a65817a2c881"],
+    ["7816a86f-b81d-4614-a26a-c6e8c1425f9a", "9589f587-3cbe-4491-941c-680255722dba", "cf3083f8-42e4-4e2e-8e70-a65817a2c882"],
+    ["080ab368-e2f0-41f8-9d32-86faa05c1e39", "dd0dd03b-e87c-426c-90e6-c38b1113c2aa", "bea21af8-9a41-4b0c-9009-1811e54bb8e4"]
+  ],
+  "helperAliasGroups": [
+    ["636b558e-e8ff-448a-8913-804dcafbcb57", "b23eaf9e-509d-4442-b5aa-a5a459634dc8"],
+    ["35af4119-82f9-46c8-913e-db15c7c0e451", "7c1db4ff-9404-4504-94ad-e8df9aa5d70b"],
+    ["98bba47b-1071-4e02-a841-16e911af288a", "207dc896-ebda-4fca-ab4b-6c683f859536", "ee190b2f-d2ba-44b4-9f1b-0695c07fefc5"]
+  ]
+}

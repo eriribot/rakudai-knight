@@ -271,6 +271,7 @@ function createStateSchema(z, version, { normalizeRelationships = true } = {}) {
       当前章: version === 3 ? z.enum(CHAPTERS) : text.min(1),
       阶段: z.enum(['未开始', '进行中', '已结束']),
       时间: text, 地点: text, 切入说明: text.default(''),
+      ...(version === 4 ? { 宿舍: z.boolean().optional() } : {}),
       已发生事件: record(z.object({ ...(version === 4 ? { 卷号: volumeNumber } : {}), 章段: version === 3 ? z.enum(CHAPTERS.slice(1)) : text.min(1), 结果: text.min(1), 参与者: z.array(text.min(1)), 知情者: z.array(text.min(1)) }).strict()),
       // 可选字段兼容现有 v4 存档；未来约定不占用已发生事件。
       ...(version === 4 ? { 日程: record(schedule).optional(), 选拔赛: createTournamentSchema(z).optional() } : {}),

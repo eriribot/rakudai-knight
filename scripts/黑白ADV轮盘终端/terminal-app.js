@@ -123,6 +123,11 @@ function toast(msg) {
 }
 
 // 导航操作
+async function toggleDorm(button) {
+  if (!bridge || typeof bridge.dorm !== 'function' || dataStatus !== 'ready') return toast('当前未连接本局存档，请使用离线预览或在酒馆中打开终端。');
+  try { button.disabled = true; await bridge.dorm(!document.body.classList.contains('rk-dorm'), stateSource); goHome(); await refreshTerminalState(); }
+  catch (error) { toast(error && error.message || '宿舍状态未保存，请刷新后重试。'); refreshTerminalView(); }
+}
 function openApp(appId) {
   var scrMap = {
     'blazer': 'scr-blazer',
@@ -1720,6 +1725,11 @@ var bridgeRevision = 0;
 var bridgeUnsubscribe = null;
 var stateSignature = '';
 function refreshTerminalView() {
+  var active = stat.场景?.宿舍 === true, button = document.getElementById('dorm-toggle');
+  if (active && !document.body.classList.contains('rk-dorm')) setTimeout(function() { var pan = document.getElementById('dorm-pan'); pan.scrollLeft = Math.max(0, (pan.scrollWidth - pan.clientWidth) / 2); }, 0);
+  document.body.classList.toggle('rk-dorm', active);
+  button.setAttribute('aria-pressed', String(active)); document.getElementById('dorm-pan').tabIndex = active ? 0 : -1;
+  button.disabled = !bridge || typeof bridge.dorm !== 'function' || dataStatus !== 'ready';
   updateHomeScreen();
   refreshPlayerPortraitSettings();
   var renderers = {

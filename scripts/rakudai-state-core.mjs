@@ -1,4 +1,5 @@
 import { deriveTournament, prepareTournamentAction, suggestTournamentOpponents, createTournamentParticipant } from './rakudai-tournament.mjs';
+import { shouldInjectTournament } from './rakudai-tournament-calendar.mjs';
 import { STORY_VOLUMES, getStoryVolume, resolveStoryChapter, storyPosition, nextStoryChapter, firstStoryChapter } from './rakudai-story-catalog.mjs';
 import { GROWTH_RULES, GROWTH_AXES, ATTRIBUTE_GRADES, normalizeSkillEntry, normalizeGrowthRequests } from '../世界书规则/MVU/schema.mjs';
 import { repairRakudaiMvuStructure } from './rakudai-mvu-structure.mjs';
@@ -475,6 +476,11 @@ export function createStateController(adapter) {
       tournament: 'T01', tournamentEngine: 'T02', nativeMvu: 'N01' }),
     get growthRules() { return cloneState(GROWTH_RULES); },
     tournamentView: state => deriveTournament(state),
+    shouldInjectTournament,
+    setDorm: (token, active) => commit(token, state => {
+      if (typeof active !== 'boolean' || state.系统.开局状态 !== '已建档') throw new Error('请先完成建档，再进入宿舍。');
+      return { ...state, 场景: { ...state.场景, 宿舍: active } };
+    }),
     tournamentAction: (token, request) => commit(token, state => prepareTournamentAction(state, request)),
     tournamentOpponents: (state, options) => suggestTournamentOpponents(state, options),
     tournamentParticipant: (state, options) => createTournamentParticipant(state, options),
