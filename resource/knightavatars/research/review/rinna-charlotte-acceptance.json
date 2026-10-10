@@ -1,0 +1,49 @@
+{
+  "manifestCharacters": 32,
+  "preparedCharacters": 23,
+  "uploadFiles": 33,
+  "modifiedExistingPortraits": [
+    "xiaoli"
+  ],
+  "originalBytesUnchanged": true,
+  "shieldUnchanged": true,
+  "browserPreview": {
+    "url": "http://127.0.0.1:58635/preview.html?sample=avatars&view=lime",
+    "status": "passed-root-visual-review",
+    "notes": [
+      "凛奈与夏洛特均在实际编译的LIME名册显示",
+      "凛奈图床素材加载434x580",
+      "夏洛特本地内联加载434x580",
+      "盾口内人物无遮挡脸部与倾斜眼线"
+    ]
+  },
+  "validation": {
+    "avatarTests": "17/17",
+    "packagingTests": "9/9"
+  },
+  "activePortraits": [
+    {
+      "id": "rinna",
+      "name": "风祭凛奈",
+      "displayFile": "prepared/rinna.png",
+      "sha256": "9928336c35311d38bc1f719351ca963cdff50ce426da03d037087f4dd5841c91",
+      "imageHostStatus": "configured-existing-url"
+    },
+    {
+      "id": "charlotte",
+      "name": "夏洛特·科黛",
+      "displayFile": "prepared/charlotte.png",
+      "sha256": "d57628136e0824c300dceab51dfa03ee3fdf98f9ac8261c364abfac8d91b13b2",
+      "imageHostStatus": "pending-upload"
+    },
+    {
+      "id": "xiaoli",
+      "name": "福小莉",
+      "displayFile": "prepared/xiaoli.png",
+      "sha256": "48391e3f9b26edad554dd1a910c53280c03da38f4ce65c33798acc67036e3fdb",
+      "imageHostStatus": "configured-existing-url",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/xiaoli.png",
+      "imageHostNote": "用户要求恢复原图床地址。本地第18卷头像哈希与此前验收记录保留，远端是否为第18卷新版尚未核验。"
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "id": "charlotte",
+  "name": "夏洛特·科黛",
+  "assetType": "ai-colorized-verified-novel-illustration-crop",
+  "mode": "built-in",
+  "tool": "image_gen__imagegen",
+  "intent": "edit",
+  "useCase": "identity-preserve",
+  "transparentBackground": false,
+  "finalPrompt": "Use case: identity-preserve.\nAsset type: light-novel character portrait for a shield avatar.\nPrimary request: colorize Charlotte's original novel portrait, using the official volume-6 illustration for verified colors.\nInput image 1 is the ONLY EDIT TARGET: the monochrome 355x505 head-and-shoulders crop from volume 5. Preserve its exact line work, pose, face, expression, eyes, hair length and silhouette, head proportions, maid clothing, folds, white frills, white apron, and the plaid pattern and bow construction at the neck.\nInput image 2 is PALETTE REFERENCE ONLY: Charlotte's official volume-6 color illustration. Borrow the muted sage/leaf-green hair, violet-purple irises, fair natural skin, black maid dress, and white collar, frills, and apron. Do not copy image 2's pose, combat expression, arm, pink shield beams, harsh yellow combat lighting, or background.\nColor the image-1 portrait with soft, clean anime/light-novel shading consistent with its existing grayscale shadows. Keep the green hair subdued with restrained highlights, purple eyes clear, and skin pale warm-neutral. Preserve the original cool reserved expression and small parted mouth. Color the neck bow low-saturation plum/burgundy with the original lighter plaid stripes; this bow color is an artistic interpretation while hair and eye colors follow image 2. Keep the background softly neutral pale gray.\nCOLORIZATION ONLY: do not redraw features, change facial identity, turn this into a new illustration, invent accessories, alter garment coverage, add weapons, shield frames, text, logos, watermarks, extra people, or decorations. Preserve this exact crop and opaque background.",
+  "inputs": [
+    {
+      "path": "research/epub/charlotte-colorization-target.png",
+      "role": "only-edit-target",
+      "width": 355,
+      "height": 505,
+      "sha256": "3fdf1d394fdb4d66a1e8e0bb3b0659edfa4e1950d671e14ec39073d310b9aea2"
+    },
+    {
+      "path": "research/epub/charlotte-color-reference.png",
+      "role": "official-color-palette-reference-only",
+      "width": 540,
+      "height": 580,
+      "sha256": "23a24bc8cffb2ad40bae0b0c15f0e6732c780b7f354f12ac81b8a6ef35a2888a"
+    }
+  ],
+  "originalIllustration": {
+    "path": "novel/charlotte-original.jpg",
+    "sourceEpub": "39688/[台版]落第骑士英雄谭 05.epub",
+    "member": "OEBPS/Images/007.jpg",
+    "bytesUnchanged": true,
+    "width": 700,
+    "height": 1000,
+    "sha256": "a4d646adeb9caa9d328173fe7dc2aa3ccfc59e31338bfb1199d5409c26072355"
+  },
+  "output": {
+    "path": "color/charlotte-colorized.png",
+    "width": 1051,
+    "height": 1496,
+    "sha256": "bba4822263a9632084c50a9a3822fa12091cd1087adb08165d48e78ae97b4445"
+  },
+  "generatedOriginal": "C:/Users/eriri/.codex/generated_images/01a0f24c-ee73-7d13-b9a0-705cba6f6f64/exec-a559e7f3-227d-472c-b440-7024bcfaeb1e.png",
+  "paletteEvidence": {
+    "hair": {
+      "status": "official-volume-6-color-illustration",
+      "chosen": "低饱和绿色"
+    },
+    "eyes": {
+      "status": "official-volume-6-color-illustration",
+      "chosen": "紫色"
+    },
+    "maidOutfit": {
+      "status": "official-volume-6-color-illustration",
+      "chosen": "黑色裙、白色围裙与荷叶边"
+    },
+    "bow": {
+      "status": "artistic-color-choice",
+      "chosen": "低饱和紫红与浅色格纹",
+      "note": "格纹与形状依据第5卷原图，配色为衍生选色。"
+    }
+  },
+  "validation": {
+    "status": "passed-visual-review",
+    "reviewed": [
+      "脸部、双眼、短开口与原表情",
+      "头发轮廓与线稿",
+      "女仆裙、围裙、荷叶边和格纹蝴蝶结",
+      "官方参考绿发紫瞳",
+      "不引入战斗彩页的粉色光束或强黄光"
+    ]
+  },
+  "consumption": {
+    "manifest": "manifest.json#charlotte",
+    "displayFile": "prepared/charlotte.png",
+    "imageHostStatus": "pending-upload"
+  }
+}

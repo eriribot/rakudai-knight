@@ -1,0 +1,99 @@
+{
+  "deliveryMode": "component",
+  "kind": "regex",
+  "goal": "正文气泡与头像正确匹配风祭凛奈、风祭简繁短名和夏洛特全名/短名/既有别名",
+  "sources": [
+    "resource/knightavatars/manifest.json",
+    "scripts/正文气泡/build.mjs"
+  ],
+  "outputDirectory": "scripts/正文气泡/发布/components",
+  "components": [
+    {
+      "file": "scripts/正文气泡/发布/components/dialogue-bubbles.regex.json",
+      "sha256": "f080e31e6d5350ca830b79260575f78fbf3735d902b28de617399d7df7fcdd97",
+      "preservedFields": {
+        "trimStrings": [],
+        "placement": [
+          2
+        ],
+        "disabled": false,
+        "markdownOnly": true,
+        "promptOnly": false,
+        "runOnEdit": true,
+        "substituteRegex": 2,
+        "minDepth": null,
+        "maxDepth": null,
+        "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+        "scriptName": "01 盾形对白 · 姓名与台词 v0.6"
+      }
+    },
+    {
+      "file": "scripts/正文气泡/发布/components/dialogue-player-candidates.regex.json",
+      "sha256": "a548f8b4d27ef1db3ef8a969051833477a05370bbc45af4dbff2fb6194fb1f38",
+      "preservedFields": {
+        "trimStrings": [],
+        "placement": [
+          2
+        ],
+        "disabled": false,
+        "markdownOnly": true,
+        "promptOnly": false,
+        "runOnEdit": true,
+        "substituteRegex": 0,
+        "minDepth": null,
+        "maxDepth": null,
+        "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+        "scriptName": "02 盾形对白 · OC 姓名候选 v0.6"
+      }
+    },
+    {
+      "file": "scripts/正文气泡/发布/components/dialogue-bubble-style.regex.json",
+      "sha256": "e86d2b7fd49e8897b3d1f3d8ffc6571143af4368f9648cca3e00d5ced5f3806f",
+      "preservedFields": {
+        "trimStrings": [],
+        "placement": [
+          2
+        ],
+        "disabled": false,
+        "markdownOnly": true,
+        "promptOnly": false,
+        "runOnEdit": true,
+        "substituteRegex": 0,
+        "minDepth": null,
+        "maxDepth": null,
+        "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+        "scriptName": "03 盾形对白 · 共享样式 v0.6"
+      }
+    }
+  ],
+  "unchangedScope": [
+    "稳定ID及字段开关",
+    "OC候选逻辑与保护边界",
+    "变量正则与MVU状态",
+    "整卡与历史气泡发布"
+  ],
+  "acceptance": [
+    "现有所有姓名/别名检查",
+    "发布文件与源码完全一致",
+    "未知或延伸姓名不绑定NPC",
+    "浏览器预览确认风祭与夏洛特的盾形头像"
+  ],
+  "library": {
+    "snapshot": "2026-08-18",
+    "routeIds": [
+      "sillytavern-render-regex-pipeline",
+      "sillytavern-component-update"
+    ],
+    "loadedDocuments": [
+      "ST-A0",
+      "ST-A2",
+      "ST-A5",
+      "ST-A6",
+      "ST-B2"
+    ],
+    "adoptedCandidates": []
+  },
+  "dialect": "SillyTavern card RegexScriptData",
+  "targetVersion": "现有项目固定SillyTavern 1.18.0字段契约，不改字段语义",
+  "runtimeBoundary": "本次不替用户导入真实酒馆；交付可导入正则与本地预览。"
+}

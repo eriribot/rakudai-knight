@@ -381,29 +381,57 @@
     },
     {
       "id": "xiaoli",
-      "sourceFile": "color/xiaoli-colorized.png",
+      "sourceFile": "color/xiaoli-vol18-colorized.png",
       "crop": {
-        "left": 346,
-        "top": 180,
-        "width": 512,
-        "height": 616
+        "left": 475,
+        "top": 229,
+        "width": 745,
+        "height": 895
       },
       "displayFile": "prepared/xiaoli.png",
       "orientation": {
         "method": "level-eye-line",
         "sourceEyes": [
           [
-            493,
-            197
+            291,
+            504
           ],
           [
-            653,
-            248
+            495,
+            435
           ]
         ],
-        "rotationDegrees": -17.679680977438853,
-        "rotatedWidth": 1440,
-        "rotatedHeight": 1777,
+        "rotationDegrees": 18.687351505211165,
+        "rotatedWidth": 1414,
+        "rotatedHeight": 1938,
+        "cropSpace": "after-rotation"
+      }
+    },
+    {
+      "id": "charlotte",
+      "sourceFile": "color/charlotte-colorized.png",
+      "crop": {
+        "left": 185,
+        "top": 55,
+        "width": 845,
+        "height": 1015
+      },
+      "displayFile": "prepared/charlotte.png",
+      "orientation": {
+        "method": "level-eye-line",
+        "sourceEyes": [
+          [
+            426,
+            345
+          ],
+          [
+            710,
+            326
+          ]
+        ],
+        "rotationDegrees": 3.8274648269218106,
+        "rotatedWidth": 1149,
+        "rotatedHeight": 1563,
         "cropSpace": "after-rotation"
       }
     }

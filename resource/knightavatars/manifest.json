@@ -904,7 +904,12 @@
       "aliases": [
         "風祭凜奈",
         "風祭凛奈",
-        "风祭凜奈"
+        "风祭凜奈",
+        "凛奈",
+        "凜奈",
+        "Rinna Kazamatsuri",
+        "风祭",
+        "風祭"
       ],
       "file": "novel/rinna-original.jpg",
       "sourceEpub": "39688/[台版]落第骑士英雄谭 05.epub",
@@ -1239,55 +1244,124 @@
         "Fu Xiaoli",
         "Xiaoli Fu"
       ],
-      "file": "novel/xiaoli-original.jpg",
-      "sourceEpub": "39688/[台版]落第骑士英雄谭 12.epub",
-      "sourceMember": "OEBPS/Images/014.jpg",
+      "file": "novel/xiaoli-vol18-original.jpg",
+      "sourceEpub": "39688/落第骑士英雄谭 - 18.epub",
+      "sourceMember": "OEBPS/Images/190226.jpg",
       "sourceUrl": "",
       "sourcePage": "",
       "hasShieldFrame": false,
       "sourceStyle": "novel-monochrome-illustration",
       "sourceStatus": "verified-local-epub-ai-colorized",
-      "width": 796,
-      "height": 1200,
-      "sha256": "d5e1b37955a7991df069c8a257e2aaea22acfb5b75b2151dc5ac817740e1b634",
+      "width": 1120,
+      "height": 1600,
+      "sha256": "285689368c9c5e4599a63a3e548dd6bea507ad1d34315bb4c547bf0e14f34257",
       "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/xiaoli.png",
       "identityEvidence": "research/epub/character-evidence.json#xiaoli",
       "colorization": {
         "type": "ai-colorized-derivative",
         "mode": "built-in",
-        "file": "color/xiaoli-colorized.png",
-        "record": "research/epub/xiaoli-colorization.json",
-        "note": "第12卷原黑白插图上色。第18卷明写黑发与黝黑肤色；具体棕色深浅、常态瞳色和束带色为艺术配色，非官方原生彩图。保留原白囚衣、束带及胸前锁链。"
+        "file": "color/xiaoli-vol18-colorized.png",
+        "record": "research/epub/xiaoli-vol18-colorization.json",
+        "note": "第18卷中华服原黑白图上色；黑长发与偏深肤色依据原文，两枚金钱饰片金色为用户指定，白金服装与棕色瞳孔为衍生选色。非官方原生彩图。"
       },
       "displayFile": "prepared/xiaoli.png",
       "preparation": {
         "method": "closed-shield-region-face-aware-crop-v1",
-        "sourceFile": "color/xiaoli-colorized.png",
-        "sourceSha256": "f70d802636e5e9bca239c9f40d9cff3b68ce9206f8e1bdd5afac6a696c562b83",
+        "sourceFile": "color/xiaoli-vol18-colorized.png",
+        "sourceSha256": "1ccc1dce1ca2dc5f1c5e26aed6da58e57c6966fb91507cce9c24405081aa298d",
         "crop": {
-          "left": 346,
-          "top": 180,
-          "width": 512,
-          "height": 616
+          "left": 475,
+          "top": 229,
+          "width": 745,
+          "height": 895
         },
         "outputWidth": 434,
         "outputHeight": 580,
-        "sha256": "5f3c93fd459017ec6d0c3b3ab376eafa581cde16e341118e3a85d03289e87548",
+        "sha256": "48391e3f9b26edad554dd1a910c53280c03da38f4ce65c33798acc67036e3fdb",
         "orientation": {
           "method": "level-eye-line",
           "sourceEyes": [
             [
-              493,
-              197
+              291,
+              504
             ],
             [
-              653,
-              248
+              495,
+              435
             ]
           ],
-          "rotationDegrees": -17.679680977438853,
-          "rotatedWidth": 1440,
-          "rotatedHeight": 1777,
+          "rotationDegrees": 18.687351505211165,
+          "rotatedWidth": 1414,
+          "rotatedHeight": 1938,
+          "cropSpace": "after-rotation"
+        }
+      }
+    },
+    {
+      "id": "charlotte",
+      "name": "夏洛特·科黛",
+      "aliases": [
+        "夏洛特",
+        "夏洛特・科黛",
+        "夏洛特•科黛",
+        "Charlotte Cordé",
+        "Charlotte Corde"
+      ],
+      "file": "novel/charlotte-original.jpg",
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 05.epub",
+      "sourceMember": "OEBPS/Images/007.jpg",
+      "sourceUrl": "",
+      "sourcePage": "",
+      "hasShieldFrame": false,
+      "sourceStyle": "novel-monochrome-illustration",
+      "sourceStatus": "verified-local-epub-ai-colorized",
+      "width": 700,
+      "height": 1000,
+      "sha256": "a4d646adeb9caa9d328173fe7dc2aa3ccfc59e31338bfb1199d5409c26072355",
+      "imageUrl": "",
+      "imageHostStatus": {
+        "status": "pending-upload-new-portrait",
+        "intendedUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/charlotte.png",
+        "note": "上传 prepared/charlotte.png 后将此地址填入 imageUrl；当前内联本地头像。"
+      },
+      "identityEvidence": "research/epub/charlotte-evidence.json",
+      "colorization": {
+        "type": "ai-colorized-derivative",
+        "mode": "built-in",
+        "file": "color/charlotte-colorized.png",
+        "record": "research/epub/charlotte-colorization.json",
+        "colorReferenceVolume": 6,
+        "note": "第5卷女仆正面原黑白图上色；绿发紫瞳与黑白女仆装参考第6卷官方彩页。紫红格纹蝴蝶结为衍生选色。非官方原生彩图。"
+      },
+      "displayFile": "prepared/charlotte.png",
+      "preparation": {
+        "method": "closed-shield-region-face-aware-crop-v1",
+        "sourceFile": "color/charlotte-colorized.png",
+        "sourceSha256": "bba4822263a9632084c50a9a3822fa12091cd1087adb08165d48e78ae97b4445",
+        "crop": {
+          "left": 185,
+          "top": 55,
+          "width": 845,
+          "height": 1015
+        },
+        "outputWidth": 434,
+        "outputHeight": 580,
+        "sha256": "d57628136e0824c300dceab51dfa03ee3fdf98f9ac8261c364abfac8d91b13b2",
+        "orientation": {
+          "method": "level-eye-line",
+          "sourceEyes": [
+            [
+              426,
+              345
+            ],
+            [
+              710,
+              326
+            ]
+          ],
+          "rotationDegrees": 3.8274648269218106,
+          "rotatedWidth": 1149,
+          "rotatedHeight": 1563,
           "cropSpace": "after-rotation"
         }
       }

@@ -1,0 +1,61 @@
+{
+  "dialect": "SillyTavern card RegexScriptData",
+  "deliveryMode": "component",
+  "names": [
+    "风祭",
+    "風祭",
+    "风祭凛奈",
+    "風祭凜奈",
+    "凛奈",
+    "凜奈",
+    "夏洛特",
+    "夏洛特·科黛",
+    "Charlotte Cordé",
+    "Charlotte Corde"
+  ],
+  "originalIDsAndFlagsPreserved": true,
+  "ocCandidateBytesUnchanged": true,
+  "unknownNamesNotBoundToNPC": [
+    "风祭家的新同学",
+    "风祭凛",
+    "凛奈的侍从",
+    "夏洛特小姐",
+    "艾莉丝"
+  ],
+  "existingCheckCount": 479,
+  "exactArtifactParity": "passed",
+  "artifacts": [
+    {
+      "file": "dialogue-bubbles.regex.json",
+      "sha256": "2f61ecf970bf2dd01e067177d1e35fba0a47cab71796374a196d84f6580394ee"
+    },
+    {
+      "file": "dialogue-player-candidates.regex.json",
+      "sha256": "a548f8b4d27ef1db3ef8a969051833477a05370bbc45af4dbff2fb6194fb1f38"
+    },
+    {
+      "file": "dialogue-bubble-style.regex.json",
+      "sha256": "2b3cc76ffec7fc111f1af4494117f3979de32ab2c90c0b503979fdedc7a5819f"
+    }
+  ],
+  "browserPreview": {
+    "status": "passed-local-visual-review",
+    "url": "http://127.0.0.1:58636/scripts/正文气泡/发布/preview.html",
+    "observed": [
+      "风祭气泡使用 prepared/rinna.png",
+      "夏洛特·科黛气泡使用新本地内联PNG",
+      "两张头像及台词在浏览器完整显示"
+    ],
+    "scope": "本地同源/内联预览，未替用户导入真实酒馆"
+  },
+  "realSillyTavernImport": "not-run",
+  "sourceReferences": [
+    "resource/knightavatars/manifest.json",
+    "scripts/正文气泡/build.mjs"
+  ],
+  "stageFixtures": {
+    "passed": 13,
+    "total": 13,
+    "failed": 0
+  }
+}

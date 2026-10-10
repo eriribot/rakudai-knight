@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-08T04:45:54.230Z",
+  "generatedAt": "2026-10-10T01:58:03.098Z",
   "nodeVersion": "v25.6.0",
   "sourceHashes": {
-    "scripts/正文气泡/build.mjs": "fa1e950d02bd454d4efa5e268feba308c706bb1c1ce3adb5f3a0153baf031386",
+    "scripts/正文气泡/build.mjs": "73a18a67df4775db9b52a747aafdd2631fb1583be96e1362df6a4eaf015e4caa",
     "scripts/正文气泡/context-guard.mjs": "c1c0210d51184f3e22029514d6cd0211630e9a3cc9d70bf360e7d958bae6be31",
     "scripts/正文气泡/bubble.css": "a546dcf2b07d446c4f0167af6faad23b58a5ebdbb4f0c4b39487872387b84961",
-    "resource/knightavatars/manifest.json": "c9490d77d00ca95702ab8a667831ea373796a3c769ed2e7fffeea2bd26c6e596"
+    "resource/knightavatars/manifest.json": "d304a5af70b2e6c82a52df5a0922133ec6e0fd59142ff30f40851e80c3e857fd"
   },
   "dialect": "SillyTavern card RegexScriptData",
   "evidenceType": "offline-javascript-string-replacement",
@@ -30,30 +30,30 @@
     "runOnEdit": true
   },
   "safetyBoundary": "已知唯一姓名、固定玩家标记或当前 persona 安全姓名的纯文本行生成气泡；未知安全姓名仅生成惰性候选，完整原行保留，只有终端身份解析唯一命中玩家后才可提升。玩家查找宏以转义值进行有限离线模拟，不代表宿主宏系统验收。正文封套及已闭合保护块之后可恢复；当前保护块、HTML 属性及普通 details 内不转换；同名保护标签嵌套允许保守回退；含 HTML/实体或 {{ 宏标记的行保持宿主原文。本组件不是原始消息 HTML 消毒器。",
-  "manifestCharacters": 31,
-  "uniqueNamesChecked": 163,
+  "manifestCharacters": 32,
+  "uniqueNamesChecked": 174,
   "ambiguousNames": [],
-  "total": 468,
-  "passed": 468,
+  "total": 479,
+  "passed": 479,
   "failed": 0,
   "measurements": [
     {
       "name": "十万字旁白夹少量对白",
       "inputCharacters": 96014,
-      "outputCharacters": 108871,
-      "elapsedMs": 4.85
+      "outputCharacters": 525338,
+      "elapsedMs": 5.04
     },
     {
       "name": "数万字连续对白",
       "inputCharacters": 37889,
-      "outputCharacters": 283757,
-      "elapsedMs": 482.57
+      "outputCharacters": 700224,
+      "elapsedMs": 490.87
     },
     {
       "name": "八万字单行对白",
       "inputCharacters": 80003,
-      "outputCharacters": 92665,
-      "elapsedMs": 1.45
+      "outputCharacters": 509132,
+      "elapsedMs": 1.78
     }
   ],
   "results": [
@@ -662,6 +662,26 @@
       "passed": true
     },
     {
+      "name": "头像清单唯一姓名/别名：凛奈",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：凜奈",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Rinna Kazamatsuri",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：风祭",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：風祭",
+      "passed": true
+    },
+    {
       "name": "头像清单唯一姓名/别名：艾茵·阿伯伦特",
       "passed": true
     },
@@ -759,6 +779,30 @@
     },
     {
       "name": "头像清单唯一姓名/别名：Xiaoli Fu",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：夏洛特·科黛",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：夏洛特",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：夏洛特・科黛",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：夏洛特•科黛",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Charlotte Cordé",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Charlotte Corde",
       "passed": true
     },
     {

@@ -1,0 +1,504 @@
+{
+  "schemaVersion": 1,
+  "unsupportedHostStages": [
+    "macro-expansion",
+    "markdown-rendering",
+    "prompt-assembly",
+    "trimStrings-internals",
+    "cross-scope-rule-order",
+    "message-lifecycle"
+  ],
+  "errors": [],
+  "cases": [
+    {
+      "id": "npc-name-0",
+      "input": "风祭：头像匹配。",
+      "output": "<div data-rkd=\"bubble\" data-rkd-name=\"风祭\" data-rkd-player=\"\"><span data-rkd-avatar aria-hidden=\"true\"></span><div data-rkd-body><span data-rkd-speaker>风祭</span><div data-rkd-line>头像匹配。</div></div></div>",
+      "expected": "<div data-rkd=\"bubble\" data-rkd-name=\"风祭\" data-rkd-player=\"\"><span data-rkd-avatar aria-hidden=\"true\"></span><div data-rkd-body><span data-rkd-speaker>风祭</span><div data-rkd-line>头像匹配。</div></div></div>",
+      "pass": true,
+      "stages": [
+        {
+          "ruleId": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "eligible": true,
+          "dialect": "card",
+          "stages": [
+            {
+              "stage": "enabled",
+              "pass": true
+            },
+            {
+              "stage": "placement",
+              "pass": true,
+              "expected": 2
+            },
+            {
+              "stage": "destination",
+              "pass": true,
+              "expected": "display"
+            },
+            {
+              "stage": "depth",
+              "pass": true,
+              "tested": true,
+              "expected": 0
+            }
+          ],
+          "input": "风祭：头像匹配。",
+          "output": "<div data-rkd=\"bubble\" data-rkd-name=\"风祭\" data-rkd-player=\"\"><span data-rkd-avatar aria-hidden=\"true\"></span><div data-rkd-body><span data-rkd-speaker>风祭</span><div data-rkd-line>头像匹配。</div></div></div>",
+          "applied": true
+        }
+      ]
+    },
+    {
+      "id": "npc-name-1",
+      "input": "風祭：头像匹配。",
+      "output": "<div data-rkd=\"bubble\" data-rkd-name=\"風祭\" data-rkd-player=\"\"><span data-rkd-avatar aria-hidden=\"true\"></span><div data-rkd-body><span data-rkd-speaker>風祭</span><div data-rkd-line>头像匹配。</div></div></div>",
+      "expected": "<div data-rkd=\"bubble\" data-rkd-name=\"風祭\" data-rkd-player=\"\"><span data-rkd-avatar aria-hidden=\"true\"></span><div data-rkd-body><span data-rkd-speaker>風祭</span><div data-rkd-line>头像匹配。</div></div></div>",
+      "pass": true,
+      "stages": [
+        {
+          "ruleId": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "eligible": true,
+          "dialect": "card",
+          "stages": [
+            {
+              "stage": "enabled",
+              "pass": true
+            },
+            {
+              "stage": "placement",
+              "pass": true,
+              "expected": 2
+            },
+            {
+              "stage": "destination",
+              "pass": true,
+              "expected": "display"
+            },
+            {
+              "stage": "depth",
+              "pass": true,
+              "tested": true,
+              "expected": 0
+            }
+          ],
+          "input": "風祭：头像匹配。",
+          "output": "<div data-rkd=\"bubble\" data-rkd-name=\"風祭\" data-rkd-player=\"\"><span data-rkd-avatar aria-hidden=\"true\"></span><div data-rkd-body><span data-rkd-speaker>風祭</span><div data-rkd-line>头像匹配。</div></div></div>",
+          "applied": true
+        }
+      ]
+    },
+    {
+      "id": "npc-name-2",
+      "input": "风祭凛奈：头像匹配。",
+      "output": "<div data-rkd=\"bubble\" data-rkd-name=\"风祭凛奈\" data-rkd-player=\"\"><span data-rkd-avatar aria-hidden=\"true\"></span><div data-rkd-body><span data-rkd-speaker>风祭凛奈</span><div data-rkd-line>头像匹配。</div></div></div>",
+      "expected": "<div data-rkd=\"bubble\" data-rkd-name=\"风祭凛奈\" data-rkd-player=\"\"><span data-rkd-avatar aria-hidden=\"true\"></span><div data-rkd-body><span data-rkd-speaker>风祭凛奈</span><div data-rkd-line>头像匹配。</div></div></div>",
+      "pass": true,
+      "stages": [
+        {
+          "ruleId": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "eligible": true,
+          "dialect": "card",
+          "stages": [
+            {
+              "stage": "enabled",
+              "pass": true
+            },
+            {
+              "stage": "placement",
+              "pass": true,
+              "expected": 2
+            },
+            {
+              "stage": "destination",
+              "pass": true,
+              "expected": "display"
+            },
+            {
+              "stage": "depth",
+              "pass": true,
+              "tested": true,
+              "expected": 0
+            }
+          ],
+          "input": "风祭凛奈：头像匹配。",
+          "output": "<div data-rkd=\"bubble\" data-rkd-name=\"风祭凛奈\" data-rkd-player=\"\"><span data-rkd-avatar aria-hidden=\"true\"></span><div data-rkd-body><span data-rkd-speaker>风祭凛奈</span><div data-rkd-line>头像匹配。</div></div></div>",
+          "applied": true
+        }
+      ]
+    },
+    {
+      "id": "npc-name-3",
+      "input": "風祭凜奈：头像匹配。",
+      "output": "<div data-rkd=\"bubble\" data-rkd-name=\"風祭凜奈\" data-rkd-player=\"\"><span data-rkd-avatar aria-hidden=\"true\"></span><div data-rkd-body><span data-rkd-speaker>風祭凜奈</span><div data-rkd-line>头像匹配。</div></div></div>",
+      "expected": "<div data-rkd=\"bubble\" data-rkd-name=\"風祭凜奈\" data-rkd-player=\"\"><span data-rkd-avatar aria-hidden=\"true\"></span><div data-rkd-body><span data-rkd-speaker>風祭凜奈</span><div data-rkd-line>头像匹配。</div></div></div>",
+      "pass": true,
+      "stages": [
+        {
+          "ruleId": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "eligible": true,
+          "dialect": "card",
+          "stages": [
+            {
+              "stage": "enabled",
+              "pass": true
+            },
+            {
+              "stage": "placement",
+              "pass": true,
+              "expected": 2
+            },
+            {
+              "stage": "destination",
+              "pass": true,
+              "expected": "display"
+            },
+            {
+              "stage": "depth",
+              "pass": true,
+              "tested": true,
+              "expected": 0
+            }
+          ],
+          "input": "風祭凜奈：头像匹配。",
+          "output": "<div data-rkd=\"bubble\" data-rkd-name=\"風祭凜奈\" data-rkd-player=\"\"><span data-rkd-avatar aria-hidden=\"true\"></span><div data-rkd-body><span data-rkd-speaker>風祭凜奈</span><div data-rkd-line>头像匹配。</div></div></div>",
+          "applied": true
+        }
+      ]
+    },
+    {
+      "id": "npc-name-4",
+      "input": "凛奈：头像匹配。",
+      "output": "<div data-rkd=\"bubble\" data-rkd-name=\"凛奈\" data-rkd-player=\"\"><span data-rkd-avatar aria-hidden=\"true\"></span><div data-rkd-body><span data-rkd-speaker>凛奈</span><div data-rkd-line>头像匹配。</div></div></div>",
+      "expected": "<div data-rkd=\"bubble\" data-rkd-name=\"凛奈\" data-rkd-player=\"\"><span data-rkd-avatar aria-hidden=\"true\"></span><div data-rkd-body><span data-rkd-speaker>凛奈</span><div data-rkd-line>头像匹配。</div></div></div>",
+      "pass": true,
+      "stages": [
+        {
+          "ruleId": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "eligible": true,
+          "dialect": "card",
+          "stages": [
+            {
+              "stage": "enabled",
+              "pass": true
+            },
+            {
+              "stage": "placement",
+              "pass": true,
+              "expected": 2
+            },
+            {
+              "stage": "destination",
+              "pass": true,
+              "expected": "display"
+            },
+            {
+              "stage": "depth",
+              "pass": true,
+              "tested": true,
+              "expected": 0
+            }
+          ],
+          "input": "凛奈：头像匹配。",
+          "output": "<div data-rkd=\"bubble\" data-rkd-name=\"凛奈\" data-rkd-player=\"\"><span data-rkd-avatar aria-hidden=\"true\"></span><div data-rkd-body><span data-rkd-speaker>凛奈</span><div data-rkd-line>头像匹配。</div></div></div>",
+          "applied": true
+        }
+      ]
+    },
+    {
+      "id": "npc-name-5",
+      "input": "凜奈：头像匹配。",
+      "output": "<div data-rkd=\"bubble\" data-rkd-name=\"凜奈\" data-rkd-player=\"\"><span data-rkd-avatar aria-hidden=\"true\"></span><div data-rkd-body><span data-rkd-speaker>凜奈</span><div data-rkd-line>头像匹配。</div></div></div>",
+      "expected": "<div data-rkd=\"bubble\" data-rkd-name=\"凜奈\" data-rkd-player=\"\"><span data-rkd-avatar aria-hidden=\"true\"></span><div data-rkd-body><span data-rkd-speaker>凜奈</span><div data-rkd-line>头像匹配。</div></div></div>",
+      "pass": true,
+      "stages": [
+        {
+          "ruleId": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "eligible": true,
+          "dialect": "card",
+          "stages": [
+            {
+              "stage": "enabled",
+              "pass": true
+            },
+            {
+              "stage": "placement",
+              "pass": true,
+              "expected": 2
+            },
+            {
+              "stage": "destination",
+              "pass": true,
+              "expected": "display"
+            },
+            {
+              "stage": "depth",
+              "pass": true,
+              "tested": true,
+              "expected": 0
+            }
+          ],
+          "input": "凜奈：头像匹配。",
+          "output": "<div data-rkd=\"bubble\" data-rkd-name=\"凜奈\" data-rkd-player=\"\"><span data-rkd-avatar aria-hidden=\"true\"></span><div data-rkd-body><span data-rkd-speaker>凜奈</span><div data-rkd-line>头像匹配。</div></div></div>",
+          "applied": true
+        }
+      ]
+    },
+    {
+      "id": "npc-name-6",
+      "input": "夏洛特：头像匹配。",
+      "output": "<div data-rkd=\"bubble\" data-rkd-name=\"夏洛特\" data-rkd-player=\"\"><span data-rkd-avatar aria-hidden=\"true\"></span><div data-rkd-body><span data-rkd-speaker>夏洛特</span><div data-rkd-line>头像匹配。</div></div></div>",
+      "expected": "<div data-rkd=\"bubble\" data-rkd-name=\"夏洛特\" data-rkd-player=\"\"><span data-rkd-avatar aria-hidden=\"true\"></span><div data-rkd-body><span data-rkd-speaker>夏洛特</span><div data-rkd-line>头像匹配。</div></div></div>",
+      "pass": true,
+      "stages": [
+        {
+          "ruleId": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "eligible": true,
+          "dialect": "card",
+          "stages": [
+            {
+              "stage": "enabled",
+              "pass": true
+            },
+            {
+              "stage": "placement",
+              "pass": true,
+              "expected": 2
+            },
+            {
+              "stage": "destination",
+              "pass": true,
+              "expected": "display"
+            },
+            {
+              "stage": "depth",
+              "pass": true,
+              "tested": true,
+              "expected": 0
+            }
+          ],
+          "input": "夏洛特：头像匹配。",
+          "output": "<div data-rkd=\"bubble\" data-rkd-name=\"夏洛特\" data-rkd-player=\"\"><span data-rkd-avatar aria-hidden=\"true\"></span><div data-rkd-body><span data-rkd-speaker>夏洛特</span><div data-rkd-line>头像匹配。</div></div></div>",
+          "applied": true
+        }
+      ]
+    },
+    {
+      "id": "npc-name-7",
+      "input": "夏洛特·科黛：头像匹配。",
+      "output": "<div data-rkd=\"bubble\" data-rkd-name=\"夏洛特·科黛\" data-rkd-player=\"\"><span data-rkd-avatar aria-hidden=\"true\"></span><div data-rkd-body><span data-rkd-speaker>夏洛特·科黛</span><div data-rkd-line>头像匹配。</div></div></div>",
+      "expected": "<div data-rkd=\"bubble\" data-rkd-name=\"夏洛特·科黛\" data-rkd-player=\"\"><span data-rkd-avatar aria-hidden=\"true\"></span><div data-rkd-body><span data-rkd-speaker>夏洛特·科黛</span><div data-rkd-line>头像匹配。</div></div></div>",
+      "pass": true,
+      "stages": [
+        {
+          "ruleId": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "eligible": true,
+          "dialect": "card",
+          "stages": [
+            {
+              "stage": "enabled",
+              "pass": true
+            },
+            {
+              "stage": "placement",
+              "pass": true,
+              "expected": 2
+            },
+            {
+              "stage": "destination",
+              "pass": true,
+              "expected": "display"
+            },
+            {
+              "stage": "depth",
+              "pass": true,
+              "tested": true,
+              "expected": 0
+            }
+          ],
+          "input": "夏洛特·科黛：头像匹配。",
+          "output": "<div data-rkd=\"bubble\" data-rkd-name=\"夏洛特·科黛\" data-rkd-player=\"\"><span data-rkd-avatar aria-hidden=\"true\"></span><div data-rkd-body><span data-rkd-speaker>夏洛特·科黛</span><div data-rkd-line>头像匹配。</div></div></div>",
+          "applied": true
+        }
+      ]
+    },
+    {
+      "id": "npc-name-8",
+      "input": "Charlotte Cordé：头像匹配。",
+      "output": "<div data-rkd=\"bubble\" data-rkd-name=\"Charlotte Cordé\" data-rkd-player=\"\"><span data-rkd-avatar aria-hidden=\"true\"></span><div data-rkd-body><span data-rkd-speaker>Charlotte Cordé</span><div data-rkd-line>头像匹配。</div></div></div>",
+      "expected": "<div data-rkd=\"bubble\" data-rkd-name=\"Charlotte Cordé\" data-rkd-player=\"\"><span data-rkd-avatar aria-hidden=\"true\"></span><div data-rkd-body><span data-rkd-speaker>Charlotte Cordé</span><div data-rkd-line>头像匹配。</div></div></div>",
+      "pass": true,
+      "stages": [
+        {
+          "ruleId": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "eligible": true,
+          "dialect": "card",
+          "stages": [
+            {
+              "stage": "enabled",
+              "pass": true
+            },
+            {
+              "stage": "placement",
+              "pass": true,
+              "expected": 2
+            },
+            {
+              "stage": "destination",
+              "pass": true,
+              "expected": "display"
+            },
+            {
+              "stage": "depth",
+              "pass": true,
+              "tested": true,
+              "expected": 0
+            }
+          ],
+          "input": "Charlotte Cordé：头像匹配。",
+          "output": "<div data-rkd=\"bubble\" data-rkd-name=\"Charlotte Cordé\" data-rkd-player=\"\"><span data-rkd-avatar aria-hidden=\"true\"></span><div data-rkd-body><span data-rkd-speaker>Charlotte Cordé</span><div data-rkd-line>头像匹配。</div></div></div>",
+          "applied": true
+        }
+      ]
+    },
+    {
+      "id": "npc-name-9",
+      "input": "Charlotte Corde：头像匹配。",
+      "output": "<div data-rkd=\"bubble\" data-rkd-name=\"Charlotte Corde\" data-rkd-player=\"\"><span data-rkd-avatar aria-hidden=\"true\"></span><div data-rkd-body><span data-rkd-speaker>Charlotte Corde</span><div data-rkd-line>头像匹配。</div></div></div>",
+      "expected": "<div data-rkd=\"bubble\" data-rkd-name=\"Charlotte Corde\" data-rkd-player=\"\"><span data-rkd-avatar aria-hidden=\"true\"></span><div data-rkd-body><span data-rkd-speaker>Charlotte Corde</span><div data-rkd-line>头像匹配。</div></div></div>",
+      "pass": true,
+      "stages": [
+        {
+          "ruleId": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "eligible": true,
+          "dialect": "card",
+          "stages": [
+            {
+              "stage": "enabled",
+              "pass": true
+            },
+            {
+              "stage": "placement",
+              "pass": true,
+              "expected": 2
+            },
+            {
+              "stage": "destination",
+              "pass": true,
+              "expected": "display"
+            },
+            {
+              "stage": "depth",
+              "pass": true,
+              "tested": true,
+              "expected": 0
+            }
+          ],
+          "input": "Charlotte Corde：头像匹配。",
+          "output": "<div data-rkd=\"bubble\" data-rkd-name=\"Charlotte Corde\" data-rkd-player=\"\"><span data-rkd-avatar aria-hidden=\"true\"></span><div data-rkd-body><span data-rkd-speaker>Charlotte Corde</span><div data-rkd-line>头像匹配。</div></div></div>",
+          "applied": true
+        }
+      ]
+    },
+    {
+      "id": "prompt-remains-source",
+      "input": "风祭：头像匹配。",
+      "output": "风祭：头像匹配。",
+      "expected": "风祭：头像匹配。",
+      "pass": true,
+      "stages": [
+        {
+          "ruleId": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "eligible": false,
+          "dialect": "card",
+          "stages": [
+            {
+              "stage": "enabled",
+              "pass": true
+            },
+            {
+              "stage": "placement",
+              "pass": true,
+              "expected": 2
+            },
+            {
+              "stage": "destination",
+              "pass": false,
+              "expected": "prompt"
+            }
+          ],
+          "input": "风祭：头像匹配。",
+          "output": "风祭：头像匹配。",
+          "applied": false
+        }
+      ]
+    },
+    {
+      "id": "other-placement-remains-source",
+      "input": "夏洛特：头像匹配。",
+      "output": "夏洛特：头像匹配。",
+      "expected": "夏洛特：头像匹配。",
+      "pass": true,
+      "stages": [
+        {
+          "ruleId": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "eligible": false,
+          "dialect": "card",
+          "stages": [
+            {
+              "stage": "enabled",
+              "pass": true
+            },
+            {
+              "stage": "placement",
+              "pass": false,
+              "expected": 1
+            }
+          ],
+          "input": "夏洛特：头像匹配。",
+          "output": "夏洛特：头像匹配。",
+          "applied": false
+        }
+      ]
+    },
+    {
+      "id": "fenced-code-remains-source",
+      "input": "```\n夏洛特：头像匹配。\n```",
+      "output": "```\n夏洛特：头像匹配。\n```",
+      "expected": "```\n夏洛特：头像匹配。\n```",
+      "pass": true,
+      "stages": [
+        {
+          "ruleId": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "eligible": true,
+          "dialect": "card",
+          "stages": [
+            {
+              "stage": "enabled",
+              "pass": true
+            },
+            {
+              "stage": "placement",
+              "pass": true,
+              "expected": 2
+            },
+            {
+              "stage": "destination",
+              "pass": true,
+              "expected": "display"
+            },
+            {
+              "stage": "depth",
+              "pass": true,
+              "tested": true,
+              "expected": 0
+            }
+          ],
+          "input": "```\n夏洛特：头像匹配。\n```",
+          "output": "```\n夏洛特：头像匹配。\n```",
+          "applied": false
+        }
+      ]
+    }
+  ]
+}

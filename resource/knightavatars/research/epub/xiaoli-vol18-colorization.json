@@ -104,7 +104,16 @@
     ]
   },
   "consumption": {
-    "status": "saved-standalone-variant",
-    "note": "新增第18卷上色素材，沒有覆寫第12卷上色、盾形頭像、圖床URL或人物正典詞條。"
+    "status": "active-avatar-variant",
+    "manifest": "resource/knightavatars/manifest.json#xiaoli",
+    "displayFile": "resource/knightavatars/prepared/xiaoli.png",
+    "previousVariant": {
+      "original": "resource/knightavatars/novel/xiaoli-original.jpg",
+      "colorized": "resource/knightavatars/color/xiaoli-colorized.png",
+      "shield": "resource/knightavatars/research/review/xiaoli-vol12-shield-preserved.png"
+    },
+    "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/xiaoli.png",
+    "imageHostStatus": "configured-existing-url",
+    "note": "按用户“manifest老位置”接回同一 xiaoli 身份，原第12卷资料与第18卷本地头像保留。按用户后续要求沿用原图床 URL，终端直接使用该地址；恢复地址不代表第18卷新版已上传，远端新版尚未核验。"
   }
 }

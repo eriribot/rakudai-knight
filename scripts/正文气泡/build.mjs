@@ -96,7 +96,7 @@ function previewPage(rules) {
   const escapeHtml = value => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   // Exact generated rules; only asset addresses are mapped to the same local images
   // for the portable preview. The import artifacts retain the configured HTTPS URLs.
-  let demo = applyRules('放学后的走廊渐渐安静下来。\n\n史黛菈:别误会，我只是顺路。\n一辉:那就一起走吧。\n\n窗外落下一阵细雨，珠雫停在楼梯口。\n\n珠雫：哥哥，伞在这里。\n东堂刀华:训练可以等雨停再开始。路面很滑，走慢一点。\n\n两人对视一眼，谁也没有先接过那把伞。', rules);
+  let demo = applyRules('放学后的走廊渐渐安静下来。\n\n史黛菈:别误会，我只是顺路。\n一辉:那就一起走吧。\n\n窗外落下一阵细雨，珠雫停在楼梯口。\n\n珠雫：哥哥，伞在这里。\n东堂刀华:训练可以等雨停再开始。路面很滑，走慢一点。\n\n两人对视一眼，谁也没有先接过那把伞。\n\n风祭：夏洛特，准备好了就出发吧。\n夏洛特·科黛:是，大小姐。', rules);
   for (const item of readManifest().characters) {
     if (item.imageUrl) demo = demo.split(item.imageUrl).join('../../../resource/knightavatars/' + (item.displayFile || item.file));
   }

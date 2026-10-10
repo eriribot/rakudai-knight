@@ -1,0 +1,222 @@
+{
+  "characters": [
+    {
+      "id": "ikki",
+      "file": "ikki.png",
+      "sourceSha256": "c1aa07045f00041d0602657929990df12bfe5f0e211b90e5b0c6bb3f97c9bc7a",
+      "displayFile": "ikki.png",
+      "displaySha256": "c1aa07045f00041d0602657929990df12bfe5f0e211b90e5b0c6bb3f97c9bc7a"
+    },
+    {
+      "id": "stella",
+      "file": "stella.png",
+      "sourceSha256": "22e0a4ddd11c110e44f551e1e7094e110a333973ee22b2cb5108325f5cc3d38a",
+      "displayFile": "stella.png",
+      "displaySha256": "22e0a4ddd11c110e44f551e1e7094e110a333973ee22b2cb5108325f5cc3d38a"
+    },
+    {
+      "id": "shizuku",
+      "file": "shizuku.png",
+      "sourceSha256": "76cd763eb54496c8a8d7e9bc8342c443e56be5a7887582e280a61ed164c7e8c6",
+      "displayFile": "shizuku.png",
+      "displaySha256": "76cd763eb54496c8a8d7e9bc8342c443e56be5a7887582e280a61ed164c7e8c6"
+    },
+    {
+      "id": "ayase",
+      "file": "ayase.png",
+      "sourceSha256": "05d897307eae2cf1e9b68afa45e924717d825b505128758a8fa037ecdb645142",
+      "displayFile": "ayase.png",
+      "displaySha256": "05d897307eae2cf1e9b68afa45e924717d825b505128758a8fa037ecdb645142"
+    },
+    {
+      "id": "toka",
+      "file": "toka.png",
+      "sourceSha256": "186250c240708672366657fdf59bd417f0ffe130a332c11d436367cd22245463",
+      "displayFile": "toka.png",
+      "displaySha256": "186250c240708672366657fdf59bd417f0ffe130a332c11d436367cd22245463"
+    },
+    {
+      "id": "itsuki",
+      "file": "itsuki.png",
+      "sourceSha256": "7022e2738e4f6a317be972e95da5f103f2e9f226f2e4f9e95ae400bdaf64298c",
+      "displayFile": "itsuki.png",
+      "displaySha256": "7022e2738e4f6a317be972e95da5f103f2e9f226f2e4f9e95ae400bdaf64298c"
+    },
+    {
+      "id": "ouma",
+      "file": "ouma.png",
+      "sourceSha256": "a6be886848dd32be84c17e1fb83ade6e6a6933d6a17ecd992251e3d2a9500e57",
+      "displayFile": "ouma.png",
+      "displaySha256": "a6be886848dd32be84c17e1fb83ade6e6a6933d6a17ecd992251e3d2a9500e57"
+    },
+    {
+      "id": "edelweiss",
+      "file": "edelweiss.png",
+      "sourceSha256": "3eecdd710e24eac22820c725f2305370b028dd0a993d0cd8cad88822d35a8b54",
+      "displayFile": "edelweiss.png",
+      "displaySha256": "3eecdd710e24eac22820c725f2305370b028dd0a993d0cd8cad88822d35a8b54"
+    },
+    {
+      "id": "yuudai",
+      "file": "yuudai.png",
+      "sourceSha256": "48ecaae18cbbf038b6a5bdf483ad31742557dc482804cf919d0151ab9b0865ae",
+      "displayFile": "yuudai.png",
+      "displaySha256": "48ecaae18cbbf038b6a5bdf483ad31742557dc482804cf919d0151ab9b0865ae"
+    },
+    {
+      "id": "nagi",
+      "file": "nagi.png",
+      "sourceSha256": "38b2d0097ce6fcfc873be87403241b5e6fb29ad4a3b583633d12fe8e5f04a084",
+      "displayFile": "prepared/nagi.png",
+      "displaySha256": "d0941a3057192ac42689b48dad91a1e565164a8877e96071dc994a07181be5fd"
+    },
+    {
+      "id": "kirihara",
+      "file": "kirihara.png",
+      "sourceSha256": "d0b83a6c8da72f93e59185ecb149d45535cec423ea888335a1c0a70fbf2f88b2",
+      "displayFile": "prepared/kirihara.png",
+      "displaySha256": "8ab36d2b14f90ff1944a6bb5920ef4f4c3451aa1991f9f0b480d6a9819a2718d"
+    },
+    {
+      "id": "kuraudo",
+      "file": "kuraudo.png",
+      "sourceSha256": "7a9614a7cc9f96a77b593111b4afe1415166cb13949303fcb7ab4642109b5a46",
+      "displayFile": "prepared/kuraudo.png",
+      "displaySha256": "b0a9adff8ca91165bc10c10690d3093a9b37c5fe892611751b34279bcbfb0b90"
+    },
+    {
+      "id": "renren",
+      "file": "renren.png",
+      "sourceSha256": "bd6e3cf79c49c4ba727d99b15b474093a4b59a46a21dfe1371c8f6d835fbdfa8",
+      "displayFile": "prepared/renren.png",
+      "displaySha256": "4036aeca55a4d6482dee15cfe07be7c0b1db5b0ed859ef9956ed046075c067f3"
+    },
+    {
+      "id": "misogi",
+      "file": "misogi.png",
+      "sourceSha256": "7d44d9cac526cd240df3a796da92b33dd4df609264c1af19fe0ea5cfdc2a2dd9",
+      "displayFile": "prepared/misogi.png",
+      "displaySha256": "c089284134efc40f4c73e764c1227cde08f8b83d8569c0f7b08806347593d091"
+    },
+    {
+      "id": "kanata",
+      "file": "kanata.png",
+      "sourceSha256": "74098af66c42931ad749b24aa6609c2fae4c4c3942b72ad5cbc555ec8cd84f3d",
+      "displayFile": "prepared/kanata.png",
+      "displaySha256": "4eaa2086607fe091f09a87a493199257e0f25b7c0e3820899b2dcdb83c0d68cf"
+    },
+    {
+      "id": "nene",
+      "file": "nene.jpg",
+      "sourceSha256": "3d244e0535205ca75e57a73a946f665e9da88bd15c1e4f852fa130e116faafdf",
+      "displayFile": "prepared/nene.png",
+      "displaySha256": "b50ffc1deef39c0760c5bb75be8b086eb110ffc235344e35dc5d4898449af775"
+    },
+    {
+      "id": "kurono",
+      "file": "kurono.jpg",
+      "sourceSha256": "8e2c35bfa606a3cd5f69601530e1bd600d55f3b68add2650c384ad9df11c5999",
+      "displayFile": "prepared/kurono.png",
+      "displaySha256": "ad28a366fa0686f5a1669e1dff3d375b15fbc4df42561515b8a997bef6cbc197"
+    },
+    {
+      "id": "yuri",
+      "file": "yuri.jpg",
+      "sourceSha256": "66b106f61567a9e8c6bb16df8301909a5b284bd65db0842ff9c744f7cd7239c1",
+      "displayFile": "prepared/yuri.png",
+      "displaySha256": "1dc9497f5bcad73cacd0b819fc04d38e5e0f357e58c53916bb2505decdfb8722"
+    },
+    {
+      "id": "iris",
+      "file": "novel/iris.jpg",
+      "sourceSha256": "62596a7bd0668571cb1f43faa364ac089ed73edc7ebe7ec91e5c289f28bcd867",
+      "displayFile": "prepared/iris.png",
+      "displaySha256": "2f95d92246215fa80da423ffb5010c2aefc8d9364febb874ce9c881396cf2c5a"
+    },
+    {
+      "id": "uri",
+      "file": "novel/uri.jpg",
+      "sourceSha256": "75cf138d6b93c6c596ec1eb9286d602f86124601262554198d32bb15199580b6",
+      "displayFile": "prepared/uri.png",
+      "displaySha256": "b08f9dd4aba68f142f84cfc1ccc6975afacd8a70b77a2c5b6fb6a2a3a4ec5264"
+    },
+    {
+      "id": "or_gaule",
+      "file": "novel/or-gaule-wallenstein.jpg",
+      "sourceSha256": "75dc1db0adbf947d526b92d4ef98c3962f79a68bbd381f08d2c952315a31edb9",
+      "displayFile": "prepared/or_gaule.png",
+      "displaySha256": "0f52c5a403b298aa839e7cfe10a840660290e46c7125fdc88ba67286c69990fb"
+    },
+    {
+      "id": "wallenstein",
+      "file": "novel/or-gaule-wallenstein.jpg",
+      "sourceSha256": "75dc1db0adbf947d526b92d4ef98c3962f79a68bbd381f08d2c952315a31edb9",
+      "displayFile": "prepared/wallenstein.png",
+      "displaySha256": "4643fedc2492738e314f9da9674d8802aec291353b9b331509f6afee8e262938"
+    },
+    {
+      "id": "kiriko",
+      "file": "novel/kiriko.jpg",
+      "sourceSha256": "2ae42c80bff67c163408cf2773437aad3b70ffd5da3f7fbd7a814452838bd344",
+      "displayFile": "prepared/kiriko.png",
+      "displaySha256": "94a54c1f4a57a5bc669abbca6f196416a955b61c895ec26daa1458ecb47abcf2"
+    },
+    {
+      "id": "sara",
+      "file": "novel/sara.jpg",
+      "sourceSha256": "b82d80e24674d1509072e01e4ca77eebfefb65c2aec482eab15ab6d872972cf1",
+      "displayFile": "prepared/sara.png",
+      "displaySha256": "740ce910c5fc988f7ea399e61b81b20c88c71ecbab774eb67b060e1d501e99f0"
+    },
+    {
+      "id": "rinna",
+      "file": "novel/rinna-original.jpg",
+      "sourceSha256": "a4d646adeb9caa9d328173fe7dc2aa3ccfc59e31338bfb1199d5409c26072355",
+      "displayFile": "prepared/rinna.png",
+      "displaySha256": "9928336c35311d38bc1f719351ca963cdff50ce426da03d037087f4dd5841c91"
+    },
+    {
+      "id": "ein",
+      "file": "novel/ein.jpg",
+      "sourceSha256": "05cbc99c5aa0fc168fb978c77242de943fa7ab43207f6376f00ebf0f56a908f9",
+      "displayFile": "prepared/ein.png",
+      "displaySha256": "819d3b90f199592824badef5c76374a6ec31bc1c8427a433f822c92a5deb5feb"
+    },
+    {
+      "id": "rai",
+      "file": "novel/rai-original.jpg",
+      "sourceSha256": "522938ed04fd940dc5d2c6465b4f377b527736a8b4df7418e26954301b6908ef",
+      "displayFile": "prepared/rai.png",
+      "displaySha256": "92c08ec2f9141c50c7b68f926b30b349dc545c9611a3f83931cb55727bee13a2"
+    },
+    {
+      "id": "momiji",
+      "file": "novel/byakuya-momiji.jpg",
+      "sourceSha256": "8eb2923f55025f48385de5dd4afe20de9b9311dbebc26e00b042e84e357d9652",
+      "displayFile": "prepared/momiji.png",
+      "displaySha256": "5009e697eab88be6df154dedd51a97844f91efa94bb8119d95866eb5fe4f4651"
+    },
+    {
+      "id": "byakuya",
+      "file": "novel/byakuya-momiji.jpg",
+      "sourceSha256": "8eb2923f55025f48385de5dd4afe20de9b9311dbebc26e00b042e84e357d9652",
+      "displayFile": "prepared/byakuya.png",
+      "displaySha256": "9ee21ae7e0114a11b3dbd8ea73ee5ac1fffd51ce46f6e21647d2af407dc11244"
+    },
+    {
+      "id": "mikoto",
+      "file": "research/user-supplied/mikoto-profile-screenshot.png",
+      "sourceSha256": "2c3f93e72e8fbdf40f6e90819710888f10a7b7631fa52e84f36b36d0b10fcf75",
+      "displayFile": "prepared/mikoto.png",
+      "displaySha256": "b5492b71cefe1ff9864d624920fd9c71d70d14c3bf70f2e4aea207da9dcde1f8"
+    },
+    {
+      "id": "xiaoli",
+      "file": "novel/xiaoli-original.jpg",
+      "sourceSha256": "d5e1b37955a7991df069c8a257e2aaea22acfb5b75b2151dc5ac817740e1b634",
+      "displayFile": "prepared/xiaoli.png",
+      "displaySha256": "5f3c93fd459017ec6d0c3b3ab376eafa581cde16e341118e3a85d03289e87548"
+    }
+  ],
+  "shieldSha256": "022c0636808ed39c5804a24c3f90335867d8ca99c2d6d701f8f6c0b7b4caae99"
+}

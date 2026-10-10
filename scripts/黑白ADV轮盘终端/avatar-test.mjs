@@ -96,13 +96,14 @@ check('已补入小说头像集合的姓名对应独立完整 PNG，保留来源
   const characters = [
     ['kiriko', ['药师雾子', '藥師霧子']],
     ['sara', ['莎拉·布拉德莉莉']],
-    ['rinna', ['风祭凛奈', '風祭凜奈', '風祭凛奈', '风祭凜奈']],
+    ['rinna', ['风祭凛奈', '風祭凜奈', '風祭凛奈', '风祭凜奈', '凛奈', '凜奈', 'Rinna Kazamatsuri']],
     ['ein', ['艾茵·阿伯伦特', '艾茵·阿伯倫特']],
     ['rai', ['碎城雷']],
     ['momiji', ['浅木椛', '淺木椛', '浅桦', '淺樺']],
     ['byakuya', ['城之崎白夜']],
     ['mikoto', ['鹤屋美琴', '鶴屋美琴', 'Mikoto Tsuruya']],
     ['xiaoli', ['福小莉', 'Fu Xiaoli', 'Xiaoli Fu']],
+    ['charlotte', ['夏洛特', '夏洛特·科黛', '夏洛特・科黛', '夏洛特•科黛', 'Charlotte Cordé', 'Charlotte Corde']],
   ];
   const files = new Set(), sources = new Set();
   for (const [id, names] of characters) {

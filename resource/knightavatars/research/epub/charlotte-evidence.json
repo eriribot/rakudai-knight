@@ -1,0 +1,188 @@
+{
+  "schemaVersion": 1,
+  "id": "charlotte",
+  "name": "夏洛特·科黛",
+  "aliases": [
+    "夏洛特・科黛",
+    "夏洛特•科黛",
+    "夏洛特",
+    "夏尔",
+    "夏爾",
+    "Charlotte Cordé",
+    "Charlotte Corde",
+    "シャルロット・コルデー"
+  ],
+  "nameEvidence": {
+    "chinese": {
+      "volume": 5,
+      "xhtml": "OEBPS/Text/Chapter001.xhtml",
+      "line": 427,
+      "excerpt": "我名为夏洛特•科黛，是大小姐专属的女仆"
+    },
+    "english": {
+      "source": "https://rakudai-kishi.fandom.com/wiki/Charlotte_Cord%C3%A9",
+      "status": "verified-community-wiki-name-not-confirmed-official-english-profile",
+      "name": "Charlotte Cordé",
+      "note": "勿与Fate或历史人物Charlotte Corday混用。Corde为去音标检索别名。"
+    },
+    "japanese": {
+      "source": "https://rakudai-kishi.fandom.com/wiki/Charlotte_Cord%C3%A9",
+      "status": "community-wiki-kana",
+      "name": "シャルロット・コルデー"
+    }
+  },
+  "preferredSource": {
+    "volume": 5,
+    "sourceEpub": "39688/[台版]落第骑士英雄谭 05.epub",
+    "imageMember": "OEBPS/Images/007.jpg",
+    "file": "novel/charlotte-original.jpg",
+    "imageColorStatus": "original-monochrome",
+    "width": 700,
+    "height": 1000,
+    "sha256": "a4d646adeb9caa9d328173fe7dc2aa3ccfc59e31338bfb1199d5409c26072355",
+    "zipBytesPreserved": true,
+    "imageIdentityNote": "左上正脸黑白女仆为夏洛特，右下眼罩礼服少女为凛奈。插图紧接第一章418行女仆描写及427行自我介绍。",
+    "colorizationTarget": {
+      "file": "research/epub/charlotte-colorization-target.png",
+      "crop": [
+        42,
+        0,
+        397,
+        505
+      ],
+      "width": 355,
+      "height": 505,
+      "note": "仅裁切，不重绘；顶部头发边界来自原书图片。",
+      "sha256": "3fdf1d394fdb4d66a1e8e0bb3b0659edfa4e1950d671e14ec39073d310b9aea2"
+    }
+  },
+  "colorReference": {
+    "volume": 6,
+    "sourceEpub": "39688/[台版]落第骑士英雄谭 06.epub",
+    "imageMember": "OEBPS/Images/003.jpg",
+    "file": "novel/charlotte-vol06-color-original.jpg",
+    "imageColorStatus": "original-color",
+    "width": 2353,
+    "height": 1654,
+    "sha256": "873a03030c8b049b73847dac6dd73fff57c0b7ef5446a3c4000e4187de160921",
+    "zipBytesPreserved": true,
+    "imageIdentityNote": "左侧施展千瓣楯花的绿色长发、紫瞳、黑白女仆装人物为夏洛特；右侧为史黛菈。该场景由第6卷第一章具名战斗正文与彩图印字招式对应核实，不是药师雾子。",
+    "tier": "official-novel-color-illustration",
+    "observedColors": [
+      "绿色长发，灰绿/青绿阴影",
+      "紫色可见虹膜",
+      "黑色女仆装主体与白色领口、袖口、围裙",
+      "领结可见深紫红色区域"
+    ],
+    "limitations": "以上为官方彩图可观察颜色，不声称正文另有发色、瞳色明文。桃色护盾辉光影响衣装局部色温；第5卷格纹领结结构要保留，格纹具体颜色未有直接正面彩图核实。",
+    "colorizationReference": {
+      "file": "research/epub/charlotte-color-reference.png",
+      "crop": [
+        540,
+        440,
+        1080,
+        1020
+      ],
+      "width": 540,
+      "height": 580,
+      "note": "只裁切，用于发色、眼色、黑白衣料基调参考，不复制战斗姿势、表情、遮挡或护盾。",
+      "sha256": "23a24bc8cffb2ad40bae0b0c15f0e6732c780b7f354f12ac81b8a6ef35a2888a"
+    }
+  },
+  "evidence": [
+    {
+      "volume": 5,
+      "xhtml": "OEBPS/Text/Chapter001.xhtml",
+      "line": 418,
+      "excerpt": "少女的身后则是一位女仆。",
+      "supports": "第5卷图中的女仆与凛奈同框"
+    },
+    {
+      "volume": 5,
+      "xhtml": "OEBPS/Text/Chapter001.xhtml",
+      "line": 427,
+      "excerpt": "我名为夏洛特•科黛，是大小姐专属的女仆",
+      "supports": "身份具名"
+    },
+    {
+      "volume": 5,
+      "xhtml": "OEBPS/Text/Chapter001.xhtml",
+      "line": 431,
+      "excerpt": "而夏洛特只是仆人，既非代表生，更不是伐刀者。",
+      "supports": "不得把她标作学园代表学生骑士"
+    },
+    {
+      "volume": 6,
+      "xhtml": "OEBPS/Text/Chapter001.xhtml",
+      "line": 536,
+      "excerpt": "身穿围裙的少女——夏洛特•科黛介入风祭与史黛菈两人之间",
+      "supports": "女仆装与战斗双方对应"
+    },
+    {
+      "volume": 6,
+      "xhtml": "OEBPS/Text/Chapter001.xhtml",
+      "line": 810,
+      "excerpt": "夏洛特宛如铜墙铁壁般的护盾，以及史黛菈选手手中最强的伐刀绝技",
+      "supports": "彩图的盾与炎剑对冲场景"
+    },
+    {
+      "volume": 6,
+      "xhtml": "OEBPS/Text/Chapter001.xhtml",
+      "line": 834,
+      "excerpt": "漆黑右臂——夏洛特•科黛。你是我的剑、我的盾",
+      "supports": "护盾持有者具名"
+    },
+    {
+      "volume": 6,
+      "xhtml": "OEBPS/Text/Chapter001.xhtml",
+      "line": 841,
+      "excerpt": "她的〈千瓣楯花〉终于将〈红莲皇女〉的〈燃天焚地龙王炎〉反弹回去了。",
+      "supports": "彩图印字招式与具名正文一致"
+    },
+    {
+      "volume": 18,
+      "xhtml": "OEBPS/Text/chapter1.xhtml",
+      "line": 693,
+      "excerpt": "是夏洛特・科黛。",
+      "supports": "第18卷冬装右侧人物身份"
+    },
+    {
+      "volume": 18,
+      "xhtml": "OEBPS/Text/chapter1.xhtml",
+      "line": 756,
+      "excerpt": "他脱下破旧外套，为夏洛特披上",
+      "supports": "冬装为该求援场景服装"
+    }
+  ],
+  "alternativeImageCandidates": [
+    {
+      "volume": 18,
+      "sourceEpub": "39688/落第骑士英雄谭 - 18.epub",
+      "imageMember": "OEBPS/Images/190220.jpg",
+      "file": "novel/charlotte-vol18-original.jpg",
+      "imageColorStatus": "original-monochrome",
+      "width": 1120,
+      "height": 1600,
+      "sha256": "b4385d0f6963fac880ba9824df35b95ac1c7f3c0401fce186772e2baea483a49",
+      "zipBytesPreserved": true,
+      "note": "右侧冬装夏洛特求援王马，具名正文693行；备用。"
+    },
+    {
+      "volume": 10,
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 10.epub",
+      "imageMember": "OEBPS/Images/004.jpg",
+      "imageColorStatus": "original-color",
+      "note": "浴场群像中绿色长发紫瞳夏洛特可作颜色补充，本次未选择浴场服装作头像。"
+    }
+  ],
+  "reuseLimits": [
+    "novel/rinna-colorized.png为单人凛奈裁片，没有夏洛特的脸，不能切出她的头像。",
+    "官方彩图为绿色长发与紫瞳，不使用缺少证据的银发、黑发或蓝瞳。",
+    "所有原图保持EPUB ZIP成员字节，裁片与AI上色另存。"
+  ],
+  "onlineCorroboration": {
+    "info": "https://rakudai-kishi.fandom.com/wiki/Charlotte_Cord%C3%A9",
+    "gallery": "https://rakudai-kishi.fandom.com/wiki/Charlotte_Cord%C3%A9/Image_Gallery",
+    "note": "百科列绿发紫瞳，与第6卷本地官方彩页一致。英文与日文名为百科检索别名，未声称官方英文PROFILE证据。"
+  }
+}
