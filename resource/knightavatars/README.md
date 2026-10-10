@@ -95,7 +95,7 @@
 
 凛奈使用内置 imagegen 上色：[novel/rinna-original.jpg](./novel/rinna-original.jpg) 保留第5卷黑白原档，[novel/rinna-colorized.png](./novel/rinna-colorized.png) 是编辑结果。淡粉红发与红褐眼色参考第18卷具名场景的头脸裁片，深红礼服依据第5卷正文；蝴蝶结深红属于本次上色选择。清单标明 `ai-colorized-derivative`，不视为官方原生彩图。[上色记录](./research/epub/rinna-colorization.json) 保存完整提示词、输入来源、输出尺寸和哈希。
 
-凛奈沿用上述头像，完整姓名的简繁组合与 `凛奈／凜奈` 短名均匹配 `rinna`。夏洛特以 `charlotte` 为独立 ID，正式台版姓名为 `夏洛特·科黛`，短名 `夏洛特` 与已核实英文 `Charlotte Cordé／Charlotte Corde` 都可识别。[novel/charlotte-original.jpg](./novel/charlotte-original.jpg) 保留第5卷与凛奈同幅的原始插图，但只从其中的夏洛特正面女仆区域上色；绿发、紫瞳与黑白女仆装依据第6卷官方彩页，紫红格纹蝴蝶结为衍生选色。[color/charlotte-colorized.png](./color/charlotte-colorized.png) 是内置 imagegen 上色结果，[上色记录](./research/epub/charlotte-colorization.json) 与 [身份核验](./research/epub/charlotte-evidence.json) 分别记录颜色和原文依据。上传图床使用 [prepared/charlotte.png](./prepared/charlotte.png)，当前 `imageUrl` 留空以内联新图，上传后将 `imageHostStatus.intendedUrl` 填回 `imageUrl`。
+凛奈沿用上述头像，完整姓名的简繁组合与 `凛奈／凜奈` 短名均匹配 `rinna`。夏洛特以 `charlotte` 为独立 ID，正式台版姓名为 `夏洛特·科黛`，短名 `夏洛特` 与已核实英文 `Charlotte Cordé／Charlotte Corde` 都可识别。[novel/charlotte-original.jpg](./novel/charlotte-original.jpg) 保留第5卷与凛奈同幅的原始插图，但只从其中的夏洛特正面女仆区域上色；绿发、紫瞳与黑白女仆装依据第6卷官方彩页，紫红格纹蝴蝶结为衍生选色。[color/charlotte-colorized.png](./color/charlotte-colorized.png) 是内置 imagegen 上色结果，[上色记录](./research/epub/charlotte-colorization.json) 与 [身份核验](./research/epub/charlotte-evidence.json) 分别记录颜色和原文依据。图床使用完整盾形 [prepared/charlotte.png](./prepared/charlotte.png)，当前 `imageUrl` 已填写[夏洛特图床地址](https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/charlotte.png)。凛奈与夏洛特的图床图片均返回 HTTP 200，尺寸为 434×580，SHA-256 与本地文件一致，见[核验记录](./research/github-pages/rinna-charlotte-verification.json)。
 
 碎城雷按用户要求使用小说线稿人物、动画配色，以内置 imagegen 上色。[novel/rai-original.jpg](./novel/rai-original.jpg) 是完整第9卷黑白原档，[novel/rai-original.png](./novel/rai-original.png) 是用户提供的原byte头像裁片，[novel/rai-colorized.png](./novel/rai-colorized.png) 是上色结果；三者分别记录SHA。[上色记录](./research/epub/rai-colorization.json) 保存完整提示词、动画截图配色参考和来源，不把生成图标成官方原生彩图。原小说制服的黑滚边与结构保留，没有增添动画截图的棕襟结构。
 
@@ -105,7 +105,7 @@
 
 福小莉的本地头像已从第12卷囚衣版换为第18卷中华服版，继续使用同一个 `xiaoli` ID 与 [prepared/xiaoli.png](./prepared/xiaoli.png)，不登记第二个人物。[novel/xiaoli-vol18-original.jpg](./novel/xiaoli-vol18-original.jpg) 保留第18卷 `OEBPS/Images/190226.jpg` 原始位元组；[color/xiaoli-vol18-colorized.png](./color/xiaoli-vol18-colorized.png) 是已保存的内置 imagegen 上色衍生图，头像裁切先校正眼线。黑长发与较深肤色依据第18卷正文，延续上一版的自然暖棕色阶；双圆形金钱饰片按用户指定使用金色。象牙白中华服、克制金色纹饰与深棕瞳色属于本次上色选择，未标成官方彩页。[第18卷上色记录](./research/epub/xiaoli-vol18-colorization.json) 保存完整提示词、原始来源与哈希。旧第12卷原图、用户图片、上色图和 [原上色记录](./research/epub/xiaoli-colorization.json) 继续保留。按用户要求，`imageUrl` 继续沿用原图床地址 `https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/xiaoli.png`，终端直接使用该地址。恢复地址不代表第18卷新版已上传，远端是否为新版尚未核验。
 
-目前共有 **32个人物头像 + 1张共用盾框，共33个图床文件**：九张原版盾形 PNG 与二十三张 `prepared/` PNG。凛奈保留原头像并补齐简繁短名；夏洛特新增独立头像，当前 `imageUrl` 留空以使用本地内联，等待上传。小莉在旧位置保留第18卷本地版，并继续使用原图床地址。研究联系表、小说原彩图、旧徽章、扫描索引不作为终端图床头像上传。
+目前共有 **32个人物头像 + 1张共用盾框，共33个图床文件**：九张原版盾形 PNG 与二十三张 `prepared/` PNG。凛奈保留原头像并补齐简繁短名；夏洛特新增独立头像，两人均使用已核验且与本地文件一致的图床图片。小莉在旧位置保留第18卷本地版，并继续使用原图床地址。研究联系表、小说原彩图、旧徽章、扫描索引不作为终端图床头像上传。
 
 有栖院凪的 Alice 与后期 Iris 均曾被译作“艾莉丝”。裸 `艾莉丝／艾莉絲` 不绑定人物图片，保留姓名首字；请使用 `有栖院凪`、`有栖院艾莉丝` 或 `艾莉丝·阿斯卡里德`、`艾莉丝·格尔`、完整三段姓名。`Alice`、`爱丽丝／愛麗絲` 仍绑定凪；`Iris Ascarid`、`Iris Gaule` 绑定后期艾莉丝。裸 `黑骑士／黑騎士` 同样不作姓名替代，可使用 `黑骑士艾莉丝`。这里只消歧头像，原有聊天人物名不会被自动改写。
 

@@ -1318,11 +1318,12 @@
       "width": 700,
       "height": 1000,
       "sha256": "a4d646adeb9caa9d328173fe7dc2aa3ccfc59e31338bfb1199d5409c26072355",
-      "imageUrl": "",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/charlotte.png",
       "imageHostStatus": {
-        "status": "pending-upload-new-portrait",
-        "intendedUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/charlotte.png",
-        "note": "上传 prepared/charlotte.png 后将此地址填入 imageUrl；当前内联本地头像。"
+        "status": "verified-matching-local",
+        "url": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/charlotte.png",
+        "verification": "research/github-pages/rinna-charlotte-verification.json",
+        "note": "图床返回有效 PNG，字节与 prepared/charlotte.png 完全一致；终端与气泡使用 imageUrl。"
       },
       "identityEvidence": "research/epub/charlotte-evidence.json",
       "colorization": {

@@ -35,18 +35,19 @@
     },
     {
       "file": "dialogue-bubble-style.regex.json",
-      "sha256": "2b3cc76ffec7fc111f1af4494117f3979de32ab2c90c0b503979fdedc7a5819f"
+      "sha256": "790bbb6d9a228d93b3084a38f79ebf062ec1328e1409c395c08a0d1adb79a9ac"
     }
   ],
   "browserPreview": {
     "status": "passed-local-visual-review",
     "url": "http://127.0.0.1:58636/scripts/正文气泡/发布/preview.html",
     "observed": [
-      "风祭气泡使用 prepared/rinna.png",
-      "夏洛特·科黛气泡使用新本地内联PNG",
+      "风祭气泡使用本地 prepared/rinna.png 预览",
+      "夏洛特·科黛气泡使用本地 prepared/charlotte.png 预览",
       "两张头像及台词在浏览器完整显示"
     ],
-    "scope": "本地同源/内联预览，未替用户导入真实酒馆"
+    "scope": "便携预览将图床URL映射为相同本地素材；导入03样式含实际图床URL，未替用户导入真实酒馆",
+    "screenshot": "resource/knightavatars/research/github-pages/rinna-charlotte-bubble-preview.jpg"
   },
   "realSillyTavernImport": "not-run",
   "sourceReferences": [
@@ -57,5 +58,19 @@
     "passed": 13,
     "total": 13,
     "failed": 0
-  }
+  },
+  "browserPreviewHistory": [
+    {
+      "status": "passed-local-visual-review",
+      "url": "http://127.0.0.1:58636/scripts/正文气泡/发布/preview.html",
+      "observed": [
+        "风祭气泡使用 prepared/rinna.png",
+        "夏洛特·科黛气泡使用新本地内联PNG",
+        "两张头像及台词在浏览器完整显示"
+      ],
+      "scope": "本地同源/内联预览，未替用户导入真实酒馆"
+    }
+  ],
+  "imageHostVerification": "resource/knightavatars/research/github-pages/rinna-charlotte-verification.json",
+  "nameAndOcRulesUnchangedDuringHostUpdate": true
 }

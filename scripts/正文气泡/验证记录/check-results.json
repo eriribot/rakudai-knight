@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-10T01:58:03.098Z",
+  "generatedAt": "2026-10-10T03:00:13.218Z",
   "nodeVersion": "v25.6.0",
   "sourceHashes": {
     "scripts/正文气泡/build.mjs": "73a18a67df4775db9b52a747aafdd2631fb1583be96e1362df6a4eaf015e4caa",
     "scripts/正文气泡/context-guard.mjs": "c1c0210d51184f3e22029514d6cd0211630e9a3cc9d70bf360e7d958bae6be31",
     "scripts/正文气泡/bubble.css": "a546dcf2b07d446c4f0167af6faad23b58a5ebdbb4f0c4b39487872387b84961",
-    "resource/knightavatars/manifest.json": "d304a5af70b2e6c82a52df5a0922133ec6e0fd59142ff30f40851e80c3e857fd"
+    "resource/knightavatars/manifest.json": "d0b228cda7a0d623239433c1c2b656cb82ef4ca53dca66ad57fc3082b9796080"
   },
   "dialect": "SillyTavern card RegexScriptData",
   "evidenceType": "offline-javascript-string-replacement",
@@ -40,20 +40,20 @@
     {
       "name": "十万字旁白夹少量对白",
       "inputCharacters": 96014,
-      "outputCharacters": 525338,
-      "elapsedMs": 5.04
+      "outputCharacters": 109495,
+      "elapsedMs": 4.75
     },
     {
       "name": "数万字连续对白",
       "inputCharacters": 37889,
-      "outputCharacters": 700224,
-      "elapsedMs": 490.87
+      "outputCharacters": 284381,
+      "elapsedMs": 468.47
     },
     {
       "name": "八万字单行对白",
       "inputCharacters": 80003,
-      "outputCharacters": 509132,
-      "elapsedMs": 1.78
+      "outputCharacters": 93289,
+      "elapsedMs": 1.56
     }
   ],
   "results": [

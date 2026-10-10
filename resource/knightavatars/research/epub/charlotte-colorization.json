@@ -73,6 +73,8 @@
   "consumption": {
     "manifest": "manifest.json#charlotte",
     "displayFile": "prepared/charlotte.png",
-    "imageHostStatus": "pending-upload"
+    "imageHostStatus": "verified-matching-local",
+    "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/charlotte.png",
+    "verificationRecord": "research/github-pages/rinna-charlotte-verification.json"
   }
 }

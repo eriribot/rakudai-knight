@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "第四卷-世界书整理/场景条目/06_终章场景_幕后黑手.md",
+                "file": "人物仔细考究/药师雾子.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "06_终章场景_幕后黑手"
+              "title": "药师雾子"
             }
           }
         ]
@@ -187,18 +187,22 @@
   },
   "active": "df10fbcad984cb29",
   "lastOpenFiles": [
+    "人物仔细考究/夏洛特·科黛.md",
+    "人物仔细考究/药师雾子.md",
+    "人物仔细考究/风祭凛奈.md",
+    "第四卷-世界书整理/场景条目/06_终章场景_幕后黑手.md",
+    "scratch/record-rinna-charlotte-host-integration.mjs",
+    "resource/knightavatars/research/github-pages/charlotte-host-terminal-preview.jpg",
+    "resource/knightavatars/research/github-pages/rinna-charlotte-bubble-preview.jpg",
+    "resource/knightavatars/research/github-pages/rinna-charlotte-verification.json",
+    "resource/knightavatars/research/github-pages",
+    "scratch/check-rinna-charlotte-imagehost.py",
     "scripts/正文气泡/验证记录/风祭与夏洛特头像/stage-trace.json",
     "scripts/正文气泡/验证记录/风祭与夏洛特头像/fixture-results.json",
     "scripts/正文气泡/验证记录/风祭与夏洛特头像/acceptance.json",
     "scripts/正文气泡/验证记录/风祭与夏洛特头像/name-fixtures.json",
     "scratch/check-bubble-avatar-release.mjs",
-    "人物仔细考究/风祭凛奈.md",
     "scripts/正文气泡/验证记录/风祭与夏洛特头像/scope-lock.json",
-    "scripts/正文气泡/验证记录/风祭与夏洛特头像",
-    "scratch/bubble-avatar-before/dialogue-bubbles.regex.json",
-    "scratch/bubble-avatar-before/dialogue-player-candidates.regex.json",
-    "scratch/bubble-avatar-before/dialogue-bubble-style.regex.json",
-    "scratch/bubble-avatar-before",
     "resource/knightavatars/research/review/rinna-charlotte-preview.png",
     "resource/knightavatars/research/review/rinna-shield-preview.png",
     "resource/knightavatars/research/review/charlotte-shield-preview.png",
@@ -207,8 +211,6 @@
     "resource/knightavatars/color/charlotte-colorized.png",
     "resource/knightavatars/novel/charlotte-vol18-original.jpg",
     "resource/knightavatars/research/epub/charlotte-color-reference.png",
-    "resource/knightavatars/research/epub/charlotte-colorization-target.png",
-    "resource/knightavatars/research/epub/charlotte-scan/vol06-face-guide.png",
     "第五卷-世界书整理/人物条目/黑铁珠雫.md",
     "output/tournament-prompt-window/README.md",
     "第四卷-世界书整理/场景条目/05_第四章场景_过早的决战.md",
@@ -230,8 +232,6 @@
     "第三卷-世界书整理/场景条目/04_第三章场景_身陷逆境的落第骑士.md",
     "第三卷-世界书整理/人物条目/黑铁严.md",
     "第三卷-世界书整理/人物条目/南乡寅次郎.md",
-    "第三卷-世界书整理/人物条目/赤座守.md",
-    "第三卷-世界书整理/人物条目/平贺玲泉.md",
-    "第三卷-世界书整理/人物条目/东堂刀华.md"
+    "第三卷-世界书整理/人物条目/赤座守.md"
   ]
 }
