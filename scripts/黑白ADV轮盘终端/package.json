@@ -1,6 +1,6 @@
 {
   "name": "hagun-mono-terminal",
-  "version": "1.3.27",
+  "version": "1.3.28",
   "description": "落第骑士·黑白ADV轮盘终端 - 模块化开发版本",
   "type": "module",
   "scripts": {
@@ -8,7 +8,8 @@
     "test:readiness": "node ../check-mvu-bootstrap.mjs && node correction-readiness-test.mjs",
     "test:exclusions": "node correction-exclusions-test.mjs",
     "test:calendar": "node calendar-worldbook-test.mjs && node calendar-ui-test.mjs",
-    "test": "node avatar-test.mjs && node calendar-worldbook-test.mjs && node calendar-ui-test.mjs && node tournament-ui-test.mjs && node packaging-test.mjs && node state-reader-test.mjs && node state-panel-test.mjs && node smoke-test.mjs && node shell-test.mjs",
+    "test:lime": "node lime-chat-test.mjs && node lime-worldbook-test.mjs && node lime-host-test.mjs && node lime-story-test.mjs && node lime-ui-test.mjs",
+    "test": "npm run test:lime && node avatar-test.mjs && node calendar-worldbook-test.mjs && node calendar-ui-test.mjs && node tournament-ui-test.mjs && node packaging-test.mjs && node state-reader-test.mjs && node state-panel-test.mjs && node smoke-test.mjs && node shell-test.mjs",
     "locate": "node locate-error.mjs",
     "test:tournament": "node ../check-tournament-calendar.mjs && node ../check-tournament.mjs && node ../check-tournament-guard.mjs && node tournament-ui-test.mjs"
   },

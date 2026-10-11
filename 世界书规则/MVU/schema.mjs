@@ -9,6 +9,8 @@ export const GRADES = ['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E+', 'E', 'F+', 'F
 export const ATTRIBUTE_GRADES = ['S', 'A+', ...GRADES];
 export const GROWTH_AXES = ['魔力控制', '体能', '魔力量'];
 export const AXES = ['攻击力', '防御力', '魔力量', '魔力控制', '体能', '运气'];
+// ponytail: “已完成”是剧情阶段的输入别名，存档与推进仍沿用“已结束”。
+export const normalizeStoryPhase = value => value === '已完成' ? '已结束' : value;
 // 只转换含义明确的卷号写法，保存结果仍为数字；未知文本留给严格校验拒绝。
 export function normalizeStoryVolume(value) {
   if (typeof value !== 'string') return value;
@@ -269,7 +271,7 @@ function createStateSchema(z, version, { normalizeRelationships = true } = {}) {
     场景: z.object({
       当前卷: version === 3 ? z.literal(1) : volumeNumber,
       当前章: version === 3 ? z.enum(CHAPTERS) : text.min(1),
-      阶段: z.enum(['未开始', '进行中', '已结束']),
+      阶段: z.preprocess(normalizeStoryPhase, z.enum(['未开始', '进行中', '已结束'])),
       时间: text, 地点: text, 切入说明: text.default(''),
       ...(version === 4 ? { 宿舍: z.boolean().optional() } : {}),
       已发生事件: record(z.object({ ...(version === 4 ? { 卷号: volumeNumber } : {}), 章段: version === 3 ? z.enum(CHAPTERS.slice(1)) : text.min(1), 结果: text.min(1), 参与者: z.array(text.min(1)), 知情者: z.array(text.min(1)) }).strict()),

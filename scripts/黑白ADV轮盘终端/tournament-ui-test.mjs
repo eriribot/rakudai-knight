@@ -8,7 +8,7 @@ import { buildTerminal } from './bundle.mjs';
 
 const read = file => fs.readFileSync(new URL(file, import.meta.url), 'utf8');
 const plain = value => JSON.parse(JSON.stringify(value));
-const originalState = { 场景: { 时间: '2013-05-10', 选拔赛: {} }, 玩家: { 姓名: 'OC' }, 系统: { 主角模式: '自定义角色' } };
+const originalState = { 场景: { 时间: '2013-05-10', 选拔赛: {} }, 玩家: { 姓名: 'OC', 所属: '破军学园 / 一年一班' }, 系统: { 主角模式: '自定义角色' } };
 const pendingPlayer = { id: 'oc', name: 'OC', status: '参赛', source: '玩家', player: true,
   wins: null, losses: null, points: null, recordedWins: 0, recordedLosses: 0, recordedPoints: 0, simulatedMatches: 0 };
 const projectedMatch = { id: '__bg_1', 程序推演: true, 轮次: 1, 状态: '已完成', 日期: '2013-04-22',
@@ -70,13 +70,38 @@ test('new match follows the current calendar slot; synthetic results cannot pref
   assert.equal(ui.tournamentDraft, null);
   assert.match(element('schedule-body').innerHTML, /背景推演为只读/);
 });
-test('date, player mode, and name invalidate both UI and host snapshots and block stale drafts', () => {
+test('inapplicable players can read old results and ordinary schedules without tournament editing', () => {
+  for (const exists of [false, true]) {
+    const { ui, view, element } = uiFixture();
+    ui.stat.玩家.所属 = '贪狼学园';
+    ui.stat.场景.日程 = { 图书馆约定: { 日期: '2013-05-11', 状态: '已安排', 说明: '还书' } };
+    Object.assign(view, { applicable: false, exists, virtual: false, calendar: null,
+      matches: exists ? [{ ...projectedMatch, id: 'recorded', 程序推演: false }] : [] });
+    ui.renderSchedule();
+    const html = element('schedule-body').innerHTML;
+    assert.match(html, /仅适用于所属已确认的破军学园角色/);
+    assert.match(html, /图书馆约定/);
+    assert.doesNotMatch(html, /data-rk-t-action|data-rk-t-form|维护参赛者资料/);
+    if (exists) {
+      assert.match(html, /已确认 · 甲 胜出/);
+      ui.renderMoments(); assert.match(element('moments-body').innerHTML, /已确认 · 甲 胜出/);
+      ui.renderBbs(); assert.match(element('bbs-body').innerHTML, /战绩待补/);
+    }
+    for (const action of ['initialize', 'new-match', 'edit-match', 'new-participant', 'edit-participant', 'status', 'detained']) {
+      ui.openTournamentDraft(action, 'recorded');
+      assert.equal(ui.tournamentDraft, null);
+      assert.match(ui.tournamentMessage, /当前所属不适用破军选拔/);
+    }
+  }
+});
+
+test('date, player mode, name, and affiliation invalidate both UI and host snapshots and block stale drafts', () => {
   const { ui } = uiFixture();
   const declaration = read('main.js').match(/  const tournamentSnapshotKey = state => JSON.stringify\([\s\S]*?\);/)[0];
   const host = vm.createContext({});
   vm.runInContext(declaration + '\nglobalThis.snapshotKey = tournamentSnapshotKey;', host);
   assert.equal(ui.tournamentSnapshotKey(originalState), host.snapshotKey(originalState));
-  for (const [section, field, value] of [['场景', '时间', '2013-05-11'], ['系统', '主角模式', '黑铁一辉'], ['玩家', '姓名', '另一个玩家']]) {
+  for (const [section, field, value] of [['场景', '时间', '2013-05-11'], ['系统', '主角模式', '黑铁一辉'], ['玩家', '姓名', '另一个玩家'], ['玩家', '所属', '贪狼学园']]) {
     const next = structuredClone(originalState); next[section][field] = value;
     assert.notEqual(ui.tournamentSnapshotKey(originalState), ui.tournamentSnapshotKey(next));
     assert.equal(ui.tournamentSnapshotKey(next), host.snapshotKey(next));
@@ -86,6 +111,10 @@ test('date, player mode, and name invalidate both UI and host snapshots and bloc
   ui.submitTournament = () => { submitted = true; };
   ui.stat.场景.时间 = '2013-05-11'; ui.saveTournamentDraft();
   assert.equal(submitted, false); assert.match(ui.tournamentMessage, /剧情日期/);
+  ui.stat = structuredClone(originalState);
+  ui.openTournamentDraft('new-match', '');
+  ui.stat.玩家.所属 = '贪狼学园'; ui.saveTournamentDraft();
+  assert.equal(submitted, false); assert.match(ui.tournamentMessage, /玩家身份已变化/);
 });
 test('manual old-save repair remains available; entry round and detention require explicit input', () => {
   const { ui, view, element } = uiFixture();

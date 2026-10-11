@@ -18,10 +18,11 @@ function between(source, start, end) {
 }
 const wiring = between(main, '  function wireEvents() {', '  function onResize() {');
 const destroy = between(main, '  function destroy() {', '  /*__INJECT_STATE_PANEL__*/');
-function state({ time = '2013-06-01', status = '进行中', volume = 1, chapter = '第一章' } = {}) {
+function state({ time = '2013-06-01', status = '进行中', volume = 1, chapter = '第一章', affiliation = '破军学园·一年一班' } = {}) {
   const value = structuredClone(INITIAL_STATE);
   Object.assign(value.系统, { 开局状态: '已建档', 主角模式: '自定义角色' });
   value.玩家.姓名 = '测试选手';
+  value.玩家.所属 = affiliation;
   value.玩家.额外能力 = { 程序战况: '同名业务字段应保留' };
   Object.assign(value.场景, { 当前卷: volume, 当前章: chapter, 时间: time, 地点: '破军学园', 选拔赛: {
     版本: 'T01', 赛季: '破军学园选拔赛', 状态: status, 名册: {
@@ -79,6 +80,7 @@ function fixture(initial) {
     LS: { get: () => ({ autoApply: false }) }, structuredClone, AbortController, console,
     fn: name => helpers[name], readSnapshot() { reads++; if (failRead) throw new Error('MVU尚未保存'); return snapshot; },
     generationPending: false, playerBubbleBinder: null, terminalStateReader: { clear() {} }, updateCbs: [],
+    limeHost: { cancel() {}, isBusy: () => false }, limeStory: { cancel() {} }, limeNativeStarting: false,
     readTimer: null, clearInterval() {}, disposeStatePanel() {}, emit() {}, onResize() {}, toggle() {}, SLOT: 'pool-fixture',
   });
   // Feature source and whole wireEvents/destroy bodies remain real. Only unrelated
@@ -140,6 +142,23 @@ test('使用当前MVU放行，不受请求块旧日期或卷章order影响', () 
   assert.equal(shouldInjectTournament(current), true); f.emit('CHAT_COMPLETION_SETTINGS_READY', { messages });
   assert.deepEqual(messages, before); f.api.destroy();
 });
+for (const [affiliation, expected] of [['破军学园·一年一班', true], ['破軍學園', true], ['武曲学园', false], ['', false]]) {
+  test('当前回复所属=' + (affiliation || '未确认') + '：人在破军也按所属决定提示放行', () => {
+    const current = freeze(state({ affiliation })), before = plain(current), f = fixture(current);
+    assert.equal(current.场景.地点, '破军学园');
+    assert.equal(shouldInjectTournament({ stat_data: current }), expected);
+    // The expanded block intentionally has the opposite affiliation. Only the
+    // current reply's matching MVU source may decide whether its cache is sent.
+    const cached = state({ affiliation: expected ? '武曲学园' : '破军学园' });
+    const messages = [{ role: 'system', content: renderPrompt(cached) }];
+    f.emit('CHAT_COMPLETION_SETTINGS_READY', { messages });
+    const sent = promptState(messages[0].content);
+    assert.equal(Object.hasOwn(sent.场景.选拔赛, '程序战况'), expected);
+    assert.deepEqual(sent.场景.选拔赛.比赛, cached.场景.选拔赛.比赛);
+    assert.equal(sent.玩家.所属, cached.玩家.所属, 'filtering must not rewrite the submitted state');
+    assert.deepEqual(current, before); f.api.destroy(); assert.equal(f.listenerCount(), 0);
+  });
+}
 for (const event of ['GENERATION_STARTED', 'GENERATION_AFTER_COMMANDS']) test(event + '将过滤器重新移到后加载模板之后，且不重复订阅', () => {
   const current = state({ time: '2013-07-09' }), f = fixture(current), before = plain(current); let expansions = 0;
   f.on('CHAT_COMPLETION_SETTINGS_READY', request => { expansions++; request.messages[0].content = renderPrompt(current); });

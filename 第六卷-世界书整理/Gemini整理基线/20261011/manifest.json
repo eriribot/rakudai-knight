@@ -1,0 +1,154 @@
+{
+  "date": "2026-10-11",
+  "source": "落第骑士英雄谭 第六卷 gbk.txt",
+  "encoding": "gb18030",
+  "sourceBytes": 212541,
+  "sourceSha256": "50de4a6fbd365442e1109cbf80aa24127dbf531d3c389b9f1ff1049ca84243ca",
+  "decodedCharacters": 123683,
+  "physicalLines": 6885,
+  "lastNonemptyLine": 6885,
+  "headers": [
+    {
+      "line": 3,
+      "title": "第六卷 间章 反射术士"
+    },
+    {
+      "line": 136,
+      "title": "第六卷 第五章 快刀斩乱麻"
+    },
+    {
+      "line": 2503,
+      "title": "第六卷 第六章 初战终了"
+    },
+    {
+      "line": 5046,
+      "title": "第六卷 第七章 七星剑武祭第二轮战·开战"
+    },
+    {
+      "line": 6651,
+      "title": "第六卷 间章 转暗"
+    },
+    {
+      "line": 6842,
+      "title": "第六卷 后记"
+    },
+    {
+      "line": 6881,
+      "title": "第六卷 插图"
+    }
+  ],
+  "checks": [
+    {
+      "file": "第六卷_间章_反射术士.txt",
+      "title": "间章 反射术士",
+      "startLine": 3,
+      "endLine": 135,
+      "lineCount": 133,
+      "charCount": 2467,
+      "exact": false,
+      "sameIgnoringFinalNewline": false
+    },
+    {
+      "file": "第六卷_第五章_快刀斩乱麻.txt",
+      "title": "第五章 快刀斩乱麻",
+      "startLine": 136,
+      "endLine": 2502,
+      "lineCount": 2367,
+      "charCount": 40312,
+      "exact": false,
+      "sameIgnoringFinalNewline": false
+    },
+    {
+      "file": "第六卷_第六章_初战终了.txt",
+      "title": "第六章 初战终了",
+      "startLine": 2503,
+      "endLine": 5045,
+      "lineCount": 2543,
+      "charCount": 43368,
+      "exact": false,
+      "sameIgnoringFinalNewline": false
+    },
+    {
+      "file": "第六卷_第七章_七星剑武祭第二轮战·开战.txt",
+      "title": "第七章 七星剑武祭第二轮战·开战",
+      "startLine": 5046,
+      "endLine": 6650,
+      "lineCount": 1605,
+      "charCount": 26575,
+      "exact": false,
+      "sameIgnoringFinalNewline": false
+    },
+    {
+      "file": "第六卷_间章_转暗.txt",
+      "title": "间章 转暗",
+      "startLine": 6651,
+      "endLine": 6841,
+      "lineCount": 191,
+      "charCount": 3286,
+      "exact": false,
+      "sameIgnoringFinalNewline": false
+    },
+    {
+      "file": "第六卷_后记.txt",
+      "title": "后记",
+      "startLine": 6842,
+      "endLine": 6885,
+      "lineCount": 44,
+      "charCount": 740,
+      "exact": true,
+      "sameIgnoringFinalNewline": true
+    }
+  ],
+  "baseline": [
+    {
+      "path": "00_整合说明.md",
+      "bytes": 6409,
+      "sha256": "dd08ba5942120e82147e006641d7fdd12b798f685662cbda2409c2e6b80c8481"
+    },
+    {
+      "path": "01_卷内时间线.md",
+      "bytes": 4795,
+      "sha256": "91a9ab3cd126c3fbfb62cfcf7e3900fbb71fd099c17a82501f1d83d25bf09459"
+    },
+    {
+      "path": "02_章节索引.md",
+      "bytes": 6733,
+      "sha256": "67394a3df69f3d517e6d794eb8fc3c447bcbf8d74575b67d29589084a397ddac"
+    },
+    {
+      "path": "03_出场人物索引.md",
+      "bytes": 5396,
+      "sha256": "f130ab3d6dcca34d700db8c35212cd3d91c0b56f0f1663ae9e3f1678c0bea65d"
+    },
+    {
+      "path": "split_stats.json",
+      "bytes": 1174,
+      "sha256": "f9bf5269259c4f0925bf45b27f6a7004435d566cda8be0a323c716128c6a3213"
+    },
+    {
+      "path": "人物条目/城之崎白夜.md",
+      "bytes": 8624,
+      "sha256": "c371993065dd0b8099753142493a341c2c19d59e30a744e970ab2148a2b58fa1"
+    },
+    {
+      "path": "人物条目/夏洛特·科黛.md",
+      "bytes": 3452,
+      "sha256": "0edf2ea56bee2d6ea6488381afc91b13c62bb0cb86b8b72b81e96ed3e3ea475f"
+    },
+    {
+      "path": "人物条目/鹤屋美琴.md",
+      "bytes": 1793,
+      "sha256": "109bc9a5d9a5544ec4d3b9340d4b922b85dc51cd99440ca5c79f72ea925d374c"
+    },
+    {
+      "path": "设定条目/七星剑武祭双轮压缩赛程.md",
+      "bytes": 2032,
+      "sha256": "71f974b3d6442a8b905562cd62a167b79948f30829968996e03538327d05ec6b"
+    },
+    {
+      "path": "设定条目/反射术士与完全反射.md",
+      "bytes": 2446,
+      "sha256": "4ac9254f735edb9521c4d9eaee215bfda0e68dddbd4d6ec461c24e1a6542fb6c"
+    }
+  ]
+}

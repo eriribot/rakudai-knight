@@ -1,0 +1,106 @@
+{
+  "date": "2026-10-11",
+  "version": "1.3.28",
+  "components": [
+    "lime-host.js",
+    "lime-worldbook.js",
+    "lime-story.js",
+    "lime-chat.mjs",
+    "main.js"
+  ],
+  "target": {
+    "surface": "Tavern Helper public APIs",
+    "transport": "tavern-helper-floor-attachment",
+    "referenceVersion": "4.8.19",
+    "referenceCommit": "36d8889a99f1cf09d3d1f8aabd0eba33975dc64d",
+    "crossCheckedVersion": "4.11.3",
+    "crossCheckedCommit": "ed8b2360b32d9cfb96770d44e5c4ae45c2071a86",
+    "provider": "已有宿主酒馆助手；脚本不安装或替换宿主",
+    "runtimeCheck": "运行时逐项核对公开能力；缺失时拒绝辅助发送并保留草稿。"
+  },
+  "authorities": [
+    {
+      "source": "scripts/黑白ADV轮盘终端/验证记录/LIME附件-4.8.19/src/function/chat_message.ts",
+      "sha256": "26b4a157ff1c3e58069dc34e56410ed8c3b9c082e7ff33d57aea71b675438770",
+      "upstream": "https://github.com/N0VI028/JS-Slash-Runner/blob/36d8889a99f1cf09d3d1f8aabd0eba33975dc64d/src/function/chat_message.ts"
+    },
+    {
+      "source": "scripts/黑白ADV轮盘终端/验证记录/LIME附件-4.8.19/src/function/generate/index.ts",
+      "sha256": "c2e07b64eb365b076c1adccee7fe88b29a3e85133a7f74cf3fc2bdb840bc5161",
+      "upstream": "https://github.com/N0VI028/JS-Slash-Runner/blob/36d8889a99f1cf09d3d1f8aabd0eba33975dc64d/src/function/generate/index.ts"
+    },
+    {
+      "source": "scripts/黑白ADV轮盘终端/验证记录/LIME附件-4.8.19/src/function/inject.ts",
+      "sha256": "9a988fbd25c086beaf995005b60f1a123f6afc9a2da7b1237ea7185cbfc0d500",
+      "upstream": "https://github.com/N0VI028/JS-Slash-Runner/blob/36d8889a99f1cf09d3d1f8aabd0eba33975dc64d/src/function/inject.ts"
+    },
+    {
+      "source": "scripts/黑白ADV轮盘终端/验证记录/LIME附件-4.8.19/src/function/worldbook.ts",
+      "sha256": "1860ad65613949c099bbf4a182b888c33a8150305ff3b6071f81f15bb4071d94",
+      "upstream": "https://github.com/N0VI028/JS-Slash-Runner/blob/36d8889a99f1cf09d3d1f8aabd0eba33975dc64d/src/function/worldbook.ts"
+    },
+    {
+      "source": "scripts/正文气泡/验证记录/角色替换排查-20261009/core/installed/public/script.js",
+      "sha256": "606762e1e36805a12429708defcafac7287a3df78393813bf460c53524a27403",
+      "coreCommit": "8172dcd0ee672d3cd9a5e5f7af134f91a45cd2b8",
+      "upstream": "https://github.com/SillyTavern/SillyTavern/blob/8172dcd0ee672d3cd9a5e5f7af134f91a45cd2b8/public/script.js",
+      "lineAnchors": [
+        4240,
+        4262
+      ],
+      "contract": "原生 START 与 AFTER 都被 await；原生等值参数配对区分 Helper 孤立 AFTER。"
+    }
+  ],
+  "contract": {
+    "send": "一次明确发送触发一次 generate，使用当前预设、本局上下文、指定人物世界书原文及 MVU 当前关系；无循环。",
+    "generate": {
+      "should_silence": true,
+      "should_stream": false,
+      "max_chat_history": "all",
+      "generation_id": "rk-lime:唯一请求ID"
+    },
+    "persistence": "data.rk_lime 与 data.stat_data 并列；setChatMessages data-only fresh merge + refresh:none；不新增原生楼层、不更改正文、其他回复页或主输入草稿。",
+    "time": "发信冻结所属页 stat_data.场景.时间；正文来信随该页时间，保存时捕获 narrative 快照和 narrativeCount，使同页续写保留旧时钟与交错顺序。",
+    "lore": "读当前绑定 primary，完整姓名/明确别名、启用条目和唯一 UID；多条同名档案合并，缺失或歧义拒绝辅助发送。",
+    "relationship": "当前关系、好感、支援、态度、已知资料、主角模式影响人物口吻与距离感；null 不当零，支援不当恋爱，不直接修改 MVU。",
+    "narrative": "当前活动分支最多80条/32000字符附属通讯注入下一次正常主请求；正文可输出对象本人显式闭合 LIME 来信。",
+    "beforeWorldInfo": "原生 START await prepare；最近最多3名已通联联系人明确读原文/UID/当前关系/主角模式，原文预算64000字符，最多等待5秒；缺档或超时继续普通主剧情。",
+    "promptLifecycle": "managed injectPrompts once:false；自身取消、结束、换聊天/页和 destroy 同步 uninject；stopGenerationById 仅定向停止自身 rk-lime 请求。",
+    "ownership": "严格活动楼层/swipe owner；启动与换聊天见证已存在原件；正常删前楼/前swipe后按 raw message + raw variables object + 唯一payload/body 证据重绑。确定继承影子仅清理自有 namespace。",
+    "ambiguity": "共享 metadata、未见证 wrapper 替换等歧义只隔离读视图/记忆并拒绝追加；原数据保留，不将多次读取变成新归属证据。",
+    "confirmation": "写入后 fresh readback 确认内存变量与宿主保存队列；不声称磁盘落盘。",
+    "cancellation": "来源、正文、MVU时间或关系变化拒绝迟到写入；原生START准备阶段与修复归属期间拒绝第二次手机生成。"
+  },
+  "validation": {
+    "host": {
+      "command": "node lime-host-test.mjs",
+      "passed": 67,
+      "total": 67
+    },
+    "lore": {
+      "command": "node lime-worldbook-test.mjs",
+      "passed": 12,
+      "total": 12
+    },
+    "narrativePersona": {
+      "command": "node lime-story-test.mjs",
+      "passed": 12,
+      "total": 12
+    },
+    "shell": {
+      "command": "node shell-test.mjs",
+      "passed": 37,
+      "total": 37
+    },
+    "method": "真实维护函数 + 固定公开源码 + Node VM/DOM/API/时钟替身；未调用真实模型。",
+    "live": "尚未在真实酒馆执行辅助回信、保存落盘、重载恢复及下一次主生成完整链路。",
+    "limits": [
+      "离线删除发生在启动见证之前时无法安全推断旧owner。",
+      "宿主上下文窗口、预设与世界书配置仍限制实际可见上下文。"
+    ]
+  },
+  "delivery": {
+    "file": "世界书规则/MVU/落第骑士-小手机-v1.3.28.json",
+    "sha256": "580d4726a63ad34113cc90bf30af9dbf4ac0de369ca79bfb61e0950378618374"
+  }
+}

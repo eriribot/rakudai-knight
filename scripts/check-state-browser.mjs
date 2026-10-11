@@ -191,6 +191,7 @@ await check('native准备保留stat_data对象与业务值，只更新schema', (
 });
 await check('关闭约束仍可切章、整理名册及保存赛程，controller公开自身能力', async () => {
   const f = fixture({ guarded: false }), draft = payload(); draft.场景.时间 = '2013-04-22 08:30';
+  draft.玩家.所属 = '破军学园 / 一年一班';
   await f.api.commitOpening((await f.api.capture()).token, draft);
   assert.deepEqual(clone(f.api.capabilities), { scheduleAndRoster: true, rosterPermanentRemoval: true,
     tournament: 'T01', tournamentEngine: 'T02', nativeMvu: 'N01' });
@@ -216,6 +217,16 @@ await check('关闭约束仍可切章、整理名册及保存赛程，controller
   assert.equal(native.properties.场景.properties.选拔赛.properties.比赛.extensible, true);
   assert.equal(f.ctx.chat[0].variables[1].stat_data.系统.开局状态, '待建档');
   assert.equal(f.writes, 8);
+  state().玩家.所属 = '武曲学园';
+  const ledger = clone(state().场景.选拔赛);
+  await assert.rejects(f.api.tournamentAction((await f.api.capture()).token, { action: 'setStatus', status: '已结束' }), /所属未确认/);
+  assert.equal(f.writes, 8); assert.deepEqual(state().场景.选拔赛, ledger);
+  state().场景.阶段 = '已完成';
+  const captured = await f.api.capture();
+  assert.equal(captured.state.场景.阶段, '已结束');
+  assert.equal(state().场景.阶段, '已完成', '读取兼容别名不暗写原档');
+  await f.api.transition(captured.token, { action: 'next' });
+  assert.equal(state().场景.阶段, '未开始');
 });
 await check('关闭约束仍保留本地页面校验及变量并发比较', async () => {
   const f = fixture({ guarded: false }), captured = await f.api.capture(), invalid = payload();

@@ -1,5 +1,5 @@
 import { TOURNAMENT_CANON, identifyTournamentPlayer, seedTournamentRoster, projectTournamentBackground } from './rakudai-tournament-background.mjs';
-import { tournamentCalendar, parseTournamentDate } from './rakudai-tournament-calendar.mjs';
+import { tournamentCalendar, parseTournamentDate, isHagunAffiliation } from './rakudai-tournament-calendar.mjs';
 
 // T01兼容存档 / T02引擎：实际账本与日期背景投影合并后统一重算。
 // 本模块无宿主、网络和 schema 依赖，可同时用于 MVU 校验与终端视图。
@@ -16,6 +16,7 @@ const natural = value => Number.isSafeInteger(value) && value >= 0;
 const nonblank = value => typeof value === 'string' && Boolean(value.trim());
 const fixtures = { 1: '桐原静矢', 9: '兔丸恋恋', 11: '绫辻绚濑', 20: '东堂刀华' };
 const canon = TOURNAMENT_CANON;
+const affiliationNotice = '所属未确认为破军学园：选拔赛暂停，仅可查看已有记录。';
 
 // 仅补容器和显示默认值，不猜比赛、初始胜场、初始积分或命定胜负。
 export function normalizeTournament(value) {
@@ -205,18 +206,22 @@ function calculateTournament(tournament) {
 export function deriveTournament(stateOrTournament) {
   const state = stateOrTournament?.stat_data || stateOrTournament;
   const directLedger = object(state) && ['版本', '名册', '比赛', '赛季'].some(key => own(state, key));
+  const applicable = directLedger || isHagunAffiliation(state);
   const stored = state?.场景 ? state.场景.选拔赛 : directLedger ? state : null;
   const clock = tournamentCalendar(state);
-  const virtual = !stored && clock.valid && Boolean(state?.玩家?.姓名?.trim()) && state?.系统?.主角模式 !== '未选择';
+  const virtual = applicable && !stored && clock.valid && Boolean(state?.玩家?.姓名?.trim()) && state?.系统?.主角模式 !== '未选择';
   const raw = stored || (virtual ? {} : null);
-  if (!raw) return { version: TOURNAMENT_VERSION, exists: false, tournament: null, mode: state?.系统?.主角模式 || '未选择', playerId: null, roster: [], matches: [], leaderboard: [], eligible: [], ties: [], qualificationTie: false, usedOpponents: {}, warnings: [], complete: false, rankingLabel: '仅据已记录积分' };
+  if (!raw) return { version: TOURNAMENT_VERSION, applicable, exists: false, tournament: null, mode: state?.系统?.主角模式 || '未选择', playerId: null, roster: [], matches: [], leaderboard: [], eligible: [], ties: [], qualificationTie: false, usedOpponents: {}, warnings: applicable ? [] : [affiliationNotice], complete: false, rankingLabel: '仅据已记录积分' };
   let tournament = normalizeTournament(raw);
   const issues = tournamentIssues(tournament);
-  if (issues.length) return { version: TOURNAMENT_VERSION, exists: true, tournament, mode: state?.系统?.主角模式 || '未选择', playerId: null, roster: [], matches: [], leaderboard: [], eligible: [], ties: [], qualificationTie: false, usedOpponents: {}, warnings: issues, complete: false, rankingLabel: '账本格式待修正' };
-  identifyTournamentPlayer(state, tournament);
+  if (issues.length) return { version: TOURNAMENT_VERSION, applicable, exists: true, tournament, mode: state?.系统?.主角模式 || '未选择', playerId: null, roster: [], matches: [], leaderboard: [], eligible: [], ties: [], qualificationTie: false, usedOpponents: {}, warnings: issues, complete: false, rankingLabel: '账本格式待修正' };
+  if (applicable) identifyTournamentPlayer(state, tournament);
   // 无有效日期时保留纯账本行为；不能悄悄用现实日期生成赛果。
-  if (clock.valid) tournament = seedTournamentRoster(state, tournament);
-  const projection = projectTournamentBackground(state, tournament);
+  if (applicable && clock.valid) tournament = seedTournamentRoster(state, tournament);
+  const projection = applicable ? projectTournamentBackground(state, tournament) : {
+    ledger: tournament, visibleIds: Object.keys(tournament.名册), active: false,
+    simulatedCounts: {}, pendingRounds: {}, warnings: [affiliationNotice],
+  };
   const result = calculateTournament(projection.ledger);
   result.roster = result.roster.filter(row => projection.visibleIds.includes(row.id));
   for (const row of result.roster) {
@@ -249,7 +254,7 @@ export function deriveTournament(stateOrTournament) {
   if (result.roster.some(row => !row.complete)) warnings.push('记录不完整：未知场外战绩未补成零胜，缺少赛前胜场的胜局积分待补。');
   if (!complete) warnings.push('排行榜仅据已记录积分，不据此自动宣布完整排名或代表资格。');
   if (qualificationTie) warnings.push('代表席位边界同分：暂列并列，须由本局附加赛或已确认规则决出，不按 ID 或胜场擅定。');
-  return { version: TOURNAMENT_VERSION, engine: 'T02', exists: true, virtual, projected: projection.active, calendar: projection.calendar,
+  return { version: TOURNAMENT_VERSION, engine: 'T02', applicable, exists: true, virtual, projected: projection.active, calendar: projection.calendar,
     tournament, mode, playerId: player?.id || null, ...result, leaderboard, eligible, ties, qualificationTie, warnings,
     complete: complete && !projection.active, rankingLabel: projection.active ? '本局记录＋程序场外推演（非全校完整榜）' : complete ? '完整赛季账本排名' : '仅据已记录积分' };
 }
@@ -268,6 +273,8 @@ export function enforceTournamentState(variables, previous) {
   const scene = variables?.stat_data?.场景;
   if (!scene) return [];
   const old = previous?.stat_data?.场景?.选拔赛;
+  // 归属写入门禁由终端负责；可选约束只处理适用的破军账本。
+  if (!isHagunAffiliation(variables.stat_data)) return [];
   const notices = [];
   if (!own(scene, '选拔赛')) {
     if (old) { scene.选拔赛 = copy(old); notices.push('选拔赛：已恢复被移除的本局账本。'); }
@@ -357,6 +364,7 @@ function retainTournamentCheckpoints(match, before, supplied = null) {
 // 只建议下一场，不改动名册、不写预设胜负。原著锚点若与本局记录冲突就让位。
 export function suggestTournamentOpponents(state, { participantId, round } = {}) {
   const view = deriveTournament(state);
+  if (!view.applicable) return { anchorId: null, candidates: [], warnings: [affiliationNotice] };
   if (!view.exists || !view.roster.length) return { anchorId: null, candidates: [], warnings: ['请先登记选拔赛与参赛者。'] };
   const id = participantId || view.playerId, person = view.roster.find(row => row.id === id);
   const available = row => row && view.tournament.名册[row.id].参赛状态 === '参赛' &&
@@ -379,6 +387,7 @@ export function suggestTournamentOpponents(state, { participantId, round } = {})
 // 终端手动记账使用同一校验入口；同 ID 是纠错替换，不是再发一次积分。
 export function prepareTournamentAction(state, request) {
   if (!object(state?.场景) || !object(request)) throw new Error('请先读取本局状态和操作内容');
+  if (!isHagunAffiliation(state)) throw new Error(affiliationNotice);
   const next = copy(state);
   if (request.action === 'initialize') {
     if (next.场景.选拔赛) throw new Error('本局已有选拔赛，请修改现有赛季记录');

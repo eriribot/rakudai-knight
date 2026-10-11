@@ -1,0 +1,82 @@
+FILE output/chapter-v4/落第骑士英雄谭-v1.3.6.json entries 20 rootKeys [
+  'name',           'description',
+  'personality',    'scenario',
+  'first_mes',      'mes_example',
+  'creatorcomment', 'avatar',
+  'talkativeness',  'fav',
+  'tags',           'spec',
+  'spec_version',   'data',
+  'create_date'
+]
+{
+  "id": 5,
+  "name": "觉醒",
+  "line": 452,
+  "enabled": true,
+  "constant": false,
+  "selective": true,
+  "keys": [
+    "魔人",
+    "觉醒",
+    "S级羁绊",
+    "S 级羁绊",
+    "S羁绊",
+    "S 羁绊",
+    "超度觉醒"
+  ],
+  "position": "after_char",
+  "cases": [
+    {
+      "name": "infinity",
+      "phrase": "S 级",
+      "excerpt": "<觉醒>\n觉醒是以意志跨越自身先天极限、成为魔人的突破。\n\nS 级羁绊是角色的核心成长机制，既能塑造角色的愿望与选择，也能为突破提供实质的意志支撑。羁绊对象可以是原创角色或原作人物；比如史黛菈的觉醒和一辉的觉醒不以一辉与史黛菈结为恋人为前提。\n\n觉醒的意志来源不限于恋爱。亲情、守护、誓约、理想与执念同样可以支撑突破。达成S级羁绊只是为角色魔人觉醒提供前置条件而不是立刻觉醒。但也是守住在超度觉醒中守住人性底线的最坚实的防线。\n</觉醒>"
+    }
+  ]
+}
+SCRIPT_NAMES [
+  {
+    "name": "MVU",
+    "enabled": true
+  },
+  {
+    "name": "落第骑士·卷章剧情注入器 v3.0.0",
+    "enabled": true
+  },
+  {
+    "name": "落第骑士·黑白ADV轮盘终端 v1.3.6",
+    "enabled": true
+  },
+  {
+    "name": "落第骑士·MVU v4 字段与卷章约束",
+    "enabled": true
+  }
+]
+FILE output/chapter-v4/落第骑士英雄谭-v1.3.6-世界书.json entries 20 rootKeys [ 'entries' ]
+{
+  "id": 5,
+  "name": "觉醒",
+  "line": 255,
+  "disable": false,
+  "constant": false,
+  "selective": true,
+  "keys": [
+    "魔人",
+    "觉醒",
+    "S级羁绊",
+    "S 级羁绊",
+    "S羁绊",
+    "S 羁绊",
+    "超度觉醒"
+  ],
+  "position": 4,
+  "probability": 100,
+  "useProbability": true,
+  "cases": [
+    {
+      "name": "infinity",
+      "phrase": "S 级",
+      "excerpt": "<觉醒>\n觉醒是以意志跨越自身先天极限、成为魔人的突破。\n\nS 级羁绊是角色的核心成长机制，既能塑造角色的愿望与选择，也能为突破提供实质的意志支撑。羁绊对象可以是原创角色或原作人物；比如史黛菈的觉醒和一辉的觉醒不以一辉与史黛菈结为恋人为前提。\n\n觉醒的意志来源不限于恋爱。亲情、守护、誓约、理想与执念同样可以支撑突破。达成S级羁绊只是为角色魔人觉醒提供前置条件而不是立刻觉醒。但也是守住在超度觉醒中守住人性底线的最坚实的防线。\n</觉醒>"
+    }
+  ]
+}
+SCRIPT_NAMES undefined

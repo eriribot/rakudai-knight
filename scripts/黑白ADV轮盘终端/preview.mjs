@@ -54,7 +54,31 @@ function makeSamples() {
       好感: 100, 支援度: 80, 羁绊阶段: supportStage(80), 已加联系方式: index % 2 === 0,
     };
   });
-  return { numeric, legacy, highest, avatars };
+  const lime = JSON.parse(JSON.stringify(avatars));
+  lime.场景.时间 = '2013-05-15 16:25';
+  return { numeric, legacy, highest, avatars, lime };
+}
+
+function makeLimeMessages() {
+  const reply = (name, text) => '<LIME>\n' + JSON.stringify({ 对象: name, 消息: [{ 发言人: name, 内容: text }] }) + '\n</LIME>';
+  const latest = makeSamples().lime;
+  const earlier = JSON.parse(JSON.stringify(latest));
+  earlier.场景.时间 = '2013-05-15 16:20';
+  return [
+    { message_id: 0, role: 'assistant', message: '离线虚构剧情：放学后，教官在训练场整理器材。', swipe_id: 0,
+      data: { stat_data: earlier, rk_lime: { version: 1, owner: { messageId: 0, swipeId: 0 }, exchanges: [
+        { id: 'demo-0', contact: '风祭凛奈', time: earlier.场景.时间,
+          player: '放学后一起去训练场吗？我想先确认一下集合地点。',
+          reply: ['可以。就在训练场入口碰面吧，夏洛特也会一起。'] },
+      ] } } },
+    { message_id: 1, role: 'assistant', message: '离线虚构剧情：夏洛特主动传来集合地点确认。\n' +
+        reply('夏洛特·科黛', '集合地点已经确认。我会和大小姐一起过去。'), swipe_id: 0,
+      data: { stat_data: latest, rk_lime: { version: 1, owner: { messageId: 1, swipeId: 0 }, exchanges: [
+        { id: 'demo-1', contact: '风祭凛奈', time: latest.场景.时间,
+          player: '好，我带上训练用具。要是临时有事，直接在这里告诉我。',
+          reply: ['知道啦。别忘记先热身，到了再联系。'] },
+      ] } } },
+  ];
 }
 
 function previewRuntime() {
@@ -62,10 +86,13 @@ function previewRuntime() {
   const frameWrap = document.getElementById('preview-frame-wrap');
   const status = document.getElementById('preview-status');
   const query = new URLSearchParams(window.location.search);
-  let selected = ['numeric', 'highest', 'legacy', 'empty', 'avatars'].includes(query.get('sample')) ? query.get('sample') : 'numeric';
+  let selected = ['numeric', 'highest', 'legacy', 'empty', 'avatars', 'lime'].includes(query.get('sample')) ? query.get('sample') : 'numeric';
   let theme = 'dark';
   let app = null;
   const subscribers = new Set();
+  const limeMessages = JSON.parse(JSON.stringify(limePreviewMessages));
+  let limeSending = false;
+  let limeSequence = limeMessages.length;
   const calendarContext = { characterId: 'offline-worldbook-preview', chatId: 'offline-preview', chat: [] };
   const calendarReader = createCalendarWorldbookReader({
     getCharWorldbookNames: async () => ({ primary: '本地世界书 v0.02 · 离线预览' }),
@@ -78,10 +105,11 @@ function previewRuntime() {
     legacy: '虚拟旧记录：好感为 null，支援度缺失或 null；原 C / A 仅作为旧字母显示，分数保持待核定。',
     empty: '虚拟第 8 楼的另一回复槽未保存 MVU：应清空此前人物，显示当前槽未就绪，不借用上一回复。',
     avatars: '虚拟头像样本：风祭凛奈、夏洛特共用清单姓名与别名匹配；凛奈保留第5卷上色头像，小莉沿用原图床地址，本地保留第18卷中华服、金钱饰片版。凛奈、碎城雷、美琴、小莉与夏洛特的上色均记录为AI衍生图，未核实配色与用户指定配色分别标注。诸星雄大保留原版彩色盾图，欧尔图为童年回忆形态；有栖院凪与艾莉丝使用全名分别识别，原创同行保留首字。图床地址留空的素材由本地内联显示。可在手机首页打开 LIME 比较通讯录。',
+    lime: 'LIME虚构聊天样本：通讯附于两条剧情记录，按各自楼层的 MVU 时间显示；夏洛特的主动来信也来自虚构正文。发送只向当前剧情附加本地通讯，不增加楼层、不生成角色回信，不调用模型或写入真实酒馆。',
   };
   function source() {
-    return { chatId: 'offline-preview', messageId: selected === 'legacy' ? 6 : 8,
-      swipeId: selected === 'empty' ? 1 : 0, swipeCount: selected === 'legacy' ? 1 : 2 };
+    return { chatId: 'offline-preview', messageId: selected === 'lime' ? limeMessages.length - 1 : selected === 'legacy' ? 6 : 8,
+      swipeId: selected === 'empty' ? 1 : 0, swipeCount: ['legacy', 'lime'].includes(selected) ? 1 : 2 };
   }
   function getSnapshot() {
     if (selected === 'empty') {
@@ -130,6 +158,27 @@ function previewRuntime() {
       supportStage,
       romanceStage,
       getSnapshot,
+      lime: {
+        read: () => ({ messages: selected === 'lime' ? limeMessages : [], playerName: samples[selected]?.玩家?.姓名,
+          source: source(), generating: false }),
+        async send(request) {
+          if (selected !== 'lime') throw new Error('请切到「聊天记录」样本测试；这里不会发送真实酒馆消息。');
+          if (limeSending) throw new Error('演示通讯正在保存，请稍候。');
+          if (JSON.stringify(request.expectedSource) !== JSON.stringify(source())) throw new Error('演示来源已变化，草稿已保留。');
+          if (samples.lime.人际[request.name]?.已加联系方式 !== true) throw new Error('请先建立联系方式。');
+          const owner = limeMessages[limeMessages.length - 1], before = limeMessages.length;
+          limeSending = true;
+          try {
+            await new Promise(resolve => setTimeout(resolve, 180));
+            owner.data.rk_lime.exchanges.push({ id: 'demo-' + limeSequence++, contact: request.name,
+              time: owner.data.stat_data.场景.时间, player: request.text, reply: [] });
+            subscribers.forEach(callback => callback({ type: 'LIME_UPDATED', retainDisplay: true }));
+            status.textContent = '离线通讯已附于当前剧情：剧情楼层数仍为 ' + before + ' → ' + limeMessages.length +
+              '，没有生成角色回信、模型调用或真实酒馆写入。';
+            return { sent: true, notice: '离线演示：通讯已附于当前剧情，楼层数保持 ' + limeMessages.length + '；未生成角色回信。' };
+          } finally { limeSending = false; }
+        },
+      },
       dorm: async active => { samples[selected].场景.宿舍 = active; },
       worldbookCalendar: { read: () => calendarReader.read() },
       onUpdate(callback) { subscribers.add(callback); return () => subscribers.delete(callback); },
@@ -141,7 +190,10 @@ function previewRuntime() {
       },
     });
     if (query.get('view') === 'calendar') app.openApp('calendar');
-    else if (selected === 'avatars' && query.get('view') === 'lime') app.openApp('lime');
+    else if (['avatars', 'lime'].includes(selected) && query.get('view') === 'lime') {
+      app.openApp('lime');
+      if (selected === 'lime') app.refreshTerminalState().then(() => { app.openLimeChat('风祭凛奈'); app.refreshLimeRecords(); });
+    }
     else { app.openApp('blazer'); app.switchBlazerTab('roster'); }
     updateDescription();
   });
@@ -161,6 +213,7 @@ export function buildPreview() {
     'const supportStage = ' + supportStage.toString() + ';\n' +
     'const romanceStage = ' + romanceStage.toString() + ';\n' +
     'const samples = ' + jsString(makeSamples()) + ';\n' +
+    'const limePreviewMessages = ' + jsString(makeLimeMessages()) + ';\n' +
     'const calendarWorldbookEntries = ' + jsString(calendarWorldbookEntries) + ';\n' + calendarReaderSource + '\n' +
     '(' + previewRuntime.toString() + ')();\n';
   const html = `<!doctype html>
@@ -181,7 +234,7 @@ iframe{display:block;width:100%;height:min(760px,80vh);min-height:420px;border:0
 <button type="button" data-sample="highest" aria-pressed="false">女性好感 1000</button>
 <button type="button" data-sample="legacy" aria-pressed="false">旧 null · 待核定</button>
 <button type="button" data-sample="empty" aria-pressed="false">另一回复 · 空槽</button></div>
-<div class="controls"><button type="button" data-sample="avatars" aria-pressed="false">盾形头像</button></div>
+<div class="controls"><button type="button" data-sample="avatars" aria-pressed="false">盾形头像</button><button type="button" data-sample="lime" aria-pressed="false">聊天记录</button></div>
 <div class="controls" aria-label="预览显示条件">
 <button type="button" data-theme="dark" aria-pressed="true">黑色外壳</button><button type="button" data-theme="light" aria-pressed="false">白色外壳</button>
 <label>容器宽度 <select id="preview-width"><option value="320">320 px</option><option value="420" selected>420 px</option><option value="560">560 px</option></select></label></div>

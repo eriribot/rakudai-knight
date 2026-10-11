@@ -170,6 +170,29 @@ await check('卷内章段依序结束和开始，卷末必须使用单独跨卷�
   assert.equal(applyTransition(next, { action: 'start' }).场景.阶段, '进行中');
   ended.场景.当前章 = '终章'; assert.throws(() => applyTransition(ended, { action: 'next' }), /当前卷末/);
 });
+await check('已完成别名只推进相邻章，同轮副校正不重复推进且末卷正确收尾', () => {
+  const previous = { stat_data: applyOpening(clone(INITIAL_STATE), payload()) }, original = clone(previous);
+  const main = clone(previous); main.stat_data.场景.阶段 = '已完成';
+  assert.deepEqual(enforceStateOwnership(main, previous), []);
+  assert.equal(main.stat_data.场景.当前章, '第二章'); assert.equal(main.stat_data.场景.阶段, '进行中');
+
+  const repair = clone(main); repair.stat_data.场景.阶段 = '已完成'; repair.stat_data.场景.地点 = '本轮补充地点';
+  assert.deepEqual(enforceStateOwnership(repair, main, { replyKey: '同一回复', storyCorrection: true,
+    storyBefore: previous.stat_data.场景 }), []);
+  assert.equal(repair.stat_data.场景.当前章, '第二章'); assert.equal(repair.stat_data.场景.阶段, '进行中');
+  assert.equal(repair.stat_data.场景.地点, '本轮补充地点');
+
+  const finalBefore = clone(previous); Object.assign(finalBefore.stat_data.场景, { 当前卷: 19, 当前章: '终章' });
+  const final = clone(finalBefore); final.stat_data.场景.阶段 = '已完成';
+  assert.deepEqual(enforceStateOwnership(final, finalBefore), []);
+  assert.equal(final.stat_data.场景.当前卷, 19); assert.equal(final.stat_data.场景.当前章, '终章');
+  assert.equal(final.stat_data.场景.阶段, '已结束');
+
+  const legacy = clone(previous.stat_data); legacy.场景.阶段 = '已完成';
+  const next = applyTransition(legacy, { action: 'next' });
+  assert.equal(next.场景.当前章, '第二章'); assert.equal(next.场景.阶段, '未开始');
+  assert.equal(legacy.场景.阶段, '已完成'); assert.deepEqual(previous, original);
+});
 await check('模型父对象替换不能绕过系统和章段所有权', () => {
   const state = applyOpening(clone(INITIAL_STATE), payload());
   const before = { stat_data: state }, after = clone(before);

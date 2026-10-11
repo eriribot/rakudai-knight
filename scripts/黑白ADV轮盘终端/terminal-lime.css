@@ -1,0 +1,436 @@
+/* LIME follows the terminal's shared dark/light palette. */
+#scr-lime.rk-lime-screen {
+  --rk-lime-paper: var(--surface);
+  --rk-lime-list: var(--screen);
+  --rk-lime-chat: var(--screen);
+  --rk-lime-text: var(--ink);
+  --rk-lime-secondary: var(--ink2);
+  --rk-lime-muted: var(--muted);
+  --rk-lime-line: var(--hair);
+  --rk-lime-soft: var(--card2);
+  --rk-lime-hover: var(--press);
+  --rk-lime-incoming: var(--card2);
+  --rk-lime-outgoing: var(--ink);
+  --rk-lime-on-outgoing: var(--surface);
+  --rk-lime-accent: var(--ink);
+  --rk-lime-on-accent: var(--surface);
+  --rk-lime-focus: var(--ring);
+  color-scheme: inherit;
+  color: var(--rk-lime-text);
+  background: var(--rk-lime-list);
+  font-family: var(--font-ui);
+  container-type: inline-size;
+}
+
+#scr-lime *, #scr-lime *::before, #scr-lime *::after { box-sizing: border-box; }
+#scr-lime [hidden] { display: none !important; }
+#scr-lime :is(button, input, textarea) { font-family: inherit; }
+#scr-lime button { cursor: pointer; touch-action: manipulation; }
+#scr-lime button:disabled { cursor: default; opacity: .55; }
+#scr-lime :is(button, summary, input, textarea):focus-visible {
+  outline: 2px solid var(--rk-lime-focus);
+  outline-offset: 2px;
+}
+
+#scr-lime .rk-lime-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  flex: none;
+  gap: 8px;
+  min-height: 64px;
+  padding: 6px 10px;
+  color: var(--rk-lime-text);
+  background: var(--rk-lime-paper);
+  border-bottom: 1px solid var(--rk-lime-line);
+  box-shadow: none;
+}
+#scr-lime .rk-lime-header .back,
+#scr-lime .rk-lime-profile-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
+  padding: 0;
+  color: var(--rk-lime-text);
+  background: transparent;
+  border: 0;
+  border-radius: 12px;
+  font-size: 22px;
+}
+#scr-lime .rk-lime-profile-toggle { width: auto; padding: 0 10px; font-size: 13px; }
+#scr-lime .rk-lime-header .back:hover,
+#scr-lime .rk-lime-profile-toggle:hover { color: var(--rk-lime-text); background: var(--rk-lime-hover); }
+#scr-lime .rk-lime-profile-toggle[aria-expanded="true"] { color: var(--rk-lime-accent); background: var(--rk-lime-soft); }
+#scr-lime .rk-lime-heading { display: flex; flex: 1; flex-direction: column; gap: 2px; min-width: 0; }
+#scr-lime .rk-lime-heading .t {
+  margin: 0;
+  font: 700 16px/1.35 var(--font-ui);
+  color: var(--rk-lime-text);
+  letter-spacing: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#scr-lime .rk-lime-heading .sub {
+  margin: 0;
+  color: var(--rk-lime-muted);
+  font: 11px/1.4 var(--font-ui);
+  overflow-wrap: anywhere;
+}
+#scr-lime #lime-body.rk-lime-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  background: var(--rk-lime-list);
+  overflow: hidden;
+}
+
+/* Search and tabs stay visible while the conversation list scrolls. */
+#scr-lime .rk-lime-search { flex: none; padding: 12px 16px 8px; background: var(--rk-lime-paper); }
+#scr-lime .rk-lime-search input {
+  display: block;
+  width: 100%;
+  height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--rk-lime-line);
+  border-radius: 12px;
+  background: var(--rk-lime-soft);
+  color: var(--rk-lime-text);
+  font-size: 16px;
+  appearance: none;
+}
+#scr-lime .rk-lime-search input::placeholder { color: var(--rk-lime-muted); opacity: 1; }
+#scr-lime .rk-lime-tabs {
+  display: flex;
+  flex: none;
+  gap: 16px;
+  padding: 0 16px;
+  background: var(--rk-lime-paper);
+  border-bottom: 1px solid var(--rk-lime-line);
+}
+#scr-lime .rk-lime-tabs button {
+  position: relative;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 8px 2px;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+  color: var(--rk-lime-muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+#scr-lime .rk-lime-tabs button[aria-selected="true"] { color: var(--rk-lime-accent); border-bottom-color: var(--rk-lime-accent); }
+#scr-lime .rk-lime-list {
+  flex: 1;
+  min-height: 0;
+  padding: 4px 0 12px;
+  background: var(--rk-lime-paper);
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+#scr-lime .rk-lime-contact {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 84px;
+  margin: 0;
+  padding: 12px 16px;
+  border: 0;
+  border-radius: 0;
+  background: var(--rk-lime-paper);
+  color: var(--rk-lime-text);
+  text-align: left;
+}
+#scr-lime .rk-lime-contact:hover { background: var(--rk-lime-hover); }
+#scr-lime .rk-lime-contact:active { background: var(--rk-lime-soft); }
+#scr-lime .rk-lime-contact-copy { flex: 1; min-width: 0; }
+#scr-lime .rk-lime-contact-top { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
+#scr-lime .rk-lime-contact-name {
+  flex: 1;
+  min-width: 0;
+  color: var(--rk-lime-text);
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#scr-lime .rk-lime-contact-time { flex: none; color: var(--rk-lime-muted); font-size: 10px; white-space: nowrap; }
+#scr-lime .rk-lime-contact-last {
+  margin-top: 5px;
+  color: var(--rk-lime-muted);
+  font-size: 12px;
+  line-height: 1.6;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Render the original shield artwork whole; these slots never crop it again. */
+#scr-lime .rk-lime-contact-avatar { flex: 0 0 44px; width: 44px; height: 58px; }
+#scr-lime .rk-lime-message-avatar { flex: 0 0 32px; width: 32px; height: 43px; }
+#scr-lime :is(.rk-lime-contact-avatar, .rk-lime-message-avatar) .roster-ava {
+  width: 100%;
+  height: 100%;
+  flex-basis: auto;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--rk-lime-text);
+  box-shadow: none;
+}
+#scr-lime :is(.rk-lime-contact-avatar, .rk-lime-message-avatar) .roster-ava:not(.rk-knight-avatar) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--rk-lime-line);
+  border-radius: 8px;
+  background: var(--rk-lime-soft);
+  font: 700 18px var(--font-ui);
+}
+#scr-lime .rk-knight-avatar--native .rk-avatar-image { object-fit: contain; clip-path: none; }
+#scr-lime .rk-knight-avatar .rk-avatar-initial { background: var(--rk-lime-soft); color: var(--rk-lime-text); border-color: var(--rk-lime-line); font-size: 18px; }
+
+#scr-lime .rk-lime-room {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  background: var(--rk-lime-chat);
+  overflow: hidden;
+}
+#scr-lime .rk-lime-profile {
+  flex: none;
+  margin: 0;
+  padding: 0 12px;
+  border-bottom: 1px solid var(--rk-lime-line);
+  background: var(--rk-lime-paper);
+  color: var(--rk-lime-text);
+  font-size: 12px;
+}
+#scr-lime .rk-lime-profile > summary { min-height: 44px; padding: 12px 0; cursor: pointer; font-weight: 600; }
+#scr-lime .rk-lime-profile[open] { max-height: 34%; overflow-y: auto; overscroll-behavior: contain; }
+#scr-lime .rk-lime-profile .lime-chat-profile { gap: 10px; padding: 10px 0; }
+#scr-lime .rk-lime-profile .card1 { margin: 8px 0; padding: 10px; border-radius: 10px; border: 1px solid var(--rk-lime-line); box-shadow: none; }
+#scr-lime .rk-lime-timeline {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  min-height: 0;
+  padding: 16px 14px 20px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-color: var(--rk-lime-muted) transparent;
+  -webkit-overflow-scrolling: touch;
+}
+#scr-lime .rk-lime-date {
+  align-self: center;
+  flex: none;
+  max-width: 100%;
+  margin: 2px 0 4px;
+  padding: 4px 11px;
+  border-radius: 20px;
+  background: var(--rk-lime-accent);
+  color: var(--rk-lime-on-accent);
+  font-size: 10px;
+  line-height: 1.5;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+#scr-lime .rk-lime-message { display: flex; flex: none; align-items: flex-start; gap: 8px; min-width: 0; width: 100%; }
+#scr-lime .rk-lime-message-content { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; max-width: calc(100% - 48px); }
+#scr-lime .rk-lime-sender { margin: 0 0 4px 2px; color: var(--rk-lime-secondary); font-size: 11px; line-height: 1.4; overflow-wrap: anywhere; }
+#scr-lime .rk-lime-bubble {
+  position: relative;
+  min-width: 0;
+  max-width: 100%;
+  padding: 10px 13px;
+  border: 0;
+  border-radius: 16px;
+  background: var(--rk-lime-incoming);
+  color: var(--rk-lime-text);
+  box-shadow: none;
+  font-size: 14px;
+  line-height: 1.65;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+#scr-lime .rk-lime-message.in .rk-lime-bubble { border-top-left-radius: 5px; }
+#scr-lime .rk-lime-bubble::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -5px;
+  width: 10px;
+  height: 12px;
+  background: inherit;
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+  pointer-events: none;
+}
+#scr-lime .rk-lime-message.out { justify-content: flex-end; padding-left: 32px; }
+#scr-lime .rk-lime-message.out .rk-lime-message-avatar,
+#scr-lime .rk-lime-message.out .rk-lime-sender { display: none; }
+#scr-lime .rk-lime-message.out .rk-lime-message-content { align-items: flex-end; max-width: 100%; }
+#scr-lime .rk-lime-message.out .rk-lime-bubble { background: var(--rk-lime-outgoing); color: var(--rk-lime-on-outgoing); border-top-right-radius: 5px; }
+#scr-lime .rk-lime-message.out .rk-lime-bubble::before { left: auto; right: -5px; clip-path: polygon(0 0, 100% 0, 0 100%); }
+#scr-lime .rk-lime-message-meta { margin: 4px 2px 0; color: var(--rk-lime-muted); font-size: 10px; line-height: 1.4; overflow-wrap: anywhere; }
+#scr-lime .rk-lime-turn-separator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  gap: 8px;
+  margin: 8px 0 2px;
+  color: var(--rk-lime-muted);
+  font-size: 10px;
+  line-height: 1.6;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+#scr-lime .rk-lime-turn-separator::before,
+#scr-lime .rk-lime-turn-separator::after { content: ""; flex: 1; height: 1px; background: var(--rk-lime-line); }
+#scr-lime .rk-lime-empty { margin: auto; padding: 28px 22px; max-width: 360px; color: var(--rk-lime-secondary); font-size: 13px; line-height: 1.8; text-align: center; overflow-wrap: anywhere; }
+
+#scr-lime .rk-lime-quick-actions {
+  display: flex;
+  flex: none;
+  gap: 6px;
+  min-width: 0;
+  padding: 6px 10px;
+  background: var(--rk-lime-paper);
+  border-top: 1px solid var(--rk-lime-line);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-color: var(--rk-lime-muted) transparent;
+}
+#scr-lime .rk-lime-quick-actions button {
+  flex: none;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 8px 11px;
+  border: 1px solid var(--rk-lime-line);
+  border-radius: 12px;
+  background: var(--rk-lime-paper);
+  color: var(--rk-lime-secondary);
+  font-size: 12px;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+#scr-lime .rk-lime-quick-actions button:hover { border-color: var(--rk-lime-accent); background: var(--rk-lime-hover); }
+#scr-lime .rk-lime-composer {
+  display: flex;
+  flex: none;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 10px 12px 8px;
+  background: var(--rk-lime-paper);
+  border-top: 1px solid var(--rk-lime-line);
+}
+#scr-lime #lime-compose {
+  display: block;
+  flex: 1 1 0;
+  width: 0;
+  min-width: 0;
+  min-height: 44px;
+  max-height: 116px;
+  margin: 0;
+  padding: 9px 12px;
+  border: 1px solid var(--rk-lime-line);
+  border-radius: 16px;
+  background: var(--rk-lime-soft);
+  color: var(--rk-lime-text);
+  font-size: 16px;
+  line-height: 24px;
+  resize: none;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overflow-wrap: anywhere;
+  appearance: none;
+}
+#scr-lime #lime-compose::placeholder { color: var(--rk-lime-muted); opacity: 1; }
+#scr-lime .rk-lime-send {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  min-width: 48px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 14px;
+  background: var(--rk-lime-accent);
+  color: var(--rk-lime-on-accent);
+  font-size: 13px;
+  font-weight: 700;
+}
+#scr-lime .rk-lime-send:hover:not(:disabled) { background: var(--rk-lime-on-accent); color: var(--rk-lime-accent); box-shadow: inset 0 0 0 1px var(--rk-lime-accent); }
+#scr-lime .rk-lime-send .ti { font-size: 19px; }
+#scr-lime .rk-lime-send-note {
+  flex: none;
+  width: 100%;
+  margin: 0;
+  padding: 0 12px 8px;
+  background: var(--rk-lime-paper);
+  color: var(--rk-lime-muted);
+  font-size: 10px;
+  line-height: 1.6;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+#scr-lime .rk-lime-composer .rk-lime-send-note { padding: 0; }
+#scr-lime .rk-lime-error {
+  flex: none;
+  margin: 0;
+  padding: 8px 12px;
+  border-top: 1px solid var(--rk-lime-line);
+  border-left: 3px solid var(--rk-lime-accent);
+  background: var(--rk-lime-soft);
+  color: var(--rk-lime-text);
+  font-size: 12px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+#scr-lime .rk-lime-notice {
+  flex: none;
+  padding: 8px 12px;
+  border-top: 1px solid var(--rk-lime-line);
+  background: var(--rk-lime-soft);
+  color: var(--rk-lime-secondary);
+  font-size: 12px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+@container (max-width: 360px) {
+  #scr-lime .rk-lime-header { gap: 4px; padding-inline: 6px; }
+  #scr-lime .rk-lime-profile-toggle { padding-inline: 6px; font-size: 12px; }
+  #scr-lime .rk-lime-search { padding-inline: 12px; }
+  #scr-lime .rk-lime-contact { gap: 10px; padding-inline: 12px; }
+  #scr-lime .rk-lime-timeline { padding-inline: 10px; }
+  #scr-lime .rk-lime-bubble { padding: 9px 11px; }
+  #scr-lime .rk-lime-message.out { padding-left: 24px; }
+  #scr-lime .rk-lime-composer { padding-inline: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #scr-lime, #scr-lime * { scroll-behavior: auto; transition: none; animation: none; }
+}

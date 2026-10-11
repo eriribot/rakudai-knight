@@ -1,0 +1,100 @@
+{
+  "version": "1.3.28",
+  "date": "2026-10-11",
+  "scope": "LIME 当前剧情页附属通讯、MVU时间、即时辅助回复与正文主动来信",
+  "contract": {
+    "send": "一次辅助回复保存到已有助手活动页，不增加酒馆 user/assistant 楼层，不推进剧情时间。",
+    "context": "即时发送明确注入人物世界书与本局关系；附件进入下一次正常剧情。正文生成前启用最近最多3名通联角色原文。",
+    "records": "显式正文 LIME 来信 + owner核实后的 rk_lime 附件；只读活动分支，流式保留已保存记录。",
+    "time": "所属楼层 MVU时间；附件保存冻结时间，narrative快照+narrativeCount保持同页续写旧时间及順序。",
+    "storage": "原生助手页 data.rk_lime，独立于 stat_data；临时草稿仅实例内存。",
+    "transport": "tavern-helper-floor-attachment",
+    "liveAcceptance": "未在真实酒馆跑完整链路。"
+  },
+  "references": [
+    "https://guide.line.me/ja/communication/chat-friends.html",
+    "https://guide.line.me/ja/communication/chat-reply.html",
+    "https://vos.line-scdn.net/landpress-content-v2-5a71hmrptrzkpwbm6vix2ovx/b51d51f467864ee7a81febb4856da650.png?updatedAt=1787021318000"
+  ],
+  "automated": {
+    "build": "完整宿主 HTML→JS 编译通过，当前交付物 v1.3.28。",
+    "lime-chat-test": {
+      "passed": 27,
+      "total": 27
+    },
+    "lime-worldbook-test": {
+      "passed": 12,
+      "total": 12
+    },
+    "lime-host-test": {
+      "passed": 67,
+      "total": 67
+    },
+    "lime-story-test": {
+      "passed": 12,
+      "total": 12
+    },
+    "lime-ui-test": {
+      "passed": 24,
+      "total": 24
+    },
+    "shell-test": {
+      "passed": 37,
+      "total": 37
+    },
+    "avatar-test": {
+      "passed": 17,
+      "total": 17
+    },
+    "packaging-test": {
+      "passed": 9,
+      "total": 9
+    },
+    "git-diff-check": "通过；仅既有 CRLF 提示。",
+    "evidenceBoundary": "支持检查与本地浏览器演示；不等于真实酒馆模型/保存链路验收。"
+  },
+  "existingFailures": {
+    "baselineCommit": "39fb0be29282bb9e9d3760b344b2d2331fde9350",
+    "smoke": {
+      "passed": 24,
+      "total": 30,
+      "headPassed": 24,
+      "headTotal": 30,
+      "report": "../../../scratch/lime-smoke-baseline-results.json"
+    },
+    "state-reader": {
+      "passed": 6,
+      "total": 9,
+      "headPassed": 6,
+      "headTotal": 9,
+      "report": "../../../scratch/lime-state-reader-baseline-results.json"
+    },
+    "note": "HEAD 在内存隔离运行得到同样九项既有失败。本次不改变其断言或 MVU 回读行为；完整旧测试集不是全绿。shell fixture 新增真实 LIME 模块并补齐 console.warn 能力，原 27 项断言保持且通过。"
+  },
+  "browser": {
+    "url": "http://127.0.0.1:58635/preview.html?sample=lime&view=lime",
+    "data": "明确虚构的两条剧情样本。预览发送只追加当前页 reply:[] 附件，无模型、NPC伪回信或真实存档写入。",
+    "checks": [
+      "当前列表/气泡显示2013-05-15 16:20与16:25，没有酒馆回合编号。",
+      "明确发送后显示玩家消息，界面确认剧情楼层数2→2，草稿清空，时间16:25。",
+      "夏洛特未先收到玩家发信，仍显示虚构正文中的主动来信及所属页MVU时间16:25。",
+      "320px：LIME clientWidth=316、scrollWidth=316；420px：均416，无水平溢出。",
+      "黑白外壳均适配列表、气泡、输入框和按钮；头像使用统一盾图。",
+      "发送入口aria-label为发送消息，说明为通讯附于当前剧情。"
+    ],
+    "screenshots": [
+      "LIME预览/attached-chat-420.jpg",
+      "LIME预览/attached-incoming-420.jpg",
+      "LIME预览/attached-incoming-320.jpg",
+      "LIME预览/attached-incoming-white-420.jpg"
+    ],
+    "liveHost": false
+  },
+  "delivery": {
+    "file": "../../../世界书规则/MVU/落第骑士-小手机-v1.3.28.json",
+    "sha256": "580d4726a63ad34113cc90bf30af9dbf4ac0de369ca79bfb61e0950378618374",
+    "install": "只替换同名小手机 v1.3.28；无需改变头像清单与正式MVU文本。",
+    "guide": "../LIME回合与上下文.md",
+    "themeValidation": "LIME主题配色.json"
+  }
+}

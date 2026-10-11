@@ -15,6 +15,7 @@ function state(date = '2013-05-29', mode = '自定义角色') {
   const value = clone(INITIAL_STATE);
   value.系统 = { 结构版本: 4, 开局状态: '已建档', 主角模式: mode };
   value.玩家.姓名 = mode === '黑铁一辉' ? '黑铁一辉' : '测试原创玩家';
+  value.玩家.所属 = '破军学园 / 一年一班';
   Object.assign(value.场景, { 当前卷: 1, 当前章: '第一章', 阶段: '进行中', 时间: date, 地点: '破军学园' });
   return schema.parse(value);
 }
@@ -32,6 +33,32 @@ function recordPairs(view) {
   return view.matches.filter(match => ['已完成', '已安排'].includes(match.状态))
     .map(match => JSON.stringify([match.甲方, match.乙方].sort()));
 }
+
+test('只按明确学园归属放行，无关所在地、魔力或姓名', () => {
+  for (const [school, allowed] of [
+    ['破军学园', true], [' 破军学园 / 一年一班 ', true], ['破軍學園／一年一班', true],
+    ['', false], ['武曲学园 / 一年一班', false], ['曾就读破军学园', false], ['非破军学园', false],
+  ]) {
+    const value = state(); value.玩家.所属 = school;
+    const view = deriveTournament(value);
+    assert.equal(view.applicable, allowed, school); assert.equal(view.exists, allowed, school);
+    if (!allowed) {
+      assert.deepEqual(suggestTournamentOpponents(value).candidates, []);
+      assert.throws(() => prepareTournamentAction(value, { action: 'initialize' }), /所属未确认/);
+    }
+  }
+});
+
+test('转校后旧账本可读，但不补名册或推演新赛果', () => {
+  const value = winAgainstShizuku(); value.玩家.所属 = '武曲学园';
+  const before = clone(value), view = deriveTournament(at(value, '2013-07-09'));
+  assert.equal(view.applicable, false); assert.equal(view.projected, false);
+  assert.deepEqual(view.matches.map(row => row.id), Object.keys(value.场景.选拔赛.比赛));
+  assert.equal(view.roster.length, Object.keys(value.场景.选拔赛.名册).length);
+  assert.deepEqual(value, before);
+  assert.throws(() => prepareTournamentAction(value, { action: 'setStatus', status: '已结束' }), /所属未确认/);
+  assert.equal(deriveTournament(value.场景.选拔赛).exists, true, '纯账本工具仍可读取历史');
+});
 
 test('无账本按日期预览正典和玩家，开幕两组首战相差一天', () => {
   const initial = state('2013-04-22'), before = clone(initial), day22 = deriveTournament(initial);

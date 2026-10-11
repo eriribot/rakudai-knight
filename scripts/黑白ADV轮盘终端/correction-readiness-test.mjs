@@ -4,8 +4,8 @@ import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 import { stripModuleSyntax } from '../story-build.mjs';
 import { createSchema, INITIAL_STATE, supportStage } from '../../世界书规则/MVU/schema.mjs';
-import { shouldInjectTournament, parseTournamentDate } from '../rakudai-tournament-calendar.mjs';
-import { deriveTournament } from '../rakudai-tournament.mjs';
+import { shouldInjectTournament, parseTournamentDate, isHagunAffiliation } from '../rakudai-tournament-calendar.mjs';
+import { deriveTournament, normalizeTournament } from '../rakudai-tournament.mjs';
 
 const { z } = createRequire(new URL('../../output/worldbook-calibration/dev/package.json', import.meta.url))('zod');
 const stateSchema = createSchema(z, { normalizeRelationships: false });
@@ -37,6 +37,7 @@ function fixture({ autoApply = true, connected = true, hostRenderEvent = true, t
   Object.assign(initial.stat_data.系统, { 开局状态: '已建档', 主角模式: '自定义角色' });
   Object.assign(initial.stat_data.场景, { 当前章: '第一章', 阶段: '进行中', 地点: '校门' });
   initial.stat_data.玩家.姓名 = '测试角色';
+  initial.stat_data.玩家.所属 = '破军学园·一年一班';
   let persisted = clone(initial);
   const context = {
     chatId: 'readiness-chat', characterId: 1, groupId: null,
@@ -62,13 +63,15 @@ function fixture({ autoApply = true, connected = true, hostRenderEvent = true, t
       parses.push({ native: true, content });
       const next = clone(data), operations = JSON.parse(content.match(/<JSONPatch>([\s\S]*?)<\/JSONPatch>/)[1]);
       for (const op of operations) {
-        if (op.path === '/场景/地点') next.stat_data.场景.地点 = op.value;
-        else {
-          assert.equal(op.op, 'replace');
-          assert.equal(op.path, '/人际');
+        if (op.path === '/人际') {
           assert.equal(data.schema.properties.人际.extensible, true, 'Native add must see an extensible record schema.');
-          next.stat_data.人际 = clone(op.value);
         }
+        assert.ok(['add', 'replace', 'remove'].includes(op.op));
+        // ponytail: 测试仅需已有父对象上的对象补丁，不模拟完整 JSON Patch 引擎。
+        const parts = op.path.slice(1).split('/').map(key => key.replaceAll('~1', '/').replaceAll('~0', '~')), key = parts.pop();
+        const parent = parts.reduce((node, part) => node[part], next.stat_data);
+        assert.ok(parent && typeof parent === 'object' && !Array.isArray(parent));
+        if (op.op === 'remove') delete parent[key]; else parent[key] = clone(op.value);
       }
       if (mvu.onParse) await mvu.onParse();
       next.schema = '没有用别管这个';
@@ -92,7 +95,7 @@ function fixture({ autoApply = true, connected = true, hostRenderEvent = true, t
   top.top = top; top.parent = top;
   const middle = { top, parent: top };
   const HW = { top, parent: middle, SillyTavern: { getContext: () => context }, Mvu: mvu };
-  const window = { parent: HW, top, Mvu: mvu, RakudaiStateController: { shouldInjectTournament } };
+  const window = { parent: HW, top, Mvu: mvu, RakudaiStateController: { shouldInjectTournament, isHagunAffiliation } };
   const SS = { destroyed: false, disposers: [] };
   const helper = {
     ...(tailEvents ? {
@@ -142,6 +145,10 @@ function fixture({ autoApply = true, connected = true, hostRenderEvent = true, t
   api.wireAutomaticCorrection((event, callback) => {
     if (!listeners.has(event)) listeners.set(event, []);
     listeners.get(event).push(callback);
+    SS.disposers.push(() => {
+      const remaining = (listeners.get(event) || []).filter(item => item !== callback);
+      if (remaining.length) listeners.set(event, remaining); else listeners.delete(event);
+    });
   }, TE);
   function event(name, ...args) {
     for (const callback of listeners.get(name) || []) callback(...args);
@@ -180,7 +187,10 @@ function fixture({ autoApply = true, connected = true, hostRenderEvent = true, t
     const candidate = clone(previous);
     candidate.stat_data.场景.地点 = location;
     if (parsed) event(mvu.events.COMMAND_PARSED, candidate, [], context.chat.at(-1).mes);
-    if (end) event(mvu.events.VARIABLE_UPDATE_ENDED, candidate, previous);
+    if (end) {
+      event(mvu.events.VARIABLE_UPDATE_ENDED, candidate, previous);
+      event(mvu.events.VARIABLE_UPDATE_ENDED + '_for_zod', candidate, previous);
+    }
     if (save) persisted = clone(candidate);
     if (render) event(TE.CHARACTER_MESSAGE_RENDERED, context.chat.length - 1);
     api.endAutomaticCorrection(false, context.chat.length);
@@ -523,7 +533,7 @@ await check('后续约束监听器清除delta收据时安全失败，渲染也�
 await check('约束清理delta后尾部重盖同一收据，仍等该收据实际保存才解锁', async () => {
   const f = fixture(); f.ready();
   const tailEvent = f.mvu.events.VARIABLE_UPDATE_ENDED + '_for_zod';
-  f.listeners.set(tailEvent, [variables => { variables.delta_data = { 场景: { 地点: '走廊' } }; }]);
+  f.listeners.get(tailEvent).push(variables => { variables.delta_data = { 场景: { 地点: '走廊' } }; });
   const candidate = f.startTurn({ save: false, render: false });
   const receiptId = candidate.delta_data.$internal.__rk_main_save.id;
   f.event(tailEvent, candidate, f.state());
@@ -541,12 +551,12 @@ await check('约束清理delta后尾部重盖同一收据，仍等该收据实�
 await check('桥接后加载时下一轮重新移尾且不重复订阅，销毁用原回调解绑', async () => {
   const f = fixture({ autoApply: false }), tailEvent = f.mvu.events.VARIABLE_UPDATE_ENDED + '_for_zod';
   f.startTurn(); await f.advance(1000);
-  assert.equal(f.listeners.get(tailEvent).length, 1);
+  assert.equal(f.listeners.get(tailEvent).length, 2);
   const laterBridge = variables => { variables.delta_data = {}; };
   f.listeners.get(tailEvent).push(laterBridge); f.ready();
   const candidate = f.startTurn({ save: false });
-  assert.equal(f.listeners.get(tailEvent).length, 2);
-  assert.equal(f.listeners.get(tailEvent)[0], laterBridge);
+  assert.equal(f.listeners.get(tailEvent).length, 3);
+  assert.equal(f.listeners.get(tailEvent).at(-2), laterBridge);
   f.event(tailEvent, candidate, f.state());
   assert.ok(candidate.delta_data.$internal.__rk_main_save.id);
   f.save(candidate); await f.advance(1000);
@@ -852,7 +862,7 @@ await check('副 API 满120秒超时只发一次，保留显式重试而不再�
 await check('全面校验保留全部真实业务字段，只去重程序战况和内部自动历史', async () => {
   const f = fixture(), data = f.state();
   Object.assign(data.stat_data.场景, { 当前卷: 1, 当前章: '第四章', 时间: '2013-06-01' });
-  data.stat_data.玩家 = { 姓名: '测试角色', 六维: { 魔力控制: 'B' }, 魔人觉醒: false,
+  data.stat_data.玩家 = { 姓名: '测试角色', 所属: '破军学园·一年一班', 六维: { 魔力控制: 'B' }, 魔人觉醒: false,
     成长: { 经验: { 魔力控制: 35 }, 申请: { 旧: {} } }, 其他能力: { 探测: { 说明: '感知魔力' } } };
   data.stat_data.人际 = { 测试同学: { 好感: 23, 支援度: 12, 态度印象: '认可' } };
   data.stat_data.场景.选拔赛 = { 名册: { player: { 姓名: '测试角色' } }, 比赛: { round1: { 状态: '待定' } }, 程序战况: { 只读: true } };
@@ -872,7 +882,7 @@ await check('全面校验保留全部真实业务字段，只去重程序战况�
   assert.deepEqual(f.state(), data);
 });
 
-for (const [name, volume, chapter, time, status, inject] of [
+for (const [name, volume, chapter, time, status, inject, affiliation = '破军学园·一年一班', guarded = false] of [
   ['日期下界前一天', 1, '第四章', '2013-04-21', '进行中', false],
   ['日期下界当天', 1, '第一章', '2013-04-22', '未开始', true],
   ['黄金周日期区间内', 2, '第一章', '2013-04-30', '进行中', true],
@@ -883,9 +893,16 @@ for (const [name, volume, chapter, time, status, inject] of [
   ['日期非法', 2, '第一章', '2013-04-31', '进行中', false],
   ['日期区间内且卷章在后续剧情', 4, '序章', '2013-06-01', '进行中', true],
   ['日期区间内且选拔赛已结束', 2, '第一章', '2013-06-01', '已结束', false],
+  ['原生模式他校在破军参观', 1, '第一章', '2013-06-01', '进行中', false, '武曲学园'],
+  ['原生模式所属未确认', 1, '第一章', '2013-06-01', '进行中', false, ''],
+  ['约束模式他校在破军参观', 1, '第一章', '2013-06-01', '进行中', false, '武曲学园', true],
+  ['约束模式所属未确认', 1, '第一章', '2013-06-01', '进行中', false, '', true],
+  ['约束模式已确认破军所属', 1, '第一章', '2013-06-01', '进行中', true, '破军学园·一年一班', true],
 ]) await check(name + '：副API只门禁程序号池摘要，实际账本、原存档及其它变量保留', async () => {
   const f = fixture(), data = f.state();
-  Object.assign(data.stat_data.场景, { 当前卷: volume, 当前章: chapter, 时间: time, 额外剧情事实: { 天气: '晴' }, 选拔赛: {
+  if (guarded) f.ready();
+  data.stat_data.玩家.所属 = affiliation;
+  Object.assign(data.stat_data.场景, { 当前卷: volume, 当前章: chapter, 时间: time, 地点: '破军学园·参观席', 额外剧情事实: { 天气: '晴' }, 选拔赛: {
     版本: 'T01', 赛季: '破军学园选拔赛', 状态: status,
     名册: { player: { 姓名: '测试角色', 来源: '玩家', 参赛状态: '参赛' } },
     比赛: {}, 程序战况: { 版本: 'T02', 名册: [{ 姓名: '缓存' }] },
@@ -902,6 +919,7 @@ for (const [name, volume, chapter, time, status, inject] of [
   assert.equal(sent.当前变量.场景.地点, data.stat_data.场景.地点);
   assert.deepEqual(sent.当前变量.场景.额外剧情事实, { 天气: '晴' });
   assert.equal(sent.当前变量.玩家.姓名, data.stat_data.玩家.姓名);
+  assert.equal(sent.当前变量.玩家.所属, affiliation);
   const expectedLedger = clone(data.stat_data.场景.选拔赛); delete expectedLedger.程序战况;
   assert.deepEqual(sent.当前变量.场景.选拔赛, expectedLedger);
   if (inject) {
@@ -1113,6 +1131,98 @@ await check('人物契约使用精确字段名，未知数值不给默认奖励�
   assert.match(rules, /支援度0—320/); assert.doesNotMatch(rules, /支援0—320/);
   assert.match(rules, /关系、态度印象、好感、支援度、羁绊阶段、变化依据/);
   assert.match(rules, /分数无依据时用null/); assert.match(rules, /显式remove旧错键/);
+});
+await check('无 guard、自动校正关闭且无主轮时，终端尾事件仍过滤后加载旧约束建账并保留其他事实', () => {
+  for (const [affiliation, old] of [['贪狼学园', false], ['', false], ['贪狼学园', true], ['破軍學園 / 一年一班', false]]) {
+    const f = fixture({ autoApply: false, connected: false }), previous = f.state();
+    previous.stat_data.玩家.所属 = affiliation;
+    if (old) previous.stat_data.场景.选拔赛 = normalizeTournament({ 赛季: '旧赛季' });
+    f.save(previous);
+    const before = clone(previous);
+    const candidate = clone(previous), ledger = normalizeTournament({ 赛季: '本轮赛事' });
+    candidate.stat_data.场景.地点 = '图书馆';
+    f.event(f.mvu.events.VARIABLE_UPDATE_ENDED, candidate, previous);
+    // 旧可选约束在终端的 ENDED 回调后建账；MVU 随后无条件发尾事件。
+    candidate.stat_data.场景.选拔赛 = ledger;
+    for (const key of ['display_data', 'delta_data']) candidate[key] = { 场景: { 选拔赛: { 本轮: true }, 地点: '图书馆' }, 玩家: { 战斗风格: '保持观察' } };
+    const receipt = { id: 'existing-main-save-receipt' };
+    candidate.delta_data.$internal = { __rk_main_save: clone(receipt) };
+    f.event(f.mvu.events.VARIABLE_UPDATE_ENDED + '_for_zod', candidate, previous);
+    assert.deepEqual(candidate.delta_data.$internal.__rk_main_save, receipt);
+    assert.deepEqual(previous, before); assert.deepEqual(f.state(), before);
+    const allowed = isHagunAffiliation(candidate);
+    assert.deepEqual(candidate.stat_data.场景.选拔赛, allowed ? ledger : previous.stat_data.场景.选拔赛);
+    assert.equal(candidate.stat_data.场景.地点, '图书馆');
+    for (const key of ['display_data', 'delta_data']) {
+      assert.deepEqual(candidate[key].场景.选拔赛, allowed ? { 本轮: true } : key === 'display_data' ? previous.stat_data.场景.选拔赛 : undefined);
+      assert.equal(candidate[key].场景.地点, '图书馆');
+      assert.deepEqual(candidate[key].玩家, { 战斗风格: '保持观察' });
+    }
+    f.assertNoWork();
+    f.save(candidate); assert.deepEqual(f.state(), candidate);
+    f.dispose();
+  }
+});
+
+await check('无 guard 原生副 API 保存回读只过滤他校赛事、保留旧账本和其他事实，破军仍可写入', async () => {
+  for (const [affiliation, old] of [['贪狼学园', false], ['贪狼学园', true], ['破军学园 / 一年一班', false]]) {
+    const proposed = normalizeTournament({ 赛季: '本轮赛事' });
+    const f = fixture({ autoApply: false, patch: [
+      { op: 'replace', path: '/场景/地点', value: '演武场' },
+      old ? { op: 'replace', path: '/场景/选拔赛/赛季', value: proposed.赛季 } : { op: 'add', path: '/场景/选拔赛', value: proposed },
+    ] });
+    const previous = f.state(); previous.stat_data.玩家.所属 = affiliation;
+    previous.stat_data.玩家.战斗风格 = '原有战斗风格';
+    if (old) previous.stat_data.场景.选拔赛 = normalizeTournament({ 赛季: '旧赛季', 名册: { old: { 姓名: '旧选手' } } });
+    f.save(previous); f.context.chat[0].mes += block;
+    const preview = await f.api.requestCorrection();
+    assert.match(preview.patch, /场景\/选拔赛/);
+    await f.api.applyCorrection();
+    assert.equal(f.parses[0].native, true); assert.equal(f.writes.length, 1);
+    assert.equal(f.api.getCorrectionStatus().state, 'applied');
+    const saved = f.state();
+    assert.equal(saved.stat_data.场景.地点, '演武场');
+    assert.equal(saved.stat_data.玩家.战斗风格, '原有战斗风格');
+    assert.deepEqual(saved.stat_data.场景.选拔赛, isHagunAffiliation(saved) ? proposed : previous.stat_data.场景.选拔赛);
+    f.dispose();
+  }
+});
+await check('场景阶段已完成在叶字段和父对象补丁中归一为已结束，日程已完成保持原义', () => {
+  const f = fixture(), state = f.state().stat_data;
+  state.场景.日程 = { 约定: { 状态: '已安排' } };
+  for (const input of [
+    [{ op: 'replace', path: '/场景/阶段', value: '已完成' }, { op: 'replace', path: '/场景/日程/约定/状态', value: '已完成' }],
+    [{ op: 'replace', path: '/场景', value: { 阶段: '已完成', 日程: { 约定: { 状态: '已完成' } } } }],
+  ]) {
+    const before = clone(state), inputBefore = clone(input);
+    const ops = f.api.normalizeCorrectionPatch(input, state);
+    assert.equal(ops.find(op => op.path === '/场景/阶段').value, '已结束');
+    assert.equal(ops.find(op => op.path === '/场景/日程/约定/状态').value, '已完成');
+    assert.deepEqual(state, before); assert.deepEqual(input, inputBefore);
+  }
+  f.dispose();
+});
+await check('截图回归：无 guard 副 API 的已完成阶段和地点混合补丁可规范保存并回读', async () => {
+  const patch = [{ op: 'replace', path: '/场景/阶段', value: '已完成' },
+    { op: 'replace', path: '/场景/地点', value: '演武场' }];
+  const f = fixture({ autoApply: false, patch }), before = f.state(), inputBefore = clone(patch);
+  before.stat_data.玩家.战斗风格 = '截图前已保存的战斗风格'; f.save(before);
+  const initialBefore = clone(before);
+  f.context.chat[0].mes += block;
+  const preview = await f.api.requestCorrection();
+  assert.equal(JSON.parse(preview.patch).find(op => op.path === '/场景/阶段').value, '已结束');
+  assert.deepEqual(f.state(), before);
+  await f.api.applyCorrection();
+  assert.equal(f.parses[0].native, true); assert.equal(f.writes.length, 1);
+  assert.equal(f.api.getCorrectionStatus().state, 'applied');
+  const expected = clone(before.stat_data);
+  Object.assign(expected.场景, { 阶段: '已结束', 地点: '演武场' });
+  const saved = f.state().stat_data;
+  assert.deepEqual(saved.场景, expected.场景);
+  assert.equal(saved.玩家.战斗风格, before.stat_data.玩家.战斗风格);
+  assert.deepEqual(saved.人际, before.stat_data.人际);
+  assert.deepEqual(before, initialBefore); assert.deepEqual(patch, inputBefore);
+  f.dispose();
 });
 console.log(JSON.stringify({ total: results.length, passed: results.filter(result => result.passed).length,
   runtime: '真实 correction.js 与事件接线；宿主、MVU、网络和时钟为内存替身，未连接酒馆', results }, null, 2));

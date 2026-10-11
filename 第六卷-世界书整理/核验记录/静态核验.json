@@ -1,0 +1,576 @@
+{
+  "date": "2026-10-11",
+  "status": "passed",
+  "source": {
+    "path": "落第骑士英雄谭 第六卷 gbk.txt",
+    "bytes": 212541,
+    "sha256": "50de4a6fbd365442e1109cbf80aa24127dbf531d3c389b9f1ff1049ca84243ca",
+    "unchanged": true,
+    "encoding": "gb18030",
+    "physicalLines": 6885,
+    "decodedCharacters": 123683,
+    "lfNormalizedCharacters": 116823,
+    "utf8CopySha256": "c363f19643be89ce9792114252770a9d78119472815787baaba997b8a8190351"
+  },
+  "counts": {
+    "markdown": 34,
+    "scenes": 5,
+    "characters": 18,
+    "settings": 5,
+    "authorDocs": 6,
+    "xmlBlocks": 30,
+    "baselineMarkdown": 9
+  },
+  "baseline": [
+    {
+      "path": "00_整合说明.md",
+      "bytes": 6409,
+      "sha256": "dd08ba5942120e82147e006641d7fdd12b798f685662cbda2409c2e6b80c8481",
+      "unchanged": true
+    },
+    {
+      "path": "01_卷内时间线.md",
+      "bytes": 4795,
+      "sha256": "91a9ab3cd126c3fbfb62cfcf7e3900fbb71fd099c17a82501f1d83d25bf09459",
+      "unchanged": true
+    },
+    {
+      "path": "02_章节索引.md",
+      "bytes": 6733,
+      "sha256": "67394a3df69f3d517e6d794eb8fc3c447bcbf8d74575b67d29589084a397ddac",
+      "unchanged": true
+    },
+    {
+      "path": "03_出场人物索引.md",
+      "bytes": 5396,
+      "sha256": "f130ab3d6dcca34d700db8c35212cd3d91c0b56f0f1663ae9e3f1678c0bea65d",
+      "unchanged": true
+    },
+    {
+      "path": "split_stats.json",
+      "bytes": 1174,
+      "sha256": "f9bf5269259c4f0925bf45b27f6a7004435d566cda8be0a323c716128c6a3213",
+      "unchanged": true
+    },
+    {
+      "path": "人物条目/城之崎白夜.md",
+      "bytes": 8624,
+      "sha256": "c371993065dd0b8099753142493a341c2c19d59e30a744e970ab2148a2b58fa1",
+      "unchanged": true
+    },
+    {
+      "path": "人物条目/夏洛特·科黛.md",
+      "bytes": 3452,
+      "sha256": "0edf2ea56bee2d6ea6488381afc91b13c62bb0cb86b8b72b81e96ed3e3ea475f",
+      "unchanged": true
+    },
+    {
+      "path": "人物条目/鹤屋美琴.md",
+      "bytes": 1793,
+      "sha256": "109bc9a5d9a5544ec4d3b9340d4b922b85dc51cd99440ca5c79f72ea925d374c",
+      "unchanged": true
+    },
+    {
+      "path": "设定条目/七星剑武祭双轮压缩赛程.md",
+      "bytes": 2032,
+      "sha256": "71f974b3d6442a8b905562cd62a167b79948f30829968996e03538327d05ec6b",
+      "unchanged": true
+    },
+    {
+      "path": "设定条目/反射术士与完全反射.md",
+      "bytes": 2446,
+      "sha256": "4ac9254f735edb9521c4d9eaee215bfda0e68dddbd4d6ec461c24e1a6542fb6c",
+      "unchanged": true
+    }
+  ],
+  "splits": [
+    {
+      "file": "第六卷_间章_反射术士.txt",
+      "title": "间章 反射术士",
+      "startLine": 3,
+      "endLine": 135,
+      "lineCount": 133,
+      "charCount": 2473,
+      "storedFileCharCount": 2474,
+      "trimEndMatchesSource": true
+    },
+    {
+      "file": "第六卷_第五章_快刀斩乱麻.txt",
+      "title": "第五章 快刀斩乱麻",
+      "startLine": 136,
+      "endLine": 2502,
+      "lineCount": 2367,
+      "charCount": 40318,
+      "storedFileCharCount": 40319,
+      "trimEndMatchesSource": true
+    },
+    {
+      "file": "第六卷_第六章_初战终了.txt",
+      "title": "第六章 初战终了",
+      "startLine": 2503,
+      "endLine": 5045,
+      "lineCount": 2543,
+      "charCount": 43374,
+      "storedFileCharCount": 43375,
+      "trimEndMatchesSource": true
+    },
+    {
+      "file": "第六卷_第七章_七星剑武祭第二轮战·开战.txt",
+      "title": "第七章 七星剑武祭第二轮战·开战",
+      "startLine": 5046,
+      "endLine": 6650,
+      "lineCount": 1605,
+      "charCount": 26581,
+      "storedFileCharCount": 26582,
+      "trimEndMatchesSource": true
+    },
+    {
+      "file": "第六卷_间章_转暗.txt",
+      "title": "间章 转暗",
+      "startLine": 6651,
+      "endLine": 6841,
+      "lineCount": 191,
+      "charCount": 3292,
+      "storedFileCharCount": 3293,
+      "trimEndMatchesSource": true
+    },
+    {
+      "file": "第六卷_后记.txt",
+      "title": "后记",
+      "startLine": 6842,
+      "endLine": 6885,
+      "lineCount": 44,
+      "charCount": 743,
+      "storedFileCharCount": 743,
+      "trimEndMatchesSource": true
+    }
+  ],
+  "xml": [
+    {
+      "path": "人物条目/仓敷藏人.md",
+      "ok": true,
+      "message": ""
+    },
+    {
+      "path": "人物条目/城之崎白夜.md",
+      "ok": true,
+      "message": ""
+    },
+    {
+      "path": "人物条目/多多良幽衣.md",
+      "ok": true,
+      "message": ""
+    },
+    {
+      "path": "人物条目/风祭凛奈.md",
+      "ok": true,
+      "message": ""
+    },
+    {
+      "path": "人物条目/鹤屋美琴.md",
+      "ok": true,
+      "message": ""
+    },
+    {
+      "path": "人物条目/黑铁王马.md",
+      "ok": true,
+      "message": ""
+    },
+    {
+      "path": "人物条目/黑铁一辉.md",
+      "ok": true,
+      "message": ""
+    },
+    {
+      "path": "人物条目/黑铁珠雫.md",
+      "ok": true,
+      "message": ""
+    },
+    {
+      "path": "人物条目/后方观战与通讯人物.md",
+      "ok": true,
+      "message": ""
+    },
+    {
+      "path": "人物条目/后方观战与通讯人物.md",
+      "ok": true,
+      "message": ""
+    },
+    {
+      "path": "人物条目/后方观战与通讯人物.md",
+      "ok": true,
+      "message": ""
+    },
+    {
+      "path": "人物条目/加我恋司.md",
+      "ok": true,
+      "message": ""
+    },
+    {
+      "path": "人物条目/平贺玲泉.md",
+      "ok": true,
+      "message": ""
+    },
+    {
+      "path": "人物条目/日下部加加美.md",
+      "ok": true,
+      "message": ""
+    },
+    {
+      "path": "人物条目/莎拉·布拉德莉莉.md",
+      "ok": true,
+      "message": ""
+    },
+    {
+      "path": "人物条目/史黛菈·法米利昂.md",
+      "ok": true,
+      "message": ""
+    },
+    {
+      "path": "人物条目/夏洛特·科黛.md",
+      "ok": true,
+      "message": ""
+    },
+    {
+      "path": "人物条目/有栖院凪.md",
+      "ok": true,
+      "message": ""
+    },
+    {
+      "path": "人物条目/诸星雄大.md",
+      "ok": true,
+      "message": ""
+    },
+    {
+      "path": "人物条目/紫乃宫天音.md",
+      "ok": true,
+      "message": ""
+    },
+    {
+      "path": "场景条目/01_间章场景_反射术士.md",
+      "ok": true,
+      "message": ""
+    },
+    {
+      "path": "场景条目/02_第五章场景_快刀斩乱麻.md",
+      "ok": true,
+      "message": ""
+    },
+    {
+      "path": "场景条目/03_第六章场景_初战终了.md",
+      "ok": true,
+      "message": ""
+    },
+    {
+      "path": "场景条目/04_第七章场景_七星剑武祭第二轮战·开战.md",
+      "ok": true,
+      "message": ""
+    },
+    {
+      "path": "场景条目/05_间章场景_转暗.md",
+      "ok": true,
+      "message": ""
+    },
+    {
+      "path": "设定条目/反射术士与完全反射.md",
+      "ok": true,
+      "message": ""
+    },
+    {
+      "path": "设定条目/七星剑武祭双轮压缩赛程.md",
+      "ok": true,
+      "message": ""
+    },
+    {
+      "path": "设定条目/色彩魔法与幻想讽画.md",
+      "ok": true,
+      "message": ""
+    },
+    {
+      "path": "设定条目/史黛菈的龙之力.md",
+      "ok": true,
+      "message": ""
+    },
+    {
+      "path": "设定条目/天愿与绝对不确定.md",
+      "ok": true,
+      "message": ""
+    }
+  ],
+  "docs": [
+    {
+      "path": "00_整合说明.md",
+      "bytes": 4128,
+      "sha256": "32f9375300471cc73c72d63e61640c5314c6896c03246aa9409d2628c171fa56",
+      "xmlBlocks": 0,
+      "missingLinks": [],
+      "invalidRefs": []
+    },
+    {
+      "path": "01_卷内时间线.md",
+      "bytes": 3657,
+      "sha256": "4b6d44c2c1c36bbeb3e8093410698e2ba6698edd353d033340931052dbbdb31f",
+      "xmlBlocks": 0,
+      "missingLinks": [],
+      "invalidRefs": []
+    },
+    {
+      "path": "02_章节索引.md",
+      "bytes": 5637,
+      "sha256": "f1d9b92ae549e0355043dbd25e5476e416890ed388d43f7799a967929b1dd66e",
+      "xmlBlocks": 0,
+      "missingLinks": [],
+      "invalidRefs": []
+    },
+    {
+      "path": "03_出场人物索引.md",
+      "bytes": 7215,
+      "sha256": "d0490583cd53a5bb6594f08a40528f2627bdc4835fadfb8846efb05c5217c6a6",
+      "xmlBlocks": 0,
+      "missingLinks": [],
+      "invalidRefs": []
+    },
+    {
+      "path": "04_原文核验记录.md",
+      "bytes": 3354,
+      "sha256": "0af3a90c41624478403edae9a7f9811d60a1af46b29752484c944a00d1212018",
+      "xmlBlocks": 0,
+      "missingLinks": [],
+      "invalidRefs": []
+    },
+    {
+      "path": "05_与Gemini整理对比.md",
+      "bytes": 14301,
+      "sha256": "af10723535577da15c43392541f5bef9f63bcd82d0827fa9cf869a821a964ebe",
+      "xmlBlocks": 0,
+      "missingLinks": [],
+      "invalidRefs": []
+    },
+    {
+      "path": "人物条目/仓敷藏人.md",
+      "bytes": 6139,
+      "sha256": "6125e4af5d48d97197a4fe1364aae4cec3d80e59273ea7f21ca1bf67505117f6",
+      "xmlBlocks": 1,
+      "missingLinks": [],
+      "invalidRefs": []
+    },
+    {
+      "path": "人物条目/加我恋司.md",
+      "bytes": 1986,
+      "sha256": "e96daf0c283cd20e52b9149aead944b037245e355ba10ade0ec2adb662668673",
+      "xmlBlocks": 1,
+      "missingLinks": [],
+      "invalidRefs": []
+    },
+    {
+      "path": "人物条目/史黛菈·法米利昂.md",
+      "bytes": 5591,
+      "sha256": "5f174104630024d5454c6aaa4c8db7ef9729a2f182bf490cda86199dd9892db3",
+      "xmlBlocks": 1,
+      "missingLinks": [],
+      "invalidRefs": []
+    },
+    {
+      "path": "人物条目/后方观战与通讯人物.md",
+      "bytes": 2920,
+      "sha256": "9fc966c9cc46169bb2e2186c3a06e234b639ebc6435dcde1d2370225f6699627",
+      "xmlBlocks": 3,
+      "missingLinks": [],
+      "invalidRefs": []
+    },
+    {
+      "path": "人物条目/城之崎白夜.md",
+      "bytes": 5563,
+      "sha256": "3f0dd8cfe4658fcfc549b186a2f0c449f71977ae9b69bc6a46218baa30fb2ab8",
+      "xmlBlocks": 1,
+      "missingLinks": [],
+      "invalidRefs": []
+    },
+    {
+      "path": "人物条目/夏洛特·科黛.md",
+      "bytes": 4124,
+      "sha256": "9e54c08756d1e283ccd4f45b537ae440b6984241b87472e915a4c54b52e252fc",
+      "xmlBlocks": 1,
+      "missingLinks": [],
+      "invalidRefs": []
+    },
+    {
+      "path": "人物条目/多多良幽衣.md",
+      "bytes": 4171,
+      "sha256": "258655e17beec1c1ea9edb27378d21c475babce696f92b6f730e7a7c107bb27a",
+      "xmlBlocks": 1,
+      "missingLinks": [],
+      "invalidRefs": []
+    },
+    {
+      "path": "人物条目/平贺玲泉.md",
+      "bytes": 4205,
+      "sha256": "508f87ea5ff6e8dfd67bdbc4bcb62ffcc8a8ddfb4976e6fe02e8f79b49a80295",
+      "xmlBlocks": 1,
+      "missingLinks": [],
+      "invalidRefs": []
+    },
+    {
+      "path": "人物条目/日下部加加美.md",
+      "bytes": 1389,
+      "sha256": "98832b9c214b0d119674455edc25a4bf1b2b70d439756b69cf6f409a86fe61af",
+      "xmlBlocks": 1,
+      "missingLinks": [],
+      "invalidRefs": []
+    },
+    {
+      "path": "人物条目/有栖院凪.md",
+      "bytes": 1305,
+      "sha256": "d1da0bec1ae0e97935f128563250a6e829527d4c82fa7d0ccf2948c98e4cbd09",
+      "xmlBlocks": 1,
+      "missingLinks": [],
+      "invalidRefs": []
+    },
+    {
+      "path": "人物条目/紫乃宫天音.md",
+      "bytes": 5462,
+      "sha256": "56e8f98de66c082e43abc7c7864a58bffd9f7962b2105d3784423448543216ca",
+      "xmlBlocks": 1,
+      "missingLinks": [],
+      "invalidRefs": []
+    },
+    {
+      "path": "人物条目/莎拉·布拉德莉莉.md",
+      "bytes": 5776,
+      "sha256": "eca22bdd407bd03635181688bcd6d7f8d74d2b448a5082ba46c96f5269855fd6",
+      "xmlBlocks": 1,
+      "missingLinks": [],
+      "invalidRefs": []
+    },
+    {
+      "path": "人物条目/诸星雄大.md",
+      "bytes": 1244,
+      "sha256": "83a32310671243fc8f50d6b6a26826bfdfc227af1388146ea9244214279efcfa",
+      "xmlBlocks": 1,
+      "missingLinks": [],
+      "invalidRefs": []
+    },
+    {
+      "path": "人物条目/风祭凛奈.md",
+      "bytes": 3685,
+      "sha256": "c135e4a8721883cf28c21568a04554012849303642ba716377cdb42961a0bfe1",
+      "xmlBlocks": 1,
+      "missingLinks": [],
+      "invalidRefs": []
+    },
+    {
+      "path": "人物条目/鹤屋美琴.md",
+      "bytes": 3871,
+      "sha256": "61597a1912c6350d55e981caed380e9f8b25b60faf73a4f9027bdb1ce769a66d",
+      "xmlBlocks": 1,
+      "missingLinks": [],
+      "invalidRefs": []
+    },
+    {
+      "path": "人物条目/黑铁一辉.md",
+      "bytes": 3164,
+      "sha256": "99a471292ee697a22eec21f98f185b24c9752d85ff4cfb54fc315a8040876a4e",
+      "xmlBlocks": 1,
+      "missingLinks": [],
+      "invalidRefs": []
+    },
+    {
+      "path": "人物条目/黑铁王马.md",
+      "bytes": 1534,
+      "sha256": "0b70e7ba60aa8cd88728dcacc51f154b095a9d13b72812e037c2bfe204560f6a",
+      "xmlBlocks": 1,
+      "missingLinks": [],
+      "invalidRefs": []
+    },
+    {
+      "path": "人物条目/黑铁珠雫.md",
+      "bytes": 1369,
+      "sha256": "336f9fc41f7cd4f3b3acdf52f73aee862cb91bbfe84b548b016b621944f830d6",
+      "xmlBlocks": 1,
+      "missingLinks": [],
+      "invalidRefs": []
+    },
+    {
+      "path": "场景条目/01_间章场景_反射术士.md",
+      "bytes": 3930,
+      "sha256": "cb0322bd66949f5f1efdc680476219c3dd74b1a26d9358dd2802a5173617c421",
+      "xmlBlocks": 1,
+      "missingLinks": [],
+      "invalidRefs": []
+    },
+    {
+      "path": "场景条目/02_第五章场景_快刀斩乱麻.md",
+      "bytes": 8978,
+      "sha256": "a6ddf6a0a7fa9f3feef0d53c46311954c878b423178874ff4fe0af7c8976515e",
+      "xmlBlocks": 1,
+      "missingLinks": [],
+      "invalidRefs": []
+    },
+    {
+      "path": "场景条目/03_第六章场景_初战终了.md",
+      "bytes": 13746,
+      "sha256": "2c1241d7aed8ec2e33da006291e598f105c1ec8ffbe14ba5073271fd72d127ff",
+      "xmlBlocks": 1,
+      "missingLinks": [],
+      "invalidRefs": []
+    },
+    {
+      "path": "场景条目/04_第七章场景_七星剑武祭第二轮战·开战.md",
+      "bytes": 8523,
+      "sha256": "9869b693730d29e5bb1c706c2c92c370ab459aac76cf74ed6391c0c2d94cbc71",
+      "xmlBlocks": 1,
+      "missingLinks": [],
+      "invalidRefs": []
+    },
+    {
+      "path": "场景条目/05_间章场景_转暗.md",
+      "bytes": 5129,
+      "sha256": "6c235402088644bd7722067d563be6de43afdb27c2f57aaad0952bbc04f0a028",
+      "xmlBlocks": 1,
+      "missingLinks": [],
+      "invalidRefs": []
+    },
+    {
+      "path": "设定条目/七星剑武祭双轮压缩赛程.md",
+      "bytes": 5977,
+      "sha256": "bbb48ddd606ff51a3642e8022b7a0d05f4e9f6e81b53d09c2c0d5fd5fdacefd1",
+      "xmlBlocks": 1,
+      "missingLinks": [],
+      "invalidRefs": []
+    },
+    {
+      "path": "设定条目/反射术士与完全反射.md",
+      "bytes": 3529,
+      "sha256": "9b01149d1f7764fc59ba7865d1a937b3e4d483de0cf86b12a4b589ec532dc963",
+      "xmlBlocks": 1,
+      "missingLinks": [],
+      "invalidRefs": []
+    },
+    {
+      "path": "设定条目/史黛菈的龙之力.md",
+      "bytes": 4187,
+      "sha256": "8cf0ce2e1f85ba10ec2ce9bfd3e81e04f81e786061adc6fc47dffb6e3ef74afd",
+      "xmlBlocks": 1,
+      "missingLinks": [],
+      "invalidRefs": []
+    },
+    {
+      "path": "设定条目/天愿与绝对不确定.md",
+      "bytes": 5036,
+      "sha256": "29f1eb97056d89b7da301db82e631467d38e08af45330f9bbc7d5e3c60ccd3f2",
+      "xmlBlocks": 1,
+      "missingLinks": [],
+      "invalidRefs": []
+    },
+    {
+      "path": "设定条目/色彩魔法与幻想讽画.md",
+      "bytes": 5606,
+      "sha256": "feec224e0d8da161ccdd1d966b360ac08cc8e8a8d7365d086329b87f82586d51",
+      "xmlBlocks": 1,
+      "missingLinks": [],
+      "invalidRefs": []
+    }
+  ],
+  "errors": [],
+  "scope": "Static Markdown author-source verification; not a SillyTavern import/runtime test"
+}

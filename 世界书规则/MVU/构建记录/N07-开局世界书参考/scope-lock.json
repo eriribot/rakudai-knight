@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "deliveryMode": "component",
+  "target": "[开局]",
+  "runtime": {
+    "helper": "4.11.3",
+    "verified": "Chrome扩展设置"
+  },
+  "goal": "档案补全与开场白根据玩家输入参考当前世界书",
+  "redLines": [
+    "保留已有草稿合并与修改冲突保护",
+    "辅助请求不发送聊天或提交MVU",
+    "保留旧N06与无关修改"
+  ],
+  "acceptance": [
+    "两入口提供世界书扫描输入",
+    "普通位置和深度条目均能进入请求",
+    "现有辅助隔离测试通过",
+    "新正则只替换页面正文，元数据保持一致"
+  ],
+  "library": {
+    "snapshot": "2026-08-18",
+    "routes": [
+      "sillytavern-api-reference",
+      "sillytavern-component-update"
+    ],
+    "loaded": [
+      "ST-A0",
+      "ST-C1"
+    ],
+    "candidates": []
+  },
+  "files": {
+    "第一卷-世界书整理/开局页面/index.html": "107fd8d0c6629e61bec180d877ff332c1b8f3248da44e1be9cd6e5571375dafe",
+    "第一卷-世界书整理/开局页面/正则替换文本.txt": "7c9450dd556b3a43b93e4fa9b039e53761339b29c2f3f4064471bcdfb6ed06f4",
+    "第一卷-世界书整理/开局页面/README.md": "f7709d11585bbcf31d13bce37fa12d484b29b39b6108f47af338d168657e983c",
+    "世界书规则/MVU/落第骑士-开局页面-N06.regex.json": "65b1060e65e2cf123df666869f486e1cda34d494998425124623eec37cfca960",
+    "scripts/check-opening-ai-isolation.mjs": "b1c30b4167c26ebd2340f5be10683b07a4cf56d81c46d857c177a2406d53ae07"
+  }
+}

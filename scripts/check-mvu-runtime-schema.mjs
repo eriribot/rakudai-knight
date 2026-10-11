@@ -19,6 +19,17 @@ const runtimeState = () => ({
   },
 });
 
+test('剧情已完成归一为已结束，不改原状态或接受其他未知阶段', () => {
+  const before = runtimeState(); before.场景.阶段 = '已完成';
+  // 已建档才能合法结束章节。
+  Object.assign(before.系统, { 开局状态: '已建档', 主角模式: '自定义角色' });
+  before.玩家.姓名 = '测试玩家'; before.场景.当前章 = '第一章';
+  const saved = clone(before);
+  assert.equal(schema.parse(before).场景.阶段, '已结束');
+  assert.deepEqual(before, saved);
+  assert.equal(schema.safeParse({ ...before, 场景: { ...before.场景, 阶段: '随意结束' } }).success, false);
+});
+
 test('完整运行时 stat_data 中的评级 replace 保留 $internal 原值', () => {
   const before = runtimeState();
   const beforeSnapshot = clone(before);

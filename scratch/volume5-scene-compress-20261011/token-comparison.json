@@ -1,0 +1,40 @@
+{
+  "encoding": "o200k_base",
+  "files": [
+    {
+      "file": "03_第二章场景_浪速之星.md",
+      "beforeTokens": 8054,
+      "afterTokens": 2806,
+      "reductionPercent": 65.2,
+      "beforeCharacters": 9790,
+      "afterCharacters": 3367
+    },
+    {
+      "file": "04_第三章场景_七星剑武祭·开幕.md",
+      "beforeTokens": 8479,
+      "afterTokens": 2862,
+      "reductionPercent": 66.2,
+      "beforeCharacters": 10459,
+      "afterCharacters": 3483
+    },
+    {
+      "file": "05_第四章场景_决战·无冕剑王VS七星剑王.md",
+      "beforeTokens": 5878,
+      "afterTokens": 2228,
+      "reductionPercent": 62.1,
+      "beforeCharacters": 7273,
+      "afterCharacters": 2669
+    },
+    {
+      "file": "06_终章场景_好戏登场.md",
+      "beforeTokens": 3454,
+      "afterTokens": 1512,
+      "reductionPercent": 56.2,
+      "beforeCharacters": 4270,
+      "afterCharacters": 1829
+    }
+  ],
+  "totalBeforeTokens": 25865,
+  "totalAfterTokens": 9408,
+  "reductionPercent": 63.6
+}

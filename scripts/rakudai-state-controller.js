@@ -51,11 +51,17 @@ function parseTournamentDate(text) {
     key: String(year).padStart(4, '0') + '-' + String(month).padStart(2, '0') + '-' + String(day).padStart(2, '0') };
 }
 
+// ponytail: 沿用“学园名 / 班级”字段，只识别明确归属，不解析履历或所在地。
+function isHagunAffiliation(state) {
+  const school = (state?.stat_data || state)?.玩家?.所属?.trim() || '';
+  return /^(?:破军学园|破軍學園)(?:\s*[/／·]|$)/u.test(school);
+}
+
 // 只控制号池提示副本；日期进度、历史账本和世界书顺序不受影响。
 function shouldInjectTournament(state) {
   const scene = (state?.stat_data || state)?.场景;
   const date = parseTournamentDate(scene?.时间);
-  return Boolean(date && date.key >= tournamentCalendar2013.openingDate &&
+  return Boolean(isHagunAffiliation(state) && date && date.key >= tournamentCalendar2013.openingDate &&
     date.key <= tournamentCalendar2013.finalDate && scene?.选拔赛?.状态 !== '已结束');
 }
 
@@ -257,6 +263,7 @@ const natural = value => Number.isSafeInteger(value) && value >= 0;
 const nonblank = value => typeof value === 'string' && Boolean(value.trim());
 const fixtures = { 1: '桐原静矢', 9: '兔丸恋恋', 11: '绫辻绚濑', 20: '东堂刀华' };
 const canon = TOURNAMENT_CANON;
+const affiliationNotice = '所属未确认为破军学园：选拔赛暂停，仅可查看已有记录。';
 
 // 仅补容器和显示默认值，不猜比赛、初始胜场、初始积分或命定胜负。
 function normalizeTournament(value) {
@@ -446,18 +453,22 @@ function calculateTournament(tournament) {
 function deriveTournament(stateOrTournament) {
   const state = stateOrTournament?.stat_data || stateOrTournament;
   const directLedger = object(state) && ['版本', '名册', '比赛', '赛季'].some(key => own(state, key));
+  const applicable = directLedger || isHagunAffiliation(state);
   const stored = state?.场景 ? state.场景.选拔赛 : directLedger ? state : null;
   const clock = tournamentCalendar(state);
-  const virtual = !stored && clock.valid && Boolean(state?.玩家?.姓名?.trim()) && state?.系统?.主角模式 !== '未选择';
+  const virtual = applicable && !stored && clock.valid && Boolean(state?.玩家?.姓名?.trim()) && state?.系统?.主角模式 !== '未选择';
   const raw = stored || (virtual ? {} : null);
-  if (!raw) return { version: TOURNAMENT_VERSION, exists: false, tournament: null, mode: state?.系统?.主角模式 || '未选择', playerId: null, roster: [], matches: [], leaderboard: [], eligible: [], ties: [], qualificationTie: false, usedOpponents: {}, warnings: [], complete: false, rankingLabel: '仅据已记录积分' };
+  if (!raw) return { version: TOURNAMENT_VERSION, applicable, exists: false, tournament: null, mode: state?.系统?.主角模式 || '未选择', playerId: null, roster: [], matches: [], leaderboard: [], eligible: [], ties: [], qualificationTie: false, usedOpponents: {}, warnings: applicable ? [] : [affiliationNotice], complete: false, rankingLabel: '仅据已记录积分' };
   let tournament = normalizeTournament(raw);
   const issues = tournamentIssues(tournament);
-  if (issues.length) return { version: TOURNAMENT_VERSION, exists: true, tournament, mode: state?.系统?.主角模式 || '未选择', playerId: null, roster: [], matches: [], leaderboard: [], eligible: [], ties: [], qualificationTie: false, usedOpponents: {}, warnings: issues, complete: false, rankingLabel: '账本格式待修正' };
-  identifyTournamentPlayer(state, tournament);
+  if (issues.length) return { version: TOURNAMENT_VERSION, applicable, exists: true, tournament, mode: state?.系统?.主角模式 || '未选择', playerId: null, roster: [], matches: [], leaderboard: [], eligible: [], ties: [], qualificationTie: false, usedOpponents: {}, warnings: issues, complete: false, rankingLabel: '账本格式待修正' };
+  if (applicable) identifyTournamentPlayer(state, tournament);
   // 无有效日期时保留纯账本行为；不能悄悄用现实日期生成赛果。
-  if (clock.valid) tournament = seedTournamentRoster(state, tournament);
-  const projection = projectTournamentBackground(state, tournament);
+  if (applicable && clock.valid) tournament = seedTournamentRoster(state, tournament);
+  const projection = applicable ? projectTournamentBackground(state, tournament) : {
+    ledger: tournament, visibleIds: Object.keys(tournament.名册), active: false,
+    simulatedCounts: {}, pendingRounds: {}, warnings: [affiliationNotice],
+  };
   const result = calculateTournament(projection.ledger);
   result.roster = result.roster.filter(row => projection.visibleIds.includes(row.id));
   for (const row of result.roster) {
@@ -490,7 +501,7 @@ function deriveTournament(stateOrTournament) {
   if (result.roster.some(row => !row.complete)) warnings.push('记录不完整：未知场外战绩未补成零胜，缺少赛前胜场的胜局积分待补。');
   if (!complete) warnings.push('排行榜仅据已记录积分，不据此自动宣布完整排名或代表资格。');
   if (qualificationTie) warnings.push('代表席位边界同分：暂列并列，须由本局附加赛或已确认规则决出，不按 ID 或胜场擅定。');
-  return { version: TOURNAMENT_VERSION, engine: 'T02', exists: true, virtual, projected: projection.active, calendar: projection.calendar,
+  return { version: TOURNAMENT_VERSION, engine: 'T02', applicable, exists: true, virtual, projected: projection.active, calendar: projection.calendar,
     tournament, mode, playerId: player?.id || null, ...result, leaderboard, eligible, ties, qualificationTie, warnings,
     complete: complete && !projection.active, rankingLabel: projection.active ? '本局记录＋程序场外推演（非全校完整榜）' : complete ? '完整赛季账本排名' : '仅据已记录积分' };
 }
@@ -509,6 +520,8 @@ function enforceTournamentState(variables, previous) {
   const scene = variables?.stat_data?.场景;
   if (!scene) return [];
   const old = previous?.stat_data?.场景?.选拔赛;
+  // 归属写入门禁由终端负责；可选约束只处理适用的破军账本。
+  if (!isHagunAffiliation(variables.stat_data)) return [];
   const notices = [];
   if (!own(scene, '选拔赛')) {
     if (old) { scene.选拔赛 = copy(old); notices.push('选拔赛：已恢复被移除的本局账本。'); }
@@ -598,6 +611,7 @@ function retainTournamentCheckpoints(match, before, supplied = null) {
 // 只建议下一场，不改动名册、不写预设胜负。原著锚点若与本局记录冲突就让位。
 function suggestTournamentOpponents(state, { participantId, round } = {}) {
   const view = deriveTournament(state);
+  if (!view.applicable) return { anchorId: null, candidates: [], warnings: [affiliationNotice] };
   if (!view.exists || !view.roster.length) return { anchorId: null, candidates: [], warnings: ['请先登记选拔赛与参赛者。'] };
   const id = participantId || view.playerId, person = view.roster.find(row => row.id === id);
   const available = row => row && view.tournament.名册[row.id].参赛状态 === '参赛' &&
@@ -620,6 +634,7 @@ function suggestTournamentOpponents(state, { participantId, round } = {}) {
 // 终端手动记账使用同一校验入口；同 ID 是纠错替换，不是再发一次积分。
 function prepareTournamentAction(state, request) {
   if (!object(state?.场景) || !object(request)) throw new Error('请先读取本局状态和操作内容');
+  if (!isHagunAffiliation(state)) throw new Error(affiliationNotice);
   const next = copy(state);
   if (request.action === 'initialize') {
     if (next.场景.选拔赛) throw new Error('本局已有选拔赛，请修改现有赛季记录');
@@ -885,6 +900,8 @@ const GRADES = ['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E+', 'E', 'F+', 'F'];
 const ATTRIBUTE_GRADES = ['S', 'A+', ...GRADES];
 const GROWTH_AXES = ['魔力控制', '体能', '魔力量'];
 const AXES = ['攻击力', '防御力', '魔力量', '魔力控制', '体能', '运气'];
+// ponytail: “已完成”是剧情阶段的输入别名，存档与推进仍沿用“已结束”。
+const normalizeStoryPhase = value => value === '已完成' ? '已结束' : value;
 // 只转换含义明确的卷号写法，保存结果仍为数字；未知文本留给严格校验拒绝。
 function normalizeStoryVolume(value) {
   if (typeof value !== 'string') return value;
@@ -1145,7 +1162,7 @@ function createStateSchema(z, version, { normalizeRelationships = true } = {}) {
     场景: z.object({
       当前卷: version === 3 ? z.literal(1) : volumeNumber,
       当前章: version === 3 ? z.enum(CHAPTERS) : text.min(1),
-      阶段: z.enum(['未开始', '进行中', '已结束']),
+      阶段: z.preprocess(normalizeStoryPhase, z.enum(['未开始', '进行中', '已结束'])),
       时间: text, 地点: text, 切入说明: text.default(''),
       ...(version === 4 ? { 宿舍: z.boolean().optional() } : {}),
       已发生事件: record(z.object({ ...(version === 4 ? { 卷号: volumeNumber } : {}), 章段: version === 3 ? z.enum(CHAPTERS.slice(1)) : text.min(1), 结果: text.min(1), 参与者: z.array(text.min(1)), 知情者: z.array(text.min(1)) }).strict()),
@@ -1358,6 +1375,7 @@ function applyTransition(before, request) {
   if (before.系统.开局状态 !== '已建档') throw new Error('请先在开局页完成建档。');
   const next = cloneState(before);
   const scene = next.场景;
+  scene.阶段 = normalizeStoryPhase(scene.阶段);
   const volume = getStoryVolume(scene.当前卷);
   if (!volume) throw new Error('当前卷不在已核对的剧情目录中。');
   const currentChapter = resolveStoryChapter(scene.当前卷, scene.当前章);
@@ -1420,6 +1438,8 @@ function acceptAutomaticStoryProgress(before, after) {
   if (before?.系统?.结构版本 !== 4 || before.系统.开局状态 !== '已建档') return false;
   const old = before.场景, scene = after?.场景;
   if (!old || !scene || typeof scene !== 'object' || Array.isArray(scene)) return false;
+  const oldPhase = normalizeStoryPhase(old.阶段);
+  scene.阶段 = normalizeStoryPhase(scene.阶段);
   const current = resolveStoryChapter(old.当前卷, old.当前章);
   const proposed = resolveStoryChapter(scene.当前卷, scene.当前章);
   if (!current || !proposed) return false;
@@ -1432,16 +1452,16 @@ function acceptAutomaticStoryProgress(before, after) {
     scene.切入说明 = '';
   }
   if (unchanged) {
-    if (scene.阶段 === old.阶段) return true;
-    if (old.阶段 === '未开始' && scene.阶段 === '进行中') return true;
-    if (old.阶段 === '进行中' && scene.阶段 === '已结束') {
+    if (scene.阶段 === oldPhase) return true;
+    if (oldPhase === '未开始' && scene.阶段 === '进行中') return true;
+    if (oldPhase === '进行中' && scene.阶段 === '已结束') {
       // 模型只提交本章完成时，由目录决定下一节点；末卷末章保持结束。
       if (target) advance();
       return true;
     }
     return false;
   }
-  if (!target || !['进行中', '已结束'].includes(old.阶段) ||
+  if (!target || !['进行中', '已结束'].includes(oldPhase) ||
       scene.当前卷 !== target.volume || proposed.key !== target.chapter ||
       !['未开始', '进行中'].includes(scene.阶段)) return false;
   advance();
@@ -1451,6 +1471,7 @@ function acceptAutomaticStoryProgress(before, after) {
 // 副校正共享主回复的推进额度；主回复已经切章时，重复“已结束”不再结束下一章。
 function acceptRepairStoryProgress(before, after, storyBefore) {
   const old = before.场景, scene = after.场景;
+  scene.阶段 = normalizeStoryPhase(scene.阶段);
   const start = storyBefore && storyPosition(storyBefore.当前卷, storyBefore.当前章);
   const current = storyPosition(old.当前卷, old.当前章);
   if (current < 0) return false;
@@ -1767,6 +1788,7 @@ function createStateController(adapter) {
       tournament: 'T01', tournamentEngine: 'T02', nativeMvu: 'N01' }),
     get growthRules() { return cloneState(GROWTH_RULES); },
     tournamentView: state => deriveTournament(state),
+    isHagunAffiliation,
     shouldInjectTournament,
     setDorm: (token, active) => commit(token, state => {
       if (typeof active !== 'boolean' || state.系统.开局状态 !== '已建档') throw new Error('请先完成建档，再进入宿舍。');
@@ -1996,6 +2018,7 @@ window.RakudaiMvuNative = { version: "N04", runtime: rakudaiMvuRuntime, prepare:
     const parsed = createSchema(runtime().Z, { normalizeRelationships: false }).parse(value);
     const state = cloneState(value);
     state.场景.当前章 = parsed.场景.当前章;
+    state.场景.阶段 = parsed.场景.阶段;
     for (const name of Object.keys(state.场景.已发生事件)) state.场景.已发生事件[name].章段 = parsed.场景.已发生事件[name].章段;
     return state;
   }

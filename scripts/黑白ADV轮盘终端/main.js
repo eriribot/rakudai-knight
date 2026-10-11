@@ -49,6 +49,10 @@
   }
 
   /*__INJECT_STATE_READER__*/
+  /*__INJECT_LIME_PROTOCOL__*/
+  /*__INJECT_LIME_HOST__*/
+  /*__INJECT_LIME_WORLDBOOK__*/
+  /*__INJECT_LIME_STORY__*/
   /*__INJECT_CALENDAR_WORLDBOOK__*/
   /*__INJECT_PLAYER_DISPLAY_STORE__*/
   /*__INJECT_PLAYER_PORTRAIT__*/
@@ -286,6 +290,7 @@
   /* 桥接对象 (Bridge) */
   let terminalStateReader = null;
   let generationPending = false;
+  let limeNativeStarting = false;
   function readSnapshot() {
     if (!terminalStateReader) terminalStateReader = createTerminalStateReader((...args) => {
       const read = fn('getChatMessages');
@@ -297,6 +302,56 @@
     });
     return terminalStateReader({ generating: generationPending });
   }
+
+  let limeWorldbookReader = null;
+  const limeCharacterAliases = /*__INJECT_LIME_CHARACTER_ALIASES__*/;
+  function readLimeCharacterLore(name) {
+    if (!fn('getCharWorldbookNames') || !fn('getWorldbook')) throw new Error('人物世界书读取接口尚未就绪');
+    if (!limeWorldbookReader) limeWorldbookReader = createLimeWorldbookReader({
+      getCharWorldbookNames: fn('getCharWorldbookNames'), getWorldbook: fn('getWorldbook'),
+      getContext: () => { const st = HW.SillyTavern || window.SillyTavern; return st && st.getContext(); },
+      aliases: limeCharacterAliases,
+    });
+    return limeWorldbookReader.read(name);
+  }
+  function injectLimePrompt(content, id) {
+    const inject = fn('injectPrompts'); if (!inject) throw new Error('酒馆助手提示注入接口尚未就绪');
+    return inject([{ id, role: 'system', position: 'in_chat', depth: 0, should_scan: false, content }], { once: false });
+  }
+  const limeHost = createLimeHostService({
+    getContext: () => {
+      const st = HW.SillyTavern || window.SillyTavern;
+      return st && typeof st.getContext === 'function' ? st.getContext() : null;
+    },
+    getMessages: (...args) => {
+      const read = fn('getChatMessages');
+      if (!read) throw new Error('酒馆助手的消息读取接口尚未就绪');
+      return read(...args);
+    },
+    getSnapshot: readSnapshot,
+    isGenerating: () => generationPending || limeNativeStarting,
+    isDestroyed: () => SS.destroyed,
+    protocol: createLimeChatProtocol(), supportStage, romanceStage,
+    generate: config => { const get = fn('generate'); if (!get) throw new Error('酒馆助手生成接口尚未就绪'); return get(config); },
+    setMessages: (...args) => { const set = fn('setChatMessages'); if (!set) throw new Error('酒馆助手消息写入接口尚未就绪'); return set(...args); },
+    injectPrompt: injectLimePrompt,
+    stopGeneration: id => { const stop = fn('stopGenerationById'); if (stop) return stop(id); },
+    getCharacterLore: name => {
+      for (const method of ['generate', 'injectPrompts', 'setChatMessages', 'stopGenerationById', 'getCharWorldbookNames', 'getWorldbook']) {
+        if (!fn(method)) throw new Error('附带通讯缺少酒馆助手接口：' + method);
+      }
+      return readLimeCharacterLore(name);
+    },
+    onSaved: () => emit({ type: 'LIME_ATTACHED', retainDisplay: true }),
+  });
+  const limeStory = createLimeStoryPersonaService({
+    getSnapshot: readSnapshot,
+    getContext: () => { const st = HW.SillyTavern || window.SillyTavern; return st && st.getContext(); },
+    getRecords: () => { const current = limeHost.read(); return createLimeChatProtocol().readLimeThreads(current.messages, { ...current, generating: generationPending }); },
+    getCharacterLore: readLimeCharacterLore,
+    injectPrompt: injectLimePrompt,
+    isDestroyed: () => SS.destroyed,
+  });
 
   let playerBubbleBinder = null;
   const playerPortrait = createPlayerPortraitService({
@@ -495,7 +550,8 @@
 
   let tournamentWriting = false;
   const tournamentSnapshotKey = state => JSON.stringify({ ledger: state?.场景?.选拔赛 ?? null,
-    time: state?.场景?.时间 ?? null, mode: state?.系统?.主角模式 ?? null, player: state?.玩家?.姓名 ?? null });
+    time: state?.场景?.时间 ?? null, mode: state?.系统?.主角模式 ?? null, player: state?.玩家?.姓名 ?? null,
+    affiliation: state?.玩家?.所属 ?? null });
   async function writeTournament(request, expectedSource, expectedState) {
     if (SS.destroyed) throw new Error('终端已关闭，请重新打开后保存。');
     if (tournamentWriting) throw new Error('正在保存选拔赛记录，请稍候。');
@@ -548,6 +604,7 @@
         request: () => requestCorrection(), retry: retryCorrection, apply: applyCorrection, cancel: cancelCorrection },
       getSnapshot: async () => readSnapshot(),
       getStat: async () => readSnapshot().state,
+      lime: { read: () => limeHost.read(), send: request => limeHost.send(request) },
       playerPortrait: portraitBridge,
       worldbookCalendar: { read: readCalendarWorldbook },
       setRosterHidden,
@@ -595,6 +652,12 @@
         if (source && target && source.messageId === target.messageId && source.swipeId === target.swipeId) state = snapshot.state;
       } catch (_) { /* 日期无法确认时关闭程序号池提示。 */ }
       filterTournamentPoolPrompt(request?.messages, state);
+      // Only paired native story generation receives persisted side communications.
+      // Auxiliary LIME / opening / correction requests keep their own prompt contract.
+      if (generationPending && !limeHost.isBusy()) {
+        try { createLimeChatProtocol().applyNarrativePrompt(request?.messages, limeHost.narrativeContext()); }
+        catch (error) { console.warn('[LIME] 附带通讯上下文未读取：', error.message); }
+      }
     };
     const armPool = () => TE.CHAT_COMPLETION_SETTINGS_READY && makeLast && removeListener && makeLast(TE.CHAT_COMPLETION_SETTINGS_READY, filterPool);
     if (TE.CHAT_COMPLETION_SETTINGS_READY && makeLast && removeListener) {
@@ -607,11 +670,24 @@
 
     // ST 8172dcd 的 START/AFTER 参数键值一致；Helper 380be3c 只发 AFTER('normal', {}, false)。
     // 先记录原生开始，不取消正在保存的主轮；助手请求不能消费这份原生开始记录。
-    if (TE.GENERATION_STARTED) safeOn(TE.GENERATION_STARTED, (type, options = {}, dryRun = false) => {
+    if (TE.GENERATION_STARTED) safeOn(TE.GENERATION_STARTED, async (type, options = {}, dryRun = false) => {
       armPool();
       if (dryRun || options?.dryRun || ![undefined, null, '', 'normal', 'continue', 'regenerate', 'swipe'].includes(type)) return;
       const ctx = correctionContext();
-      if (ctx && options && Object.keys(options).length) nativeStart = { type, options: { ...options }, chat: ctx.chat, chatKey: correctionChatKey() };
+      if (ctx && options && Object.keys(options).length) {
+        limeHost.cancel();
+        limeStory.cancel();
+        limeNativeStarting = true;
+        nativeStart = { type, options: { ...options }, chat: ctx.chat, chatKey: correctionChatKey() };
+        // Native ST awaits START before scanning world info and constructing the request.
+        // Explicit profiles for recent contacts cannot rely on names injected only at final settings.
+        terminalStateReader?.clear();
+        try {
+          const prepared = await limeStory.prepare();
+          if (prepared.skipped.length) console.warn('[LIME] 本轮人物提示部分沿用普通世界书：', prepared.skipped);
+        }
+        catch (error) { console.warn('[LIME] 正文联络人物词条未启用：', error.message); }
+      }
     });
     // 仅配对成功的原生主生成进入保存门禁；新回复的 MVU 仍由框架独立结算。
     if (TE.GENERATION_AFTER_COMMANDS) safeOn(TE.GENERATION_AFTER_COMMANDS, (type, options = {}, dryRun = false) => {
@@ -621,6 +697,7 @@
           !options || Object.keys(options).length !== Object.keys(nativeStart.options).length ||
           !Object.keys(nativeStart.options).every(key => Object.hasOwn(options, key) && Object.is(options[key], nativeStart.options[key]))) return;
       nativeStart = null;
+      limeNativeStarting = false;
       try { readSnapshot(); } catch (_) {}
       generationPending = true;
       try { readSnapshot(); } catch (_) {}
@@ -629,20 +706,32 @@
     });
     // 删楼层、切 swipe、编辑消息都使原显示失效；生成中也不能保留被回退的回复。
     for (const name of ['CHAT_CHANGED', 'MESSAGE_SWIPED', 'MESSAGE_SWIPE_DELETED', 'MESSAGE_DELETED', 'MESSAGE_UPDATED', 'MESSAGE_EDITED', 'MESSAGE_RECEIVED', 'CHARACTER_FIRST_MESSAGE_SELECTED']) {
-      if (TE[name]) safeOn(TE[name], () => {
+      if (TE[name]) safeOn(TE[name], async () => {
+        limeHost.cancel();
+        limeStory.cancel();
+        if (name === 'MESSAGE_DELETED' || name === 'MESSAGE_SWIPE_DELETED') {
+          try { await limeHost.rebindOwners(); }
+          catch (error) { console.warn('[LIME] 附属记录归属未修复：', error.message); }
+        }
         const clearDisplay = ['CHAT_CHANGED', 'CHARACTER_FIRST_MESSAGE_SELECTED', 'MESSAGE_EDITED',
           'MESSAGE_SWIPED', 'MESSAGE_SWIPE_DELETED', 'MESSAGE_DELETED'].includes(name);
         if (clearDisplay) terminalStateReader?.clear();
         // 重 roll 的删除/切页事件不提前解除生成写锁。
-        if (name === 'CHAT_CHANGED' || name === 'CHARACTER_FIRST_MESSAGE_SELECTED') { generationPending = false; nativeStart = null; }
+        if (name === 'CHAT_CHANGED' || name === 'CHARACTER_FIRST_MESSAGE_SELECTED') { generationPending = false; limeNativeStarting = false; nativeStart = null; }
+        // Witness existing attachment owners even when the phone is closed.
+        if (name === 'CHAT_CHANGED' || name === 'CHARACTER_FIRST_MESSAGE_SELECTED') {
+          try { limeHost.read(); } catch (_) { /* MVU may not be ready until the next source update. */ }
+        }
         emit({ type: name, reset: true, retainDisplay: !clearDisplay });
       });
     }
     for (const name of ['GENERATION_ENDED', 'GENERATION_STOPPED']) {
       if (TE[name]) safeOn(TE[name], messageCount => {
         // Helper 按请求 ID 停止首楼建议时也发宿主 STOP；不能中断真实剧情轮。
-        if (name === 'GENERATION_STOPPED' && typeof messageCount === 'string' && messageCount.startsWith('rk-opening:')) return;
+        if (name === 'GENERATION_STOPPED' && typeof messageCount === 'string' && /^(?:rk-opening:|rk-lime:)/.test(messageCount)) return;
         nativeStart = null;
+        limeStory.cancel();
+        limeNativeStarting = false;
         generationPending = false;
         endAutomaticCorrection(name === 'GENERATION_STOPPED', messageCount);
         emit({ type: 'story-turn', retainDisplay: true });
@@ -659,6 +748,9 @@
 
   function destroy() {
     if (SS.destroyed) return;
+    limeHost.cancel();
+    limeStory.cancel();
+    limeNativeStarting = false;
     SS.destroyed = true;
     playerBubbleBinder?.destroy(); playerBubbleBinder = null;
     if (SS.cancelMount) SS.cancelMount();
@@ -685,6 +777,7 @@
   buildStatePanel();
   bindDrag();
   wireEvents();
+  try { limeHost.read(); } catch (_) { /* First-message MVU may still be initializing. */ }
   playerBubbleBinder = createPlayerBubbleBinder({ host: HW, document: HD, service: playerPortrait,
     css: /*__INJECT_PLAYER_BUBBLE_CSS__*/ });
   function portraitStorageChanged(event) {

@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "deliveryMode": "component",
+  "kind": "regex",
+  "artifacts": [
+    {
+      "artifactName": "opening-state-n08",
+      "id": "4f9bda79-82bd-4d2f-9a66-2497349df26e",
+      "kind": "regex",
+      "relativePath": "opening-state-n08.regex.json",
+      "sha256": "f7ad8493818103fe13295dea6867f75356dc45e3278cbd0ce5683641051158a1"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "deliveryMode": "component",
+  "source": "第一卷-世界书整理/开局页面/index.html",
+  "target": "世界书规则/MVU/落第骑士-开局页面-N08.regex.json",
+  "baseline": "世界书规则/MVU/落第骑士-开局页面-N07.regex.json",
+  "baselineSha256": "7619cdb4e75e87a03589dea0a939b1b902d841fd6aa38700c60bb0cb930d8acf",
+  "scope": [
+    "AI入口样式",
+    "世界书选择与正文预览",
+    "辅助生成读取已选参考",
+    "对应回归与组件打包"
+  ],
+  "excludes": [
+    "整卡重打包",
+    "世界书写入",
+    "MVU提交",
+    "真实模型调用"
+  ]
+}

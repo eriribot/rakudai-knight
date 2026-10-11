@@ -164,6 +164,7 @@ function openApp(appId) {
 }
 
 function goBack() {
+  if (currentStack[currentStack.length - 1] === 'scr-lime' && activeChat && typeof closeLimeChat === 'function') { closeLimeChat(); return; }
   if (currentStack.length <= 1) return;
   var curId = currentStack.pop();
   var curEl = document.getElementById(curId);
@@ -658,159 +659,7 @@ function confirmRosterDeletion(button) {
   });
 }
 
-// ===== 破军 LIME 通讯 =====
-function handleLimeBack() {
-  if (activeChat) {
-    activeChat = null;
-    renderLime();
-  } else {
-    goBack();
-  }
-}
-function openLimeChat(name) { activeChat = name; renderLime(); }
-function closeLimeChat() { activeChat = null; renderLime(); }
-function handleChatKey(e) { if (e.key === 'Enter') sendChatMsg(); }
-function sendChatMsg() { toast('通讯指令已就绪，请在酒馆聊天中继续推进。'); }
-function sendQuickAction() { sendChatMsg(); }
-
-function renderLime() {
-  var body = document.getElementById('lime-body');
-  var title = document.getElementById('lime-title');
-  var sub = document.getElementById('lime-sub');
-  if (!body) return;
-
-  var relations = stat && stat.人际 || {};
-  var names = Object.keys(relations).filter(function(name) {
-    return !isDeletedPerson(name) && !(stat.系统 && stat.系统.主角模式 === '黑铁一辉' && name === '黑铁一辉');
-  });
-  if (activeChat && names.indexOf(activeChat) === -1) activeChat = null;
-
-  if (activeChat) {
-    if (title) title.textContent = activeChat;
-    if (sub) sub.textContent = '破军专线联络';
-    var charRel = relations[activeChat] || {};
-    var known = charRel.已知资料 || {};
-    var rankBadge = known.登记等级 ? ' <span class="card-rank-badge">' + esc(known.登记等级) + '</span>' : '';
-    var hasContact = charRel.已加联系方式 === true;
-
-    if (!hasContact) {
-      body.innerHTML = '<div class="lime-chat-container">' +
-        '<div class="card1 lime-chat-profile">' +
-          renderCompanionAvatar(activeChat, true) +
-          '<div class="roster-info">' +
-            '<div class="roster-name">' + esc(activeChat) + rankBadge + ' <span class="lime-badge-unadded">未通联</span></div>' +
-            '<div class="roster-device">关系：' + esc(charRel.关系 || '未知') + ' · 状态：<span style="color:var(--muted);">暂无专线</span></div>' +
-            (charRel.态度印象 ? '<div class="roster-device" style="margin-top:4px;">印象：' + esc(charRel.态度印象) + '</div>' : '') +
-          '</div>' +
-        '</div>' +
-        '<div class="card1" style="margin-top:8px;">' +
-          '<div class="ct">破军 LIME · 专线待接入</div>' +
-          '<p style="line-height:1.6;margin-top:4px;">你与【' + esc(activeChat) + '】尚未建立双向专线通联。</p>' +
-          '<div class="gba-lime-hint" style="font-size:12px;color:var(--muted);line-height:1.6;margin-top:8px;padding:8px 10px;background:var(--card2);border-left:3px solid var(--hair);">' +
-            '💡 <strong>专线通联建立途径：</strong><br>' +
-            '· <strong>收到对方短信/来电</strong>：收到对方发来的简讯、通知或通话，通讯渠道即自动建立<br>' +
-            '· <strong>当面/主动交换</strong>：在剧情中与对方交换 LIME 账号或互留联络方式<br>' +
-            '· <strong>学园内网接入</strong>：由教务系统、理事长室或同伴引荐分配专线通道' +
-          '</div>' +
-          '<div class="lime-quick-actions" style="display:flex;flex-direction:column;gap:6px;margin-top:12px;">' +
-            '<button type="button" class="gba-btn-action" onclick="toast(\'已就绪：剧情中已收到对方短信或来电？请在酒馆对话中直接回复，AI 将在下一轮更新时同步点亮通讯录。\')">💬 回复剧情短信 / 留存号码</button>' +
-            '<button type="button" class="gba-btn-action" onclick="toast(\'已准备交换提议：可在剧情对话中主动提出交换联系方式。\')">🤝 提出交换 LIME 账号</button>' +
-          '</div>' +
-        '</div>' +
-        '<div style="text-align:center;margin-top:10px;">' +
-          '<button type="button" class="gba-btn-sm" onclick="closeLimeChat()">← 返回通讯录名册</button>' +
-        '</div>' +
-      '</div>';
-      return;
-    }
-
-    body.innerHTML = '<div class="lime-chat-container">' +
-      '<div class="card1 lime-chat-profile">' +
-        renderCompanionAvatar(activeChat, true) +
-        '<div class="roster-info">' +
-          '<div class="roster-name">' + esc(activeChat) + rankBadge + ' <span class="lime-badge-added">已通联</span></div>' +
-          '<div class="roster-device">关系：' + esc(charRel.关系 || '未知') + ' · 状态：<span style="color:#10b981;">专线在线</span></div>' +
-          (charRel.态度印象 ? '<div class="roster-device" style="margin-top:4px;">印象：' + esc(charRel.态度印象) + '</div>' : '') +
-        '</div>' +
-      '</div>' +
-      '<div class="card1" style="margin-top:8px;">' +
-        '<div class="ct">战术快捷讯息</div>' +
-        '<div class="lime-quick-actions" style="display:flex;flex-direction:column;gap:6px;margin-top:8px;">' +
-          '<button type="button" class="gba-btn-action" onclick="toast(\'已发送战术联络提议，请在酒馆对话中继续展开剧情。\')">💬 发送战术简讯</button>' +
-          '<button type="button" class="gba-btn-action" onclick="toast(\'已发送切磋决斗邀约，请在酒馆对话中继续展开剧情。\')">⚔ 约定模拟决斗</button>' +
-          '<button type="button" class="gba-btn-action" onclick="toast(\'已发送日常问候，请在酒馆对话中继续展开剧情。\')">☕ 询问闲暇近况</button>' +
-        '</div>' +
-        '<div style="font-size:11px;color:var(--muted);margin-top:10px;text-align:center;">' +
-          '快捷联络可在酒馆聊天中作为行动建议推进。' +
-        '</div>' +
-      '</div>' +
-      '<div style="text-align:center;margin-top:10px;">' +
-        '<button type="button" class="gba-btn-sm" onclick="closeLimeChat()">← 返回通讯录名册</button>' +
-      '</div>' +
-    '</div>';
-    return;
-  }
-
-  // 正常通讯录名册视图
-  if (title) title.textContent = '破军 LIME';
-  if (sub) sub.textContent = '同伴通讯录名册';
-
-  if (!names.length) {
-    body.innerHTML = '<div class="card1"><div class="ct">通讯录</div>本局名册中尚无已结识的人物。在剧情中结识同伴后将在此登记。</div>';
-    return;
-  }
-
-  var addedList = [];
-  var unaddedList = [];
-
-  names.forEach(function(name) {
-    var rel = relations[name] || {};
-    var isContact = rel.已加联系方式 === true;
-    if (isContact) addedList.push({ name: name, rel: rel });
-    else unaddedList.push({ name: name, rel: rel });
-  });
-
-  var html = '';
-
-  // 已加联系方式列表
-  html += '<div class="ct" style="margin-bottom:6px;">破军专线好友 (' + addedList.length + ')</div>';
-  if (addedList.length) {
-    html += '<div class="lime-contact-list">' + addedList.map(function(item) {
-      var name = item.name, rel = item.rel;
-      var known = rel.已知资料 || {};
-      var rankBadge = known.登记等级 ? ' <span class="card-rank-badge">' + esc(known.登记等级) + '</span>' : '';
-      return '<div class="roster-card lime-contact-card" onclick="openLimeChat(\'' + esc(name) + '\')">' +
-        renderCompanionAvatar(name, true) +
-        '<div class="roster-info">' +
-          '<div class="roster-name">' + esc(name) + rankBadge + ' <span class="lime-badge-added">已通联</span></div>' +
-          '<div class="roster-device">关系：' + esc(rel.关系 || '尚未确认') + ' · <span style="color:#10b981;">专线在线</span></div>' +
-        '</div>' +
-        '<button type="button" class="gba-btn-chat">联络 ▶</button>' +
-      '</div>';
-    }).join('') + '</div>';
-  } else {
-    html += '<div class="card1" style="font-size:12px;color:var(--muted);padding:8px 12px;margin-bottom:12px;">尚无已建立专线的同伴。剧情中收到短信、来电或交换联系方式后将在此显示。</div>';
-  }
-
-  // 未加联系方式列表
-  if (unaddedList.length) {
-    html += '<div class="ct" style="margin-top:14px;margin-bottom:6px;color:var(--muted);">待建立专线 (' + unaddedList.length + ')</div>';
-    html += '<div class="lime-contact-list unadded">' + unaddedList.map(function(item) {
-      var name = item.name, rel = item.rel;
-      var known = rel.已知资料 || {};
-      var rankBadge = known.登记等级 ? ' <span class="card-rank-badge">' + esc(known.登记等级) + '</span>' : '';
-      return '<div class="roster-card lime-contact-card muted-card" onclick="openLimeChat(\'' + esc(name) + '\')">' +
-        renderCompanionAvatar(name, true) +
-        '<div class="roster-info">' +
-          '<div class="roster-name" style="opacity:0.8;">' + esc(name) + rankBadge + ' <span class="lime-badge-unadded">未通联</span></div>' +
-          '<div class="roster-device">关系：' + esc(rel.关系 || '尚未确认') + ' · <span style="color:var(--muted);">暂无专线</span></div>' +
-        '</div>' +
-      '</div>';
-    }).join('') + '</div>';
-  }
-
-  body.innerHTML = html;
-}
+// LIME UI is maintained in terminal-lime.js and bundled into this page.
 
 // ===== 选拔赛：三个页面共用程序视图；实际记录优先，背景推演只读 =====
 var tournamentDraft = null;
@@ -820,7 +669,8 @@ function tournamentSnapshotKey(state) {
   return JSON.stringify({ ledger: state && state.场景 && state.场景.选拔赛 || null,
     time: state && state.场景 && state.场景.时间 != null ? state.场景.时间 : null,
     mode: state && state.系统 && state.系统.主角模式 != null ? state.系统.主角模式 : null,
-    player: state && state.玩家 && state.玩家.姓名 != null ? state.玩家.姓名 : null });
+    player: state && state.玩家 && state.玩家.姓名 != null ? state.玩家.姓名 : null,
+    affiliation: state && state.玩家 && state.玩家.所属 != null ? state.玩家.所属 : null });
 }
 function tournamentView() {
   if (!hasDisplayedState) return { exists: false, roster: [], matches: [], leaderboard: [], warnings: ['等待本局 MVU 保存后读取选拔赛。'] };
@@ -912,6 +762,7 @@ function bindTournamentActions(body) {
 }
 function openTournamentDraft(action, id) {
   var view = tournamentView();
+  if (view.applicable === false) { tournamentDraft = null; tournamentMessage = '当前所属不适用破军选拔，仅可查看历史记录。'; renderSchedule(); return; }
   var fields = {}, kind = action;
   tournamentMessage = '';
   if (action === 'edit-match' || action === 'new-match') {
@@ -1079,19 +930,20 @@ function renderSchedule() {
   // 比赛在选拔赛区域完整展示；其他约定沿用原日程，日历会合并两类数据。
   var schedule = readSceneSchedule().filter(function(item) { return !item.tournament; });
   var dated = schedule.filter(function(item) { return !!item.date; }), undated = schedule.filter(function(item) { return !item.date; });
-  var hasView = view.exists || view.virtual;
+  // ponytail: 学园归属由共享赛事视图判定，界面只控制编辑入口。
+  var hasView = view.exists || view.virtual, editable = view.applicable !== false;
   var tournamentHtml = '<div class="card1 rk-t-panel"><div class="ct">' + esc(hasView && view.tournament ? view.tournament.赛季 : '本局选拔赛') + '</div>' +
     (hasView && view.tournament ? '<p>' + esc(view.tournament.状态 + ' · ' + view.tournament.总轮次 + ' 轮 · ' + view.tournament.代表名额 + ' 个代表名额') + '</p><p class="gba-note">胜场积分 = 10 + 10 × 对手赛前胜场；败局不扣历史积分。实际赛果优先，修正同一场后程序重算。</p>' : '<p>主、副 API 和手动登记共用本局实际比赛记录。</p>') +
     tournamentCalendar(view) +
     (view.virtual ? '<p class="gba-note">当前为按剧情日期生成的背景预览；尚未保存本局账本，玩家实际战绩待补。可直接登记比赛或参赛者，保存时自动建立账本。</p>' : '') +
-    '<div class="rk-t-actions">' + tournamentButton('new-match', '登记比赛') + tournamentButton('new-participant', '登记参赛者') +
-    (view.exists ? tournamentButton('status', '赛季状态') + tournamentButton('detained', '一辉拘押事实') : tournamentButton('initialize', '建立本局选拔赛')) + '</div>' +
+    (editable ? '<div class="rk-t-actions">' + tournamentButton('new-match', '登记比赛') + tournamentButton('new-participant', '登记参赛者') +
+    (view.exists ? tournamentButton('status', '赛季状态') + tournamentButton('detained', '一辉拘押事实') : tournamentButton('initialize', '建立本局选拔赛')) + '</div>' : '<p class="gba-note">破军选拔仅适用于所属已确认的破军学园角色；当前仅查看历史记录。</p>') +
     (dataStatus !== 'ready' ? '<p class="gba-note">正在等待当前回复的 MVU 保存；可以查看，保存操作稍后可用。</p>' : '') +
-    (tournamentMessage ? '<p class="rk-t-message" role="status">' + esc(tournamentMessage) + '</p>' : '') + tournamentWarnings(view) + '</div>' + renderTournamentDraft(view);
+    (tournamentMessage ? '<p class="rk-t-message" role="status">' + esc(tournamentMessage) + '</p>' : '') + tournamentWarnings(view) + '</div>' + (editable ? renderTournamentDraft(view) : '');
   var confirmedMatches = view.matches.filter(function(match) { return !match.程序推演; });
   if (hasView) tournamentHtml += '<div class="card1 rk-t-panel"><div class="ct">本局积分与参赛者</div>' + tournamentRanking(view) +
-    (view.roster.length ? '<details><summary>维护参赛者资料</summary><div class="rk-t-actions">' + view.roster.map(function(row) { return tournamentButton('edit-participant', row.name, row.id); }).join('') + '</div></details>' : '') + '</div>' +
-    '<div class="card1 rk-t-panel"><div class="ct">本局实际比赛记录</div>' + (confirmedMatches.length ? confirmedMatches.map(function(match) { return tournamentMatchCard(match, true); }).join('') : '<p>尚未登记实际比赛；已确定的安排和已发生的赛果都可在上方登记。</p>') + '</div>' + tournamentBackgroundMatches(view.matches);
+    (editable && view.roster.length ? '<details><summary>维护参赛者资料</summary><div class="rk-t-actions">' + view.roster.map(function(row) { return tournamentButton('edit-participant', row.name, row.id); }).join('') + '</div></details>' : '') + '</div>' +
+    '<div class="card1 rk-t-panel"><div class="ct">本局实际比赛记录</div>' + (confirmedMatches.length ? confirmedMatches.map(function(match) { return tournamentMatchCard(match, editable); }).join('') : '<p>尚未登记实际比赛。</p>') + '</div>' + tournamentBackgroundMatches(view.matches);
   body.innerHTML = tournamentHtml + '<details class="card1"><summary>当前剧情 · ' + esc(scene.volume + ' · ' + scene.chapter + ' · ' + scene.phase) + '</summary>' +
     '<p>' + esc(scene.time + ' · ' + scene.location) + '</p><button type="button" onclick="openStoryControls()">展开剧情控制</button></details>' +
     '<div class="card1"><div class="ct">其他日程与约定</div>' + (dated.length ? dated.map(function(item) { return renderScheduleItem(item, sceneDate); }).join('') : '尚无其他已确定日期的日程。') +
@@ -1745,6 +1597,7 @@ function refreshTerminalView() {
   if (render) render();
 }
 function refreshTerminalState(event) {
+  if (typeof prepareLimeRefresh === 'function') prepareLimeRefresh(event);
   if (event && event.type === 'player-portrait') { refreshTerminalView(); return Promise.resolve(); }
   var revision = ++bridgeRevision;
   var retainDisplay = !!event && (!event.reset || event.retainDisplay === true);
@@ -1757,7 +1610,6 @@ function refreshTerminalState(event) {
     hasDisplayedState = false;
     expandedPeople.clear();
     hiddenPeopleOpen = false;
-    activeChat = null;
     rosterDeleteDraft = null;
     tournamentDraft = null;
     tournamentMessage = '';
@@ -1779,6 +1631,7 @@ function refreshTerminalState(event) {
       Promise.resolve(currentBridge.getStat()).then(function(state) { return { state: state, source: null }; });
   }).then(function(snapshot) {
     if (revision !== bridgeRevision) return;
+    if (typeof refreshLimeRecords === 'function') refreshLimeRecords();
     var signature = JSON.stringify(snapshot);
     if (signature === stateSignature && dataStatus === (snapshot.pending ? 'pending' : 'ready')) return;
     var previousScope = stateTargetSource || stateSource;
@@ -1790,7 +1643,7 @@ function refreshTerminalState(event) {
     if (sourceKey(stateSource) !== sourceKey(snapshot.source)) {
       expandedPeople.clear();
       hiddenPeopleOpen = false;
-      activeChat = null;
+      if (stateSource && typeof resetLimeSession === 'function' && (limeScope(stateSource) !== limeScope(snapshot.source) || (snapshot.source && stateSource.messageId > snapshot.source.messageId))) resetLimeSession();
       rosterDeleteDraft = null;
       tournamentDraft = null;
       tournamentMessage = '';
@@ -1831,12 +1684,14 @@ function refreshTerminalState(event) {
 }
 window.RKBoot = function(b) {
   if (typeof bridgeUnsubscribe === 'function') bridgeUnsubscribe();
+  if (bridge && bridge !== b && typeof resetLimeSession === 'function') resetLimeSession();
   bridge = b;
   refreshTerminalState();
   bridgeUnsubscribe = bridge && typeof bridge.onUpdate === 'function' ? bridge.onUpdate(refreshTerminalState) : null;
 };
 window.addEventListener('pagehide', function() {
   bridgeRevision++;
+  if (typeof resetLimeSession === 'function') resetLimeSession();
   calendarLore.revision++;
   if (typeof correctionProgressUI !== 'undefined') correctionProgressUI.destroy();
   if (typeof bridgeUnsubscribe === 'function') bridgeUnsubscribe();

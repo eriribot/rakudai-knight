@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="./terminal-app.css">
 <link rel="stylesheet" href="./terminal-theme.css" id="rk-mono-theme">
 <link rel="stylesheet" href="./terminal-status.css">
+<link rel="stylesheet" href="./terminal-lime.css">
 </head>
 <body>
 
@@ -147,13 +148,14 @@
   </div>
 
   <!-- 3. 破军 LIME 通讯 -->
-  <div class="scr" id="scr-lime">
-    <div class="apphead">
-      <button class="back" onclick="goBack()"><i class="ti ti-chevron-left"></i></button>
-      <span class="t" id="lime-title">破军 LIME</span>
-      <span class="sub" id="lime-sub">通讯录名册</span>
+  <div class="scr rk-lime-screen" id="scr-lime">
+    <div class="apphead rk-lime-header">
+      <button type="button" class="back" aria-label="返回LIME列表或终端" onclick="handleLimeBack()">‹</button>
+      <div class="rk-lime-heading"><span class="t" id="lime-title">破军 LIME</span>
+      <span class="sub" id="lime-sub">同伴之间，随时联系</span></div>
+      <button type="button" class="rk-lime-profile-toggle" id="lime-profile-toggle" aria-expanded="false" aria-controls="lime-profile" hidden>资料</button>
     </div>
-    <div class="body" id="lime-body"></div>
+    <div class="body rk-lime-body" id="lime-body"></div>
   </div>
 
   <!-- 4. 学园圈 (Moments) -->

@@ -5,7 +5,9 @@
     "startLine": 3,
     "endLine": 135,
     "lineCount": 133,
-    "charCount": 2467
+    "charCount": 2473,
+    "storedFileCharCount": 2474,
+    "trimEndMatchesSource": true
   },
   {
     "file": "第六卷_第五章_快刀斩乱麻.txt",
@@ -13,7 +15,9 @@
     "startLine": 136,
     "endLine": 2502,
     "lineCount": 2367,
-    "charCount": 40312
+    "charCount": 40318,
+    "storedFileCharCount": 40319,
+    "trimEndMatchesSource": true
   },
   {
     "file": "第六卷_第六章_初战终了.txt",
@@ -21,7 +25,9 @@
     "startLine": 2503,
     "endLine": 5045,
     "lineCount": 2543,
-    "charCount": 43368
+    "charCount": 43374,
+    "storedFileCharCount": 43375,
+    "trimEndMatchesSource": true
   },
   {
     "file": "第六卷_第七章_七星剑武祭第二轮战·开战.txt",
@@ -29,7 +35,9 @@
     "startLine": 5046,
     "endLine": 6650,
     "lineCount": 1605,
-    "charCount": 26575
+    "charCount": 26581,
+    "storedFileCharCount": 26582,
+    "trimEndMatchesSource": true
   },
   {
     "file": "第六卷_间章_转暗.txt",
@@ -37,7 +45,9 @@
     "startLine": 6651,
     "endLine": 6841,
     "lineCount": 191,
-    "charCount": 3286
+    "charCount": 3292,
+    "storedFileCharCount": 3293,
+    "trimEndMatchesSource": true
   },
   {
     "file": "第六卷_后记.txt",
@@ -45,6 +55,8 @@
     "startLine": 6842,
     "endLine": 6885,
     "lineCount": 44,
-    "charCount": 740
+    "charCount": 743,
+    "storedFileCharCount": 743,
+    "trimEndMatchesSource": true
   }
 ]

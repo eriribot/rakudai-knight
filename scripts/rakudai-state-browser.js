@@ -83,6 +83,7 @@
     const parsed = createSchema(runtime().Z, { normalizeRelationships: false }).parse(value);
     const state = cloneState(value);
     state.场景.当前章 = parsed.场景.当前章;
+    state.场景.阶段 = parsed.场景.阶段;
     for (const name of Object.keys(state.场景.已发生事件)) state.场景.已发生事件[name].章段 = parsed.场景.已发生事件[name].章段;
     return state;
   }

@@ -42,6 +42,7 @@ function fixture(replyTexts = []) {
     const value = structuredClone(INITIAL_STATE);
     value.系统 = { 结构版本: 4, 开局状态: '已建档', 主角模式: '自定义角色' };
     value.玩家.姓名 = '测试原创玩家';
+    value.玩家.所属 = '破军学园·一年一班';
     Object.assign(value.场景, { 当前卷: 1, 当前章: '第一章', 阶段: '进行中', 时间: date, 地点: '破军学园' });
     return plain(schema.parse(value));
   }
@@ -210,4 +211,11 @@ test('an invalid real match restores only the tournament subtree and preserves u
   assert.equal(saved.场景.地点, '医务室');
   assert.equal(saved.场景.已发生事件.赛后慰问.结果, '本轮实际完成慰问');
   assert.ok(f.warnings.some(message => message.includes('仅恢复选拔赛记录')));
+});
+
+test('optional guard does not auto-create the Hagun ledger for another school', () => {
+  const f = fixture(), before = f.state('2013-05-29'); before.玩家.所属 = '武曲学园';
+  const saved = f.update(before, next => { next.场景.地点 = '破军学园·参观席'; });
+  assert.equal(Object.hasOwn(saved.场景, '选拔赛'), false);
+  assert.equal(saved.场景.地点, '破军学园·参观席'); f.lifecycle.get('pagehide')();
 });

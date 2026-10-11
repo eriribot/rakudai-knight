@@ -1,0 +1,177 @@
+{
+  "version": "1.3.28",
+  "date": "2026-10-11",
+  "scope": "LIME随终端黑白主题同步配色，同版本覆盖构建",
+  "url": "http://127.0.0.1:58635/preview.html?sample=lime&view=lime",
+  "evidence": "实际构建的离线样本，浏览器主题按钮切换和计算样式检查",
+  "dark": {
+    "background": "rgb(11, 11, 11)",
+    "color": "rgb(255, 255, 255)",
+    "colorScheme": "dark",
+    "parts": [
+      {
+        "bg": "rgb(11, 11, 11)",
+        "class": "rk-lime-room",
+        "filter": "none",
+        "ink": "rgb(255, 255, 255)"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "class": "rk-avatar-frame",
+        "filter": "invert(1)",
+        "ink": "rgb(255, 255, 255)"
+      },
+      {
+        "bg": "rgb(255, 255, 255)",
+        "class": "rk-lime-bubble",
+        "filter": "none",
+        "ink": "rgb(9, 9, 9)"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "class": "rk-avatar-frame",
+        "filter": "invert(1)",
+        "ink": "rgb(255, 255, 255)"
+      },
+      {
+        "bg": "rgb(35, 35, 35)",
+        "class": "rk-lime-bubble",
+        "filter": "none",
+        "ink": "rgb(255, 255, 255)"
+      },
+      {
+        "bg": "rgb(255, 255, 255)",
+        "class": "rk-lime-bubble",
+        "filter": "none",
+        "ink": "rgb(9, 9, 9)"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "class": "rk-avatar-frame",
+        "filter": "invert(1)",
+        "ink": "rgb(255, 255, 255)"
+      },
+      {
+        "bg": "rgb(35, 35, 35)",
+        "class": "rk-lime-bubble",
+        "filter": "none",
+        "ink": "rgb(255, 255, 255)"
+      },
+      {
+        "bg": "rgb(35, 35, 35)",
+        "class": "",
+        "filter": "none",
+        "ink": "rgb(255, 255, 255)"
+      }
+    ],
+    "scrollWidth": 416,
+    "theme": "dark",
+    "width": 416
+  },
+  "light": {
+    "background": "rgb(236, 236, 236)",
+    "color": "rgb(17, 17, 17)",
+    "colorScheme": "light",
+    "draft": "主题切换草稿检查",
+    "parts": [
+      {
+        "bg": "rgb(236, 236, 236)",
+        "class": "rk-lime-room",
+        "filter": "none",
+        "ink": "rgb(17, 17, 17)"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "class": "rk-avatar-frame",
+        "filter": "invert(0)",
+        "ink": "rgb(17, 17, 17)"
+      },
+      {
+        "bg": "rgb(17, 17, 17)",
+        "class": "rk-lime-bubble",
+        "filter": "none",
+        "ink": "rgb(255, 255, 255)"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "class": "rk-avatar-frame",
+        "filter": "invert(0)",
+        "ink": "rgb(17, 17, 17)"
+      },
+      {
+        "bg": "rgb(225, 225, 225)",
+        "class": "rk-lime-bubble",
+        "filter": "none",
+        "ink": "rgb(17, 17, 17)"
+      },
+      {
+        "bg": "rgb(17, 17, 17)",
+        "class": "rk-lime-bubble",
+        "filter": "none",
+        "ink": "rgb(255, 255, 255)"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "class": "rk-avatar-frame",
+        "filter": "invert(0)",
+        "ink": "rgb(17, 17, 17)"
+      },
+      {
+        "bg": "rgb(225, 225, 225)",
+        "class": "rk-lime-bubble",
+        "filter": "none",
+        "ink": "rgb(17, 17, 17)"
+      },
+      {
+        "bg": "rgb(225, 225, 225)",
+        "class": "",
+        "filter": "none",
+        "ink": "rgb(17, 17, 17)"
+      }
+    ],
+    "scrollWidth": 416,
+    "theme": "light",
+    "width": 416
+  },
+  "narrow": [
+    {
+      "room": 316,
+      "roomScroll": 316,
+      "scrollWidth": 316,
+      "theme": "light",
+      "width": 316
+    },
+    {
+      "room": 316,
+      "roomScroll": 316,
+      "scrollWidth": 316,
+      "theme": "dark",
+      "width": 316
+    }
+  ],
+  "checks": [
+    "聊天、联系人列表、搜索输入和盾框均跟随根主题",
+    "主题切换保留当前房间与输入草稿",
+    "320px容器双主题无水平溢出",
+    "保留1.3.28及同名输出文件"
+  ],
+  "automated": {
+    "packaging": {
+      "passed": 9,
+      "total": 9
+    },
+    "limeUI": {
+      "passed": 22,
+      "total": 22
+    },
+    "avatars": {
+      "passed": 17,
+      "total": 17
+    }
+  },
+  "screenshots": [
+    "LIME预览/theme-dark-420.jpg",
+    "LIME预览/theme-light-420.jpg"
+  ],
+  "liveHost": false
+}

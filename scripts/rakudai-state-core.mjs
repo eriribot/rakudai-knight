@@ -1,7 +1,7 @@
 import { deriveTournament, prepareTournamentAction, suggestTournamentOpponents, createTournamentParticipant } from './rakudai-tournament.mjs';
-import { shouldInjectTournament } from './rakudai-tournament-calendar.mjs';
+import { isHagunAffiliation, shouldInjectTournament } from './rakudai-tournament-calendar.mjs';
 import { STORY_VOLUMES, getStoryVolume, resolveStoryChapter, storyPosition, nextStoryChapter, firstStoryChapter } from './rakudai-story-catalog.mjs';
-import { GROWTH_RULES, GROWTH_AXES, ATTRIBUTE_GRADES, normalizeSkillEntry, normalizeGrowthRequests } from '../世界书规则/MVU/schema.mjs';
+import { GROWTH_RULES, GROWTH_AXES, ATTRIBUTE_GRADES, normalizeSkillEntry, normalizeGrowthRequests, normalizeStoryPhase } from '../世界书规则/MVU/schema.mjs';
 import { repairRakudaiMvuStructure } from './rakudai-mvu-structure.mjs';
 
 // 状态规则与运行时适配分开：本模块不访问宿主、不发送消息、不生成剧情。
@@ -67,6 +67,7 @@ export function applyTransition(before, request) {
   if (before.系统.开局状态 !== '已建档') throw new Error('请先在开局页完成建档。');
   const next = cloneState(before);
   const scene = next.场景;
+  scene.阶段 = normalizeStoryPhase(scene.阶段);
   const volume = getStoryVolume(scene.当前卷);
   if (!volume) throw new Error('当前卷不在已核对的剧情目录中。');
   const currentChapter = resolveStoryChapter(scene.当前卷, scene.当前章);
@@ -129,6 +130,8 @@ export function acceptAutomaticStoryProgress(before, after) {
   if (before?.系统?.结构版本 !== 4 || before.系统.开局状态 !== '已建档') return false;
   const old = before.场景, scene = after?.场景;
   if (!old || !scene || typeof scene !== 'object' || Array.isArray(scene)) return false;
+  const oldPhase = normalizeStoryPhase(old.阶段);
+  scene.阶段 = normalizeStoryPhase(scene.阶段);
   const current = resolveStoryChapter(old.当前卷, old.当前章);
   const proposed = resolveStoryChapter(scene.当前卷, scene.当前章);
   if (!current || !proposed) return false;
@@ -141,16 +144,16 @@ export function acceptAutomaticStoryProgress(before, after) {
     scene.切入说明 = '';
   }
   if (unchanged) {
-    if (scene.阶段 === old.阶段) return true;
-    if (old.阶段 === '未开始' && scene.阶段 === '进行中') return true;
-    if (old.阶段 === '进行中' && scene.阶段 === '已结束') {
+    if (scene.阶段 === oldPhase) return true;
+    if (oldPhase === '未开始' && scene.阶段 === '进行中') return true;
+    if (oldPhase === '进行中' && scene.阶段 === '已结束') {
       // 模型只提交本章完成时，由目录决定下一节点；末卷末章保持结束。
       if (target) advance();
       return true;
     }
     return false;
   }
-  if (!target || !['进行中', '已结束'].includes(old.阶段) ||
+  if (!target || !['进行中', '已结束'].includes(oldPhase) ||
       scene.当前卷 !== target.volume || proposed.key !== target.chapter ||
       !['未开始', '进行中'].includes(scene.阶段)) return false;
   advance();
@@ -160,6 +163,7 @@ export function acceptAutomaticStoryProgress(before, after) {
 // 副校正共享主回复的推进额度；主回复已经切章时，重复“已结束”不再结束下一章。
 function acceptRepairStoryProgress(before, after, storyBefore) {
   const old = before.场景, scene = after.场景;
+  scene.阶段 = normalizeStoryPhase(scene.阶段);
   const start = storyBefore && storyPosition(storyBefore.当前卷, storyBefore.当前章);
   const current = storyPosition(old.当前卷, old.当前章);
   if (current < 0) return false;
@@ -476,6 +480,7 @@ export function createStateController(adapter) {
       tournament: 'T01', tournamentEngine: 'T02', nativeMvu: 'N01' }),
     get growthRules() { return cloneState(GROWTH_RULES); },
     tournamentView: state => deriveTournament(state),
+    isHagunAffiliation,
     shouldInjectTournament,
     setDorm: (token, active) => commit(token, state => {
       if (typeof active !== 'boolean' || state.系统.开局状态 !== '已建档') throw new Error('请先完成建档，再进入宿舍。');

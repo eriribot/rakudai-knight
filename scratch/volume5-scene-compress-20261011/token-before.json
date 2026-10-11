@@ -1,0 +1,26 @@
+{
+  "encoding": "o200k_base",
+  "files": [
+    {
+      "file": "03_第二章场景_浪速之星.md",
+      "tokens": 8054,
+      "characters": 9790
+    },
+    {
+      "file": "04_第三章场景_七星剑武祭·开幕.md",
+      "tokens": 8479,
+      "characters": 10459
+    },
+    {
+      "file": "05_第四章场景_决战·无冕剑王VS七星剑王.md",
+      "tokens": 5878,
+      "characters": 7273
+    },
+    {
+      "file": "06_终章场景_好戏登场.md",
+      "tokens": 3454,
+      "characters": 4270
+    }
+  ],
+  "totalTokens": 25865
+}

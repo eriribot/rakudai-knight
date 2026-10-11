@@ -15,11 +15,17 @@ export function parseTournamentDate(text) {
     key: String(year).padStart(4, '0') + '-' + String(month).padStart(2, '0') + '-' + String(day).padStart(2, '0') };
 }
 
+// ponytail: 沿用“学园名 / 班级”字段，只识别明确归属，不解析履历或所在地。
+export function isHagunAffiliation(state) {
+  const school = (state?.stat_data || state)?.玩家?.所属?.trim() || '';
+  return /^(?:破军学园|破軍學園)(?:\s*[/／·]|$)/u.test(school);
+}
+
 // 只控制号池提示副本；日期进度、历史账本和世界书顺序不受影响。
 export function shouldInjectTournament(state) {
   const scene = (state?.stat_data || state)?.场景;
   const date = parseTournamentDate(scene?.时间);
-  return Boolean(date && date.key >= tournamentCalendar2013.openingDate &&
+  return Boolean(isHagunAffiliation(state) && date && date.key >= tournamentCalendar2013.openingDate &&
     date.key <= tournamentCalendar2013.finalDate && scene?.选拔赛?.状态 !== '已结束');
 }
 

@@ -297,6 +297,18 @@ function correctionInput(saved) {
     mainPatch: saved.mvuBlock ? '主补丁格式完整；已提交项仍须与当前变量核对' : '主补丁缺失或格式损坏；根据正文与当前实际保存值补漏，提交最终值' };
 }
 function getCorrectionInput() { return correctionInput(captureCorrection()); }
+// ponytail: 只恢复不适用的破军账本，复用终端 MVU 接线，不依赖可选 Zod 约束。
+function filterTournamentUpdate(variables, previous) {
+  const scene = variables?.stat_data?.场景;
+  if (!scene || window.RakudaiStateController.isHagunAffiliation(variables.stat_data)) return;
+  const old = previous?.stat_data?.场景?.选拔赛;
+  for (const target of [scene, variables.display_data?.场景]) {
+    if (!target) continue;
+    if (old === undefined) delete target.选拔赛;
+    else target.选拔赛 = structuredClone(old);
+  }
+  if (variables.delta_data?.场景) delete variables.delta_data.场景.选拔赛;
+}
 // 世界书沿用原条目与 order；只在已展开的发送副本中过滤程序号池缓存。
 function filterTournamentPoolPrompt(messages, state) {
   if (!Array.isArray(messages) || window.RakudaiStateController.shouldInjectTournament(state)) return;
@@ -400,6 +412,7 @@ function normalizeCorrectionPatch(operations, state) {
     return index;
   }
   function put(parts, value, mode = 'replace') {
+    if (parts.length === 2 && parts[0] === '场景' && parts[1] === '阶段' && value === '已完成') value = '已结束';
     // 不允许用 null/数组/文字替换赛制容器来间接擦掉只读历史和派生字段。
     if (parts[0] === '场景' && parts[1] === '选拔赛' &&
         (parts.length === 2 || parts.length <= 4 && ['名册', '比赛'].includes(parts[2])) && !object(value)) {
@@ -581,11 +594,12 @@ async function applyCorrection() {
     if (lock.signal.aborted) throw new Error('本次校正已取消，未写入。');
     ensureCorrectionCurrent(draft.saved);
     if (!parsed?.stat_data) throw new Error('MVU 未返回可保存的状态，请查看 MVU 通知。');
+    filterTournamentUpdate(parsed, parseBase.data);
     if (!draft.saved.guard) prepareRakudaiNativeMvu(parsed, parseBase.scopes);
-    // 解析可能只接受了部分命令；“有变化”不等于坏记录已经修好。两种模式都检查真实候选，检查不改值。
+    // 两种模式都校验真实候选；仅带回剧情阶段别名，不补写其他默认值。
     const service = stateService();
     if (typeof service.validateState !== 'function') throw new Error('状态服务缺少完整档案检查接口，请更新配套终端后重试；未写入。');
-    try { service.validateState(parsed.stat_data); }
+    try { parsed.stat_data.场景.阶段 = service.validateState(parsed.stat_data).场景.阶段; }
     catch (error) {
       const issues = Array.isArray(error?.issues) ? error.issues.slice(0, 8).map(issue =>
         '/' + issue.path.join('/') + '：' + issue.message).join('；') : String(error?.message || error);
@@ -908,6 +922,8 @@ function wireAutomaticCorrection(safeOn, TE) {
     if (!events?.COMMAND_PARSED || !events.VARIABLE_UPDATE_ENDED) return false;
     bound = true;
     const tailEvent = events.VARIABLE_UPDATE_ENDED + '_for_zod';
+    // MVU 自身总会发此尾事件，无需 Zod；等 ENDED 中旧约束的自动建账结束后再拦截。
+    safeOn(tailEvent, filterTournamentUpdate);
     SS.disposers.push(() => fn('eventRemoveListener')?.(tailEvent, receiptTail));
     safeOn(events.COMMAND_PARSED, (variables, commands, content) => {
       const turn = correctionMainTurn;

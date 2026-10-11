@@ -76,7 +76,7 @@ function buildApp(version) {
   let html = read('terminal-app.html');
   const knightAvatars = buildKnightAvatarCatalog();
   const appModules = ['terminal-app.js', 'terminal-controls.js'];
-  const cssModules = ['terminal-app.css', 'terminal-theme.css', 'terminal-status.css'];
+  const cssModules = ['terminal-app.css', 'terminal-theme.css', 'terminal-status.css', 'terminal-lime.css'];
   const seen = new Set();
   html = html.replace(/<link rel="stylesheet" href="\.\/([^"<>]+)"([^>]*)>/g, (tag, file, attrs) => {
     if (!cssModules.includes(file) || seen.has(file)) throw new Error('未知或重复的样式模块：' + file);
@@ -94,6 +94,10 @@ function buildApp(version) {
     if (/<\/script(?:\s|\/|>)|<!--|<script(?:\s|\/|>)/i.test(raw)) throw new Error(file + ' 含会改变 HTML script 解析状态的文本');
     const builder = mappedSource(file, version);
     builder.append(raw, file);
+    if (file === 'terminal-app.js') {
+      builder.append('\n' + read('lime-chat.mjs').replace(/^export /gm, ''), 'lime-chat.mjs');
+      builder.append('\n' + read('terminal-lime.js'), 'terminal-lime.js');
+    }
     if (file === 'terminal-app.js') builder.append('\nvar RK_KNIGHT_AVATARS = ' + jsString(knightAvatars) + ';\n');
     return '<script>' + builder.finish().code + '</script>';
   });
@@ -108,12 +112,13 @@ function buildApp(version) {
 export function buildTerminal() {
   const version = JSON.parse(read('package.json')).version;
   const html = buildApp(version);
-  const jsModules = { STATE_CONTROLLER: '../rakudai-state-controller.js', STATE_READER: 'state-reader.js', CALENDAR_WORLDBOOK: 'calendar-worldbook.js', PLAYER_DISPLAY_STORE: 'player-display-store.js', PLAYER_PORTRAIT: 'player-portrait.js', LAYOUT: 'layout.js', WHEEL: 'wheel.js', STATE_PANEL: 'state-panel.js', CORRECTION: 'correction.js' };
+  const jsModules = { STATE_CONTROLLER: '../rakudai-state-controller.js', STATE_READER: 'state-reader.js', LIME_PROTOCOL: 'lime-chat.mjs', LIME_HOST: 'lime-host.js', LIME_WORLDBOOK: 'lime-worldbook.js', LIME_STORY: 'lime-story.js', CALENDAR_WORLDBOOK: 'calendar-worldbook.js', PLAYER_DISPLAY_STORE: 'player-display-store.js', PLAYER_PORTRAIT: 'player-portrait.js', LAYOUT: 'layout.js', WHEEL: 'wheel.js', STATE_PANEL: 'state-panel.js', CORRECTION: 'correction.js' };
   const portraitManifest = JSON.parse(read('../../resource/knightavatars/manifest.json'));
   const portraitReservedNames = [...portraitManifest.characters, ...(portraitManifest.missingPortraits || [])]
     .flatMap(person => [person.name, ...(person.aliases || [])])
     .concat((portraitManifest.ambiguousAliases || []).flatMap(item => item.aliases));
   const literals = { VERSION: jsString(version), STYLES: jsString(read('styles.css')), APP_HTML: jsString(html),
+    LIME_CHARACTER_ALIASES: jsString(portraitManifest.characters.map(person => ({ name: person.name, aliases: person.aliases || [] }))),
     PORTRAIT_RESERVED_NAMES: jsString(portraitReservedNames), PLAYER_BUBBLE_CSS: jsString(read('../正文气泡/bubble.css')),
     CORRECTION_RULES: jsString(read('../../世界书规则/MVU/变量更新规则.txt')), CORRECTION_FORMAT: jsString(read('../../世界书规则/MVU/变量输出格式.txt')),
     // 函数源码保留原文件换行；与文件模块一样归一化，避免 HTML 解析把 CRLF 改成 LF 后误报。
@@ -125,7 +130,7 @@ export function buildTerminal() {
     if (seen.has(name)) throw new Error('重复的注入标记：' + name);
     seen.add(name);
     builder.append(main.slice(previous, match.index), 'main.js', previous);
-    if (jsModules[name]) builder.append(read(jsModules[name]), jsModules[name]);
+    if (jsModules[name]) builder.append(read(jsModules[name]).replace(/^export /gm, ''), jsModules[name]);
     else if (Object.hasOwn(literals, name)) builder.append(literals[name], 'main.js', match.index);
     else throw new Error('未知注入标记：' + name);
     previous = match.index + match[0].length;
@@ -149,5 +154,8 @@ export function buildTerminal() {
   artifact.info += ' N06保存确认与补丁修复：主MVU以本轮保存收据在当前回复页落地确认主保存，渲染先到、漏发或业务值未变都不替代保存证明。N04整合安全的缺失父对象补丁，MVU02允许已绑定真实回复的缺失或损坏主补丁进入副校正，始终保留业务约束、来源冲突检查和回读。自动模式全面核验，关闭自动仍可手动预览保存。副请求120秒超时后停止自动重试，不连等三轮；输入仅去重只读程序战况和内部自动历史，保留真实业务变量。';
   artifact.info += ' N07已有坏人物修复：副校正先在内存组装人际修改，保留未改人物，整个人际一次交给MVU校验，避免逐字段修复互相阻塞；错误别名仅按明确删除操作清理，缺失派生阶段按最终有效分数恢复，保存前完整校验。剧情面板区分正在保存和已保存数据不合法，手动切章不要求开启可选字段约束。本次只替换小手机，沿用N04原生、N06开局与MVU02约束。';
   artifact.info += ' v1.3.27号池提示日期门禁：读取当前MVU场景时间，仅在2013-04-22至2013-07-08（含首尾）且赛季未结束时放行程序号池背景。主请求发送前只省略变量列表中的程序战况，副API只关闭独立程序摘要；真实名册、比赛和历史缓存保留。沿用世界书原条目、原order与结构，不指定UID、不替换变量列表正文。门禁随终端脚本启用，依赖现有Tavern Helper的eventMakeLast和CHAT_COMPLETION_SETTINGS_READY。';
+  artifact.info += ' v1.3.28 LIME附带通讯：仿LINE列表和左右气泡，配色跟随终端黑白主题，时间取所属回复页MVU场景时间。一次发送使用当前预设和上下文辅助生成即时回信，明确读取当前绑定世界书人物档案及本局关系、好感、支援，不增加正文楼层或直接改变MVU。记录保存在本页data.rk_lime，核对楼层与swipe所有者，当前分支近期通讯进入下一次正常剧情请求。正文可自然输出显式LIME主动来信，不伪造玩家发言或已读状态。接口依据Helper4.8.19/4.11.3固定源码，运行时检查能力；取消仅定向停止自身请求并清理提示。真实辅助送信、服务器落盘及重载仍需实际验收。版本保持1.3.28，配套MVU文本和头像清单沿用。';
+  artifact.info += ' 破军选拔归属门禁：复用玩家.所属，他校或未确认归属只读旧账本。终端在MVU最终更新事件和副校正保存前恢复被误改的选拔赛子树并清理其变更显示，不要求启用可选MVU字段约束；其他业务更新照常保存。';
+  artifact.info += ' 剧情阶段兼容：“已完成”按“已结束”接收，沿用原有跳章规则；比赛和日程的已完成状态不变。';
   return { artifact, html, map: built.map, version };
 }
