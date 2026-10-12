@@ -48,6 +48,19 @@ check('全名与清单别名匹配，空白和中点等价；不把同姓 OC 匹
   const html = realm.renderCompanionAvatar('未登记的原创同伴');
   assert.equal(images(html).length, 0); assert.match(html, />未<\/div>/);
 });
+check('加加美官方动画头像的全名简称共用完整盾图，不把同姓原创人物匹配进去', () => {
+  const avatar = catalog.entries.kagami;
+  assert.ok(avatar);
+  assert.equal(avatar.prepared, true);
+  for (const name of ['日下部加加美', '加加美', '日下部加々美', '加々美', 'Kagami Kusakabe', 'Kusakabe Kagami']) {
+    assert.equal(realm.resolveKnightAvatar(name), realm.RK_KNIGHT_AVATARS.entries.kagami);
+    const nodes = images(realm.renderCompanionAvatar(name));
+    assert.equal(nodes[0].src, avatar.src);
+  }
+  assert.equal(realm.resolveKnightAvatar('日下部原创角色'), null);
+  const manifest = JSON.parse(fs.readFileSync(new URL('../../resource/knightavatars/manifest.json', import.meta.url), 'utf8'));
+  assert.equal(manifest.missingPortraits.some(person => person.name === '日下部加加美'), false);
+});
 check('黑骑士 Iris 与有栖院 Alice 以完整别名消歧，同译裸名和共用称号保留首字回退', () => {
   const iris = realm.RK_KNIGHT_AVATARS.entries.iris;
   const nagi = realm.RK_KNIGHT_AVATARS.entries.nagi;

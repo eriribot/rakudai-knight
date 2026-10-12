@@ -1,0 +1,69 @@
+{
+  "date": "2026-10-12",
+  "character": {
+    "id": "kagami",
+    "name": "日下部加加美",
+    "aliases": [
+      "加加美",
+      "日下部加々美",
+      "加々美",
+      "Kagami Kusakabe",
+      "Kusakabe Kagami"
+    ]
+  },
+  "authority": {
+    "type": "official-anime-episode-still",
+    "sourcePage": "https://ittoshura.com/story/epsode2.html",
+    "sourceUrl": "https://ittoshura.com/story/img/onair_p02_3.jpg",
+    "pageSnapshot": "episode2-official.html",
+    "characterPageSnapshot": "character-official-20261012.html",
+    "note": "官网角色页未列加加美的独立角色卡；使用同站第2话公开彩色剧照中的眼镜、金色短发、红发带制服近景。不是AI生成或小说插图。"
+  },
+  "original": {
+    "file": "anime/kagami-original.jpg",
+    "width": 620,
+    "height": 349,
+    "sha256": "411cad202386d5b61d85dd611ec4a5f164f175d54deedffa9bdaaf8c3f88a0d4"
+  },
+  "preprocess": {
+    "method": "level-eye-line-and-solid-padding",
+    "file": "anime/kagami-leveled.png",
+    "originalFile": "anime/kagami-original.jpg",
+    "sourceEyes": [
+      [
+        334,
+        63
+      ],
+      [
+        430,
+        102
+      ]
+    ],
+    "rotationDegrees": -22.109448343751673,
+    "background": "#d2b49a",
+    "note": "保留官方画面的人物与配色；眼线校正后产生的边角用暖色底填充，非AI重绘。实际盾口裁切避开大部分填充区域。",
+    "sha256": "d007d49ddffa654a78500743ca5b50dfea52474502ad5dacb74610057d98dc15"
+  },
+  "prepared": {
+    "file": "prepared/kagami.png",
+    "method": "closed-shield-region-face-aware-crop-v1",
+    "sourceFile": "anime/kagami-leveled.png",
+    "sourceSha256": "d007d49ddffa654a78500743ca5b50dfea52474502ad5dacb74610057d98dc15",
+    "crop": {
+      "left": 280,
+      "top": 100,
+      "width": 274,
+      "height": 330
+    },
+    "outputWidth": 434,
+    "outputHeight": 580,
+    "sha256": "835825c7cb1476f4982b61eb94537ce4c802d7def37a35dcf873510d76cecd0b"
+  },
+  "host": {
+    "url": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kagami.png",
+    "status": 404,
+    "checkedDate": "2026-10-12",
+    "enabled": false,
+    "note": "未启用不存在的远端地址。imageUrl空字符串让真实构建内联此人物完整盾图，用户上传后填回实际HTTPS直链。"
+  }
+}

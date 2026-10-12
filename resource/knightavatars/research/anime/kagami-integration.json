@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-12",
+  "change": "日下部加加美官方动画头像",
+  "characterCount": 33,
+  "originalCharactersPreserved": true,
+  "checks": {
+    "avatar-test": {
+      "passed": 18,
+      "total": 18
+    },
+    "packaging-test": {
+      "passed": 9,
+      "total": 9
+    },
+    "bubble-check": {
+      "passed": 485,
+      "total": 485
+    },
+    "componentValidation": "scripts/正文气泡/验证记录/加加美头像-20261012/component-validation.json",
+    "diffCheck": "通过；只有既有CRLF提示"
+  },
+  "browser": {
+    "url": "http://127.0.0.1:58635/preview.html?sample=avatars&view=lime",
+    "verified": "联系人22中搜索加加美显示日下部加加美，完整PNG已加载434×580，共用盾框也加载1085×1450；无模型调用或真酒馆变量修改。",
+    "screenshot": "research/anime/kagami-lime-preview.png"
+  },
+  "delivery": [
+    {
+      "file": "世界书规则/MVU/落第骑士-小手机-v1.3.28.json",
+      "sha256": "de616c415eae8382fdb1af35605e54de32e461815d9f94457eb5fa759a8d3dae"
+    },
+    {
+      "file": "scripts/正文气泡/发布/components/dialogue-bubbles.regex.json",
+      "sha256": "6ea27b727036fc593dffc7a96e2307c4ae4258668d28341b8d8f61903dbd07c6"
+    },
+    {
+      "file": "scripts/正文气泡/发布/components/dialogue-bubble-style.regex.json",
+      "sha256": "b541397a653a821c4014e90469e50353d6937f0e70c5271009e2724e3f591cc2"
+    }
+  ],
+  "imageHost": {
+    "status": "pending-upload",
+    "field": "characters[id=kagami].imageUrl",
+    "uploadFile": "prepared/kagami.png",
+    "note": "当前远端404，保持本地内联；未上传到图床，未执行真酒馆导入。"
+  }
+}

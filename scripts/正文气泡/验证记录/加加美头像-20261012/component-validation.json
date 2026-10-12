@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-12",
+  "deliveryMode": "component",
+  "version": "0.6",
+  "status": "passed",
+  "components": [
+    {
+      "file": "scripts/正文气泡/发布/components/dialogue-bubbles.regex.json",
+      "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+      "beforeSha256": "2f61ecf970bf2dd01e067177d1e35fba0a47cab71796374a196d84f6580394ee",
+      "sha256": "6ea27b727036fc593dffc7a96e2307c4ae4258668d28341b8d8f61903dbd07c6",
+      "changedFields": [
+        "findRegex"
+      ]
+    },
+    {
+      "file": "scripts/正文气泡/发布/components/dialogue-player-candidates.regex.json",
+      "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+      "beforeSha256": "a548f8b4d27ef1db3ef8a969051833477a05370bbc45af4dbff2fb6194fb1f38",
+      "sha256": "a548f8b4d27ef1db3ef8a969051833477a05370bbc45af4dbff2fb6194fb1f38",
+      "changedFields": []
+    },
+    {
+      "file": "scripts/正文气泡/发布/components/dialogue-bubble-style.regex.json",
+      "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+      "beforeSha256": "790bbb6d9a228d93b3084a38f79ebf062ec1328e1409c395c08a0d1adb79a9ac",
+      "sha256": "b541397a653a821c4014e90469e50353d6937f0e70c5271009e2724e3f591cc2",
+      "changedFields": [
+        "replaceString"
+      ]
+    }
+  ],
+  "preservation": {
+    "candidate02Bytes": true,
+    "idsNamesOrderAndOtherFields": true,
+    "sourceFeatureFiles": true,
+    "previousRegexAfterRemovingNewNames": true,
+    "previousCssAfterRemovingNewImageRow": true
+  },
+  "portrait": {
+    "name": "日下部加加美",
+    "aliases": [
+      "加加美",
+      "日下部加々美",
+      "加々美",
+      "Kagami Kusakabe",
+      "Kusakabe Kagami"
+    ],
+    "file": "anime/kagami-original.jpg",
+    "displayFile": "prepared/kagami.png",
+    "srcMode": "embedded-local",
+    "imageSha256": "835825c7cb1476f4982b61eb94537ce4c802d7def37a35dcf873510d76cecd0b"
+  },
+  "positive": [
+    {
+      "name": "日下部加加美",
+      "passed": true
+    },
+    {
+      "name": "加加美",
+      "passed": true
+    },
+    {
+      "name": "日下部加々美",
+      "passed": true
+    },
+    {
+      "name": "加々美",
+      "passed": true
+    },
+    {
+      "name": "Kagami Kusakabe",
+      "passed": true
+    },
+    {
+      "name": "Kusakabe Kagami",
+      "passed": true
+    }
+  ],
+  "negative": [
+    {
+      "name": "日下部加加美原创",
+      "passed": true,
+      "handling": "保留OC候选，不绑定NPC"
+    },
+    {
+      "name": "加加美二世",
+      "passed": true,
+      "handling": "保留OC候选，不绑定NPC"
+    },
+    {
+      "name": "Kagami Kusakabe OC",
+      "passed": true,
+      "handling": "保留OC候选，不绑定NPC"
+    }
+  ],
+  "verification": {
+    "componentFormat": {
+      "passed": true,
+      "rules": 3
+    },
+    "ruleFixtures": {
+      "total": 485,
+      "passed": 485,
+      "failed": 0
+    },
+    "artifactParity": "passed",
+    "htmlParse": {
+      "scripts": 0,
+      "bubbles": 3,
+      "candidates": 1,
+      "styles": 1,
+      "hiddenStyles": 1
+    }
+  },
+  "library": {
+    "snapshotVersion": "2026-08-18",
+    "routes": [
+      "sillytavern-component-update",
+      "sillytavern-render-regex-pipeline"
+    ],
+    "loadedGuides": [
+      "ST-A0",
+      "ST-A2",
+      "ST-A5",
+      "ST-A6",
+      "ST-B2"
+    ],
+    "contracts": [
+      "component-update-contract.md",
+      "importable-formats.md",
+      "tavern-regex-contract.md",
+      "render-stages.md"
+    ],
+    "adoptedDesignCandidates": []
+  },
+  "apiEvidence": {
+    "referenceVersion": "SillyTavern 1.18.0",
+    "source": "scripts/正文气泡/验证记录/角色替换排查-20261009/core/installed/public/scripts/extensions/regex/engine.js",
+    "fields": "AI_OUTPUT=2; ESCAPED=2; NONE=0",
+    "mergeOrder": "GLOBAL -> PRESET -> SCOPED 按对象属性插入顺序",
+    "currentHostRuntimeVerified": false
+  },
+  "realSillyTavern": "not run; offline assertions and importable artifacts only",
+  "pendingRuntime": [
+    "玩家酒馆导入01/03，各保留一份开启；原02保留",
+    "玩家当前主题与流式/重载显示验收",
+    "本地内联头像已配置；图床上传及URL尚待用户完成"
+  ]
+}

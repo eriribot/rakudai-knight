@@ -1366,16 +1366,70 @@
           "cropSpace": "after-rotation"
         }
       }
+    },
+    {
+      "id": "kagami",
+      "name": "日下部加加美",
+      "aliases": [
+        "加加美",
+        "日下部加々美",
+        "加々美",
+        "Kagami Kusakabe",
+        "Kusakabe Kagami"
+      ],
+      "file": "anime/kagami-original.jpg",
+      "sourceUrl": "https://ittoshura.com/story/img/onair_p02_3.jpg",
+      "sourcePage": "https://ittoshura.com/story/epsode2.html",
+      "hasShieldFrame": false,
+      "sourceStyle": "anime-color-official-episode-still",
+      "sourceStatus": "verified-official-anime-still",
+      "width": 620,
+      "height": 349,
+      "sha256": "411cad202386d5b61d85dd611ec4a5f164f175d54deedffa9bdaaf8c3f88a0d4",
+      "imageUrl": "",
+      "identityEvidence": "research/anime/kagami-evidence.json",
+      "imageHostStatus": {
+        "status": "pending-upload",
+        "suggestedUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kagami.png",
+        "note": "尚未核实存在的图床地址不启用；留空imageUrl使用本地完整盾图。上传prepared/kagami.png后在同项imageUrl填写实际HTTPS直链。"
+      },
+      "displayFile": "prepared/kagami.png",
+      "preparation": {
+        "method": "closed-shield-region-face-aware-crop-v1",
+        "sourceFile": "anime/kagami-leveled.png",
+        "sourceSha256": "d007d49ddffa654a78500743ca5b50dfea52474502ad5dacb74610057d98dc15",
+        "crop": {
+          "left": 280,
+          "top": 100,
+          "width": 274,
+          "height": 330
+        },
+        "outputWidth": 434,
+        "outputHeight": 580,
+        "sha256": "835825c7cb1476f4982b61eb94537ce4c802d7def37a35dcf873510d76cecd0b"
+      },
+      "preprocess": {
+        "method": "level-eye-line-and-solid-padding",
+        "file": "anime/kagami-leveled.png",
+        "originalFile": "anime/kagami-original.jpg",
+        "sourceEyes": [
+          [
+            334,
+            63
+          ],
+          [
+            430,
+            102
+          ]
+        ],
+        "rotationDegrees": -22.109448343751673,
+        "background": "#d2b49a",
+        "note": "保留官方画面的人物与配色；眼线校正后产生的边角用暖色底填充，非AI重绘。实际盾口裁切避开大部分填充区域。",
+        "sha256": "d007d49ddffa654a78500743ca5b50dfea52474502ad5dacb74610057d98dc15"
+      }
     }
   ],
   "missingPortraits": [
-    {
-      "name": "日下部加加美",
-      "aliases": [
-        "日下部加々美"
-      ],
-      "status": "no-verified-portrait"
-    },
     {
       "name": "绫辻海斗",
       "aliases": [

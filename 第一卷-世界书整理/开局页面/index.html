@@ -5817,6 +5817,7 @@ window.RakudaiMvuNative = { version: "N04", runtime: rakudaiMvuRuntime, prepare:
         }
 
         function showSoundGate() {
+          if (titleVisible || finished) return;
           needsGesture = true;
           videoBackdrop.pause();
           soundGate.classList.add("is-visible");
@@ -5845,12 +5846,18 @@ window.RakudaiMvuNative = { version: "N04", runtime: rakudaiMvuRuntime, prepare:
         }
 
         function markOpeningPlaying() {
+          if (titleVisible || finished) {
+            video.pause();
+            videoBackdrop.pause();
+            return;
+          }
           needsGesture = false;
           soundGate.classList.remove("is-visible");
           playOpeningBackdrop();
         }
 
         function playOpeningWithSound() {
+          if (titleVisible || finished) return;
           video.defaultMuted = false;
           video.muted = false;
           video.volume = 1;
@@ -5863,6 +5870,8 @@ window.RakudaiMvuNative = { version: "N04", runtime: rakudaiMvuRuntime, prepare:
         function revealTitle() {
           if (titleVisible || finished) return;
           titleVisible = true;
+          // 跳过后取消延迟启播，避免加载完成时重播隐藏的 OP。
+          window.removeEventListener("load", playOpeningWithSound);
           video.pause();
           videoBackdrop.pause();
           openingScreen.classList.remove("is-active");

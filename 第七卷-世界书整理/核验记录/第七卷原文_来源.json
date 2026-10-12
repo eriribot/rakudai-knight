@@ -1,0 +1,41 @@
+{
+  "source": "落第骑士英雄谭 第七卷 gbk.txt",
+  "target": "第七卷-世界书整理/核验记录/第七卷原文_UTF8.txt",
+  "decoding": "GB18030 (GBK compatible)",
+  "transformations": "Encoding only; preserve all decoded characters and line breaks.",
+  "lineNumbering": "1-based physical lines; blank lines counted; final empty split token not counted.",
+  "sourceBytes": 199793,
+  "sourceSha256": "35c57c87ae5707683ea363a7904573ef0683d8dd2676859862391dcbaae3d7f0",
+  "utf8Sha256": "1dfe7ac25060cbf136e8bcec9b6a5086e646da70e691b04e99f44aabe7bc720a",
+  "lineCount": 6653,
+  "headings": [
+    {
+      "line": 3,
+      "text": "第七卷 间章 毫无余韵的胜利"
+    },
+    {
+      "line": 182,
+      "text": "第七卷 第八章 喧闹不休的医务室"
+    },
+    {
+      "line": 1213,
+      "text": "第七卷 第九章 战士们略微喧嚣的中场休息"
+    },
+    {
+      "line": 3436,
+      "text": "第七卷 第十章 七星剑舞祭第三轮战·开战"
+    },
+    {
+      "line": 6441,
+      "text": "第七卷 间章 鲜血的结局"
+    },
+    {
+      "line": 6608,
+      "text": "第七卷 后记"
+    },
+    {
+      "line": 6649,
+      "text": "第七卷 插图"
+    }
+  ]
+}

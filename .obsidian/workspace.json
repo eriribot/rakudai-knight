@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "第六卷-世界书整理/场景条目/05_间章场景_转暗.md",
+                "file": "第二卷-世界书整理/场景条目/01_序章场景_遥远的记忆.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "05_间章场景_转暗"
+              "title": "01_序章场景_遥远的记忆"
             }
           }
         ]
@@ -187,9 +187,21 @@
   },
   "active": "df10fbcad984cb29",
   "lastOpenFiles": [
+    "人物仔细考究/莎拉·布拉德莉莉.md",
+    "scratch/find_fenggu.py",
+    "scratch/volume7-overview-20261012/validation.json",
+    "第七卷-世界书整理/04_第七卷内容概览与原文依据.md",
+    "scratch/volume7-overview-20261012/battles.md",
+    "scratch/volume7-overview-20261012/middle.md",
+    "scratch/volume7-overview-20261012/early-ending.md",
+    "第七卷-世界书整理/核验记录/第七卷原文_来源.json",
+    "第七卷-世界书整理/核验记录/第七卷原文_UTF8.txt",
+    "第七卷-世界书整理/核验记录",
+    "scratch/volume7-overview-20261012/prepare-source.mjs",
+    "scratch/volume7-overview-20261012",
+    "第六卷-世界书整理/场景条目/05_间章场景_转暗.md",
     "第六卷-世界书整理/场景条目/04_第七章场景_七星剑武祭第二轮战·开战.md",
     "第六卷-世界书整理/场景条目/03_第六章场景_初战终了.md",
-    "第六卷-世界书整理/场景条目/05_间章场景_转暗.md",
     "第六卷-世界书整理/场景条目/02_第五章场景_快刀斩乱麻.md",
     "scratch/power-audit-20261011/evidence-final.json",
     "output/design-review/战力膨胀审计-20261011.md",
@@ -198,17 +210,10 @@
     "scratch/power-audit-20261011/rules-findings.md",
     "scratch/power-audit-20261011/inspection-release.txt",
     "scratch/power-audit-20261011/evidence.json",
-    "scratch/power-audit-20261011/collect-evidence.mjs",
-    "scratch/power-audit-20261011/inspection-routing.txt",
-    "scratch/power-audit-20261011/inspect-routing.mjs",
-    "scratch/power-audit-20261011",
     "第六卷-世界书整理/场景条目/01_间章场景_反射术士.md",
     "第五卷-世界书整理/人物条目/诸星雄大.md",
     "第五卷-世界书整理/人物条目/诸星小梅.md",
     "第五卷-世界书整理/场景条目/06_终章场景_好戏登场.md",
-    "第六卷-世界书整理/核验记录/静态核验.json",
-    "第六卷-世界书整理/核验记录/第六卷原文_UTF8.txt",
-    "第六卷-世界书整理/核验记录",
     "第六卷-世界书整理/04_原文核验记录.md",
     "第六卷-世界书整理/05_与Gemini整理对比.md",
     "scratch/volume6-rebuild-20261011/audit-first-battle.md",
@@ -218,11 +223,6 @@
     "第六卷-世界书整理/人物条目/鹤屋美琴.md",
     "第六卷-世界书整理/人物条目/夏洛特·科黛.md",
     "第六卷-世界书整理/人物条目/后方观战与通讯人物.md",
-    "第六卷-世界书整理/人物条目/日下部加加美.md",
-    "第六卷-世界书整理/人物条目/诸星雄大.md",
-    "第六卷-世界书整理/人物条目/黑铁王马.md",
-    "第六卷-世界书整理/人物条目/有栖院凪.md",
-    "第六卷-世界书整理/人物条目/黑铁珠雫.md",
     "世界书规则/MVU/构建记录/N07-开局世界书参考/Chrome-开场白读取验证.jpg",
     "世界书规则/MVU/构建记录/N07-开局世界书参考/Chrome-世界书读取验证.jpg",
     "scripts/黑白ADV轮盘终端/验证记录/LIME预览/attached-incoming-white-420.jpg",

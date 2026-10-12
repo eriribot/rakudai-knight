@@ -21,7 +21,7 @@
 
 `sourceUrl` 和 `sourcePage` 记录原始出处，不是填写图床的地方。`shield-mask.svg` 保持内联，无须上传。
 
-填完地址后，在 `scripts/黑白ADV轮盘终端` 目录执行 `node build.js`，重新导入当前生成的 [小手机 v1.3.27 JSON](../../世界书规则/MVU/落第骑士-小手机-v1.3.27.json)。执行 `node preview.mjs` 可更新离线预览。图床基底为 `https://eriribot.github.io/rakudai-knight/resource/knightavatars/`。人物有 `displayFile` 时使用 `prepared/` 图片；原版盾形头像与共用盾框使用根层图片。原有31张图片的HTTP 200、PNG格式及与本地逐字节一致检查见 [图床检查](./research/review/github-pages-avatar-check.json)。[福小莉旧版图床记录](../../output/xiaoli-avatar-delivery/remote-verification.json) 只核验了第12卷囚衣版，不能代替第18卷新头像的核验。站点根路径没有首页，404不影响图片直链。构建不会下载图床图片，而是直接保留地址；将单项地址留空可恢复该项的本地内联预览。
+填完地址后，在 `scripts/黑白ADV轮盘终端` 目录执行 `node build.js`，重新导入当前生成的 [小手机 v1.3.28 JSON](../../世界书规则/MVU/落第骑士-小手机-v1.3.28.json)。执行 `node preview.mjs` 可更新离线预览。图床基底为 `https://eriribot.github.io/rakudai-knight/resource/knightavatars/`。人物有 `displayFile` 时使用 `prepared/` 图片；原版盾形头像与共用盾框使用根层图片。原有31张图片的HTTP 200、PNG格式及与本地逐字节一致检查见 [图床检查](./research/review/github-pages-avatar-check.json)。[福小莉旧版图床记录](../../output/xiaoli-avatar-delivery/remote-verification.json) 只核验了第12卷囚衣版，不能代替第18卷新头像的核验。站点根路径没有首页，404不影响图片直链。构建不会下载图床图片，而是直接保留地址；将单项地址留空可恢复该项的本地内联预览。
 
 百度百科页面的浏览被网站安全政策阻止。这批图片改从独立的官方页面取得；GA 文库的彩色盾形图与提供的绫辻绚濑参考图属于同一套素材。
 
@@ -105,7 +105,9 @@
 
 福小莉的本地头像已从第12卷囚衣版换为第18卷中华服版，继续使用同一个 `xiaoli` ID 与 [prepared/xiaoli.png](./prepared/xiaoli.png)，不登记第二个人物。[novel/xiaoli-vol18-original.jpg](./novel/xiaoli-vol18-original.jpg) 保留第18卷 `OEBPS/Images/190226.jpg` 原始位元组；[color/xiaoli-vol18-colorized.png](./color/xiaoli-vol18-colorized.png) 是已保存的内置 imagegen 上色衍生图，头像裁切先校正眼线。黑长发与较深肤色依据第18卷正文，延续上一版的自然暖棕色阶；双圆形金钱饰片按用户指定使用金色。象牙白中华服、克制金色纹饰与深棕瞳色属于本次上色选择，未标成官方彩页。[第18卷上色记录](./research/epub/xiaoli-vol18-colorization.json) 保存完整提示词、原始来源与哈希。旧第12卷原图、用户图片、上色图和 [原上色记录](./research/epub/xiaoli-colorization.json) 继续保留。按用户要求，`imageUrl` 继续沿用原图床地址 `https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/xiaoli.png`，终端直接使用该地址。恢复地址不代表第18卷新版已上传，远端是否为新版尚未核验。
 
-目前共有 **32个人物头像 + 1张共用盾框，共33个图床文件**：九张原版盾形 PNG 与二十三张 `prepared/` PNG。凛奈保留原头像并补齐简繁短名；夏洛特新增独立头像，两人均使用已核验且与本地文件一致的图床图片。小莉在旧位置保留第18卷本地版，并继续使用原图床地址。研究联系表、小说原彩图、旧徽章、扫描索引不作为终端图床头像上传。
+日下部加加美使用[动画官网第2话公开剧照](https://ittoshura.com/story/epsode2.html)中的制服近景，原档保存为 [anime/kagami-original.jpg](./anime/kagami-original.jpg)。保留原画人物与配色，通过眼线校正和盾口裁切生成 [prepared/kagami.png](./prepared/kagami.png)；旋转边角使用暖色底填充，未使用 AI 重绘。来源、旋转与裁切记录见 [kagami-evidence.json](./research/anime/kagami-evidence.json)。全名、`加加美`、日文 `日下部加々美／加々美` 与英文姓名均匹配同一 `kagami`。图床对应地址目前返回404，所以 `imageUrl` 留空，终端与正文气泡内联本地图；上传 `prepared/kagami.png` 后，在清单此人物的 `imageUrl` 填写实际 HTTPS 直链，再重建相应组件。
+
+目前共有 **33个人物头像 + 1张共用盾框，共34个图床文件**：九张原版盾形 PNG 与二十四张 `prepared/` PNG。凛奈保留原头像并补齐简繁短名；夏洛特新增独立头像，两人均使用已核验且与本地文件一致的图床图片。小莉在旧位置保留第18卷本地版，并继续使用原图床地址。研究联系表、小说原彩图、旧徽章、扫描索引不作为终端图床头像上传。
 
 有栖院凪的 Alice 与后期 Iris 均曾被译作“艾莉丝”。裸 `艾莉丝／艾莉絲` 不绑定人物图片，保留姓名首字；请使用 `有栖院凪`、`有栖院艾莉丝` 或 `艾莉丝·阿斯卡里德`、`艾莉丝·格尔`、完整三段姓名。`Alice`、`爱丽丝／愛麗絲` 仍绑定凪；`Iris Ascarid`、`Iris Gaule` 绑定后期艾莉丝。裸 `黑骑士／黑騎士` 同样不作姓名替代，可使用 `黑骑士艾莉丝`。这里只消歧头像，原有聊天人物名不会被自动改写。
 
@@ -118,6 +120,6 @@
 
 ## 尚无核实头像
 
-日下部加加美、绫辻海斗尚未入库单人头像；此次使用的角色介绍页未收录两人的单人图片。两人记录在 `missingPortraits`，终端保留姓名缩写。此列表表示本地素材的收集状态，不表示这些人物没有头像，也不是全作品人物穷举。
+绫辻海斗尚未入库单人头像；目前核实的角色介绍页未收录他的单人图片，仍记录在 `missingPortraits`，终端保留姓名缩写。此列表表示本地素材的收集状态，不表示该人物没有头像，也不是全作品人物穷举。
 
 所有素材均记录实际来源，未以封面、多人插图或其他角色头像代替缺图人物。图片与原作的著作权归各自权利人。
