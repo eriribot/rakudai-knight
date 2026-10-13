@@ -1,0 +1,41 @@
+{
+  "source": "落第骑士英雄谭 第八卷 gbk.txt",
+  "target": "第八卷-世界书整理/核验记录/第八卷原文_UTF8.txt",
+  "decoding": "GB18030 (GBK compatible)",
+  "transformations": "Encoding only; preserve all decoded characters and line breaks.",
+  "lineNumbering": "1-based physical lines; blank lines counted; final empty split token not counted.",
+  "sourceBytes": 188364,
+  "sourceSha256": "ae0b8116c5b9bf914464234907c218d133c99d59c35789d4bda9d1600ffd2648",
+  "utf8Sha256": "92d67d452334168754e00a00942e91c054267b076a3868bbb5d8c892b220271b",
+  "lineCount": 6453,
+  "headings": [
+    {
+      "line": 3,
+      "text": "第八卷 间章 为了让自己不再后悔"
+    },
+    {
+      "line": 58,
+      "text": "第八卷 第十一章 鲜血的真相"
+    },
+    {
+      "line": 1139,
+      "text": "第八卷 第十二章 双龙相克"
+    },
+    {
+      "line": 3212,
+      "text": "第八卷 第十三章 阴云密布的准决赛"
+    },
+    {
+      "line": 5685,
+      "text": "第八卷 间章 姗姗来迟"
+    },
+    {
+      "line": 6334,
+      "text": "第八卷 后记"
+    },
+    {
+      "line": 6449,
+      "text": "第八卷 插图"
+    }
+  ]
+}

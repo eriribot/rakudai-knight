@@ -1,0 +1,30 @@
+{
+  "sourcePage": "https://rakudai-kishi.fandom.com/wiki/Hagure_Sisters",
+  "sourceUrl": "https://static.wikia.nocookie.net/rakudai-kishi-no-eiyuutan/images/6/6f/RKNC.jpg/revision/latest?cb=20161003024304",
+  "file": "research/20261013-tournament/hagure-original.webp",
+  "mediaType": "image/webp",
+  "width": 1201,
+  "height": 623,
+  "sha256": "bfe471ef60904d0e29cba73be715b94d3c11c1f1a43e4e35bcb77384d66eb8d6",
+  "identityBasis": "用户指定角色页；Appearance段和图片字幕对应：蓝发为Botan，红发为Kikyo。",
+  "characters": [
+    {
+      "id": "botan",
+      "name": "叶暮牡丹",
+      "position": "画面左侧",
+      "features": "蓝发、两眼睁开、小幅微笑、红色领结。"
+    },
+    {
+      "id": "kikyo",
+      "name": "叶暮桔梗",
+      "position": "画面右侧",
+      "features": "红发、眨眼、张嘴笑、举手、深蓝领结。"
+    }
+  ],
+  "downloadNote": "网站文件名是RKNC.jpg，但实际返回WebP；按实际编码存为.webp，未转换原始字节。",
+  "derivedImages": [
+    "prepared/botan.png",
+    "prepared/kikyo.png"
+  ],
+  "derivationRecord": "imagegen-record.json"
+}

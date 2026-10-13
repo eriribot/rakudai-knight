@@ -1,0 +1,227 @@
+@charset "UTF-8";
+[hidden]{display:none!important}
+:root{color-scheme:dark;--bg:#090909;--surface:#111;--line:#555;--text:#f3f3f3;--muted:#a3a3a3;--cyan:#bcbcbc;--gold:#e5d7aa;--green:#d3d3d3;--red:#e3c2c2;--font-ui:"Microsoft YaHei UI","Noto Sans CJK SC","PingFang SC",sans-serif;--font-title:"Noto Serif CJK SC","Songti SC","SimSun",serif;--font-num:Consolas,"SFMono-Regular",monospace;font-family:var(--font-ui)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--text);font-size:13px;line-height:1.55}
+button,a{-webkit-tap-highlight-color:transparent}
+button{font:inherit;cursor:pointer;color:inherit;touch-action:manipulation}
+button:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid #fff;outline-offset:4px}
+button:disabled{opacity:.35;cursor:default}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,p{margin-top:0}
+h1,h2,h3{font-family:var(--font-title)}
+.arena{max-width:1460px;padding:0 26px;margin:auto;position:relative}
+.arena-light{display:none}
+.topbar{min-height:54px;display:flex;justify-content:space-between;align-items:center;gap:16px;border-bottom:3px double #666}
+.brand{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;letter-spacing:1px}
+.brand-emblem{font:32px var(--font-title);color:#fff}
+.brand-sub{display:block;font:9px var(--font-num);letter-spacing:2px;color:var(--muted);margin-top:3px}
+.broadcast{display:flex;gap:8px;align-items:center;font:9px var(--font-num);letter-spacing:1px;color:#c0c0c0}
+.signal{width:6px;height:6px;background:#fff}
+.edition{border-left:1px solid #666;padding-left:12px;margin-left:5px;color:#888}
+.heading{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:16px 0}
+.eyebrow{color:#aaa;font:9px var(--font-num);letter-spacing:2px;margin:0 0 5px}
+h1{font-size:25px;letter-spacing:2px;margin:0;font-weight:700}
+.tournament-facts{display:flex;align-items:center;gap:20px;color:#aaa;font-size:10px}
+.tournament-facts span{display:flex;align-items:center;gap:7px}
+.tournament-facts b{font:700 23px var(--font-num);color:#f4f4f4}
+.tournament-facts i{height:21px;border-right:1px solid #555}
+.region-nav{display:flex;gap:3px;padding-bottom:5px;border-bottom:1px solid #555}
+.region-nav button{min-height:47px;flex:1;border:1px solid #555;background:#151515;font-size:12px;letter-spacing:1px;font-weight:700;padding:6px 10px;transition:background .15s,color .15s}
+.region-nav button span{display:block;font:8px var(--font-num);letter-spacing:1px;margin-top:3px;font-weight:400;color:#aaa}
+.region-nav button:hover{background:#303030}
+.region-nav button.active{background:#ededed;color:#111;border-color:#ededed}
+.region-nav button.active span{color:#444}
+.playback{display:flex;align-items:center;gap:22px;min-height:64px}
+.playback-buttons{display:flex;gap:4px;flex-shrink:0}
+.play-button,.step-button{border:1px solid #666;background:#181818;border-radius:0;height:31px}
+.play-button{font-size:11px;min-width:101px;padding:0 12px}
+.play-button:hover,.step-button:hover{background:#333}
+.step-button{width:30px;font-size:21px;line-height:1}
+.stage-rail{display:flex;flex:1;justify-content:space-between;position:relative}
+.stage-rail:before{content:"";position:absolute;top:7px;left:22px;right:22px;height:1px;background:#555}
+.stage-rail button{border:0;background:none;color:#888;padding:0 8px;position:relative;font-size:9px;white-space:nowrap}
+.stage-rail button:before{content:"";display:block;margin:3px auto 7px;width:9px;height:9px;background:#151515;border:1px solid #666}
+.stage-rail button.done:before{background:#8b8b8b;border-color:#aaa}
+.stage-rail button.current{color:#fff}
+.stage-rail button.current:before{background:#fff;border-color:#fff;box-shadow:0 0 0 3px #fff2}
+.stage-label{font:10px var(--font-num);min-width:66px;color:#d2d2d2;text-align:right}
+.screen{background:#101010;border:1px solid #777;border-radius:0;overflow:hidden;box-shadow:4px 4px 0 #323232}
+.screen-header{display:flex;justify-content:space-between;align-items:center;padding:13px 18px;gap:16px;border-bottom:3px double #666;background:#161616}
+.screen-kicker{font:9px var(--font-num);letter-spacing:2px;color:#aaa}
+.screen-header h2{font-size:19px;letter-spacing:1px;margin:3px 0 0}
+.screen-actions{display:flex;flex-direction:column;align-items:flex-end;gap:9px}
+.display-toggle{display:flex;border:1px solid #888;padding:2px;gap:2px;background:#080808}
+.display-toggle button{border:0;background:transparent;padding:6px 13px;min-height:30px;font-size:11px;white-space:nowrap;color:#aaa}
+.display-toggle button:hover{color:#fff;background:#252525}
+.display-toggle button.active{background:#eee;color:#111}
+.screen-legend{display:flex;gap:15px;font-size:9px;color:#aaa;white-space:nowrap}
+.screen-legend span{display:flex;gap:5px;align-items:center}
+.screen-legend i{width:5px;height:5px;display:inline-block}
+.legend-win{background:var(--gold)}.legend-advance{background:#e6e6e6}.legend-wait{background:#777}
+.screen-footer{padding:11px 18px;display:flex;gap:15px;justify-content:space-between;color:#9e9e9e;font-size:10px;border-top:1px solid #555;background:#141414}
+.interaction-hint{white-space:nowrap;color:#c4c4c4}
+
+/* 彩色赛事只存在于电视机内部；工具栏沿用黑白 ADV 终端。 */
+.tv-stage{position:relative;padding:28px 18px 18px;isolation:isolate;background:radial-gradient(ellipse at 50% 48%,#1d1c28 0,#0a0a0d 67%);overflow:hidden}
+.tv-stage:before{content:"";position:absolute;left:12%;right:12%;bottom:49px;height:36px;border-radius:50%;background:#5663b426;filter:blur(18px);z-index:-1;pointer-events:none}
+.tv-rig{max-width:1230px;margin:auto;display:grid;grid-template-columns:minmax(80px,1fr) minmax(0,910px) minmax(80px,1fr);gap:12px;align-items:center;filter:drop-shadow(0 13px 8px #0009)}
+.tv-wing,.tv-main{position:relative;clip-path:polygon(18% 0,82% 0,100% 50%,82% 100%,18% 100%,0 50%);background:linear-gradient(135deg,#72788b 0,#f2f4fc 16%,#a1a8bc 23%,#e1e5ed 39%,#626b80 56%,#c9cfdf 71%,#5b647a 100%)}
+.tv-wing{height:193px;padding:9px;filter:brightness(.88)}
+.tv-wing:before,.tv-main:before{content:"";position:absolute;inset:5px;background:linear-gradient(145deg,#242a46,#b5b8da 36%,#30324d 70%,#e3e6fc);clip-path:inherit;pointer-events:none}
+.tv-wing-inner{position:relative;z-index:1;height:100%;clip-path:inherit;background:radial-gradient(ellipse at center,#2d4b9f,#0c183e 72%);box-shadow:inset 0 0 24px #7a79ff;display:flex;flex-direction:column;justify-content:center;align-items:center;color:#f0e8cf;text-align:center}
+.tv-wing-inner:before{content:"";position:absolute;inset:5px;border:1px solid #7f92ef;clip-path:inherit;pointer-events:none}
+.league-seal{font:74px/1 var(--font-title);letter-spacing:-10px;padding-right:10px;color:#eee4bf;text-shadow:0 0 17px #a1b9fb66}
+.tv-wing small,.tv-wing-inner small{font:8px/1.8 var(--font-num);letter-spacing:1.2px;color:#bec9ed;display:block;padding:9px 5px 0}
+.tv-main{height:430px;padding:12px;min-width:0}
+.tv-main.special{height:460px}
+.tv-main:before{inset:8px;background:linear-gradient(140deg,#ddd4ff,#728aff 28%,#5635b6 52%,#7989f9 74%,#cabffd)}
+.tv-glass{position:relative;isolation:isolate;height:100%;min-width:0;overflow:hidden;clip-path:inherit;color:#f5f6ff;background:radial-gradient(ellipse at 50% 45%,#2647a0 0,#101d56 52%,#030b29 100%);box-shadow:inset 0 0 28px #8490ff;--tv-gold:#f4dc92;--tv-blue:#89b4ff}
+.tv-glass:before{content:"";position:absolute;inset:0;z-index:-1;opacity:.58;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='66' height='58' viewBox='0 0 66 58'%3E%3Cpath d='M16.5 1H49.5L65 29 49.5 57H16.5L1 29Z' fill='none' stroke='%237d91dc' stroke-opacity='.25' stroke-width='.8'/%3E%3C/svg%3E"),radial-gradient(circle,#d4deff 0 1px,transparent 1.5px),radial-gradient(circle,#91acf6 0 1px,transparent 1.3px);background-size:66px 58px,79px 93px,137px 61px;background-position:center,13px 17px,33px 44px;pointer-events:none}
+.tv-glass:after{content:"";position:absolute;inset:0;z-index:4;pointer-events:none;clip-path:inherit;background:linear-gradient(160deg,#acb7ff22 0,transparent 28%,transparent 70%,#c4caff16);box-shadow:inset 0 0 28px #918fff77}
+.tv-topline{position:absolute;top:18px;left:20%;right:20%;text-align:center;font:700 12px var(--font-num);letter-spacing:2px;color:#d5ddff;text-shadow:0 2px 3px #030a2a;z-index:2}
+.tv-center-content{position:absolute;inset:57px 13% 134px;display:flex;align-items:center;justify-content:center;min-width:0;z-index:1}
+.tv-portrait{height:170px;width:160px;position:relative;display:flex;align-items:center;justify-content:center;margin:0 auto 6px;overflow:hidden;background:linear-gradient(145deg,#d8e4fe,#47648b 56%,#12244f);border:4px solid #d1b77b;outline:1px solid #665122;box-shadow:0 0 0 3px #a7b4d72b,inset 0 0 20px #07172b99,0 5px 14px #0006}
+.tv-portrait:after{content:"";position:absolute;inset:3px;border:1px solid #eff4ff6b;pointer-events:none}
+.tv-portrait .fighter-avatar{width:100%;height:100%;margin:0;position:relative;overflow:hidden}
+.tv-portrait .fighter-avatar img{width:100%;height:100%;object-fit:contain;transform:scale(1.13);transform-origin:center 32%;filter:drop-shadow(0 3px 4px #0004)}
+.tv-portrait .portrait-fallback{width:100%;height:100%;clip-path:none;border:0;background:linear-gradient(135deg,#546a9e,#101f51);color:#e1e7fc;font:56px var(--font-title)}
+.tv-contender{min-width:0;position:relative;text-align:center;flex:0 1 174px;color:#ecedff}
+.tv-contender>b,.tv-contender>strong,.tv-contender>span{display:block;max-width:100%;font-size:12px;line-height:1.4;text-shadow:0 2px 2px #030622;overflow-wrap:anywhere}
+.tv-contender>small{display:block;font-size:9px;line-height:1.4;color:#bfc9f0;margin-top:2px}
+.tv-contender.winner .tv-portrait{border-color:#fff0b9;outline-color:#edc659;box-shadow:0 0 0 3px #cba54466,0 0 24px #f1d27866}
+.tv-contender.winner>b,.tv-contender.winner>strong,.tv-contender.winner>span{color:#fff0bc}
+.broadcast-duel{display:flex;align-items:center;justify-content:center;gap:25px;width:100%;min-width:0}
+.tv-versus,.tv-vs{font:900 italic 48px/1 "Arial Black",Impact,sans-serif;color:#e4ecff;flex:none;text-shadow:3px 3px 0 #192448,-2px -1px 0 #a5b4e4;letter-spacing:-3px}
+.tv-win{position:absolute;bottom:78px;left:50%;width:max-content;max-width:94%;transform:translateX(-50%) skew(-8deg);z-index:3;font:1000 clamp(68px,7vw,106px)/1 Impact,"Arial Black",sans-serif;font-stretch:condensed;letter-spacing:2px;color:#ff354d;background:linear-gradient(#fff4f0 0%,#ffb5b9 12%,#ff6674 31%,#ff2346 65%,#ed1239 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;-webkit-text-stroke:5px #fff;paint-order:stroke fill;text-shadow:none;filter:drop-shadow(3px 4px 0 #6e213b) drop-shadow(0 0 13px #ff94b05c);white-space:nowrap;pointer-events:none;animation:tv-winner-arrive .35s ease-out both}
+.tv-win.advance{background-image:linear-gradient(#fff 0%,#b2e9ff 23%,#6eafff 62%,#587ae9 100%);filter:drop-shadow(3px 4px 0 #24376e) drop-shadow(0 0 13px #94dfff55);font-size:clamp(51px,6.5vw,90px);letter-spacing:0}
+.broadcast-duel .tv-vs{font:900 italic 48px/1 var(--font-num);color:#fbf3ff;text-shadow:0 0 10px #746fff;flex-shrink:0}
+.tv-portrait.winner-portrait{border-color:#fff0b9;outline-color:#edc659;box-shadow:0 0 0 3px #cba54466,0 0 24px #f1d27866}
+.tv-wing-inner .fighter-avatar{width:70px;height:95px;margin:0 auto 5px}
+.tv-wing-inner .portrait-fallback{width:61px;height:80px;font-size:25px}
+.tv-wing-inner>b{font-size:10px;line-height:1.4;padding:0 10%;color:#e7eafd}
+.tv-wing-inner .fighter-avatar~small{padding-top:4px;font-size:7px}
+.tv-wing.winner{filter:brightness(1.08)}
+.tv-wing.winner .tv-wing-inner{box-shadow:inset 0 0 25px #ab9bea;color:#ffe5a0}
+.tv-result-name{position:absolute;bottom:47px;left:18%;right:18%;z-index:3;text-align:center;font:700 22px/1.3 var(--font-title);letter-spacing:2px;color:#fff6d5;text-shadow:0 2px 4px #000}
+.tv-promotion{position:absolute;bottom:19px;left:20%;right:20%;z-index:3;text-align:center;font-size:10px;letter-spacing:1px;color:#d2dcff;line-height:1.4}
+.tv-special-duel{width:100%;display:flex;align-items:center;justify-content:center;gap:19px;min-width:0}
+.tv-main.special .tv-center-content{inset:41px 14% 155px}
+.tv-special-duel .main-contender{flex:0 0 150px}
+.tv-special-duel .main-contender .tv-portrait{width:143px;height:165px}
+.tv-special-duel .tv-vs{font-size:42px}
+.tv-opponents{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 14px;min-width:0;flex:0 1 225px;align-items:start}
+.tv-opponents .tv-contender{width:100%;min-width:0}
+.tv-opponents .tv-portrait{width:78px;height:86px;border-width:2px;margin-bottom:4px}
+.tv-opponents .fighter-avatar{width:100%;height:100%}
+.tv-opponents .portrait-fallback{font-size:30px}
+.tv-opponents .tv-contender>b,.tv-opponents .tv-contender>strong,.tv-opponents .tv-contender>span{font-size:10px;line-height:1.3;min-height:13px}
+.tv-opponents .tv-contender>small{font-size:8px}
+.tv-special-duel.resolved .tv-opponents .tv-portrait{filter:grayscale(.88) brightness(.75);border-color:#9da1b5;outline-color:#4d597e}
+.tv-special-duel.resolved .tv-opponents .tv-contender{color:#d2d6ec}
+.tv-special-duel.resolved .main-contender .tv-portrait{border-color:#fff1b8;box-shadow:0 0 0 3px #edcc7138,0 0 25px #e5bd5866}
+.tv-main.special .tv-win{font-size:70px;bottom:78px}
+.tv-result-strip{max-width:940px;min-height:35px;margin:17px auto 0;padding:7px 16px;background:#101114;border-top:1px solid #727481;border-bottom:1px solid #3a3c46;color:#ceced8;text-align:center;font-size:11px;line-height:1.7}
+.tv-result-strip b,.tv-result-strip strong{color:#f3ead5;font-weight:600}
+.battle-strip{display:flex;gap:7px;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin;scrollbar-color:#777 #111;padding:12px 18px 14px;border-top:1px solid #4a4a4a;background:#151515;scroll-snap-type:x proximity}
+.battle-choice{flex:0 0 auto;min-width:150px;max-width:260px;min-height:48px;padding:8px 11px;text-align:left;border:1px solid #535353;border-radius:0;background:#1c1c1c;color:#c7c7c7;font-size:11px;line-height:1.45;scroll-snap-align:start}
+.battle-choice small{display:block;font:9px var(--font-num);color:#929292;margin-top:4px}
+.battle-choice:hover{border-color:#bbb;background:#282828}
+.battle-choice.active{border-color:#eee;background:#e9e9e9;color:#141414;box-shadow:inset 3px 0 #141414}
+.battle-choice.active small{color:#505050}
+@keyframes tv-winner-arrive{from{opacity:0;transform:translateX(-50%) skew(-8deg) scale(1.12)}to{opacity:1;transform:translateX(-50%) skew(-8deg) scale(1)}}
+
+/* 晋级树、名单与详情保留紧凑、可点击的终端视图。 */
+.bracket-scroll{overflow-x:auto;padding:18px 20px 10px;scrollbar-color:#747474 #101010;overscroll-behavior-x:contain}
+.bracket{min-width:940px;position:relative;display:grid;grid-template-columns:1fr 1fr 1fr .88fr;gap:48px}
+.bracket-column{position:relative;min-width:0;z-index:1}
+.round-title{height:33px;color:#c1c1c1;font-size:10px;letter-spacing:1px;display:flex;justify-content:space-between;align-items:flex-start}
+.round-title span{font:9px var(--font-num);color:#777}
+.round-matches{height:484px;display:grid;gap:0}
+.round-1{grid-template-rows:repeat(4,1fr)}.round-2{grid-template-rows:repeat(2,1fr)}.round-3,.round-winner{grid-template-rows:1fr}
+.match-wrap{display:flex;align-items:center;min-width:0}
+.match{display:block;width:100%;padding:0;text-align:left;border:1px solid #696969;background:#1d1d1d;border-radius:0;overflow:hidden;box-shadow:2px 2px 0 #000;position:relative;transition:border-color .15s,background .15s}
+.match:hover{border-color:#eee;background:#292929}
+.match-top{height:22px;padding:0 9px;display:flex;align-items:center;justify-content:space-between;font-size:8px;letter-spacing:.5px;background:#111;color:#999}
+.match-top strong{font-size:8px;font-weight:400;color:#bcbcbc}
+.match-top .special-tag{color:var(--gold)}
+.fighter{display:flex;gap:8px;align-items:center;min-height:42px;position:relative;padding:1px 8px;border-top:1px solid #454545}
+.fighter-avatar{height:36px;width:30px;display:flex;flex-shrink:0;align-items:center;justify-content:center}
+.fighter-avatar img{width:100%;height:100%;object-fit:contain}
+.portrait-fallback{width:27px;height:30px;display:flex;align-items:center;justify-content:center;clip-path:polygon(50% 0,100% 20%,93% 78%,50% 100%,7% 78%,0 20%);background:linear-gradient(135deg,#666,#292929);color:#e0e0e0;font-size:10px;font-weight:700}
+.fighter-name{min-width:0;flex:1;line-height:1.2}
+.fighter-name b{font-size:11px;display:block;font-weight:600;overflow-wrap:anywhere}
+.fighter-name small{font-size:8px;display:block;color:#aaa;margin-top:3px}
+.fighter-status{font:700 9px var(--font-num);letter-spacing:.5px;color:#aaa;margin-left:auto}
+.fighter.won{background:#d7c39712;box-shadow:inset 3px 0 var(--gold)}
+.fighter.won .fighter-status{background:var(--gold);color:#24201a;padding:2px 4px}
+.fighter.advanced{box-shadow:inset 3px 0 #e1e1e1;background:#ffffff09}
+.fighter.advanced .fighter-status{color:#eee}
+.fighter.lost .fighter-name{color:#969696}
+.fighter.lost .fighter-avatar{filter:grayscale(.8);opacity:.63}
+.fighter.unknown .fighter-name{color:#a6a6a6}
+.match.cancelled{border-color:#666;border-style:dashed;background:#252525}
+.match.cancelled .match-top strong{color:#b7b0a0}
+.match.pending{border-color:#444;background:#191919}
+.match-result{font-size:8px;text-align:center;color:#aaa;min-height:18px;padding:2px 5px;background:#111}
+.connector-layer{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:visible}
+.connector{fill:none;stroke:#555;stroke-width:1.3}
+.connector.progressed{stroke:#c9c9c9}.connector.cancelled{stroke:#777;stroke-dasharray:4 4}
+.qualifier{width:100%;text-align:center;border:3px double #999;border-radius:0;background:linear-gradient(#282828,#171717);padding:20px 8px 17px;position:relative;overflow:hidden}
+.qualifier-title{font:9px var(--font-num);letter-spacing:2px;color:#ccc;margin-bottom:13px}
+.qualifier .fighter-avatar{width:76px;height:100px;margin:0 auto 9px}
+.qualifier .portrait-fallback{width:65px;height:86px;font-size:25px}
+.qualifier h3{font-size:17px;letter-spacing:1px;margin:0 0 6px}
+.qualifier p{color:#aaa;font-size:10px;margin:0}
+.qualifier .qualified-stamp{display:inline-block;font:700 11px var(--font-num);letter-spacing:2px;color:#111;background:#ddd;padding:5px 11px;margin-top:16px}
+.qualifier.pending{opacity:.65}
+.qualifier.champion{border-color:var(--gold);background:linear-gradient(#2d2a23,#181818)}
+.qualifier.champion .qualifier-title{color:var(--gold)}.qualifier.champion .qualified-stamp{background:var(--gold)}
+.special-panel{display:none}
+.special-copy{min-width:0}.special-copy h3{font-size:15px;margin:0 0 6px}.special-copy p{font-size:11px;color:#aaa;line-height:1.7;margin:0}
+.special-fighters{display:flex;align-items:center;gap:13px}.special-person{text-align:center;min-width:48px}
+.special-person .fighter-avatar{margin:auto;width:36px;height:48px}.special-person span{font-size:9px;display:block;margin-top:4px;color:#ccc}
+.special-person.winner span{color:var(--gold)}.versus{font:700 italic 15px var(--font-num);color:#ddd;margin:0 3px}
+.special-action{background:#28251e;border:1px solid #8b7e61;padding:8px 12px;color:#e1d6bc;font-size:10px;white-space:nowrap}
+.page-footer{padding:18px 0 22px;display:flex;justify-content:space-between;gap:20px;font-size:9px;color:#777}
+.page-footer a{color:#aaa}.page-footer a:hover{color:#fff}
+.roster-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;padding:20px}
+.roster-zone{background:#161616;border:1px solid #555;border-radius:0;overflow:hidden}
+.roster-zone-head{padding:11px 12px;display:flex;align-items:center;justify-content:space-between;background:#272727;font-size:11px;font-weight:700;letter-spacing:1px;border-bottom:3px double #666}
+.roster-zone-head button{border:0;background:none;font-size:10px;color:#ddd}
+.roster-entry{width:100%;border:0;border-top:1px solid #393939;background:none;padding:4px 10px;display:flex;align-items:center;text-align:left;gap:8px;min-height:52px}
+.roster-entry:hover{background:#303030}.roster-entry .fighter-avatar{height:40px;width:32px}
+.roster-entry .roster-index{font:9px var(--font-num);color:#777;width:15px}
+.roster-entry .fighter-name b{font-size:12px}.roster-entry .fighter-name small{font-size:9px}
+.roster-entry .roster-flag{font-size:8px;color:#ddd}.roster-entry.eliminated .fighter-name{color:#969696}
+.roster-entry.qualifying{background:#eee1;box-shadow:inset 2px 0 #ccc}.roster-entry.unknown{opacity:.7}
+.overview-finals{display:flex;gap:12px;align-items:center;padding:0 20px 20px}
+.overview-final-chip{flex:1;background:#202020;border:1px solid #666;padding:12px 14px;display:flex;justify-content:space-between;gap:10px;font-size:11px}
+.overview-final-chip small{color:#aaa}.overview-final-chip strong{color:var(--gold);font-size:11px}
+.final-board{grid-template-columns:1fr 1fr 1fr;max-width:1030px;min-width:810px;margin:auto;gap:95px}
+.final-board .round-matches{height:380px}.final-board .fighter{min-height:58px}.final-board .fighter-avatar{height:50px;width:40px}
+.final-board .fighter-name b{font-size:14px}.final-board .fighter-name small{font-size:10px}.final-board .match-top{height:27px;font-size:9px}
+.final-board .qualifier .fighter-avatar{width:100px;height:132px}
+.podium-note{margin:0 20px 20px;padding:12px 15px;background:#222;border-left:2px solid #bbb;font-size:11px;color:#bbb}.podium-note b{color:#eee;margin-right:9px}
+dialog{width:min(590px,calc(100vw - 28px));border:3px double #aaa;background:#141414;color:var(--text);border-radius:0;padding:30px;box-shadow:7px 7px 0 #000b}
+dialog::backdrop{background:#000c;backdrop-filter:blur(3px)}
+.dialog-close{position:absolute;right:12px;top:9px;border:0;background:none;color:#ccc;font-size:26px;line-height:1}
+.dialog-kicker{font:9px var(--font-num);color:#aaa;letter-spacing:2px;margin:0 0 7px}.dialog-title{font-size:20px;margin:0 30px 24px 0}
+.dialog-duel{display:flex;justify-content:center;gap:25px;align-items:center;margin:5px 0 23px}
+.dialog-person{text-align:center;flex:1;min-width:0}.dialog-person .fighter-avatar{width:78px;height:105px;margin:auto}
+.dialog-person .portrait-fallback{width:65px;height:80px;font-size:23px}.dialog-person b{display:block;font-size:15px;margin-top:12px}.dialog-person small{display:block;font-size:10px;color:#aaa;margin-top:5px}
+.dialog-vs{font:700 italic 24px var(--font-num);color:#888}.dialog-result{padding:10px;background:#d1ba7412;text-align:center;color:var(--gold);font-size:13px;border:1px solid #6b6250;margin-bottom:15px}
+.dialog-description{font-size:12px;line-height:1.9;color:#ccc;margin:0 0 18px}.dialog-evidence{border-top:1px solid #555;padding-top:13px;font-size:11px;color:#aaa;line-height:1.9}.dialog-evidence summary{cursor:pointer;color:#ccc}.dialog-evidence p{margin:10px 0 0}
+.player-route{display:grid;gap:8px}.route-row{padding:10px 13px;border-left:2px solid #aaa;background:#242424;font-size:11px}.route-row b{color:#eee;display:block;margin-bottom:5px}.route-row span{color:#aaa}
+.dialog-special-grid{display:flex;justify-content:center;flex-wrap:wrap;gap:15px;margin:10px 0 20px}.dialog-special-grid .special-person .fighter-avatar{width:46px;height:62px}
+
+@media(min-width:1400px){.bracket{gap:60px}.fighter-name b{font-size:12px}.fighter-name small{font-size:9px}.fighter{min-height:43px}.match-top{font-size:9px}}
+@media(max-width:1100px){.arena{padding:0 18px}.broadcast .edition{display:none}.bracket{gap:32px;min-width:900px}.stage-label{display:none}.playback{gap:14px}.roster-grid{gap:10px;padding:15px}.roster-entry{padding:4px 6px;gap:5px}.roster-entry .roster-index{display:none}.roster-entry .fighter-name b{font-size:11px}.page-footer{flex-wrap:wrap}.tv-rig{grid-template-columns:70px minmax(0,1fr) 70px;gap:6px}.tv-wing{height:160px;padding:7px}.league-seal{font-size:55px}.tv-wing small{font-size:6px;letter-spacing:0}.tv-main{clip-path:polygon(13% 0,87% 0,100% 50%,87% 100%,13% 100%,0 50%)}.tv-main.special .tv-center-content{left:12%;right:12%}.tv-special-duel{gap:12px}.tv-special-duel .main-contender{flex-basis:135px}.tv-special-duel .main-contender .tv-portrait{width:130px;height:160px}.tv-opponents{flex-basis:190px;gap:10px}.tv-opponents .tv-portrait{width:72px;height:82px}.tv-special-duel .tv-vs{font-size:33px}}
+@media(max-width:760px){.arena{padding:0 10px}.topbar{min-height:49px}.brand{font-size:11px;letter-spacing:.5px;gap:7px}.brand-sub{font-size:8px;letter-spacing:.8px}.brand-emblem{font-size:27px}.broadcast{font-size:8px;letter-spacing:0}.heading{padding:13px 2px;gap:10px}.heading h1{font-size:21px;letter-spacing:1px}.eyebrow{font-size:8px;letter-spacing:1px}.tournament-facts{gap:10px}.tournament-facts span{display:block;font-size:8px;text-align:center}.tournament-facts b{display:block;font-size:19px;margin-bottom:1px}.tournament-facts i{display:none}.region-nav{gap:3px}.region-nav button{padding:6px 3px;font-size:11px;min-height:43px;letter-spacing:0}.region-nav button span{font-size:7px;letter-spacing:0}.playback{flex-wrap:wrap;gap:11px;padding:13px 2px}.playback-buttons{order:2}.stage-label{display:block;order:3;flex:1;text-align:right}.stage-rail{flex-basis:100%;order:1}.stage-rail button{font-size:9px;padding:0 4px}.screen-header{padding:12px;align-items:flex-start;gap:10px;flex-wrap:wrap}.screen-header h2{font-size:17px}.screen-actions{flex-direction:row;align-items:center;justify-content:space-between;flex-basis:100%;gap:10px}.display-toggle button{font-size:10px;padding:5px 9px;min-height:28px}.screen-legend{font-size:8px;gap:9px}.tv-stage{padding:18px 9px 12px}.tv-rig{display:block}.tv-wing{display:none}.tv-main{height:350px;max-width:600px;margin:auto;padding:9px;clip-path:polygon(8% 0,92% 0,100% 50%,92% 100%,8% 100%,0 50%)}.tv-main.special{height:380px}.tv-main:before{inset:6px}.tv-topline{top:14px;left:12%;right:12%;font-size:10px;letter-spacing:1px}.tv-center-content{inset:47px 9% 124px}.tv-portrait{width:113px;height:136px;border-width:3px}.tv-contender{flex-basis:125px}.tv-contender>b,.tv-contender>strong,.tv-contender>span{font-size:11px}.tv-contender>small{font-size:8px}.broadcast-duel{gap:17px}.tv-versus{font-size:34px}.tv-win{font-size:70px;bottom:74px;-webkit-text-stroke:4px;letter-spacing:1px}.tv-result-name{bottom:44px;font-size:18px;left:12%;right:12%;letter-spacing:1px}.tv-promotion{bottom:16px;left:10%;right:10%;font-size:9px;letter-spacing:0}.tv-main.special .tv-center-content{inset:43px 7% 132px}.tv-special-duel{gap:12px}.tv-special-duel .main-contender{flex:0 0 112px}.tv-special-duel .main-contender .tv-portrait{width:105px;height:136px}.tv-special-duel .tv-vs{font-size:27px;letter-spacing:-2px}.tv-opponents{flex:0 1 160px;gap:9px 8px}.tv-opponents .tv-portrait{width:60px;height:69px}.tv-opponents .tv-contender>b,.tv-opponents .tv-contender>strong,.tv-opponents .tv-contender>span{font-size:9px}.tv-opponents .tv-contender>small{display:none}.tv-main.special .tv-win{font-size:65px;bottom:75px}.tv-result-strip{margin:12px auto 0;padding:7px 9px;font-size:10px}.battle-strip{padding:10px 12px 12px;gap:6px}.battle-choice{min-width:145px;font-size:10px}.bracket-scroll{padding:16px 14px 10px}.bracket{gap:36px;min-width:880px}.screen-footer{padding:10px 12px;flex-direction:column;gap:5px;font-size:9px}.roster-grid{grid-template-columns:repeat(2,minmax(0,1fr));padding:12px;gap:10px}.roster-entry .fighter-name b{font-size:11px}.roster-entry .fighter-avatar{width:30px;height:38px}.roster-entry .roster-flag{font-size:7px}.overview-finals{padding:0 12px 14px;flex-direction:column;align-items:stretch;gap:8px}.overview-final-chip{font-size:10px}.final-board{min-width:760px;gap:65px}.page-footer{font-size:8px;gap:8px;line-height:1.8}.page-footer span:nth-child(2){flex-basis:100%;order:3}.dialog-title{font-size:18px}dialog{padding:25px}.dialog-description{font-size:11px}}
+@media(max-width:450px){.arena{padding:0 7px}.heading h1{font-size:19px}.tournament-facts{gap:8px}.tournament-facts b{font-size:18px}.screen-actions{flex-wrap:wrap}.screen-legend{margin-left:auto}.tv-stage{padding:15px 5px 10px}.tv-main{padding:8px;clip-path:polygon(5% 0,95% 0,100% 50%,95% 100%,5% 100%,0 50%)}.tv-main.special .tv-center-content{left:13px;right:13px}.tv-special-duel{gap:8px}.tv-special-duel .main-contender{flex-basis:100px}.tv-special-duel .main-contender .tv-portrait{width:98px;height:129px}.tv-special-duel .tv-vs{font-size:24px}.tv-opponents{flex-basis:146px;gap:9px 7px}.tv-opponents .tv-portrait{width:56px;height:65px}.tv-opponents .tv-contender>b,.tv-opponents .tv-contender>strong,.tv-opponents .tv-contender>span{font-size:9px;min-height:13px}.tv-contender>b,.tv-contender>strong,.tv-contender>span{font-size:10px}.tv-main.special .tv-win{font-size:59px}.tv-win{font-size:64px}.tv-result-name{font-size:17px}.tv-promotion{font-size:9px;left:9%;right:9%}.broadcast-duel{gap:14px}.tv-versus{font-size:29px}.tv-portrait{width:105px;height:133px}.roster-entry .fighter-name b{font-size:10px}.roster-zone-head{padding:10px}.dialog-duel{gap:15px}.dialog-person b{font-size:13px}}
+@media(max-width:359px){.broadcast{display:none}.tournament-facts span:last-child{display:none}.tv-main.special .tv-center-content{left:8px;right:8px}.tv-special-duel{gap:6px}.tv-special-duel .main-contender{flex-basis:85px}.tv-special-duel .main-contender .tv-portrait{width:84px;height:117px}.tv-special-duel .tv-vs{font-size:21px}.tv-opponents{flex-basis:133px;gap:9px 5px}.tv-opponents .tv-portrait{width:52px;height:63px}.tv-win,.tv-main.special .tv-win{font-size:54px}.tv-result-name{font-size:16px}.screen-legend{display:none}.tv-portrait{width:90px;height:124px}.broadcast-duel{gap:11px}.tv-versus{font-size:25px}}
+@media(min-width:761px) and (max-width:1100px){.tv-wing-inner .fighter-avatar{width:43px;height:69px}.tv-wing-inner .portrait-fallback{width:39px;height:57px;font-size:18px}.tv-wing-inner>b{font-size:8px}.tv-wing-inner .fighter-avatar~small{font-size:6px}}
+@media(max-width:760px){.broadcast-duel .tv-vs{font-size:34px}.tv-win.advance{font-size:48px;-webkit-text-stroke-width:3px}}
+@media(max-width:450px){.broadcast-duel .tv-vs{font-size:29px}.tv-win.advance{font-size:40px}}
+@media(max-width:359px){.broadcast-duel .tv-vs{font-size:25px}.tv-win.advance{font-size:33px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}

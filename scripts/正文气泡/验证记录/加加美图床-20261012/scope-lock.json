@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-12",
+  "deliveryMode": "component",
+  "kind": "regex",
+  "scope": "日下部加加美图床URL同步：只改既有03样式中的图片地址，01/02字节不变。",
+  "version": "0.6",
+  "target": "scripts/正文气泡/发布/components",
+  "changedFields": {
+    "dialogue-bubble-style.regex.json": [
+      "replaceString"
+    ]
+  },
+  "redLines": [
+    "不生成整卡、预设、世界书包或PNG发布包",
+    "不改源码逻辑、姓名/保护边界、头像manifest、terminal、README、MVU或聊天",
+    "保留01/02/03 ID、顺序、字段与v0.6",
+    "01/02产物字节不变；历史验证报告保留"
+  ],
+  "acceptance": [
+    "component计划只有既有三条regex及manifest",
+    "01/02 SHA-256与前版相等",
+    "03完整CSS字段哈希等于旧版本只将kagami内联src改HTTPS的预期值",
+    "导入产物与当前buildRules源码完全一致"
+  ],
+  "library": {
+    "snapshotVersion": "2026-08-18",
+    "routes": [
+      "sillytavern-component-update"
+    ],
+    "loadedGuides": [
+      "ST-A0",
+      "ST-A2",
+      "ST-A6",
+      "ST-B2"
+    ],
+    "contracts": [
+      "component-update-contract.md",
+      "importable-formats.md",
+      "tavern-regex-contract.md",
+      "render-stages.md"
+    ],
+    "adoptedDesignCandidates": []
+  },
+  "baseline": [
+    {
+      "file": "dialogue-bubbles.regex.json",
+      "sha256": "6ea27b727036fc593dffc7a96e2307c4ae4258668d28341b8d8f61903dbd07c6",
+      "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+      "scriptName": "01 盾形对白 · 姓名与台词 v0.6",
+      "fieldHashes": {
+        "trimStrings": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "placement": "038966de9f6b9a901b20b4c6ca8b2a46009feebe031babc842d43690c0bc222b",
+        "disabled": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+        "markdownOnly": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b",
+        "promptOnly": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+        "runOnEdit": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b",
+        "substituteRegex": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35",
+        "minDepth": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+        "maxDepth": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+        "id": "f54fde008cab16794ebcaa0d48bc15846854da1e4bf4cdec3065ebe7bc995702",
+        "scriptName": "73e9134b8366f9dc7be582e202b6a3715f1aed724ff207cbea45d485a42586ed",
+        "findRegex": "bb7c654c1095561eb11e267ae5688dd42d5100760ca827d0983e5b9cfc3e398e",
+        "replaceString": "ad65f7ae952a3df9e9af35c35fcf1570f4263e7d80d74c42fe5141188d184e52"
+      }
+    },
+    {
+      "file": "dialogue-player-candidates.regex.json",
+      "sha256": "a548f8b4d27ef1db3ef8a969051833477a05370bbc45af4dbff2fb6194fb1f38",
+      "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+      "scriptName": "02 盾形对白 · OC 姓名候选 v0.6",
+      "fieldHashes": {
+        "trimStrings": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "placement": "038966de9f6b9a901b20b4c6ca8b2a46009feebe031babc842d43690c0bc222b",
+        "disabled": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+        "markdownOnly": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b",
+        "promptOnly": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+        "runOnEdit": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b",
+        "substituteRegex": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+        "minDepth": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+        "maxDepth": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+        "id": "d7cbcef664e8b9fe318c0a75da95ea31256e3af7b0b2e680bfb73180e2c4c971",
+        "scriptName": "261c55fa7878d2d30d3b7bf2769f2d9705b7bfcb51121302ce8261aa7fa773cd",
+        "findRegex": "94a620a27e6220bf0cb49a67ecdb86ccac1a0651f47d04f0729b342870caf834",
+        "replaceString": "b0111ffc2a4173eb78c995469ad06686e76c2dc729ff1d104853a4235871b75f"
+      }
+    },
+    {
+      "file": "dialogue-bubble-style.regex.json",
+      "sha256": "b541397a653a821c4014e90469e50353d6937f0e70c5271009e2724e3f591cc2",
+      "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+      "scriptName": "03 盾形对白 · 共享样式 v0.6",
+      "fieldHashes": {
+        "trimStrings": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "placement": "038966de9f6b9a901b20b4c6ca8b2a46009feebe031babc842d43690c0bc222b",
+        "disabled": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+        "markdownOnly": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b",
+        "promptOnly": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+        "runOnEdit": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b",
+        "substituteRegex": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+        "minDepth": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+        "maxDepth": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+        "id": "6747c248e51563cecb8cd2e4529d4cb1f450e033476624d6b438ce465a2dcdf5",
+        "scriptName": "3730636b84eefe8f567e79e52aa76e5df5373f71fdff710e13fae5d62dd00a2f",
+        "findRegex": "08514c09b2f2aa1f70a18052bd8a31a963150cfb29c1d2ec6063bdea3b922403",
+        "replaceString": "061b6d6f9ad4bc4fec216eda01ff4502299c7146a50eef71d2f8c5b94631eb39"
+      }
+    }
+  ],
+  "onlyKagamiUrlExpectedHash": "aa6813090fffa3208bca3ad373288e1699a8b4cd7d30a376d1067227ec2c8b73",
+  "priorImageMode": "embedded-local",
+  "sourceHashes": {
+    "scripts/正文气泡/build.mjs": "73a18a67df4775db9b52a747aafdd2631fb1583be96e1362df6a4eaf015e4caa",
+    "scripts/正文气泡/bubble.css": "a546dcf2b07d446c4f0167af6faad23b58a5ebdbb4f0c4b39487872387b84961",
+    "scripts/正文气泡/context-guard.mjs": "c1c0210d51184f3e22029514d6cd0211630e9a3cc9d70bf360e7d958bae6be31",
+    "scripts/正文气泡/format-rule.txt": "045e0145da92912faf75f6785a8a299c1654c3fc4d0864de9e963cad757691c6",
+    "resource/knightavatars/manifest.json": "5f7059b0939ca30b042c2ad8ca65aae4114d44dfe66fe8e41414809f06795475"
+  },
+  "portrait": {
+    "name": "日下部加加美",
+    "aliases": [
+      "加加美",
+      "日下部加々美",
+      "加々美",
+      "Kagami Kusakabe",
+      "Kusakabe Kagami"
+    ],
+    "file": "anime/kagami-original.jpg",
+    "displayFile": "prepared/kagami.png",
+    "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kagami.png",
+    "localSha256": "835825c7cb1476f4982b61eb94537ce4c802d7def37a35dcf873510d76cecd0b"
+  },
+  "remoteVerificationPath": "resource/knightavatars/research/anime/kagami-host-verification.json",
+  "sourceStabilization": {
+    "preBuildManifestSha256": "b10072978ec4adb2ef8b9f35a7af8d2b9dda12cef6fe21d709af6eab202d83d6",
+    "finalManifestSha256": "5f7059b0939ca30b042c2ad8ca65aae4114d44dfe66fe8e41414809f06795475",
+    "reason": "主任务在并行构建期间完成 imageHostStatus 核验metadata；确认定稿后重新生成 source-receipt 与产物parity。"
+  },
+  "pendingRuntime": [
+    "玩家酒馆导入更新03，01/02保留既有新版；各组件只留一份开启",
+    "玩家当前主题、流式/重载及实际宿主网络显示验收"
+  ]
+}

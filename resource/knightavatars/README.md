@@ -21,6 +21,14 @@
 
 `sourceUrl` 和 `sourcePage` 记录原始出处，不是填写图床的地方。`shield-mask.svg` 保持内联，无须上传。
 
+填好 `imageUrl` 后，在项目根目录 `E:\web\落第` 执行：
+
+```powershell
+node scripts/build-knight-avatar-delivery.mjs
+```
+
+这个入口使用已完成的盾形 PNG，依次重建小手机、离线预览和正文气泡发布组件，并检查组件格式及源码一致性。版本号与组件 ID 沿用现值。成功后重新导入小手机 JSON 与气泡 **01／03**；气泡 **02** 保留。只覆盖同一图床 URL 下的图片、没有改地址时，无需重打包。
+
 填完地址后，在 `scripts/黑白ADV轮盘终端` 目录执行 `node build.js`，重新导入当前生成的 [小手机 v1.3.28 JSON](../../世界书规则/MVU/落第骑士-小手机-v1.3.28.json)。执行 `node preview.mjs` 可更新离线预览。图床基底为 `https://eriribot.github.io/rakudai-knight/resource/knightavatars/`。人物有 `displayFile` 时使用 `prepared/` 图片；原版盾形头像与共用盾框使用根层图片。原有31张图片的HTTP 200、PNG格式及与本地逐字节一致检查见 [图床检查](./research/review/github-pages-avatar-check.json)。[福小莉旧版图床记录](../../output/xiaoli-avatar-delivery/remote-verification.json) 只核验了第12卷囚衣版，不能代替第18卷新头像的核验。站点根路径没有首页，404不影响图片直链。构建不会下载图床图片，而是直接保留地址；将单项地址留空可恢复该项的本地内联预览。
 
 百度百科页面的浏览被网站安全政策阻止。这批图片改从独立的官方页面取得；GA 文库的彩色盾形图与提供的绫辻绚濑参考图属于同一套素材。
@@ -64,7 +72,7 @@
 
 ## 算法裁切与合成
 
-补框头像位于 `prepared/`，均为 434 × 580 透明 PNG。先从盾框 alpha 像素取最大的封闭透明区域作为盾口，排除外侧和花饰小孔；再使用每人的人工核验人物区域、眼部位置和脸部保护点，搜索等比例裁切窗口。合成图完整显示，人物不再被运行时二次缩放。暗亮主题只改变独立框层的颜色，不反转人物。
+补框头像位于 `prepared/`。此前按算法合成的头像为 434 × 580 透明 PNG；本次新增的天音、平贺、叶暮姐妹使用下文记录的高清 AI 衍生图，不套用该尺寸。算法合成先从盾框 alpha 像素取最大的封闭透明区域作为盾口，排除外侧和花饰小孔；再使用每人的人工核验人物区域、眼部位置和脸部保护点，搜索等比例裁切窗口。合成图完整显示，人物不再被运行时二次缩放。暗亮主题只改变独立框层的颜色，不反转人物。
 
 艾莉丝第11卷旗袍彩图及其他倾斜的人物构图先调平眼线后裁切。凛奈的一侧眼睛被眼罩遮住，该定位点取眼罩覆盖的眼位中心，记录在 `orientation.landmarkNote`；未补画被遮住的眼睛。艾茵群像中的双眼倾角约46度，核实后仅对她配置 `maxLevelDegrees: 47`，其他人物仍默认45度核验范围。旋转后的候选裁切还须用不透明源像素覆盖整个盾口，并留出4像素重采样安全边，排除旋转产生的透明三角。`avatar-fit.json` 的 `levelEyes` 使用原图坐标，`window`、`eye` 与 `protect` 使用旋转后的画布坐标；清单 `preparation.orientation` 记录角度、画布尺寸及裁切坐标空间。原始小说 JPG 保留不变。
 
@@ -105,9 +113,24 @@
 
 福小莉的本地头像已从第12卷囚衣版换为第18卷中华服版，继续使用同一个 `xiaoli` ID 与 [prepared/xiaoli.png](./prepared/xiaoli.png)，不登记第二个人物。[novel/xiaoli-vol18-original.jpg](./novel/xiaoli-vol18-original.jpg) 保留第18卷 `OEBPS/Images/190226.jpg` 原始位元组；[color/xiaoli-vol18-colorized.png](./color/xiaoli-vol18-colorized.png) 是已保存的内置 imagegen 上色衍生图，头像裁切先校正眼线。黑长发与较深肤色依据第18卷正文，延续上一版的自然暖棕色阶；双圆形金钱饰片按用户指定使用金色。象牙白中华服、克制金色纹饰与深棕瞳色属于本次上色选择，未标成官方彩页。[第18卷上色记录](./research/epub/xiaoli-vol18-colorization.json) 保存完整提示词、原始来源与哈希。旧第12卷原图、用户图片、上色图和 [原上色记录](./research/epub/xiaoli-colorization.json) 继续保留。按用户要求，`imageUrl` 继续沿用原图床地址 `https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/xiaoli.png`，终端直接使用该地址。恢复地址不代表第18卷新版已上传，远端是否为新版尚未核验。
 
-日下部加加美使用[动画官网第2话公开剧照](https://ittoshura.com/story/epsode2.html)中的制服近景，原档保存为 [anime/kagami-original.jpg](./anime/kagami-original.jpg)。保留原画人物与配色，通过眼线校正和盾口裁切生成 [prepared/kagami.png](./prepared/kagami.png)；旋转边角使用暖色底填充，未使用 AI 重绘。来源、旋转与裁切记录见 [kagami-evidence.json](./research/anime/kagami-evidence.json)。全名、`加加美`、日文 `日下部加々美／加々美` 与英文姓名均匹配同一 `kagami`。图床对应地址目前返回404，所以 `imageUrl` 留空，终端与正文气泡内联本地图；上传 `prepared/kagami.png` 后，在清单此人物的 `imageUrl` 填写实际 HTTPS 直链，再重建相应组件。
+日下部加加美使用[动画官网第2话公开剧照](https://ittoshura.com/story/epsode2.html)中的制服近景，原档保存为 [anime/kagami-original.jpg](./anime/kagami-original.jpg)。保留原画人物与配色，通过眼线校正和盾口裁切生成 [prepared/kagami.png](./prepared/kagami.png)；旋转边角使用暖色底填充，未使用 AI 重绘。来源、旋转与裁切记录见 [kagami-evidence.json](./research/anime/kagami-evidence.json)。全名、`加加美`、日文 `日下部加々美／加々美` 与英文姓名均匹配同一 `kagami`。用户填写的[完整盾图图床地址](https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kagami.png)现已返回 HTTP 200，尺寸434×580，SHA-256与本地合成图完全一致，见[图床核验](./research/anime/kagami-host-verification.json)。重建的小手机与正文气泡使用此地址。
 
-目前共有 **33个人物头像 + 1张共用盾框，共34个图床文件**：九张原版盾形 PNG 与二十四张 `prepared/` PNG。凛奈保留原头像并补齐简繁短名；夏洛特新增独立头像，两人均使用已核验且与本地文件一致的图床图片。小莉在旧位置保留第18卷本地版，并继续使用原图床地址。研究联系表、小说原彩图、旧徽章、扫描索引不作为终端图床头像上传。
+## 天音、平贺与叶暮姐妹（2026-10-13）
+
+以下四张使用内置 imagegen 从已核对的原图隔离头肩、增强细节并制成透明盾形头像，均为 **AI 衍生图**，不是官方原始高清头像。原图保留于 `research/20261013-tournament/`；[提示词](./research/20261013-tournament/imagegen-prompts.json)、[完整衍生记录](./research/20261013-tournament/imagegen-record.json) 与 [天音、平贺身份核验](./research/20261013-tournament/source-report.md) 分别记录处理和来源。
+
+| 人物 / 独立 ID | 原图来源 | 本地高清盾图 | RGBA 尺寸 | 预填图床地址 |
+| --- | --- | --- | --- | --- |
+| 紫乃宫天音 / `amane` | 第8卷 `OEBPS/Images/005.jpg`，[具名彩图原档](./research/20261013-tournament/amane-vol08-original.jpg) | [prepared/amane.png](./prepared/amane.png) | 1085 × 1450 | [amane.png](https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/amane.png) |
+| 平贺玲泉 / `hiraga` | 第4卷 `OEBPS/Images/004.jpg`，[具名彩图原档](./research/20261013-tournament/hiraga-vol04-original.jpg) | [prepared/hiraga.png](./prepared/hiraga.png) | 1085 × 1449 | [hiraga.png](https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/hiraga.png) |
+| 叶暮牡丹 / `botan` | 用户指定的 [Hagure Sisters 页面](https://rakudai-kishi.fandom.com/wiki/Hagure_Sisters)，[1201 × 623 原图](./research/20261013-tournament/hagure-original.webp)中的蓝发角色 | [prepared/botan.png](./prepared/botan.png) | 1085 × 1450 | [botan.png](https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/botan.png) |
+| 叶暮桔梗 / `kikyo` | 同一张姐妹原图中的红发角色 | [prepared/kikyo.png](./prepared/kikyo.png) | 1085 × 1450 | [kikyo.png](https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kikyo.png) |
+
+这四个地址状态为 `prefilled-not-uploaded`：仅预填，尚未上传或核验远端图片；高清尺寸描述的是本地输出，不能据此认定远端已更新。叶暮姐妹分别按本局选拔名册姓名匹配头像。
+
+平贺是欧尔·格尔操纵的机关人偶与中继站。比赛中的参赛身份使用 `hiraga`；幕后关系关联 `or_gaule`，保留各自头像 ID，不把“欧尔·格尔”作为平贺的头像别名。关系是否在界面揭露仍应跟随当前剧情。
+
+目前共有 **37个人物头像 + 1张共用盾框，共38个图床文件**：九张原版盾形 PNG 与二十八张 `prepared/` PNG。凛奈保留原头像并补齐简繁短名；夏洛特新增独立头像，两人均使用已核验且与本地文件一致的图床图片。小莉在旧位置保留第18卷本地版，并继续使用原图床地址。研究联系表、小说原彩图、旧徽章、扫描索引不作为终端图床头像上传。
 
 有栖院凪的 Alice 与后期 Iris 均曾被译作“艾莉丝”。裸 `艾莉丝／艾莉絲` 不绑定人物图片，保留姓名首字；请使用 `有栖院凪`、`有栖院艾莉丝` 或 `艾莉丝·阿斯卡里德`、`艾莉丝·格尔`、完整三段姓名。`Alice`、`爱丽丝／愛麗絲` 仍绑定凪；`Iris Ascarid`、`Iris Gaule` 绑定后期艾莉丝。裸 `黑骑士／黑騎士` 同样不作姓名替代，可使用 `黑骑士艾莉丝`。这里只消歧头像，原有聊天人物名不会被自动改写。
 

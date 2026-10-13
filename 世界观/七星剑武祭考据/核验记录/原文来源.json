@@ -1,0 +1,57 @@
+{
+  "encoding": "GB18030, strict",
+  "lineNumbering": "1-based physical lines including blank lines",
+  "sources": [
+    {
+      "volume": 5,
+      "source": "落第骑士英雄谭 第五卷 gbk.txt",
+      "sourceSha256": "88cdd381c162bd6a7de004ec76292e870a481e555ce2555385acb6ea7b159d35",
+      "sourceBytes": 248056,
+      "reference": "世界观/七星剑武祭考据/核验记录/第五卷原文_UTF8.txt",
+      "lineCount": 8394,
+      "lineContentMatches": true
+    },
+    {
+      "volume": 6,
+      "source": "落第骑士英雄谭 第六卷 gbk.txt",
+      "sourceSha256": "50de4a6fbd365442e1109cbf80aa24127dbf531d3c389b9f1ff1049ca84243ca",
+      "sourceBytes": 212541,
+      "reference": "第六卷-世界书整理/核验记录/第六卷原文_UTF8.txt",
+      "lineCount": 6885,
+      "lineContentMatches": true
+    },
+    {
+      "volume": 7,
+      "source": "落第骑士英雄谭 第七卷 gbk.txt",
+      "sourceSha256": "35c57c87ae5707683ea363a7904573ef0683d8dd2676859862391dcbaae3d7f0",
+      "sourceBytes": 199793,
+      "reference": "第七卷-世界书整理/核验记录/第七卷原文_UTF8.txt",
+      "lineCount": 6653,
+      "lineContentMatches": true
+    },
+    {
+      "volume": 8,
+      "source": "落第骑士英雄谭 第八卷 gbk.txt",
+      "sourceSha256": "ae0b8116c5b9bf914464234907c218d133c99d59c35789d4bda9d1600ffd2648",
+      "sourceBytes": 188364,
+      "reference": "第八卷-世界书整理/核验记录/第八卷原文_UTF8.txt",
+      "lineCount": 6453,
+      "lineContentMatches": true
+    },
+    {
+      "volume": 9,
+      "source": "落第骑士英雄谭 第九卷 gbk.txt",
+      "sourceSha256": "04cc13a4000bbfdecb180f41ec47debab38a51b6d4f344b53f3e9b6f13117559",
+      "sourceBytes": 211722,
+      "reference": "世界观/七星剑武祭考据/核验记录/第九卷原文_UTF8.txt",
+      "lineCount": 7869,
+      "lineContentMatches": true
+    }
+  ],
+  "epubCrosscheck": {
+    "file": "39688/[台版]落第骑士英雄谭 06.epub",
+    "entry": "OEBPS/Text/Chapter002.xhtml",
+    "result": "D区珠雫首轮第三场、天音首轮第四场的措辞与TXT相同；不把出场次序强行视为签位相邻。"
+  },
+  "epubIllustrations": "已检查第5–9卷EPUB中105张JPG的缩略索引；未见可直接补齐32人签位的比赛签表图。"
+}

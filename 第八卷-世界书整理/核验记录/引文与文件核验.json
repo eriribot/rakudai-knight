@@ -1,0 +1,342 @@
+{
+  "scope": "第八卷5个场景、5个人物补充、2个能力条目；浅木椛旧稿排除",
+  "sourceSha256": "ae0b8116c5b9bf914464234907c218d133c99d59c35789d4bda9d1600ffd2648",
+  "sourceLineCount": 6453,
+  "sourcePreserved": true,
+  "quoteOccurrences": 31,
+  "files": [
+    {
+      "file": "场景条目/01_间章场景_为了让自己不再后悔.md",
+      "bodyCharacters": 566,
+      "quotes": [
+        {
+          "text": "只要是为了哥哥——我就算失去一切也甘之如饴。",
+          "sourceLines": [
+            56
+          ],
+          "exactMatch": true
+        }
+      ]
+    },
+    {
+      "file": "场景条目/02_第十一章场景_鲜血的真相.md",
+      "bodyCharacters": 1707,
+      "quotes": [
+        {
+          "text": "我这次一定会保护好哥哥。",
+          "sourceLines": [
+            173
+          ],
+          "exactMatch": true
+        },
+        {
+          "text": "可惜，时间到了喔。",
+          "sourceLines": [
+            539
+          ],
+          "exactMatch": true
+        },
+        {
+          "text": "给我闭嘴。",
+          "sourceLines": [
+            695
+          ],
+          "exactMatch": true
+        },
+        {
+          "text": "不行，我太专注于操控自己的身体，还必须注意外在要素的变化才行。",
+          "sourceLines": [
+            807
+          ],
+          "exactMatch": true
+        },
+        {
+          "text": "不过你不需要这么担心……因为照现状来看，你几乎不可能与紫乃宫同学一战。",
+          "sourceLines": [
+            1107
+          ],
+          "exactMatch": true
+        }
+      ]
+    },
+    {
+      "file": "场景条目/03_第十二章场景_双龙相克.md",
+      "bodyCharacters": 2296,
+      "quotes": [
+        {
+          "text": "我们并没有熟到需要在死斗之前闲话家常，马上开始吧。",
+          "sourceLines": [
+            1310
+          ],
+          "exactMatch": true
+        },
+        {
+          "text": "你想问这是什么吗？这是——我的决心。",
+          "sourceLines": [
+            1712
+          ],
+          "exactMatch": true
+        },
+        {
+          "text": "你不择手段朝著巅峰迈进……是为了什么目的？",
+          "sourceLines": [
+            2094
+          ],
+          "exactMatch": true
+        },
+        {
+          "text": "好好防御，不然你就死定了。",
+          "sourceLines": [
+            2572
+          ],
+          "exactMatch": true
+        },
+        {
+          "text": "〈烈风剑帝〉——我就接下你的挑战！",
+          "sourceLines": [
+            3068
+          ],
+          "exactMatch": true
+        }
+      ]
+    },
+    {
+      "file": "场景条目/04_第十三章场景_阴云密布的准决赛.md",
+      "bodyCharacters": 2307,
+      "quotes": [
+        {
+          "text": "我打算——放弃这场比赛。",
+          "sourceLines": [
+            3639
+          ],
+          "exactMatch": true
+        },
+        {
+          "text": "你何不停止这场无聊透顶的表演，天音……不，天宫紫音。",
+          "sourceLines": [
+            3771
+          ],
+          "exactMatch": true
+        },
+        {
+          "text": "我只是自己让心脏恢复跳动罢了。",
+          "sourceLines": [
+            4565
+          ],
+          "exactMatch": true
+        },
+        {
+          "text": "…………是我、输了……",
+          "sourceLines": [
+            5527
+          ],
+          "exactMatch": true
+        },
+        {
+          "text": "那你千万别忘记这份不甘心。这份不甘心，证明天音其实还没放弃自己。",
+          "sourceLines": [
+            5543
+          ],
+          "exactMatch": true
+        }
+      ]
+    },
+    {
+      "file": "场景条目/05_间章场景_姗姗来迟.md",
+      "bodyCharacters": 1344,
+      "quotes": [
+        {
+          "text": "如果没办法击溃一、两个诓骗病患的死神，怎么能当得了医生呢？",
+          "sourceLines": [
+            5820
+          ],
+          "exactMatch": true
+        },
+        {
+          "text": "我会接受处分的。",
+          "sourceLines": [
+            5894
+          ],
+          "exactMatch": true
+        },
+        {
+          "text": "我在不远的将来，就会主动告知这个答案。",
+          "sourceLines": [
+            6050
+          ],
+          "exactMatch": true
+        },
+        {
+          "text": "我在战圈等你。",
+          "sourceLines": [
+            6138
+          ],
+          "exactMatch": true
+        },
+        {
+          "text": "一辉，现在就只剩你的意愿了。",
+          "sourceLines": [
+            6300
+          ],
+          "exactMatch": true
+        }
+      ]
+    },
+    {
+      "file": "人物条目/黑铁珠雫_卷八决绝.md",
+      "bodyCharacters": 685,
+      "quotes": [
+        {
+          "text": "我这次一定会保护好哥哥。",
+          "sourceLines": [
+            173
+          ],
+          "exactMatch": true
+        },
+        {
+          "text": "〈女神过剩之恩宠〉还能诱发我方的失误啊。",
+          "sourceLines": [
+            433
+          ],
+          "exactMatch": true
+        }
+      ]
+    },
+    {
+      "file": "人物条目/黑铁王马.md",
+      "bodyCharacters": 723,
+      "quotes": [
+        {
+          "text": "我们并没有熟到需要在死斗之前闲话家常，马上开始吧。",
+          "sourceLines": [
+            1310
+          ],
+          "exactMatch": true
+        },
+        {
+          "text": "你想问这是什么吗？这是——我的决心。",
+          "sourceLines": [
+            1712
+          ],
+          "exactMatch": true
+        }
+      ]
+    },
+    {
+      "file": "人物条目/紫乃宫天音.md",
+      "bodyCharacters": 890,
+      "quotes": [
+        {
+          "text": "我打算——放弃这场比赛。",
+          "sourceLines": [
+            3639
+          ],
+          "exactMatch": true
+        },
+        {
+          "text": "…………是我、输了……",
+          "sourceLines": [
+            5527
+          ],
+          "exactMatch": true
+        }
+      ]
+    },
+    {
+      "file": "人物条目/药师雾子.md",
+      "bodyCharacters": 517,
+      "quotes": [
+        {
+          "text": "黑铁长官已经告诉我状况了，之后就交给我吧。",
+          "sourceLines": [
+            5796
+          ],
+          "exactMatch": true
+        },
+        {
+          "text": "如果没办法击溃一、两个诓骗病患的死神，怎么能当得了医生呢？",
+          "sourceLines": [
+            5820
+          ],
+          "exactMatch": true
+        }
+      ]
+    },
+    {
+      "file": "人物条目/月影总理.md",
+      "bodyCharacters": 579,
+      "quotes": [
+        {
+          "text": "不晓得呢。毕竟我的工作充满了表面工夫，就这样持续数年，我或许连自己的真心都看不清了呢。",
+          "sourceLines": [
+            6012
+          ],
+          "exactMatch": true
+        },
+        {
+          "text": "我在不远的将来，就会主动告知这个答案。",
+          "sourceLines": [
+            6050
+          ],
+          "exactMatch": true
+        }
+      ]
+    },
+    {
+      "file": "设定条目/女神过剩之恩宠与因果干涉.md",
+      "bodyCharacters": 995,
+      "quotes": []
+    },
+    {
+      "file": "设定条目/暴风大霸道与极大风暴.md",
+      "bodyCharacters": 707,
+      "quotes": []
+    }
+  ],
+  "archivedOriginals": [
+    {
+      "file": "核验记录/旧稿留档/人物条目/月影总理.md",
+      "bytes": 6394,
+      "sha256": "08d68c42eb022b027fe34c7fd7f316628027fd663d07453d3965671ab80bf0cd",
+      "matchesGitHeadIgnoringLineEndings": true
+    },
+    {
+      "file": "核验记录/旧稿留档/人物条目/紫乃宫天音.md",
+      "bytes": 10256,
+      "sha256": "6622ccdca81fdfc9fe1a0b3bd1014b771278b1a38c0d1ca85c02c2b3f5c76a31",
+      "matchesGitHeadIgnoringLineEndings": true
+    },
+    {
+      "file": "核验记录/旧稿留档/人物条目/药师雾子.md",
+      "bytes": 37217,
+      "sha256": "9339c0ae13b1882191ecb04acd7d155a0104019bc18cc006fe0cd054fc775d04",
+      "matchesGitHeadIgnoringLineEndings": true
+    },
+    {
+      "file": "核验记录/旧稿留档/人物条目/黑铁王马.md",
+      "bytes": 8284,
+      "sha256": "db8143b45e05b1f260026bc853ed76eba068cde4c3a841e2c65dac802ac4ac8f",
+      "matchesGitHeadIgnoringLineEndings": true
+    },
+    {
+      "file": "核验记录/旧稿留档/人物条目/黑铁珠雫_卷八决绝.md",
+      "bytes": 7220,
+      "sha256": "cdec6df61438673de8ad4753eeacbdab393c5b89649d9e83e372a22965a74868",
+      "matchesGitHeadIgnoringLineEndings": true
+    },
+    {
+      "file": "核验记录/旧稿留档/设定条目/女神过剩之恩宠与因果干涉.md",
+      "bytes": 5984,
+      "sha256": "2ecbe3a6a58b76ddaeb62f8b17f3c147cbfb1af69463807e68dd8b7e1dc9922f",
+      "matchesGitHeadIgnoringLineEndings": true
+    },
+    {
+      "file": "核验记录/旧稿留档/设定条目/暴风大霸道与极大风暴.md",
+      "bytes": 4707,
+      "sha256": "ae39e8ccdca4205d261b7de0fde609053c376e7d9a705116c6f1bd15b915af13",
+      "matchesGitHeadIgnoringLineEndings": true
+    }
+  ],
+  "errors": [],
+  "limit": "自动检查只验证引文匹配、行号范围和链接/备份完整性；事件归属、因果及玩家边界另经逐章阅读与人工式交叉复核。"
+}

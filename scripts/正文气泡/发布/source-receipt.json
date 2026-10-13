@@ -3,7 +3,7 @@
   "deliveryMode": "component",
   "scope": "三条角色局部显示正则、格式规则、离线预览；只更新对应组件，不重打整卡或修改聊天原文",
   "sourceHashes": {
-    "resource/knightavatars/manifest.json": "1bd5f844de09b36d09cd5cfb530c76efa75add07e372f4df4b16e88d59a69b1c",
+    "resource/knightavatars/manifest.json": "5f7059b0939ca30b042c2ad8ca65aae4114d44dfe66fe8e41414809f06795475",
     "scripts/正文气泡/bubble.css": "a546dcf2b07d446c4f0167af6faad23b58a5ebdbb4f0c4b39487872387b84961",
     "scripts/正文气泡/format-rule.txt": "045e0145da92912faf75f6785a8a299c1654c3fc4d0864de9e963cad757691c6",
     "scripts/正文气泡/context-guard.mjs": "c1c0210d51184f3e22029514d6cd0211630e9a3cc9d70bf360e7d958bae6be31",

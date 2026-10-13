@@ -1,0 +1,92 @@
+{
+  "date": "2026-10-13",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "type": "ai-enhanced-derivatives",
+  "prompts": "imagegen-prompts.json",
+  "template": {
+    "file": "prepared/kanata.png",
+    "sha256": "4eaa2086607fe091f09a87a493199257e0f25b7c0e3820899b2dcdb83c0d68cf",
+    "usage": "只参考盾形轮廓与头肩比例，不参考模板人物。"
+  },
+  "originalsPreserved": true,
+  "outputs": [
+    {
+      "id": "amane",
+      "name": "紫乃宫天音",
+      "sourceFile": "research/20261013-tournament/amane-vol08-original.jpg",
+      "sourceSha256": "e255b1b810a71f23bb4a49aee4b1562342e072687050ae8a96cd2375c138a083",
+      "outputFile": "prepared/amane.png",
+      "preparation": {
+        "method": "built-in-imagegen-portrait-restoration-shield",
+        "sourceFile": "research/20261013-tournament/amane-vol08-original.jpg",
+        "sourceSha256": "e255b1b810a71f23bb4a49aee4b1562342e072687050ae8a96cd2375c138a083",
+        "templateFile": "prepared/kanata.png",
+        "outputWidth": 1085,
+        "outputHeight": 1450,
+        "sha256": "1d140ba65e1da510fe00a0bf1cdc3a0eeaf91b049b93213b2efce40c64cb63bc",
+        "record": "research/20261013-tournament/imagegen-record.json"
+      },
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/amane.png",
+      "hostStatus": "prefilled-not-uploaded"
+    },
+    {
+      "id": "hiraga",
+      "name": "平贺玲泉",
+      "sourceFile": "research/20261013-tournament/hiraga-vol04-original.jpg",
+      "sourceSha256": "46019e14992d2039433ec7accdd6c974869ef654ce57907c433255e698923698",
+      "outputFile": "prepared/hiraga.png",
+      "preparation": {
+        "method": "built-in-imagegen-portrait-restoration-shield",
+        "sourceFile": "research/20261013-tournament/hiraga-vol04-original.jpg",
+        "sourceSha256": "46019e14992d2039433ec7accdd6c974869ef654ce57907c433255e698923698",
+        "templateFile": "prepared/kanata.png",
+        "outputWidth": 1085,
+        "outputHeight": 1449,
+        "sha256": "8ac98efd5840eb8fa04ffbff4ace921601cd2900cf75ce14819e329a8409908a",
+        "record": "research/20261013-tournament/imagegen-record.json"
+      },
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/hiraga.png",
+      "hostStatus": "prefilled-not-uploaded"
+    },
+    {
+      "id": "botan",
+      "name": "叶暮牡丹",
+      "sourceFile": "research/20261013-tournament/hagure-original.webp",
+      "sourceSha256": "bfe471ef60904d0e29cba73be715b94d3c11c1f1a43e4e35bcb77384d66eb8d6",
+      "outputFile": "prepared/botan.png",
+      "preparation": {
+        "method": "built-in-imagegen-portrait-restoration-shield",
+        "sourceFile": "research/20261013-tournament/hagure-original.webp",
+        "sourceSha256": "bfe471ef60904d0e29cba73be715b94d3c11c1f1a43e4e35bcb77384d66eb8d6",
+        "templateFile": "prepared/kanata.png",
+        "outputWidth": 1085,
+        "outputHeight": 1450,
+        "sha256": "70e179e93321bb7fe77cb44437e75d64bb7cde0b33698e0d9c23319701080f02",
+        "record": "research/20261013-tournament/imagegen-record.json"
+      },
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/botan.png",
+      "hostStatus": "prefilled-not-uploaded"
+    },
+    {
+      "id": "kikyo",
+      "name": "叶暮桔梗",
+      "sourceFile": "research/20261013-tournament/hagure-original.webp",
+      "sourceSha256": "bfe471ef60904d0e29cba73be715b94d3c11c1f1a43e4e35bcb77384d66eb8d6",
+      "outputFile": "prepared/kikyo.png",
+      "preparation": {
+        "method": "built-in-imagegen-portrait-restoration-shield",
+        "sourceFile": "research/20261013-tournament/hagure-original.webp",
+        "sourceSha256": "bfe471ef60904d0e29cba73be715b94d3c11c1f1a43e4e35bcb77384d66eb8d6",
+        "templateFile": "prepared/kanata.png",
+        "outputWidth": 1085,
+        "outputHeight": 1450,
+        "sha256": "eaf0977b38aa2eb9f2c27ca746d407c6ee2d1d584c8a0c28b5b8feadbce6c702",
+        "record": "research/20261013-tournament/imagegen-record.json"
+      },
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kikyo.png",
+      "hostStatus": "prefilled-not-uploaded"
+    }
+  ],
+  "visualReview": "蓝发牡丹与红发桔梗分别保留原表情；天音为第8卷白校服金发眨眼形象；平贺为第4卷白笑脸面具人偶。增强结果含AI重绘细节，不视为逐像素原画恢复。"
+}

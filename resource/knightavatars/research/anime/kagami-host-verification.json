@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-12",
+  "id": "kagami",
+  "name": "日下部加加美",
+  "url": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kagami.png",
+  "httpStatus": 200,
+  "contentType": "image/png",
+  "width": 434,
+  "height": 580,
+  "bytes": 292369,
+  "remoteSha256": "835825c7cb1476f4982b61eb94537ce4c802d7def37a35dcf873510d76cecd0b",
+  "localSha256": "835825c7cb1476f4982b61eb94537ce4c802d7def37a35dcf873510d76cecd0b",
+  "matchingLocal": true
+}

@@ -1,0 +1,45 @@
+{
+  "date": "2026-10-12",
+  "command": "node scripts/build-knight-avatar-delivery.mjs",
+  "status": "passed",
+  "deliveryMode": "component",
+  "sourceManifestSha256": "5f7059b0939ca30b042c2ad8ca65aae4114d44dfe66fe8e41414809f06795475",
+  "hostVerification": "kagami-host-verification.json",
+  "verifiedUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kagami.png",
+  "consumers": {
+    "terminal": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kagami.png",
+    "bubble03": "URL present in generated shared style",
+    "phoneVersion": "1.3.28"
+  },
+  "checks": {
+    "avatar": {
+      "passed": 18,
+      "total": 18
+    },
+    "packaging": {
+      "passed": 9,
+      "total": 9
+    },
+    "componentFormat": "passed",
+    "exactArtifactParity": "passed"
+  },
+  "outputs": [
+    {
+      "file": "世界书规则/MVU/落第骑士-小手机-v1.3.28.json",
+      "sha256": "a8182c68626cd0d591e590165a6cea610a5fd521b8fef1972028cbcc87f6c317",
+      "bytes": 2106448
+    },
+    {
+      "file": "scripts/正文气泡/发布/components/dialogue-bubbles.regex.json",
+      "sha256": "6ea27b727036fc593dffc7a96e2307c4ae4258668d28341b8d8f61903dbd07c6",
+      "bytes": 180993
+    },
+    {
+      "file": "scripts/正文气泡/发布/components/dialogue-bubble-style.regex.json",
+      "sha256": "faff53e8c207e8aa7cdd27ce25875b981b19971677bcedfaa60aa6491ffe0f84",
+      "bytes": 191830
+    }
+  ],
+  "preservation": "01与02字节不变，03仅Kagami URL替换；图片不重裁，组件ID/版本不变，未打整卡。",
+  "runtime": "未执行真实酒馆导入。"
+}

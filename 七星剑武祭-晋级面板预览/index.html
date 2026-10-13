@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07152d">
+  <title>七星剑斗祭 · ADV赛事终端</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="session-ui.css">
+  <script src="data.js" defer></script>
+  <script src="portraits.js" defer></script>
+  <script src="mvu-model.js" defer></script>
+  <script src="session-bracket.js" defer></script>
+  <script src="session-ui.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="arena-light light-left" aria-hidden="true"></div>
+  <div class="arena-light light-right" aria-hidden="true"></div>
+  <main class="arena">
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="七星剑斗祭晋级面板首页"><span class="brand-emblem">Ⅶ</span><span>黑白 ADV<span class="brand-sub">赛事终端 · 视觉预览</span></span></a>
+      <div class="broadcast"><span class="signal"></span> 赛程预览 <span class="edition">MVU 角色与选拔记录</span></div>
+    </header>
+
+    <nav class="source-nav" aria-label="赛程来源"><button type="button" data-source-mode="session" aria-pressed="true">本局赛程</button><button type="button" data-source-mode="canon" aria-pressed="false">原著回放 · 第5—9卷</button><span>独立预览 · 未连接酒馆</span></nav>
+    <section id="session-view" aria-label="本局赛事流程">
+      <div class="snapshot-tools"><label>预览档案 <select id="snapshot-sample" aria-label="预览档案"></select></label><button type="button" id="import-snapshot">读取 MVU JSON</button><input id="snapshot-file" type="file" accept="application/json,.json" hidden><span id="snapshot-notice" role="status"></span></div>
+      <div id="session-profile"></div>
+      <nav class="session-nav" aria-label="本局赛事页面"><button type="button" data-session-page="selection" aria-pressed="true">01　破军选拔</button><button type="button" data-session-page="national" aria-pressed="false">02　七星剑斗祭</button></nav>
+      <div id="session-main"></div>
+    </section>
+    <div id="canon-view" hidden>
+    <section class="heading">
+      <div><p class="eyebrow">第62届 / 全国学生骑士大赛</p><h1>七星剑斗祭</h1></div>
+      <div class="tournament-facts"><span><b>32</b>人正赛</span><i></i><span>16强 → 8强 → 4强 → 决赛</span></div>
+    </section>
+
+    <nav class="region-nav" aria-label="查看赛区">
+      <button data-view="all" type="button">参赛名单<span>32 ENTRANTS</span></button>
+      <button data-view="A" type="button">A 区<span>BLOCK A</span></button>
+      <button data-view="B" type="button" class="active" aria-pressed="true">B 区<span>BLOCK B</span></button>
+      <button data-view="C" type="button">C 区<span>BLOCK C</span></button>
+      <button data-view="D" type="button">D 区<span>BLOCK D</span></button>
+      <button data-view="finals" type="button">冠军之路<span>FINAL STAGE</span></button>
+    </nav>
+
+    <section class="playback" aria-label="晋级进度">
+      <div class="playback-buttons"><button id="play" class="play-button" type="button">▶ 播放晋级</button><button id="previous" class="step-button" type="button" aria-label="上一轮">‹</button><button id="next" class="step-button" type="button" aria-label="下一轮">›</button></div>
+      <div id="stages" class="stage-rail"></div>
+      <span id="stage-label" class="stage-label" aria-live="polite"></span>
+    </section>
+
+    <section class="screen" aria-labelledby="board-title">
+      <div class="screen-header"><div><span id="board-kicker" class="screen-kicker"></span><h2 id="board-title"></h2></div><div class="screen-actions"><div class="display-toggle" aria-label="显示方式"><button type="button" data-display="broadcast" class="active" aria-pressed="true">对战大屏</button><button type="button" data-display="tree" aria-pressed="false">晋级总览</button></div><div class="screen-legend"><span><i class="legend-win"></i>WIN 实战胜出</span><span><i class="legend-advance"></i>ADV 晋级确认</span></div></div></div>
+      <div id="board"></div>
+      <div class="screen-footer"><span id="board-note"></span><button type="button" id="match-source" class="special-action">本场原文依据 ↗</button></div>
+    </section>
+
+    <section id="special-panel" class="special-panel" aria-labelledby="special-title"></section>
+    </div>
+    <footer class="page-footer"><span>黑白 ADV · 赛事界面预览</span><span>档案与选拔读取 MVU 快照 · 全国赛独立演示</span><a href="参考与接入.md" target="_blank" rel="noopener">动画参考与终端接入 ↗</a><a href="原文核对.md" target="_blank" rel="noopener">赛制原文核对 ↗</a></footer>
+  </main>
+  <dialog id="match-dialog" aria-labelledby="dialog-title"><button class="dialog-close" type="button" aria-label="关闭详情">×</button><div id="dialog-content"></div></dialog>
+  <dialog id="session-dialog" aria-labelledby="session-dialog-title"><button type="button" class="dialog-close" data-session-close aria-label="关闭本局详情">×</button><div id="session-dialog-content"></div></dialog>
+</body>
+</html>
+

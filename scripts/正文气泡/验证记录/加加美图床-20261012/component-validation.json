@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-12",
+  "deliveryMode": "component",
+  "version": "0.6",
+  "status": "passed",
+  "components": [
+    {
+      "file": "scripts/正文气泡/发布/components/dialogue-bubbles.regex.json",
+      "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+      "beforeSha256": "6ea27b727036fc593dffc7a96e2307c4ae4258668d28341b8d8f61903dbd07c6",
+      "sha256": "6ea27b727036fc593dffc7a96e2307c4ae4258668d28341b8d8f61903dbd07c6",
+      "bytes": 180993,
+      "changedFields": []
+    },
+    {
+      "file": "scripts/正文气泡/发布/components/dialogue-player-candidates.regex.json",
+      "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+      "beforeSha256": "a548f8b4d27ef1db3ef8a969051833477a05370bbc45af4dbff2fb6194fb1f38",
+      "sha256": "a548f8b4d27ef1db3ef8a969051833477a05370bbc45af4dbff2fb6194fb1f38",
+      "bytes": 176640,
+      "changedFields": []
+    },
+    {
+      "file": "scripts/正文气泡/发布/components/dialogue-bubble-style.regex.json",
+      "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+      "beforeSha256": "b541397a653a821c4014e90469e50353d6937f0e70c5271009e2724e3f591cc2",
+      "sha256": "faff53e8c207e8aa7cdd27ce25875b981b19971677bcedfaa60aa6491ffe0f84",
+      "bytes": 191830,
+      "changedFields": [
+        "replaceString"
+      ]
+    }
+  ],
+  "sourceHashes": {
+    "scripts/正文气泡/build.mjs": "73a18a67df4775db9b52a747aafdd2631fb1583be96e1362df6a4eaf015e4caa",
+    "scripts/正文气泡/bubble.css": "a546dcf2b07d446c4f0167af6faad23b58a5ebdbb4f0c4b39487872387b84961",
+    "scripts/正文气泡/context-guard.mjs": "c1c0210d51184f3e22029514d6cd0211630e9a3cc9d70bf360e7d958bae6be31",
+    "scripts/正文气泡/format-rule.txt": "045e0145da92912faf75f6785a8a299c1654c3fc4d0864de9e963cad757691c6",
+    "resource/knightavatars/manifest.json": "5f7059b0939ca30b042c2ad8ca65aae4114d44dfe66fe8e41414809f06795475"
+  },
+  "sourceStabilization": {
+    "preBuildManifestSha256": "b10072978ec4adb2ef8b9f35a7af8d2b9dda12cef6fe21d709af6eab202d83d6",
+    "finalManifestSha256": "5f7059b0939ca30b042c2ad8ca65aae4114d44dfe66fe8e41414809f06795475",
+    "reason": "主任务在并行构建期间完成 imageHostStatus 核验metadata；确认定稿后重新生成 source-receipt 与产物parity。"
+  },
+  "preservation": {
+    "rule01Bytes": true,
+    "candidate02Bytes": true,
+    "idsNamesOrderAndOtherFields": true,
+    "sourceFeatureFiles": true,
+    "onlyKagamiCssUrlChange": true
+  },
+  "portrait": {
+    "name": "日下部加加美",
+    "aliases": [
+      "加加美",
+      "日下部加々美",
+      "加々美",
+      "Kagami Kusakabe",
+      "Kusakabe Kagami"
+    ],
+    "file": "anime/kagami-original.jpg",
+    "displayFile": "prepared/kagami.png",
+    "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kagami.png",
+    "localSha256": "835825c7cb1476f4982b61eb94537ce4c802d7def37a35dcf873510d76cecd0b"
+  },
+  "remoteVerificationPath": "resource/knightavatars/research/anime/kagami-host-verification.json",
+  "remoteVerification": {
+    "httpStatus": 200,
+    "contentType": "image/png",
+    "width": 434,
+    "height": 580,
+    "sha256": "835825c7cb1476f4982b61eb94537ce4c802d7def37a35dcf873510d76cecd0b",
+    "matchingLocal": true
+  },
+  "verification": {
+    "componentFormat": {
+      "passed": true,
+      "rules": 3
+    },
+    "artifactParity": "passed",
+    "htmlParse": {
+      "scripts": 0,
+      "bubbles": 3,
+      "candidates": 1,
+      "styles": 1,
+      "hiddenStyles": 1
+    },
+    "fullRuleFixtures": {
+      "run": false,
+      "reason": "只有03静态图片URL变化；01/02完整字节保持此前485/485版本。"
+    }
+  },
+  "library": {
+    "snapshotVersion": "2026-08-18",
+    "routes": [
+      "sillytavern-component-update"
+    ],
+    "loadedGuides": [
+      "ST-A0",
+      "ST-A2",
+      "ST-A6",
+      "ST-B2"
+    ],
+    "contracts": [
+      "component-update-contract.md",
+      "importable-formats.md",
+      "tavern-regex-contract.md",
+      "render-stages.md"
+    ],
+    "adoptedDesignCandidates": []
+  },
+  "realSillyTavern": "not run; source/artifact validation and separate remote HTTP verification only",
+  "pendingRuntime": [
+    "玩家酒馆导入更新03，01/02保留既有新版；各组件只留一份开启",
+    "玩家当前主题、流式/重载及实际宿主网络显示验收"
+  ]
+}

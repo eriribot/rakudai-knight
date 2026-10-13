@@ -64,6 +64,7 @@
     "status": 404,
     "checkedDate": "2026-10-12",
     "enabled": false,
-    "note": "未启用不存在的远端地址。imageUrl空字符串让真实构建内联此人物完整盾图，用户上传后填回实际HTTPS直链。"
-  }
+    "note": "此处保留首次制作时的404记录；用户随后上传，当前HTTP200与本地一致的核验见subsequentHostVerification。"
+  },
+  "subsequentHostVerification": "kagami-host-verification.json"
 }

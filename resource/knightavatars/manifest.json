@@ -757,7 +757,14 @@
         "outputWidth": 434,
         "outputHeight": 580,
         "sha256": "0f52c5a403b298aa839e7cfe10a840660290e46c7125fdc88ba67286c69990fb"
-      }
+      },
+      "controlledIdentities": [
+        {
+          "id": "hiraga",
+          "type": "remote-controlled-puppet",
+          "evidence": "research/20261013-tournament/source-report.md"
+        }
+      ]
     },
     {
       "id": "wallenstein",
@@ -1386,12 +1393,13 @@
       "width": 620,
       "height": 349,
       "sha256": "411cad202386d5b61d85dd611ec4a5f164f175d54deedffa9bdaaf8c3f88a0d4",
-      "imageUrl": "",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kagami.png",
       "identityEvidence": "research/anime/kagami-evidence.json",
       "imageHostStatus": {
-        "status": "pending-upload",
-        "suggestedUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kagami.png",
-        "note": "尚未核实存在的图床地址不启用；留空imageUrl使用本地完整盾图。上传prepared/kagami.png后在同项imageUrl填写实际HTTPS直链。"
+        "status": "verified-matching-local",
+        "url": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kagami.png",
+        "verification": "research/anime/kagami-host-verification.json",
+        "note": "HTTP200，有效PNG434×580，SHA-256与prepared/kagami.png完全一致；重建后小手机与正文气泡使用imageUrl。"
       },
       "displayFile": "prepared/kagami.png",
       "preparation": {
@@ -1426,6 +1434,188 @@
         "background": "#d2b49a",
         "note": "保留官方画面的人物与配色；眼线校正后产生的边角用暖色底填充，非AI重绘。实际盾口裁切避开大部分填充区域。",
         "sha256": "d007d49ddffa654a78500743ca5b50dfea52474502ad5dacb74610057d98dc15"
+      }
+    },
+    {
+      "id": "amane",
+      "name": "紫乃宫天音",
+      "aliases": [
+        "紫乃宮天音",
+        "天音",
+        "Amane Shinomiya",
+        "Shinomiya Amane"
+      ],
+      "file": "research/20261013-tournament/amane-vol08-original.jpg",
+      "sourceUrl": "",
+      "sourcePage": "",
+      "hasShieldFrame": false,
+      "sourceStyle": "novel-color-illustration",
+      "sourceStatus": "verified-local-epub-ai-enhanced",
+      "width": 2353,
+      "height": 1654,
+      "sha256": "e255b1b810a71f23bb4a49aee4b1562342e072687050ae8a96cd2375c138a083",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/amane.png",
+      "identityEvidence": "research/20261013-tournament/source-report.md",
+      "displayFile": "prepared/amane.png",
+      "preparation": {
+        "method": "built-in-imagegen-portrait-restoration-shield",
+        "sourceFile": "research/20261013-tournament/amane-vol08-original.jpg",
+        "sourceSha256": "e255b1b810a71f23bb4a49aee4b1562342e072687050ae8a96cd2375c138a083",
+        "templateFile": "prepared/kanata.png",
+        "outputWidth": 1085,
+        "outputHeight": 1450,
+        "sha256": "1d140ba65e1da510fe00a0bf1cdc3a0eeaf91b049b93213b2efce40c64cb63bc",
+        "record": "research/20261013-tournament/imagegen-record.json"
+      },
+      "derivation": {
+        "type": "ai-enhanced-derivative",
+        "mode": "built-in",
+        "note": "从原图提取单人头肩、增强清晰度并生成曲边盾形；是AI编辑衍生图，不是原始官方头像。原图另存。"
+      },
+      "imageHostStatus": {
+        "status": "prefilled-not-uploaded",
+        "url": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/amane.png",
+        "note": "按现有GitHub Pages路径预填；本轮未上传、未核验远端。"
+      },
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 08.epub",
+      "sourceMember": "OEBPS/Images/005.jpg"
+    },
+    {
+      "id": "hiraga",
+      "name": "平贺玲泉",
+      "aliases": [
+        "平賀玲泉",
+        "平贺",
+        "平賀",
+        "Reisen Hiraga",
+        "Hiraga Reisen"
+      ],
+      "file": "research/20261013-tournament/hiraga-vol04-original.jpg",
+      "sourceUrl": "",
+      "sourcePage": "",
+      "hasShieldFrame": false,
+      "sourceStyle": "novel-color-illustration",
+      "sourceStatus": "verified-local-epub-ai-enhanced",
+      "width": 2352,
+      "height": 1776,
+      "sha256": "46019e14992d2039433ec7accdd6c974869ef654ce57907c433255e698923698",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/hiraga.png",
+      "identityEvidence": "research/20261013-tournament/source-report.md",
+      "displayFile": "prepared/hiraga.png",
+      "preparation": {
+        "method": "built-in-imagegen-portrait-restoration-shield",
+        "sourceFile": "research/20261013-tournament/hiraga-vol04-original.jpg",
+        "sourceSha256": "46019e14992d2039433ec7accdd6c974869ef654ce57907c433255e698923698",
+        "templateFile": "prepared/kanata.png",
+        "outputWidth": 1085,
+        "outputHeight": 1449,
+        "sha256": "8ac98efd5840eb8fa04ffbff4ace921601cd2900cf75ce14819e329a8409908a",
+        "record": "research/20261013-tournament/imagegen-record.json"
+      },
+      "derivation": {
+        "type": "ai-enhanced-derivative",
+        "mode": "built-in",
+        "note": "从原图提取单人头肩、增强清晰度并生成曲边盾形；是AI编辑衍生图，不是原始官方头像。原图另存。"
+      },
+      "imageHostStatus": {
+        "status": "prefilled-not-uploaded",
+        "url": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/hiraga.png",
+        "note": "按现有GitHub Pages路径预填；本轮未上传、未核验远端。"
+      },
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 04.epub",
+      "sourceMember": "OEBPS/Images/004.jpg",
+      "identityRelation": {
+        "type": "remote-controlled-puppet",
+        "controllerId": "or_gaule",
+        "note": "平贺玲泉是欧尔·格尔操纵的机关人偶中继站；比赛头像使用人偶形象。两个头像键表示本体与受控身份，不能按两名独立真人处理。",
+        "evidence": "research/20261013-tournament/source-report.md",
+        "revealPolicy": "只有剧情已揭露幕后身份时才向玩家显示关联。"
+      }
+    },
+    {
+      "id": "botan",
+      "name": "叶暮牡丹",
+      "aliases": [
+        "葉暮牡丹",
+        "牡丹",
+        "Botan Hagure",
+        "Hagure Botan"
+      ],
+      "file": "research/20261013-tournament/hagure-original.webp",
+      "sourceUrl": "https://static.wikia.nocookie.net/rakudai-kishi-no-eiyuutan/images/6/6f/RKNC.jpg/revision/latest?cb=20161003024304",
+      "sourcePage": "https://rakudai-kishi.fandom.com/wiki/Hagure_Sisters",
+      "hasShieldFrame": false,
+      "sourceStyle": "anime-color-screenshot",
+      "sourceStatus": "identified-fandom-screenshot-ai-enhanced",
+      "width": 1201,
+      "height": 623,
+      "sha256": "bfe471ef60904d0e29cba73be715b94d3c11c1f1a43e4e35bcb77384d66eb8d6",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/botan.png",
+      "identityEvidence": "research/20261013-tournament/hagure-evidence.json",
+      "displayFile": "prepared/botan.png",
+      "preparation": {
+        "method": "built-in-imagegen-portrait-restoration-shield",
+        "sourceFile": "research/20261013-tournament/hagure-original.webp",
+        "sourceSha256": "bfe471ef60904d0e29cba73be715b94d3c11c1f1a43e4e35bcb77384d66eb8d6",
+        "templateFile": "prepared/kanata.png",
+        "outputWidth": 1085,
+        "outputHeight": 1450,
+        "sha256": "70e179e93321bb7fe77cb44437e75d64bb7cde0b33698e0d9c23319701080f02",
+        "record": "research/20261013-tournament/imagegen-record.json"
+      },
+      "derivation": {
+        "type": "ai-enhanced-derivative",
+        "mode": "built-in",
+        "note": "从原图提取单人头肩、增强清晰度并生成曲边盾形；是AI编辑衍生图，不是原始官方头像。原图另存。"
+      },
+      "imageHostStatus": {
+        "status": "prefilled-not-uploaded",
+        "url": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/botan.png",
+        "note": "按现有GitHub Pages路径预填；本轮未上传、未核验远端。"
+      }
+    },
+    {
+      "id": "kikyo",
+      "name": "叶暮桔梗",
+      "aliases": [
+        "葉暮桔梗",
+        "桔梗",
+        "Kikyo Hagure",
+        "Kikyou Hagure",
+        "Hagure Kikyo",
+        "Hagure Kikyō"
+      ],
+      "file": "research/20261013-tournament/hagure-original.webp",
+      "sourceUrl": "https://static.wikia.nocookie.net/rakudai-kishi-no-eiyuutan/images/6/6f/RKNC.jpg/revision/latest?cb=20161003024304",
+      "sourcePage": "https://rakudai-kishi.fandom.com/wiki/Hagure_Sisters",
+      "hasShieldFrame": false,
+      "sourceStyle": "anime-color-screenshot",
+      "sourceStatus": "identified-fandom-screenshot-ai-enhanced",
+      "width": 1201,
+      "height": 623,
+      "sha256": "bfe471ef60904d0e29cba73be715b94d3c11c1f1a43e4e35bcb77384d66eb8d6",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kikyo.png",
+      "identityEvidence": "research/20261013-tournament/hagure-evidence.json",
+      "displayFile": "prepared/kikyo.png",
+      "preparation": {
+        "method": "built-in-imagegen-portrait-restoration-shield",
+        "sourceFile": "research/20261013-tournament/hagure-original.webp",
+        "sourceSha256": "bfe471ef60904d0e29cba73be715b94d3c11c1f1a43e4e35bcb77384d66eb8d6",
+        "templateFile": "prepared/kanata.png",
+        "outputWidth": 1085,
+        "outputHeight": 1450,
+        "sha256": "eaf0977b38aa2eb9f2c27ca746d407c6ee2d1d584c8a0c28b5b8feadbce6c702",
+        "record": "research/20261013-tournament/imagegen-record.json"
+      },
+      "derivation": {
+        "type": "ai-enhanced-derivative",
+        "mode": "built-in",
+        "note": "从原图提取单人头肩、增强清晰度并生成曲边盾形；是AI编辑衍生图，不是原始官方头像。原图另存。"
+      },
+      "imageHostStatus": {
+        "status": "prefilled-not-uploaded",
+        "url": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kikyo.png",
+        "note": "按现有GitHub Pages路径预填；本轮未上传、未核验远端。"
       }
     }
   ],
