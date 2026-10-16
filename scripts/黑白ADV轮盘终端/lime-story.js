@@ -5,6 +5,14 @@ function createLimeStoryPersonaService(options = {}) {
   let revision = 0, active = null, managed = null;
   const released = new WeakSet();
   const object = value => value !== null && typeof value === 'object' && !Array.isArray(value);
+  function promptFields(value, fields) {
+    if (value === null || typeof value !== 'object') return value;
+    const selected = {};
+    for (const field of fields) {
+      if (Object.prototype.hasOwnProperty.call(value, field)) selected[field] = value[field];
+    }
+    return selected;
+  }
   function result(task, reason, contacts = [], applied = false) {
     return { applied, contacts, skipped: task ? task.skipped.slice() : [], reason };
   }
@@ -104,9 +112,12 @@ function createLimeStoryPersonaService(options = {}) {
     if (!selected.length) return result(task, 'no-lore');
     if (!await unchanged(task, frozen)) return result(task, alive(task) ? 'source-changed' : 'cancelled');
     const state = frozen.state;
-    const facts = JSON.stringify({ 主角模式: state.系统 && state.系统.主角模式 || '未记录', 玩家: state.玩家 || {},
-      场景: state.场景 || {}, 当前时间: state.场景 && state.场景.时间 || '',
-      近期通讯人物关系: selected.map(item => ({ 姓名: item.lore.name, 关系资料: item.relation })) });
+    // 主剧情已有完整 MVU 提示；这里只补通讯需要的身份、当下位置和关系，不带历史账本。
+    const facts = JSON.stringify({ 主角模式: state.系统?.主角模式,
+      玩家: promptFields(state.玩家, ['姓名', '性别', '所属']),
+      场景: promptFields(state.场景, ['当前卷', '当前章', '阶段', '时间', '地点']), 当前时间: state.场景?.时间,
+      近期通讯人物关系: selected.map(item => ({ 姓名: item.lore.name,
+        关系资料: promptFields(item.relation, ['关系', '态度印象', '好感', '支援度', '羁绊阶段', '恋爱阶段', '已加联系方式', '已知资料']) })) });
     const loreText = selected.map(item => item.lore.entries.map(entry =>
       '【人物：' + item.lore.name + ' / 世界书：' + item.lore.worldbook + ' / 条目：' + entry.name + ' / UID：' + entry.uid + '】\n' + entry.content
     ).join('\n\n')).join('\n\n');

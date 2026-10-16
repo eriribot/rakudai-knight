@@ -1,0 +1,49 @@
+{
+  "scope": "离线草稿核对，不是实机最终请求或服务商计费",
+  "tokenizer": "安装目录 gemma.model，system wrapper 与前轮对齐",
+  "scene": {
+    "当前卷": 3,
+    "当前章": "第一章",
+    "阶段": "进行中"
+  },
+  "titleBoundaryCases": 11,
+  "initByteIdentical": true,
+  "initDisabled": true,
+  "initSha256": "eeb18899947ad6084bcef5e40b55b2bde14b4b48e059b9d795c81aad40920ef2",
+  "stateUnchanged": true,
+  "results": [
+    {
+      "uid": 10,
+      "name": "01-MVU变量更新规则-草稿.txt",
+      "sourceCharsBefore": 3499,
+      "sourceCharsAfter": 3252,
+      "sourceTokensBefore": 2574,
+      "sourceTokensAfter": 2426,
+      "renderedTokensBefore": 2500,
+      "renderedTokensAfter": 2357,
+      "sha256": "2ef1df0ee1e0c73839a94bea1251178316e7effe13e1ca18ff5ba289e81b4946"
+    },
+    {
+      "uid": 41,
+      "name": "02-MVU变量更新格式-草稿.txt",
+      "sourceCharsBefore": 6804,
+      "sourceCharsAfter": 3648,
+      "sourceTokensBefore": 1837,
+      "sourceTokensAfter": 1195,
+      "renderedTokensBefore": 1837,
+      "renderedTokensAfter": 1195,
+      "sha256": "be4a92eb493d48e14c037a627e7f0148112cf22682acd3e62b066122f88b86cb"
+    },
+    {
+      "uid": 8,
+      "name": "04-变量列表-草稿.ejs",
+      "renderedTokensBefore": 9842,
+      "renderedTokensAfter": 9775,
+      "projectionIdentical": true
+    }
+  ],
+  "totalBefore": 14179,
+  "totalAfter": 13327,
+  "saved": 852,
+  "reductionPercent": 6
+}

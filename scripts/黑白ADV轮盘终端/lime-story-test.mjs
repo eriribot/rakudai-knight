@@ -7,6 +7,7 @@ const source = fs.readFileSync(new URL('lime-story.js', import.meta.url), 'utf8'
 const realm = vm.createContext({ structuredClone, setTimeout, clearTimeout });
 vm.runInContext(source, realm);
 const plain = value => JSON.parse(JSON.stringify(value));
+const promptFacts = prompt => JSON.parse(prompt.split('【当前本局事实】\n')[1].split('\n【人物世界书原文与出处】')[0]);
 const deferred = () => { let resolve; const promise = new Promise(value => { resolve = value; }); return { promise, resolve }; };
 const lore = name => ({ name, worldbook: '当前角色主世界书', entries: [{ uid: 10, name, content: name + '的明确性格原文' }] });
 const relation = extra => ({ 已加联系方式: true, 好感: 850, 支援度: 20, 性别: '女性', 关系: '同学', 态度印象: '熟悉但保持分寸', ...extra });
@@ -46,6 +47,79 @@ test('先读明确人物词条，再注入合并档案、UID、独立关系和�
   assert.match(prompt, /支援S不等于恋爱/); assert.match(prompt, /不强迫每轮来信/); assert.match(prompt, /不直接改动或计分/);
   assert.match(prompt, /2013-05-15 16:20/); assert.equal(f.snapshot.state.人际.风祭凛奈.好感, 850);
   assert.equal(f.timers.size, 0);
+});
+
+test('主剧情仅补通讯白名单，长能力、赛程、历史和成长收据不进入补充，人物原文仍完整', async () => {
+  const f = fixture([{ contact: '风祭凛奈' }, { contact: '夏洛特' }, { contact: '莎拉' }]);
+  const longDetail = '这段能力、历史或账本只属于完整MVU资料。'.repeat(500);
+  const state = f.snapshot.state;
+  state.玩家 = { 姓名: '测试玩家', 性别: '男性', 所属: '破军学园',
+    角色简介: longDetail, 伐刀能力: { 说明: longDetail }, 固有灵装: { 说明: longDetail },
+    六维: { 力量: 30 }, 成长: { 经验: { 力量: 99 }, 申请: [longDetail], 回合结算: { 收据: longDetail } } };
+  state.场景 = { 当前卷: 5, 当前章: '第一章', 阶段: '进行中', 时间: '2013-05-15 16:20', 地点: '破军学园',
+    切入说明: longDetail, 已发生事件: [longDetail], 日程: [{ 内容: longDetail }],
+    选拔赛: { 程序战况: longDetail, 名册: [longDetail], 比赛: [longDetail] } };
+  const expectedRelations = ['莎拉', '夏洛特', '风祭凛奈'].map((name, index) => ({ 姓名: name,
+    关系资料: { 关系: '同学', 态度印象: '熟悉但保持分寸', 好感: index ? null : 0, 支援度: index ? 320 : 0,
+      羁绊阶段: null, 恋爱阶段: '未确认', 已加联系方式: true, 已知资料: { 共同约定: '明日训练', 秘密: null } } }));
+  for (const item of expectedRelations) state.人际[item.姓名] = {
+    ...structuredClone(item.关系资料), 性别: '女性', 联系状态: '已交换', 联系依据: longDetail, 变化依据: longDetail,
+  };
+  const fullLore = new Map(expectedRelations.map(({ 姓名 }) => [姓名, { name: 姓名, worldbook: '当前角色主世界书', entries: [
+    { uid: 10, name: 姓名, content: 姓名 + '的完整性格、口吻及经历原文。'.repeat(200) },
+    { uid: 11, name: 姓名, content: 姓名 + '的第二条完整档案。'.repeat(100) },
+  ] }]));
+  f.reader = async name => fullLore.get(name);
+  const before = structuredClone(state);
+  function freeze(value) {
+    if (!value || typeof value !== 'object') return;
+    Object.values(value).forEach(freeze); Object.freeze(value);
+  }
+  freeze(state);
+  const result = plain(await f.service.prepare()), prompt = f.injections[0].content;
+  assert.deepEqual(result.contacts, ['莎拉', '夏洛特', '风祭凛奈']);
+  assert.deepEqual(promptFacts(prompt), { 主角模式: '自创OC',
+    玩家: { 姓名: '测试玩家', 性别: '男性', 所属: '破军学园' },
+    场景: { 当前卷: 5, 当前章: '第一章', 阶段: '进行中', 时间: '2013-05-15 16:20', 地点: '破军学园' },
+    当前时间: '2013-05-15 16:20', 近期通讯人物关系: expectedRelations });
+  assert.ok(!prompt.includes(longDetail));
+  for (const entry of [...fullLore.values()].flatMap(item => item.entries)) assert.ok(prompt.includes(entry.content));
+  assert.deepEqual(state, before);
+});
+
+test('通讯补充保留 null、零和 false，不把缺失字段补成默认值', async () => {
+  for (const value of [null, 0, false]) {
+    const f = fixture();
+    f.snapshot.state.系统.主角模式 = value;
+    f.snapshot.state.玩家 = { 姓名: value, 性别: value, 所属: value };
+    f.snapshot.state.场景 = { 当前卷: value, 当前章: value, 阶段: value, 时间: value, 地点: value };
+    f.snapshot.state.人际.风祭凛奈 = { 已加联系方式: true, 关系: value, 态度印象: value,
+      好感: value, 支援度: value, 羁绊阶段: value, 恋爱阶段: value, 已知资料: value };
+    const before = structuredClone(f.snapshot.state);
+    assert.equal((await f.service.prepare()).applied, true);
+    assert.deepEqual(promptFacts(f.injections[0].content), { 主角模式: value, 玩家: before.玩家,
+      场景: before.场景, 当前时间: value,
+      近期通讯人物关系: [{ 姓名: '风祭凛奈', 关系资料: before.人际.风祭凛奈 }] });
+    assert.deepEqual(f.snapshot.state, before);
+  }
+  const f = fixture();
+  f.snapshot.state = { 系统: {}, 玩家: { 姓名: '测试玩家' }, 场景: { 地点: null },
+    人际: { 风祭凛奈: { 已加联系方式: true } } };
+  assert.equal((await f.service.prepare()).applied, true);
+  assert.deepEqual(promptFacts(f.injections[0].content), { 玩家: { 姓名: '测试玩家' }, 场景: { 地点: null },
+    近期通讯人物关系: [{ 姓名: '风祭凛奈', 关系资料: { 已加联系方式: true } }] });
+});
+
+test('缺失或空的玩家、场景容器保持原意，不制造空对象', async () => {
+  for (const value of [undefined, null, 0, false]) {
+    const f = fixture();
+    f.snapshot.state = { 人际: { 风祭凛奈: { 已加联系方式: true } } };
+    if (value !== undefined) { f.snapshot.state.玩家 = value; f.snapshot.state.场景 = value; }
+    assert.equal((await f.service.prepare()).applied, true);
+    const expected = { 近期通讯人物关系: [{ 姓名: '风祭凛奈', 关系资料: { 已加联系方式: true } }] };
+    if (value !== undefined) { expected.玩家 = value; expected.场景 = value; }
+    assert.deepEqual(promptFacts(f.injections[0].content), expected);
+  }
 });
 
 test('倒序去重只读最近三个已通联人物，未通联与删除联系人不取词条', async () => {

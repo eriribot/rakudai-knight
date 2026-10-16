@@ -1,0 +1,361 @@
+{
+  "scope": "本地第10、19卷原著文本、EPUB插图位置与本任务已完成的目视比对；未联网。姓名依据具名正文，图像身份依据文字场景与视觉一致性联合核验。",
+  "characters": [
+    {
+      "name": "露娜艾丝·法米利昂",
+      "relation": "史黛菈的姐姐；第10卷第一皇女",
+      "attestedShortNames": [
+        "露娜艾丝",
+        "露娜",
+        "露娜姊",
+        "露娜姐"
+      ],
+      "identity": [
+        {
+          "path": "第十卷-世界书整理/第十卷_第三章_法米利昂皇国.txt",
+          "line": 1610,
+          "quote": "更何况，史黛菈的姊姊──露娜艾丝·法米利昂本来就支持自己的判断与行动，不需要在场。"
+        },
+        {
+          "path": "第十卷-世界书整理/第十卷_第三章_法米利昂皇国.txt",
+          "line": 2720,
+          "quote": "「没错，我正是你女友的姊姊，法米利昂皇国下任女王。"
+        },
+        {
+          "path": "第十卷-世界书整理/第十卷_第三章_法米利昂皇国.txt",
+          "line": 2722,
+          "quote": "第一皇女──露娜艾丝·法米利昂。"
+        }
+      ],
+      "appearance": [
+        {
+          "path": "第十卷-世界书整理/第十卷_第三章_法米利昂皇国.txt",
+          "line": 2658,
+          "quote": "鲜红色的双眸彷佛不让眼前人逃走，紧盯跨在窗框上的一辉。"
+        },
+        {
+          "path": "第十卷-世界书整理/第十卷_第三章_法米利昂皇国.txt",
+          "line": 2696,
+          "quote": "那张富含知性美的美丽容貌忽然一变，哈哈大笑了起来。"
+        },
+        {
+          "path": "第十卷-世界书整理/第十卷_第三章_法米利昂皇国.txt",
+          "line": 2710,
+          "quote": "一辉刚才在机场见过史黛菈的母亲·阿斯特蕾亚，而眼前的女子和阿斯特蕾亚一样，留着一头淡淡的桃色秀发。"
+        }
+      ],
+      "rootIdentity": {
+        "path": "落第骑士英雄谭 第十卷 gbk.txt",
+        "encoding": "gb18030",
+        "line": 5091,
+        "quote": "第一皇女──露娜艾丝·法米利昂。"
+      },
+      "notEstablishedByTheseTextPassages": [
+        "精确发长/发型",
+        "是否戴眼镜",
+        "身高/年龄数字",
+        "日文/英文拼法"
+      ],
+      "timelineCaution": {
+        "path": "第十九卷-世界书整理/第十九卷_第六章_最爱，也是最强的劲敌.txt",
+        "line": 1926,
+        "quote": "「正因为会引发争议，所以我才希望从法米利昂开始，动手改变这种古怪状况。第一皇女露娜艾丝·法米利昂已经出嫁奎多兰，我就是法米利昂的下任国王。假如您答应，我会穷尽国王的权力和地位，誓言从外界不讲理的一切保护您……！」"
+      }
+    },
+    {
+      "name": "阿斯特蕾亚·法米利昂",
+      "relation": "史黛菈的母亲；法米利昂皇后；席琉斯的妻子",
+      "attestedShortNames": [
+        "阿斯特蕾亚"
+      ],
+      "identity": [
+        {
+          "path": "第十卷-世界书整理/第十卷_第三章_法米利昂皇国.txt",
+          "line": 410,
+          "quote": "「啊，一辉，对不起！我来介绍一下！这位就是我的母后！」"
+        },
+        {
+          "path": "第十卷-世界书整理/第十卷_第三章_法米利昂皇国.txt",
+          "line": 418,
+          "quote": "「你就是黑铁一辉啊。初次见面～我是史黛菈·法米利昂的母亲，我叫做阿斯特蕾亚·法米利昂～请多指教喔～」"
+        },
+        {
+          "path": "第十卷-世界书整理/第十卷_第三章_法米利昂皇国.txt",
+          "line": 1634,
+          "quote": "不过席琉斯的妻子·阿斯特蕾亚似乎发现了什么──"
+        }
+      ],
+      "appearance": [
+        {
+          "path": "第十卷-世界书整理/第十卷_第三章_法米利昂皇国.txt",
+          "line": 386,
+          "quote": "接着，一名女孩走下车。她身材娇小，留有一头金桃色的波浪秀发，她抬头往上看去："
+        },
+        {
+          "path": "第十卷-世界书整理/第十卷_第三章_法米利昂皇国.txt",
+          "line": 390,
+          "quote": "稚嫩的脸蛋扬起温和的微笑，出声欢迎史黛菈回乡。"
+        },
+        {
+          "path": "第十卷-世界书整理/第十卷_第三章_法米利昂皇国.txt",
+          "line": 404,
+          "quote": "女孩的发色略为淡薄，但是她双颊扬起的笑容，感觉很像史黛菈松懈的时候。"
+        },
+        {
+          "path": "第十九卷-世界书整理/第十九卷_第五章_大教授.txt",
+          "line": 72,
+          "quote": "一名留有桃金色秀发，身材娇小的女子代替席琉斯，坐在镜头正前方。"
+        },
+        {
+          "path": "第十九卷-世界书整理/第十九卷_第五章_大教授.txt",
+          "line": 74,
+          "quote": "她正是法米利昂皇后，阿斯特蕾亚·法米利昂。"
+        }
+      ],
+      "rootIdentity": {
+        "path": "落第骑士英雄谭 第十卷 gbk.txt",
+        "encoding": "gb18030",
+        "line": 2787,
+        "quote": "「你就是黑铁一辉啊。初次见面～我是史黛菈·法米利昂的母亲，我叫做阿斯特蕾亚·法米利昂～请多指教喔～」"
+      },
+      "notEstablishedByTheseTextPassages": [
+        "精确瞳色",
+        "年龄数字",
+        "身高数字"
+      ]
+    },
+    {
+      "name": "席琉斯·法米利昂",
+      "relation": "史黛菈的父亲；法米利昂现任国王",
+      "attestedShortNames": [
+        "席琉斯",
+        "席琉斯王"
+      ],
+      "identity": [
+        {
+          "path": "第十卷-世界书整理/第十卷_第三章_法米利昂皇国.txt",
+          "line": 1514,
+          "quote": "法米利昂现任国王，自己的父亲──席琉斯·法米利昂大声怒吼。"
+        }
+      ],
+      "appearance": [
+        {
+          "path": "第十卷-世界书整理/第十卷_第三章_法米利昂皇国.txt",
+          "line": 1498,
+          "quote": "一名留着厚重胡须的中年男人有如火箭一般，朝着史黛菈的双唇飞扑过去。"
+        },
+        {
+          "path": "第十卷-世界书整理/第十卷_第三章_法米利昂皇国.txt",
+          "line": 1506,
+          "quote": "中年巨汉的鼻子歪向奇怪的地方，他捂着鼻子，语气颤抖地向史黛菈抗议。"
+        },
+        {
+          "path": "第十卷-世界书整理/第十卷_第三章_法米利昂皇国.txt",
+          "line": 1580,
+          "quote": "史黛菈也伸手环住席琉斯厚实的身躯，回以拥抱。"
+        }
+      ],
+      "rootIdentity": {
+        "path": "落第骑士英雄谭 第十卷 gbk.txt",
+        "encoding": "gb18030",
+        "line": 3883,
+        "quote": "法米利昂现任国王，自己的父亲──席琉斯·法米利昂大声怒吼。"
+      },
+      "notEstablishedByTheseTextPassages": [
+        "头发/胡须精确颜色",
+        "瞳色",
+        "发型细节"
+      ]
+    }
+  ],
+  "sourceHashes": {
+    "39688\\[台版]落第骑士英雄谭 10.epub": "dc6f80150996c2d6d536a04689694730aa6331e183fc89d607b22ef74ca02ce0",
+    "39688\\落第骑士英雄谭 - 19.epub": "26d043863969a5796bc46f8d649f2ae670237b720c5d027ce8d3836ef1cf3e05",
+    "落第骑士英雄谭 第十卷 gbk.txt": "e3bc66aa6a48bd4b277267641753982514785d247113255cca84157a3060c4af",
+    "落第骑士英雄谭 第十九卷 gbk.txt": "707b0f4550c091aa135b4061b48fe8eb207caaa0b69078b514be187ef6ee0d55"
+  },
+  "schemaVersion": 1,
+  "reviewDate": "2026-10-15",
+  "visualReview": {
+    "status": "confirmed-by-root-agent",
+    "basis": "本任务根代理已逐图目视核验并提供具名图文对应结论；本报告保留文字行号、EPUB资源路径和原图校验值。"
+  },
+  "preservedOriginals": [
+    {
+      "key": "lunaseyes",
+      "file": "lunaseyes-vol10-original.jpg",
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 10.epub",
+      "sourceEntry": "OEBPS/Images/005_.jpg",
+      "html": "OEBPS/Text/illus03.xhtml",
+      "htmlLine": 16,
+      "sha256": "7bd2f8170d67f27fbadeb87005f3a5a42564c11694a57f12050ed9712c43cd59",
+      "bytes": 621840,
+      "byteIdenticalToEpubEntry": true
+    },
+    {
+      "key": "astraea",
+      "file": "astraea-vol10-original.jpg",
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 10.epub",
+      "sourceEntry": "OEBPS/Images/002.jpg",
+      "html": "OEBPS/Text/illus00.xhtml",
+      "htmlLine": 12,
+      "sha256": "36c5b02c066e6719a1a8b65123cbd380894d05048d581201ff0e4eee20932b55",
+      "bytes": 602945,
+      "byteIdenticalToEpubEntry": true
+    },
+    {
+      "key": "astraea-identity",
+      "file": "astraea-vol10-identity.jpg",
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 10.epub",
+      "sourceEntry": "OEBPS/Images/012.jpg",
+      "html": "OEBPS/Text/Chapter003.xhtml",
+      "htmlLine": 216,
+      "sha256": "d80c5692505df15f971f15e207bf4a4eb15cc6d6c2da54ead35c2db151571763",
+      "bytes": 206558,
+      "byteIdenticalToEpubEntry": true
+    },
+    {
+      "key": "sirius",
+      "file": "sirius-vol10-original.jpg",
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 10.epub",
+      "sourceEntry": "OEBPS/Images/014.jpg",
+      "html": "OEBPS/Text/Chapter003.xhtml",
+      "htmlLine": 876,
+      "sha256": "a2f033db55b904d26c74874f6fcdd6b4465f2ea66b5faf21f7715db7a8f68064",
+      "bytes": 320663,
+      "byteIdenticalToEpubEntry": true
+    },
+    {
+      "key": "family-reference",
+      "file": "family-vol19-original.jpg",
+      "sourceEpub": "39688/落第骑士英雄谭 - 19.epub",
+      "sourceEntry": "OEBPS/Images/196521.jpg",
+      "html": "OEBPS/Text/chapter6.xhtml",
+      "htmlLine": 1002,
+      "sha256": "5c8dd57ae804f269821b521352d448536a239638da0fb384190b3c079a8a469a",
+      "bytes": 321489,
+      "byteIdenticalToEpubEntry": true
+    }
+  ],
+  "confirmedImageIdentities": [
+    {
+      "character": "露娜艾丝·法米利昂",
+      "sourceFile": "lunaseyes-vol10-original.jpg",
+      "sourceEntry": "OEBPS/Images/005_.jpg",
+      "confidenceBasis": "插图印刷文字直接对应第10卷第三章一辉误闯更衣房的场景；正文随后由露娜艾丝自我介绍确认身份。",
+      "imageCaptionExcerpt": "一辉正想闯入房内，他却愕然和人对上眼。",
+      "captionEvidenceSource": "root-agent-visual-inspection",
+      "textAnchors": [
+        {
+          "path": "第十卷-世界书整理/第十卷_第三章_法米利昂皇国.txt",
+          "lines": [
+            2638,
+            2642,
+            2658,
+            2710,
+            2720,
+            2722
+          ]
+        }
+      ],
+      "observedAppearance": [
+        "长直粉色头发",
+        "鲜红眼睛",
+        "无皇冠"
+      ],
+      "notInferred": [
+        "未凭相似发色单独认人",
+        "未从正文臆造年龄数字"
+      ]
+    },
+    {
+      "character": "阿斯特蕾亚·法米利昂",
+      "sourceFile": "astraea-vol10-original.jpg",
+      "identityReference": "astraea-vol10-identity.jpg",
+      "sourceEntry": "OEBPS/Images/002.jpg",
+      "confidenceBasis": "012.jpg紧接机场迎接场景，邻文418行母亲具名自我介绍；002.jpg后方人物与012.jpg的皇冠、侧双叶发夹、中分额发及波浪发型一致。",
+      "textAnchors": [
+        {
+          "path": "第十卷-世界书整理/第十卷_第三章_法米利昂皇国.txt",
+          "lines": [
+            386,
+            390,
+            410,
+            418
+          ]
+        },
+        {
+          "path": "第十九卷-世界书整理/第十九卷_第五章_大教授.txt",
+          "lines": [
+            72,
+            74
+          ]
+        }
+      ],
+      "observedAppearance": [
+        "粉色头发",
+        "皇冠",
+        "侧双叶发夹",
+        "中分额发",
+        "波浪秀发"
+      ],
+      "adultIdentity": "正文明确为史黛菈母亲；年轻外貌不等于儿童身份。"
+    },
+    {
+      "character": "席琉斯·法米利昂",
+      "sourceFile": "sirius-vol10-original.jpg",
+      "sourceEntry": "OEBPS/Images/014.jpg",
+      "confidenceBasis": "014.jpg前景右侧胡须巨汉，与同章1498/1506行外貌和1514行具名父亲身份一致；图前后仍直接叙述席琉斯。",
+      "textAnchors": [
+        {
+          "path": "第十卷-世界书整理/第十卷_第三章_法米利昂皇国.txt",
+          "lines": [
+            1498,
+            1506,
+            1514,
+            1580,
+            1634,
+            1640,
+            1642
+          ]
+        }
+      ],
+      "observedAppearance": [
+        "厚重胡须",
+        "魁梧中年男性"
+      ],
+      "colorPolicy": "原图为黑白，盾形衍生图保持黑白；不凭推测上色。"
+    }
+  ],
+  "volume19Findings": {
+    "frontIllustrations": [
+      "196507.jpg",
+      "196508.jpg",
+      "196509.jpg",
+      "196510.jpg",
+      "196511.jpg"
+    ],
+    "frontIllustrationLimit": "chapter0.xhtml未提供具名说明；不能仅按插图顺序或发色判断身份。",
+    "confirmedAuxiliaryImage": {
+      "file": "family-vol19-original.jpg",
+      "entry": "OEBPS/Images/196521.jpg",
+      "placement": "OEBPS/Text/chapter6.xhtml:1002，第六章末尾婚礼群像",
+      "visualFinding": "群像后方右侧可比对父亲的厚须、领口与母亲的皇冠、波浪发型；姐姐在群像中的具体位置未独立确证。",
+      "weight": "仅辅助视觉比对，不当作三人的独立具名身份依据。"
+    },
+    "textCrossCheck": "第19卷第五章72–74行再次具名描述阿斯特蕾亚的桃金色秀发与娇小身材。",
+    "plotCaution": "第19卷第四章家人对史黛菈的敌意属于噩梦/伪造记忆场景；不能写成家人的常态性格。",
+    "timelineCaution": "第19卷第六章1926行明确露娜艾丝已出嫁奎多兰；第10卷“下任法米利昂女王”不能无条件沿用为结局身份。"
+  },
+  "derivativePolicy": {
+    "plannedOutput": "盾形头像",
+    "provenance": "ai-edited-derivative",
+    "sourcePreservation": "以上5张留存JPG与EPUB内资源逐字节相同；不得以编辑结果覆盖原图。",
+    "label": "生成盾图为基于原著插图的AI编辑衍生图，不是出版社原始头像或官方新图。",
+    "constraints": [
+      "保留已确认的脸型、发色/发型、配饰及辨识特征",
+      "席琉斯保持黑白",
+      "不从辅助群像推断未证实的设定"
+    ]
+  }
+}

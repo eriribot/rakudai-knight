@@ -1,0 +1,12 @@
+{
+  "id": "lunaseyes",
+  "prompt": "Use case: identity-preserve / compositing. Create one ordinary head-only dialogue avatar of the adult woman in image 1. Image 1 is a tightly cropped face reference of Lunaseyes, an adult royal character. Use only her head, hair and a small amount of neck: keep her original long pink hair, side-swept bangs, red eyes and gently surprised mouth. Rotate face upright; preserve original facial proportions and illustrator linework. No body or torso, no new outfit, no jewelry or crown. Match the curved shield silhouette and portrait scale of image 2, which is SHAPE ONLY, not a character reference. Around 1085x1450 transparent PNG. Full top of hair visible inside the upper curves, head centered; long hair fills the shield's lower point. Two concave top arcs meet at a central peak; curved sides and one bottom point. Muted warm plain backdrop inside shield, true transparent alpha outside. Clean continuous edge: no white specks, no paint splatter. Remove all printed text. No frame, border, logo or other character. Preserve source colors and identity.",
+  "headReference": "research/20261015-vermilion-family/lunaseyes-head-reference.png",
+  "crop": [
+    600,
+    0,
+    800,
+    630
+  ],
+  "reason": "full illustration rejected by image tool; replaced with nonsexual head-only input"
+}

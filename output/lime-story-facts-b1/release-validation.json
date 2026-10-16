@@ -1,0 +1,40 @@
+{
+  "date": "2026-10-15",
+  "deliveryMode": "component",
+  "releasePath": "世界书规则/MVU/落第骑士-小手机-v1.3.29-B1.json",
+  "artifactSha256": "1ed1c204b43f5c6549fd66cc73e3b57c3d55c365f36083f02d476fb611f29c09",
+  "artifactBytes": 2295943,
+  "exactRebuild": true,
+  "stagingBytesMatch": true,
+  "liveBaselineHashStillMatches": true,
+  "changedBaselineRejected": true,
+  "tests": {
+    "nodeRunner": {
+      "passed": 119,
+      "failed": 0
+    },
+    "chatProtocolInternalChecks": {
+      "passed": 27,
+      "failed": 0
+    }
+  },
+  "offlineReplay": {
+    "tokenizer": "installed Gemma",
+    "facts": {
+      "before": 9879,
+      "after": 603,
+      "saved": 9276
+    },
+    "servicePrompt": {
+      "before": 17326,
+      "after": 8050,
+      "saved": 9276
+    },
+    "unchanged": [
+      "original MVU state",
+      "complete character lore"
+    ],
+    "liveRequestMeasured": false
+  },
+  "liveImport": "not performed"
+}

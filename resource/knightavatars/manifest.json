@@ -1617,6 +1617,121 @@
         "url": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kikyo.png",
         "note": "按现有GitHub Pages路径预填；本轮未上传、未核验远端。"
       }
+    },
+    {
+      "id": "lunaseyes",
+      "name": "露娜艾丝·法米利昂",
+      "aliases": [
+        "露娜艾絲·法米利昂",
+        "露娜艾丝",
+        "露娜艾絲",
+        "露娜",
+        "露娜姊",
+        "露娜姐"
+      ],
+      "file": "research/20261015-vermilion-family/lunaseyes-vol10-original.jpg",
+      "sourceUrl": "",
+      "sourcePage": "",
+      "hasShieldFrame": false,
+      "sourceStyle": "novel-color-illustration",
+      "sourceStatus": "verified-local-epub-ai-enhanced",
+      "width": 1400,
+      "height": 1930,
+      "sha256": "7bd2f8170d67f27fbadeb87005f3a5a42564c11694a57f12050ed9712c43cd59",
+      "imageUrl": "",
+      "identityEvidence": "research/20261015-vermilion-family/source-report.md",
+      "displayFile": "prepared/lunaseyes.png",
+      "preparation": {
+        "method": "built-in-imagegen-portrait-restoration-shield",
+        "sourceFile": "research/20261015-vermilion-family/lunaseyes-vol10-original.jpg",
+        "sourceSha256": "7bd2f8170d67f27fbadeb87005f3a5a42564c11694a57f12050ed9712c43cd59",
+        "templateFile": "prepared/amane.png",
+        "outputWidth": 1085,
+        "outputHeight": 1450,
+        "sha256": "539121ed540845f1d744c7c72f21441149c4bbf491dc9265d6ede70d59832528",
+        "record": "research/20261015-vermilion-family/imagegen-record.json"
+      },
+      "derivation": {
+        "type": "ai-enhanced-derivative",
+        "mode": "built-in",
+        "note": "从已核对的第10卷原图提取单人头像并制成透明曲边盾形，属于AI编辑衍生图。原图另存；席琉斯保留黑白。"
+      },
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 10.epub",
+      "sourceMember": "OEBPS/Images/005_.jpg"
+    },
+    {
+      "id": "astraea",
+      "name": "阿斯特蕾亚·法米利昂",
+      "aliases": [
+        "阿斯特蕾亞·法米利昂",
+        "阿斯特蕾亚",
+        "阿斯特蕾亞"
+      ],
+      "file": "research/20261015-vermilion-family/astraea-vol10-original.jpg",
+      "sourceUrl": "",
+      "sourcePage": "",
+      "hasShieldFrame": false,
+      "sourceStyle": "novel-color-illustration",
+      "sourceStatus": "verified-local-epub-ai-enhanced",
+      "width": 1000,
+      "height": 1508,
+      "sha256": "36c5b02c066e6719a1a8b65123cbd380894d05048d581201ff0e4eee20932b55",
+      "imageUrl": "",
+      "identityEvidence": "research/20261015-vermilion-family/source-report.md",
+      "displayFile": "prepared/astraea.png",
+      "preparation": {
+        "method": "built-in-imagegen-portrait-restoration-shield",
+        "sourceFile": "research/20261015-vermilion-family/astraea-vol10-original.jpg",
+        "sourceSha256": "36c5b02c066e6719a1a8b65123cbd380894d05048d581201ff0e4eee20932b55",
+        "templateFile": "prepared/amane.png",
+        "outputWidth": 1085,
+        "outputHeight": 1450,
+        "sha256": "10698563c500bd1e31e1698815bd8d727837324bed50186d27fa5d672dea0338",
+        "record": "research/20261015-vermilion-family/imagegen-record.json"
+      },
+      "derivation": {
+        "type": "ai-enhanced-derivative",
+        "mode": "built-in",
+        "note": "从已核对的第10卷原图提取单人头像并制成透明曲边盾形，属于AI编辑衍生图。原图另存；席琉斯保留黑白。"
+      },
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 10.epub",
+      "sourceMember": "OEBPS/Images/002.jpg"
+    },
+    {
+      "id": "sirius",
+      "name": "席琉斯·法米利昂",
+      "aliases": [
+        "席琉斯"
+      ],
+      "file": "research/20261015-vermilion-family/sirius-vol10-original.jpg",
+      "sourceUrl": "",
+      "sourcePage": "",
+      "hasShieldFrame": false,
+      "sourceStyle": "novel-monochrome-illustration",
+      "sourceStatus": "verified-local-epub-ai-enhanced",
+      "width": 1000,
+      "height": 1508,
+      "sha256": "a2f033db55b904d26c74874f6fcdd6b4465f2ea66b5faf21f7715db7a8f68064",
+      "imageUrl": "",
+      "identityEvidence": "research/20261015-vermilion-family/source-report.md",
+      "displayFile": "prepared/sirius.png",
+      "preparation": {
+        "method": "built-in-imagegen-portrait-restoration-shield",
+        "sourceFile": "research/20261015-vermilion-family/sirius-vol10-original.jpg",
+        "sourceSha256": "a2f033db55b904d26c74874f6fcdd6b4465f2ea66b5faf21f7715db7a8f68064",
+        "templateFile": "prepared/amane.png",
+        "outputWidth": 1085,
+        "outputHeight": 1450,
+        "sha256": "ad6fe47b4681140f68bf36a1e68a0415af01d30c1e63acf93d18a428cbcc29b5",
+        "record": "research/20261015-vermilion-family/imagegen-record.json"
+      },
+      "derivation": {
+        "type": "ai-enhanced-derivative",
+        "mode": "built-in",
+        "note": "从已核对的第10卷原图提取单人头像并制成透明曲边盾形，属于AI编辑衍生图。原图另存；席琉斯保留黑白。"
+      },
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 10.epub",
+      "sourceMember": "OEBPS/Images/014.jpg"
     }
   ],
   "missingPortraits": [

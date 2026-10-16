@@ -1,0 +1,122 @@
+{
+  "sourceSha256": "1b1c95b84556f0c24142c50f3c45f9a9cb435950744bfdc0ccb229e4a1f628d2",
+  "utf8Sha256": "04e4da45d6131390b9c0d251ff03334fad2c95b1cc1c46532446cd8216badc6e",
+  "decodedEqual": true,
+  "lineCount": 6453,
+  "files": [
+    {
+      "path": "第八卷-世界书整理\\00_整合说明.md",
+      "sha256": "2f6ce4cae1906fdd7561f9f1332bff01d7a56c72af691dfea711d91236efc658",
+      "bytes": 10982,
+      "lines": 118
+    },
+    {
+      "path": "第八卷-世界书整理\\01_卷内时间线.md",
+      "sha256": "e6009ce1c3d34b91758d6db2b3985bb845f17e8cca72ce6ffcb6f0e723682346",
+      "bytes": 14545,
+      "lines": 124
+    },
+    {
+      "path": "第八卷-世界书整理\\02_章节索引.md",
+      "sha256": "be64af742577539e3c66d06046b8d5c5880448ebb1fa23598e8af819a7748a5b",
+      "bytes": 19325,
+      "lines": 176
+    },
+    {
+      "path": "第八卷-世界书整理\\03_出场人物索引.md",
+      "sha256": "d76e3a45210dfbce001b19a7e4aa9f94a4dc299ae24447aff92f3e78d2ec4388",
+      "bytes": 9001,
+      "lines": 45
+    },
+    {
+      "path": "第八卷-世界书整理\\04_事实来源索引.md",
+      "sha256": "e40051cfb0a43eaf72f5a2566a3a40fa95a278c90a02c61e58d38dc9a99bfb8d",
+      "bytes": 13418,
+      "lines": 83
+    },
+    {
+      "path": "第八卷-世界书整理\\05_联网资料索引.md",
+      "sha256": "e4d1f4b439dc24ec803a607a86c934a52ee10c4bc9eb84e2bff21f2861e35e19",
+      "bytes": 6290,
+      "lines": 41
+    },
+    {
+      "path": "第八卷-世界书整理\\人物条目\\月影总理.md",
+      "sha256": "f775a98a69c0af3135b315a0fa68e8287a5a69cd408228b441bac373ef44e7a4",
+      "bytes": 6740,
+      "lines": 76
+    },
+    {
+      "path": "第八卷-世界书整理\\人物条目\\浅木椛.md",
+      "sha256": "1dd8a123e9f7bfc2b00e90e92ddbef6982c85a081fedfe5660b3b4ce5fa09d07",
+      "bytes": 12478,
+      "lines": 126
+    },
+    {
+      "path": "第八卷-世界书整理\\人物条目\\紫乃宫天音.md",
+      "sha256": "fab96ef7177d34e05ce067b4c4061da0fbedf119511c5052577bcb3379b40b99",
+      "bytes": 13085,
+      "lines": 124
+    },
+    {
+      "path": "第八卷-世界书整理\\人物条目\\药师雾子.md",
+      "sha256": "6a34541d28accb30c11fbe6911e8a07c468d62f4fc8b7885d839fb2c23d96416",
+      "bytes": 10279,
+      "lines": 112
+    },
+    {
+      "path": "第八卷-世界书整理\\人物条目\\黑铁王马.md",
+      "sha256": "7dddeaebdbc5c9403894727cbd1840ec2877ac7aa392acd620c00dde0c271a0e",
+      "bytes": 12874,
+      "lines": 126
+    },
+    {
+      "path": "第八卷-世界书整理\\人物条目\\黑铁珠雫_卷八决绝.md",
+      "sha256": "3c1723ffac29da027c5765f1427b4f2937a3a95b3019967af06828475fe81812",
+      "bytes": 6086,
+      "lines": 85
+    },
+    {
+      "path": "第八卷-世界书整理\\场景条目\\01_间章场景_为了让自己不再后悔.md",
+      "sha256": "c047caa7b6d59586de55d712ba805ba196d6a6f2f0d5c3aeacb8d7b893a58983",
+      "bytes": 2907,
+      "lines": 39
+    },
+    {
+      "path": "第八卷-世界书整理\\场景条目\\02_第十一章场景_鲜血的真相.md",
+      "sha256": "5de62103e557b74059bbb920cf7401275be24215faad68c3dc060c51f3037a89",
+      "bytes": 7571,
+      "lines": 54
+    },
+    {
+      "path": "第八卷-世界书整理\\场景条目\\03_第十二章场景_双龙相克.md",
+      "sha256": "85735624a08dd837a0adc7496e2b39cc8ffed68c2fb0d7ce93f7125cc2f349f1",
+      "bytes": 9222,
+      "lines": 63
+    },
+    {
+      "path": "第八卷-世界书整理\\场景条目\\04_第十三章场景_阴云密布的准决赛.md",
+      "sha256": "c5622c5de55b0b45d75e7c48a74590bf927588bde5c5e0ad8d4e4822070bfc2a",
+      "bytes": 9984,
+      "lines": 63
+    },
+    {
+      "path": "第八卷-世界书整理\\场景条目\\05_间章场景_姗姗来迟.md",
+      "sha256": "a3f18e7dfd29daf4129dbd3b4b07f741e9f261c1c3b29f0e42b4ce509d55c1f4",
+      "bytes": 5876,
+      "lines": 53
+    },
+    {
+      "path": "第八卷-世界书整理\\设定条目\\女神过剩之恩宠与因果干涉.md",
+      "sha256": "19c859ec7a93b3beba0ab531fff9436746832f72aa83632bcb343984bb643625",
+      "bytes": 6911,
+      "lines": 84
+    },
+    {
+      "path": "第八卷-世界书整理\\设定条目\\暴风大霸道与极大风暴.md",
+      "sha256": "db6f4e85cdab14767704d6fd54484828126eed1fa79a7f82fcb30e8430115602",
+      "bytes": 6407,
+      "lines": 75
+    }
+  ]
+}

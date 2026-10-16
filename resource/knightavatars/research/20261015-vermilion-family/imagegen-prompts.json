@@ -1,0 +1,22 @@
+{
+  "mode": "built-in",
+  "transparentBackground": true,
+  "templateFile": "prepared/amane.png",
+  "jobs": [
+    {
+      "id": "lunaseyes",
+      "file": "lunaseyes-vol10-original.jpg",
+      "prompt": "Use case: compositing / identity-preserve. Make ONE transparent shield-shaped dialogue portrait, matching the exact plain curved shield silhouette of image 2 (avatar template), approximately 1085x1450. Image 1 is the original novel illustration of Lunaseyes Vermillion: use ONLY her head, long pink hair and upper neck/shoulder area. Keep the original red-magenta eyes, bangs, subtle surprised mouth, pink palette and original illustrator's linework. Gently orient the face upright and frame it as a close head portrait: hair at top, face centered, neck tapering towards the shield tip; no torso focus. Restore only resolution/clean edges. Remove all printed text, book graphics and other elements. Shield interior uses the source's muted warm background. Outside the shield must be true alpha transparency. The upper shield edge has two concave arcs meeting at a small central peak, curved sides and pointed bottom exactly like image 2. No visible border, no ornate frame, no text, no watermark, no tiara, no accessories not in source. Do not borrow the template character's face, hair or colors. Preserve identity and original expression; no redesign."
+    },
+    {
+      "id": "astraea",
+      "file": "astraea-vol10-original.jpg",
+      "prompt": "Use case: compositing / identity-preserve. Make ONE transparent shield-shaped dialogue portrait matching the plain curved shield silhouette of image 2, approximately 1085x1450. Image 1 is the original volume 10 cover. Extract ONLY the PINK-haired woman at the TOP/BACK with the small gold tiara and side gold leaf hair clips: Astraea Vermillion. Do not include the red-haired girl in front. Preserve her exact original pink wavy long hair, magenta eyes, gentle closed-mouth smile, youthful face, gold tiara and matching side clips, and red dress with white trim if visible. Close head-and-neck portrait; head upright, complete crown and hair top visible, shoulders within the lower shield. Reconstruct only the minimum hidden shoulder if required, using the original dress; prioritize source fidelity. Original clean Japanese light-novel linework and colors, no redesign. Muted pale warm background inside shield. Outside is true transparent alpha. Top shield edge has two concave curves meeting at a small central peak, curved sides, pointed bottom, matching image 2. No outline frame, no ornament border, no printed text, no other person, no weapons, no logos. Template is SHAPE ONLY, do not use its character."
+    },
+    {
+      "id": "sirius",
+      "file": "sirius-vol10-original.jpg",
+      "prompt": "Use case: compositing / identity-preserve. Make ONE transparent shield-shaped dialogue portrait matching the plain curved shield silhouette of image 2, approximately 1085x1450. Image 1 is the original monochrome novel illustration. Extract ONLY the large bearded adult man in the RIGHT FOREGROUND: Sirius Vermillion. Preserve his distinctive thick eyebrows, swept medium-length hair, thick full beard and moustache, slightly awkward smiling mouth, expressive eyes and small sweat drops; preserve the royal high collar and geometric necklace pieces. Rotate/reframe his tilted head upright into a centered close head-and-shoulders avatar, with full top of hair and beard intact. Improve scan clarity but retain original light-novel ink lines and soft screentones. KEEP THE PORTRAIT AND ITS INTERIOR BACKGROUND ENTIRELY MONOCHROME; do not invent any colors. No female characters, hands, text, logos or added ornaments. Inside shield use a plain pale gray background. Outside shield must be true transparent alpha. Upper shield edge has two concave arcs meeting at a small central peak, curved sides and pointed bottom exactly like image 2. No visible border, no ornate frame, no new accessories; shape reference only. Preserve the original man's face and beard, do not borrow the template character."
+    }
+  ]
+}

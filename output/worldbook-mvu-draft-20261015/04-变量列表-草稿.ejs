@@ -1,0 +1,20 @@
+<status_current_variable>
+<%
+// 只裁剪发给模型的副本；当前楼层的事件与结算历史原样保存。
+const rkCurrent = getvar('stat_data');
+const rkPromptState = rkCurrent && typeof rkCurrent === 'object' ? JSON.parse(JSON.stringify(rkCurrent)) : null;
+const rkObject = value => value !== null && typeof value === 'object' && !Array.isArray(value);
+if (rkPromptState) {
+  delete rkPromptState.$internal;
+  // 本回复关系收据只用于代码防重，不占提示词；存档中的原件保留。
+  if (rkObject(rkPromptState.系统)) delete rkPromptState.系统.关系计分;
+  if (rkObject(rkPromptState.场景)) delete rkPromptState.场景.已发生事件;
+  if (rkObject(rkPromptState.玩家) && rkObject(rkPromptState.玩家.成长)) {
+    const growth = rkPromptState.玩家.成长;
+    rkPromptState.玩家.成长 = Object.hasOwn(growth, '经验') ? { 经验: growth.经验 } : {};
+  }
+}
+%>
+<%- JSON.stringify(rkPromptState) %>
+</status_current_variable>
+省略字段仍保存在原始存档，本块不可作为完整存档覆盖。更新权限与业务约束遵循[MVU]变量更新规则，补丁格式遵循[MVU]变量更新格式。

@@ -1,0 +1,35 @@
+{
+  "deliveryMode": "component",
+  "kind": "helper-script",
+  "runtimeOwner": "current character Tavern Helper",
+  "baselineId": "3d8c6c23-f78e-46e5-8e89-4a90bab6fb85",
+  "baselineContentSha256": "0eeadc635e76b49e71004c3c91b48da39c5fd86d149cce94a12399f9fe4e0d07",
+  "enabled": true,
+  "changedSource": "lime-story.js",
+  "sourceBeforeSha256": "961a969e8033f6ad93d10e702aa1d6068604cc232a1803f5a959484aa739c610",
+  "sourceAfterSha256": "014cc9ba1b21ace4733dff6514517993b36d7c37088cc457ba474056c5184eed",
+  "unchangedRuntimeBytesSha256": "aeca0d6462268e61f7fda63ce8e38b99ec7509be9c007f755cf9c5893db06225",
+  "preservedMappedSources": 13,
+  "moduleStartLine": 3000,
+  "moduleStartColumn": 2,
+  "lineDelta": 11,
+  "contentSha256": "6d30081d3132ef435a8e96ccef795bf47de98cfbd9c7a4f5648ab50f21f75448",
+  "checks": [
+    "exact baseline hash",
+    "unique source replacement",
+    "all other runtime bytes unchanged",
+    "unknown metadata preserved",
+    "JSON round trip",
+    "V8 syntax",
+    "HTML host parse",
+    "all source mappings"
+  ],
+  "liveImport": "pending; no live settings, card, worldbook, chat, or API request changed",
+  "artifact": {
+    "artifactName": "terminal-v1-3-29-b1",
+    "id": "3d8c6c23-f78e-46e5-8e89-4a90bab6fb85",
+    "kind": "helper-script",
+    "relativePath": "terminal-v1-3-29-b1.script.json",
+    "sha256": "1ed1c204b43f5c6549fd66cc73e3b57c3d55c365f36083f02d476fb611f29c09"
+  }
+}

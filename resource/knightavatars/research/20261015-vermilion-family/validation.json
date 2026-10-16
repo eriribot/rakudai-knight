@@ -1,0 +1,40 @@
+{
+  "checks": [
+    {
+      "id": "lunaseyes",
+      "name": "露娜艾丝·法米利昂",
+      "sourceHashMatches": true,
+      "generatedBytesPreserved": true,
+      "rgba": true,
+      "transparentCorners": true,
+      "centerAlpha": 253,
+      "width": 1085,
+      "height": 1450
+    },
+    {
+      "id": "astraea",
+      "name": "阿斯特蕾亚·法米利昂",
+      "sourceHashMatches": true,
+      "generatedBytesPreserved": true,
+      "rgba": true,
+      "transparentCorners": true,
+      "centerAlpha": 254,
+      "width": 1085,
+      "height": 1450
+    },
+    {
+      "id": "sirius",
+      "name": "席琉斯·法米利昂",
+      "sourceHashMatches": true,
+      "generatedBytesPreserved": true,
+      "rgba": true,
+      "transparentCorners": true,
+      "centerAlpha": 254,
+      "width": 1085,
+      "height": 1450
+    }
+  ],
+  "existingCharactersUnchanged": 37,
+  "existingSourceAndDisplayFilesUnchanged": 62,
+  "totalCharacters": 40
+}

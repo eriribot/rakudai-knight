@@ -1,0 +1,1710 @@
+{
+  "manifest": {
+    "schemaVersion": 1,
+    "sourcePage": "https://ga.sbcr.jp/sp/cavalry/chara.html",
+    "requestedSource": "https://baike.baidu.com/item/落第骑士英雄谭/13212302",
+    "sourceNote": "百度页面被浏览安全政策阻止，改用独立的官方原始资料及具名角色介绍；GA彩色盾形人物与用户附图为同款系列。",
+    "shieldFrame": {
+      "file": "shield-frame.png",
+      "maskFile": "shield-mask.svg",
+      "width": 1085,
+      "height": 1450,
+      "aperture": {
+        "x": 0,
+        "y": 0,
+        "width": 100,
+        "height": 100
+      },
+      "provenance": "derived-imagegen-cutout",
+      "source": "user-provided-reference",
+      "notes": "使用内置 imagegen 从用户提供的绫辻绚濑参考提取透明盾边与底部花饰；不是官网原始空框。遮罩为对应轮廓的SVG。",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/shield-frame.png"
+    },
+    "characters": [
+      {
+        "id": "ikki",
+        "name": "黑铁一辉",
+        "aliases": [
+          "一辉",
+          "黑鐵一輝",
+          "一輝",
+          "黒鉄一輝",
+          "Ikki Kurogane"
+        ],
+        "file": "ikki.png",
+        "sourceUrl": "https://ga.sbcr.jp/sp/cavalry/img/chara01.png",
+        "sourcePage": "https://ga.sbcr.jp/sp/cavalry/chara.html",
+        "hasShieldFrame": true,
+        "sourceStyle": "novel-color-shield",
+        "sourceStatus": "original-shield",
+        "width": 172,
+        "height": 249,
+        "sha256": "c1aa07045f00041d0602657929990df12bfe5f0e211b90e5b0c6bb3f97c9bc7a",
+        "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/ikki.png"
+      },
+      {
+        "id": "stella",
+        "name": "史黛菈·法米利昂",
+        "aliases": [
+          "史黛菈",
+          "史黛拉",
+          "史黛拉·法米利昂",
+          "史黛菈·法米利昂",
+          "ステラ・ヴァーミリオン",
+          "Stella Vermillion"
+        ],
+        "file": "stella.png",
+        "sourceUrl": "https://ga.sbcr.jp/sp/cavalry/img/chara02.png",
+        "sourcePage": "https://ga.sbcr.jp/sp/cavalry/chara.html",
+        "hasShieldFrame": true,
+        "sourceStyle": "novel-color-shield",
+        "sourceStatus": "original-shield",
+        "width": 172,
+        "height": 249,
+        "sha256": "22e0a4ddd11c110e44f551e1e7094e110a333973ee22b2cb5108325f5cc3d38a",
+        "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/stella.png"
+      },
+      {
+        "id": "shizuku",
+        "name": "黑铁珠雫",
+        "aliases": [
+          "珠雫",
+          "黑鐵珠雫",
+          "黒鉄珠雫",
+          "Shizuku Kurogane"
+        ],
+        "file": "shizuku.png",
+        "sourceUrl": "https://ga.sbcr.jp/sp/cavalry/img/chara03.png",
+        "sourcePage": "https://ga.sbcr.jp/sp/cavalry/chara.html",
+        "hasShieldFrame": true,
+        "sourceStyle": "novel-color-shield",
+        "sourceStatus": "original-shield",
+        "width": 172,
+        "height": 249,
+        "sha256": "76cd763eb54496c8a8d7e9bc8342c443e56be5a7887582e280a61ed164c7e8c6",
+        "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/shizuku.png"
+      },
+      {
+        "id": "ayase",
+        "name": "绫辻绚濑",
+        "aliases": [
+          "绚濑",
+          "绫濑",
+          "绫辻绚瀬",
+          "綾辻絢瀨",
+          "綾辻絢瀬",
+          "絢瀨",
+          "絢瀬",
+          "Ayase Ayatsuji"
+        ],
+        "file": "ayase.png",
+        "sourceUrl": "https://ga.sbcr.jp/sp/cavalry/img/chara04.png",
+        "sourcePage": "https://ga.sbcr.jp/sp/cavalry/chara.html",
+        "hasShieldFrame": true,
+        "sourceStyle": "novel-color-shield",
+        "sourceStatus": "original-shield",
+        "width": 172,
+        "height": 249,
+        "sha256": "05d897307eae2cf1e9b68afa45e924717d825b505128758a8fa037ecdb645142",
+        "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/ayase.png"
+      },
+      {
+        "id": "toka",
+        "name": "东堂刀华",
+        "aliases": [
+          "刀华",
+          "東堂刀華",
+          "刀華",
+          "Toka Todo",
+          "Touka Toudou"
+        ],
+        "file": "toka.png",
+        "sourceUrl": "https://ga.sbcr.jp/sp/cavalry/img/chara05.png",
+        "sourcePage": "https://ga.sbcr.jp/sp/cavalry/chara.html",
+        "hasShieldFrame": true,
+        "sourceStyle": "novel-color-shield",
+        "sourceStatus": "original-shield",
+        "width": 172,
+        "height": 249,
+        "sha256": "186250c240708672366657fdf59bd417f0ffe130a332c11d436367cd22245463",
+        "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/toka.png"
+      },
+      {
+        "id": "itsuki",
+        "name": "黑铁严",
+        "aliases": [
+          "黑鐵嚴",
+          "黒鉄厳",
+          "Kurogane Itsuki",
+          "Itsuki Kurogane"
+        ],
+        "file": "itsuki.png",
+        "sourceUrl": "https://ga.sbcr.jp/sp/cavalry/img/chara06.png",
+        "sourcePage": "https://ga.sbcr.jp/sp/cavalry/chara.html",
+        "hasShieldFrame": true,
+        "sourceStyle": "novel-color-shield",
+        "sourceStatus": "original-shield",
+        "width": 172,
+        "height": 249,
+        "sha256": "7022e2738e4f6a317be972e95da5f103f2e9f226f2e4f9e95ae400bdaf64298c",
+        "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/itsuki.png"
+      },
+      {
+        "id": "ouma",
+        "name": "黑铁王马",
+        "aliases": [
+          "王马",
+          "黑鐵王馬",
+          "黒鉄王馬",
+          "王馬",
+          "Ouma Kurogane"
+        ],
+        "file": "ouma.png",
+        "sourceUrl": "https://ga.sbcr.jp/sp/cavalry/img/chara07.png",
+        "sourcePage": "https://ga.sbcr.jp/sp/cavalry/chara.html",
+        "hasShieldFrame": true,
+        "sourceStyle": "novel-color-shield",
+        "sourceStatus": "original-shield",
+        "width": 172,
+        "height": 249,
+        "sha256": "a6be886848dd32be84c17e1fb83ade6e6a6933d6a17ecd992251e3d2a9500e57",
+        "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/ouma.png"
+      },
+      {
+        "id": "edelweiss",
+        "name": "爱德怀斯",
+        "aliases": [
+          "愛德懷斯",
+          "艾德怀斯",
+          "艾德懷斯",
+          "Edelweiss",
+          "エーデルワイス"
+        ],
+        "file": "edelweiss.png",
+        "sourceUrl": "https://ga.sbcr.jp/sp/cavalry/img/chara08.png",
+        "sourcePage": "https://ga.sbcr.jp/sp/cavalry/chara.html",
+        "hasShieldFrame": true,
+        "sourceStyle": "novel-color-shield",
+        "sourceStatus": "original-shield",
+        "width": 172,
+        "height": 249,
+        "sha256": "3eecdd710e24eac22820c725f2305370b028dd0a993d0cd8cad88822d35a8b54",
+        "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/edelweiss.png"
+      },
+      {
+        "id": "yuudai",
+        "name": "诸星雄大",
+        "aliases": [
+          "諸星雄大",
+          "Yuudai Moroboshi",
+          "Yudai Moroboshi"
+        ],
+        "file": "yuudai.png",
+        "sourceUrl": "https://ga.sbcr.jp/sp/cavalry/img/chara09.png",
+        "sourcePage": "https://ga.sbcr.jp/sp/cavalry/chara.html",
+        "hasShieldFrame": true,
+        "sourceStyle": "novel-color-shield",
+        "sourceStatus": "original-shield",
+        "width": 172,
+        "height": 249,
+        "sha256": "48ecaae18cbbf038b6a5bdf483ad31742557dc482804cf919d0151ab9b0865ae",
+        "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/yuudai.png"
+      },
+      {
+        "id": "nagi",
+        "name": "有栖院凪",
+        "aliases": [
+          "有栖院",
+          "爱丽丝",
+          "愛麗絲",
+          "Alice",
+          "Nagi Arisuin",
+          "有栖院 凪",
+          "有栖院艾莉丝",
+          "有栖院艾莉絲",
+          "Alice Arisuin"
+        ],
+        "file": "nagi.png",
+        "sourceUrl": "https://ittoshura.com/img/b_chara04.png",
+        "sourcePage": "https://ittoshura.com/character/",
+        "hasShieldFrame": false,
+        "sourceStyle": "anime-monochrome-hexagon",
+        "sourceStatus": "missing-original-curved-shield",
+        "notes": "原始黑白徽章保留存档；显示头像改从 additionalSources 的官方彩色人物设定图裁切，避开文字和能力图表，使用精确盾口合成。原图没有曲边盾框。",
+        "width": 132,
+        "height": 165,
+        "sha256": "38b2d0097ce6fcfc873be87403241b5e6fb29ad4a3b583633d12fe8e5f04a084",
+        "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/nagi.png",
+        "displayFile": "prepared/nagi.png",
+        "preparation": {
+          "method": "closed-shield-region-face-aware-crop-v1",
+          "sourceFile": "color/nagi.jpg",
+          "sourceSha256": "8e2927a9f0974ea73f78546707f7d9eed7414ababec00bd89c4cf942279c7f12",
+          "crop": {
+            "left": 352,
+            "top": 80,
+            "width": 314,
+            "height": 378
+          },
+          "outputWidth": 434,
+          "outputHeight": 580,
+          "sha256": "d0941a3057192ac42689b48dad91a1e565164a8877e96071dc994a07181be5fd"
+        },
+        "additionalSources": [
+          {
+            "file": "color/nagi.jpg",
+            "sourceUrl": "https://ittoshura.com/character/chara_nagi.jpg",
+            "sourcePage": "https://ittoshura.com/character/",
+            "sourceStyle": "anime-color-character-sheet",
+            "width": 960,
+            "height": 700,
+            "sha256": "8e2927a9f0974ea73f78546707f7d9eed7414ababec00bd89c4cf942279c7f12"
+          }
+        ]
+      },
+      {
+        "id": "kirihara",
+        "name": "桐原静矢",
+        "aliases": [
+          "桐原靜矢",
+          "Shizuya Kirihara"
+        ],
+        "file": "kirihara.png",
+        "sourceUrl": "https://ittoshura.com/img/b_chara07.png",
+        "sourcePage": "https://ittoshura.com/character/",
+        "hasShieldFrame": false,
+        "sourceStyle": "anime-monochrome-hexagon",
+        "sourceStatus": "missing-original-curved-shield",
+        "notes": "原始黑白徽章保留存档；显示头像改从 additionalSources 的官方彩色人物设定图裁切，避开文字和能力图表，使用精确盾口合成。原图没有曲边盾框。",
+        "width": 132,
+        "height": 165,
+        "sha256": "d0b83a6c8da72f93e59185ecb149d45535cec423ea888335a1c0a70fbf2f88b2",
+        "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kirihara.png",
+        "displayFile": "prepared/kirihara.png",
+        "preparation": {
+          "method": "closed-shield-region-face-aware-crop-v1",
+          "sourceFile": "color/kirihara.jpg",
+          "sourceSha256": "5306893fbeb628c65cc7d6337a04e633c50d738e9781606c59b557106d4c76b2",
+          "crop": {
+            "left": 383,
+            "top": 86,
+            "width": 277,
+            "height": 333
+          },
+          "outputWidth": 434,
+          "outputHeight": 580,
+          "sha256": "8ab36d2b14f90ff1944a6bb5920ef4f4c3451aa1991f9f0b480d6a9819a2718d"
+        },
+        "additionalSources": [
+          {
+            "file": "color/kirihara.jpg",
+            "sourceUrl": "https://ittoshura.com/character/chara_kirihara.jpg",
+            "sourcePage": "https://ittoshura.com/character/",
+            "sourceStyle": "anime-color-character-sheet",
+            "width": 960,
+            "height": 700,
+            "sha256": "5306893fbeb628c65cc7d6337a04e633c50d738e9781606c59b557106d4c76b2"
+          }
+        ]
+      },
+      {
+        "id": "kuraudo",
+        "name": "仓敷藏人",
+        "aliases": [
+          "倉敷藏人",
+          "倉敷蔵人",
+          "Kuraudo Kurashiki",
+          "Claude Kurashiki"
+        ],
+        "file": "kuraudo.png",
+        "sourceUrl": "https://ittoshura.com/img/b_chara08.png",
+        "sourcePage": "https://ittoshura.com/character/",
+        "hasShieldFrame": false,
+        "sourceStyle": "anime-monochrome-hexagon",
+        "sourceStatus": "missing-original-curved-shield",
+        "notes": "原始黑白徽章保留存档；显示头像改从 additionalSources 的官方彩色人物设定图裁切，避开文字和能力图表，使用精确盾口合成。原图没有曲边盾框。",
+        "width": 132,
+        "height": 165,
+        "sha256": "7a9614a7cc9f96a77b593111b4afe1415166cb13949303fcb7ab4642109b5a46",
+        "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kuraudo.png",
+        "displayFile": "prepared/kuraudo.png",
+        "preparation": {
+          "method": "closed-shield-region-face-aware-crop-v1",
+          "sourceFile": "color/kuraudo.jpg",
+          "sourceSha256": "6452d69614259e0dfcb0934c7aa71e51dc68c245389ce8fc8056d27e159dcb89",
+          "crop": {
+            "left": 394,
+            "top": 118,
+            "width": 259,
+            "height": 312
+          },
+          "outputWidth": 434,
+          "outputHeight": 580,
+          "sha256": "b0a9adff8ca91165bc10c10690d3093a9b37c5fe892611751b34279bcbfb0b90"
+        },
+        "additionalSources": [
+          {
+            "file": "color/kuraudo.jpg",
+            "sourceUrl": "https://ittoshura.com/character/chara_kuraudo.jpg",
+            "sourcePage": "https://ittoshura.com/character/",
+            "sourceStyle": "anime-color-character-sheet",
+            "width": 960,
+            "height": 700,
+            "sha256": "6452d69614259e0dfcb0934c7aa71e51dc68c245389ce8fc8056d27e159dcb89"
+          }
+        ]
+      },
+      {
+        "id": "renren",
+        "name": "兔丸恋恋",
+        "aliases": [
+          "兔丸戀戀",
+          "兎丸恋々",
+          "兔丸恋々",
+          "恋恋",
+          "戀戀",
+          "Renren Tomaru"
+        ],
+        "file": "renren.png",
+        "sourceUrl": "https://ittoshura.com/img/b_chara09.png",
+        "sourcePage": "https://ittoshura.com/character/",
+        "hasShieldFrame": false,
+        "sourceStyle": "anime-monochrome-hexagon",
+        "sourceStatus": "missing-original-curved-shield",
+        "notes": "原始黑白徽章保留存档；显示头像改从 additionalSources 的官方彩色人物设定图裁切，避开文字和能力图表，使用精确盾口合成。原图没有曲边盾框。",
+        "width": 132,
+        "height": 165,
+        "sha256": "bd6e3cf79c49c4ba727d99b15b474093a4b59a46a21dfe1371c8f6d835fbdfa8",
+        "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/renren.png",
+        "displayFile": "prepared/renren.png",
+        "preparation": {
+          "method": "closed-shield-region-face-aware-crop-v1",
+          "sourceFile": "color/renren.jpg",
+          "sourceSha256": "3e6ab182e894ff71a49ff0cc11f0cadcf14860caf9ead37e2ea439bbe8efc7eb",
+          "crop": {
+            "left": 373,
+            "top": 64,
+            "width": 278,
+            "height": 335
+          },
+          "outputWidth": 434,
+          "outputHeight": 580,
+          "sha256": "4036aeca55a4d6482dee15cfe07be7c0b1db5b0ed859ef9956ed046075c067f3"
+        },
+        "additionalSources": [
+          {
+            "file": "color/renren.jpg",
+            "sourceUrl": "https://ittoshura.com/character/chara_renren.jpg",
+            "sourcePage": "https://ittoshura.com/character/",
+            "sourceStyle": "anime-color-character-sheet",
+            "width": 960,
+            "height": 700,
+            "sha256": "3e6ab182e894ff71a49ff0cc11f0cadcf14860caf9ead37e2ea439bbe8efc7eb"
+          }
+        ]
+      },
+      {
+        "id": "misogi",
+        "name": "御祓泡沫",
+        "aliases": [
+          "御祓泡沫",
+          "御祓 泡沫",
+          "御禊泡沫",
+          "泡沫",
+          "Utakata Misogi"
+        ],
+        "file": "misogi.png",
+        "sourceUrl": "https://ittoshura.com/img/b_chara10.png",
+        "sourcePage": "https://ittoshura.com/character/",
+        "hasShieldFrame": false,
+        "sourceStyle": "anime-monochrome-hexagon",
+        "sourceStatus": "missing-original-curved-shield",
+        "notes": "原始黑白徽章保留存档；显示头像改从 additionalSources 的官方彩色人物设定图裁切，避开文字和能力图表，使用精确盾口合成。原图没有曲边盾框。",
+        "width": 132,
+        "height": 165,
+        "sha256": "7d44d9cac526cd240df3a796da92b33dd4df609264c1af19fe0ea5cfdc2a2dd9",
+        "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/misogi.png",
+        "displayFile": "prepared/misogi.png",
+        "preparation": {
+          "method": "closed-shield-region-face-aware-crop-v1",
+          "sourceFile": "color/misogi.jpg",
+          "sourceSha256": "b44da9dffa8d56d21f8cbbff18424298275fd3060ec6ce51ebbba2caa0e8696a",
+          "crop": {
+            "left": 358,
+            "top": 202,
+            "width": 273,
+            "height": 329
+          },
+          "outputWidth": 434,
+          "outputHeight": 580,
+          "sha256": "c089284134efc40f4c73e764c1227cde08f8b83d8569c0f7b08806347593d091"
+        },
+        "additionalSources": [
+          {
+            "file": "color/misogi.jpg",
+            "sourceUrl": "https://ittoshura.com/character/chara_misogi.jpg",
+            "sourcePage": "https://ittoshura.com/character/",
+            "sourceStyle": "anime-color-character-sheet",
+            "width": 960,
+            "height": 700,
+            "sha256": "b44da9dffa8d56d21f8cbbff18424298275fd3060ec6ce51ebbba2caa0e8696a"
+          }
+        ]
+      },
+      {
+        "id": "kanata",
+        "name": "贵德原彼方",
+        "aliases": [
+          "貴德原彼方",
+          "貴徳原彼方",
+          "彼方",
+          "Kanata Totokubara"
+        ],
+        "file": "kanata.png",
+        "sourceUrl": "https://ittoshura.com/img/b_chara11.png",
+        "sourcePage": "https://ittoshura.com/character/",
+        "hasShieldFrame": false,
+        "sourceStyle": "anime-monochrome-hexagon",
+        "sourceStatus": "missing-original-curved-shield",
+        "notes": "原始黑白徽章保留存档；显示头像改从 additionalSources 的官方彩色人物设定图裁切，避开文字和能力图表，使用精确盾口合成。原图没有曲边盾框。",
+        "width": 132,
+        "height": 165,
+        "sha256": "74098af66c42931ad749b24aa6609c2fae4c4c3942b72ad5cbc555ec8cd84f3d",
+        "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kanata.png",
+        "displayFile": "prepared/kanata.png",
+        "preparation": {
+          "method": "closed-shield-region-face-aware-crop-v1",
+          "sourceFile": "color/kanata.jpg",
+          "sourceSha256": "6a61bd289170efeb4cc0113965600c90e93eb4cfb025e99988a06b98895ab2ef",
+          "crop": {
+            "left": 364,
+            "top": 169,
+            "width": 317,
+            "height": 381
+          },
+          "outputWidth": 434,
+          "outputHeight": 580,
+          "sha256": "4eaa2086607fe091f09a87a493199257e0f25b7c0e3820899b2dcdb83c0d68cf"
+        },
+        "additionalSources": [
+          {
+            "file": "color/kanata.jpg",
+            "sourceUrl": "https://ittoshura.com/character/chara_kanata.jpg",
+            "sourcePage": "https://ittoshura.com/character/",
+            "sourceStyle": "anime-color-character-sheet",
+            "width": 960,
+            "height": 700,
+            "sha256": "6a61bd289170efeb4cc0113965600c90e93eb4cfb025e99988a06b98895ab2ef"
+          }
+        ]
+      },
+      {
+        "id": "nene",
+        "name": "西京宁音",
+        "aliases": [
+          "西京寧音",
+          "西京 寧音",
+          "宁音",
+          "寧音",
+          "Nene Saikyo",
+          "Nene Saikyou",
+          "Saikyou Nene"
+        ],
+        "file": "nene.jpg",
+        "sourceUrl": "https://img.animatetimes.com/news/visual/2015/1445575387_1_28_59e14b91f2e17a313f6f43a8de2c151d.jpg",
+        "sourcePage": "https://www.animatetimes.com/tag/details.php?id=5494",
+        "hasShieldFrame": false,
+        "sourceStyle": "anime-color-closeup",
+        "sourceStatus": "missing-original-curved-shield",
+        "notes": "近景原图保留存档；显示合成使用 Bangumi 西京寧音具名角色页的单人动画图，脸与发型构图更完整；这是社区角色页素材，不标为官方素材。",
+        "width": 640,
+        "height": 360,
+        "sha256": "3d244e0535205ca75e57a73a946f665e9da88bd15c1e4f852fa130e116faafdf",
+        "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/nene.png",
+        "displayFile": "prepared/nene.png",
+        "preparation": {
+          "method": "closed-shield-region-face-aware-crop-v1",
+          "sourceFile": "nene-fullbody.jpg",
+          "sourceSha256": "b0ad65368e183fe4d67ceb9bd4b07eba73cfc515ba63891635cfc5eda975a3a0",
+          "crop": {
+            "left": 139,
+            "top": 37,
+            "width": 159,
+            "height": 192
+          },
+          "outputWidth": 434,
+          "outputHeight": 580,
+          "sha256": "b50ffc1deef39c0760c5bb75be8b086eb110ffc235344e35dc5d4898449af775"
+        },
+        "additionalSources": [
+          {
+            "file": "nene-fullbody.jpg",
+            "sourceUrl": "https://lain.bgm.tv/r/400/pic/crt/l/19/f2/35961_crt_dvBpb.jpg?r=1443890477",
+            "sourcePage": "https://bgm.tv/character/35961",
+            "sourceStyle": "anime-color-single-character",
+            "width": 400,
+            "height": 273,
+            "sha256": "b0ad65368e183fe4d67ceb9bd4b07eba73cfc515ba63891635cfc5eda975a3a0"
+          }
+        ]
+      },
+      {
+        "id": "kurono",
+        "name": "新宫寺黑乃",
+        "aliases": [
+          "新宮寺黑乃",
+          "新宮寺黒乃",
+          "黑乃",
+          "黒乃",
+          "Kurono Shinguji",
+          "Kurono Shinguuji"
+        ],
+        "file": "kurono.jpg",
+        "sourceUrl": "https://img.animatetimes.com/news/visual/2015/1443762625_1_10_5f3afcb6135721b0c53d7cabf7d70fc2.jpg",
+        "sourcePage": "https://www.animatetimes.com/tag/details.php?id=5494",
+        "hasShieldFrame": false,
+        "sourceStyle": "anime-color-closeup",
+        "sourceStatus": "missing-original-curved-shield",
+        "notes": "AnimateTimes 具名角色介绍中的彩色动画单人图，原图无盾形；终端以衍生盾框呈现，原图不改。",
+        "width": 640,
+        "height": 360,
+        "sha256": "8e2c35bfa606a3cd5f69601530e1bd600d55f3b68add2650c384ad9df11c5999",
+        "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kurono.png",
+        "displayFile": "prepared/kurono.png",
+        "preparation": {
+          "method": "closed-shield-region-face-aware-crop-v1",
+          "sourceFile": "kurono.jpg",
+          "sourceSha256": "8e2c35bfa606a3cd5f69601530e1bd600d55f3b68add2650c384ad9df11c5999",
+          "crop": {
+            "left": 171,
+            "top": 0,
+            "width": 299,
+            "height": 360
+          },
+          "outputWidth": 434,
+          "outputHeight": 580,
+          "sha256": "ad28a366fa0686f5a1669e1dff3d375b15fbc4df42561515b8a997bef6cbc197"
+        }
+      },
+      {
+        "id": "yuri",
+        "name": "折木有里",
+        "aliases": [
+          "有里",
+          "Yuri Oreki",
+          "折木 有里"
+        ],
+        "file": "yuri.jpg",
+        "sourceUrl": "https://img.animatetimes.com/news/visual/2015/1444211000_1_10_2c97958f3ed0153aabd8ec53b8020a5b.jpg",
+        "sourcePage": "https://www.animatetimes.com/tag/details.php?id=5494",
+        "hasShieldFrame": false,
+        "sourceStyle": "anime-color-closeup",
+        "sourceStatus": "missing-original-curved-shield",
+        "notes": "AnimateTimes 具名角色介绍中的彩色动画单人图，原图无盾形；终端以衍生盾框呈现，原图不改。",
+        "width": 640,
+        "height": 360,
+        "sha256": "66b106f61567a9e8c6bb16df8301909a5b284bd65db0842ff9c744f7cd7239c1",
+        "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/yuri.png",
+        "displayFile": "prepared/yuri.png",
+        "preparation": {
+          "method": "closed-shield-region-face-aware-crop-v1",
+          "sourceFile": "yuri.jpg",
+          "sourceSha256": "66b106f61567a9e8c6bb16df8301909a5b284bd65db0842ff9c744f7cd7239c1",
+          "crop": {
+            "left": 208,
+            "top": 7,
+            "width": 206,
+            "height": 248
+          },
+          "outputWidth": 434,
+          "outputHeight": 580,
+          "sha256": "1dc9497f5bcad73cacd0b819fc04d38e5e0f357e58c53916bb2505decdfb8722"
+        }
+      },
+      {
+        "id": "iris",
+        "name": "艾莉丝·阿斯卡里德",
+        "aliases": [
+          "艾莉絲·阿斯卡里德",
+          "艾莉丝·格尔",
+          "艾莉絲·格爾",
+          "阿斯卡里德",
+          "Iris Ascarid",
+          "Iris Gaule",
+          "アイリス・アスカリッド",
+          "アイリス・ゴール",
+          "黑骑士艾莉丝",
+          "黑騎士艾莉絲",
+          "艾莉丝·格尔·阿斯卡里德",
+          "艾莉絲·格爾·阿斯卡里德"
+        ],
+        "file": "novel/iris.jpg",
+        "sourceUrl": "",
+        "sourcePage": "",
+        "sourceEpub": "39688/[台版]落第骑士英雄谭 11.epub",
+        "sourceMember": "OEBPS/Images/003_.jpg",
+        "hasShieldFrame": false,
+        "sourceStyle": "novel-color-illustration",
+        "sourceStatus": "verified-local-epub-no-original-shield",
+        "width": 1544,
+        "height": 2048,
+        "sha256": "62596a7bd0668571cb1f43faa364ac089ed73edc7ebe7ec91e5c289f28bcd867",
+        "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/iris.png",
+        "identityEvidence": "research/epub/character-evidence.json#iris",
+        "imageVariant": "white-green-qipao",
+        "displayFile": "prepared/iris.png",
+        "preparation": {
+          "method": "closed-shield-region-face-aware-crop-v1",
+          "sourceFile": "novel/iris.jpg",
+          "sourceSha256": "62596a7bd0668571cb1f43faa364ac089ed73edc7ebe7ec91e5c289f28bcd867",
+          "crop": {
+            "left": 955,
+            "top": 179,
+            "width": 571,
+            "height": 686
+          },
+          "outputWidth": 434,
+          "outputHeight": 580,
+          "sha256": "2f95d92246215fa80da423ffb5010c2aefc8d9364febb874ce9c881396cf2c5a",
+          "orientation": {
+            "method": "level-eye-line",
+            "sourceEyes": [
+              [
+                1046,
+                299
+              ],
+              [
+                1174,
+                342
+              ]
+            ],
+            "rotationDegrees": -18.56913073103783,
+            "rotatedWidth": 2116,
+            "rotatedHeight": 2433,
+            "cropSpace": "after-rotation"
+          }
+        }
+      },
+      {
+        "id": "uri",
+        "name": "多多良幽衣",
+        "aliases": [
+          "多多良 幽衣",
+          "幽衣"
+        ],
+        "file": "novel/uri.jpg",
+        "sourceUrl": "",
+        "sourcePage": "",
+        "sourceEpub": "39688/[台版]落第骑士英雄谭 12.epub",
+        "sourceMember": "OEBPS/Images/003.jpg",
+        "hasShieldFrame": false,
+        "sourceStyle": "novel-color-illustration",
+        "sourceStatus": "verified-local-epub-no-original-shield",
+        "width": 1592,
+        "height": 1200,
+        "sha256": "75cf138d6b93c6c596ec1eb9286d602f86124601262554198d32bb15199580b6",
+        "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/uri.png",
+        "identityEvidence": "research/epub/character-evidence.json#uri",
+        "displayFile": "prepared/uri.png",
+        "preparation": {
+          "method": "closed-shield-region-face-aware-crop-v1",
+          "sourceFile": "novel/uri.jpg",
+          "sourceSha256": "75cf138d6b93c6c596ec1eb9286d602f86124601262554198d32bb15199580b6",
+          "crop": {
+            "left": 256,
+            "top": 233,
+            "width": 469,
+            "height": 564
+          },
+          "outputWidth": 434,
+          "outputHeight": 580,
+          "sha256": "b08f9dd4aba68f142f84cfc1ccc6975afacd8a70b77a2c5b6fb6a2a3a4ec5264"
+        }
+      },
+      {
+        "id": "or_gaule",
+        "name": "欧尔·格尔",
+        "aliases": [
+          "歐爾·格爾",
+          "欧尔雷斯·格尔",
+          "歐爾雷斯·格爾",
+          "傀儡王"
+        ],
+        "file": "novel/or-gaule-wallenstein.jpg",
+        "sourceUrl": "",
+        "sourcePage": "",
+        "sourceEpub": "39688/[台版]落第骑士英雄谭 15.epub",
+        "sourceMember": "OEBPS/Images/004.jpg",
+        "hasShieldFrame": false,
+        "sourceStyle": "novel-color-illustration",
+        "sourceStatus": "verified-local-epub-no-original-shield",
+        "width": 1592,
+        "height": 1200,
+        "sha256": "75dc1db0adbf947d526b92d4ef98c3962f79a68bbd381f08d2c952315a31edb9",
+        "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/or_gaule.png",
+        "identityEvidence": "research/epub/character-evidence.json#or_gaule",
+        "imageVariant": "childhood-memory",
+        "displayFile": "prepared/or_gaule.png",
+        "preparation": {
+          "method": "closed-shield-region-face-aware-crop-v1",
+          "sourceFile": "novel/or-gaule-wallenstein.jpg",
+          "sourceSha256": "75dc1db0adbf947d526b92d4ef98c3962f79a68bbd381f08d2c952315a31edb9",
+          "crop": {
+            "left": 146,
+            "top": 92,
+            "width": 619,
+            "height": 744
+          },
+          "outputWidth": 434,
+          "outputHeight": 580,
+          "sha256": "0f52c5a403b298aa839e7cfe10a840660290e46c7125fdc88ba67286c69990fb"
+        },
+        "controlledIdentities": [
+          {
+            "id": "hiraga",
+            "type": "remote-controlled-puppet",
+            "evidence": "research/20261013-tournament/source-report.md"
+          }
+        ]
+      },
+      {
+        "id": "wallenstein",
+        "name": "华伦斯坦",
+        "aliases": [
+          "華倫斯坦"
+        ],
+        "file": "novel/or-gaule-wallenstein.jpg",
+        "sourceUrl": "",
+        "sourcePage": "",
+        "sourceEpub": "39688/[台版]落第骑士英雄谭 15.epub",
+        "sourceMember": "OEBPS/Images/004.jpg",
+        "hasShieldFrame": false,
+        "sourceStyle": "novel-color-illustration",
+        "sourceStatus": "verified-local-epub-no-original-shield",
+        "width": 1592,
+        "height": 1200,
+        "sha256": "75dc1db0adbf947d526b92d4ef98c3962f79a68bbd381f08d2c952315a31edb9",
+        "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/wallenstein.png",
+        "identityEvidence": "research/epub/character-evidence.json#wallenstein",
+        "displayFile": "prepared/wallenstein.png",
+        "preparation": {
+          "method": "closed-shield-region-face-aware-crop-v1",
+          "sourceFile": "novel/or-gaule-wallenstein.jpg",
+          "sourceSha256": "75dc1db0adbf947d526b92d4ef98c3962f79a68bbd381f08d2c952315a31edb9",
+          "crop": {
+            "left": 1061,
+            "top": 35,
+            "width": 419,
+            "height": 504
+          },
+          "outputWidth": 434,
+          "outputHeight": 580,
+          "sha256": "4643fedc2492738e314f9da9674d8802aec291353b9b331509f6afee8e262938"
+        }
+      },
+      {
+        "id": "kiriko",
+        "name": "药师雾子",
+        "aliases": [
+          "藥師霧子"
+        ],
+        "file": "novel/kiriko.jpg",
+        "sourceEpub": "39688/[台版]落第骑士英雄谭 05.epub",
+        "sourceMember": "OEBPS/Images/004.jpg",
+        "sourceUrl": "",
+        "sourcePage": "",
+        "hasShieldFrame": false,
+        "sourceStyle": "novel-color-illustration",
+        "sourceStatus": "verified-local-epub-no-original-shield",
+        "width": 2352,
+        "height": 1776,
+        "sha256": "2ae42c80bff67c163408cf2773437aad3b70ffd5da3f7fbd7a814452838bd344",
+        "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kiriko.png",
+        "identityEvidence": "research/epub/character-evidence.json#kiriko",
+        "displayFile": "prepared/kiriko.png",
+        "preparation": {
+          "method": "closed-shield-region-face-aware-crop-v1",
+          "sourceFile": "novel/kiriko.jpg",
+          "sourceSha256": "2ae42c80bff67c163408cf2773437aad3b70ffd5da3f7fbd7a814452838bd344",
+          "crop": {
+            "left": 1541,
+            "top": 240,
+            "width": 749,
+            "height": 900
+          },
+          "outputWidth": 434,
+          "outputHeight": 580,
+          "sha256": "94a54c1f4a57a5bc669abbca6f196416a955b61c895ec26daa1458ecb47abcf2",
+          "orientation": {
+            "method": "level-eye-line",
+            "sourceEyes": [
+              [
+                1712,
+                492
+              ],
+              [
+                1986,
+                599
+              ]
+            ],
+            "rotationDegrees": -21.331189529861557,
+            "rotatedWidth": 2837,
+            "rotatedHeight": 2510,
+            "cropSpace": "after-rotation"
+          }
+        }
+      },
+      {
+        "id": "sara",
+        "name": "莎拉·布拉德莉莉",
+        "aliases": [
+          "莎拉"
+        ],
+        "file": "novel/sara.jpg",
+        "sourceEpub": "39688/[台版]落第骑士英雄谭 06.epub",
+        "sourceMember": "OEBPS/Images/005.jpg",
+        "sourceUrl": "",
+        "sourcePage": "",
+        "hasShieldFrame": false,
+        "sourceStyle": "novel-color-illustration",
+        "sourceStatus": "verified-local-epub-no-original-shield",
+        "width": 2353,
+        "height": 1654,
+        "sha256": "b82d80e24674d1509072e01e4ca77eebfefb65c2aec482eab15ab6d872972cf1",
+        "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/sara.png",
+        "identityEvidence": "research/epub/character-evidence.json#sara",
+        "displayFile": "prepared/sara.png",
+        "preparation": {
+          "method": "closed-shield-region-face-aware-crop-v1",
+          "sourceFile": "novel/sara.jpg",
+          "sourceSha256": "b82d80e24674d1509072e01e4ca77eebfefb65c2aec482eab15ab6d872972cf1",
+          "crop": {
+            "left": 600,
+            "top": 1260,
+            "width": 599,
+            "height": 720
+          },
+          "outputWidth": 434,
+          "outputHeight": 580,
+          "sha256": "740ce910c5fc988f7ea399e61b81b20c88c71ecbab774eb67b060e1d501e99f0",
+          "orientation": {
+            "method": "level-eye-line",
+            "sourceEyes": [
+              [
+                659,
+                416
+              ],
+              [
+                767,
+                519
+              ]
+            ],
+            "rotationDegrees": -43.64253415546939,
+            "rotatedWidth": 2844,
+            "rotatedHeight": 2821,
+            "cropSpace": "after-rotation"
+          }
+        }
+      },
+      {
+        "id": "rinna",
+        "name": "风祭凛奈",
+        "aliases": [
+          "風祭凜奈",
+          "風祭凛奈",
+          "风祭凜奈",
+          "凛奈",
+          "凜奈",
+          "Rinna Kazamatsuri",
+          "风祭",
+          "風祭"
+        ],
+        "file": "novel/rinna-original.jpg",
+        "sourceEpub": "39688/[台版]落第骑士英雄谭 05.epub",
+        "sourceMember": "OEBPS/Images/007.jpg",
+        "sourceUrl": "",
+        "sourcePage": "",
+        "hasShieldFrame": false,
+        "sourceStyle": "novel-monochrome-illustration",
+        "sourceStatus": "verified-local-epub-ai-colorized",
+        "width": 700,
+        "height": 1000,
+        "sha256": "a4d646adeb9caa9d328173fe7dc2aa3ccfc59e31338bfb1199d5409c26072355",
+        "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/rinna.png",
+        "identityEvidence": "research/epub/character-evidence.json#rinna",
+        "colorization": {
+          "type": "ai-colorized-derivative",
+          "mode": "built-in",
+          "file": "novel/rinna-colorized.png",
+          "record": "research/epub/rinna-colorization.json",
+          "colorReferenceVolume": 18,
+          "note": "第5卷原黑白图上色；参考第18卷发色和瞳色，深红礼服依据第5卷正文。蝴蝶结深红为上色选择。非官方原生彩图。"
+        },
+        "displayFile": "prepared/rinna.png",
+        "preparation": {
+          "method": "closed-shield-region-face-aware-crop-v1",
+          "sourceFile": "novel/rinna-colorized.png",
+          "sourceSha256": "5e218dd8603c135d53b0a7e7cd2c9a277817a20d6d3c6dc249dc3c12c6eb0cc7",
+          "crop": {
+            "left": 310,
+            "top": 370,
+            "width": 817,
+            "height": 982
+          },
+          "outputWidth": 434,
+          "outputHeight": 580,
+          "sha256": "9928336c35311d38bc1f719351ca963cdff50ce426da03d037087f4dd5841c91",
+          "orientation": {
+            "method": "level-eye-line",
+            "sourceEyes": [
+              [
+                356,
+                740
+              ],
+              [
+                628,
+                817
+              ]
+            ],
+            "rotationDegrees": -15.806193600678467,
+            "landmarkNote": "左点是眼罩覆盖的眼位中心，未推定被遮住瞳孔的外观。",
+            "rotatedWidth": 1421,
+            "rotatedHeight": 1723,
+            "cropSpace": "after-rotation"
+          }
+        }
+      },
+      {
+        "id": "ein",
+        "name": "艾茵·阿伯伦特",
+        "aliases": [
+          "艾茵·阿伯倫特",
+          "艾茵",
+          "Ein",
+          "Dirty Rose"
+        ],
+        "file": "novel/ein.jpg",
+        "sourceEpub": "39688/[台版]落第骑士英雄谭 13.epub",
+        "sourceMember": "OEBPS/Images/004.jpg",
+        "sourceUrl": "",
+        "sourcePage": "",
+        "hasShieldFrame": false,
+        "sourceStyle": "novel-color-illustration",
+        "sourceStatus": "verified-local-epub-no-original-shield",
+        "width": 1674,
+        "height": 1200,
+        "sha256": "05cbc99c5aa0fc168fb978c77242de943fa7ab43207f6376f00ebf0f56a908f9",
+        "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/ein.png",
+        "identityEvidence": "research/epub/character-evidence.json#ein",
+        "displayFile": "prepared/ein.png",
+        "preparation": {
+          "method": "closed-shield-region-face-aware-crop-v1",
+          "sourceFile": "novel/ein.jpg",
+          "sourceSha256": "05cbc99c5aa0fc168fb978c77242de943fa7ab43207f6376f00ebf0f56a908f9",
+          "crop": {
+            "left": 755,
+            "top": 920,
+            "width": 259,
+            "height": 312
+          },
+          "outputWidth": 434,
+          "outputHeight": 580,
+          "sha256": "819d3b90f199592824badef5c76374a6ec31bc1c8427a433f822c92a5deb5feb",
+          "orientation": {
+            "method": "level-eye-line",
+            "sourceEyes": [
+              [
+                693,
+                517
+              ],
+              [
+                726,
+                551
+              ]
+            ],
+            "rotationDegrees": -45.85509739626672,
+            "rotatedWidth": 2027,
+            "rotatedHeight": 2037,
+            "cropSpace": "after-rotation"
+          }
+        }
+      },
+      {
+        "id": "rai",
+        "name": "碎城雷",
+        "aliases": [
+          "IKADSUCHI SAIJO",
+          "Ikadsuchi Saijo"
+        ],
+        "file": "novel/rai-original.jpg",
+        "sourceMember": "OEBPS/Images/007.jpg",
+        "sourceEpub": "39688/[台版]落第骑士英雄谭 09.epub",
+        "sourceUrl": "",
+        "sourcePage": "",
+        "hasShieldFrame": false,
+        "sourceStyle": "novel-monochrome-illustration",
+        "sourceStatus": "verified-local-epub-ai-colorized",
+        "width": 1061,
+        "height": 1600,
+        "sha256": "522938ed04fd940dc5d2c6465b4f377b527736a8b4df7418e26954301b6908ef",
+        "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/rai.png",
+        "identityEvidence": "research/epub/character-evidence.json#rai",
+        "colorization": {
+          "type": "ai-colorized-derivative",
+          "mode": "built-in",
+          "file": "novel/rai-colorized.png",
+          "record": "research/epub/rai-colorization.json",
+          "colorReferenceFile": "research/user-supplied/rai-anime-reference.png",
+          "note": "保留第9卷小說人物，使用用户提供的小说裁片上色；动画截图仅作配色参考。非官方原生彩图。"
+        },
+        "displayFile": "prepared/rai.png",
+        "preparation": {
+          "method": "closed-shield-region-face-aware-crop-v1",
+          "sourceFile": "novel/rai-colorized.png",
+          "sourceSha256": "73fee756e7be1c0ae8befd0bc4049db6c144465be8512f36d5d593d3387940ea",
+          "crop": {
+            "left": 455,
+            "top": 416,
+            "width": 835,
+            "height": 1004
+          },
+          "outputWidth": 434,
+          "outputHeight": 580,
+          "sha256": "92c08ec2f9141c50c7b68f926b30b349dc545c9611a3f83931cb55727bee13a2",
+          "orientation": {
+            "method": "level-eye-line",
+            "sourceEyes": [
+              [
+                387,
+                719
+              ],
+              [
+                632,
+                568
+              ]
+            ],
+            "rotationDegrees": 31.646629792759,
+            "rotatedWidth": 1693,
+            "rotatedHeight": 1776,
+            "cropSpace": "after-rotation"
+          }
+        }
+      },
+      {
+        "id": "momiji",
+        "name": "浅木椛",
+        "aliases": [
+          "淺木椛",
+          "浅桦",
+          "淺樺",
+          "Momiji Asagi",
+          "MOMIJI ASAGI"
+        ],
+        "file": "novel/byakuya-momiji.jpg",
+        "sourceMember": "OEBPS/Images/003.jpg",
+        "sourceEpub": "39688/[台版]落第骑士英雄谭 09.epub",
+        "sourceUrl": "",
+        "sourcePage": "",
+        "hasShieldFrame": false,
+        "sourceStyle": "novel-color-illustration",
+        "sourceStatus": "verified-local-epub-no-original-shield",
+        "width": 2352,
+        "height": 1776,
+        "sha256": "8eb2923f55025f48385de5dd4afe20de9b9311dbebc26e00b042e84e357d9652",
+        "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/momiji.png",
+        "identityEvidence": "research/epub/character-evidence.json#momiji",
+        "aliasNotes": {
+          "浅桦/淺樺": "用户在本次对话中使用的简称，仅用于头像匹配；标准姓名为浅木椛。"
+        },
+        "displayFile": "prepared/momiji.png",
+        "preparation": {
+          "method": "closed-shield-region-face-aware-crop-v1",
+          "sourceFile": "novel/byakuya-momiji.jpg",
+          "sourceSha256": "8eb2923f55025f48385de5dd4afe20de9b9311dbebc26e00b042e84e357d9652",
+          "crop": {
+            "left": 411,
+            "top": 856,
+            "width": 439,
+            "height": 528
+          },
+          "outputWidth": 434,
+          "outputHeight": 580,
+          "sha256": "5009e697eab88be6df154dedd51a97844f91efa94bb8119d95866eb5fe4f4651",
+          "orientation": {
+            "method": "level-eye-line",
+            "sourceEyes": [
+              [
+                220,
+                1243
+              ],
+              [
+                306,
+                1170
+              ]
+            ],
+            "rotationDegrees": 40.32583628886923,
+            "rotatedWidth": 2942,
+            "rotatedHeight": 2876,
+            "cropSpace": "after-rotation"
+          }
+        }
+      },
+      {
+        "id": "byakuya",
+        "name": "城之崎白夜",
+        "aliases": [
+          "白夜",
+          "Byakuya Jogasaki",
+          "BYAKUYA JOGASAKI"
+        ],
+        "file": "novel/byakuya-momiji.jpg",
+        "sourceMember": "OEBPS/Images/003.jpg",
+        "sourceEpub": "39688/[台版]落第骑士英雄谭 09.epub",
+        "sourceUrl": "",
+        "sourcePage": "",
+        "hasShieldFrame": false,
+        "sourceStyle": "novel-color-illustration",
+        "sourceStatus": "verified-local-epub-no-original-shield",
+        "width": 2352,
+        "height": 1776,
+        "sha256": "8eb2923f55025f48385de5dd4afe20de9b9311dbebc26e00b042e84e357d9652",
+        "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/byakuya.png",
+        "identityEvidence": "research/epub/character-evidence.json#byakuya",
+        "displayFile": "prepared/byakuya.png",
+        "preparation": {
+          "method": "closed-shield-region-face-aware-crop-v1",
+          "sourceFile": "novel/byakuya-momiji.jpg",
+          "sourceSha256": "8eb2923f55025f48385de5dd4afe20de9b9311dbebc26e00b042e84e357d9652",
+          "crop": {
+            "left": 841,
+            "top": 660,
+            "width": 479,
+            "height": 576
+          },
+          "outputWidth": 434,
+          "outputHeight": 580,
+          "sha256": "9ee21ae7e0114a11b3dbd8ea73ee5ac1fffd51ce46f6e21647d2af407dc11244",
+          "orientation": {
+            "method": "level-eye-line",
+            "sourceEyes": [
+              [
+                495,
+                872
+              ],
+              [
+                587,
+                789
+              ]
+            ],
+            "rotationDegrees": 42.05595365001238,
+            "rotatedWidth": 2936,
+            "rotatedHeight": 2894,
+            "cropSpace": "after-rotation"
+          }
+        }
+      },
+      {
+        "id": "mikoto",
+        "name": "鹤屋美琴",
+        "aliases": [
+          "鶴屋美琴",
+          "Mikoto Tsuruya",
+          "Tsuruya Mikoto"
+        ],
+        "file": "research/user-supplied/mikoto-profile-screenshot.png",
+        "sourceUrl": "",
+        "sourcePage": "",
+        "hasShieldFrame": false,
+        "sourceStyle": "user-supplied-monochrome-illustration",
+        "sourceStatus": "identity-confirmed-user-image-ai-colorized",
+        "width": 483,
+        "height": 1212,
+        "sha256": "2c3f93e72e8fbdf40f6e90819710888f10a7b7631fa52e84f36b36d0b10fcf75",
+        "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/mikoto.png",
+        "identityEvidence": "research/epub/character-evidence.json#mikoto",
+        "colorization": {
+          "type": "ai-colorized-derivative",
+          "mode": "built-in",
+          "file": "color/mikoto-colorized.png",
+          "record": "research/epub/mikoto-colorization.json",
+          "note": "使用用户提供的黑白人物裁图上色；灰金发有第5卷尾声正文依据。原出版载体未核实，眼睛深灰与灰白制服为本次中性补色，不标为官方原生彩图。"
+        },
+        "displayFile": "prepared/mikoto.png",
+        "preparation": {
+          "method": "closed-shield-region-face-aware-crop-v1",
+          "sourceFile": "color/mikoto-colorized.png",
+          "sourceSha256": "0be6927fecc54f0ae01a535dc1b212e883f968efffd06088157c32d801d4639d",
+          "crop": {
+            "left": 164,
+            "top": 53,
+            "width": 764,
+            "height": 918
+          },
+          "outputWidth": 434,
+          "outputHeight": 580,
+          "sha256": "b5492b71cefe1ff9864d624920fd9c71d70d14c3bf70f2e4aea207da9dcde1f8"
+        }
+      },
+      {
+        "id": "xiaoli",
+        "name": "福小莉",
+        "aliases": [
+          "Fu Xiaoli",
+          "Xiaoli Fu"
+        ],
+        "file": "novel/xiaoli-vol18-original.jpg",
+        "sourceEpub": "39688/落第骑士英雄谭 - 18.epub",
+        "sourceMember": "OEBPS/Images/190226.jpg",
+        "sourceUrl": "",
+        "sourcePage": "",
+        "hasShieldFrame": false,
+        "sourceStyle": "novel-monochrome-illustration",
+        "sourceStatus": "verified-local-epub-ai-colorized",
+        "width": 1120,
+        "height": 1600,
+        "sha256": "285689368c9c5e4599a63a3e548dd6bea507ad1d34315bb4c547bf0e14f34257",
+        "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/xiaoli.png",
+        "identityEvidence": "research/epub/character-evidence.json#xiaoli",
+        "colorization": {
+          "type": "ai-colorized-derivative",
+          "mode": "built-in",
+          "file": "color/xiaoli-vol18-colorized.png",
+          "record": "research/epub/xiaoli-vol18-colorization.json",
+          "note": "第18卷中华服原黑白图上色；黑长发与偏深肤色依据原文，两枚金钱饰片金色为用户指定，白金服装与棕色瞳孔为衍生选色。非官方原生彩图。"
+        },
+        "displayFile": "prepared/xiaoli.png",
+        "preparation": {
+          "method": "closed-shield-region-face-aware-crop-v1",
+          "sourceFile": "color/xiaoli-vol18-colorized.png",
+          "sourceSha256": "1ccc1dce1ca2dc5f1c5e26aed6da58e57c6966fb91507cce9c24405081aa298d",
+          "crop": {
+            "left": 475,
+            "top": 229,
+            "width": 745,
+            "height": 895
+          },
+          "outputWidth": 434,
+          "outputHeight": 580,
+          "sha256": "48391e3f9b26edad554dd1a910c53280c03da38f4ce65c33798acc67036e3fdb",
+          "orientation": {
+            "method": "level-eye-line",
+            "sourceEyes": [
+              [
+                291,
+                504
+              ],
+              [
+                495,
+                435
+              ]
+            ],
+            "rotationDegrees": 18.687351505211165,
+            "rotatedWidth": 1414,
+            "rotatedHeight": 1938,
+            "cropSpace": "after-rotation"
+          }
+        }
+      },
+      {
+        "id": "charlotte",
+        "name": "夏洛特·科黛",
+        "aliases": [
+          "夏洛特",
+          "夏洛特・科黛",
+          "夏洛特•科黛",
+          "Charlotte Cordé",
+          "Charlotte Corde"
+        ],
+        "file": "novel/charlotte-original.jpg",
+        "sourceEpub": "39688/[台版]落第骑士英雄谭 05.epub",
+        "sourceMember": "OEBPS/Images/007.jpg",
+        "sourceUrl": "",
+        "sourcePage": "",
+        "hasShieldFrame": false,
+        "sourceStyle": "novel-monochrome-illustration",
+        "sourceStatus": "verified-local-epub-ai-colorized",
+        "width": 700,
+        "height": 1000,
+        "sha256": "a4d646adeb9caa9d328173fe7dc2aa3ccfc59e31338bfb1199d5409c26072355",
+        "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/charlotte.png",
+        "imageHostStatus": {
+          "status": "verified-matching-local",
+          "url": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/charlotte.png",
+          "verification": "research/github-pages/rinna-charlotte-verification.json",
+          "note": "图床返回有效 PNG，字节与 prepared/charlotte.png 完全一致；终端与气泡使用 imageUrl。"
+        },
+        "identityEvidence": "research/epub/charlotte-evidence.json",
+        "colorization": {
+          "type": "ai-colorized-derivative",
+          "mode": "built-in",
+          "file": "color/charlotte-colorized.png",
+          "record": "research/epub/charlotte-colorization.json",
+          "colorReferenceVolume": 6,
+          "note": "第5卷女仆正面原黑白图上色；绿发紫瞳与黑白女仆装参考第6卷官方彩页。紫红格纹蝴蝶结为衍生选色。非官方原生彩图。"
+        },
+        "displayFile": "prepared/charlotte.png",
+        "preparation": {
+          "method": "closed-shield-region-face-aware-crop-v1",
+          "sourceFile": "color/charlotte-colorized.png",
+          "sourceSha256": "bba4822263a9632084c50a9a3822fa12091cd1087adb08165d48e78ae97b4445",
+          "crop": {
+            "left": 185,
+            "top": 55,
+            "width": 845,
+            "height": 1015
+          },
+          "outputWidth": 434,
+          "outputHeight": 580,
+          "sha256": "d57628136e0824c300dceab51dfa03ee3fdf98f9ac8261c364abfac8d91b13b2",
+          "orientation": {
+            "method": "level-eye-line",
+            "sourceEyes": [
+              [
+                426,
+                345
+              ],
+              [
+                710,
+                326
+              ]
+            ],
+            "rotationDegrees": 3.8274648269218106,
+            "rotatedWidth": 1149,
+            "rotatedHeight": 1563,
+            "cropSpace": "after-rotation"
+          }
+        }
+      },
+      {
+        "id": "kagami",
+        "name": "日下部加加美",
+        "aliases": [
+          "加加美",
+          "日下部加々美",
+          "加々美",
+          "Kagami Kusakabe",
+          "Kusakabe Kagami"
+        ],
+        "file": "anime/kagami-original.jpg",
+        "sourceUrl": "https://ittoshura.com/story/img/onair_p02_3.jpg",
+        "sourcePage": "https://ittoshura.com/story/epsode2.html",
+        "hasShieldFrame": false,
+        "sourceStyle": "anime-color-official-episode-still",
+        "sourceStatus": "verified-official-anime-still",
+        "width": 620,
+        "height": 349,
+        "sha256": "411cad202386d5b61d85dd611ec4a5f164f175d54deedffa9bdaaf8c3f88a0d4",
+        "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kagami.png",
+        "identityEvidence": "research/anime/kagami-evidence.json",
+        "imageHostStatus": {
+          "status": "verified-matching-local",
+          "url": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kagami.png",
+          "verification": "research/anime/kagami-host-verification.json",
+          "note": "HTTP200，有效PNG434×580，SHA-256与prepared/kagami.png完全一致；重建后小手机与正文气泡使用imageUrl。"
+        },
+        "displayFile": "prepared/kagami.png",
+        "preparation": {
+          "method": "closed-shield-region-face-aware-crop-v1",
+          "sourceFile": "anime/kagami-leveled.png",
+          "sourceSha256": "d007d49ddffa654a78500743ca5b50dfea52474502ad5dacb74610057d98dc15",
+          "crop": {
+            "left": 280,
+            "top": 100,
+            "width": 274,
+            "height": 330
+          },
+          "outputWidth": 434,
+          "outputHeight": 580,
+          "sha256": "835825c7cb1476f4982b61eb94537ce4c802d7def37a35dcf873510d76cecd0b"
+        },
+        "preprocess": {
+          "method": "level-eye-line-and-solid-padding",
+          "file": "anime/kagami-leveled.png",
+          "originalFile": "anime/kagami-original.jpg",
+          "sourceEyes": [
+            [
+              334,
+              63
+            ],
+            [
+              430,
+              102
+            ]
+          ],
+          "rotationDegrees": -22.109448343751673,
+          "background": "#d2b49a",
+          "note": "保留官方画面的人物与配色；眼线校正后产生的边角用暖色底填充，非AI重绘。实际盾口裁切避开大部分填充区域。",
+          "sha256": "d007d49ddffa654a78500743ca5b50dfea52474502ad5dacb74610057d98dc15"
+        }
+      },
+      {
+        "id": "amane",
+        "name": "紫乃宫天音",
+        "aliases": [
+          "紫乃宮天音",
+          "天音",
+          "Amane Shinomiya",
+          "Shinomiya Amane"
+        ],
+        "file": "research/20261013-tournament/amane-vol08-original.jpg",
+        "sourceUrl": "",
+        "sourcePage": "",
+        "hasShieldFrame": false,
+        "sourceStyle": "novel-color-illustration",
+        "sourceStatus": "verified-local-epub-ai-enhanced",
+        "width": 2353,
+        "height": 1654,
+        "sha256": "e255b1b810a71f23bb4a49aee4b1562342e072687050ae8a96cd2375c138a083",
+        "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/amane.png",
+        "identityEvidence": "research/20261013-tournament/source-report.md",
+        "displayFile": "prepared/amane.png",
+        "preparation": {
+          "method": "built-in-imagegen-portrait-restoration-shield",
+          "sourceFile": "research/20261013-tournament/amane-vol08-original.jpg",
+          "sourceSha256": "e255b1b810a71f23bb4a49aee4b1562342e072687050ae8a96cd2375c138a083",
+          "templateFile": "prepared/kanata.png",
+          "outputWidth": 1085,
+          "outputHeight": 1450,
+          "sha256": "1d140ba65e1da510fe00a0bf1cdc3a0eeaf91b049b93213b2efce40c64cb63bc",
+          "record": "research/20261013-tournament/imagegen-record.json"
+        },
+        "derivation": {
+          "type": "ai-enhanced-derivative",
+          "mode": "built-in",
+          "note": "从原图提取单人头肩、增强清晰度并生成曲边盾形；是AI编辑衍生图，不是原始官方头像。原图另存。"
+        },
+        "imageHostStatus": {
+          "status": "prefilled-not-uploaded",
+          "url": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/amane.png",
+          "note": "按现有GitHub Pages路径预填；本轮未上传、未核验远端。"
+        },
+        "sourceEpub": "39688/[台版]落第骑士英雄谭 08.epub",
+        "sourceMember": "OEBPS/Images/005.jpg"
+      },
+      {
+        "id": "hiraga",
+        "name": "平贺玲泉",
+        "aliases": [
+          "平賀玲泉",
+          "平贺",
+          "平賀",
+          "Reisen Hiraga",
+          "Hiraga Reisen"
+        ],
+        "file": "research/20261013-tournament/hiraga-vol04-original.jpg",
+        "sourceUrl": "",
+        "sourcePage": "",
+        "hasShieldFrame": false,
+        "sourceStyle": "novel-color-illustration",
+        "sourceStatus": "verified-local-epub-ai-enhanced",
+        "width": 2352,
+        "height": 1776,
+        "sha256": "46019e14992d2039433ec7accdd6c974869ef654ce57907c433255e698923698",
+        "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/hiraga.png",
+        "identityEvidence": "research/20261013-tournament/source-report.md",
+        "displayFile": "prepared/hiraga.png",
+        "preparation": {
+          "method": "built-in-imagegen-portrait-restoration-shield",
+          "sourceFile": "research/20261013-tournament/hiraga-vol04-original.jpg",
+          "sourceSha256": "46019e14992d2039433ec7accdd6c974869ef654ce57907c433255e698923698",
+          "templateFile": "prepared/kanata.png",
+          "outputWidth": 1085,
+          "outputHeight": 1449,
+          "sha256": "8ac98efd5840eb8fa04ffbff4ace921601cd2900cf75ce14819e329a8409908a",
+          "record": "research/20261013-tournament/imagegen-record.json"
+        },
+        "derivation": {
+          "type": "ai-enhanced-derivative",
+          "mode": "built-in",
+          "note": "从原图提取单人头肩、增强清晰度并生成曲边盾形；是AI编辑衍生图，不是原始官方头像。原图另存。"
+        },
+        "imageHostStatus": {
+          "status": "prefilled-not-uploaded",
+          "url": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/hiraga.png",
+          "note": "按现有GitHub Pages路径预填；本轮未上传、未核验远端。"
+        },
+        "sourceEpub": "39688/[台版]落第骑士英雄谭 04.epub",
+        "sourceMember": "OEBPS/Images/004.jpg",
+        "identityRelation": {
+          "type": "remote-controlled-puppet",
+          "controllerId": "or_gaule",
+          "note": "平贺玲泉是欧尔·格尔操纵的机关人偶中继站；比赛头像使用人偶形象。两个头像键表示本体与受控身份，不能按两名独立真人处理。",
+          "evidence": "research/20261013-tournament/source-report.md",
+          "revealPolicy": "只有剧情已揭露幕后身份时才向玩家显示关联。"
+        }
+      },
+      {
+        "id": "botan",
+        "name": "叶暮牡丹",
+        "aliases": [
+          "葉暮牡丹",
+          "牡丹",
+          "Botan Hagure",
+          "Hagure Botan"
+        ],
+        "file": "research/20261013-tournament/hagure-original.webp",
+        "sourceUrl": "https://static.wikia.nocookie.net/rakudai-kishi-no-eiyuutan/images/6/6f/RKNC.jpg/revision/latest?cb=20161003024304",
+        "sourcePage": "https://rakudai-kishi.fandom.com/wiki/Hagure_Sisters",
+        "hasShieldFrame": false,
+        "sourceStyle": "anime-color-screenshot",
+        "sourceStatus": "identified-fandom-screenshot-ai-enhanced",
+        "width": 1201,
+        "height": 623,
+        "sha256": "bfe471ef60904d0e29cba73be715b94d3c11c1f1a43e4e35bcb77384d66eb8d6",
+        "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/botan.png",
+        "identityEvidence": "research/20261013-tournament/hagure-evidence.json",
+        "displayFile": "prepared/botan.png",
+        "preparation": {
+          "method": "built-in-imagegen-portrait-restoration-shield",
+          "sourceFile": "research/20261013-tournament/hagure-original.webp",
+          "sourceSha256": "bfe471ef60904d0e29cba73be715b94d3c11c1f1a43e4e35bcb77384d66eb8d6",
+          "templateFile": "prepared/kanata.png",
+          "outputWidth": 1085,
+          "outputHeight": 1450,
+          "sha256": "70e179e93321bb7fe77cb44437e75d64bb7cde0b33698e0d9c23319701080f02",
+          "record": "research/20261013-tournament/imagegen-record.json"
+        },
+        "derivation": {
+          "type": "ai-enhanced-derivative",
+          "mode": "built-in",
+          "note": "从原图提取单人头肩、增强清晰度并生成曲边盾形；是AI编辑衍生图，不是原始官方头像。原图另存。"
+        },
+        "imageHostStatus": {
+          "status": "prefilled-not-uploaded",
+          "url": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/botan.png",
+          "note": "按现有GitHub Pages路径预填；本轮未上传、未核验远端。"
+        }
+      },
+      {
+        "id": "kikyo",
+        "name": "叶暮桔梗",
+        "aliases": [
+          "葉暮桔梗",
+          "桔梗",
+          "Kikyo Hagure",
+          "Kikyou Hagure",
+          "Hagure Kikyo",
+          "Hagure Kikyō"
+        ],
+        "file": "research/20261013-tournament/hagure-original.webp",
+        "sourceUrl": "https://static.wikia.nocookie.net/rakudai-kishi-no-eiyuutan/images/6/6f/RKNC.jpg/revision/latest?cb=20161003024304",
+        "sourcePage": "https://rakudai-kishi.fandom.com/wiki/Hagure_Sisters",
+        "hasShieldFrame": false,
+        "sourceStyle": "anime-color-screenshot",
+        "sourceStatus": "identified-fandom-screenshot-ai-enhanced",
+        "width": 1201,
+        "height": 623,
+        "sha256": "bfe471ef60904d0e29cba73be715b94d3c11c1f1a43e4e35bcb77384d66eb8d6",
+        "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kikyo.png",
+        "identityEvidence": "research/20261013-tournament/hagure-evidence.json",
+        "displayFile": "prepared/kikyo.png",
+        "preparation": {
+          "method": "built-in-imagegen-portrait-restoration-shield",
+          "sourceFile": "research/20261013-tournament/hagure-original.webp",
+          "sourceSha256": "bfe471ef60904d0e29cba73be715b94d3c11c1f1a43e4e35bcb77384d66eb8d6",
+          "templateFile": "prepared/kanata.png",
+          "outputWidth": 1085,
+          "outputHeight": 1450,
+          "sha256": "eaf0977b38aa2eb9f2c27ca746d407c6ee2d1d584c8a0c28b5b8feadbce6c702",
+          "record": "research/20261013-tournament/imagegen-record.json"
+        },
+        "derivation": {
+          "type": "ai-enhanced-derivative",
+          "mode": "built-in",
+          "note": "从原图提取单人头肩、增强清晰度并生成曲边盾形；是AI编辑衍生图，不是原始官方头像。原图另存。"
+        },
+        "imageHostStatus": {
+          "status": "prefilled-not-uploaded",
+          "url": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kikyo.png",
+          "note": "按现有GitHub Pages路径预填；本轮未上传、未核验远端。"
+        }
+      }
+    ],
+    "missingPortraits": [
+      {
+        "name": "绫辻海斗",
+        "aliases": [
+          "綾辻海斗"
+        ],
+        "status": "no-verified-portrait"
+      }
+    ],
+    "ambiguousAliases": [
+      {
+        "aliases": [
+          "艾莉丝",
+          "艾莉絲"
+        ],
+        "characters": [
+          "nagi",
+          "iris"
+        ],
+        "handling": "Unbound. Use 有栖院凪 or 艾莉丝·阿斯卡里德 to select an image."
+      }
+    ]
+  },
+  "fileHashes": {
+    "ikki.png": "c1aa07045f00041d0602657929990df12bfe5f0e211b90e5b0c6bb3f97c9bc7a",
+    "stella.png": "22e0a4ddd11c110e44f551e1e7094e110a333973ee22b2cb5108325f5cc3d38a",
+    "shizuku.png": "76cd763eb54496c8a8d7e9bc8342c443e56be5a7887582e280a61ed164c7e8c6",
+    "ayase.png": "05d897307eae2cf1e9b68afa45e924717d825b505128758a8fa037ecdb645142",
+    "toka.png": "186250c240708672366657fdf59bd417f0ffe130a332c11d436367cd22245463",
+    "itsuki.png": "7022e2738e4f6a317be972e95da5f103f2e9f226f2e4f9e95ae400bdaf64298c",
+    "ouma.png": "a6be886848dd32be84c17e1fb83ade6e6a6933d6a17ecd992251e3d2a9500e57",
+    "edelweiss.png": "3eecdd710e24eac22820c725f2305370b028dd0a993d0cd8cad88822d35a8b54",
+    "yuudai.png": "48ecaae18cbbf038b6a5bdf483ad31742557dc482804cf919d0151ab9b0865ae",
+    "prepared/nagi.png": "d0941a3057192ac42689b48dad91a1e565164a8877e96071dc994a07181be5fd",
+    "nagi.png": "38b2d0097ce6fcfc873be87403241b5e6fb29ad4a3b583633d12fe8e5f04a084",
+    "prepared/kirihara.png": "8ab36d2b14f90ff1944a6bb5920ef4f4c3451aa1991f9f0b480d6a9819a2718d",
+    "kirihara.png": "d0b83a6c8da72f93e59185ecb149d45535cec423ea888335a1c0a70fbf2f88b2",
+    "prepared/kuraudo.png": "b0a9adff8ca91165bc10c10690d3093a9b37c5fe892611751b34279bcbfb0b90",
+    "kuraudo.png": "7a9614a7cc9f96a77b593111b4afe1415166cb13949303fcb7ab4642109b5a46",
+    "renren.png": "bd6e3cf79c49c4ba727d99b15b474093a4b59a46a21dfe1371c8f6d835fbdfa8",
+    "prepared/renren.png": "4036aeca55a4d6482dee15cfe07be7c0b1db5b0ed859ef9956ed046075c067f3",
+    "prepared/misogi.png": "c089284134efc40f4c73e764c1227cde08f8b83d8569c0f7b08806347593d091",
+    "misogi.png": "7d44d9cac526cd240df3a796da92b33dd4df609264c1af19fe0ea5cfdc2a2dd9",
+    "kanata.png": "74098af66c42931ad749b24aa6609c2fae4c4c3942b72ad5cbc555ec8cd84f3d",
+    "prepared/kanata.png": "4eaa2086607fe091f09a87a493199257e0f25b7c0e3820899b2dcdb83c0d68cf",
+    "prepared/nene.png": "b50ffc1deef39c0760c5bb75be8b086eb110ffc235344e35dc5d4898449af775",
+    "nene.jpg": "3d244e0535205ca75e57a73a946f665e9da88bd15c1e4f852fa130e116faafdf",
+    "prepared/kurono.png": "ad28a366fa0686f5a1669e1dff3d375b15fbc4df42561515b8a997bef6cbc197",
+    "kurono.jpg": "8e2c35bfa606a3cd5f69601530e1bd600d55f3b68add2650c384ad9df11c5999",
+    "yuri.jpg": "66b106f61567a9e8c6bb16df8301909a5b284bd65db0842ff9c744f7cd7239c1",
+    "prepared/yuri.png": "1dc9497f5bcad73cacd0b819fc04d38e5e0f357e58c53916bb2505decdfb8722",
+    "prepared/iris.png": "2f95d92246215fa80da423ffb5010c2aefc8d9364febb874ce9c881396cf2c5a",
+    "novel/iris.jpg": "62596a7bd0668571cb1f43faa364ac089ed73edc7ebe7ec91e5c289f28bcd867",
+    "prepared/uri.png": "b08f9dd4aba68f142f84cfc1ccc6975afacd8a70b77a2c5b6fb6a2a3a4ec5264",
+    "novel/uri.jpg": "75cf138d6b93c6c596ec1eb9286d602f86124601262554198d32bb15199580b6",
+    "prepared/or_gaule.png": "0f52c5a403b298aa839e7cfe10a840660290e46c7125fdc88ba67286c69990fb",
+    "novel/or-gaule-wallenstein.jpg": "75dc1db0adbf947d526b92d4ef98c3962f79a68bbd381f08d2c952315a31edb9",
+    "prepared/wallenstein.png": "4643fedc2492738e314f9da9674d8802aec291353b9b331509f6afee8e262938",
+    "novel/kiriko.jpg": "2ae42c80bff67c163408cf2773437aad3b70ffd5da3f7fbd7a814452838bd344",
+    "prepared/kiriko.png": "94a54c1f4a57a5bc669abbca6f196416a955b61c895ec26daa1458ecb47abcf2",
+    "prepared/sara.png": "740ce910c5fc988f7ea399e61b81b20c88c71ecbab774eb67b060e1d501e99f0",
+    "novel/sara.jpg": "b82d80e24674d1509072e01e4ca77eebfefb65c2aec482eab15ab6d872972cf1",
+    "novel/rinna-original.jpg": "a4d646adeb9caa9d328173fe7dc2aa3ccfc59e31338bfb1199d5409c26072355",
+    "prepared/rinna.png": "9928336c35311d38bc1f719351ca963cdff50ce426da03d037087f4dd5841c91",
+    "prepared/ein.png": "819d3b90f199592824badef5c76374a6ec31bc1c8427a433f822c92a5deb5feb",
+    "novel/ein.jpg": "05cbc99c5aa0fc168fb978c77242de943fa7ab43207f6376f00ebf0f56a908f9",
+    "prepared/rai.png": "92c08ec2f9141c50c7b68f926b30b349dc545c9611a3f83931cb55727bee13a2",
+    "novel/rai-original.jpg": "522938ed04fd940dc5d2c6465b4f377b527736a8b4df7418e26954301b6908ef",
+    "prepared/momiji.png": "5009e697eab88be6df154dedd51a97844f91efa94bb8119d95866eb5fe4f4651",
+    "novel/byakuya-momiji.jpg": "8eb2923f55025f48385de5dd4afe20de9b9311dbebc26e00b042e84e357d9652",
+    "prepared/byakuya.png": "9ee21ae7e0114a11b3dbd8ea73ee5ac1fffd51ce46f6e21647d2af407dc11244",
+    "research/user-supplied/mikoto-profile-screenshot.png": "2c3f93e72e8fbdf40f6e90819710888f10a7b7631fa52e84f36b36d0b10fcf75",
+    "prepared/mikoto.png": "b5492b71cefe1ff9864d624920fd9c71d70d14c3bf70f2e4aea207da9dcde1f8",
+    "novel/xiaoli-vol18-original.jpg": "285689368c9c5e4599a63a3e548dd6bea507ad1d34315bb4c547bf0e14f34257",
+    "prepared/xiaoli.png": "48391e3f9b26edad554dd1a910c53280c03da38f4ce65c33798acc67036e3fdb",
+    "prepared/charlotte.png": "d57628136e0824c300dceab51dfa03ee3fdf98f9ac8261c364abfac8d91b13b2",
+    "novel/charlotte-original.jpg": "a4d646adeb9caa9d328173fe7dc2aa3ccfc59e31338bfb1199d5409c26072355",
+    "prepared/kagami.png": "835825c7cb1476f4982b61eb94537ce4c802d7def37a35dcf873510d76cecd0b",
+    "anime/kagami-original.jpg": "411cad202386d5b61d85dd611ec4a5f164f175d54deedffa9bdaaf8c3f88a0d4",
+    "research/20261013-tournament/amane-vol08-original.jpg": "e255b1b810a71f23bb4a49aee4b1562342e072687050ae8a96cd2375c138a083",
+    "prepared/amane.png": "1d140ba65e1da510fe00a0bf1cdc3a0eeaf91b049b93213b2efce40c64cb63bc",
+    "research/20261013-tournament/hiraga-vol04-original.jpg": "46019e14992d2039433ec7accdd6c974869ef654ce57907c433255e698923698",
+    "prepared/hiraga.png": "8ac98efd5840eb8fa04ffbff4ace921601cd2900cf75ce14819e329a8409908a",
+    "prepared/botan.png": "70e179e93321bb7fe77cb44437e75d64bb7cde0b33698e0d9c23319701080f02",
+    "research/20261013-tournament/hagure-original.webp": "bfe471ef60904d0e29cba73be715b94d3c11c1f1a43e4e35bcb77384d66eb8d6",
+    "prepared/kikyo.png": "eaf0977b38aa2eb9f2c27ca746d407c6ee2d1d584c8a0c28b5b8feadbce6c702"
+  }
+}

@@ -1,0 +1,36 @@
+【MVU Output Format】
+Use this field contract together with [MVU]变量更新规则 in the same request. Main and secondary APIs use the same business-field permissions. That entry owns business decisions, permissions, defaults, scoring, progression and replay rules; this entry owns paths, types and serialization.
+For a narrative reply, end with exactly one <UpdateVariable> containing <Analysis> followed by <JSONPatch>, and close every tag. Analysis is a brief English outcome summary: old→final values for changes and concrete reasons for relevant unchanged areas; no detailed reasoning is required. Check all relevant areas under the rules before deciding there are no updates.
+JSONPatch must be one complete JSON array: no fences, headings, comments, ellipses or escaped tags. No word/operation cap may omit valid updates. Analysis alone saves nothing.
+
+【Paths, Operations and Types】
+Business paths start with /玩家, /场景 or /人际, never /stat_data. Use add for missing entries/parents, replace for existing values and remove for confirmed erroneous dynamic entries, subject to the rule entry's ownership/deletion restrictions. Submit final values, not increments. Prefer changed leaves; object writes preserve unrelated data and protected fields.
+Strings, null, {}, [], numbers and native true/false are distinct. Names are stable non-empty keys without /, ~, __proto__, prototype or constructor. $internal, display_data and delta_data are framework metadata.
+
+【Player】
+/玩家/魔人觉醒: native boolean.
+/玩家/六维: 攻击力,防御力,魔力量,魔力控制,体能,运气; each value is F|F+|E|E+|D|D+|C|C+|B|B+|A|A+|S, or "" for unconfirmed.
+/玩家/登记等级: F|F+|E|E+|D|D+|C|C+|B|B+|A, or null.
+/玩家/伐刀能力: {能力系别,能力本质,共通限制,招式}. 能力系别 is ""|体能强化系|自然干涉系|概念干涉系|因果干涉系; 能力本质 and 共通限制 are strings. 招式 and /玩家/其他能力 map stable names to {说明:string,条件与代价:string,掌握状态:待确认|学习中|已掌握}.
+/玩家/成长/经验/<目标>: non-negative JSON integer; 目标 is 魔力控制|体能|魔力量. Its paired /玩家/六维/<目标> is the final grade. If missing, add /玩家/成长 and then /玩家/成长/经验 as {} before their children; preserve existing parents.
+
+【Scene】
+/场景 fields: 当前卷:integer(1..19), 当前章:exact injected directory key, 阶段:未开始|进行中|已结束, 时间:string, 地点:string, 切入说明:string.
+/场景/已发生事件 maps stable names to {卷号:integer,章段:string,结果:non-empty string,参与者:string[],知情者:string[]}.
+/场景/日程 is optional; stable names map to {类型:比赛|训练|约定|其他,日期:string,时间:string,地点:string,参与者:string[],状态:待定|已安排|进行中|已完成|已取消,说明:string}. 日期 is a real YYYY-MM-DD or "".
+
+【People】
+A new /人际/<姓名> requires {关系:string,态度印象:string,好感:number|null,支援度:integer|null,羁绊阶段:未定|未建立|C|B|A|S,变化依据:string}. 好感 range: 0..1000; 支援度 range: 0..320. null remains distinct from 0.
+Optional: 性别:未知|男性|女性, 联系状态:仅识别|已建立联系, 联系依据:string, 已加联系方式:boolean, 已知资料:{身份?:string,登记等级?:string,灵装?:string,已知能力?:string}. Required new-person fields remain required even when only one profile fact is newly known.
+
+【Tournament: T02 / T01 Storage Compatibility】
+/场景/选拔赛 is optional. Add its missing parent as {} before entries; apply the rule entry's initialization defaults. Fields: 版本:T01,赛季:string,状态:未开始|进行中|已结束,总轮次:integer,代表名额:integer,号池规模:integer,模式:跟随系统,名册:{},比赛:{}; 一辉拘押?:boolean.
+名册/<ID>: {姓名:string,来源:正典|原创|玩家,参赛状态:参赛|退选|取消资格,入赛轮次?:integer(1..20)}. Existing protected fields remain governed by the rule entry.
+比赛/<ID>: {轮次:integer,甲方:rosterID,乙方:rosterID,日期:string,时间:string,地点:string,状态:待定|已安排|已完成|已取消,胜者?:rosterID,弃权方?:rosterID,依据:string}.
+
+【No Factual Updates】
+Use [] only after independently checking every relevant area and finding no factual update. Narrative envelope example:
+<UpdateVariable>
+<Analysis>No scene, player, growth, relationship or tournament changes require updates.</Analysis>
+<JSONPatch>[]</JSONPatch>
+</UpdateVariable>

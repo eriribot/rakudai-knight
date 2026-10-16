@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-15",
+  "mode": "built-in-imagegen",
+  "scope": "本地素材准备；原图保留；未上传、未重建发布组件。",
+  "promptFile": "imagegen-prompts.json",
+  "outputs": [
+    {
+      "id": "lunaseyes",
+      "sourceFile": "lunaseyes-vol10-original.jpg",
+      "generatedFile": "C:\\Users\\weijunxiang\\.codex\\generated_images\\01a10ca7-4f06-7720-ab10-d7b373b4c998\\exec-c4898ba1-2786-44df-a51b-a84e28105028.png",
+      "templateFile": "prepared/amane.png",
+      "inputFile": "lunaseyes-head-reference.png",
+      "inputCrop": {
+        "left": 600,
+        "top": 0,
+        "width": 800,
+        "height": 630
+      },
+      "note": "只输入头部取景；完整原图另存。",
+      "displayFile": "prepared/lunaseyes.png",
+      "width": 1085,
+      "height": 1450,
+      "sha256": "539121ed540845f1d744c7c72f21441149c4bbf491dc9265d6ede70d59832528",
+      "mode": "RGBA"
+    },
+    {
+      "id": "astraea",
+      "sourceFile": "astraea-vol10-original.jpg",
+      "generatedFile": "C:\\Users\\weijunxiang\\.codex\\generated_images\\01a10ca7-4f06-7720-ab10-d7b373b4c998\\exec-9580cd54-b87d-40bc-8538-cb65a1b8f75d.png",
+      "templateFile": "prepared/amane.png",
+      "inputFile": "astraea-vol10-original.jpg",
+      "displayFile": "prepared/astraea.png",
+      "width": 1085,
+      "height": 1450,
+      "sha256": "10698563c500bd1e31e1698815bd8d727837324bed50186d27fa5d672dea0338",
+      "mode": "RGBA"
+    },
+    {
+      "id": "sirius",
+      "sourceFile": "sirius-vol10-original.jpg",
+      "generatedFile": "C:\\Users\\weijunxiang\\.codex\\generated_images\\01a10ca7-4f06-7720-ab10-d7b373b4c998\\exec-f2a5d679-d69b-4f7d-a8d9-6357e5a60ee6.png",
+      "templateFile": "prepared/amane.png",
+      "inputFile": "sirius-vol10-original.jpg",
+      "displayFile": "prepared/sirius.png",
+      "width": 1085,
+      "height": 1450,
+      "sha256": "ad6fe47b4681140f68bf36a1e68a0415af01d30c1e63acf93d18a428cbcc29b5",
+      "mode": "RGBA"
+    }
+  ],
+  "attempts": [
+    {
+      "id": "lunaseyes",
+      "attempt": 1,
+      "status": "rejected",
+      "reason": "整幅更衣插图输入触发图像工具 sexual 分类；没有生成产物。"
+    },
+    {
+      "id": "lunaseyes",
+      "attempt": 2,
+      "status": "completed"
+    },
+    {
+      "id": "astraea",
+      "attempt": 1,
+      "status": "completed"
+    },
+    {
+      "id": "sirius",
+      "attempt": 1,
+      "status": "completed"
+    }
+  ],
+  "visualReview": {
+    "identity": "已对照原图：姐姐为无冠长直粉发红眼女性；母亲保留冠与侧叶发饰；父亲保留浓眉、厚须和领口装饰。",
+    "limitations": "AI编辑衍生，不是原画精确裁切。父亲倾斜脸转正后鼻形和神情有柔化；母亲及父亲盾形外缘有轻微白边。",
+    "color": "姐姐、母亲沿用各自彩图；父亲未补色。"
+  }
+}

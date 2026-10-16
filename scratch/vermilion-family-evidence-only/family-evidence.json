@@ -1,0 +1,246 @@
+{
+  "scope": "Local primary novel text and EPUB placement only; no image identity asserted from appearance guessing.",
+  "characters": [
+    {
+      "name": "露娜艾丝·法米利昂",
+      "relation": "史黛菈的姐姐；第10卷第一皇女",
+      "attestedShortNames": [
+        "露娜艾丝",
+        "露娜",
+        "露娜姊",
+        "露娜姐"
+      ],
+      "identity": [
+        {
+          "path": "第十卷-世界书整理/第十卷_第三章_法米利昂皇国.txt",
+          "line": 1610,
+          "quote": "更何况，史黛菈的姊姊──露娜艾丝·法米利昂本来就支持自己的判断与行动，不需要在场。"
+        },
+        {
+          "path": "第十卷-世界书整理/第十卷_第三章_法米利昂皇国.txt",
+          "line": 2720,
+          "quote": "「没错，我正是你女友的姊姊，法米利昂皇国下任女王。"
+        },
+        {
+          "path": "第十卷-世界书整理/第十卷_第三章_法米利昂皇国.txt",
+          "line": 2722,
+          "quote": "第一皇女──露娜艾丝·法米利昂。"
+        }
+      ],
+      "appearance": [
+        {
+          "path": "第十卷-世界书整理/第十卷_第三章_法米利昂皇国.txt",
+          "line": 2658,
+          "quote": "鲜红色的双眸彷佛不让眼前人逃走，紧盯跨在窗框上的一辉。"
+        },
+        {
+          "path": "第十卷-世界书整理/第十卷_第三章_法米利昂皇国.txt",
+          "line": 2696,
+          "quote": "那张富含知性美的美丽容貌忽然一变，哈哈大笑了起来。"
+        },
+        {
+          "path": "第十卷-世界书整理/第十卷_第三章_法米利昂皇国.txt",
+          "line": 2710,
+          "quote": "一辉刚才在机场见过史黛菈的母亲·阿斯特蕾亚，而眼前的女子和阿斯特蕾亚一样，留着一头淡淡的桃色秀发。"
+        }
+      ],
+      "rootIdentity": {
+        "path": "落第骑士英雄谭 第十卷 gbk.txt",
+        "encoding": "gb18030",
+        "line": 5091,
+        "quote": "第一皇女──露娜艾丝·法米利昂。"
+      },
+      "notEstablishedByTheseTextPassages": [
+        "精确发长/发型",
+        "是否戴眼镜",
+        "身高/年龄数字",
+        "日文/英文拼法"
+      ],
+      "timelineCaution": {
+        "path": "第十九卷-世界书整理/第十九卷_第六章_最爱，也是最强的劲敌.txt",
+        "line": 1926,
+        "quote": "「正因为会引发争议，所以我才希望从法米利昂开始，动手改变这种古怪状况。第一皇女露娜艾丝·法米利昂已经出嫁奎多兰，我就是法米利昂的下任国王。假如您答应，我会穷尽国王的权力和地位，誓言从外界不讲理的一切保护您……！」"
+      }
+    },
+    {
+      "name": "阿斯特蕾亚·法米利昂",
+      "relation": "史黛菈的母亲；法米利昂皇后；席琉斯的妻子",
+      "attestedShortNames": [
+        "阿斯特蕾亚"
+      ],
+      "identity": [
+        {
+          "path": "第十卷-世界书整理/第十卷_第三章_法米利昂皇国.txt",
+          "line": 410,
+          "quote": "「啊，一辉，对不起！我来介绍一下！这位就是我的母后！」"
+        },
+        {
+          "path": "第十卷-世界书整理/第十卷_第三章_法米利昂皇国.txt",
+          "line": 418,
+          "quote": "「你就是黑铁一辉啊。初次见面～我是史黛菈·法米利昂的母亲，我叫做阿斯特蕾亚·法米利昂～请多指教喔～」"
+        },
+        {
+          "path": "第十卷-世界书整理/第十卷_第三章_法米利昂皇国.txt",
+          "line": 1634,
+          "quote": "不过席琉斯的妻子·阿斯特蕾亚似乎发现了什么──"
+        }
+      ],
+      "appearance": [
+        {
+          "path": "第十卷-世界书整理/第十卷_第三章_法米利昂皇国.txt",
+          "line": 386,
+          "quote": "接着，一名女孩走下车。她身材娇小，留有一头金桃色的波浪秀发，她抬头往上看去："
+        },
+        {
+          "path": "第十卷-世界书整理/第十卷_第三章_法米利昂皇国.txt",
+          "line": 390,
+          "quote": "稚嫩的脸蛋扬起温和的微笑，出声欢迎史黛菈回乡。"
+        },
+        {
+          "path": "第十卷-世界书整理/第十卷_第三章_法米利昂皇国.txt",
+          "line": 404,
+          "quote": "女孩的发色略为淡薄，但是她双颊扬起的笑容，感觉很像史黛菈松懈的时候。"
+        },
+        {
+          "path": "第十九卷-世界书整理/第十九卷_第五章_大教授.txt",
+          "line": 72,
+          "quote": "一名留有桃金色秀发，身材娇小的女子代替席琉斯，坐在镜头正前方。"
+        },
+        {
+          "path": "第十九卷-世界书整理/第十九卷_第五章_大教授.txt",
+          "line": 74,
+          "quote": "她正是法米利昂皇后，阿斯特蕾亚·法米利昂。"
+        }
+      ],
+      "rootIdentity": {
+        "path": "落第骑士英雄谭 第十卷 gbk.txt",
+        "encoding": "gb18030",
+        "line": 2787,
+        "quote": "「你就是黑铁一辉啊。初次见面～我是史黛菈·法米利昂的母亲，我叫做阿斯特蕾亚·法米利昂～请多指教喔～」"
+      },
+      "notEstablishedByTheseTextPassages": [
+        "精确瞳色",
+        "年龄数字",
+        "身高数字"
+      ]
+    },
+    {
+      "name": "席琉斯·法米利昂",
+      "relation": "史黛菈的父亲；法米利昂现任国王",
+      "attestedShortNames": [
+        "席琉斯",
+        "席琉斯王"
+      ],
+      "identity": [
+        {
+          "path": "第十卷-世界书整理/第十卷_第三章_法米利昂皇国.txt",
+          "line": 1514,
+          "quote": "法米利昂现任国王，自己的父亲──席琉斯·法米利昂大声怒吼。"
+        }
+      ],
+      "appearance": [
+        {
+          "path": "第十卷-世界书整理/第十卷_第三章_法米利昂皇国.txt",
+          "line": 1498,
+          "quote": "一名留着厚重胡须的中年男人有如火箭一般，朝着史黛菈的双唇飞扑过去。"
+        },
+        {
+          "path": "第十卷-世界书整理/第十卷_第三章_法米利昂皇国.txt",
+          "line": 1506,
+          "quote": "中年巨汉的鼻子歪向奇怪的地方，他捂着鼻子，语气颤抖地向史黛菈抗议。"
+        },
+        {
+          "path": "第十卷-世界书整理/第十卷_第三章_法米利昂皇国.txt",
+          "line": 1580,
+          "quote": "史黛菈也伸手环住席琉斯厚实的身躯，回以拥抱。"
+        }
+      ],
+      "rootIdentity": {
+        "path": "落第骑士英雄谭 第十卷 gbk.txt",
+        "encoding": "gb18030",
+        "line": 3883,
+        "quote": "法米利昂现任国王，自己的父亲──席琉斯·法米利昂大声怒吼。"
+      },
+      "notEstablishedByTheseTextPassages": [
+        "头发/胡须精确颜色",
+        "瞳色",
+        "发型细节"
+      ]
+    }
+  ],
+  "imageAnchors": [
+    {
+      "volume": 10,
+      "image": "OEBPS/Images/012.jpg",
+      "html": "OEBPS/Text/Chapter003.xhtml",
+      "imageLine": 216,
+      "identityTextLine": 232,
+      "status": "Strong adjacent text anchor for mother airport introduction; pixels not inspected by this text-evidence agent.",
+      "anchor": {
+        "path": "第十卷-世界书整理/第十卷_第三章_法米利昂皇国.txt",
+        "line": 386,
+        "quote": "接着，一名女孩走下车。她身材娇小，留有一头金桃色的波浪秀发，她抬头往上看去："
+      }
+    },
+    {
+      "volume": 10,
+      "image": "OEBPS/Images/014.jpg",
+      "html": "OEBPS/Text/Chapter003.xhtml",
+      "imageLine": 876,
+      "beforeTextLine": 874,
+      "afterTextLine": 879,
+      "status": "Strong adjacent text anchor for father laughing under wife/daughter scrutiny; pixels not inspected by this text-evidence agent.",
+      "anchor": {
+        "path": "第十卷-世界书整理/第十卷_第三章_法米利昂皇国.txt",
+        "line": 1640,
+        "quote": "「别、别说傻话！孤可是秉公无私的法米利昂国王！孤怎么会做亏心事哪！哇哈哈哈哈！」"
+      }
+    },
+    {
+      "volume": 10,
+      "image": "OEBPS/Images/003.jpg,003_.jpg,004.jpg,004_.jpg,005.jpg,005_.jpg",
+      "html": "OEBPS/Text/illus01.xhtml,illus02.xhtml,illus03.xhtml",
+      "status": "Front color plates, no nearby narrative identity text. Inspect printed labels and cross-check sister first appearance at Chapter003.xhtml:1451–1457; do not assign from text proximity alone."
+    },
+    {
+      "volume": 19,
+      "image": "OEBPS/Images/196507.jpg,196508.jpg,196509.jpg,196510.jpg,196511.jpg",
+      "html": "OEBPS/Text/chapter0.xhtml",
+      "imageLines": [
+        13,
+        18,
+        23,
+        28,
+        33
+      ],
+      "status": "Front illustrations with no narrative identity labels in XHTML; actual image text/portraits must be inspected."
+    },
+    {
+      "volume": 19,
+      "image": "OEBPS/Images/196521.jpg",
+      "html": "OEBPS/Text/chapter6.xhtml",
+      "imageLine": 1002,
+      "status": "Final wedding illustration placement; adjacent text describes Ikki/Stella walking together. Text alone cannot assign family members in this image."
+    },
+    {
+      "volume": 19,
+      "image": "OEBPS/Images/196513.jpg",
+      "html": "OEBPS/Text/chapter3.xhtml",
+      "imageLine": 1043,
+      "status": "Nightmare/false-memory scene; nearby family hostility must not be generalized into canonical personality. Text alone does not establish depicted figures."
+    }
+  ],
+  "sourceHashes": {
+    "39688\\[台版]落第骑士英雄谭 10.epub": "dc6f80150996c2d6d536a04689694730aa6331e183fc89d607b22ef74ca02ce0",
+    "39688\\落第骑士英雄谭 - 19.epub": "26d043863969a5796bc46f8d649f2ae670237b720c5d027ce8d3836ef1cf3e05",
+    "落第骑士英雄谭 第十卷 gbk.txt": "e3bc66aa6a48bd4b277267641753982514785d247113255cca84157a3060c4af",
+    "落第骑士英雄谭 第十九卷 gbk.txt": "707b0f4550c091aa135b4061b48fe8eb207caaa0b69078b514be187ef6ee0d55"
+  },
+  "outputs": [
+    "image-index.json",
+    "vol10/OEBPS/Text/*.xhtml",
+    "vol19/OEBPS/Text/*.xhtml",
+    "vol10-canonical-utf8.txt",
+    "vol19-canonical-utf8.txt"
+  ]
+}
