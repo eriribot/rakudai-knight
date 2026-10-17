@@ -1,5 +1,7 @@
 # 黑白 ADV 轮盘终端
 
+**2026-10-16 · 当前头像更新：** 安装 [v1.3.29 B1 头像更新](../../世界书规则/MVU/落第骑士-小手机-v1.3.29-B1-头像更新.json)，同步40人清单与史黛菈家人三张已核验图床。原 B1 保留作基线；只更新头像目录和姓名保留表，LIME 精简、赛事模块、完整 MVU 及组件 ID 沿用。正文气泡同时替换 [01](../正文气泡/发布/components/dialogue-bubbles.regex.json) 和 [03](../正文气泡/发布/components/dialogue-bubble-style.regex.json)，02 保留。统一入口为根目录 `node scripts/build-knight-avatar-delivery.mjs`。
+
 ## 现用 v1.3.29 的 B1 更新：主剧情 LIME 状态精简
 
 [B1 终端 JSON](../../世界书规则/MVU/落第骑士-小手机-v1.3.29-B1.json) 只精简主剧情重复附带的状态字段；人物原文、完整 MVU、通讯记录和独立发信不变。当前聊天离线重放减少约 9,276 token，真实下一轮请求尚未验收。

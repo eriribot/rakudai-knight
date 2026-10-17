@@ -2,6 +2,8 @@
 
 日期：2026-10-15。交付模式：`component`。本次只交付终端脚本 JSON，未修改或导入实机角色卡、世界书、预设、正则或聊天。
 
+**2026-10-16 头像同步：** 当前安装改用 [B1 头像更新 JSON](../../世界书规则/MVU/落第骑士-小手机-v1.3.29-B1-头像更新.json)。原 B1 文件作为基线保留；`update-avatar-component.mjs` 只更新内页头像目录、LIME 姓名别名和玩家头像的保留姓名表。通过非头像内容指纹和 source map 校验，保留下面的 LIME 精简与赛事模块。统一执行 `node scripts/build-knight-avatar-delivery.mjs` 可生成该包和配套气泡 01／03；02 保留。新包的 [验证记录](avatar-release/validation.json) 与 [6项回归测试](update-avatar-component-test.mjs)独立保存。
+
 ## 安装
 
 导入 [落第骑士-小手机-v1.3.29-B1.json](../../世界书规则/MVU/落第骑士-小手机-v1.3.29-B1.json) 到当前角色的酒馆助手脚本列表，核对显示名称含 `B1（LIME状态精简）`。关闭旧终端，仅保留一份终端启用，然后重载酒馆。原终端可保留作回退。

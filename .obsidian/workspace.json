@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "第九卷-世界书整理/场景条目/03_终章场景_并立之人.md",
+                "file": "第十卷-世界书整理/场景条目/05_第四章场景_惨剧开幕.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "03_终章场景_并立之人"
+              "title": "05_第四章场景_惨剧开幕"
             }
           }
         ]
@@ -187,18 +187,29 @@
   },
   "active": "df10fbcad984cb29",
   "lastOpenFiles": [
+    "output/playwright/vermilion-family/phone-chat.png",
+    "output/playwright/vermilion-family/phone-roster.png",
+    "output/playwright/vermilion-family/phone-home.png",
+    "output/playwright/vermilion-family/phone-preview-receipt.json",
+    "output/playwright/vermilion-family/phone-preview.html",
+    "output/playwright/vermilion-family/phone-frame.html",
+    "output/playwright/vermilion-family/build-phone-preview.mjs",
+    "output/playwright/vermilion-family/terminal-avatars.png",
+    "output/playwright/vermilion-family/bubbles-light.png",
+    "output/playwright/vermilion-family/bubbles-dark.png",
+    "output/playwright/vermilion-family/terminal-preview.html",
+    "output/playwright/vermilion-family/bubble-preview.html",
+    "output/playwright/vermilion-family",
+    "第十卷-世界书整理/场景条目/04_第三章场景_法米利昂皇国.md",
+    "第十卷-世界书整理/场景条目/03_第二章场景_深海魔女与白衣骑士.md",
+    "第十卷-世界书整理/场景条目/02_第一章场景_庆典结束之后.md",
+    "第十卷-世界书整理/场景条目/01_序章场景_来自地狱的蜘蛛.md",
+    "第九卷-世界书整理/场景条目/03_终章场景_并立之人.md",
     "第九卷-世界书整理/场景条目/02_终章场景_约定之刻.md",
     "第九卷-世界书整理/场景条目/01_第十四章场景_战魂高昂.md",
     "output/worldbook-mvu-draft-20261015/完整草稿.txt",
     "output/worldbook-mvu-draft-20261015/00-审阅说明.txt",
     "output/worldbook-mvu-draft-20261015/离线核对.json",
-    "output/worldbook-mvu-draft-20261015/05a-一辉称号分期-示例.ejs",
-    "output/worldbook-mvu-draft-20261015/核对草稿.cjs",
-    "output/worldbook-mvu-draft-20261015/规则分工核对.txt",
-    "output/worldbook-mvu-draft-20261015/02-MVU变量更新格式-草稿.txt",
-    "output/worldbook-mvu-draft-20261015/01-MVU变量更新规则-草稿.txt",
-    "output/worldbook-mvu-draft-20261015/05-人物世界书分期-草稿.txt",
-    "output/worldbook-mvu-draft-20261015/初始化与列表核对.txt",
     "scripts/黑白ADV轮盘终端/LIME状态精简-B1.md",
     "第八卷-世界书整理/场景条目/05_间章场景_姗姗来迟.md",
     "第八卷-世界书整理/场景条目/04_第十三章场景_阴云密布的准决赛.md",
@@ -217,20 +228,10 @@
     "scratch/volume7-overview-20261012/battles.md",
     "scratch/volume7-overview-20261012/middle.md",
     "scratch/volume7-overview-20261012/early-ending.md",
-    "第六卷-世界书整理/场景条目/05_间章场景_转暗.md",
-    "第六卷-世界书整理/场景条目/04_第七章场景_七星剑武祭第二轮战·开战.md",
-    "第六卷-世界书整理/场景条目/03_第六章场景_初战终了.md",
-    "第六卷-世界书整理/场景条目/02_第五章场景_快刀斩乱麻.md",
-    "output/design-review/战力膨胀审计-20261011.md",
     "世界书规则/MVU/构建记录/N07-开局世界书参考/Chrome-开场白读取验证.jpg",
     "世界书规则/MVU/构建记录/N07-开局世界书参考/Chrome-世界书读取验证.jpg",
     "scripts/黑白ADV轮盘终端/验证记录/LIME预览/attached-incoming-white-420.jpg",
     "scripts/黑白ADV轮盘终端/验证记录/LIME预览/attached-incoming-320.jpg",
-    "scripts/黑白ADV轮盘终端/验证记录/LIME预览/attached-incoming-420.jpg",
-    "scripts/黑白ADV轮盘终端/验证记录/LIME预览/attached-chat-420.jpg",
-    "resource/knightavatars/research/github-pages/charlotte-host-terminal-preview.jpg",
-    "resource/knightavatars/research/github-pages/rinna-charlotte-bubble-preview.jpg",
-    "resource/knightavatars/research/review/rinna-charlotte-preview.png",
-    "resource/knightavatars/research/review/rinna-shield-preview.png"
+    "scripts/黑白ADV轮盘终端/验证记录/LIME预览/attached-incoming-420.jpg"
   ]
 }

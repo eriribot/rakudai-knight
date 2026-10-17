@@ -1,0 +1,22 @@
+{
+  "source": "世界书规则/MVU/落第骑士-小手机-v1.3.29-B1-头像更新.json",
+  "contentSha256": "8ce6c1a4a6888e22967fb4ffb3f8ceb9f769d2391910c0e95870607618873c29",
+  "render": "complete embedded APP_HTML, only image URL localization and offline RKBoot adapter added",
+  "data": "fictional in-memory display sample",
+  "hostWrites": false,
+  "modelCalls": false,
+  "offlineBrowser": {
+    "pagesViewed": [
+      "home",
+      "roster",
+      "family-chat"
+    ],
+    "consoleErrors": 0,
+    "screenshots": [
+      "phone-home.png",
+      "phone-roster.png",
+      "phone-chat.png"
+    ],
+    "realSillyTavern": false
+  }
+}

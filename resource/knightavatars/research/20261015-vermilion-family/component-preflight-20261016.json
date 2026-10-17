@@ -1,0 +1,38 @@
+{
+  "deliveryMode": "component",
+  "goal": "核验三人图床并同步正文气泡及现用B1终端头像目录",
+  "redLines": [
+    "不重打整卡",
+    "不改MVU字段与存档",
+    "不回退当前B1到默认1.3.28",
+    "不上传不修改实机配置"
+  ],
+  "acceptance": [
+    "HTTP200和PNG哈希一致",
+    "气泡与B1姓名和URL一致",
+    "保留B1非头像模块及原stable ID",
+    "组件格式与回归通过"
+  ],
+  "library": {
+    "route": "sillytavern-component-update",
+    "snapshotVersion": "2026-08-18",
+    "loaded": [
+      "ST-A0 opening gates",
+      "ST-A2 component fields",
+      "ST-A6 display regex fields",
+      "ST-B2 macros"
+    ],
+    "designCandidatesAdopted": []
+  },
+  "gitHead": "75c977c035fccbdc7f4430d6fb48bc74c46b8532",
+  "before": {
+    "resource/knightavatars/manifest.json": "fd8b73aa41152d884775ade623ab523244984c04b72b525d2db9887604e1b3f5",
+    "世界书规则/MVU/落第骑士-小手机-v1.3.29-B1.json": "1ed1c204b43f5c6549fd66cc73e3b57c3d55c365f36083f02d476fb611f29c09",
+    "scripts/正文气泡/发布/components/dialogue-bubbles.regex.json": "ac45709f3d0d3b4d5341ee863a4fcefea7895bdd29da74f719460830215ed017",
+    "scripts/正文气泡/发布/components/dialogue-player-candidates.regex.json": "d0104c7f2203c01ada8fe0e1b1ab382709f04b54e8dc491c1e802eb67ee59783",
+    "scripts/正文气泡/发布/components/dialogue-bubble-style.regex.json": "53fd2b140bd07058d41d691ffb5b8ccfaf90283d1f32799f8664fd99c5e8d60b",
+    "世界书规则/MVU/schema.mjs": "8260af3a9dd82b8ac6b1363fa6d1a3a23f1cbcf73e85c841ed3ef4dc807dd9c5",
+    "世界书规则/MVU/落第骑士-MVU-原生兼容-N04.json": "3d43810f8ddeb25f91689e825810823e2ac3b2aac785baa14627ce0f2284871f",
+    "scripts/黑白ADV轮盘终端/lime-story.js": "d1d652cd04b4e6d67b27ab3332bc37f2536c00a3a415ef08f89967f7ae2d08d1"
+  }
+}

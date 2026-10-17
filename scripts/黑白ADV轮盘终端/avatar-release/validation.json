@@ -1,0 +1,88 @@
+{
+  "deliveryMode": "component",
+  "kind": "helper-script",
+  "stableId": "3d8c6c23-f78e-46e5-8e89-4a90bab6fb85",
+  "runtimeVersion": "1.3.29",
+  "baselineContentSha256": "6d30081d3132ef435a8e96ccef795bf47de98cfbd9c7a4f5648ab50f21f75448",
+  "contentSha256": "8ce6c1a4a6888e22967fb4ffb3f8ceb9f769d2391910c0e95870607618873c29",
+  "manifestSha256": "e930638806c0d48cde74b421a710e79d6fad73b9992bcb761f3ffcec744e128b",
+  "nonAvatarFingerprint": "cb448ffa2cbd7e3c48d4056f16bb4b63f7460c8bdfa9887b8ea8a81570d6f823",
+  "avatarCount": 40,
+  "aliasEntryCount": 40,
+  "reservedNameCount": 222,
+  "changedSlots": [
+    "APP_HTML/RK_KNIGHT_AVATARS",
+    "LIME_CHARACTER_ALIASES",
+    "PORTRAIT_RESERVED_NAMES"
+  ],
+  "preservedMappedSources": 14,
+  "verifiedSourceMappings": 5850,
+  "preservedEmbeddedSourceMaps": 2,
+  "checks": [
+    "B1 non-avatar fingerprint",
+    "complete catalog equality",
+    "complete aliases equality",
+    "complete reserved names equality",
+    "all metadata unchanged",
+    "all source mappings",
+    "embedded page map equality",
+    "V8 syntax",
+    "Helper HTML parse",
+    "JSON round trip"
+  ],
+  "runtimeAcceptance": "not run: offline component validation does not replace live import and display acceptance",
+  "library": {
+    "routeId": "sillytavern-component-update",
+    "snapshotVersion": "2026-08-18",
+    "loadedGuideIds": [
+      "ST-A0",
+      "ST-A2",
+      "ST-A6",
+      "ST-B2"
+    ],
+    "adoptedCandidates": [],
+    "goal": "Refresh B1 avatar data from current manifest",
+    "redLines": "Preserve all non-avatar code, metadata and MVU behavior",
+    "acceptance": "Full data equality, immutable runtime fingerprint, source mappings and component validation"
+  },
+  "publicTarget": "世界书规则/MVU/落第骑士-小手机-v1.3.29-B1-头像更新.json",
+  "artifact": {
+    "artifactName": "terminal-v1-3-29-b1-avatars",
+    "id": "3d8c6c23-f78e-46e5-8e89-4a90bab6fb85",
+    "kind": "helper-script",
+    "relativePath": "terminal-v1-3-29-b1-avatars.script.json",
+    "sha256": "8776cd3ed8477f4957b5e3e2cf41ab010647823f9878572118ddac607d4227fd"
+  },
+  "independentTests": {
+    "testFile": "scripts/黑白ADV轮盘终端/update-avatar-component-test.mjs",
+    "passed": 6,
+    "total": 6,
+    "results": [
+      {
+        "name": "B1 current manifest refresh is deterministic and idempotent",
+        "passed": true
+      },
+      {
+        "name": "Preserve disabled state, buttons, custom data, names, info and unknown metadata",
+        "passed": true
+      },
+      {
+        "name": "Reject wrong stable ID, non-avatar code changes and embedded source-map changes",
+        "passed": true
+      },
+      {
+        "name": "All manifest names render the matching portrait in the actual embedded B1 page",
+        "passed": true
+      },
+      {
+        "name": "LIME names and player reserved names contain every manifest alias, including the family",
+        "passed": true
+      },
+      {
+        "name": "Quoted HTML, newlines and Unicode separators stay data across nested HTML and JS",
+        "passed": true
+      }
+    ],
+    "runtimeAcceptance": "offline embedded-page VM only; real host import not run"
+  }
+}

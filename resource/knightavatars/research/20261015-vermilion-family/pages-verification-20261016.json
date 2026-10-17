@@ -1,0 +1,131 @@
+{
+  "recordedAt": "2026-10-16T00:30:36.869Z",
+  "method": "Read-only GitHub Pages API, git metadata, and HTTPS GET of the three original Pages URLs. Remote PNG signature, IHDR dimensions, SHA-256, and exact byte equality were checked against local prepared files. This report records the completed checks; no upload or deployment was performed.",
+  "repository": {
+    "remote": "https://github.com/eriribot/rakudai-knight.git",
+    "localRoot": "D:/card/rakudai-knight",
+    "remoteBranches": [
+      "main"
+    ],
+    "localBranches": [
+      "main"
+    ],
+    "worktrees": [
+      "D:/card/rakudai-knight"
+    ],
+    "dedicatedPagesSyncDirectoryFound": false,
+    "correctLocalDirectory": "D:/card/rakudai-knight/resource/knightavatars/prepared",
+    "commit": "75c977c035fccbdc7f4430d6fb48bc74c46b8532",
+    "commitSubject": "增加角色头像",
+    "commitTime": "2026-10-16T08:16:03+08:00"
+  },
+  "pagesConfiguration": {
+    "api": "https://api.github.com/repos/eriribot/rakudai-knight/pages",
+    "status": "built",
+    "buildType": "legacy",
+    "source": {
+      "branch": "main",
+      "path": "/"
+    },
+    "htmlUrl": "https://eriribot.github.io/rakudai-knight/",
+    "httpsEnforced": true
+  },
+  "deployment": {
+    "buildApi": "https://api.github.com/repos/eriribot/rakudai-knight/pages/builds/1288147959",
+    "buildStatus": "built",
+    "buildError": null,
+    "commit": "75c977c035fccbdc7f4430d6fb48bc74c46b8532",
+    "buildCreatedAt": "2026-10-16T00:16:35Z",
+    "buildUpdatedAt": "2026-10-16T00:18:24Z",
+    "workflowName": "pages build and deployment",
+    "workflowUrl": "https://github.com/eriribot/rakudai-knight/actions/runs/38828559315",
+    "workflowStatus": "completed",
+    "workflowConclusion": "success",
+    "workflowCreatedAt": "2026-10-16T00:16:36Z",
+    "workflowUpdatedAt": "2026-10-16T00:18:45Z"
+  },
+  "previousVerification": {
+    "record": "host-verification-20261016.json",
+    "checkedAt": "2026-10-16T00:18:07.402Z",
+    "pagesStatuses": [
+      {
+        "id": "lunaseyes",
+        "status": 404
+      },
+      {
+        "id": "astraea",
+        "status": 404
+      },
+      {
+        "id": "sirius",
+        "status": 404
+      }
+    ],
+    "preservedUnmodified": true,
+    "interpretation": "The original Pages checks finished before the Pages build and deployment completed; those 404 responses did not establish a wrong local source directory."
+  },
+  "checks": [
+    {
+      "id": "lunaseyes",
+      "checkedAt": "2026-10-16T00:29:06.960Z",
+      "requestedUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/lunaseyes.png",
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/lunaseyes.png",
+      "status": 200,
+      "contentType": "image/png",
+      "bytes": 1577880,
+      "isPng": true,
+      "width": 1085,
+      "height": 1450,
+      "sha256": "539121ed540845f1d744c7c72f21441149c4bbf491dc9265d6ede70d59832528",
+      "localPath": "resource/knightavatars/prepared/lunaseyes.png",
+      "localBytes": 1577880,
+      "localWidth": 1085,
+      "localHeight": 1450,
+      "localSha256": "539121ed540845f1d744c7c72f21441149c4bbf491dc9265d6ede70d59832528",
+      "matchesLocal": true,
+      "comparison": "Exact byte equality (Buffer.equals) and SHA-256 checked during HTTPS GET"
+    },
+    {
+      "id": "astraea",
+      "checkedAt": "2026-10-16T00:29:06.960Z",
+      "requestedUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/astraea.png",
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/astraea.png",
+      "status": 200,
+      "contentType": "image/png",
+      "bytes": 1664512,
+      "isPng": true,
+      "width": 1085,
+      "height": 1450,
+      "sha256": "10698563c500bd1e31e1698815bd8d727837324bed50186d27fa5d672dea0338",
+      "localPath": "resource/knightavatars/prepared/astraea.png",
+      "localBytes": 1664512,
+      "localWidth": 1085,
+      "localHeight": 1450,
+      "localSha256": "10698563c500bd1e31e1698815bd8d727837324bed50186d27fa5d672dea0338",
+      "matchesLocal": true,
+      "comparison": "Exact byte equality (Buffer.equals) and SHA-256 checked during HTTPS GET"
+    },
+    {
+      "id": "sirius",
+      "checkedAt": "2026-10-16T00:29:06.960Z",
+      "requestedUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/sirius.png",
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/sirius.png",
+      "status": 200,
+      "contentType": "image/png",
+      "bytes": 1669665,
+      "isPng": true,
+      "width": 1085,
+      "height": 1450,
+      "sha256": "ad6fe47b4681140f68bf36a1e68a0415af01d30c1e63acf93d18a428cbcc29b5",
+      "localPath": "resource/knightavatars/prepared/sirius.png",
+      "localBytes": 1669665,
+      "localWidth": 1085,
+      "localHeight": 1450,
+      "localSha256": "ad6fe47b4681140f68bf36a1e68a0415af01d30c1e63acf93d18a428cbcc29b5",
+      "matchesLocal": true,
+      "comparison": "Exact byte equality (Buffer.equals) and SHA-256 checked during HTTPS GET"
+    }
+  ],
+  "conclusion": "All three original GitHub Pages URLs now return PNGs that exactly match the local prepared files. The local source directory is correct; keep the existing Pages URL pattern. No file relocation, Raw URL workaround, or new upload is needed.",
+  "uploadedOrModifiedRemote": false
+}

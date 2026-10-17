@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "deliveryMode": "component",
+  "kind": "helper-script",
+  "artifacts": [
+    {
+      "artifactName": "terminal-v1-3-29-b1-avatars",
+      "id": "3d8c6c23-f78e-46e5-8e89-4a90bab6fb85",
+      "kind": "helper-script",
+      "relativePath": "terminal-v1-3-29-b1-avatars.script.json",
+      "sha256": "8776cd3ed8477f4957b5e3e2cf41ab010647823f9878572118ddac607d4227fd"
+    }
+  ]
+}

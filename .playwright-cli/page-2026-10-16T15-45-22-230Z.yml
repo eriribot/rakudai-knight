@@ -1,0 +1,33 @@
+- main [ref=f1e2]:
+  - generic [ref=f1e3]:
+    - paragraph [ref=f1e4]: RAKUDAI KNIGHT / DIALOGUE 01
+    - heading "法米利昂家人 · 盾形对白" [level=1] [ref=f1e5]
+    - paragraph [ref=f1e6]: 三张新增头像 · 示例台词，仅用于展示效果。
+  - navigation [ref=f1e7]:
+    - link "终端头像局部预览" [ref=f1e8] [cursor=pointer]:
+      - /url: terminal-preview.html
+    - button "浅色背景" [ref=f1e9] [cursor=pointer]
+    - button "320px 窄屏" [ref=f1e10] [cursor=pointer]
+  - region "正文气泡预览" [ref=f1e11]:
+    - generic [ref=f1e12]:
+      - generic [ref=f1e15]:
+        - generic [ref=f1e16]: 露娜艾丝·法米利昂
+        - generic [ref=f1e17]: 史黛菈，欢迎回家。
+      - generic [ref=f1e20]:
+        - generic [ref=f1e21]: 阿斯特蕾亚·法米利昂
+        - generic [ref=f1e22]: 别站在门口了，先进来坐吧。
+      - generic [ref=f1e25]:
+        - generic [ref=f1e26]: 席琉斯·法米利昂
+        - generic [ref=f1e27]: 既然来了，就堂堂正正地说清楚。
+  - group [ref=f1e28]:
+    - generic "模型输出格式" [ref=f1e29]
+  - paragraph [ref=f1e30]: 本页使用本地同源头像，是离线视觉预览；酒馆导入后的样式处理与远程图片加载需另行验证。
+  - paragraph [ref=f1e31]:
+    - link "下载 01 对白正则" [ref=f1e32] [cursor=pointer]:
+      - /url: ../../../scripts/正文气泡/发布/components/dialogue-bubbles.regex.json
+    - link "下载 02 OC 候选正则" [ref=f1e33] [cursor=pointer]:
+      - /url: ../../../scripts/正文气泡/发布/components/dialogue-player-candidates.regex.json
+    - link "下载 03 样式正则" [ref=f1e34] [cursor=pointer]:
+      - /url: ../../../scripts/正文气泡/发布/components/dialogue-bubble-style.regex.json
+    - link "格式规则" [ref=f1e35] [cursor=pointer]:
+      - /url: ../../../scripts/正文气泡/发布/format-rule.txt

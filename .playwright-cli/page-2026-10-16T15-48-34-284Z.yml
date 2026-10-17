@@ -1,0 +1,99 @@
+- main [ref=f3e2]:
+  - generic [ref=f3e3]:
+    - text: HAGUN / OS · v1.3.29 B1
+    - heading "小手机 · 完整离线预览" [level=1] [ref=f3e4]
+    - paragraph [ref=f3e5]: 当前头像更新版的完整界面。可点击手机里的应用，也可用下方按钮直达。
+    - navigation "预览页面" [ref=f3e6]:
+      - button "首页" [pressed] [ref=f3e7] [cursor=pointer]
+      - button "人物名册" [ref=f3e8] [cursor=pointer]
+      - button "LIME 通讯" [ref=f3e9] [cursor=pointer]
+      - button "姐姐的聊天" [ref=f3e10] [cursor=pointer]
+      - button "七星赛事" [ref=f3e11] [cursor=pointer]
+      - button "日历" [ref=f3e12] [cursor=pointer]
+      - button "设置" [ref=f3e13] [cursor=pointer]
+    - generic [ref=f3e14]:
+      - text: 显示宽度
+      - combobox "显示宽度" [ref=f3e15] [cursor=pointer]:
+        - option "420px" [selected]
+        - option "360px"
+        - option "320px"
+    - button "切换浅色" [ref=f3e16] [cursor=pointer]
+    - status [ref=f3e17]: 已载入当前 B1 · 40 人头像清单，三位家人已加入示例名册。
+    - paragraph [ref=f3e18]: 人物关系、时间和聊天均为演示样本。页面不连接酒馆，不写入 MVU，也不发送消息。
+    - link "查看正文气泡" [ref=f3e19] [cursor=pointer]:
+      - /url: bubble-preview.html
+  - region "小手机完整界面" [ref=f3e20]:
+    - iframe [ref=f3e21]:
+      - generic [ref=f4e1]:
+        - generic [ref=f4e2]:
+          - generic [ref=f4e3]: HAGUN / OS
+          - button "宿舍 ↔" [ref=f4e4] [cursor=pointer]
+          - generic "终端 v1.3.29；读取当前回复的 MVU 记录，未获知的人物资料保持空白。" [ref=f4e5]: 本局档案
+          - generic [ref=f4e6]: 2013-08-20 16:25
+          - generic "魔力炉心正常" [ref=f4e8]
+        - generic [ref=f4e12]:
+          - generic "宿舍全景，左右拖动查看" [ref=f4e13]
+          - generic [ref=f4e14]:
+            - generic [ref=f4e15] [cursor=pointer]:
+              - generic [ref=f4e16]:
+                - generic [ref=f4e17]: HAGUN / BLAZER ID
+                - generic [ref=f4e18]: 伐刀者证
+              - generic [ref=f4e19]:
+                - generic [ref=f4e20]: 预
+                - generic [ref=f4e24]:
+                  - generic [ref=f4e25]: 预览玩家
+                  - generic [ref=f4e26]: 破军学园
+                  - generic [ref=f4e27]: 待定级
+              - generic [ref=f4e28]:
+                - generic [ref=f4e29]: 未设置
+                - generic [ref=f4e30]: 尚无命名招式
+              - generic [ref=f4e31]:
+                - generic [ref=f4e32]: 攻—
+                - generic [ref=f4e33]: 防—
+                - generic [ref=f4e34]: 魔—
+                - generic [ref=f4e35]: 控—
+                - generic [ref=f4e36]: 体—
+                - generic [ref=f4e37]: 运—
+            - generic [ref=f4e38]:
+              - generic [ref=f4e39]: 终端应用
+              - generic "应用导航布局" [ref=f4e40]:
+                - button "轮盘" [pressed] [ref=f4e41] [cursor=pointer]
+                - button "列表" [ref=f4e42] [cursor=pointer]
+            - generic [ref=f4e43]:
+              - menu "终端应用轮盘" [ref=f4e44]:
+                - menuitem "伐刀者档案" [ref=f4e45] [cursor=pointer]:
+                  - generic: "01"
+                  - generic: 档案
+                - menuitem "破军 LIME" [ref=f4e47] [cursor=pointer]:
+                  - generic: "02"
+                  - generic: 通讯
+                - menuitem "学园圈" [ref=f4e49] [cursor=pointer]:
+                  - generic: "03"
+                  - generic: 动态
+                - menuitem "破军 BBS" [ref=f4e51] [cursor=pointer]:
+                  - generic: "04"
+                  - generic: 论坛
+                - menuitem "选拔赛程" [ref=f4e53] [cursor=pointer]:
+                  - generic: "05"
+                  - generic: 赛程
+                - menuitem "灵装画廊" [ref=f4e55] [cursor=pointer]:
+                  - generic: "06"
+                  - generic: 画廊
+                - menuitem "学园校历" [ref=f4e57] [cursor=pointer]:
+                  - generic: "07"
+                  - generic: 校历
+                - menuitem "终端配置" [ref=f4e59] [cursor=pointer]:
+                  - generic: "08"
+                  - generic: 设置
+              - button "查看伐刀者档案" [ref=f4e61] [cursor=pointer]:
+                - generic [ref=f4e69]: 操作
+              - generic:
+                - generic: 选择应用
+                - generic: SELECT COMMAND
+            - generic [ref=f4e70]:
+              - generic [ref=f4e71]: 点击扇区进入 · 黑白反转选中
+              - generic [ref=f4e72]: HAGUN / 01
+        - generic [ref=f4e73]:
+          - button "← 返回" [ref=f4e74] [cursor=pointer]
+          - button "终端首页" [ref=f4e75] [cursor=pointer]
+          - button "× 收起" [ref=f4e153] [cursor=pointer]

@@ -21,15 +21,15 @@
 
 `sourceUrl` 和 `sourcePage` 记录原始出处，不是填写图床的地方。`shield-mask.svg` 保持内联，无须上传。
 
-填好 `imageUrl` 后，在项目根目录 `E:\web\落第` 执行：
+填好 `imageUrl` 后，在项目根目录执行：
 
 ```powershell
 node scripts/build-knight-avatar-delivery.mjs
 ```
 
-这个入口使用已完成的盾形 PNG，依次重建小手机、离线预览和正文气泡发布组件，并检查组件格式及源码一致性。版本号与组件 ID 沿用现值。成功后重新导入小手机 JSON 与气泡 **01／03**；气泡 **02** 保留。只覆盖同一图床 URL 下的图片、没有改地址时，无需重打包。
+这个入口使用现用 v1.3.29 B1 作为基线，只同步终端的头像数据，并重建正文气泡发布组件。它不调用旧 v1.3.28 的默认构建或离线预览，保留 B1 的 LIME 精简与赛事页面。成功后导入 `世界书规则/MVU/落第骑士-小手机-v1.3.29-B1-头像更新.json` 与气泡 **01／03**；气泡 **02** 保留。只覆盖同一图床 URL 下的图片、没有改地址时，无需重打包。
 
-填完地址后，在 `scripts/黑白ADV轮盘终端` 目录执行 `node build.js`，重新导入当前生成的 [小手机 v1.3.28 JSON](../../世界书规则/MVU/落第骑士-小手机-v1.3.28.json)。执行 `node preview.mjs` 可更新离线预览。图床基底为 `https://eriribot.github.io/rakudai-knight/resource/knightavatars/`。人物有 `displayFile` 时使用 `prepared/` 图片；原版盾形头像与共用盾框使用根层图片。原有31张图片的HTTP 200、PNG格式及与本地逐字节一致检查见 [图床检查](./research/review/github-pages-avatar-check.json)。[福小莉旧版图床记录](../../output/xiaoli-avatar-delivery/remote-verification.json) 只核验了第12卷囚衣版，不能代替第18卷新头像的核验。站点根路径没有首页，404不影响图片直链。构建不会下载图床图片，而是直接保留地址；将单项地址留空可恢复该项的本地内联预览。
+图床基底为 `https://eriribot.github.io/rakudai-knight/resource/knightavatars/`。人物有 `displayFile` 时使用 `prepared/` 图片；原版盾形头像与共用盾框使用根层图片。原有31张图片的HTTP 200、PNG格式及与本地逐字节一致检查见 [图床检查](./research/review/github-pages-avatar-check.json)。[福小莉旧版图床记录](../../output/xiaoli-avatar-delivery/remote-verification.json) 只核验了第12卷囚衣版，不能代替第18卷新头像的核验。站点根路径没有首页，404不影响图片直链。构建不会下载图床图片，而是直接保留地址；将单项地址留空可恢复该项的本地内联预览。
 
 百度百科页面的浏览被网站安全政策阻止。这批图片改从独立的官方页面取得；GA 文库的彩色盾形图与提供的绫辻绚濑参考图属于同一套素材。
 
@@ -134,7 +134,9 @@ node scripts/build-knight-avatar-delivery.mjs
 
 ## 史黛菈的家人（2026-10-15）
 
-三张均为 1085 × 1450 透明 PNG，使用内置 imagegen 依据第10卷插图制作；第19卷婚礼群像留作辅助核对。它们是 AI 编辑衍生头像，原图另存。只准备本地素材，`imageUrl` 留空，未上传、未重建小手机或正文气泡发布组件。
+三张均为 1085 × 1450 透明 PNG，使用内置 imagegen 依据第10卷插图制作；第19卷婚礼群像留作辅助核对。它们是 AI 编辑衍生头像，原图另存。
+
+2026-10-16 已核验原 GitHub Pages 图床：[露娜艾丝](https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/lunaseyes.png)、[阿斯特蕾亚](https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/astraea.png)、[席琉斯](https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/sirius.png)。三图已在正确的本地上传目录 `resource/knightavatars/prepared/`，Pages 从 `main` 根目录发布。首次检查08:18:07时部署尚未完成（08:18:45完成），重新核验均为 HTTP 200，PNG尺寸及SHA-256与本地一致，见[部署与复核记录](./research/20261015-vermilion-family/pages-verification-20261016.json)。终端 B1 与气泡 01／03 已统一沿用原 Pages 地址。
 
 | 人物 | 采用原图 | 本地盾形头像 |
 | --- | --- | --- |

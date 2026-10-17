@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-12T01:16:30.298Z",
-  "nodeVersion": "v25.6.0",
+  "generatedAt": "2026-10-16T00:30:56.304Z",
+  "nodeVersion": "v25.6.1",
   "sourceHashes": {
     "scripts/正文气泡/build.mjs": "73a18a67df4775db9b52a747aafdd2631fb1583be96e1362df6a4eaf015e4caa",
     "scripts/正文气泡/context-guard.mjs": "c1c0210d51184f3e22029514d6cd0211630e9a3cc9d70bf360e7d958bae6be31",
-    "scripts/正文气泡/bubble.css": "a546dcf2b07d446c4f0167af6faad23b58a5ebdbb4f0c4b39487872387b84961",
-    "resource/knightavatars/manifest.json": "1bd5f844de09b36d09cd5cfb530c76efa75add07e372f4df4b16e88d59a69b1c"
+    "scripts/正文气泡/bubble.css": "259c0ebf8bb57579179770d6b545029c3192bee42ac35378cf7242cd540a94e4",
+    "resource/knightavatars/manifest.json": "e930638806c0d48cde74b421a710e79d6fad73b9992bcb761f3ffcec744e128b"
   },
   "dialect": "SillyTavern card RegexScriptData",
   "evidenceType": "offline-javascript-string-replacement",
@@ -30,30 +30,30 @@
     "runOnEdit": true
   },
   "safetyBoundary": "已知唯一姓名、固定玩家标记或当前 persona 安全姓名的纯文本行生成气泡；未知安全姓名仅生成惰性候选，完整原行保留，只有终端身份解析唯一命中玩家后才可提升。玩家查找宏以转义值进行有限离线模拟，不代表宿主宏系统验收。正文封套及已闭合保护块之后可恢复；当前保护块、HTML 属性及普通 details 内不转换；同名保护标签嵌套允许保守回退；含 HTML/实体或 {{ 宏标记的行保持宿主原文。本组件不是原始消息 HTML 消毒器。",
-  "manifestCharacters": 33,
-  "uniqueNamesChecked": 180,
+  "manifestCharacters": 40,
+  "uniqueNamesChecked": 216,
   "ambiguousNames": [],
-  "total": 485,
-  "passed": 485,
+  "total": 521,
+  "passed": 521,
   "failed": 0,
   "measurements": [
     {
       "name": "十万字旁白夹少量对白",
       "inputCharacters": 96014,
-      "outputCharacters": 499654,
-      "elapsedMs": 5.11
+      "outputCharacters": 112303,
+      "elapsedMs": 7.11
     },
     {
       "name": "数万字连续对白",
       "inputCharacters": 37889,
-      "outputCharacters": 674540,
-      "elapsedMs": 459.81
+      "outputCharacters": 287189,
+      "elapsedMs": 697.61
     },
     {
       "name": "八万字单行对白",
       "inputCharacters": 80003,
-      "outputCharacters": 483448,
-      "elapsedMs": 1.64
+      "outputCharacters": 96097,
+      "elapsedMs": 2.22
     }
   ],
   "results": [
@@ -827,6 +827,150 @@
     },
     {
       "name": "头像清单唯一姓名/别名：Kusakabe Kagami",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：紫乃宫天音",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：紫乃宮天音",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：天音",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Amane Shinomiya",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Shinomiya Amane",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：平贺玲泉",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：平賀玲泉",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：平贺",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：平賀",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Reisen Hiraga",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Hiraga Reisen",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：叶暮牡丹",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：葉暮牡丹",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：牡丹",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Botan Hagure",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Hagure Botan",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：叶暮桔梗",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：葉暮桔梗",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：桔梗",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Kikyo Hagure",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Kikyou Hagure",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Hagure Kikyo",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：Hagure Kikyō",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：露娜艾丝·法米利昂",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：露娜艾絲·法米利昂",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：露娜艾丝",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：露娜艾絲",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：露娜",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：露娜姊",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：露娜姐",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：阿斯特蕾亚·法米利昂",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：阿斯特蕾亞·法米利昂",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：阿斯特蕾亚",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：阿斯特蕾亞",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：席琉斯·法米利昂",
+      "passed": true
+    },
+    {
+      "name": "头像清单唯一姓名/别名：席琉斯",
       "passed": true
     },
     {

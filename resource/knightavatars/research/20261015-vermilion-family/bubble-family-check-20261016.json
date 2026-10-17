@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "checkedAt": "2026-10-16T00:31:24.948Z",
+  "checks": [
+    {
+      "id": "lunaseyes",
+      "url": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/lunaseyes.png",
+      "aliasesChecked": 7
+    },
+    {
+      "id": "astraea",
+      "url": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/astraea.png",
+      "aliasesChecked": 4
+    },
+    {
+      "id": "sirius",
+      "url": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/sirius.png",
+      "aliasesChecked": 2
+    }
+  ],
+  "unchanged": {
+    "世界书规则/MVU/落第骑士-小手机-v1.3.29-B1.json": true,
+    "scripts/正文气泡/发布/components/dialogue-player-candidates.regex.json": true,
+    "世界书规则/MVU/schema.mjs": true,
+    "世界书规则/MVU/落第骑士-MVU-原生兼容-N04.json": true,
+    "scripts/黑白ADV轮盘终端/lime-story.js": true
+  }
+}

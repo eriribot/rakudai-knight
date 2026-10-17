@@ -1,0 +1,17 @@
+- main [ref=f2e2]:
+  - heading "终端头像局部预览" [level=1] [ref=f2e3]
+  - paragraph [ref=f2e4]: 来自现用 B1 头像更新组件的实际头像函数与样式。图片使用本地文件，可离线打开；此页仅展示头像，不连接酒馆或 MVU。
+  - region "法米利昂家人" [ref=f2e5]:
+    - article [ref=f2e6]:
+      - generic [ref=f2e10]:
+        - heading "露娜艾丝·法米利昂" [level=2] [ref=f2e11]
+        - paragraph [ref=f2e12]: 史黛拉的姐姐
+    - article [ref=f2e13]:
+      - generic [ref=f2e17]:
+        - heading "阿斯特蕾亚·法米利昂" [level=2] [ref=f2e18]
+        - paragraph [ref=f2e19]: 史黛拉的母亲
+    - article [ref=f2e20]:
+      - generic [ref=f2e24]:
+        - heading "席琉斯·法米利昂" [level=2] [ref=f2e25]
+        - paragraph [ref=f2e26]: 史黛拉的父亲 · 黑白原貌
+  - paragraph [ref=f2e27]: 原尺寸：60 × 80 像素。三张盾形图均为基于已核对小说插图的 AI 编辑衍生，父亲保留黑白。来源：小手机 v1.3.29 B1 · 头像更新

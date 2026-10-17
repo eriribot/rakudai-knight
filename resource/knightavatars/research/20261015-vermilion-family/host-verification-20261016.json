@@ -1,0 +1,141 @@
+{
+  "checkedAt": "2026-10-16T00:18:07.402Z",
+  "method": "HTTPS GET; bytes checked in memory; PNG signature and IHDR size; SHA-256 against local prepared file",
+  "gitRemote": "https://github.com/eriribot/rakudai-knight.git",
+  "defaultBranch": "main",
+  "uploadedOrModifiedRemote": false,
+  "checks": [
+    {
+      "id": "lunaseyes",
+      "name": "露娜艾丝·法米利昂",
+      "manifestImageUrl": "",
+      "displayFile": "prepared/lunaseyes.png",
+      "local": {
+        "bytes": 1577880,
+        "sha256": "539121ed540845f1d744c7c72f21441149c4bbf491dc9265d6ede70d59832528",
+        "isPng": true,
+        "width": 1085,
+        "height": 1450
+      },
+      "manifestPreparationSha256": "539121ed540845f1d744c7c72f21441149c4bbf491dc9265d6ede70d59832528",
+      "manifestShaMatchesLocal": true,
+      "attempts": [
+        {
+          "requestedUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/lunaseyes.png",
+          "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/lunaseyes.png",
+          "status": 404,
+          "contentType": "text/html; charset=utf-8",
+          "etag": "W/\"6abcf5c5-24a3\"",
+          "lastModified": null,
+          "bytes": 9379,
+          "sha256": "b620507312c5e97566a3c6cfaf99144fefc18a0da7d941401dfa0f5f58fb0368",
+          "isPng": false,
+          "matchesLocal": false
+        },
+        {
+          "requestedUrl": "https://raw.githubusercontent.com/eriribot/rakudai-knight/main/resource/knightavatars/prepared/lunaseyes.png",
+          "finalUrl": "https://raw.githubusercontent.com/eriribot/rakudai-knight/main/resource/knightavatars/prepared/lunaseyes.png",
+          "status": 200,
+          "contentType": "image/png",
+          "etag": "W/\"debe099a41fc74486c70ec964e980f4cc8b89a92dff294b378b81edf098b5e1c\"",
+          "lastModified": null,
+          "bytes": 1577880,
+          "sha256": "539121ed540845f1d744c7c72f21441149c4bbf491dc9265d6ede70d59832528",
+          "isPng": true,
+          "width": 1085,
+          "height": 1450,
+          "matchesLocal": true
+        }
+      ],
+      "verifiedUrl": "https://raw.githubusercontent.com/eriribot/rakudai-knight/main/resource/knightavatars/prepared/lunaseyes.png"
+    },
+    {
+      "id": "astraea",
+      "name": "阿斯特蕾亚·法米利昂",
+      "manifestImageUrl": "",
+      "displayFile": "prepared/astraea.png",
+      "local": {
+        "bytes": 1664512,
+        "sha256": "10698563c500bd1e31e1698815bd8d727837324bed50186d27fa5d672dea0338",
+        "isPng": true,
+        "width": 1085,
+        "height": 1450
+      },
+      "manifestPreparationSha256": "10698563c500bd1e31e1698815bd8d727837324bed50186d27fa5d672dea0338",
+      "manifestShaMatchesLocal": true,
+      "attempts": [
+        {
+          "requestedUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/astraea.png",
+          "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/astraea.png",
+          "status": 404,
+          "contentType": "text/html; charset=utf-8",
+          "etag": "W/\"6abcf5c5-24a3\"",
+          "lastModified": null,
+          "bytes": 9379,
+          "sha256": "b620507312c5e97566a3c6cfaf99144fefc18a0da7d941401dfa0f5f58fb0368",
+          "isPng": false,
+          "matchesLocal": false
+        },
+        {
+          "requestedUrl": "https://raw.githubusercontent.com/eriribot/rakudai-knight/main/resource/knightavatars/prepared/astraea.png",
+          "finalUrl": "https://raw.githubusercontent.com/eriribot/rakudai-knight/main/resource/knightavatars/prepared/astraea.png",
+          "status": 200,
+          "contentType": "image/png",
+          "etag": "W/\"f6e96d7cf2771264f78c05dfef6f457b2b1b1f70a7e5841b57e0dfb8135a95af\"",
+          "lastModified": null,
+          "bytes": 1664512,
+          "sha256": "10698563c500bd1e31e1698815bd8d727837324bed50186d27fa5d672dea0338",
+          "isPng": true,
+          "width": 1085,
+          "height": 1450,
+          "matchesLocal": true
+        }
+      ],
+      "verifiedUrl": "https://raw.githubusercontent.com/eriribot/rakudai-knight/main/resource/knightavatars/prepared/astraea.png"
+    },
+    {
+      "id": "sirius",
+      "name": "席琉斯·法米利昂",
+      "manifestImageUrl": "",
+      "displayFile": "prepared/sirius.png",
+      "local": {
+        "bytes": 1669665,
+        "sha256": "ad6fe47b4681140f68bf36a1e68a0415af01d30c1e63acf93d18a428cbcc29b5",
+        "isPng": true,
+        "width": 1085,
+        "height": 1450
+      },
+      "manifestPreparationSha256": "ad6fe47b4681140f68bf36a1e68a0415af01d30c1e63acf93d18a428cbcc29b5",
+      "manifestShaMatchesLocal": true,
+      "attempts": [
+        {
+          "requestedUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/sirius.png",
+          "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/sirius.png",
+          "status": 404,
+          "contentType": "text/html; charset=utf-8",
+          "etag": "W/\"6abcf5c5-24a3\"",
+          "lastModified": null,
+          "bytes": 9379,
+          "sha256": "b620507312c5e97566a3c6cfaf99144fefc18a0da7d941401dfa0f5f58fb0368",
+          "isPng": false,
+          "matchesLocal": false
+        },
+        {
+          "requestedUrl": "https://raw.githubusercontent.com/eriribot/rakudai-knight/main/resource/knightavatars/prepared/sirius.png",
+          "finalUrl": "https://raw.githubusercontent.com/eriribot/rakudai-knight/main/resource/knightavatars/prepared/sirius.png",
+          "status": 200,
+          "contentType": "image/png",
+          "etag": "W/\"ae7f59cb27c50cce159095c5d3174e644b27b9116798d2511f8a74d6e902ce54\"",
+          "lastModified": null,
+          "bytes": 1669665,
+          "sha256": "ad6fe47b4681140f68bf36a1e68a0415af01d30c1e63acf93d18a428cbcc29b5",
+          "isPng": true,
+          "width": 1085,
+          "height": 1450,
+          "matchesLocal": true
+        }
+      ],
+      "verifiedUrl": "https://raw.githubusercontent.com/eriribot/rakudai-knight/main/resource/knightavatars/prepared/sirius.png"
+    }
+  ]
+}

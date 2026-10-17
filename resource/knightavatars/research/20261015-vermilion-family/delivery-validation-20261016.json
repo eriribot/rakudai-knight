@@ -1,0 +1,47 @@
+{
+  "status": "passed",
+  "deliveryMode": "component",
+  "entries": [
+    {
+      "id": "lunaseyes",
+      "name": "露娜艾丝·法米利昂",
+      "url": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/lunaseyes.png"
+    },
+    {
+      "id": "astraea",
+      "name": "阿斯特蕾亚·法米利昂",
+      "url": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/astraea.png"
+    },
+    {
+      "id": "sirius",
+      "name": "席琉斯·法米利昂",
+      "url": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/sirius.png"
+    }
+  ],
+  "target": "世界书规则/MVU/落第骑士-小手机-v1.3.29-B1-头像更新.json",
+  "targetSha256": "8776cd3ed8477f4957b5e3e2cf41ab010647823f9878572118ddac607d4227fd",
+  "baselineId": "3d8c6c23-f78e-46e5-8e89-4a90bab6fb85",
+  "artifactEqualsStaging": true,
+  "nonAvatarFingerprint": "cb448ffa2cbd7e3c48d4056f16bb4b63f7460c8bdfa9887b8ea8a81570d6f823",
+  "preservedMappedSources": 14,
+  "verifiedSourceMappings": 5850,
+  "unchanged": {
+    "世界书规则/MVU/落第骑士-小手机-v1.3.29-B1.json": true,
+    "scripts/正文气泡/发布/components/dialogue-player-candidates.regex.json": true,
+    "世界书规则/MVU/schema.mjs": true,
+    "世界书规则/MVU/落第骑士-MVU-原生兼容-N04.json": true,
+    "scripts/黑白ADV轮盘终端/lime-story.js": true
+  },
+  "bubbleChecks": {
+    "passed": 521,
+    "total": 521
+  },
+  "updaterTests": {
+    "passed": 6,
+    "total": 6,
+    "command": "node --test scripts/黑白ADV轮盘终端/update-avatar-component-test.mjs"
+  },
+  "realSillyTavern": "not run; import and visual verification pending",
+  "checkedAt": "2026-10-16T00:31:24.952Z",
+  "hostVerification": "pages-verification-20261016.json"
+}
