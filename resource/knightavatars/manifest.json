@@ -1473,9 +1473,11 @@
         "note": "从原图提取单人头肩、增强清晰度并生成曲边盾形；是AI编辑衍生图，不是原始官方头像。原图另存。"
       },
       "imageHostStatus": {
-        "status": "prefilled-not-uploaded",
+        "status": "verified-matching-local",
         "url": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/amane.png",
-        "note": "按现有GitHub Pages路径预填；本轮未上传、未核验远端。"
+        "verification": "research/20261013-tournament/host-verification.json",
+        "checkedAt": "2026-10-13T03:38:43.802034+00:00",
+        "note": "HTTP 200，有效 PNG 1085×1450，SHA-256 与本地 prepared/amane.png 一致。"
       },
       "sourceEpub": "39688/[台版]落第骑士英雄谭 08.epub",
       "sourceMember": "OEBPS/Images/005.jpg"
@@ -1518,9 +1520,11 @@
         "note": "从原图提取单人头肩、增强清晰度并生成曲边盾形；是AI编辑衍生图，不是原始官方头像。原图另存。"
       },
       "imageHostStatus": {
-        "status": "prefilled-not-uploaded",
+        "status": "verified-matching-local",
         "url": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/hiraga.png",
-        "note": "按现有GitHub Pages路径预填；本轮未上传、未核验远端。"
+        "verification": "research/20261013-tournament/host-verification.json",
+        "checkedAt": "2026-10-13T03:38:43.802034+00:00",
+        "note": "HTTP 200，有效 PNG 1085×1449，SHA-256 与本地 prepared/hiraga.png 一致。"
       },
       "sourceEpub": "39688/[台版]落第骑士英雄谭 04.epub",
       "sourceMember": "OEBPS/Images/004.jpg",
@@ -1569,9 +1573,11 @@
         "note": "从原图提取单人头肩、增强清晰度并生成曲边盾形；是AI编辑衍生图，不是原始官方头像。原图另存。"
       },
       "imageHostStatus": {
-        "status": "prefilled-not-uploaded",
+        "status": "verified-matching-local",
         "url": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/botan.png",
-        "note": "按现有GitHub Pages路径预填；本轮未上传、未核验远端。"
+        "verification": "research/20261013-tournament/host-verification.json",
+        "checkedAt": "2026-10-13T03:38:43.802034+00:00",
+        "note": "HTTP 200，有效 PNG 1085×1450，SHA-256 与本地 prepared/botan.png 一致。"
       }
     },
     {
@@ -1613,9 +1619,11 @@
         "note": "从原图提取单人头肩、增强清晰度并生成曲边盾形；是AI编辑衍生图，不是原始官方头像。原图另存。"
       },
       "imageHostStatus": {
-        "status": "prefilled-not-uploaded",
+        "status": "verified-matching-local",
         "url": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kikyo.png",
-        "note": "按现有GitHub Pages路径预填；本轮未上传、未核验远端。"
+        "verification": "research/20261013-tournament/host-verification.json",
+        "checkedAt": "2026-10-13T03:38:43.802034+00:00",
+        "note": "HTTP 200，有效 PNG 1085×1450，SHA-256 与本地 prepared/kikyo.png 一致。"
       }
     },
     {

@@ -4,8 +4,8 @@ import path from 'node:path';
 import { buildTerminal, directory } from './bundle.mjs';
 
 // 维护源文件，产物只由这一入口生成；验证失败时不写出 JSON。
-const { artifact, html, map, version } = buildTerminal();
-const output = path.resolve(directory, '../../世界书规则/MVU/落第骑士-小手机-v' + version + '.json');
+const { artifact, html, map, filename } = buildTerminal();
+const output = path.resolve(directory, '../../世界书规则/MVU', filename);
 const dist = path.join(directory, 'dist');
 fs.mkdirSync(dist, { recursive: true });
 fs.mkdirSync(path.dirname(output), { recursive: true });

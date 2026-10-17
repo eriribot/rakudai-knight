@@ -1,0 +1,192 @@
+{
+  "date": "2026-10-17",
+  "mode": "read-only remote baseline audit; no live Tavern mutation",
+  "remoteRef": "f93dd6610d2b9b6f49c47ad0c6ecd354c56bd640",
+  "baselines": [
+    {
+      "path": "世界书规则/MVU/落第骑士-小手机-v1.3.29-B1.json",
+      "bytesSha256": "1ed1c204b43f5c6549fd66cc73e3b57c3d55c365f36083f02d476fb611f29c09",
+      "contentSha256": "6d30081d3132ef435a8e96ccef795bf47de98cfbd9c7a4f5648ab50f21f75448",
+      "name": "落第骑士·黑白ADV轮盘终端 v1.3.29 B1（LIME状态精简）",
+      "id": "3d8c6c23-f78e-46e5-8e89-4a90bab6fb85"
+    },
+    {
+      "path": "世界书规则/MVU/落第骑士-小手机-v1.3.29-B1-头像更新.json",
+      "bytesSha256": "8776cd3ed8477f4957b5e3e2cf41ab010647823f9878572118ddac607d4227fd",
+      "contentSha256": "8ce6c1a4a6888e22967fb4ffb3f8ceb9f769d2391910c0e95870607618873c29",
+      "name": "落第骑士·黑白ADV轮盘终端 v1.3.29 B1（LIME状态精简）",
+      "id": "3d8c6c23-f78e-46e5-8e89-4a90bab6fb85"
+    }
+  ],
+  "hostSourceCount": 14,
+  "hostSources": [
+    {
+      "name": "main.js",
+      "identical": true,
+      "remoteSha256": "dd36515372f1647cc064973d061089edf39b9914cdbf9741599d610093e252e3",
+      "localSha256": "dd36515372f1647cc064973d061089edf39b9914cdbf9741599d610093e252e3"
+    },
+    {
+      "name": "../rakudai-state-controller.js",
+      "identical": false,
+      "remoteSha256": "1b52989bd3dbb96466130d27e1dbd5ad1c92198d72b39e8e57e24c81f2d96fc2",
+      "localSha256": "d7fe69aeea0f55c7013623f2969ebecfbc7617885e571b65949927d05c1cc606",
+      "expectedDifference": "累计战绩补录计算与切卷直接开始；由已修复维护源生成"
+    },
+    {
+      "name": "state-reader.js",
+      "identical": true,
+      "remoteSha256": "58859e1db187e7815c977b6bfce23f07b8b39d37b79717b0808979784298408a",
+      "localSha256": "58859e1db187e7815c977b6bfce23f07b8b39d37b79717b0808979784298408a"
+    },
+    {
+      "name": "lime-chat.mjs",
+      "identical": true,
+      "remoteSha256": "d2ab82ccd7bdcccfd4df71aaaab64563a86f7d0ee9d5b73d0ee461f00d8ebe62",
+      "localSha256": "d2ab82ccd7bdcccfd4df71aaaab64563a86f7d0ee9d5b73d0ee461f00d8ebe62"
+    },
+    {
+      "name": "lime-host.js",
+      "identical": true,
+      "remoteSha256": "6cb2175936abf5c1c497b297651570831efacd52578cb206be7c4f740a93f4f7",
+      "localSha256": "6cb2175936abf5c1c497b297651570831efacd52578cb206be7c4f740a93f4f7"
+    },
+    {
+      "name": "lime-worldbook.js",
+      "identical": true,
+      "remoteSha256": "8a452da62da965b55f21301d509db082c48a952a239fb17e22f11f32e0cb2d0b",
+      "localSha256": "8a452da62da965b55f21301d509db082c48a952a239fb17e22f11f32e0cb2d0b"
+    },
+    {
+      "name": "calendar-worldbook.js",
+      "identical": true,
+      "remoteSha256": "f9d236d1668230384c313a9655daa226a82d699c00b55281524e61d279de54b1",
+      "localSha256": "f9d236d1668230384c313a9655daa226a82d699c00b55281524e61d279de54b1"
+    },
+    {
+      "name": "player-display-store.js",
+      "identical": true,
+      "remoteSha256": "eb5926fbb0adcd3ae1180c39bde122e556da83688f4f68c8d4d63ed958028b93",
+      "localSha256": "eb5926fbb0adcd3ae1180c39bde122e556da83688f4f68c8d4d63ed958028b93"
+    },
+    {
+      "name": "player-portrait.js",
+      "identical": true,
+      "remoteSha256": "86770b1d19248be8d4fbb0ff0e91416824a533b7aae7734406e813f77ae03d17",
+      "localSha256": "86770b1d19248be8d4fbb0ff0e91416824a533b7aae7734406e813f77ae03d17"
+    },
+    {
+      "name": "layout.js",
+      "identical": true,
+      "remoteSha256": "e933b53d037ab34aab5c7eed5e855926fd5a83624237ef13fc9742df09040247",
+      "localSha256": "e933b53d037ab34aab5c7eed5e855926fd5a83624237ef13fc9742df09040247"
+    },
+    {
+      "name": "wheel.js",
+      "identical": true,
+      "remoteSha256": "ca22642191479da27004f83dfe3211cdbfd8f8bced72e2cc99104d9f4ba9f5f9",
+      "localSha256": "ca22642191479da27004f83dfe3211cdbfd8f8bced72e2cc99104d9f4ba9f5f9"
+    },
+    {
+      "name": "correction.js",
+      "identical": true,
+      "remoteSha256": "4e51c4bd9081944f1f496fbb46f47a94501d250ccd26338c53d06a7afbcfdb94",
+      "localSha256": "4e51c4bd9081944f1f496fbb46f47a94501d250ccd26338c53d06a7afbcfdb94"
+    },
+    {
+      "name": "state-panel.js",
+      "identical": false,
+      "remoteSha256": "5718c03025c03c68af75a0f737ffa638861e18fbebbce37537b2100a2bbbb393",
+      "localSha256": "fe6b26b8d3209ef1d39b06b677293c264e1614f81cbb0f83e4c7ecf2fd186fb0",
+      "expectedDifference": "切卷表单预填、保留玩家编辑、一次提交开始"
+    },
+    {
+      "name": "lime-story.js",
+      "identical": true,
+      "remoteSha256": "014cc9ba1b21ace4733dff6514517993b36d7c37088cc457ba474056c5184eed",
+      "localSha256": "014cc9ba1b21ace4733dff6514517993b36d7c37088cc457ba474056c5184eed"
+    }
+  ],
+  "embeddedSources": [
+    {
+      "name": "terminal-app.js",
+      "identical": false,
+      "remoteSha256": "af59294ee84f8edaf93aba0f61050e16bba0eef383516d033004fc9227bfb7f4",
+      "localSha256": "c8d6bd1ff7dea2dd2c302a231fe4f6d70a639fbf2fd18d6d37c4b318d48c8ab3",
+      "expectedDifference": "本地赛事预览门禁及累计战绩补录入口"
+    },
+    {
+      "name": "lime-chat.mjs",
+      "identical": true,
+      "remoteSha256": "d2ab82ccd7bdcccfd4df71aaaab64563a86f7d0ee9d5b73d0ee461f00d8ebe62",
+      "localSha256": "d2ab82ccd7bdcccfd4df71aaaab64563a86f7d0ee9d5b73d0ee461f00d8ebe62"
+    },
+    {
+      "name": "terminal-lime.js",
+      "identical": true,
+      "remoteSha256": "5e137a014c8e57a8a165ecd6f1b03579d57730e79c2e7569e6c1d84593f250fc",
+      "localSha256": "5e137a014c8e57a8a165ecd6f1b03579d57730e79c2e7569e6c1d84593f250fc"
+    },
+    {
+      "name": "terminal-tournament.js",
+      "identical": false,
+      "remoteSha256": "69938d8efa32a61912f9c66a2ed6cd214af86c4e90fd6fef0846586583ea575a",
+      "localSha256": "f55c63882ea50b3a75a0f479ff6413b440b5d469ebf17782ec8f3427d7f11bc2",
+      "expectedDifference": "本地赛事预览标题与提示门禁"
+    },
+    {
+      "name": "terminal-controls.js",
+      "identical": true,
+      "remoteSha256": "09f8cafaa9f281257d756627808f8e618546966e480b642fb860e3a53d6f6fd3",
+      "localSha256": "09f8cafaa9f281257d756627808f8e618546966e480b642fb860e3a53d6f6fd3"
+    }
+  ],
+  "hostOutsideMappedModulesAndThreeDataSlots": {
+    "equal": true,
+    "charCount": 73683,
+    "remoteSha256": "397a3f6dc81ee6c22de33b7a20f86dcb9313dfc6aead93482ed5fc2adf747e3b",
+    "localSha256": "397a3f6dc81ee6c22de33b7a20f86dcb9313dfc6aead93482ed5fc2adf747e3b",
+    "excludedDataSlots": [
+      "APP_HTML",
+      "LIME_CHARACTER_ALIASES",
+      "PORTRAIT_RESERVED_NAMES"
+    ]
+  },
+  "templateAndStyles": {
+    "removedLines": [
+      "      <span class=\"t\">七星剑斗祭 · 赛事面板</span>"
+    ],
+    "addedLines": [
+      ".rk-arena-locked>p{margin:0 0 10px;color:var(--muted)}",
+      ".rk-arena-preview{flex:none;padding:10px 16px;border-bottom:1px solid var(--hair);background:var(--card);font-weight:700;line-height:1.5}",
+      ".rk-arena-preview>small{font-weight:400;color:var(--muted)}",
+      "      <span class=\"t\" id=\"arena-title\">七星剑斗祭 · 赛事面板</span>",
+      "    <div class=\"rk-arena-preview\" id=\"arena-preview-notice\" hidden>赛事预览 · 选拔赛结束后正式开放<br><small>可查看界面与原著回放，不推进本局赛程。</small></div>"
+    ],
+    "finding": "Only the previously requested selection-ended gate and persistent preview notice differ."
+  },
+  "embeddedTournamentPanel": {
+    "equalExceptPortraitDictionary": true,
+    "normalizedSha256": "3f488e23a43e2674661e92019bf7295931aedcc2cc10b0dc35d7c8c0c5b8aa5c",
+    "finding": "Current build updates the embedded tournament portrait dictionary from the merged 40-person manifest; all other embedded panel bytes match B1."
+  },
+  "deliveryRecommendation": {
+    "buildFrom": "merged maintained source, including remote lime-story.js and local cumulative-score/chapter-transition fixes",
+    "metadataBaseline": "世界书规则/MVU/落第骑士-小手机-v1.3.29-B1-头像更新.json",
+    "preserve": [
+      "id",
+      "name",
+      "enabled",
+      "button",
+      "data",
+      "export_with",
+      "unknown metadata"
+    ],
+    "releaseTarget": "世界书规则/MVU/落第骑士-小手机-v1.3.29-B1-头像更新.json",
+    "historicalBaseline": "世界书规则/MVU/落第骑士-小手机-v1.3.29-B1.json",
+    "doNotUse": "Old build-lime-story-component/update-avatar-component patch builders cannot incorporate the local scoring and route fixes. Keep original B1 baseline immutable."
+  },
+  "limitations": [
+    "Offline source and byte comparison only; does not assert live import or runtime acceptance."
+  ]
+}

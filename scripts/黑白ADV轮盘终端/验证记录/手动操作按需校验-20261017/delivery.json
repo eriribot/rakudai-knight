@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-17",
+  "deliveryMode": "component",
+  "target": "世界书规则/MVU/落第骑士-小手机-v1.3.29-B1-头像更新.json",
+  "sha256": "f79400eec8d98643dc51d6fed05808b6d59c04556199b6da4ca94ef6a9180c5b",
+  "metadataPreserved": true,
+  "versionUnchanged": true,
+  "optionalGuard": {
+    "path": "世界书规则/MVU/落第骑士-MVU-v4字段约束.json",
+    "sha256": "797671c1bacf64d9b088b1c691191c02497ba60ebe27dca39c3a20a86265189c",
+    "unchangedThisUpdate": true,
+    "requiredForManualOperations": false
+  },
+  "acceptance": "关闭可选约束时，旧人际缺项、自定义字段及相对旧日程仍可切卷和累计补录；其他资料保留。",
+  "evidence": [
+    "controller-validation.json",
+    "package-validation.json"
+  ],
+  "review": "已只读复核各scope读取、候选、幂等、回读和保存路径，无新增问题",
+  "runtime": "离线回归与组件校验，未实机导入或写入聊天",
+  "git": {
+    "committed": false,
+    "pushed": false
+  }
+}

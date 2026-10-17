@@ -4,6 +4,8 @@ import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 import { buildTerminal, directory, extractScripts, jsString } from './bundle.mjs';
 import { RELATIONSHIP_SCORING, supportStage, romanceStage } from '../../世界书规则/MVU/schema.mjs';
+import { samples as tournamentPreviewSamples } from '../../七星剑武祭-晋级面板预览/mvu-model.mjs';
+import { deriveTournament as derivePreviewTournament } from '../rakudai-tournament.mjs';
 
 // Preview fixtures belong only to this generator, never to the exported helper script.
 function makeSamples() {
@@ -48,7 +50,7 @@ function makeSamples() {
   highest.人际.协作教员乙.变化依据 = '虚拟样本：女性好感达到生死相随门槛。';
   const avatars = JSON.parse(JSON.stringify(numeric));
   avatars.人际 = {};
-  ['史黛菈·法米利昂', '绫辻绚濑', '有栖院凪', '御祓泡沫', '西京宁音', '原创同行', '艾莉丝·阿斯卡里德', '多多良幽衣', '欧尔·格尔', '华伦斯坦', '药师雾子', '莎拉·布拉德莉莉', '风祭凛奈', '艾茵·阿伯伦特', '碎城雷', '浅木椛', '城之崎白夜', '诸星雄大', '鹤屋美琴', '福小莉', '夏洛特·科黛', '日下部加加美'].forEach((name, index) => {
+  ['史黛菈·法米利昂', '绫辻绚濑', '有栖院凪', '御祓泡沫', '西京宁音', '原创同行', '艾莉丝·阿斯卡里德', '多多良幽衣', '欧尔·格尔', '华伦斯坦', '药师雾子', '莎拉·布拉德莉莉', '风祭凛奈', '艾茵·阿伯伦特', '碎城雷', '浅木椛', '城之崎白夜', '诸星雄大', '鹤屋美琴', '福小莉', '夏洛特·科黛', '日下部加加美', '紫乃宫天音', '平贺玲泉', '叶暮牡丹', '叶暮桔梗'].forEach((name, index) => {
     avatars.人际[name] = {
       关系: '离线演示中登记的同伴', 态度印象: '仅用于比较盾形头像与首字回退，不代表本局关系。',
       好感: 100, 支援度: 80, 羁绊阶段: supportStage(80), 已加联系方式: index % 2 === 0,
@@ -56,7 +58,8 @@ function makeSamples() {
   });
   const lime = JSON.parse(JSON.stringify(avatars));
   lime.场景.时间 = '2013-05-15 16:25';
-  return { numeric, legacy, highest, avatars, lime };
+  const tournaments = Object.fromEntries(Object.entries(tournamentPreviewSamples).map(([key, sample]) => [key, structuredClone(sample.state)]));
+  return { numeric, legacy, highest, avatars, lime, ...tournaments };
 }
 
 function makeLimeMessages() {
@@ -86,7 +89,7 @@ function previewRuntime() {
   const frameWrap = document.getElementById('preview-frame-wrap');
   const status = document.getElementById('preview-status');
   const query = new URLSearchParams(window.location.search);
-  let selected = ['numeric', 'highest', 'legacy', 'empty', 'avatars', 'lime'].includes(query.get('sample')) ? query.get('sample') : 'numeric';
+  let selected = ['numeric', 'highest', 'legacy', 'empty', 'avatars', 'lime', 'selection', 'qualified', 'tie', 'other', 'ikki'].includes(query.get('sample')) ? query.get('sample') : 'numeric';
   let theme = 'dark';
   let app = null;
   const subscribers = new Set();
@@ -106,6 +109,11 @@ function previewRuntime() {
     empty: '虚拟第 8 楼的另一回复槽未保存 MVU：应清空此前人物，显示当前槽未就绪，不借用上一回复。',
     avatars: '虚拟头像样本：风祭凛奈、夏洛特共用清单姓名与别名匹配；凛奈保留第5卷上色头像，小莉沿用原图床地址，本地保留第18卷中华服、金钱饰片版。凛奈、碎城雷、美琴、小莉与夏洛特的上色均记录为AI衍生图，未核实配色与用户指定配色分别标注。诸星雄大保留原版彩色盾图，欧尔图为童年回忆形态；有栖院凪与艾莉丝使用全名分别识别，原创同行保留首字。图床地址留空的素材由本地内联显示。可在手机首页打开 LIME 比较通讯录。',
     lime: 'LIME虚构聊天样本：通讯附于两条剧情记录，按各自楼层的 MVU 时间显示；夏洛特的主动来信也来自虚构正文。发送只向当前剧情附加本地通讯，不增加楼层、不生成角色回信，不调用模型或写入真实酒馆。',
+    selection: '本局选拔虚构样本：自捏骑士与原作角色共用正式选拔引擎。显示已登记的玩家实际对局；代表资格尚待确认，离线预览不保存比赛。',
+    qualified: '已出线虚构样本：288 人、20 轮完整旧账本且赛季已结束，正式引擎确认玩家位于前六名。全国赛签位仍待公布，不沿用原著胜者。',
+    tie: '同分虚构样本：完整赛季的第六、第七名积分相同，代表资格保留待决，不按姓名或录入顺序分配。',
+    other: '他校虚构角色：保留当前姓名、所属和灵装，破军选拔不适用；全国赛资格与签位须有本局记录。',
+    ikki: '一辉模式虚构样本：正式引擎将玩家绑定到既有黑铁一辉参赛 ID，名册不重复添加一辉。',
   };
   function source() {
     return { chatId: 'offline-preview', messageId: selected === 'lime' ? limeMessages.length - 1 : selected === 'legacy' ? 6 : 8,
@@ -119,6 +127,7 @@ function previewRuntime() {
     }
     return { state: JSON.parse(JSON.stringify(samples[selected])), source: source() };
   }
+  function tournamentReadOnly() { throw new Error('赛事离线预览只读：不会保存比赛或修改真实 MVU。'); }
   function updateDescription() {
     status.textContent = descriptions[selected];
     document.querySelectorAll('[data-sample]').forEach(button => {
@@ -158,6 +167,12 @@ function previewRuntime() {
       supportStage,
       romanceStage,
       getSnapshot,
+      tournament: {
+        view: () => JSON.parse(JSON.stringify(tournamentViews[selected])),
+        action: tournamentReadOnly,
+        participant: tournamentReadOnly,
+        opponents: tournamentReadOnly,
+      },
       lime: {
         read: () => ({ messages: selected === 'lime' ? limeMessages : [], playerName: samples[selected]?.玩家?.姓名,
           source: source(), generating: false }),
@@ -189,7 +204,8 @@ function previewRuntime() {
         openStoryControls() { status.textContent = '离线预览不执行建档或剧情写入。'; },
       },
     });
-    if (query.get('view') === 'calendar') app.openApp('calendar');
+    if (query.get('view') === 'arena') { app.openApp('schedule'); app.openApp('arena'); }
+    else if (query.get('view') === 'calendar') app.openApp('calendar');
     else if (['avatars', 'lime'].includes(selected) && query.get('view') === 'lime') {
       app.openApp('lime');
       if (selected === 'lime') app.refreshTerminalState().then(() => { app.openLimeChat('风祭凛奈'); app.refreshLimeRecords(); });
@@ -203,6 +219,8 @@ function previewRuntime() {
 
 export function buildPreview() {
   const built = buildTerminal();
+  const previewSamples = makeSamples();
+  const tournamentViews = Object.fromEntries(Object.entries(previewSamples).map(([key, state]) => [key, derivePreviewTournament(state)]));
   const exportedWorldbook = JSON.parse(fs.readFileSync(new URL('../../落第骑士英雄谭v0.02.json', import.meta.url), 'utf8'));
   const calendarWorldbookEntries = Object.values(exportedWorldbook.entries).filter(entry => entry.comment && entry.comment.startsWith('[剧情]'))
     .map(entry => ({ uid: entry.uid, name: entry.comment, content: entry.content }));
@@ -212,7 +230,8 @@ export function buildPreview() {
     'const RELATIONSHIP_SCORING = ' + jsString(RELATIONSHIP_SCORING) + ';\n' +
     'const supportStage = ' + supportStage.toString() + ';\n' +
     'const romanceStage = ' + romanceStage.toString() + ';\n' +
-    'const samples = ' + jsString(makeSamples()) + ';\n' +
+    'const samples = ' + jsString(previewSamples) + ';\n' +
+    'const tournamentViews = ' + jsString(tournamentViews) + ';\n' +
     'const limePreviewMessages = ' + jsString(makeLimeMessages()) + ';\n' +
     'const calendarWorldbookEntries = ' + jsString(calendarWorldbookEntries) + ';\n' + calendarReaderSource + '\n' +
     '(' + previewRuntime.toString() + ')();\n';
@@ -235,6 +254,7 @@ iframe{display:block;width:100%;height:min(760px,80vh);min-height:420px;border:0
 <button type="button" data-sample="legacy" aria-pressed="false">旧 null · 待核定</button>
 <button type="button" data-sample="empty" aria-pressed="false">另一回复 · 空槽</button></div>
 <div class="controls"><button type="button" data-sample="avatars" aria-pressed="false">盾形头像</button><button type="button" data-sample="lime" aria-pressed="false">聊天记录</button></div>
+<div class="controls" aria-label="赛事虚构样本"><button type="button" data-sample="selection" aria-pressed="false">本局选拔</button><button type="button" data-sample="qualified" aria-pressed="false">已出线</button><button type="button" data-sample="other" aria-pressed="false">他校角色</button></div>
 <div class="controls" aria-label="预览显示条件">
 <button type="button" data-theme="dark" aria-pressed="true">黑色外壳</button><button type="button" data-theme="light" aria-pressed="false">白色外壳</button>
 <label>容器宽度 <select id="preview-width"><option value="320">320 px</option><option value="420" selected>420 px</option><option value="560">560 px</option></select></label></div>

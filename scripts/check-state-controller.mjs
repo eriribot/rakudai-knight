@@ -170,6 +170,22 @@ await check('卷内章段依序结束和开始，卷末必须使用单独跨卷�
   assert.equal(applyTransition(next, { action: 'start' }).场景.阶段, '进行中');
   ended.场景.当前章 = '终章'; assert.throws(() => applyTransition(ended, { action: 'next' }), /当前卷末/);
 });
+await check('切卷明确请求开始时原子进入进行中，旧请求仍保持未开始且不补造事件', () => {
+  const before = applyOpening(clone(INITIAL_STATE), payload());
+  Object.assign(before.场景, { 当前章: '终章', 阶段: '已结束' });
+  before.场景.已发生事件.旧事 = { 卷号: 1, 章段: '第一章', 结果: '本局已发生', 参与者: [], 知情者: [] };
+  const original = clone(before);
+  for (const route of [{ action: 'nextVolume' }, { action: 'jump', volume: 6, chapter: '间章1' }]) {
+    const request = { ...route, time: '本局时间', location: '本局地点', entryNote: '从玩家选择的情境继续' };
+    const legacy = applyTransition(before, request), started = applyTransition(before, { ...request, start: true });
+    assert.equal(legacy.场景.阶段, '未开始'); assert.equal(started.场景.阶段, '进行中');
+    assert.equal(started.场景.时间, request.time); assert.equal(started.场景.地点, request.location); assert.equal(started.场景.切入说明, request.entryNote);
+    assert.deepEqual(started.场景.已发生事件, before.场景.已发生事件);
+    assert.deepEqual(legacy.场景.已发生事件, before.场景.已发生事件);
+    assert.throws(() => applyTransition(before, { ...request, start: true, time: '' }), /目标时间/);
+  }
+  assert.deepEqual(before, original);
+});
 await check('已完成别名只推进相邻章，同轮副校正不重复推进且末卷正确收尾', () => {
   const previous = { stat_data: applyOpening(clone(INITIAL_STATE), payload()) }, original = clone(previous);
   const main = clone(previous); main.stat_data.场景.阶段 = '已完成';

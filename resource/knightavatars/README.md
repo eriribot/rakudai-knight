@@ -111,7 +111,7 @@ node scripts/build-knight-avatar-delivery.mjs
 
 鹤屋美琴使用用户提供的黑白人物图，以内置 imagegen 上色。灰金色头发依据用户给出的描述，并与第5卷尾声正文核对；眼色与制服颜色尚无官方彩图核实，标为本次上色选择。原截图与 [color/mikoto-colorized.png](./color/mikoto-colorized.png) 上色结果分别保留，不把来源标成已核实的小说插图，也不把生成图标成官方原生彩图。[上色记录](./research/epub/mikoto-colorization.json) 保存完整提示词、输入来源和哈希。图床上传使用 [prepared/mikoto.png](./prepared/mikoto.png)。
 
-福小莉的本地头像已从第12卷囚衣版换为第18卷中华服版，继续使用同一个 `xiaoli` ID 与 [prepared/xiaoli.png](./prepared/xiaoli.png)，不登记第二个人物。[novel/xiaoli-vol18-original.jpg](./novel/xiaoli-vol18-original.jpg) 保留第18卷 `OEBPS/Images/190226.jpg` 原始位元组；[color/xiaoli-vol18-colorized.png](./color/xiaoli-vol18-colorized.png) 是已保存的内置 imagegen 上色衍生图，头像裁切先校正眼线。黑长发与较深肤色依据第18卷正文，延续上一版的自然暖棕色阶；双圆形金钱饰片按用户指定使用金色。象牙白中华服、克制金色纹饰与深棕瞳色属于本次上色选择，未标成官方彩页。[第18卷上色记录](./research/epub/xiaoli-vol18-colorization.json) 保存完整提示词、原始来源与哈希。旧第12卷原图、用户图片、上色图和 [原上色记录](./research/epub/xiaoli-colorization.json) 继续保留。按用户要求，`imageUrl` 继续沿用原图床地址 `https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/xiaoli.png`，终端直接使用该地址。恢复地址不代表第18卷新版已上传，远端是否为新版尚未核验。
+福小莉的本地头像已从第12卷囚衣版换为第18卷中华服版，继续使用同一个 `xiaoli` ID 与 [prepared/xiaoli.png](./prepared/xiaoli.png)，不登记第二个人物。[novel/xiaoli-vol18-original.jpg](./novel/xiaoli-vol18-original.jpg) 保留第18卷 `OEBPS/Images/190226.jpg` 原始位元组；[color/xiaoli-vol18-colorized.png](./color/xiaoli-vol18-colorized.png) 是已保存的内置 imagegen 上色衍生图，头像裁切先校正眼线。黑长发与较深肤色依据第18卷正文，延续上一版的自然暖棕色阶；双圆形金钱饰片按用户指定使用金色。象牙白中华服、克制金色纹饰与深棕瞳色属于本次上色选择，未标成官方彩页。[第18卷上色记录](./research/epub/xiaoli-vol18-colorization.json) 保存完整提示词、原始来源与哈希。旧第12卷原图、用户图片、上色图和 [原上色记录](./research/epub/xiaoli-colorization.json) 继续保留。按用户要求，`imageUrl` 继续沿用原图床地址 `https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/xiaoli.png`，终端直接使用该地址。第18卷新版已通过本次[全量图床核验](./research/20261013-tournament/host-verification.json)，远端 PNG 与当前本地成品的 SHA-256 一致。
 
 日下部加加美使用[动画官网第2话公开剧照](https://ittoshura.com/story/epsode2.html)中的制服近景，原档保存为 [anime/kagami-original.jpg](./anime/kagami-original.jpg)。保留原画人物与配色，通过眼线校正和盾口裁切生成 [prepared/kagami.png](./prepared/kagami.png)；旋转边角使用暖色底填充，未使用 AI 重绘。来源、旋转与裁切记录见 [kagami-evidence.json](./research/anime/kagami-evidence.json)。全名、`加加美`、日文 `日下部加々美／加々美` 与英文姓名均匹配同一 `kagami`。用户填写的[完整盾图图床地址](https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kagami.png)现已返回 HTTP 200，尺寸434×580，SHA-256与本地合成图完全一致，见[图床核验](./research/anime/kagami-host-verification.json)。重建的小手机与正文气泡使用此地址。
 
@@ -119,14 +119,14 @@ node scripts/build-knight-avatar-delivery.mjs
 
 以下四张使用内置 imagegen 从已核对的原图隔离头肩、增强细节并制成透明盾形头像，均为 **AI 衍生图**，不是官方原始高清头像。原图保留于 `research/20261013-tournament/`；[提示词](./research/20261013-tournament/imagegen-prompts.json)、[完整衍生记录](./research/20261013-tournament/imagegen-record.json) 与 [天音、平贺身份核验](./research/20261013-tournament/source-report.md) 分别记录处理和来源。
 
-| 人物 / 独立 ID | 原图来源 | 本地高清盾图 | RGBA 尺寸 | 预填图床地址 |
+| 人物 / 独立 ID | 原图来源 | 本地高清盾图 | RGBA 尺寸 | 已核验图床地址 |
 | --- | --- | --- | --- | --- |
 | 紫乃宫天音 / `amane` | 第8卷 `OEBPS/Images/005.jpg`，[具名彩图原档](./research/20261013-tournament/amane-vol08-original.jpg) | [prepared/amane.png](./prepared/amane.png) | 1085 × 1450 | [amane.png](https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/amane.png) |
 | 平贺玲泉 / `hiraga` | 第4卷 `OEBPS/Images/004.jpg`，[具名彩图原档](./research/20261013-tournament/hiraga-vol04-original.jpg) | [prepared/hiraga.png](./prepared/hiraga.png) | 1085 × 1449 | [hiraga.png](https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/hiraga.png) |
 | 叶暮牡丹 / `botan` | 用户指定的 [Hagure Sisters 页面](https://rakudai-kishi.fandom.com/wiki/Hagure_Sisters)，[1201 × 623 原图](./research/20261013-tournament/hagure-original.webp)中的蓝发角色 | [prepared/botan.png](./prepared/botan.png) | 1085 × 1450 | [botan.png](https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/botan.png) |
 | 叶暮桔梗 / `kikyo` | 同一张姐妹原图中的红发角色 | [prepared/kikyo.png](./prepared/kikyo.png) | 1085 × 1450 | [kikyo.png](https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kikyo.png) |
 
-这四个地址状态为 `prefilled-not-uploaded`：仅预填，尚未上传或核验远端图片；高清尺寸描述的是本地输出，不能据此认定远端已更新。叶暮姐妹分别按本局选拔名册姓名匹配头像。
+这四个地址状态为 `verified-matching-local`：2026-10-13 已通过 HTTP 200、PNG 解码及 SHA-256 与本地成品一致核验，远端尺寸与表中一致。[本次全量图床报告](./research/20261013-tournament/host-verification.json) 共核验 38/38 个文件，全部匹配。叶暮姐妹分别按本局选拔名册姓名匹配头像。
 
 平贺是欧尔·格尔操纵的机关人偶与中继站。比赛中的参赛身份使用 `hiraga`；幕后关系关联 `or_gaule`，保留各自头像 ID，不把“欧尔·格尔”作为平贺的头像别名。关系是否在界面揭露仍应跟随当前剧情。
 

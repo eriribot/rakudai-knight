@@ -2,12 +2,12 @@ import { deriveTournament } from '../scripts/rakudai-tournament.mjs';
 import { TOURNAMENT_CANON, seedTournamentRoster } from '../scripts/rakudai-tournament-background.mjs';
 
 // 只读预览适配：复用正式选拔引擎；没有写档、全国赛签位或剧情文本确权。
-export function read(input) {
+export function read(input, providedView) {
   const snapshot = input?.state ? input : { state: input?.stat_data || input };
   const stat = structuredClone(snapshot.state?.stat_data || snapshot.state || {});
   const source = snapshot.source ? structuredClone(snapshot.source) : null;
   const pending = snapshot.pending === true;
-  const view = deriveTournament(stat);
+  const view = providedView || deriveTournament(stat);
   const row = view.roster.find(person => person.id === view.playerId);
   const player = {
     id: view.playerId,

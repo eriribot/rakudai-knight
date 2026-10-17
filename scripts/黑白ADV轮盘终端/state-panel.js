@@ -52,7 +52,10 @@
     if (!statePanel) return;
     panelNode('[data-story-next-volume]').hidden = true;
     panelNode('[data-story-jump]').open = false;
-    if (clearDrafts) for (const form of statePanel.querySelectorAll('[data-story-form]')) form.reset();
+    if (clearDrafts) for (const form of statePanel.querySelectorAll('[data-story-form]')) {
+      form.reset();
+      for (const name of ['time', 'location', 'entryNote']) form.elements[name].dataset.userEdited = '';
+    }
   }
   function firstNextVolumeChapter() {
     const captured = routeCaptures.nextVolume;
@@ -101,7 +104,7 @@
     };
     panelText('[data-story-display-source]', panelDisplayState && panelReadOnly ? displayNotes[displayReason] || '' : '');
     setPanelOptions(panelNode('[data-story-start-chapter]'), [{ value: '', label: '请选择章节' }, ...(book?.chapters || []).map(chapter => ({ value: chapter.key, label: chapter.key + ' · ' + chapter.title }))], scene.当前章 === '待选择' ? undefined : scene.当前章);
-    let hint = '手动切章和 AI 直接提交相邻目标卷章不需要字段约束。若 AI 只提交本章“已结束”，需启用可选字段约束才能由代码进入下一章。';
+    let hint = '可直接切换章节，无需开启字段约束。切入说明可按你的剧情修改。';
     if (panelMigration) hint = '当前为 v3 存档，先核对下方差异，再明确确认升级。预览不会修改聊天。';
     else if (system.开局状态 !== '已建档') hint = '请先完成开局建档。';
     else if (scene.当前卷 === 19 && scene.当前章 === book?.chapters.at(-1)?.key && scene.阶段 === '已结束') hint = '已到第 19 卷末。回看已有剧情请使用聊天分支或已有回复页。';
@@ -166,7 +169,7 @@
         return;
       }
       let captured, migration;
-      try { captured = await service.capture(); }
+      try { captured = await service.capture({ scope: 'story' }); }
       catch (error) { if (error.code !== 'MIGRATION_REQUIRED') throw error; migration = await service.prepareMigration(); }
       if (request !== panelRequest || SS.destroyed || !statePanel) return;
       if (captured && (!captured.state || !captured.token)) throw new Error('未取得可用的剧情状态。');
@@ -204,12 +207,18 @@
     const form = panelNode('[data-story-form="' + action + '"]');
     const volume = action === 'jump' ? Number(form.elements.volume.value) : captured.state.场景.当前卷 + 1;
     const chapter = action === 'jump' ? form.elements.chapter.value : firstNextVolumeChapter();
-    form.querySelector('[data-story-route-summary]').textContent = '从 ' + sceneLabel(captured.state.场景) + ' → 第' + volume + '卷 · ' + (chapter || '没有更后的章节') + ' / 未开始。保留已发生事件，不补造跳过的剧情。';
+    form.querySelector('[data-story-route-summary]').textContent = '从 ' + sceneLabel(captured.state.场景) + ' → 第' + volume + '卷 · ' + (chapter || '没有更后的章节') + ' / 进行中。已有经历保留。';
+    if (form.elements.entryNote.dataset.userEdited !== 'true') {
+      form.elements.entryNote.value = chapter ? '切入第' + volume + '卷 · ' + chapter + '，沿用本局已确认情境。' : '';
+    }
   }
   function openRouteForm(action) {
     if (!stateCapture || panelBusy || panelReading || generationPending || panelReadOnly) return;
     routeCaptures[action] = stateCapture;
     const form = panelNode('[data-story-form="' + action + '"]');
+    for (const [name, key] of [['time', '时间'], ['location', '地点']]) {
+      if (form.elements[name].dataset.userEdited !== 'true') form.elements[name].value = stateCapture.state.场景[key] || '';
+    }
     if (action === 'jump') {
       const scene = stateCapture.state.场景, from = panelPosition(scene.当前卷, scene.当前章);
       const volumes = panelCatalogue.filter(book => book.chapters.some(chapter => panelPosition(book.volume, chapter.key) > from));
@@ -236,9 +245,9 @@
     event.preventDefault();
     const captured = routeCaptures[action], form = event.currentTarget;
     if (!captured || panelBusy || panelReading || generationPending || panelReadOnly || !form.reportValidity()) return;
-    const request = { action, time: form.elements.time.value, location: form.elements.location.value, entryNote: form.elements.entryNote.value };
+    const request = { action, start: true, time: form.elements.time.value, location: form.elements.location.value, entryNote: form.elements.entryNote.value };
     if (action === 'jump') { request.volume = Number(form.elements.volume.value); request.chapter = form.elements.chapter.value; }
-    runPanelWrite(() => stateService().transition(captured.token, request), '已切入目标卷章，尚未开始。核对场景后点击“开始本章”。');
+    runPanelWrite(() => stateService().transition(captured.token, request), '已切入并开始目标卷章，下一轮从所填情境继续。');
   }
   function downloadMigrationBackup() {
     if (!panelMigration) return;
@@ -280,10 +289,10 @@
       '<p data-story-hint></p><p data-story-status role="status" aria-live="polite"></p>' +
       '<section class="rk-story-box" data-story-migration hidden><h3>升级旧存档至 v4</h3><p>旧事件补记为第 1 卷。先核对差异；只有点击确认升级才会写入当前楼层。</p><pre data-story-migration-diff></pre>' +
       '<div class="rk-story-actions"><button type="button" data-story-action="backup">下载迁移前备份</button><button type="button" data-story-action="migrate">确认升级当前楼层</button></div></section>' +
-      '<section class="rk-story-box" data-story-next-volume hidden><h3>确认进入下一卷</h3><form data-story-form="nextVolume"><p data-story-route-summary></p>' + routeFields() +
-      '<div class="rk-story-actions"><button type="submit" data-story-submit>确认进入下一卷</button><button type="button" data-story-action="cancel-route">取消</button></div></form></section>' +
+      '<section class="rk-story-box" data-story-next-volume hidden><h3>进入下一卷</h3><form data-story-form="nextVolume"><p data-story-route-summary></p>' + routeFields() +
+      '<div class="rk-story-actions"><button type="submit" data-story-submit>进入下一卷并开始</button><button type="button" data-story-action="cancel-route">取消</button></div></form></section>' +
       '<details class="rk-story-box" data-story-jump><summary>手动向前切入</summary><form data-story-form="jump"><label>目标卷<select name="volume"></select></label><label>目标章<select name="chapter"></select></label><p data-story-route-summary></p>' + routeFields() +
-      '<button type="submit" data-story-submit>确认向前切入</button></form></details>' +
+      '<button type="submit" data-story-submit>切入并开始</button></form></details>' +
       '<details class="rk-story-box" data-story-injection><summary>章节注入与预览</summary><label class="rk-story-check"><input type="checkbox" data-story-injection-enabled>启用章节注入</label>' +
       '<p data-story-injection-status></p><p data-story-last-injection></p><p data-story-injection-source></p><button type="button" data-story-action="preview">刷新注入预览</button><pre data-story-injection-preview></pre></details></div>';
     SS.host.querySelector('.bar').after(statePanel);
@@ -296,7 +305,11 @@
       if (event.target !== panelNode('[data-story-jump]')) return;
       if (event.target.open) openRouteForm('jump'); else routeCaptures.jump = null;
     });
-    for (const action of ['jump', 'nextVolume']) panelNode('[data-story-form="' + action + '"]').addEventListener('submit', event => submitRoute(action, event));
+    for (const action of ['jump', 'nextVolume']) {
+      const form = panelNode('[data-story-form="' + action + '"]');
+      form.addEventListener('submit', event => submitRoute(action, event));
+      for (const name of ['time', 'location', 'entryNote']) form.elements[name].addEventListener('input', event => { event.target.dataset.userEdited = 'true'; });
+    }
     panelNode('[data-story-form="jump"]').elements.volume.addEventListener('change', fillJumpChapters);
     panelNode('[data-story-form="jump"]').elements.chapter.addEventListener('change', () => updateRouteSummary('jump'));
     panelNode('[data-story-injection-enabled]').addEventListener('change', event => {

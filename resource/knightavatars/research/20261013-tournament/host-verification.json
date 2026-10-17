@@ -1,0 +1,1002 @@
+{
+  "checkedAt": "2026-10-13T03:39:06.168314+00:00",
+  "manifest": "resource/knightavatars/manifest.json",
+  "method": "HTTP GET; Pillow image decoding; SHA-256 byte comparison against displayFile or file",
+  "summary": {
+    "requested": 38,
+    "available": 38,
+    "localMatches": 38,
+    "localMismatches": 0,
+    "failed": 0
+  },
+  "results": [
+    {
+      "id": "amane",
+      "name": "紫乃宫天音",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/amane.png",
+      "localFile": "resource/knightavatars/prepared/amane.png",
+      "localSha256": "1d140ba65e1da510fe00a0bf1cdc3a0eeaf91b049b93213b2efce40c64cb63bc",
+      "localImage": {
+        "format": "PNG",
+        "width": 1085,
+        "height": 1450
+      },
+      "checkedAt": "2026-10-13T03:38:43.802034+00:00",
+      "method": "GET",
+      "status": "available-local-match",
+      "httpStatus": 200,
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/amane.png",
+      "contentType": "image/png",
+      "bytes": 1479492,
+      "sha256": "1d140ba65e1da510fe00a0bf1cdc3a0eeaf91b049b93213b2efce40c64cb63bc",
+      "image": {
+        "format": "PNG",
+        "width": 1085,
+        "height": 1450
+      },
+      "matchesLocal": true
+    },
+    {
+      "id": "hiraga",
+      "name": "平贺玲泉",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/hiraga.png",
+      "localFile": "resource/knightavatars/prepared/hiraga.png",
+      "localSha256": "8ac98efd5840eb8fa04ffbff4ace921601cd2900cf75ce14819e329a8409908a",
+      "localImage": {
+        "format": "PNG",
+        "width": 1085,
+        "height": 1449
+      },
+      "checkedAt": "2026-10-13T03:38:43.802034+00:00",
+      "method": "GET",
+      "status": "available-local-match",
+      "httpStatus": 200,
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/hiraga.png",
+      "contentType": "image/png",
+      "bytes": 1504827,
+      "sha256": "8ac98efd5840eb8fa04ffbff4ace921601cd2900cf75ce14819e329a8409908a",
+      "image": {
+        "format": "PNG",
+        "width": 1085,
+        "height": 1449
+      },
+      "matchesLocal": true
+    },
+    {
+      "id": "botan",
+      "name": "叶暮牡丹",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/botan.png",
+      "localFile": "resource/knightavatars/prepared/botan.png",
+      "localSha256": "70e179e93321bb7fe77cb44437e75d64bb7cde0b33698e0d9c23319701080f02",
+      "localImage": {
+        "format": "PNG",
+        "width": 1085,
+        "height": 1450
+      },
+      "checkedAt": "2026-10-13T03:38:43.802034+00:00",
+      "method": "GET",
+      "status": "available-local-match",
+      "httpStatus": 200,
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/botan.png",
+      "contentType": "image/png",
+      "bytes": 1306660,
+      "sha256": "70e179e93321bb7fe77cb44437e75d64bb7cde0b33698e0d9c23319701080f02",
+      "image": {
+        "format": "PNG",
+        "width": 1085,
+        "height": 1450
+      },
+      "matchesLocal": true
+    },
+    {
+      "id": "kikyo",
+      "name": "叶暮桔梗",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kikyo.png",
+      "localFile": "resource/knightavatars/prepared/kikyo.png",
+      "localSha256": "eaf0977b38aa2eb9f2c27ca746d407c6ee2d1d584c8a0c28b5b8feadbce6c702",
+      "localImage": {
+        "format": "PNG",
+        "width": 1085,
+        "height": 1450
+      },
+      "checkedAt": "2026-10-13T03:38:43.802034+00:00",
+      "method": "GET",
+      "status": "available-local-match",
+      "httpStatus": 200,
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kikyo.png",
+      "contentType": "image/png",
+      "bytes": 1278605,
+      "sha256": "eaf0977b38aa2eb9f2c27ca746d407c6ee2d1d584c8a0c28b5b8feadbce6c702",
+      "image": {
+        "format": "PNG",
+        "width": 1085,
+        "height": 1450
+      },
+      "matchesLocal": true
+    },
+    {
+      "id": "ikki",
+      "name": "黑铁一辉",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/ikki.png",
+      "localFile": "resource/knightavatars/ikki.png",
+      "localSha256": "c1aa07045f00041d0602657929990df12bfe5f0e211b90e5b0c6bb3f97c9bc7a",
+      "localImage": {
+        "format": "PNG",
+        "width": 172,
+        "height": 249
+      },
+      "checkedAt": "2026-10-13T03:38:50.751660+00:00",
+      "method": "GET",
+      "status": "available-local-match",
+      "httpStatus": 200,
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/ikki.png",
+      "contentType": "image/png",
+      "bytes": 55666,
+      "sha256": "c1aa07045f00041d0602657929990df12bfe5f0e211b90e5b0c6bb3f97c9bc7a",
+      "image": {
+        "format": "PNG",
+        "width": 172,
+        "height": 249
+      },
+      "matchesLocal": true
+    },
+    {
+      "id": "stella",
+      "name": "史黛菈·法米利昂",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/stella.png",
+      "localFile": "resource/knightavatars/stella.png",
+      "localSha256": "22e0a4ddd11c110e44f551e1e7094e110a333973ee22b2cb5108325f5cc3d38a",
+      "localImage": {
+        "format": "PNG",
+        "width": 172,
+        "height": 249
+      },
+      "checkedAt": "2026-10-13T03:38:50.751660+00:00",
+      "method": "GET",
+      "status": "available-local-match",
+      "httpStatus": 200,
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/stella.png",
+      "contentType": "image/png",
+      "bytes": 56981,
+      "sha256": "22e0a4ddd11c110e44f551e1e7094e110a333973ee22b2cb5108325f5cc3d38a",
+      "image": {
+        "format": "PNG",
+        "width": 172,
+        "height": 249
+      },
+      "matchesLocal": true
+    },
+    {
+      "id": "shizuku",
+      "name": "黑铁珠雫",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/shizuku.png",
+      "localFile": "resource/knightavatars/shizuku.png",
+      "localSha256": "76cd763eb54496c8a8d7e9bc8342c443e56be5a7887582e280a61ed164c7e8c6",
+      "localImage": {
+        "format": "PNG",
+        "width": 172,
+        "height": 249
+      },
+      "checkedAt": "2026-10-13T03:38:50.751660+00:00",
+      "method": "GET",
+      "status": "available-local-match",
+      "httpStatus": 200,
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/shizuku.png",
+      "contentType": "image/png",
+      "bytes": 56550,
+      "sha256": "76cd763eb54496c8a8d7e9bc8342c443e56be5a7887582e280a61ed164c7e8c6",
+      "image": {
+        "format": "PNG",
+        "width": 172,
+        "height": 249
+      },
+      "matchesLocal": true
+    },
+    {
+      "id": "ayase",
+      "name": "绫辻绚濑",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/ayase.png",
+      "localFile": "resource/knightavatars/ayase.png",
+      "localSha256": "05d897307eae2cf1e9b68afa45e924717d825b505128758a8fa037ecdb645142",
+      "localImage": {
+        "format": "PNG",
+        "width": 172,
+        "height": 249
+      },
+      "checkedAt": "2026-10-13T03:38:50.753175+00:00",
+      "method": "GET",
+      "status": "available-local-match",
+      "httpStatus": 200,
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/ayase.png",
+      "contentType": "image/png",
+      "bytes": 47398,
+      "sha256": "05d897307eae2cf1e9b68afa45e924717d825b505128758a8fa037ecdb645142",
+      "image": {
+        "format": "PNG",
+        "width": 172,
+        "height": 249
+      },
+      "matchesLocal": true
+    },
+    {
+      "id": "toka",
+      "name": "东堂刀华",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/toka.png",
+      "localFile": "resource/knightavatars/toka.png",
+      "localSha256": "186250c240708672366657fdf59bd417f0ffe130a332c11d436367cd22245463",
+      "localImage": {
+        "format": "PNG",
+        "width": 172,
+        "height": 249
+      },
+      "checkedAt": "2026-10-13T03:38:50.753700+00:00",
+      "method": "GET",
+      "status": "available-local-match",
+      "httpStatus": 200,
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/toka.png",
+      "contentType": "image/png",
+      "bytes": 57348,
+      "sha256": "186250c240708672366657fdf59bd417f0ffe130a332c11d436367cd22245463",
+      "image": {
+        "format": "PNG",
+        "width": 172,
+        "height": 249
+      },
+      "matchesLocal": true
+    },
+    {
+      "id": "itsuki",
+      "name": "黑铁严",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/itsuki.png",
+      "localFile": "resource/knightavatars/itsuki.png",
+      "localSha256": "7022e2738e4f6a317be972e95da5f103f2e9f226f2e4f9e95ae400bdaf64298c",
+      "localImage": {
+        "format": "PNG",
+        "width": 172,
+        "height": 249
+      },
+      "checkedAt": "2026-10-13T03:38:50.754214+00:00",
+      "method": "GET",
+      "status": "available-local-match",
+      "httpStatus": 200,
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/itsuki.png",
+      "contentType": "image/png",
+      "bytes": 48457,
+      "sha256": "7022e2738e4f6a317be972e95da5f103f2e9f226f2e4f9e95ae400bdaf64298c",
+      "image": {
+        "format": "PNG",
+        "width": 172,
+        "height": 249
+      },
+      "matchesLocal": true
+    },
+    {
+      "id": "ouma",
+      "name": "黑铁王马",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/ouma.png",
+      "localFile": "resource/knightavatars/ouma.png",
+      "localSha256": "a6be886848dd32be84c17e1fb83ade6e6a6933d6a17ecd992251e3d2a9500e57",
+      "localImage": {
+        "format": "PNG",
+        "width": 172,
+        "height": 249
+      },
+      "checkedAt": "2026-10-13T03:38:50.754729+00:00",
+      "method": "GET",
+      "status": "available-local-match",
+      "httpStatus": 200,
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/ouma.png",
+      "contentType": "image/png",
+      "bytes": 49543,
+      "sha256": "a6be886848dd32be84c17e1fb83ade6e6a6933d6a17ecd992251e3d2a9500e57",
+      "image": {
+        "format": "PNG",
+        "width": 172,
+        "height": 249
+      },
+      "matchesLocal": true
+    },
+    {
+      "id": "edelweiss",
+      "name": "爱德怀斯",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/edelweiss.png",
+      "localFile": "resource/knightavatars/edelweiss.png",
+      "localSha256": "3eecdd710e24eac22820c725f2305370b028dd0a993d0cd8cad88822d35a8b54",
+      "localImage": {
+        "format": "PNG",
+        "width": 172,
+        "height": 249
+      },
+      "checkedAt": "2026-10-13T03:38:50.755393+00:00",
+      "method": "GET",
+      "status": "available-local-match",
+      "httpStatus": 200,
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/edelweiss.png",
+      "contentType": "image/png",
+      "bytes": 56076,
+      "sha256": "3eecdd710e24eac22820c725f2305370b028dd0a993d0cd8cad88822d35a8b54",
+      "image": {
+        "format": "PNG",
+        "width": 172,
+        "height": 249
+      },
+      "matchesLocal": true
+    },
+    {
+      "id": "yuudai",
+      "name": "诸星雄大",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/yuudai.png",
+      "localFile": "resource/knightavatars/yuudai.png",
+      "localSha256": "48ecaae18cbbf038b6a5bdf483ad31742557dc482804cf919d0151ab9b0865ae",
+      "localImage": {
+        "format": "PNG",
+        "width": 172,
+        "height": 249
+      },
+      "checkedAt": "2026-10-13T03:38:53.221546+00:00",
+      "method": "GET",
+      "status": "available-local-match",
+      "httpStatus": 200,
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/yuudai.png",
+      "contentType": "image/png",
+      "bytes": 56541,
+      "sha256": "48ecaae18cbbf038b6a5bdf483ad31742557dc482804cf919d0151ab9b0865ae",
+      "image": {
+        "format": "PNG",
+        "width": 172,
+        "height": 249
+      },
+      "matchesLocal": true
+    },
+    {
+      "id": "nagi",
+      "name": "有栖院凪",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/nagi.png",
+      "localFile": "resource/knightavatars/prepared/nagi.png",
+      "localSha256": "d0941a3057192ac42689b48dad91a1e565164a8877e96071dc994a07181be5fd",
+      "localImage": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "checkedAt": "2026-10-13T03:38:53.241549+00:00",
+      "method": "GET",
+      "status": "available-local-match",
+      "httpStatus": 200,
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/nagi.png",
+      "contentType": "image/png",
+      "bytes": 308255,
+      "sha256": "d0941a3057192ac42689b48dad91a1e565164a8877e96071dc994a07181be5fd",
+      "image": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "matchesLocal": true
+    },
+    {
+      "id": "kirihara",
+      "name": "桐原静矢",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kirihara.png",
+      "localFile": "resource/knightavatars/prepared/kirihara.png",
+      "localSha256": "8ab36d2b14f90ff1944a6bb5920ef4f4c3451aa1991f9f0b480d6a9819a2718d",
+      "localImage": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "checkedAt": "2026-10-13T03:38:53.256552+00:00",
+      "method": "GET",
+      "status": "available-local-match",
+      "httpStatus": 200,
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kirihara.png",
+      "contentType": "image/png",
+      "bytes": 303230,
+      "sha256": "8ab36d2b14f90ff1944a6bb5920ef4f4c3451aa1991f9f0b480d6a9819a2718d",
+      "image": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "matchesLocal": true
+    },
+    {
+      "id": "kuraudo",
+      "name": "仓敷藏人",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kuraudo.png",
+      "localFile": "resource/knightavatars/prepared/kuraudo.png",
+      "localSha256": "b0a9adff8ca91165bc10c10690d3093a9b37c5fe892611751b34279bcbfb0b90",
+      "localImage": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "checkedAt": "2026-10-13T03:38:53.269886+00:00",
+      "method": "GET",
+      "status": "available-local-match",
+      "httpStatus": 200,
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kuraudo.png",
+      "contentType": "image/png",
+      "bytes": 314050,
+      "sha256": "b0a9adff8ca91165bc10c10690d3093a9b37c5fe892611751b34279bcbfb0b90",
+      "image": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "matchesLocal": true
+    },
+    {
+      "id": "renren",
+      "name": "兔丸恋恋",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/renren.png",
+      "localFile": "resource/knightavatars/prepared/renren.png",
+      "localSha256": "4036aeca55a4d6482dee15cfe07be7c0b1db5b0ed859ef9956ed046075c067f3",
+      "localImage": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "checkedAt": "2026-10-13T03:38:53.297075+00:00",
+      "method": "GET",
+      "status": "available-local-match",
+      "httpStatus": 200,
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/renren.png",
+      "contentType": "image/png",
+      "bytes": 294471,
+      "sha256": "4036aeca55a4d6482dee15cfe07be7c0b1db5b0ed859ef9956ed046075c067f3",
+      "image": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "matchesLocal": true
+    },
+    {
+      "id": "misogi",
+      "name": "御祓泡沫",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/misogi.png",
+      "localFile": "resource/knightavatars/prepared/misogi.png",
+      "localSha256": "c089284134efc40f4c73e764c1227cde08f8b83d8569c0f7b08806347593d091",
+      "localImage": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "checkedAt": "2026-10-13T03:38:53.299306+00:00",
+      "method": "GET",
+      "status": "available-local-match",
+      "httpStatus": 200,
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/misogi.png",
+      "contentType": "image/png",
+      "bytes": 318487,
+      "sha256": "c089284134efc40f4c73e764c1227cde08f8b83d8569c0f7b08806347593d091",
+      "image": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "matchesLocal": true
+    },
+    {
+      "id": "kanata",
+      "name": "贵德原彼方",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kanata.png",
+      "localFile": "resource/knightavatars/prepared/kanata.png",
+      "localSha256": "4eaa2086607fe091f09a87a493199257e0f25b7c0e3820899b2dcdb83c0d68cf",
+      "localImage": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "checkedAt": "2026-10-13T03:38:53.299952+00:00",
+      "method": "GET",
+      "status": "available-local-match",
+      "httpStatus": 200,
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kanata.png",
+      "contentType": "image/png",
+      "bytes": 274487,
+      "sha256": "4eaa2086607fe091f09a87a493199257e0f25b7c0e3820899b2dcdb83c0d68cf",
+      "image": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "matchesLocal": true
+    },
+    {
+      "id": "nene",
+      "name": "西京宁音",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/nene.png",
+      "localFile": "resource/knightavatars/prepared/nene.png",
+      "localSha256": "b50ffc1deef39c0760c5bb75be8b086eb110ffc235344e35dc5d4898449af775",
+      "localImage": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "checkedAt": "2026-10-13T03:38:53.312653+00:00",
+      "method": "GET",
+      "status": "available-local-match",
+      "httpStatus": 200,
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/nene.png",
+      "contentType": "image/png",
+      "bytes": 218103,
+      "sha256": "b50ffc1deef39c0760c5bb75be8b086eb110ffc235344e35dc5d4898449af775",
+      "image": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "matchesLocal": true
+    },
+    {
+      "id": "kurono",
+      "name": "新宫寺黑乃",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kurono.png",
+      "localFile": "resource/knightavatars/prepared/kurono.png",
+      "localSha256": "ad28a366fa0686f5a1669e1dff3d375b15fbc4df42561515b8a997bef6cbc197",
+      "localImage": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "checkedAt": "2026-10-13T03:38:55.750354+00:00",
+      "method": "GET",
+      "status": "available-local-match",
+      "httpStatus": 200,
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kurono.png",
+      "contentType": "image/png",
+      "bytes": 271872,
+      "sha256": "ad28a366fa0686f5a1669e1dff3d375b15fbc4df42561515b8a997bef6cbc197",
+      "image": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "matchesLocal": true
+    },
+    {
+      "id": "yuri",
+      "name": "折木有里",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/yuri.png",
+      "localFile": "resource/knightavatars/prepared/yuri.png",
+      "localSha256": "1dc9497f5bcad73cacd0b819fc04d38e5e0f357e58c53916bb2505decdfb8722",
+      "localImage": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "checkedAt": "2026-10-13T03:38:56.833319+00:00",
+      "method": "GET",
+      "status": "available-local-match",
+      "httpStatus": 200,
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/yuri.png",
+      "contentType": "image/png",
+      "bytes": 307887,
+      "sha256": "1dc9497f5bcad73cacd0b819fc04d38e5e0f357e58c53916bb2505decdfb8722",
+      "image": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "matchesLocal": true
+    },
+    {
+      "id": "iris",
+      "name": "艾莉丝·阿斯卡里德",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/iris.png",
+      "localFile": "resource/knightavatars/prepared/iris.png",
+      "localSha256": "2f95d92246215fa80da423ffb5010c2aefc8d9364febb874ce9c881396cf2c5a",
+      "localImage": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "checkedAt": "2026-10-13T03:38:57.091049+00:00",
+      "method": "GET",
+      "status": "available-local-match",
+      "httpStatus": 200,
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/iris.png",
+      "contentType": "image/png",
+      "bytes": 358603,
+      "sha256": "2f95d92246215fa80da423ffb5010c2aefc8d9364febb874ce9c881396cf2c5a",
+      "image": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "matchesLocal": true
+    },
+    {
+      "id": "uri",
+      "name": "多多良幽衣",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/uri.png",
+      "localFile": "resource/knightavatars/prepared/uri.png",
+      "localSha256": "b08f9dd4aba68f142f84cfc1ccc6975afacd8a70b77a2c5b6fb6a2a3a4ec5264",
+      "localImage": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "checkedAt": "2026-10-13T03:38:57.104466+00:00",
+      "method": "GET",
+      "status": "available-local-match",
+      "httpStatus": 200,
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/uri.png",
+      "contentType": "image/png",
+      "bytes": 330061,
+      "sha256": "b08f9dd4aba68f142f84cfc1ccc6975afacd8a70b77a2c5b6fb6a2a3a4ec5264",
+      "image": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "matchesLocal": true
+    },
+    {
+      "id": "or_gaule",
+      "name": "欧尔·格尔",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/or_gaule.png",
+      "localFile": "resource/knightavatars/prepared/or_gaule.png",
+      "localSha256": "0f52c5a403b298aa839e7cfe10a840660290e46c7125fdc88ba67286c69990fb",
+      "localImage": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "checkedAt": "2026-10-13T03:38:57.127849+00:00",
+      "method": "GET",
+      "status": "available-local-match",
+      "httpStatus": 200,
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/or_gaule.png",
+      "contentType": "image/png",
+      "bytes": 330439,
+      "sha256": "0f52c5a403b298aa839e7cfe10a840660290e46c7125fdc88ba67286c69990fb",
+      "image": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "matchesLocal": true
+    },
+    {
+      "id": "wallenstein",
+      "name": "华伦斯坦",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/wallenstein.png",
+      "localFile": "resource/knightavatars/prepared/wallenstein.png",
+      "localSha256": "4643fedc2492738e314f9da9674d8802aec291353b9b331509f6afee8e262938",
+      "localImage": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "checkedAt": "2026-10-13T03:38:57.151207+00:00",
+      "method": "GET",
+      "status": "available-local-match",
+      "httpStatus": 200,
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/wallenstein.png",
+      "contentType": "image/png",
+      "bytes": 287685,
+      "sha256": "4643fedc2492738e314f9da9674d8802aec291353b9b331509f6afee8e262938",
+      "image": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "matchesLocal": true
+    },
+    {
+      "id": "kiriko",
+      "name": "药师雾子",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kiriko.png",
+      "localFile": "resource/knightavatars/prepared/kiriko.png",
+      "localSha256": "94a54c1f4a57a5bc669abbca6f196416a955b61c895ec26daa1458ecb47abcf2",
+      "localImage": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "checkedAt": "2026-10-13T03:38:57.154215+00:00",
+      "method": "GET",
+      "status": "available-local-match",
+      "httpStatus": 200,
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kiriko.png",
+      "contentType": "image/png",
+      "bytes": 330795,
+      "sha256": "94a54c1f4a57a5bc669abbca6f196416a955b61c895ec26daa1458ecb47abcf2",
+      "image": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "matchesLocal": true
+    },
+    {
+      "id": "sara",
+      "name": "莎拉·布拉德莉莉",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/sara.png",
+      "localFile": "resource/knightavatars/prepared/sara.png",
+      "localSha256": "740ce910c5fc988f7ea399e61b81b20c88c71ecbab774eb67b060e1d501e99f0",
+      "localImage": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "checkedAt": "2026-10-13T03:38:57.157974+00:00",
+      "method": "GET",
+      "status": "available-local-match",
+      "httpStatus": 200,
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/sara.png",
+      "contentType": "image/png",
+      "bytes": 387230,
+      "sha256": "740ce910c5fc988f7ea399e61b81b20c88c71ecbab774eb67b060e1d501e99f0",
+      "image": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "matchesLocal": true
+    },
+    {
+      "id": "rinna",
+      "name": "风祭凛奈",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/rinna.png",
+      "localFile": "resource/knightavatars/prepared/rinna.png",
+      "localSha256": "9928336c35311d38bc1f719351ca963cdff50ce426da03d037087f4dd5841c91",
+      "localImage": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "checkedAt": "2026-10-13T03:38:58.708457+00:00",
+      "method": "GET",
+      "status": "available-local-match",
+      "httpStatus": 200,
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/rinna.png",
+      "contentType": "image/png",
+      "bytes": 307525,
+      "sha256": "9928336c35311d38bc1f719351ca963cdff50ce426da03d037087f4dd5841c91",
+      "image": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "matchesLocal": true
+    },
+    {
+      "id": "ein",
+      "name": "艾茵·阿伯伦特",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/ein.png",
+      "localFile": "resource/knightavatars/prepared/ein.png",
+      "localSha256": "819d3b90f199592824badef5c76374a6ec31bc1c8427a433f822c92a5deb5feb",
+      "localImage": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "checkedAt": "2026-10-13T03:39:00.438683+00:00",
+      "method": "GET",
+      "status": "available-local-match",
+      "httpStatus": 200,
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/ein.png",
+      "contentType": "image/png",
+      "bytes": 308795,
+      "sha256": "819d3b90f199592824badef5c76374a6ec31bc1c8427a433f822c92a5deb5feb",
+      "image": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "matchesLocal": true
+    },
+    {
+      "id": "rai",
+      "name": "碎城雷",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/rai.png",
+      "localFile": "resource/knightavatars/prepared/rai.png",
+      "localSha256": "92c08ec2f9141c50c7b68f926b30b349dc545c9611a3f83931cb55727bee13a2",
+      "localImage": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "checkedAt": "2026-10-13T03:39:01.047426+00:00",
+      "method": "GET",
+      "status": "available-local-match",
+      "httpStatus": 200,
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/rai.png",
+      "contentType": "image/png",
+      "bytes": 249818,
+      "sha256": "92c08ec2f9141c50c7b68f926b30b349dc545c9611a3f83931cb55727bee13a2",
+      "image": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "matchesLocal": true
+    },
+    {
+      "id": "momiji",
+      "name": "浅木椛",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/momiji.png",
+      "localFile": "resource/knightavatars/prepared/momiji.png",
+      "localSha256": "5009e697eab88be6df154dedd51a97844f91efa94bb8119d95866eb5fe4f4651",
+      "localImage": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "checkedAt": "2026-10-13T03:39:01.063471+00:00",
+      "method": "GET",
+      "status": "available-local-match",
+      "httpStatus": 200,
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/momiji.png",
+      "contentType": "image/png",
+      "bytes": 282441,
+      "sha256": "5009e697eab88be6df154dedd51a97844f91efa94bb8119d95866eb5fe4f4651",
+      "image": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "matchesLocal": true
+    },
+    {
+      "id": "byakuya",
+      "name": "城之崎白夜",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/byakuya.png",
+      "localFile": "resource/knightavatars/prepared/byakuya.png",
+      "localSha256": "9ee21ae7e0114a11b3dbd8ea73ee5ac1fffd51ce46f6e21647d2af407dc11244",
+      "localImage": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "checkedAt": "2026-10-13T03:39:01.066312+00:00",
+      "method": "GET",
+      "status": "available-local-match",
+      "httpStatus": 200,
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/byakuya.png",
+      "contentType": "image/png",
+      "bytes": 287135,
+      "sha256": "9ee21ae7e0114a11b3dbd8ea73ee5ac1fffd51ce46f6e21647d2af407dc11244",
+      "image": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "matchesLocal": true
+    },
+    {
+      "id": "mikoto",
+      "name": "鹤屋美琴",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/mikoto.png",
+      "localFile": "resource/knightavatars/prepared/mikoto.png",
+      "localSha256": "b5492b71cefe1ff9864d624920fd9c71d70d14c3bf70f2e4aea207da9dcde1f8",
+      "localImage": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "checkedAt": "2026-10-13T03:39:01.216940+00:00",
+      "method": "GET",
+      "status": "available-local-match",
+      "httpStatus": 200,
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/mikoto.png",
+      "contentType": "image/png",
+      "bytes": 286082,
+      "sha256": "b5492b71cefe1ff9864d624920fd9c71d70d14c3bf70f2e4aea207da9dcde1f8",
+      "image": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "matchesLocal": true
+    },
+    {
+      "id": "xiaoli",
+      "name": "福小莉",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/xiaoli.png",
+      "localFile": "resource/knightavatars/prepared/xiaoli.png",
+      "localSha256": "48391e3f9b26edad554dd1a910c53280c03da38f4ce65c33798acc67036e3fdb",
+      "localImage": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "checkedAt": "2026-10-13T03:39:01.294539+00:00",
+      "method": "GET",
+      "status": "available-local-match",
+      "httpStatus": 200,
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/xiaoli.png",
+      "contentType": "image/png",
+      "bytes": 302035,
+      "sha256": "48391e3f9b26edad554dd1a910c53280c03da38f4ce65c33798acc67036e3fdb",
+      "image": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "matchesLocal": true
+    },
+    {
+      "id": "charlotte",
+      "name": "夏洛特·科黛",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/charlotte.png",
+      "localFile": "resource/knightavatars/prepared/charlotte.png",
+      "localSha256": "d57628136e0824c300dceab51dfa03ee3fdf98f9ac8261c364abfac8d91b13b2",
+      "localImage": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "checkedAt": "2026-10-13T03:39:01.358248+00:00",
+      "method": "GET",
+      "status": "available-local-match",
+      "httpStatus": 200,
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/charlotte.png",
+      "contentType": "image/png",
+      "bytes": 311930,
+      "sha256": "d57628136e0824c300dceab51dfa03ee3fdf98f9ac8261c364abfac8d91b13b2",
+      "image": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "matchesLocal": true
+    },
+    {
+      "id": "kagami",
+      "name": "日下部加加美",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kagami.png",
+      "localFile": "resource/knightavatars/prepared/kagami.png",
+      "localSha256": "835825c7cb1476f4982b61eb94537ce4c802d7def37a35dcf873510d76cecd0b",
+      "localImage": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "checkedAt": "2026-10-13T03:39:01.755957+00:00",
+      "method": "GET",
+      "status": "available-local-match",
+      "httpStatus": 200,
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kagami.png",
+      "contentType": "image/png",
+      "bytes": 292369,
+      "sha256": "835825c7cb1476f4982b61eb94537ce4c802d7def37a35dcf873510d76cecd0b",
+      "image": {
+        "format": "PNG",
+        "width": 434,
+        "height": 580
+      },
+      "matchesLocal": true
+    },
+    {
+      "id": "shield-frame",
+      "name": "共用盾框",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/shield-frame.png",
+      "localFile": "resource/knightavatars/shield-frame.png",
+      "localSha256": "022c0636808ed39c5804a24c3f90335867d8ca99c2d6d701f8f6c0b7b4caae99",
+      "localImage": {
+        "format": "PNG",
+        "width": 1085,
+        "height": 1450
+      },
+      "checkedAt": "2026-10-13T03:39:03.394470+00:00",
+      "method": "GET",
+      "status": "available-local-match",
+      "httpStatus": 200,
+      "finalUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/shield-frame.png",
+      "contentType": "image/png",
+      "bytes": 150106,
+      "sha256": "022c0636808ed39c5804a24c3f90335867d8ca99c2d6d701f8f6c0b7b4caae99",
+      "image": {
+        "format": "PNG",
+        "width": 1085,
+        "height": 1450
+      },
+      "matchesLocal": true
+    }
+  ]
+}

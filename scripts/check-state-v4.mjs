@@ -60,8 +60,9 @@ await check('19 卷所有真实目录节点均可通过 v4 组合校验', () => 
   }
   assert.equal(count, 100);
 });
-await check('拒绝错误卷号类型、目录不存在卷与不属于该卷的章节', () => {
-  for (const volume of [0, 20, 2.5, '2', null]) { const value = state(); value.场景.当前卷 = volume; assert.equal(schema.safeParse(value).success, false); }
+await check('兼容明确卷号写法，拒绝非法卷号及不属于该卷的章节', () => {
+  for (const volume of ['2', '第2卷', '第二卷']) { const value = state(); value.场景.当前卷 = volume; assert.equal(schema.parse(value).场景.当前卷, 2); }
+  for (const volume of [0, 20, 2.5, '第二卷后半', 'vol2', null]) { const value = state(); value.场景.当前卷 = volume; assert.equal(schema.safeParse(value).success, false); }
   for (const chapter of ['第五章', '第一章后半', 'chapter1', '']) { const value = state(); value.场景.当前章 = chapter; assert.equal(schema.safeParse(value).success, false); }
   assert.equal(schema.safeParse(state(16, '终章')).success, false);
 });

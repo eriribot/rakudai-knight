@@ -471,7 +471,7 @@ await check('保存、手动、自动均不修改主连接配置或借用主连�
 
 await check('当前版本导入组件包含排除请求字段与设置输入', () => {
   const version = JSON.parse(fs.readFileSync(new URL('package.json', import.meta.url), 'utf8')).version;
-  const card = JSON.parse(fs.readFileSync(new URL('../../世界书规则/MVU/落第骑士-小手机-v' + version + '.json', import.meta.url), 'utf8'));
+  const card = JSON.parse(fs.readFileSync(new URL('../../世界书规则/MVU/落第骑士-小手机-v' + version + '-B1-头像更新.json', import.meta.url), 'utf8'));
   assert.ok(card.content.includes(source.replace(/\r\n/g, '\n').trim()), 'Importable script must contain the current correction module');
   assert.match(card.content, /custom_exclude_body: JSON\.stringify\(config\.excludedParams\)/);
   assert.match(card.content, /排除参数/);

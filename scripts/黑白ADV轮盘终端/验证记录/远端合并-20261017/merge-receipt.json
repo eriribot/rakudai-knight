@@ -1,0 +1,75 @@
+{
+  "date": "2026-10-17",
+  "deliveryMode": "component",
+  "goal": "合并远端 B1 与本地赛事、头像、累计战绩、手动切卷修复，保留既有版号和全部本地文件",
+  "beforeHead": "04bc523802db7cce719cbfd5d318ea4f5ed7acdd",
+  "mergedHead": "f93dd6610d2b9b6f49c47ad0c6ecd354c56bd640",
+  "backup": {
+    "ref": "refs/codex/backups/merge-20261017",
+    "commit": "e9f6f97ec91f126f426cd8d20c0c85caad2f5d88",
+    "stashRetained": true
+  },
+  "resolution": {
+    "conflictsResolved": 13,
+    "unmerged": 0,
+    "originalFilesRetained": 62,
+    "stagedFiles": 0,
+    "localChangesCommitted": false,
+    "pushed": false
+  },
+  "library": {
+    "snapshot": "2026-08-18",
+    "guides": [
+      "ST-A0",
+      "ST-A2",
+      "ST-A6",
+      "ST-B2"
+    ],
+    "route": "sillytavern-component-update"
+  },
+  "artifact": {
+    "path": "世界书规则/MVU/落第骑士-小手机-v1.3.29-B1-头像更新.json",
+    "sha256": "bfa556a03ca6de879c0c4ac7853240c4d0d022c3d6fcc9b6a1aa330f2e78ce51",
+    "metadata": {
+      "type": "script",
+      "enabled": true,
+      "name": "落第骑士·黑白ADV轮盘终端 v1.3.29 B1（LIME状态精简）",
+      "id": "3d8c6c23-f78e-46e5-8e89-4a90bab6fb85",
+      "button": {
+        "enabled": true,
+        "buttons": []
+      },
+      "data": {},
+      "export_with": {
+        "data": false,
+        "button": false
+      }
+    },
+    "baseline": "世界书规则/MVU/落第骑士-小手机-v1.3.29-B1.json",
+    "baselineSha256": "6590fc91db37bcaeb616ddbc2aae25babd3fb76a66432664e6ab88ffb13209a2",
+    "metadataPreserved": true
+  },
+  "dependentComponent": {
+    "path": "世界书规则/MVU/落第骑士-MVU-v4字段约束.json",
+    "sha256": "797671c1bacf64d9b088b1c691191c02497ba60ebe27dca39c3a20a86265189c",
+    "replaceWhenEnabled": true
+  },
+  "portraits": 40,
+  "playerCandidateRule": {
+    "path": "scripts/正文气泡/发布/components/dialogue-player-candidates.regex.json",
+    "sha256": "a548f8b4d27ef1db3ef8a969051833477a05370bbc45af4dbff2fb6194fb1f38",
+    "unchanged": true
+  },
+  "verification": {
+    "runtime": "离线验证；未导入或写入真实酒馆",
+    "sourceAudit": "b1-source-audit.json",
+    "b1": "b1-validation.json",
+    "localFixes": "local-fixes-validation.json",
+    "localFixChecks": 155,
+    "bubbleChecks": {
+      "passed": 521,
+      "total": 521
+    },
+    "controllerAndOptionalGuardInSync": true
+  }
+}

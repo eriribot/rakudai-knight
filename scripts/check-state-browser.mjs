@@ -236,6 +236,74 @@ await check('关闭约束仍保留本地页面校验及变量并发比较', asyn
   await assert.rejects(f.api.commitOpening(captured.token, payload()), /变量已被其他操作更新/);
   assert.equal(f.writes, 0); assert.equal(f.ctx.chat[0].variables[0].stat_data.系统.开局状态, '待建档');
 });
+await check('终端操作不因无关旧字段失败，开关约束两种状态下切卷与补录都保留原资料', async () => {
+  for (const guarded of [false, true]) {
+    const f = fixture({ guarded }), draft = payload();
+    draft.玩家.所属 = '破军学园'; draft.场景.时间 = '2013-05-21 08:30';
+    await f.api.commitOpening((await f.api.capture()).token, draft);
+    const state = () => f.ctx.chat[0].variables[0].stat_data;
+    state().人际.同伴 = { 关系: '同学', 态度印象: '友好', 好感: 50, 羁绊阶段: '未建立' };
+    state().玩家.备注 = '玩家自定义资料';
+    state().玩家.成长 = { 经验: { 体能: '待核定' }, 旧记录: '原样留档' };
+    state().场景.日程 = { 旧约定: { 类型: '约定', 日期: '明天', 时间: '早晨', 地点: '教室', 参与者: [], 状态: '已完成', 说明: '旧记录' } };
+    const unrelated = clone({ 玩家: state().玩家, 人际: state().人际, 日程: state().场景.日程 });
+    const story = await f.api.capture({ scope: 'story' });
+    const jump = { action: 'jump', volume: 2, chapter: '序章', time: '2013-05-21 08:30', location: '教室', entryNote: '继续本局', start: true };
+    await f.api.transition(story.token, jump); await f.api.verify(story.token);
+    assert.equal(state().场景.当前卷, 2); assert.equal(state().场景.阶段, '进行中');
+    await f.api.transition(story.token, jump); assert.equal(f.writes, 2, '重试只确认已保存结果');
+    await f.api.tournamentAction((await f.api.capture({ scope: 'tournament' })).token, { action: 'initialize' });
+    const id = f.api.tournamentView(state()).playerId;
+    const baseline = { 截至轮次: 8, 胜场: 7, 败场: 1, 积分: 140, 依据: '玩家补录省略比赛的累计战绩' };
+    const tournament = await f.api.capture({ scope: 'tournament' });
+    const request = { action: 'upsertParticipant', id, participant: { 初始战绩: baseline } };
+    await f.api.tournamentAction(tournament.token, request); await f.api.verify(tournament.token);
+    await f.api.tournamentAction(tournament.token, request);
+    assert.deepEqual(state().场景.选拔赛.名册[id].初始战绩, baseline);
+    assert.equal(f.api.tournamentView(state()).roster.find(row => row.id === id).recordedPoints, 140);
+    assert.deepEqual({ 玩家: state().玩家, 人际: state().人际, 日程: state().场景.日程 }, unrelated);
+    assert.equal(f.writes, 4); assert.equal(f.ctx.chat[0].variables[1].stat_data.系统.开局状态, '待建档');
+    await assert.rejects(f.api.capture(), error => error.issues.length > 0, '默认读取仍完整校验');
+    assert.throws(() => f.api.validateState(state()), error => error.issues.length > 0, '副校正公开入口仍完整校验');
+    assert.throws(() => f.api.validateState(state(), 'story'), error => error.issues.length > 0, '公开校验入口不接受缩小范围');
+  }
+});
+await check('操作范围保留目标、比分及并发检查，不能用窄范围绕开建档校验', async () => {
+  const f = fixture({ guarded: false }), draft = payload();
+  draft.玩家.所属 = '破军学园'; draft.场景.时间 = '2013-05-21 08:30';
+  const opening = await f.api.capture({ scope: 'story' }), invalid = payload(); invalid.玩家.未知字段 = '不应通过';
+  await assert.rejects(f.api.commitOpening(opening.token, invalid), error => error.issues.length > 0);
+  assert.equal(f.writes, 0);
+  await f.api.commitOpening(opening.token, draft);
+  const state = () => f.ctx.chat[0].variables[0].stat_data;
+  state().人际.同伴 = { 关系: '旧记录' };
+  const story = await f.api.capture({ scope: 'story' });
+  for (const target of [{ volume: 1, chapter: '第一章' }, { volume: 2, chapter: '第五章' }]) {
+    await assert.rejects(f.api.transition(story.token, { action: 'jump', ...target, time: '次日', location: '教室', entryNote: '继续' }), /向前|目录组合/);
+  }
+  await assert.rejects(f.api.tournamentAction(story.token, { action: 'initialize' }), /操作范围/);
+  await f.api.tournamentAction((await f.api.capture({ scope: 'tournament' })).token, { action: 'initialize' });
+  const tournament = await f.api.capture({ scope: 'tournament' }), id = f.api.tournamentView(state()).playerId;
+  await assert.rejects(f.api.tournamentAction(tournament.token, { action: 'upsertParticipant', id,
+    participant: { 初始战绩: { 截至轮次: 2, 胜场: 3, 败场: 0, 积分: 30, 依据: '矛盾测试' } } }), /轮次矛盾/);
+  const before = clone(state());
+  state().玩家.备注 = '其他操作已保存';
+  await assert.rejects(f.api.transition(story.token, { action: 'end' }), /其他操作更新/);
+  assert.equal(state().场景.阶段, before.场景.阶段); assert.equal(state().玩家.备注, '其他操作已保存');
+  assert.equal(f.writes, 2);
+});
+await check('名册与宿舍仅验证本次操作，缺少人物说明不再连带阻止保存', async () => {
+  const f = fixture({ guarded: false });
+  await f.api.commitOpening((await f.api.capture()).token, payload());
+  const state = () => f.ctx.chat[0].variables[0].stat_data;
+  state().人际.同伴 = { 关系: '同学' }; state().玩家.备注 = '保留';
+  await f.api.setRosterHidden((await f.api.capture({ scope: 'roster' })).token, '同伴', true);
+  assert.deepEqual(state().人际.同伴, { 关系: '同学', 名册隐藏: true });
+  await f.api.setDorm((await f.api.capture({ scope: 'dorm' })).token, true);
+  assert.equal(state().场景.宿舍, true); assert.equal(state().玩家.备注, '保留');
+  await f.api.deleteRosterPerson((await f.api.capture({ scope: 'roster' })).token, '同伴');
+  assert.equal(Object.hasOwn(state().人际, '同伴'), false); assert.deepEqual(state().系统.已删除人物, ['同伴']);
+});
 await check('约束启动中或失败时明确诊断，不能当作关闭约束继续写入', async () => {
   for (const [state, code, text] of [['loading', 'RK_GUARD_LOADING', /正在初始化/], ['failed', 'RK_GUARD_FAILED', /启动失败/]]) {
     const f = fixture({ guarded: false });
@@ -310,11 +378,8 @@ await check('真实浏览器适配的迁移与跨卷只修改剧情字段，不�
   await f.api.transition(capture.token, { action: 'nextVolume', time: '次日', location: '目标场所', entryNote: '从已确认场景继续' });
   const after = f.ctx.chat[0].variables[0].stat_data;
   assert.equal(after.场景.当前卷, 2);
-  // 终值模式跨卷不补发经验，不创建申请或奖励记录；人物本体与关系保持原样。
-  const { 成长, ...player } = after.玩家;
-  assert.deepEqual(player, original.玩家);
-  assert.equal(成长.版本, 'G03'); assert.equal(Object.hasOwn(成长, '申请'), false); assert.equal(Object.hasOwn(成长, '记录'), false);
-  assert.deepEqual(成长.经验, { 体能: 0, 魔力控制: 0, 魔力量: 0 });
+  // 跨卷只修改剧情定位；人物本体、旧成长结构与关系保持原样。
+  assert.deepEqual(after.玩家, original.玩家);
   assert.deepEqual(after.人际, original.人际); assert.equal(f.writes, 2);
 });
 const openingAvatar = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+/lN8AAAAASUVORK5CYII=';

@@ -173,6 +173,106 @@ test('手动初始战绩可接管正典背景，AI不能重写、移除或注入
   assert.equal(variables.stat_data.场景.选拔赛.名册.injected.初始战绩, undefined);
 });
 
+test('首战有明细、跳过中间场次后可补累计战绩，后续比赛接着计分且不双算', () => {
+  const initial = state();
+  const first = prepareTournamentAction(initial, actualMatch(initial, { id: 'first', round: 1, date: '2013-04-22', opponent: '桐原静矢' }));
+  const ninthRequest = actualMatch(first); ninthRequest.match.甲赛前胜场 = 7;
+  const ninth = prepareTournamentAction(first, ninthRequest);
+  const viewBefore = deriveTournament(ninth), baseline = { 截至轮次: 8, 胜场: 7, 败场: 1, 积分: 140, 依据: '玩家确认首轮及省略比赛合计七胜一败140分' };
+  const request = { action: 'upsertParticipant', id: viewBefore.playerId, participant: { 初始战绩: baseline } };
+  const saved = prepareTournamentAction(ninth, request), view = deriveTournament(saved), row = player(view);
+  assert.ok(schema.safeParse(saved).success);
+  assert.deepEqual(saved.场景.选拔赛.比赛, ninth.场景.选拔赛.比赛, '保留原有逐场明细');
+  assert.deepEqual([row.wins, row.losses, row.points, row.recordedPoints, row.complete], [8, 1, 230, 230, true]);
+  assert.deepEqual(row.pendingRounds, []); assert.equal(row.simulatedMatches, 0);
+  assert.ok(!view.warnings.some(warning => warning.includes(row.name + '有已确认的赛前胜场')), '已补齐的玩家不再提示历史待补');
+  assert.equal(view.matches.find(match => match.id === 'first').积分, 10);
+  assert.equal(view.matches.find(match => match.id === 'actual_player_r9').积分, 90);
+  assert.deepEqual(deriveTournament(prepareTournamentAction(saved, request)), view, '重复保存同一累计值不再加分');
+  const prior = { stat_data: clone(saved) }, updated = clone(prior);
+  updated.stat_data.场景.选拔赛.名册[row.id].初始战绩.积分 = 9999;
+  enforceTournamentState(updated, prior);
+  assert.deepEqual(updated.stat_data.场景.选拔赛.名册[row.id].初始战绩, baseline);
+  assert.equal(player(deriveTournament(updated)).points, 230, 'AI 后续更新保留手动累计值');
+});
+
+test('累计战绩包含最后一场真实明细时以累计分为准，清除累计值可恢复原明细', () => {
+  const initial = state(), first = prepareTournamentAction(initial, actualMatch(initial, { id: 'first', round: 1, date: '2013-04-22', opponent: '桐原静矢' }));
+  const ninth = prepareTournamentAction(first, actualMatch(first)), id = deriveTournament(ninth).playerId;
+  const saved = prepareTournamentAction(ninth, { action: 'upsertParticipant', id,
+    participant: { 初始战绩: { 截至轮次: 9, 胜场: 7, 败场: 2, 积分: 240, 依据: '确认截至第九场累计，包含已记两场' } } });
+  const row = player(deriveTournament(saved));
+  assert.deepEqual([row.wins, row.losses, row.points, row.recordedWins, row.recordedPoints], [7, 2, 240, 7, 240]);
+  assert.ok(schema.safeParse(saved).success);
+  const cleared = prepareTournamentAction(saved, { action: 'upsertParticipant', id, participant: { 初始战绩: null } });
+  assert.deepEqual(deriveTournament(cleared), deriveTournament(ninth));
+});
+
+test('两人的累计轮次不同也按时间计算，不用未来总胜场倒算早期对手积分', () => {
+  const ledger = normalizeTournament({ 总轮次: 9, 名册: {
+    a: { 姓名: '甲', 初始战绩: { 截至轮次: 1, 胜场: 0, 败场: 1, 积分: 0, 依据: '首轮已败' } },
+    b: { 姓名: '乙', 初始战绩: { 截至轮次: 9, 胜场: 7, 败场: 2, 积分: 140, 依据: '末轮累计' } },
+    c: { 姓名: '丙' },
+  }, 比赛: {
+    first: { 轮次: 1, 甲方: 'a', 乙方: 'b', 状态: '已完成', 胜者: 'b', 依据: '首战乙胜' },
+    third: { 轮次: 3, 甲方: 'b', 乙方: 'c', 状态: '已完成', 胜者: 'c', 依据: '第三场丙胜，第二场未知' },
+  } });
+  const view = deriveTournament(ledger);
+  assert.deepEqual(view.conflicts, []);
+  assert.equal(view.matches.find(match => match.id === 'first').积分, 10);
+  assert.equal(view.matches.find(match => match.id === 'third').积分, null, '未来累计七胜不能当成第三场赛前胜场');
+  assert.deepEqual([person(view, '乙').wins, person(view, '乙').losses, person(view, '乙').points], [7, 2, 140]);
+  ledger.比赛.third.甲赛前胜场 = 1;
+  assert.equal(deriveTournament(ledger).matches.find(match => match.id === 'third').积分, 20, '真实赛前快照仍可确定当场积分');
+});
+
+test('累计战绩不能抹掉已确认胜负或积分，也不能把待赛写成已结算', () => {
+  const initial = state(), request = actualMatch(initial); request.match.乙赛前胜场 = 8;
+  const ninth = prepareTournamentAction(initial, request), id = deriveTournament(ninth).playerId;
+  for (const [baseline, message] of [
+    [{ 截至轮次: 9, 胜场: 0, 败场: 9, 积分: 0 }, /累计胜场少于/],
+    [{ 截至轮次: 9, 胜场: 1, 败场: 8, 积分: 10 }, /累计积分少于/],
+  ]) assert.throws(() => prepareTournamentAction(ninth, { action: 'upsertParticipant', id, participant: { 初始战绩: { ...baseline, 依据: '与实际明细不符' } } }), message);
+  const defeat = prepareTournamentAction(ninth, { action: 'upsertMatch', id: 'actual_player_r9', match: { 胜者: ninth.场景.选拔赛.比赛.actual_player_r9.乙方 } });
+  assert.throws(() => prepareTournamentAction(defeat, { action: 'upsertParticipant', id,
+    participant: { 初始战绩: { 截至轮次: 9, 胜场: 9, 败场: 0, 积分: 90, 依据: '不能抹去败局' } } }), /累计败场少于/);
+  const scheduled = prepareTournamentAction(initial, actualMatch(initial, { status: '已安排' }));
+  assert.throws(() => prepareTournamentAction(scheduled, { action: 'upsertParticipant', id,
+    participant: { 初始战绩: { 截至轮次: 9, 胜场: 9, 败场: 0, 积分: 90, 依据: '不能结算未完成比赛' } } }), /尚未完成/);
+});
+
+test('对手的背景推演积分不能否定玩家已确认累计分，真实赛前记录仍作为下界', () => {
+  const initial = state(), first = prepareTournamentAction(initial, actualMatch(initial, { id: 'first', round: 1, date: '2013-04-22', opponent: '桐原静矢' }));
+  const ninth = prepareTournamentAction(first, actualMatch(first)), id = deriveTournament(ninth).playerId;
+  assert.equal(deriveTournament(ninth).matches.find(match => match.id === 'actual_player_r9').积分, 90, '90分来自对手八胜的背景推演');
+  const request = { action: 'upsertParticipant', id, participant: {
+    初始战绩: { 截至轮次: 9, 胜场: 7, 败场: 2, 积分: 90, 依据: '玩家确认包含两场明细的累计90分' },
+  } };
+  const saved = prepareTournamentAction(ninth, request), row = player(deriveTournament(saved));
+  assert.deepEqual([row.wins, row.losses, row.points, row.recordedPoints], [7, 2, 90, 90]);
+  assert.ok(schema.safeParse(saved).success);
+  const confirmed = prepareTournamentAction(ninth, { action: 'upsertMatch', id: 'actual_player_r9', match: { 乙赛前胜场: 8 } });
+  assert.throws(() => prepareTournamentAction(confirmed, request), /累计积分少于/, '确认对手赛前八胜后，两场至少100分');
+});
+
+test('缺少单场积分详情时可确认累计分；累计积分留空仍保留明细中已知的分数', () => {
+  const old = state('旧档：春季午后');
+  old.场景.选拔赛 = normalizeTournament({ 名册: { hero: { 姓名: old.玩家.姓名, 来源: '玩家' }, rival: { 姓名: '未知前史的对手' } },
+    比赛: { third: { 轮次: 3, 甲方: 'hero', 乙方: 'rival', 状态: '已完成', 胜者: 'hero', 依据: '确认第三场胜利，单场积分未记' } } });
+  const saved = prepareTournamentAction(old, { action: 'upsertParticipant', id: 'hero', participant: {
+    初始战绩: { 截至轮次: 3, 胜场: 1, 败场: 2, 积分: 20, 依据: '确认累计一胜两败20分' },
+  } });
+  const view = deriveTournament(saved), row = player(view);
+  assert.deepEqual(view.conflicts, []); assert.ok(schema.safeParse(saved).success);
+  assert.equal(view.matches[0].积分, null, '累计分不伪造每场积分详情');
+  assert.deepEqual([row.points, row.pendingPoints, row.complete], [20, 0, true]);
+  const initial = state(), first = prepareTournamentAction(initial, actualMatch(initial, { id: 'first', round: 1, date: '2013-04-22', opponent: '桐原静矢' }));
+  const partial = prepareTournamentAction(first, { action: 'upsertParticipant', id: deriveTournament(first).playerId, participant: {
+    初始战绩: { 截至轮次: 9, 胜场: 7, 败场: 2, 依据: '只确认累计胜负，积分待查' },
+  } });
+  assert.deepEqual([player(deriveTournament(partial)).recordedPoints, player(deriveTournament(partial)).points], [10, null]);
+});
+
 test('AI删除带有手动基线的名册条目不能绕过基线保护', () => {
   const initial = state(), id = person(deriveTournament(initial), '贵德原彼方').id;
   const baseline = { 截至轮次: 9, 胜场: 6, 败场: 3, 积分: 120, 依据: '人工核对的旧档起点' };

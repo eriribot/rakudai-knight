@@ -6,18 +6,17 @@ import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 
-// Refresh current B1 avatar data and bubble components after editing manifest.imageUrl.
-// The default terminal build is still v1.3.28; it must not replace the current B1.
+// Rebuild the current B1 from maintained sources, including the shared avatar manifest.
+// The historical avatar-only patcher cannot carry newer terminal fixes.
 // Uses prepared PNGs; does not crop artwork, change MVU fields, or package a whole card.
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const componentTools = '.agents/skills/sillytavern-component-update/scripts/';
 const spec = 'scripts/正文气泡/发布/update-spec.json';
 const output = 'scripts/正文气泡/发布/components';
-const avatarUpdater = 'scripts/黑白ADV轮盘终端/update-avatar-component.mjs';
 const steps = [
-  [avatarUpdater],
-  [avatarUpdater, '--write'],
-  [componentTools + 'validate-importable-component.mjs', 'scripts/黑白ADV轮盘终端/avatar-release/terminal-v1-3-29-b1-avatars.script.json'],
+  ['scripts/build-state-controller.mjs', '--write'],
+  ['scripts/黑白ADV轮盘终端/build.js'],
+  [componentTools + 'validate-importable-component.mjs', '世界书规则/MVU/落第骑士-小手机-v1.3.29-B1-头像更新.json'],
   ['scripts/正文气泡/build.mjs'],
   [componentTools + 'plan-component-update.mjs', '--spec', spec, '--out', output],
   [componentTools + 'build-importable-component.mjs', '--spec', spec, '--out', output, '--write'],

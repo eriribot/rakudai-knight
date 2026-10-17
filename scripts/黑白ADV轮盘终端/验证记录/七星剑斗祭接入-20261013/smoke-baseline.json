@@ -1,0 +1,341 @@
+{
+  "createdAt": "2026-10-13T03:51:32.474Z",
+  "baselineArtifact": "世界书规则/MVU/落第骑士-小手机-v1.3.28.json",
+  "method": "Same unmodified test assertions executed from an in-memory ESM copy. Current run uses current build. Baseline run extracts embeddedPhoneHtml and original state-reader/app/control sources from the retained v1.3.28 artifact source maps; read(package.json) uses the baseline version and export assertion reads the retained baseline artifact. No production source or assertions modified.",
+  "summary": {
+    "currentPassed": 24,
+    "baselinePassed": 24,
+    "total": 30,
+    "newFailures": [],
+    "preexistingFailures": [
+      "当前页无MVU时不回退到旧页或旧楼层",
+      "空名册不预填四人或世界书人物",
+      "空 MVU 槽错误仍保留来源，并清除上一个槽的人物",
+      "好感未计分与真实零分分开呈现，不替旧阶段倒填支援值",
+      "重复启动及销毁均移除旧订阅",
+      "事件历史逐条显示所属卷，旧缺卷事件提示迁移且文本仍转义"
+    ]
+  },
+  "runs": [
+    {
+      "label": "current",
+      "evidence": "离线 Node VM 执行真实读取和界面函数；未进行酒馆实机或浏览器布局验收",
+      "passed": 24,
+      "total": 30,
+      "results": [
+        {
+          "name": "无需建档写入guard即可读当前楼层；显示不会写入存档",
+          "passed": true
+        },
+        {
+          "name": "用户消息后的读取仍指向最新助手当前页",
+          "passed": true
+        },
+        {
+          "name": "当前页无MVU时不回退到旧页或旧楼层",
+          "passed": false,
+          "error": "AssertionError [ERR_ASSERTION]: The input did not match the regular expression /尚无 MVU/. Input:\n\n'Error: 当前回复及此前助手楼层都没有可显示的 MVU 数据'\n\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)"
+        },
+        {
+          "name": "swipe、回滚与换聊天读取各自的已存数据",
+          "passed": true
+        },
+        {
+          "name": "空名册不预填四人或世界书人物",
+          "passed": false,
+          "error": "AssertionError [ERR_ASSERTION]: The input did not match the regular expression /尚无/. Input:\n\n'<div class=\"card1\" role=\"status\">当前楼层 MVU 的“人际”尚未登记人物。首次见面且身份已确认的人物，即使好感没有变化也应登记。<p class=\"gba-note\">当前助手回复页</p></div>'\n\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)"
+        },
+        {
+          "name": "教官测试特例：仅已确认学生显示学生，黑乃和宁音各按实际关系",
+          "passed": true
+        },
+        {
+          "name": "任意OC不根据所属自动赋予师生关系",
+          "passed": true
+        },
+        {
+          "name": "已知资料逐项补充，遗漏项不从原作补齐",
+          "passed": true
+        },
+        {
+          "name": "旧记录无已知资料依旧显示；null好感不当作0或自动晋级",
+          "passed": true
+        },
+        {
+          "name": "一辉模式中不显示另一个一辉，自定义模式可以显示",
+          "passed": true
+        },
+        {
+          "name": "人物名、资料长文本和HTML符号作为文字保留",
+          "passed": true
+        },
+        {
+          "name": "六维 B+ 与 B 有不同数值，未知等级不会落成零分",
+          "passed": true
+        },
+        {
+          "name": "雷达缺失一维时只画五个已知点，不伪造闭合完整六维",
+          "passed": true
+        },
+        {
+          "name": "资料未变而来源换楼、换回复或换聊天时，来源和展开状态仍刷新",
+          "passed": true
+        },
+        {
+          "name": "同一次快照优先于旧桥接读法，UI 不向玩家显示聊天内部标识",
+          "passed": true
+        },
+        {
+          "name": "空 MVU 槽错误仍保留来源，并清除上一个槽的人物",
+          "passed": false,
+          "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ null\n- {\n-   chatId: 'test-chat',\n-   messageId: 6,\n-   swipeCount: 2,\n-   swipeId: 1\n- }\n\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)"
+        },
+        {
+          "name": "人物用原生详情展开，当前槽内记住展开，旧卡迟到 toggle 不污染新槽",
+          "passed": true
+        },
+        {
+          "name": "好感未计分与真实零分分开呈现，不替旧阶段倒填支援值",
+          "passed": false,
+          "error": "AssertionError [ERR_ASSERTION]: The input did not match the regular expression /未计分/. Input:\n\n'好感待核定请更新并启用按互动累计的 MVU v4 字段约束脚本，取消普通初始50。支援度待核定起点支援阶段待核定（原记录：S）旧字母不折算为分数；确认起点后再累计。性别尚未记录，暂不显示恋爱阶段。'\n\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)"
+        },
+        {
+          "name": "支援阶段取共享规则函数，临界值正确且不受旧字母和好感替代",
+          "passed": true
+        },
+        {
+          "name": "旧好感 100 保持原数值，只占新上限十分之一，不被展示成满级",
+          "passed": true
+        },
+        {
+          "name": "女性恋爱阶段逐个阈值按好感派生，旧字段和支援 S 不替代数值",
+          "passed": true
+        },
+        {
+          "name": "男性好感满值仍保留支援 S，但不显示恋爱阶段或伪造的恋爱字段",
+          "passed": true
+        },
+        {
+          "name": "未记录性别不根据姓名或满好感猜测恋爱资格，女性 null 不猜阶段",
+          "passed": true
+        },
+        {
+          "name": "相同人物换回复槽后只显示该槽性别和进度，回退不继承未来阶段",
+          "passed": true
+        },
+        {
+          "name": "数据不变的轮询不重绘，数据保存后更新当前名册",
+          "passed": true
+        },
+        {
+          "name": "分支切换先清空；旧异步读取不能覆盖新分支",
+          "passed": true
+        },
+        {
+          "name": "重复启动及销毁均移除旧订阅",
+          "passed": false,
+          "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n2 !== 1\n"
+        },
+        {
+          "name": "剧情页显示全部合法卷数，未知卷号不伪装成卷一",
+          "passed": true
+        },
+        {
+          "name": "事件历史逐条显示所属卷，旧缺卷事件提示迁移且文本仍转义",
+          "passed": false,
+          "error": "AssertionError [ERR_ASSERTION]: The input did not match the regular expression /第1卷 · 终章/. Input:\n\n`<button type=\"button\" class=\"rk-arena-entry\" onclick=\"openApp('arena')\"><span>七星剑斗祭 · 赛事面板</span><small>本局选拔与角色 · 分区晋级图 · 对战大屏 →</small></button><div class=\"card1 rk-t-panel\"><div class=\"ct\">本局选拔赛</div><p>主、副 API 和手动登记共用本局实际比赛记录。</p><div class=\"rk-t-actions\"><button type=\"button\" data-rk-t-action=\"new-match\">登记比赛</button><button type=\"button\" data-rk-t-action=\"new-participant\">登记参赛者</button><button type=\"button\" data-rk-t-action=\"initialize\">建立本局选拔赛</button></div><div class=\"gba-note\" role=\"status\"><p>选拔赛组件尚未连接，请更新配套脚本。</p></div></div><details class=\"card1\"><summary>当前剧情 · 第16卷 · 序章 · 进行中</summary><p>时间未确认 · 地点未确认</p><button type=\"button\" onclick=\"openStoryControls()\">展开剧情控制</button></details><div class=\"card1\"><div class=\"ct\">其他日程与约定</div>尚无其他已确定日期的日程。<p><button type=\"button\" onclick=\"openApp('calendar')\">打开手机日历</button></p></div><details class=\"card1\"><summary>已发生事件 · 3 条</summary><div class=\"noble-art-block\"><div class=\"noble-art-title\">旧卷记录</div><div class=\"noble-art-desc\">保留的本局事件</div></div><div class=\"noble-art-block\"><div class=\"noble-art-title\">本卷记录</div><div class=\"noble-art-desc\">&lt;img src=x&gt;</div></div><div class=\"noble-art-block\"><div class=\"noble-art-title\">待升级事件</div><div class=\"noble-art-desc\">旧数据</div></div></details>`\n"
+        },
+        {
+          "name": "实际导出脚本与所有维护源码逐字一致",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "label": "baseline-v1.3.28",
+      "evidence": "离线 Node VM 执行真实读取和界面函数；未进行酒馆实机或浏览器布局验收",
+      "passed": 24,
+      "total": 30,
+      "results": [
+        {
+          "name": "无需建档写入guard即可读当前楼层；显示不会写入存档",
+          "passed": true
+        },
+        {
+          "name": "用户消息后的读取仍指向最新助手当前页",
+          "passed": true
+        },
+        {
+          "name": "当前页无MVU时不回退到旧页或旧楼层",
+          "passed": false,
+          "error": "AssertionError [ERR_ASSERTION]: The input did not match the regular expression /尚无 MVU/. Input:\n\n'Error: 当前回复及此前助手楼层都没有可显示的 MVU 数据'\n"
+        },
+        {
+          "name": "swipe、回滚与换聊天读取各自的已存数据",
+          "passed": true
+        },
+        {
+          "name": "空名册不预填四人或世界书人物",
+          "passed": false,
+          "error": "AssertionError [ERR_ASSERTION]: The input did not match the regular expression /尚无/. Input:\n\n'<div class=\"card1\" role=\"status\">当前楼层 MVU 的“人际”尚未登记人物。首次见面且身份已确认的人物，即使好感没有变化也应登记。<p class=\"gba-note\">当前助手回复页</p></div>'\n"
+        },
+        {
+          "name": "教官测试特例：仅已确认学生显示学生，黑乃和宁音各按实际关系",
+          "passed": true
+        },
+        {
+          "name": "任意OC不根据所属自动赋予师生关系",
+          "passed": true
+        },
+        {
+          "name": "已知资料逐项补充，遗漏项不从原作补齐",
+          "passed": true
+        },
+        {
+          "name": "旧记录无已知资料依旧显示；null好感不当作0或自动晋级",
+          "passed": true
+        },
+        {
+          "name": "一辉模式中不显示另一个一辉，自定义模式可以显示",
+          "passed": true
+        },
+        {
+          "name": "人物名、资料长文本和HTML符号作为文字保留",
+          "passed": true
+        },
+        {
+          "name": "六维 B+ 与 B 有不同数值，未知等级不会落成零分",
+          "passed": true
+        },
+        {
+          "name": "雷达缺失一维时只画五个已知点，不伪造闭合完整六维",
+          "passed": true
+        },
+        {
+          "name": "资料未变而来源换楼、换回复或换聊天时，来源和展开状态仍刷新",
+          "passed": true
+        },
+        {
+          "name": "同一次快照优先于旧桥接读法，UI 不向玩家显示聊天内部标识",
+          "passed": true
+        },
+        {
+          "name": "空 MVU 槽错误仍保留来源，并清除上一个槽的人物",
+          "passed": false,
+          "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ null\n- {\n-   chatId: 'test-chat',\n-   messageId: 6,\n-   swipeCount: 2,\n-   swipeId: 1\n- }\n"
+        },
+        {
+          "name": "人物用原生详情展开，当前槽内记住展开，旧卡迟到 toggle 不污染新槽",
+          "passed": true
+        },
+        {
+          "name": "好感未计分与真实零分分开呈现，不替旧阶段倒填支援值",
+          "passed": false,
+          "error": "AssertionError [ERR_ASSERTION]: The input did not match the regular expression /未计分/. Input:\n\n'好感待核定请更新并启用按互动累计的 MVU v4 字段约束脚本，取消普通初始50。支援度待核定起点支援阶段待核定（原记录：S）旧字母不折算为分数；确认起点后再累计。性别尚未记录，暂不显示恋爱阶段。'\n"
+        },
+        {
+          "name": "支援阶段取共享规则函数，临界值正确且不受旧字母和好感替代",
+          "passed": true
+        },
+        {
+          "name": "旧好感 100 保持原数值，只占新上限十分之一，不被展示成满级",
+          "passed": true
+        },
+        {
+          "name": "女性恋爱阶段逐个阈值按好感派生，旧字段和支援 S 不替代数值",
+          "passed": true
+        },
+        {
+          "name": "男性好感满值仍保留支援 S，但不显示恋爱阶段或伪造的恋爱字段",
+          "passed": true
+        },
+        {
+          "name": "未记录性别不根据姓名或满好感猜测恋爱资格，女性 null 不猜阶段",
+          "passed": true
+        },
+        {
+          "name": "相同人物换回复槽后只显示该槽性别和进度，回退不继承未来阶段",
+          "passed": true
+        },
+        {
+          "name": "数据不变的轮询不重绘，数据保存后更新当前名册",
+          "passed": true
+        },
+        {
+          "name": "分支切换先清空；旧异步读取不能覆盖新分支",
+          "passed": true
+        },
+        {
+          "name": "重复启动及销毁均移除旧订阅",
+          "passed": false,
+          "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n2 !== 1\n"
+        },
+        {
+          "name": "剧情页显示全部合法卷数，未知卷号不伪装成卷一",
+          "passed": true
+        },
+        {
+          "name": "事件历史逐条显示所属卷，旧缺卷事件提示迁移且文本仍转义",
+          "passed": false,
+          "error": "AssertionError [ERR_ASSERTION]: The input did not match the regular expression /第1卷 · 终章/. Input:\n\n`<div class=\"card1 rk-t-panel\"><div class=\"ct\">本局选拔赛</div><p>主、副 API 和手动登记共用本局实际比赛记录。</p><div class=\"rk-t-actions\"><button type=\"button\" data-rk-t-action=\"new-match\">登记比赛</button><button type=\"button\" data-rk-t-action=\"new-participant\">登记参赛者</button><button type=\"button\" data-rk-t-action=\"initialize\">建立本局选拔赛</button></div><div class=\"gba-note\" role=\"status\"><p>选拔赛组件尚未连接，请更新配套脚本。</p></div></div><details class=\"card1\"><summary>当前剧情 · 第16卷 · 序章 · 进行中</summary><p>时间未确认 · 地点未确认</p><button type=\"button\" onclick=\"openStoryControls()\">展开剧情控制</button></details><div class=\"card1\"><div class=\"ct\">其他日程与约定</div>尚无其他已确定日期的日程。<p><button type=\"button\" onclick=\"openApp('calendar')\">打开手机日历</button></p></div><details class=\"card1\"><summary>已发生事件 · 3 条</summary><div class=\"noble-art-block\"><div class=\"noble-art-title\">旧卷记录</div><div class=\"noble-art-desc\">保留的本局事件</div></div><div class=\"noble-art-block\"><div class=\"noble-art-title\">本卷记录</div><div class=\"noble-art-desc\">&lt;img src=x&gt;</div></div><div class=\"noble-art-block\"><div class=\"noble-art-title\">待升级事件</div><div class=\"noble-art-desc\">旧数据</div></div></details>`\n"
+        },
+        {
+          "name": "实际导出脚本与所有维护源码逐字一致",
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "subscriptionLifecycle": [
+    {
+      "label": "current",
+      "afterFirstBoot": 2,
+      "afterSecondBoot": 2,
+      "afterPagehide": 0,
+      "callbacks": [
+        "refreshTerminalState",
+        "(anonymous)",
+        "refreshTerminalState",
+        "(anonymous)"
+      ]
+    },
+    {
+      "label": "baseline-v1.3.28",
+      "afterFirstBoot": 2,
+      "afterSecondBoot": 2,
+      "afterPagehide": 0,
+      "callbacks": [
+        "refreshTerminalState",
+        "(anonymous)",
+        "refreshTerminalState",
+        "(anonymous)"
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "area": "赛事新增回归",
+      "result": "未发现。当前和v1.3.28保留包均24/30，六项失败名称与原因相同。"
+    },
+    {
+      "area": "三项文案断言",
+      "result": "MVU错误、空名册、null好感均为旧测试要求的短语与现行文案不一致，基线同样失败。不要为赛事接入回退现行文案。"
+    },
+    {
+      "area": "错误来源保留",
+      "result": "原有catch清空stateSource，旧测试期望error.source；v1.3.28同样返回null。若另行修复，应决定失败槽来源展示契约后再改。"
+    },
+    {
+      "area": "重复启动订阅",
+      "result": "真实存在两个独立订阅：terminal-app.js的refreshTerminalState与terminal-controls.js的校正状态订阅。附加实测确认两次boot后仍是2，pagehide后0；不是新增模块导致的订阅泄漏。旧断言只允许1已过时。"
+    },
+    {
+      "area": "事件卷章展示",
+      "result": "事件卡只显示名称和结果，旧版本亦未显示卷号/章段；若另行修复可在renderSchedule事件卡中使用既有字段加卷章，不需动赛事面板。"
+    },
+    {
+      "area": "当前任务建议",
+      "result": "赛事接入无需针对以上六项新增修复；保留基线报告，不能把smoke声明为全绿。"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "deliveryMode": "component",
+  "targetId": "ee190b2f-d2ba-44b4-9f1b-0695c07fefc5",
+  "version": "1.3.29",
+  "authorization": "用户明确确认：4张新头像和赛事面板一起接入终端并打包。",
+  "routes": [
+    "sillytavern-component-update",
+    "sillytavern-embedded-ui"
+  ],
+  "librarySnapshot": "2026-08-18",
+  "guides": [
+    "ST-A0",
+    "ST-C2",
+    "ST-D7"
+  ],
+  "candidatesAdopted": [],
+  "goal": "正式小手机内打开同源MVU角色/选拔页及原著晋级回放，并使用已验证图床。",
+  "boundaries": [
+    "保留已有选拔赛读写事务",
+    "原著回放只读，与本局赛果分开",
+    "无全国签表时显示待抽签",
+    "不自动加载虚构玩家，不添加正式全国赛schema，不打整卡"
+  ],
+  "acceptance": [
+    "38项图床真实PNG与本地哈希匹配",
+    "构建及组件格式、源映射验证",
+    "已有头像/选拔/导航回归",
+    "实际构建内页桌面及窄屏浏览器检查"
+  ],
+  "liveRuntime": "未执行真实酒馆导入。"
+}

@@ -55,7 +55,7 @@ check('新包在HTML宿主中只产生一个未截断的完整脚本', () => {
   new vm.Script(pieces[0]);
 });
 check('实际JSON交付物经反序列化、宿主HTML及内页入口仍还原完整页面', () => {
-  const artifact = JSON.parse(read('../../世界书规则/MVU/落第骑士-小手机-v' + built.version + '.json'));
+  const artifact = JSON.parse(read('../../世界书规则/MVU/' + built.filename));
   assert.deepEqual(artifact, built.artifact);
   const outer = scripts('<script type="module">' + artifact.content + '</script>')[0];
   const html = unpack(outer);
@@ -132,7 +132,11 @@ check('内页真实script文本不trim：源映射与原文件行一致且来源
   }
 });
 check('打包保留原脚本身份与按钮数据，不另建第二个运行实例', () => {
-  for (const key of ['type', 'enabled', 'id', 'button', 'data']) assert.deepEqual(built.artifact[key], old[key]);
+  const baseline = JSON.parse(read('../../世界书规则/MVU/落第骑士-小手机-v' + built.version + '-B1.json'));
+  const metadata = ({ content, info, ...rest }) => rest;
+  assert.deepEqual(metadata(built.artifact), metadata(baseline));
+  assert.ok(built.artifact.info.startsWith(baseline.info));
+  assert.match(built.artifact.name, /v1\.3\.29 B1（LIME状态精简）$/);
 });
 console.log(JSON.stringify({ evidence: 'parse5 HTML解析 → 实际完整脚本V8编译；独立源映射消费；未连接真实酒馆', passed: results.filter(r => r.passed).length, total: results.length, results }, null, 2));
 if (results.some(r => !r.passed)) process.exitCode = 1;

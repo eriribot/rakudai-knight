@@ -135,6 +135,7 @@ function openApp(appId) {
     'moments': 'scr-moments',
     'bbs': 'scr-bbs',
     'schedule': 'scr-schedule',
+    'arena': 'scr-arena',
     'gallery': 'scr-gallery',
     'calendar': 'scr-calendar',
     'worldbook': 'scr-calendar',
@@ -148,6 +149,7 @@ function openApp(appId) {
   else if (appId === 'moments') renderMoments();
   else if (appId === 'bbs') renderBbs();
   else if (appId === 'schedule') renderSchedule();
+  else if (appId === 'arena') renderTournamentPanel();
   else if (appId === 'gallery') renderGallery();
   else if (appId === 'calendar' || appId === 'worldbook') loadCalendarLore(true);
   else if (appId === 'settings') renderSettings();
@@ -167,6 +169,7 @@ function goBack() {
   if (currentStack[currentStack.length - 1] === 'scr-lime' && activeChat && typeof closeLimeChat === 'function') { closeLimeChat(); return; }
   if (currentStack.length <= 1) return;
   var curId = currentStack.pop();
+  if (curId === 'scr-arena') destroyTournamentPanel();
   var curEl = document.getElementById(curId);
   var prevId = currentStack[currentStack.length - 1];
   var prevEl = document.getElementById(prevId);
@@ -178,9 +181,11 @@ function goBack() {
     prevEl.classList.remove('under');
     prevEl.classList.add('on');
   }
+  if (curId === 'scr-arena' && prevId === 'scr-schedule') renderSchedule();
 }
 
 function goHome() {
+  destroyTournamentPanel();
   while (currentStack.length > 1) {
     var curId = currentStack.pop();
     var el = document.getElementById(curId);
@@ -773,7 +778,7 @@ function openTournamentDraft(action, id) {
     var slot = (calendar.schedule || []).find(function(row) { return row.round === round; });
     fields = record ? Object.assign({}, record) : { 轮次: round, 甲方: view.playerId || (view.roster[0] || {}).id || '', 乙方: '', 状态: '待定', 日期: slot && slot.date || '', 时间: '', 地点: '', 依据: '' };
     if (!id) { var n = 1; while (view.tournament && view.tournament.比赛['match_' + n]) n++; id = 'match_' + n; }
-  } else if (action === 'edit-participant' || action === 'new-participant') {
+  } else if (action === 'edit-participant' || action === 'new-participant' || action === 'backfill') {
     kind = 'participant';
     var person = id && view.tournament && view.tournament.名册[id];
     fields = person ? Object.assign({}, person) : { 姓名: '', 来源: '原创', 参赛状态: '参赛' };
@@ -785,7 +790,7 @@ function openTournamentDraft(action, id) {
   else if (action === 'detained') fields = { detained: view.tournament.一辉拘押 === true ? 'true' : 'false' };
   else return;
   // 草稿归属当前回复；刷新可保留输入，切换聊天或回复后不得提交旧草稿。
-  tournamentDraft = { kind: kind, id: id, fields: fields, source: sourceKey(stateSource), ledger: tournamentSnapshotKey(stat) };
+  tournamentDraft = { kind: kind, id: id, fields: fields, backfill: action === 'backfill', source: sourceKey(stateSource), ledger: tournamentSnapshotKey(stat) };
   renderSchedule();
   var form = document.querySelector('[data-rk-t-form]');
   if (form) { form.scrollIntoView({ block: 'nearest' }); var input = form.querySelector('input,select'); if (input) input.focus({ preventScroll: true }); }
@@ -816,11 +821,11 @@ function renderTournamentDraft(view) {
       field('detained', '本局拘押剧情', '', [['false', '未确认发生 / 清除错误标记'], ['true', '已实际发生']]);
   }
   else if (draft.kind === 'participant') {
-    title = draft.id ? '修改参赛者' : '登记参赛者';
+    title = draft.backfill ? '补录我的累计战绩' : draft.id ? '修改参赛者' : '登记参赛者';
     contents = '<div class="rk-t-grid">' + field('姓名', '姓名') + field('来源', '来源', '', ['原创', '正典', '玩家']) + field('参赛状态', '参赛状态', '', ['参赛', '退选', '取消资格']) + field('入赛轮次', '入赛轮次（可选，默认 1）', 'number') + '</div>' +
       '<p class="gba-note">仅实际中途加入时调整入赛轮次；登记日期较晚不代表从本轮才参赛。</p>' +
-      '<details><summary>旧存档：手动补录已确认的起始战绩</summary><p class="gba-note">仅由玩家补录有依据的本局历史，AI 不可修改。确认从赛前开始时，轮次、胜场、败场和积分均填 0，并注明依据；全部清空并保存可移除错误的起始战绩。普通场外比赛由日期结算，无需在此填写。</p>' +
-      '<div class="rk-t-grid">' + field('初始截至轮次', '截至轮次', 'number') + field('初始胜场', '胜场', 'number') + field('初始败场', '败场', 'number') + field('初始积分', '已获积分', 'number') + '</div>' + field('初始依据', '起始战绩依据', 'textarea') + '</details>';
+      '<details' + (draft.backfill ? ' open' : '') + '><summary>手动补录截至某轮的累计战绩</summary><p class="gba-note">跳过普通对局后，在这里填写已确认的累计胜场、败场和积分，包含该轮以前已有的比赛记录。明细会保留，不重复计分；后续比赛继续累加。积分未知可留空；全部清空并保存可移除错误补录。</p>' +
+      '<div class="rk-t-grid">' + field('初始截至轮次', '截至轮次', 'number') + field('初始胜场', '累计胜场', 'number') + field('初始败场', '累计败场', 'number') + field('初始积分', '累计积分（未知留空）', 'number') + '</div>' + field('初始依据', '本局战绩依据', 'textarea') + '</details>';
   } else if (draft.kind === 'match') {
     title = '安排比赛 / 登记结果';
     var people = [['', '请选择']].concat(view.roster.map(function(row) { return [row.id, row.name + ' · ' + row.status]; }));
@@ -828,7 +833,7 @@ function renderTournamentDraft(view) {
     contents = '<div class="rk-t-grid">' + field('轮次', '轮次', 'number') + field('状态', '比赛状态', '', ['待定', '已安排', '已完成', '已取消']) + field('甲方', '甲方', '', people) + field('乙方', '乙方', '', people) + '</div>' +
       '<div class="rk-t-actions">' + tournamentButton('suggest', '查看本轮可选对手') + '</div><div id="rk-t-suggestions" class="gba-note" role="status"></div>' +
       '<div class="rk-t-grid">' + field('日期', '日期', 'date') + field('时间', '时间') + field('地点', '地点') + field('胜者', '胜者', '', sides) + field('弃权方', '弃权方', '', [['', '无 / 未确认']].concat(sides.slice(1))) + '</div>' +
-      '<details><summary>旧存档：手动补录赛前胜场</summary><p class="gba-note">仅补录程序无法确定、但本局证据已确认的历史。程序可计算时必须与计算值一致；AI 不可填写，未知留空。</p><div class="rk-t-grid">' + field('甲赛前胜场', '甲方赛前胜场', 'number') + field('乙赛前胜场', '乙方赛前胜场', 'number') + '</div></details>' + field('依据', '安排 / 赛果依据', 'textarea');
+      '<details><summary>旧存档：手动补录赛前胜场</summary><p class="gba-note">填写本局已确认的赛前胜场；已有比赛会自动计入，不确定时留空。</p><div class="rk-t-grid">' + field('甲赛前胜场', '甲方赛前胜场', 'number') + field('乙赛前胜场', '乙方赛前胜场', 'number') + '</div></details>' + field('依据', '安排 / 赛果依据', 'textarea');
   }
   return '<form class="card1 rk-t-form" data-rk-t-form><div class="ct">' + title + '</div><fieldset' + (tournamentWriting ? ' disabled' : '') + '>' + contents +
     '<div class="rk-t-actions"><button type="submit"' + (dataStatus !== 'ready' || tournamentWriting ? ' disabled' : '') + '>' + (tournamentWriting ? '正在保存…' : '保存本局记录') + '</button>' + tournamentButton('close-draft', '收起编辑') + '</div></fieldset></form>';
@@ -921,6 +926,10 @@ function renderBbs() {
 function refreshBbs() { refreshTerminalState({ type: 'tournament-refresh', retainDisplay: true }); }
 
 // ===== 本局剧情记录与选拔赛 =====
+function tournamentPanelUnlocked() {
+  var selection = stat && stat.场景 && stat.场景.选拔赛;
+  return dataStatus === 'ready' && !!selection && selection.状态 === '已结束';
+}
 function renderSchedule() {
   var body = document.getElementById('schedule-body');
   if (!body) return;
@@ -937,6 +946,7 @@ function renderSchedule() {
     tournamentCalendar(view) +
     (view.virtual ? '<p class="gba-note">当前为按剧情日期生成的背景预览；尚未保存本局账本，玩家实际战绩待补。可直接登记比赛或参赛者，保存时自动建立账本。</p>' : '') +
     (editable ? '<div class="rk-t-actions">' + tournamentButton('new-match', '登记比赛') + tournamentButton('new-participant', '登记参赛者') +
+    (view.playerId ? tournamentButton('backfill', '补录我的累计战绩', view.playerId) : '') +
     (view.exists ? tournamentButton('status', '赛季状态') + tournamentButton('detained', '一辉拘押事实') : tournamentButton('initialize', '建立本局选拔赛')) + '</div>' : '<p class="gba-note">破军选拔仅适用于所属已确认的破军学园角色；当前仅查看历史记录。</p>') +
     (dataStatus !== 'ready' ? '<p class="gba-note">正在等待当前回复的 MVU 保存；可以查看，保存操作稍后可用。</p>' : '') +
     (tournamentMessage ? '<p class="rk-t-message" role="status">' + esc(tournamentMessage) + '</p>' : '') + tournamentWarnings(view) + '</div>' + (editable ? renderTournamentDraft(view) : '');
@@ -944,7 +954,10 @@ function renderSchedule() {
   if (hasView) tournamentHtml += '<div class="card1 rk-t-panel"><div class="ct">本局积分与参赛者</div>' + tournamentRanking(view) +
     (editable && view.roster.length ? '<details><summary>维护参赛者资料</summary><div class="rk-t-actions">' + view.roster.map(function(row) { return tournamentButton('edit-participant', row.name, row.id); }).join('') + '</div></details>' : '') + '</div>' +
     '<div class="card1 rk-t-panel"><div class="ct">本局实际比赛记录</div>' + (confirmedMatches.length ? confirmedMatches.map(function(match) { return tournamentMatchCard(match, editable); }).join('') : '<p>尚未登记实际比赛。</p>') + '</div>' + tournamentBackgroundMatches(view.matches);
-  body.innerHTML = tournamentHtml + '<details class="card1"><summary>当前剧情 · ' + esc(scene.volume + ' · ' + scene.chapter + ' · ' + scene.phase) + '</summary>' +
+  var arenaEntry = tournamentPanelUnlocked()
+    ? '<button type="button" class="rk-arena-entry" onclick="openApp(\'arena\')"><span>七星剑斗祭 · 赛事面板</span><small>本局选拔与角色 · 分区晋级图 · 对战大屏 →</small></button>'
+    : '<div class="card1 rk-arena-locked"><p>七星剑斗祭将在选拔赛结束后开放。</p><button type="button" onclick="openApp(\'arena\')">预览赛事面板 →</button></div>';
+  body.innerHTML = arenaEntry + tournamentHtml + '<details class="card1"><summary>当前剧情 · ' + esc(scene.volume + ' · ' + scene.chapter + ' · ' + scene.phase) + '</summary>' +
     '<p>' + esc(scene.time + ' · ' + scene.location) + '</p><button type="button" onclick="openStoryControls()">展开剧情控制</button></details>' +
     '<div class="card1"><div class="ct">其他日程与约定</div>' + (dated.length ? dated.map(function(item) { return renderScheduleItem(item, sceneDate); }).join('') : '尚无其他已确定日期的日程。') +
     '<p><button type="button" onclick="openApp(\'calendar\')">打开手机日历</button></p></div>' + renderUndatedSchedule(undated, sceneDate) +
@@ -1590,6 +1603,7 @@ function refreshTerminalView() {
     'scr-moments': renderMoments,
     'scr-bbs': renderBbs,
     'scr-schedule': renderSchedule,
+    'scr-arena': renderTournamentPanel,
     'scr-calendar': renderCalendar,
     'scr-worldbook': renderCalendar
   };
@@ -1691,6 +1705,7 @@ window.RKBoot = function(b) {
 };
 window.addEventListener('pagehide', function() {
   bridgeRevision++;
+  destroyTournamentPanel();
   if (typeof resetLimeSession === 'function') resetLimeSession();
   calendarLore.revision++;
   if (typeof correctionProgressUI !== 'undefined') correctionProgressUI.destroy();

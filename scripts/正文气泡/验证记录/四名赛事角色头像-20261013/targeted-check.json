@@ -1,0 +1,90 @@
+{
+  "changes": [
+    {
+      "name": "dialogue-bubbles",
+      "changed": [
+        "findRegex"
+      ]
+    },
+    {
+      "name": "dialogue-player-candidates",
+      "changed": []
+    },
+    {
+      "name": "dialogue-bubble-style",
+      "changed": [
+        "replaceString"
+      ]
+    }
+  ],
+  "bindings": [
+    {
+      "id": "or_gaule",
+      "url": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/or_gaule.png",
+      "aliasesChecked": [
+        "欧尔·格尔",
+        "歐爾·格爾",
+        "欧尔雷斯·格尔",
+        "歐爾雷斯·格爾",
+        "傀儡王"
+      ]
+    },
+    {
+      "id": "amane",
+      "url": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/amane.png",
+      "aliasesChecked": [
+        "紫乃宫天音",
+        "紫乃宮天音",
+        "天音",
+        "Amane Shinomiya",
+        "Shinomiya Amane"
+      ]
+    },
+    {
+      "id": "hiraga",
+      "url": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/hiraga.png",
+      "aliasesChecked": [
+        "平贺玲泉",
+        "平賀玲泉",
+        "平贺",
+        "平賀",
+        "Reisen Hiraga",
+        "Hiraga Reisen"
+      ]
+    },
+    {
+      "id": "botan",
+      "url": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/botan.png",
+      "aliasesChecked": [
+        "叶暮牡丹",
+        "葉暮牡丹",
+        "牡丹",
+        "Botan Hagure",
+        "Hagure Botan"
+      ]
+    },
+    {
+      "id": "kikyo",
+      "url": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/kikyo.png",
+      "aliasesChecked": [
+        "叶暮桔梗",
+        "葉暮桔梗",
+        "桔梗",
+        "Kikyo Hagure",
+        "Kikyou Hagure",
+        "Hagure Kikyo",
+        "Hagure Kikyō"
+      ]
+    }
+  ],
+  "checks": "published rules equal buildRules; new aliases render NPC bubbles; Hiraga and Or-Gaule retain separate image bindings",
+  "realSillyTavern": "not run",
+  "validation": {
+    "rules": "508/508",
+    "artifactParity": "passed",
+    "componentFormat": "regex, errors=[]",
+    "version": "0.6 unchanged",
+    "ocCandidateBytes": "unchanged",
+    "terminal": "1.3.29 unchanged"
+  }
+}

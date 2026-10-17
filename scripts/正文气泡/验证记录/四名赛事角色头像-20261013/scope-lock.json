@@ -1,0 +1,85 @@
+{
+  "deliveryMode": "component",
+  "kind": "regex",
+  "version": "0.6",
+  "goal": "同步天音、平贺、叶暮姐妹到正文气泡导入组件",
+  "scope": "仅更新01姓名匹配与03头像样式，02保持逐字相同；终端保持v1.3.29",
+  "library": {
+    "snapshot": "2026-08-18",
+    "routes": [
+      "sillytavern-render-regex-pipeline",
+      "sillytavern-component-update"
+    ],
+    "guides": [
+      "ST-A0",
+      "ST-A5",
+      "ST-A6"
+    ],
+    "candidates": []
+  },
+  "baseline": [
+    {
+      "file": "dialogue-bubbles.regex.json",
+      "sha256": "6ea27b727036fc593dffc7a96e2307c4ae4258668d28341b8d8f61903dbd07c6",
+      "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+      "scriptName": "01 盾形对白 · 姓名与台词 v0.6",
+      "fieldHashes": {
+        "trimStrings": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "placement": "038966de9f6b9a901b20b4c6ca8b2a46009feebe031babc842d43690c0bc222b",
+        "disabled": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+        "markdownOnly": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b",
+        "promptOnly": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+        "runOnEdit": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b",
+        "substituteRegex": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35",
+        "minDepth": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+        "maxDepth": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+        "id": "f54fde008cab16794ebcaa0d48bc15846854da1e4bf4cdec3065ebe7bc995702",
+        "scriptName": "73e9134b8366f9dc7be582e202b6a3715f1aed724ff207cbea45d485a42586ed",
+        "findRegex": "bb7c654c1095561eb11e267ae5688dd42d5100760ca827d0983e5b9cfc3e398e",
+        "replaceString": "ad65f7ae952a3df9e9af35c35fcf1570f4263e7d80d74c42fe5141188d184e52"
+      }
+    },
+    {
+      "file": "dialogue-player-candidates.regex.json",
+      "sha256": "a548f8b4d27ef1db3ef8a969051833477a05370bbc45af4dbff2fb6194fb1f38",
+      "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+      "scriptName": "02 盾形对白 · OC 姓名候选 v0.6",
+      "fieldHashes": {
+        "trimStrings": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "placement": "038966de9f6b9a901b20b4c6ca8b2a46009feebe031babc842d43690c0bc222b",
+        "disabled": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+        "markdownOnly": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b",
+        "promptOnly": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+        "runOnEdit": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b",
+        "substituteRegex": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+        "minDepth": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+        "maxDepth": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+        "id": "d7cbcef664e8b9fe318c0a75da95ea31256e3af7b0b2e680bfb73180e2c4c971",
+        "scriptName": "261c55fa7878d2d30d3b7bf2769f2d9705b7bfcb51121302ce8261aa7fa773cd",
+        "findRegex": "94a620a27e6220bf0cb49a67ecdb86ccac1a0651f47d04f0729b342870caf834",
+        "replaceString": "b0111ffc2a4173eb78c995469ad06686e76c2dc729ff1d104853a4235871b75f"
+      }
+    },
+    {
+      "file": "dialogue-bubble-style.regex.json",
+      "sha256": "faff53e8c207e8aa7cdd27ce25875b981b19971677bcedfaa60aa6491ffe0f84",
+      "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+      "scriptName": "03 盾形对白 · 共享样式 v0.6",
+      "fieldHashes": {
+        "trimStrings": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "placement": "038966de9f6b9a901b20b4c6ca8b2a46009feebe031babc842d43690c0bc222b",
+        "disabled": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+        "markdownOnly": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b",
+        "promptOnly": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+        "runOnEdit": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b",
+        "substituteRegex": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+        "minDepth": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+        "maxDepth": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+        "id": "6747c248e51563cecb8cd2e4529d4cb1f450e033476624d6b438ce465a2dcdf5",
+        "scriptName": "3730636b84eefe8f567e79e52aa76e5df5373f71fdff710e13fae5d62dd00a2f",
+        "findRegex": "08514c09b2f2aa1f70a18052bd8a31a963150cfb29c1d2ec6063bdea3b922403",
+        "replaceString": "aa6813090fffa3208bca3ad373288e1699a8b4cd7d30a376d1067227ec2c8b73"
+      }
+    }
+  ]
+}

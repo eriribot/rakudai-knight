@@ -95,7 +95,7 @@
       return position(messageId);
     },
     current, assertOpeningReplacement,
-    validate: validateState,
+    validate: (value, scope = 'full') => scope === 'full' ? validateState(value) : validateStateOperation(value, scope, runtime().Z),
     migrate: value => prepareStateMigration(value, runtime().Z),
     write: (saved, expected, state, { openingReplacement = false } = {}) => {
       if (openingReplacement) assertOpeningReplacement(saved);

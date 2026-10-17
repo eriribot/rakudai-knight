@@ -1,0 +1,46 @@
+{
+  "date": "2026-10-17",
+  "deliveryMode": "component",
+  "target": "世界书规则/MVU/落第骑士-小手机-v1.3.29-B1-头像更新.json",
+  "sourceSha256": "bfa556a03ca6de879c0c4ac7853240c4d0d022c3d6fcc9b6a1aa330f2e78ce51",
+  "metadata": {
+    "type": "script",
+    "enabled": true,
+    "name": "落第骑士·黑白ADV轮盘终端 v1.3.29 B1（LIME状态精简）",
+    "id": "3d8c6c23-f78e-46e5-8e89-4a90bab6fb85",
+    "button": {
+      "enabled": true,
+      "buttons": []
+    },
+    "data": {},
+    "export_with": {
+      "data": false,
+      "button": false
+    }
+  },
+  "goal": "终端手动切卷和累计补录只验证本次操作相关字段，兼容不开可选字段约束的本局；简化切入说明和提示",
+  "boundaries": [
+    "版本及B1身份保持",
+    "无关数据原样保留",
+    "开局/迁移/副API公共校验维持原路径",
+    "不修改可选字段约束、正文规则或完整角色卡",
+    "不写入真实酒馆"
+  ],
+  "acceptance": [
+    "缺人际字段、扩展玩家字段、相对旧日程不再阻止切卷和补录",
+    "切卷不改玩家成长",
+    "错误目标与矛盾赛果仍有具体提示",
+    "并发变化不被旧表单覆盖"
+  ],
+  "library": {
+    "route": "sillytavern-component-update",
+    "snapshot": "2026-08-18",
+    "guides": [
+      "ST-A0",
+      "ST-A2",
+      "ST-A6",
+      "ST-B2"
+    ],
+    "newHostApis": false
+  }
+}

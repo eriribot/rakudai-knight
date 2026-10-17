@@ -77,7 +77,6 @@ export function projectTournamentBackground(state, ledger) {
   }
   for (const id of visibleIds) {
     const person = next.名册[id];
-    if (checkpoints[id]) warnings.push(`${person.姓名}有已确认的赛前胜场：第${checkpoints[id]}场以前缺失历史保留待补，背景不覆盖人工记录。`);
     if (!checkpoints[id] && person.来源 !== '玩家' && (person.参赛状态 === '参赛' || parseTournamentDate(person.退赛日期)) && !person.初始战绩) {
       person.初始战绩 = { 截至轮次: (person.入赛轮次 || 1) - 1, 胜场: 0, 败场: 0, 积分: 0, 依据: 'T02程序推演起点，不是补录的真实战果' };
     }
@@ -141,6 +140,7 @@ export function projectTournamentBackground(state, ledger) {
     for (let round = (person.初始战绩?.截至轮次 || 0) + 1; round <= finalRound; round++) {
       if (!completed.has(round)) pendingRounds[id].push(round);
     }
+    if (pendingRounds[id].some(round => round < checkpoints[id])) warnings.push(`${person.姓名}有已确认的赛前胜场：第${checkpoints[id]}场以前缺失历史保留待补，背景不覆盖人工记录。`);
   }
   warnings.push('场外结果为T02程序推演，实际赛果优先；背景对手使用固定基线，当前榜单不是全校完整账本。');
   if (endDate) warnings.push(`赛季已结束，场外推演冻结于${endDate.key}；重新开启赛季才会继续随日期推进。`);

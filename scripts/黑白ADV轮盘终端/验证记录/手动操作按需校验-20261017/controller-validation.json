@@ -1,0 +1,56 @@
+{
+  "date": "2026-10-17",
+  "scope": "terminal-operation-validation",
+  "runtime": "离线真实控制器 bundle + 宿主接口替身；未连接或修改真实酒馆",
+  "passed": true,
+  "total": 102,
+  "passedCount": 102,
+  "behavior": [
+    "切卷、补录、名册、宿舍按操作范围读取并验证；缺失的人物说明、自定义资料和旧日程不阻止无关操作",
+    "切卷仅改变剧情定位，玩家、成长、人际、旧日程原样保留",
+    "默认capture、公开validateState、建档与迁移仍完整校验",
+    "保留目标卷章、累计比分、分支与并发检查"
+  ],
+  "attempts": [
+    {
+      "command": "node scripts/check-state-controller.mjs",
+      "attempt": 1,
+      "exitCode": 0,
+      "passed": 24,
+      "total": 24,
+      "failures": []
+    },
+    {
+      "command": "node scripts/check-state-v4.mjs",
+      "attempt": 1,
+      "exitCode": 1,
+      "passed": 22,
+      "total": 23,
+      "failures": [
+        {
+          "name": "拒绝错误卷号类型、目录不存在卷与不属于该卷的章节",
+          "passed": false,
+          "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\ntrue !== false\n\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/check-state-v4.mjs:64:104\n    at check (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/check-state-v4.mjs:50:47)\n    at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/check-state-v4.mjs:63:7"
+        }
+      ]
+    },
+    {
+      "command": "node scripts/check-state-browser.mjs",
+      "attempt": 1,
+      "exitCode": 0,
+      "passed": 55,
+      "total": 55,
+      "failures": []
+    },
+    {
+      "command": "node scripts/check-state-v4.mjs",
+      "attempt": 2,
+      "exitCode": 0,
+      "passed": 23,
+      "total": 23,
+      "failures": []
+    }
+  ],
+  "testMaintenance": "check-state-v4 原断言把字符串卷号 '2' 当非法，与既有 normalizeStoryVolume 不符；仅修正测试，验证 '2'/'第2卷'/'第二卷' 解析为2，非法文本仍拒绝。首次失败原文已保留。",
+  "generatedPackagesChangedByThisAgent": false
+}

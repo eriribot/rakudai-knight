@@ -1,0 +1,39 @@
+{
+  "runtime": "离线构建与宿主替身，未连接酒馆",
+  "statePanel": {
+    "command": "node scripts/黑白ADV轮盘终端/state-panel-test.mjs",
+    "passed": 21,
+    "total": 21
+  },
+  "results": [
+    {
+      "command": "node scripts/黑白ADV轮盘终端/packaging-test.mjs",
+      "passed": 9,
+      "total": 9,
+      "stdout": "{\n  \"evidence\": \"parse5 HTML解析 → 实际完整脚本V8编译；独立源映射消费；未连接真实酒馆\",\n  \"passed\": 9,\n  \"total\": 9,\n  \"results\": [\n    {\n      \"name\": \"旧包直接编译通过，但完整宿主HTML解析后稳定复现两段SyntaxError\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"新包在HTML宿主中只产生一个未截断的完整脚本\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"实际JSON交付物经反序列化、宿主HTML及内页入口仍还原完整页面\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"HTML闭合标签、大小写、注释、中文、反斜杠及行分隔符往返保持原值\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"打包页面包含当前维护的全部 JS 与 CSS 模块，没有滞留旧版源码\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"交付脚本中注入的关系函数可独立执行，共享新上限且不缺闭包依赖\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"主壳与注入模块的真实生成位置可映射回原文件行\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"内页真实script文本不trim：源映射与原文件行一致且来源名明确\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"打包保留原脚本身份与按钮数据，不另建第二个运行实例\",\n      \"passed\": true\n    }\n  ]\n}\n",
+      "stderr": "",
+      "exitCode": 0
+    },
+    {
+      "command": "node scripts/黑白ADV轮盘终端/tournament-ui-test.mjs",
+      "passed": 15,
+      "total": 15,
+      "stdout": "✔ the complete terminal source compiles in memory without exporting artifacts (219.1909ms)\n✔ returning from the arena refreshes the entry after a season change (3.5105ms)\n✔ national tournament remains an explicit preview until a saved selection end, regardless of date or projected view (3.8579ms)\n✔ saved selection end unlocks viewing without granting qualification from an incomplete or tied ledger (1.8537ms)\n✔ an ended stale snapshot stays in preview while MVU is pending and unlocks after saving (1.0421ms)\n✔ other-school previews and ended historical ledgers do not grant Hagun qualification or edit state (1.7581ms)\n✔ unknown history leads with pending labels, while projected results are visibly read-only (0.8886ms)\n✔ new match follows the current calendar slot; synthetic results cannot prefill a persisted match (1.2658ms)\n✔ inapplicable players can read old results and ordinary schedules without tournament editing (2.3423ms)\n✔ date, player mode, name, and affiliation invalidate both UI and host snapshots and block stale drafts (2.366ms)\n✔ manual old-save repair remains available; entry round and detention require explicit input (1.6735ms)\n✔ cumulative backfill opens the player record directly and saves totals without changing match details (1.2242ms)\n✔ correction can accept an OC victory while rejecting direct and nested derived score changes (1.593ms)\n✔ correction protects existing entry rounds and core-owned withdrawal dates even through parent objects (0.8825ms)\n✔ correction leaves the core-owned season end date read-only while accepting season status changes (0.8711ms)\nℹ tests 15\nℹ suites 0\nℹ pass 15\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 248.4283\n",
+      "stderr": "",
+      "exitCode": 0
+    },
+    {
+      "command": "node scripts/build-state-controller.mjs --check",
+      "stdout": "共享状态控制器与来源同步。\n",
+      "stderr": "",
+      "exitCode": 0
+    },
+    {
+      "command": "node .agents/skills/sillytavern-component-update/scripts/validate-importable-component.mjs 世界书规则/MVU/落第骑士-小手机-v1.3.29-B1-头像更新.json",
+      "errors": [],
+      "stdout": "{\n  \"schemaVersion\": 1,\n  \"target\": \"E:\\\\web\\\\落第\\\\世界书规则\\\\MVU\\\\落第骑士-小手机-v1.3.29-B1-头像更新.json\",\n  \"errors\": [],\n  \"files\": [\n    {\n      \"file\": \"E:\\\\web\\\\落第\\\\世界书规则\\\\MVU\\\\落第骑士-小手机-v1.3.29-B1-头像更新.json\",\n      \"kind\": \"helper-script\",\n      \"errors\": []\n    }\n  ]\n}\n",
+      "stderr": "",
+      "exitCode": 0
+    }
+  ]
+}

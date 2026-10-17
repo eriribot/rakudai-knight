@@ -1,0 +1,211 @@
+{
+  "date": "2026-10-17",
+  "scope": "Merged B1 release offline validation only; no live Tavern import",
+  "tests": [
+    {
+      "command": "node packaging-test.mjs",
+      "exitCode": 0,
+      "passed": 9,
+      "total": 9
+    },
+    {
+      "command": "node avatar-test.mjs",
+      "exitCode": 0,
+      "passed": 18,
+      "total": 18
+    },
+    {
+      "command": "node tournament-panel-test.mjs",
+      "exitCode": 0,
+      "passed": 5,
+      "total": 5
+    },
+    {
+      "command": "npm.cmd run test:lime",
+      "passed": 145,
+      "total": 145,
+      "failed": 0,
+      "files": [
+        {
+          "name": "lime-chat-test.mjs",
+          "passed": 27,
+          "total": 27,
+          "runner": "internal checks"
+        },
+        {
+          "name": "lime-worldbook-test.mjs",
+          "passed": 12,
+          "total": 12
+        },
+        {
+          "name": "lime-host-test.mjs",
+          "passed": 67,
+          "total": 67
+        },
+        {
+          "name": "lime-story-test.mjs",
+          "passed": 15,
+          "total": 15
+        },
+        {
+          "name": "lime-ui-test.mjs",
+          "passed": 24,
+          "total": 24
+        }
+      ],
+      "note": "PowerShell resolved plain npm to C:\\WINDOWS\\system32\\npm and it returned no test output. Explicit npm.cmd ran the requested package test:lime script; all five test files completed successfully. 118 node:test cases plus 27 protocol checks."
+    }
+  ],
+  "totalPassed": 177,
+  "total": 177,
+  "failures": [],
+  "metadataAndProjection": {
+    "artifact": "世界书规则/MVU/落第骑士-小手机-v1.3.29-B1-头像更新.json",
+    "artifactSha256": "bfa556a03ca6de879c0c4ac7853240c4d0d022c3d6fcc9b6a1aa330f2e78ce51",
+    "contentSha256": "bef923fa35aa1fc528776100360765dbd180b4a135b632b45f35885d35d57921",
+    "metadataPreservedKeys": [
+      "type",
+      "enabled",
+      "name",
+      "id",
+      "button",
+      "data",
+      "export_with"
+    ],
+    "name": "落第骑士·黑白ADV轮盘终端 v1.3.29 B1（LIME状态精简）",
+    "id": "3d8c6c23-f78e-46e5-8e89-4a90bab6fb85",
+    "limeMappedSourceEqualsMaintainedSource": true,
+    "limeProjectionPresentInRuntime": true,
+    "limeSourceSha256": "014cc9ba1b21ace4733dff6514517993b36d7c37088cc457ba474056c5184eed",
+    "unknownMetadataNote": "All baseline keys other than content/info compared, including any unknown keys; current baseline has no extra unknown keys."
+  },
+  "details": {
+    "packaging": {
+      "evidence": "parse5 HTML解析 → 实际完整脚本V8编译；独立源映射消费；未连接真实酒馆",
+      "passed": 9,
+      "total": 9,
+      "results": [
+        {
+          "name": "旧包直接编译通过，但完整宿主HTML解析后稳定复现两段SyntaxError",
+          "passed": true
+        },
+        {
+          "name": "新包在HTML宿主中只产生一个未截断的完整脚本",
+          "passed": true
+        },
+        {
+          "name": "实际JSON交付物经反序列化、宿主HTML及内页入口仍还原完整页面",
+          "passed": true
+        },
+        {
+          "name": "HTML闭合标签、大小写、注释、中文、反斜杠及行分隔符往返保持原值",
+          "passed": true
+        },
+        {
+          "name": "打包页面包含当前维护的全部 JS 与 CSS 模块，没有滞留旧版源码",
+          "passed": true
+        },
+        {
+          "name": "交付脚本中注入的关系函数可独立执行，共享新上限且不缺闭包依赖",
+          "passed": true
+        },
+        {
+          "name": "主壳与注入模块的真实生成位置可映射回原文件行",
+          "passed": true
+        },
+        {
+          "name": "内页真实script文本不trim：源映射与原文件行一致且来源名明确",
+          "passed": true
+        },
+        {
+          "name": "打包保留原脚本身份与按钮数据，不另建第二个运行实例",
+          "passed": true
+        }
+      ]
+    },
+    "avatars": {
+      "evidence": "真实构建目录 + HTTPS 选择与本地回退 + V8 页面转义与回退；未连接酒馆",
+      "passed": 18,
+      "total": 18,
+      "results": [
+        {
+          "name": "实际构建按清单输出本地内联或 HTTPS 头像，页面使用同一份目录",
+          "passed": true
+        },
+        {
+          "name": "全名与清单别名匹配，空白和中点等价；不把同姓 OC 匹配为正典人物",
+          "passed": true
+        },
+        {
+          "name": "加加美官方动画头像的全名简称共用完整盾图，不把同姓原创人物匹配进去",
+          "passed": true
+        },
+        {
+          "name": "黑骑士 Iris 与有栖院 Alice 以完整别名消歧，同译裸名和共用称号保留首字回退",
+          "passed": true
+        },
+        {
+          "name": "本次四名 EPUB 人物有独立 ID 与完整合成盾图，不再裁切人物",
+          "passed": true
+        },
+        {
+          "name": "已补入小说头像集合的姓名对应独立完整 PNG，保留来源与框分层",
+          "passed": true
+        },
+        {
+          "name": "宁音的简繁姓名匹配同一人物近景，并套用透明盾框",
+          "passed": true
+        },
+        {
+          "name": "自带盾框保留整图，无盾框使用本地框；小通讯录共用匹配",
+          "passed": true
+        },
+        {
+          "name": "头像或装饰框加载失败均切回首字，重复刷新无需逐张绑定",
+          "passed": true
+        },
+        {
+          "name": "显示头像不会预填名册或改动游戏状态，未知名字作为惰性文本显示",
+          "passed": true
+        },
+        {
+          "name": "图床地址优先且不内嵌大图回退，未填与空字符串保留本地内联",
+          "passed": true
+        },
+        {
+          "name": "合成图使用 displayFile 位元组，渲染不二次裁切并保留独立框对比层",
+          "passed": true
+        },
+        {
+          "name": "盾框也可用图床，SVG 遮罩仍在本地内联",
+          "passed": true
+        },
+        {
+          "name": "人物与盾框地址拒绝其他协议、URL 凭证及无效类型",
+          "passed": true
+        },
+        {
+          "name": "图床模式共用原渲染器，URL 中引号与 HTML 字符不会新增标签或属性",
+          "passed": true
+        },
+        {
+          "name": "合成图图床模式保留原来源、整图与框分层，不内嵌合成位图回退",
+          "passed": true
+        },
+        {
+          "name": "构建拒绝互相覆盖的人物别名",
+          "passed": true
+        },
+        {
+          "name": "构建拒绝越出素材目录的文件及缺失图片",
+          "passed": true
+        }
+      ]
+    },
+    "tournamentPanelLog": "✔ embedded panel compiles as complete HTML with catalog portraits and no bundled sample/engine (26.4682ms)\n✔ unfinished and pending sessions stay labelled as preview; saved completion opens the same panel without altering state (1.9535ms)\n✔ host pushes the displayed snapshot, keeps one iframe, and resets only when source changes (1.2482ms)\n✔ selection maintenance reuses an existing schedule page instead of stacking duplicate pages (1.5454ms)\n✔ actual terminal preview receives derived OC, qualification, tie and other-school views only as offline fixtures (532.2134ms)\nℹ tests 5\nℹ suites 0\nℹ pass 5\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 569.5737\n"
+  },
+  "acceptance": "All requested offline tests passed. Current release preserves B1 full name, stable ID and baseline metadata; maintained LIME field projection is present in runtime and inline source map.",
+  "limitations": [
+    "No live Tavern import or actual model request was performed."
+  ]
+}

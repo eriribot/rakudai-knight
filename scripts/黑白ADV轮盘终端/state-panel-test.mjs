@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 import { parseFragment } from 'parse5';
 import { INITIAL_STATE, createSchema, prepareStateMigration } from '../../世界书规则/MVU/schema.mjs';
-import { createStateController } from '../rakudai-state-core.mjs';
+import { createStateController, validateStateOperation } from '../rakudai-state-core.mjs';
 const require = createRequire(import.meta.url), { z } = require('../../output/worldbook-calibration/dev/node_modules/zod');
 const schema = createSchema(z), clone = structuredClone;
 const source = fs.readFileSync(new URL('state-panel.js', import.meta.url), 'utf8');
@@ -66,7 +66,7 @@ function fixture(initial = saved(), { serviceAvailable = true, snapshot } = {}) 
   let data = { stat_data: clone(initial), extra: { retained: true } }, scope = 0, writes = 0, captures = 0, snapshotOverride = snapshot;
   const adapter = {
     capture: () => { captures++; return { data: clone(data), scope }; }, current: snapshot => { if (snapshot.scope !== scope) throw new Error('当前分支已变化'); return { data: clone(data) }; },
-    validate: value => { createSchema(z, { normalizeRelationships: false }).parse(value); return clone(value); }, migrate: value => prepareStateMigration(value, z),
+    validate: (value, scope) => { if (scope && scope !== 'full') return validateStateOperation(value, scope, z); createSchema(z, { normalizeRelationships: false }).parse(value); return clone(value); }, migrate: value => prepareStateMigration(value, z),
     write: (snapshot, expected, state) => { assert.equal(scope, snapshot.scope); assert.deepEqual(data, expected); data = { ...clone(data), stat_data: clone(state) }; writes++; },
   };
   const api = createStateController(adapter), service = { ...api, catalogue: api.catalogue };
@@ -87,7 +87,8 @@ function fixture(initial = saved(), { serviceAvailable = true, snapshot } = {}) 
     openJump() { const details = host.querySelector('[data-story-jump]'); details.open = true; details.dispatch('toggle'); },
   };
 }
-function fill(form) { form.elements.time.value = '目标时间'; form.elements.location.value = '目标地点'; form.elements.entryNote.value = '从本局已确认情境继续'; }
+function edit(control, value) { control.value = value; control.dispatch('input'); }
+function fill(form) { edit(form.elements.time, '目标时间'); edit(form.elements.location, '目标地点'); edit(form.elements.entryNote, '从本局已确认情境继续'); }
 
 await check('目录公开副本不能改写控制器的真实目录', () => {
   const f = fixture(), first = f.api.catalogue; first[0].chapters[0].key = '伪造章节'; assert.equal(f.api.catalogue[0].chapters[0].key, '序章'); f.realm.panel.disposeStatePanel();
@@ -101,15 +102,28 @@ await check('第六卷显示实际目录；阶段按钮按结束、下一章、�
   assert.equal(f.state.场景.当前章, '第五章'); assert.equal(f.state.场景.阶段, '未开始');
   f.node('[data-story-action="start"]').click(); await settle(); assert.equal(f.state.场景.阶段, '进行中'); assert.equal(f.writes, 3);
 });
-await check('卷末进入下一卷先打开确认表单，未填场景不写入，确认后采用真实首节点', async () => {
+await check('卷末切卷预填本局场景，单次提交采用真实首节点并开始', async () => {
   const f = fixture(saved(5)); await settle();
   assert.equal(f.node('[data-story-action="next"]').disabled, true); assert.equal(f.node('[data-story-action="nextVolume"]').disabled, false);
   assert.equal(f.node('[data-story-action="next"]').hidden, true); assert.equal(f.node('[data-story-action="nextVolume"]').hidden, false);
   f.node('[data-story-action="nextVolume"]').click();
   const form = f.node('[data-story-form="nextVolume"]'); assert.equal(f.node('[data-story-next-volume]').hidden, false); assert.equal(f.writes, 0);
+  assert.equal(form.elements.time.value, '当前已确认时间'); assert.equal(form.elements.location.value, '当前已确认地点');
+  assert.match(form.elements.entryNote.value, /第6卷.*间章1.*沿用本局已确认情境/);
+  assert.equal(form.querySelector('[data-story-submit]').textContent, '进入下一卷并开始');
+  form.dispatch('submit'); await settle();
+  assert.equal(f.writes, 1); assert.equal(f.state.场景.当前卷, 6); assert.equal(f.state.场景.当前章, '间章1'); assert.equal(f.state.场景.阶段, '进行中');
+  assert.match(f.node('[data-story-status]').textContent, /已切入并开始/); assert.doesNotMatch(f.node('[data-story-status]').textContent, /点击.*开始本章/);
+});
+await check('未确认时间地点不猜测，玩家清空预填值后也不会自动补回', async () => {
+  const initial = saved(); initial.场景.时间 = ''; initial.场景.地点 = '';
+  const f = fixture(initial); await settle(); f.node('[data-story-action="nextVolume"]').click();
+  const form = f.node('[data-story-form="nextVolume"]');
+  assert.equal(form.elements.time.value, ''); assert.equal(form.elements.location.value, '');
   form.dispatch('submit'); await settle(); assert.equal(f.writes, 0);
-  fill(form); form.dispatch('submit'); await settle();
-  assert.equal(f.writes, 1); assert.equal(f.state.场景.当前卷, 6); assert.equal(f.state.场景.当前章, '间章1'); assert.equal(f.state.场景.阶段, '未开始');
+  fill(form); edit(form.elements.time, ''); f.emit({ type: 'poll' }); await settle();
+  f.node('[data-story-action="nextVolume"]').click(); assert.equal(form.elements.time.value, '');
+  form.dispatch('submit'); await settle(); assert.equal(f.writes, 0);
 });
 await check('手动切入默认折叠；选项只含当前节点之后的卷章', async () => {
   const f = fixture(saved(16, '序章', '进行中')); await settle();
@@ -119,7 +133,25 @@ await check('手动切入默认折叠；选项只含当前节点之后的卷章'
   assert.deepEqual(form.elements.chapter.children.map(option => option.value), ['第一章', '第二章', '第三章']);
   form.elements.volume.value = '19'; form.elements.volume.dispatch('change'); form.elements.chapter.value = '终章'; fill(form);
   assert.equal(f.writes, 0); form.dispatch('submit'); await settle(); assert.equal(f.state.场景.当前卷, 19); assert.equal(f.state.场景.当前章, '终章');
+  assert.equal(f.state.场景.阶段, '进行中'); assert.equal(f.writes, 1);
   assert.deepEqual(f.state.场景.已发生事件, {});
+});
+await check('切入说明随目标更新；玩家编辑后切目标、轮询和重开均保留三项输入', async () => {
+  const initial = saved(1, '第一章', '进行中'); initial.场景.切入说明 = '只属于旧第一章的旧场景';
+  const f = fixture(initial); await settle(); f.openJump();
+  const form = f.node('[data-story-form="jump"]');
+  assert.equal(form.elements.time.value, initial.场景.时间); assert.equal(form.elements.location.value, initial.场景.地点);
+  assert.match(form.elements.entryNote.value, /第1卷.*第二章/); assert.doesNotMatch(form.elements.entryNote.value, /旧场景/);
+  form.elements.volume.value = '6'; form.elements.volume.dispatch('change');
+  assert.match(form.elements.entryNote.value, /第6卷.*间章1/);
+  form.elements.chapter.value = '第五章'; form.elements.chapter.dispatch('change');
+  assert.match(form.elements.entryNote.value, /第6卷.*第五章/);
+  fill(form);
+  form.elements.volume.value = '7'; form.elements.volume.dispatch('change');
+  f.emit({ type: 'poll' }); await settle(); f.openJump();
+  assert.equal(form.elements.time.value, '目标时间'); assert.equal(form.elements.location.value, '目标地点');
+  assert.equal(form.elements.entryNote.value, '从本局已确认情境继续');
+  assert.equal(f.writes, 0); assert.equal(form.querySelector('[data-story-submit]').textContent, '切入并开始');
 });
 await check('轮询不抹掉输入；并发状态变化后旧表单凭据拒绝写入并保留草稿', async () => {
   const f = fixture(); await settle(); f.node('[data-story-action="nextVolume"]').click();
@@ -164,6 +196,8 @@ await check('切聊天会清理旧表单与凭据；晚到读取不能覆盖新�
   await settle(); assert.equal(typeof resolve, 'function');
   f.switch(saved(16, '终章Ⅱ', '进行中')); f.service.capture = capture; f.emit({ reset: true }); await settle(); resolve(old); await settle();
   assert.match(f.node('[data-story-summary]').textContent, /第16卷.*终章Ⅱ/); assert.equal(f.node('[data-story-jump]').open, false); assert.equal(f.node('[data-story-form="jump"]').elements.time.value, ''); assert.equal(f.writes, 0);
+  f.openJump(); assert.equal(f.node('[data-story-form="jump"]').elements.time.value, '当前已确认时间');
+  assert.match(f.node('[data-story-form="jump"]').elements.entryNote.value, /沿用本局已确认情境/);
 });
 await check('销毁面板会注销现有刷新回调，收起期间轮询不额外读取', async () => {
   const f = fixture(); await settle(); let captures = 0; const capture = f.service.capture; f.service.capture = () => { captures++; return capture(); };
@@ -171,33 +205,39 @@ await check('销毁面板会注销现有刷新回调，收起期间轮询不额�
   f.realm.panel.disposeStatePanel(); assert.equal(f.updates.length, 0); f.emit({ type: 'poll' }); assert.equal(captures, 0);
 });
 
-await check('未启用约束时准确说明两种切章方式，合法存档按钮仍可写入', async () => {
+await check('手动切章不要求开启可选约束，按钮可直接写入', async () => {
   const f = fixture(saved(1, '第一章', '进行中')); await settle();
   assert.equal(f.HW.__RK_MVU_GUARD_V4__, undefined);
   const hint = f.node('[data-story-hint]').textContent;
-  assert.match(hint, /手动切章和 AI 直接提交相邻目标卷章不需要字段约束/);
-  assert.match(hint, /只提交本章“已结束”.*可选字段约束/);
+  assert.match(hint, /可直接切换章节，无需开启字段约束/);
   assert.equal(f.node('[data-story-display-source]').textContent, '');
   assert.equal(f.node('[data-story-action="end"]').disabled, false);
   f.node('[data-story-action="end"]').click(); await settle();
   assert.equal(f.state.场景.阶段, '已结束'); assert.equal(f.writes, 1);
 });
-await check('当前已保存人际缺字段显示准确路径，不冒充等待MVU或自动补齐人物', async () => {
+await check('人际缺字段不拦截切卷，扩展资料和历史日程原样保留', async () => {
   const initial = saved(1, '第一章', '进行中');
   initial.人际.黑铁一辉 = { 关系: '同学', 好感: 10, 支援度: 0 };
+  initial.玩家.备注 = '玩家自定义说明';
+  initial.场景.日程 = { 旧约定: { 日期: '明天', 说明: '保留旧记录' } };
   const f = fixture(initial); await settle();
-  const status = f.node('[data-story-status]').textContent, source = f.node('[data-story-display-source]').textContent;
-  assert.match(source, /已保存状态.*第 2 楼.*回复 1.*字段校验未通过/);
-  assert.doesNotMatch(source, /暂显最近|等待.*MVU/);
-  assert.match(status, /当前已保存数据.*字段缺失或格式不合法/);
-  for (const field of ['态度印象', '羁绊阶段', '变化依据']) assert.ok(status.includes('人际 / 黑铁一辉 / ' + field));
-  assert.doesNotMatch(status, /启用.*约束|等待.*MVU/);
-  assert.equal(f.node('[data-story-action="end"]').disabled, true);
-  f.node('[data-story-action="end"]').click(); assert.equal(f.writes, 0); assert.deepEqual(f.state, initial);
-  f.mutate(data => Object.assign(data.stat_data.人际.黑铁一辉, { 态度印象: '已认识', 羁绊阶段: '未建立', 变化依据: '实际相识' }));
-  await f.realm.panel.refreshStatePanel();
   assert.equal(f.node('[data-story-display-source]').textContent, '');
   assert.equal(f.node('[data-story-action="end"]').disabled, false); assert.equal(f.writes, 0);
+  f.openJump();
+  const form = f.node('[data-story-form="jump"]');
+  form.elements.volume.value = '2'; form.elements.volume.dispatch('change');
+  form.dispatch('submit'); await settle();
+  assert.equal(f.writes, 1); assert.equal(f.state.场景.当前卷, 2);
+  assert.deepEqual(f.state.玩家, initial.玩家);
+  assert.deepEqual(f.state.人际, initial.人际);
+  assert.deepEqual(f.state.场景.日程, initial.场景.日程);
+});
+await check('当前卷章本身不合法仍显示具体问题，未写入其他资料', async () => {
+  const initial = saved(20, '序章', '进行中');
+  const f = fixture(initial); await settle();
+  assert.match(f.node('[data-story-status]').textContent, /场景.*当前卷/);
+  assert.equal(f.node('[data-story-action="end"]').disabled, true);
+  assert.equal(f.writes, 0); assert.deepEqual(f.state, initial);
 });
 await check('服务不可用保留只读资料并指出终端加载问题，不要求启用约束', async () => {
   const f = fixture(saved(1, '第一章', '进行中'), { serviceAvailable: false }); await settle();

@@ -1,0 +1,57 @@
+{
+  "deliveryMode": "component",
+  "version": "1.3.29",
+  "target": "世界书规则/MVU/落第骑士-小手机-v1.3.29.json",
+  "targetId": "ee190b2f-d2ba-44b4-9f1b-0695c07fefc5",
+  "sourceSha256": "bd446ee66b7168cfd689e3da39f6d41521d750ff520ae7aef4f6e00c9f48edae",
+  "goal": "手动补录跨过普通对局的累计战绩生效；手动切卷表单默认填充且单次切入并开始",
+  "clarification": "用户确认空白指切卷表单时间、地点、切入说明",
+  "boundaries": [
+    "不改版号",
+    "不编造跳过的胜负或事件",
+    "保留实际比赛明细且不重复计分",
+    "不修改剧情注入器或副API自动设置",
+    "不打整卡"
+  ],
+  "library": {
+    "guides": [
+      "ST-A0",
+      "ST-A2",
+      "ST-A6",
+      "ST-B2"
+    ],
+    "snapshot": "2026-08-18",
+    "routes": [
+      "sillytavern-component-update"
+    ]
+  },
+  "acceptance": [
+    "首轮真实比赛加截至第八轮累计记录再接第九轮能正确计算",
+    "累计记录不能少于已知明细",
+    "切卷自动带入已保存场景且不覆盖玩家改写",
+    "单次原子保存目标卷章并开始",
+    "组件格式、生成物同步和相关回归"
+  ],
+  "dependentComponent": {
+    "target": "世界书规则/MVU/落第骑士-MVU-v4字段约束.json",
+    "targetId": "06117475-a08c-4d78-a886-3d26426c4b37",
+    "name": "落第骑士·MVU v4 字段与卷章约束 [G04/T02/R01]",
+    "sourceSha256": "177e1804cb1dd73c9268f75c9a64cb1f1299f1a9d69c6c2eeb47106a64f2f73b",
+    "reason": "旧约束含相同赛事校验，须同步支持累计记录覆盖已完成明细",
+    "metadata": {
+      "type": "script",
+      "enabled": true,
+      "name": "落第骑士·MVU v4 字段与卷章约束 [G04/T02/R01]",
+      "id": "06117475-a08c-4d78-a886-3d26426c4b37",
+      "button": {
+        "enabled": false,
+        "buttons": []
+      },
+      "data": {},
+      "export_with": {
+        "data": false,
+        "button": false
+      }
+    }
+  }
+}

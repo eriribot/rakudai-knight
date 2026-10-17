@@ -5,6 +5,7 @@ import vm from 'node:vm';
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { buildTerminal } from './bundle.mjs';
+import { read as readTournamentState } from '../../七星剑武祭-晋级面板预览/mvu-model.mjs';
 
 const read = file => fs.readFileSync(new URL(file, import.meta.url), 'utf8');
 const plain = value => JSON.parse(JSON.stringify(value));
@@ -42,6 +43,91 @@ function uiFixture() {
 
 test('the complete terminal source compiles in memory without exporting artifacts', () => {
   assert.ok(buildTerminal().artifact.content.length > 0);
+});
+test('returning from the arena refreshes the entry after a season change', () => {
+  const { ui, element } = uiFixture();
+  ui.renderSchedule();
+  assert.match(element('schedule-body').innerHTML, /预览赛事面板/);
+  ui.currentStack = ['scr-home', 'scr-schedule', 'scr-arena'];
+  ui.destroyTournamentPanel = () => {};
+  ui.stat.场景.选拔赛.状态 = '已结束';
+  ui.goBack();
+  assert.match(element('schedule-body').innerHTML, /class="rk-arena-entry"/);
+  assert.doesNotMatch(element('schedule-body').innerHTML, /预览赛事面板/);
+});
+test('national tournament remains an explicit preview until a saved selection end, regardless of date or projected view', () => {
+  for (const selection of [undefined, {}, { 状态: '未开始' }, { 状态: '进行中' }]) {
+    const { ui, view, element } = uiFixture();
+    if (selection === undefined) delete ui.stat.场景.选拔赛;
+    else ui.stat.场景.选拔赛 = structuredClone(selection);
+    Object.assign(ui.stat.场景, { 时间: '2013-08-01', 当前卷: 9 });
+    Object.assign(view, { complete: true, exists: true });
+    view.tournament.状态 = '已结束';
+    const before = JSON.stringify(ui.stat);
+    ui.renderSchedule();
+    assert.equal(ui.tournamentPanelUnlocked(), false);
+    assert.match(element('schedule-body').innerHTML, /选拔赛结束后开放/);
+    assert.match(element('schedule-body').innerHTML, /预览赛事面板/);
+    assert.doesNotMatch(element('schedule-body').innerHTML, /class="rk-arena-entry"/);
+    let opened = 0;
+    ui.renderTournamentPanel = () => { opened++; };
+    ui.openApp('arena');
+    assert.equal(opened, 1, 'the player can deliberately open the preview before qualification');
+    assert.equal(JSON.stringify(ui.stat), before, 'viewing the preview must not finish selection or change the player');
+  }
+});
+test('saved selection end unlocks viewing without granting qualification from an incomplete or tied ledger', () => {
+  for (const [complete, qualificationTie, expectedQualification] of [[false, false, 'unconfirmed'], [true, true, 'tie']]) {
+    const { ui, view, element } = uiFixture();
+    ui.stat.场景.选拔赛.状态 = '已结束';
+    view.tournament.状态 = '已结束';
+    Object.assign(view, { applicable: true, exists: true, virtual: false, complete, qualificationTie });
+    const before = JSON.stringify(ui.stat);
+    ui.renderSchedule();
+    assert.equal(ui.tournamentPanelUnlocked(), true);
+    assert.match(element('schedule-body').innerHTML, /class="rk-arena-entry"/);
+    assert.doesNotMatch(element('schedule-body').innerHTML, /预览赛事面板/);
+    assert.equal(readTournamentState({ state: ui.stat }, view).qualification.status, expectedQualification);
+    assert.equal(JSON.stringify(ui.stat), before);
+  }
+});
+test('an ended stale snapshot stays in preview while MVU is pending and unlocks after saving', () => {
+  const { ui, view, element } = uiFixture();
+  ui.stat.场景.选拔赛.状态 = '已结束';
+  const before = JSON.stringify(ui.stat);
+  for (const dataStatus of ['loading', 'pending', 'error']) {
+    ui.dataStatus = dataStatus;
+    ui.renderSchedule();
+    assert.equal(ui.tournamentPanelUnlocked(), false);
+    assert.match(element('schedule-body').innerHTML, /预览赛事面板/);
+    assert.equal(readTournamentState({ state: ui.stat, pending: true }, view).qualification.status, 'pending');
+  }
+  ui.dataStatus = 'ready';
+  ui.renderSchedule();
+  assert.equal(ui.tournamentPanelUnlocked(), true);
+  assert.match(element('schedule-body').innerHTML, /class="rk-arena-entry"/);
+  assert.equal(JSON.stringify(ui.stat), before);
+});
+test('other-school previews and ended historical ledgers do not grant Hagun qualification or edit state', () => {
+  for (const ended of [false, true]) {
+    const { ui, view, element } = uiFixture();
+    ui.stat.玩家.所属 = '武曲学园 / 一年一班';
+    if (ended) ui.stat.场景.选拔赛.状态 = '已结束';
+    else delete ui.stat.场景.选拔赛;
+    Object.assign(view, { applicable: false, exists: ended, virtual: false, calendar: null, complete: ended });
+    const before = JSON.stringify(ui.stat);
+    ui.renderSchedule();
+    const html = element('schedule-body').innerHTML;
+    assert.equal(ui.tournamentPanelUnlocked(), ended);
+    assert.match(html, /仅适用于所属已确认的破军学园角色/);
+    assert.doesNotMatch(html, /data-rk-t-action|data-rk-t-form|维护参赛者资料/);
+    assert.equal(readTournamentState({ state: ui.stat }, view).qualification.status, 'not-applicable');
+    let opened = 0;
+    ui.renderTournamentPanel = () => { opened++; };
+    ui.openApp('arena');
+    assert.equal(opened, 1);
+    assert.equal(JSON.stringify(ui.stat), before);
+  }
 });
 test('unknown history leads with pending labels, while projected results are visibly read-only', () => {
   const { ui, view, element } = uiFixture(), before = JSON.stringify(ui.stat);
@@ -87,7 +173,7 @@ test('inapplicable players can read old results and ordinary schedules without t
       ui.renderMoments(); assert.match(element('moments-body').innerHTML, /已确认 · 甲 胜出/);
       ui.renderBbs(); assert.match(element('bbs-body').innerHTML, /战绩待补/);
     }
-    for (const action of ['initialize', 'new-match', 'edit-match', 'new-participant', 'edit-participant', 'status', 'detained']) {
+    for (const action of ['initialize', 'new-match', 'edit-match', 'new-participant', 'edit-participant', 'backfill', 'status', 'detained']) {
       ui.openTournamentDraft(action, 'recorded');
       assert.equal(ui.tournamentDraft, null);
       assert.match(ui.tournamentMessage, /当前所属不适用破军选拔/);
@@ -122,7 +208,7 @@ test('manual old-save repair remains available; entry round and detention requir
   ui.submitTournament = request => { captured = plain(request); };
   ui.openTournamentDraft('new-participant', '');
   assert.equal(ui.tournamentDraft.fields.入赛轮次, 1);
-  assert.match(element('schedule-body').innerHTML, /旧存档：手动补录/);
+  assert.match(element('schedule-body').innerHTML, /手动补录截至某轮的累计战绩/);
   Object.assign(ui.tournamentDraft.fields, { 姓名: '中途选手', 入赛轮次: 7 });
   ui.saveTournamentDraft(); assert.equal(captured.participant.入赛轮次, 7);
   ui.tournamentDraft.fields.入赛轮次 = ''; ui.saveTournamentDraft();
@@ -132,6 +218,24 @@ test('manual old-save repair remains available; entry round and detention requir
   assert.equal(ui.tournamentDraft.fields.detained, 'false');
   ui.tournamentDraft.fields.detained = 'true'; ui.saveTournamentDraft();
   assert.deepEqual(captured, { action: 'setDetained', detained: true });
+});
+test('cumulative backfill opens the player record directly and saves totals without changing match details', () => {
+  const { ui, view, element } = uiFixture();
+  const before = JSON.stringify(view.tournament);
+  let captured;
+  ui.submitTournament = request => { captured = plain(request); };
+  ui.renderSchedule();
+  assert.match(element('schedule-body').innerHTML, /data-rk-t-action="backfill" data-rk-t-id="oc"/);
+  ui.openTournamentDraft('backfill', 'oc');
+  assert.equal(ui.tournamentDraft.fields.姓名, 'OC');
+  assert.match(element('schedule-body').innerHTML, /<details open><summary>手动补录截至某轮的累计战绩/);
+  Object.assign(ui.tournamentDraft.fields, { 初始截至轮次: '8', 初始胜场: '7', 初始败场: '1', 初始积分: '140', 初始依据: '本局已确认累计战绩' });
+  ui.saveTournamentDraft();
+  assert.deepEqual(captured, { action: 'upsertParticipant', id: 'oc', participant: {
+    姓名: 'OC', 来源: '玩家', 参赛状态: '参赛', 入赛轮次: 1,
+    初始战绩: { 截至轮次: 8, 胜场: 7, 败场: 1, 积分: 140, 依据: '本局已确认累计战绩' },
+  } });
+  assert.equal(JSON.stringify(view.tournament), before);
 });
 test('correction can accept an OC victory while rejecting direct and nested derived score changes', () => {
   const text = read('correction.js'), realm = vm.createContext({ structuredClone });

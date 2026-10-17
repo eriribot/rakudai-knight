@@ -15,14 +15,14 @@
       "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
       "kind": "regex",
       "relativePath": "dialogue-player-candidates.regex.json",
-      "sha256": "d0104c7f2203c01ada8fe0e1b1ab382709f04b54e8dc491c1e802eb67ee59783"
+      "sha256": "a548f8b4d27ef1db3ef8a969051833477a05370bbc45af4dbff2fb6194fb1f38"
     },
     {
       "artifactName": "dialogue-bubble-style",
       "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
       "kind": "regex",
       "relativePath": "dialogue-bubble-style.regex.json",
-      "sha256": "b2d4b2937362e013cf3efa47cf0eb69ad619836ece79416037b956ae4cff8119"
+      "sha256": "3afca7b153c428c6d33fd67404c7d05e31e03bd8125bb2a267d216f5857703b1"
     }
   ]
 }

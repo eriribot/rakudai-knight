@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { parse } from 'parse5';
 import sourceMap from 'source-map-js';
 import { buildKnightAvatarCatalog } from './knight-avatars.mjs';
+import { buildTournamentPanel } from './build-tournament-panel.mjs';
 import { GROWTH_RULES, RELATIONSHIP_SCORING, supportStage, romanceStage } from '../../世界书规则/MVU/schema.mjs';
 
 export const directory = path.dirname(fileURLToPath(import.meta.url));
@@ -75,6 +76,7 @@ function mappedSource(filename, version) {
 function buildApp(version) {
   let html = read('terminal-app.html');
   const knightAvatars = buildKnightAvatarCatalog();
+  const tournamentPanel = buildTournamentPanel(knightAvatars);
   const appModules = ['terminal-app.js', 'terminal-controls.js'];
   const cssModules = ['terminal-app.css', 'terminal-theme.css', 'terminal-status.css', 'terminal-lime.css'];
   const seen = new Set();
@@ -97,6 +99,8 @@ function buildApp(version) {
     if (file === 'terminal-app.js') {
       builder.append('\n' + read('lime-chat.mjs').replace(/^export /gm, ''), 'lime-chat.mjs');
       builder.append('\n' + read('terminal-lime.js'), 'terminal-lime.js');
+      builder.append('\nvar RK_TOURNAMENT_PANEL_HTML = ' + jsString(tournamentPanel) + ';\n');
+      builder.append('\n' + read('terminal-tournament.js'), 'terminal-tournament.js');
     }
     if (file === 'terminal-app.js') builder.append('\nvar RK_KNIGHT_AVATARS = ' + jsString(knightAvatars) + ';\n');
     return '<script>' + builder.finish().code + '</script>';
@@ -143,19 +147,13 @@ export function buildTerminal() {
   const hostScripts = extractScripts('<!doctype html><script type="module">\n' + built.code + '</script>');
   if (hostScripts.length !== 1 || hostScripts[0].content !== '\n' + built.code) throw new Error('宿主 HTML 解析改变了脚本内容，已阻止导出');
   new vm.Script(hostScripts[0].content, { filename: 'host-terminal.js' });
-  const artifact = {
-    type: 'script', enabled: true, name: '落第骑士·黑白ADV轮盘终端 v' + version,
-    id: 'ee190b2f-d2ba-44b4-9f1b-0695c07fefc5', content: built.code,
-    info: 'v' + version + ' / N04 / MVU02 / final-values-v1 / T02 / R01：主API直接提交经验与六维终值，不再提交成长申请。原生模式由模型计算门槛和余量；可选v4字段约束提供准确门槛校正，旧申请原样留档不兑现。升级后关闭旧独立成长G04，保留历史文件和收据。内置N04在更新前补缺失成长、经验与历史申请父容器，经验缺轴补0，保留已有值及坏类型；配套独立N04在小手机关闭时仍工作，不请求模型。主MVU保存独立于副API，确认当前活动回复页回读后显示已保存。副API仅校正最新助手楼层的活动回复页，有约束走当前终值校验，无约束走原生MVU解析；切换聊天、回复页、模式或实际变量后旧候选失效。约束加载或失败保持诊断，不绕过已启用约束。页面建档、名册和赛程事务仍本地验证并回读；保留T02选拔赛、日历、轮盘和头像功能。副API配置及密钥本机保存，支持排除请求参数和输出上限30000。每种组件保留一份，安装文件统一位于世界书规则/MVU，配套更新开局正则、三份MVU文本及初始化YAML，不重打整卡或整本世界书。',
-    button: { enabled: true, buttons: [] }, data: {}, export_with: { data: false, button: false },
-  };
-  artifact.info += ' N04开局页沿用原有上传/载入照片，建档成功后按本机当前聊天保存显示头像；旧聊天核对姓名后可单独应用头像，不重建人物或改MVU。首页、玩家档案和正文气泡共用，终端设置仅登记明确别名，不再重复上传照片。气泡v0.5兼容正文旁的选项代码块，样式避开思考前缀清理；终端在流式、完成与历史重绘后核对头像节点，缺失时补回，图片失败保留首字回退。固定玩家标记、完整名和已登记唯一别名可显示玩家头像；NPC/歧义名称不抢占，关闭终端脚本会回退候选原文。配套三条气泡正则与格式规则位于scripts/正文气泡/发布。';
-  artifact.info += ' N05首楼辅助隔离：配套开局建议使用带请求ID的静默生成；终端仅跟踪原生START/AFTER成对的正式剧情请求，忽略首楼辅助请求的定向停止，不改变自动全面校正或手动校验。';
-  artifact.info += ' N06保存确认与补丁修复：主MVU以本轮保存收据在当前回复页落地确认主保存，渲染先到、漏发或业务值未变都不替代保存证明。N04整合安全的缺失父对象补丁，MVU02允许已绑定真实回复的缺失或损坏主补丁进入副校正，始终保留业务约束、来源冲突检查和回读。自动模式全面核验，关闭自动仍可手动预览保存。副请求120秒超时后停止自动重试，不连等三轮；输入仅去重只读程序战况和内部自动历史，保留真实业务变量。';
-  artifact.info += ' N07已有坏人物修复：副校正先在内存组装人际修改，保留未改人物，整个人际一次交给MVU校验，避免逐字段修复互相阻塞；错误别名仅按明确删除操作清理，缺失派生阶段按最终有效分数恢复，保存前完整校验。剧情面板区分正在保存和已保存数据不合法，手动切章不要求开启可选字段约束。本次只替换小手机，沿用N04原生、N06开局与MVU02约束。';
-  artifact.info += ' v1.3.27号池提示日期门禁：读取当前MVU场景时间，仅在2013-04-22至2013-07-08（含首尾）且赛季未结束时放行程序号池背景。主请求发送前只省略变量列表中的程序战况，副API只关闭独立程序摘要；真实名册、比赛和历史缓存保留。沿用世界书原条目、原order与结构，不指定UID、不替换变量列表正文。门禁随终端脚本启用，依赖现有Tavern Helper的eventMakeLast和CHAT_COMPLETION_SETTINGS_READY。';
-  artifact.info += ' v1.3.28 LIME附带通讯：仿LINE列表和左右气泡，配色跟随终端黑白主题，时间取所属回复页MVU场景时间。一次发送使用当前预设和上下文辅助生成即时回信，明确读取当前绑定世界书人物档案及本局关系、好感、支援，不增加正文楼层或直接改变MVU。记录保存在本页data.rk_lime，核对楼层与swipe所有者，当前分支近期通讯进入下一次正常剧情请求。正文可自然输出显式LIME主动来信，不伪造玩家发言或已读状态。接口依据Helper4.8.19/4.11.3固定源码，运行时检查能力；取消仅定向停止自身请求并清理提示。真实辅助送信、服务器落盘及重载仍需实际验收。版本保持1.3.28，配套MVU文本和头像清单沿用。';
-  artifact.info += ' 破军选拔归属门禁：复用玩家.所属，他校或未确认归属只读旧账本。终端在MVU最终更新事件和副校正保存前恢复被误改的选拔赛子树并清理其变更显示，不要求启用可选MVU字段约束；其他业务更新照常保存。';
-  artifact.info += ' 剧情阶段兼容：“已完成”按“已结束”接收，沿用原有跳章规则；比赛和日程的已完成状态不变。';
-  return { artifact, html, map: built.map, version };
+  // B1 基线保留脚本身份与其他元数据，运行内容统一来自当前维护源码。
+  const baseline = JSON.parse(read('../../世界书规则/MVU/落第骑士-小手机-v' + version + '-B1.json'));
+  const filename = '落第骑士-小手机-v' + version + '-B1-头像更新.json';
+  const artifact = { ...baseline, content: built.code };
+  artifact.info += ' 同版号头像同步：共用清单现有40人，包含四名赛事角色与三名家人；终端、LIME及正文气泡共用。';
+  artifact.info += ' 同版号调整：已保存的选拔赛状态为已结束后正式开放赛事面板；此前保留主动预览入口与持续预览标识，不推进赛程或写入赛果。';
+  artifact.info += ' 同版号修复：支持补录截至某轮的累计战绩，保留已完成明细且不重复计分，后续比赛继续累加；已启用可选v4字段约束时需同步替换该组件。手动切卷预填当前时间、地点及可编辑切入说明，一次提交即开始目标章节。';
+  artifact.info += ' 手动操作按需校验：切卷、补录、名册与宿舍仅检查操作相关字段，其他已有资料原样保留；不开字段约束也可使用。切卷不改成长记录，切入提示已简化。';
+  return { artifact, html, map: built.map, version, filename };
 }

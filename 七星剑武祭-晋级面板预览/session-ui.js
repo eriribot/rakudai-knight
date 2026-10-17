@@ -1,4 +1,5 @@
 (() => {
+  const embedded = window.RK_TOURNAMENT_EMBEDDED === true;
   const model = window.RK_PREVIEW_MVU;
   const bracketModel = window.RK_PREVIEW_BRACKET;
   const $ = selector => document.querySelector(selector);
@@ -24,9 +25,12 @@
   function load(snapshot, display = {}) {
     current = model.read(snapshot);
     ui.display = display;
-    ui.bracket = null;
-    ui.match = null;
-    ui.page = 'selection';
+    if (!embedded || display.reset) {
+      ui.bracket = null;
+      ui.match = null;
+      ui.page = 'selection';
+      dialog.close();
+    }
     render();
   }
   function loadSample(key) {
@@ -36,13 +40,12 @@
     load(sample.state);
     $('#snapshot-notice').textContent = sample.description;
   }
-  // 后续终端可把同一份 getSnapshot() 结果及现有头像服务的显示地址传入。
-  // 本页没有访问父窗口、酒馆或 localStorage，也不会把 UI 草稿写回变量。
+  // 正式终端传入当前显示快照及共享选拔视图；本页不再次读取酒馆变量。
   window.RK_MATCH_PREVIEW = { setSnapshot(snapshot, display = {}) {
     ui.sample = 'imported';
     $('#snapshot-sample').value = '';
     load(snapshot, display);
-    $('#snapshot-notice').textContent = '已读取传入的 MVU 快照；全国赛签位等待独立赛程记录。';
+    $('#snapshot-notice').textContent = display.sourceLabel || '已读取传入的 MVU 快照；全国赛签位等待独立赛程记录。';
   } };
 
   function renderProfile() {
@@ -70,7 +73,7 @@
   }
   function emptyNational() {
     const q = current.qualification;
-    return `<div class="national-gate"><span class="screen-kicker">SEVEN STARS / DRAW PENDING</span><h2>${q.status === 'qualified' ? '代表资格已确认，等待七星剑斗祭抽签' : '七星剑斗祭 · 等待资格与分组'}</h2><p>${esc(q.reason)}</p><div class="empty-zones">${[...'ABCD'].map(z => `<div><b>${z}</b><span>8 个席位</span><small>对阵待公布</small></div>`).join('')}</div><p class="session-caption">现有 MVU 尚未保存全国赛签表。选拔名册保留在上一步，获得资格也不会直接生成本局对手。</p>${q.status === 'qualified' ? '<button type="button" class="primary-action" data-demo-draw>演示抽签后的界面 →</button><small class="demo-disclaimer">此按钮只生成预览签表，不代表本局已经抽签。</small>' : '<button type="button" data-session-page="selection">返回选拔记录</button>'}</div>`;
+    return `<div class="national-gate"><span class="screen-kicker">SEVEN STARS / DRAW PENDING</span><h2>${q.status === 'qualified' ? '代表资格已确认，等待七星剑斗祭抽签' : '七星剑斗祭 · 等待资格与分组'}</h2><p>${esc(q.reason)}</p><div class="empty-zones">${[...'ABCD'].map(z => `<div><b>${z}</b><span>8 个席位</span><small>对阵待公布</small></div>`).join('')}</div><p class="session-caption">现有 MVU 尚未保存全国赛签表。选拔名册保留在上一步，获得资格也不会直接生成本局对手。</p>${!embedded && q.status === 'qualified' ? '<button type="button" class="primary-action" data-demo-draw>演示抽签后的界面 →</button><small class="demo-disclaimer">此按钮只生成预览签表，不代表本局已经抽签。</small>' : '<button type="button" data-session-page="selection">返回选拔记录</button>'}</div>`;
   }
   function matchCard(match) {
     const winner = match.winner;
@@ -137,13 +140,14 @@
     if (!button) return;
     if (button.dataset.sourceMode) {
       const session = button.dataset.sourceMode === 'session';
+      if (session) window.RK_MATCH_CANON.pause();
       $('#session-view').hidden = !session;
       $('#canon-view').hidden = session;
       document.querySelectorAll('[data-source-mode]').forEach(b => b.setAttribute('aria-pressed', String(b === button)));
       if (session) render();
     } else if (button.dataset.sessionPage) { ui.page = button.dataset.sessionPage; ui.match = null; render(); }
     else if (button.dataset.sessionPerson) openPerson(button.dataset.sessionPerson);
-    else if (button.hasAttribute('data-demo-draw')) {
+    else if (!embedded && button.hasAttribute('data-demo-draw')) {
       ui.bracket = bracketModel.create(window.TOURNAMENT_DATA, current.qualification.representatives);
       const mine = ui.bracket.matches.find(m => [m.p1, m.p2].some(id => person(id)?.player));
       ui.region = mine?.zone || 'A'; ui.match = null; render();
@@ -154,7 +158,7 @@
       const mine = ui.bracket.matches.filter(m => [m.p1, m.p2].some(id => person(id)?.player));
       const match = mine.find(m => !m.winner) || mine.at(-1);
       if (match) { ui.region = match.zone; ui.match = match.id; render(); }
-    } else if (button.dataset.demoWinner) { bracketModel.settle(ui.bracket, button.dataset.demoMatch, button.dataset.demoWinner); render(); }
+    } else if (!embedded && button.dataset.demoWinner) { bracketModel.settle(ui.bracket, button.dataset.demoMatch, button.dataset.demoWinner); render(); }
     else if (button.dataset.prepareAction) prepareAction(button.dataset.prepareAction);
     else if (button.hasAttribute('data-session-close')) dialog.close();
     else if (button.id === 'copy-session-action') {
@@ -163,6 +167,7 @@
       catch { input.select(); $('#session-copy-status').textContent = '请复制当前选中的行动文字。'; }
     }
   });
+  if (!embedded) {
   $('#snapshot-sample').innerHTML = Object.entries(model.samples).map(([key, sample]) => `<option value="${key}">${esc(sample.label)}</option>`).join('');
   $('#snapshot-sample').addEventListener('change', event => loadSample(event.target.value));
   $('#import-snapshot').addEventListener('click', () => $('#snapshot-file').click());
@@ -176,6 +181,17 @@
     } catch (error) { $('#snapshot-notice').textContent = '这份文件未能读取为 MVU 快照：' + error.message; }
     event.target.value = '';
   });
-  new ResizeObserver(drawLines).observe(main);
   loadSample('selection');
+  } else {
+    const tools = $('.snapshot-tools');
+    tools.querySelector('label').hidden = true;
+    $('#import-snapshot').hidden = true;
+    const manage = document.createElement('button');
+    manage.type = 'button';
+    manage.textContent = '登记与维护选拔记录';
+    manage.addEventListener('click', () => window.RK_TERMINAL_ACTIONS.editSelection());
+    tools.prepend(manage);
+    main.innerHTML = '<p class="session-caption">正在读取本局已保存档案……</p>';
+  }
+  new ResizeObserver(drawLines).observe(main);
 })();

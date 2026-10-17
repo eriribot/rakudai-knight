@@ -1,7 +1,7 @@
 import { deriveTournament, prepareTournamentAction, suggestTournamentOpponents, createTournamentParticipant } from './rakudai-tournament.mjs';
 import { isHagunAffiliation, shouldInjectTournament } from './rakudai-tournament-calendar.mjs';
 import { STORY_VOLUMES, getStoryVolume, resolveStoryChapter, storyPosition, nextStoryChapter, firstStoryChapter } from './rakudai-story-catalog.mjs';
-import { GROWTH_RULES, GROWTH_AXES, ATTRIBUTE_GRADES, normalizeSkillEntry, normalizeGrowthRequests, normalizeStoryPhase } from '../世界书规则/MVU/schema.mjs';
+import { GROWTH_RULES, GROWTH_AXES, ATTRIBUTE_GRADES, normalizeSkillEntry, normalizeGrowthRequests, normalizeStoryPhase, normalizeStoryVolume } from '../世界书规则/MVU/schema.mjs';
 import { repairRakudaiMvuStructure } from './rakudai-mvu-structure.mjs';
 
 // 状态规则与运行时适配分开：本模块不访问宿主、不发送消息、不生成剧情。
@@ -11,6 +11,42 @@ export function stateKey(value) {
   if (Array.isArray(value)) return '[' + value.map(stateKey).join(',') + ']';
   if (value && typeof value === 'object') return '{' + Object.keys(value).sort().map(key => JSON.stringify(key) + ':' + stateKey(value[key])).join(',') + '}';
   return JSON.stringify(value);
+}
+
+// 终端操作只核对自己使用的字段；历史记录和自定义资料原样保留。
+export function validateStateOperation(value, scope, z) {
+  const system = z.object({
+    结构版本: z.literal(4), 开局状态: z.enum(['待建档', '已建档']),
+    主角模式: z.enum(['未选择', '黑铁一辉', '自定义角色']),
+  }).passthrough();
+  const fields = { 系统: system };
+  if (scope === 'story') {
+    fields.场景 = z.object({
+      当前卷: z.preprocess(normalizeStoryVolume, z.number().int()), 当前章: z.string().min(1),
+      阶段: z.preprocess(normalizeStoryPhase, z.enum(['未开始', '进行中', '已结束'])),
+      时间: z.string(), 地点: z.string(),
+    }).passthrough().superRefine((scene, ctx) => {
+      if (!getStoryVolume(scene.当前卷)) ctx.addIssue({ code: 'custom', path: ['当前卷'], message: '当前卷不在剧情目录中。' });
+      else if (scene.当前章 !== '待选择' && !resolveStoryChapter(scene.当前卷, scene.当前章)) {
+        ctx.addIssue({ code: 'custom', path: ['当前章'], message: '当前卷与章节不匹配。' });
+      }
+    });
+  } else if (scope === 'tournament') {
+    fields.玩家 = z.object({ 姓名: z.string().trim().min(1), 所属: z.string() }).passthrough();
+    fields.场景 = z.object({ 时间: z.string(), 选拔赛: z.object({}).passthrough().optional() }).passthrough();
+  } else if (scope === 'roster') {
+    fields.人际 = z.record(z.string(), z.unknown());
+  } else if (scope === 'dorm') {
+    fields.场景 = z.object({}).passthrough();
+  } else throw new Error('未知的状态操作范围。');
+  const parsed = z.object(fields).passthrough().parse(value);
+  const state = cloneState(value);
+  if (scope === 'story') {
+    state.场景.当前卷 = parsed.场景.当前卷;
+    state.场景.当前章 = resolveStoryChapter(parsed.场景.当前卷, parsed.场景.当前章)?.key || parsed.场景.当前章;
+    state.场景.阶段 = parsed.场景.阶段;
+  }
+  return state;
 }
 
 export function applyOpening(before, payload) {
@@ -81,7 +117,7 @@ export function applyTransition(before, request) {
     }
     scene.当前卷 = targetVolume;
     scene.当前章 = chapter.key;
-    scene.阶段 = '未开始';
+    scene.阶段 = request.start === true ? '进行中' : '未开始';
     scene.时间 = request.time.trim();
     scene.地点 = request.location.trim();
     scene.切入说明 = request.entryNote.trim();
@@ -115,12 +151,6 @@ export function applyTransition(before, request) {
     if (target <= from) throw new Error('手动切入仅允许严格向前；回到已有剧情请使用聊天分支或已有回复页。');
     locateTarget(request.volume, request.chapter);
   } else throw new Error('未知剧情操作。');
-  if (['jump', 'nextVolume'].includes(request.action)) {
-    // 手动跳过的过程不是训练；终值模式保留旧申请和记录，不创建申请。
-    const growth = growthState(next.玩家.成长, { legacyRequests: false });
-    growth.最近提示 = '已切入新场景；跳过的事件不补算经验，历史成长记录保持原样。';
-    next.玩家.成长 = growth;
-  }
   return next;
 }
 
@@ -412,15 +442,17 @@ export function enforceGrowthProgress(variables, previous, { replyKey = '', repa
 export function createStateController(adapter) {
   const tokens = new WeakMap();
   async function capture(options = {}) {
+    const scope = options.scope || 'full';
+    if (!['full', 'story', 'tournament', 'roster', 'dorm'].includes(scope)) throw new Error('未知的状态操作范围。');
     const snapshot = await adapter.capture(options);
     if (snapshot.data.stat_data?.系统?.结构版本 === 3) {
       const error = new Error('当前楼层是 v3 档案，请先查看迁移差异并确认升级为 v4。');
       error.code = 'MIGRATION_REQUIRED';
       throw error;
     }
-    const state = adapter.validate(cloneState(snapshot.data.stat_data));
+    const state = adapter.validate(cloneState(snapshot.data.stat_data), scope);
     const token = Object.freeze({});
-    tokens.set(token, { snapshot, state, done: null, kind: 'state' });
+    tokens.set(token, { snapshot, state, scope, done: null, kind: 'state' });
     return { state: cloneState(state), token };
   }
   async function prepareMigration(options = {}) {
@@ -429,7 +461,7 @@ export function createStateController(adapter) {
     const preview = adapter.migrate(cloneState(snapshot.data.stat_data));
     const state = adapter.validate(cloneState(preview.state));
     const token = Object.freeze({});
-    tokens.set(token, { snapshot, state, done: null, kind: 'migration' });
+    tokens.set(token, { snapshot, state, scope: 'full', done: null, kind: 'migration' });
     return { ...cloneState(preview), state: cloneState(state), token };
   }
   function assertReplacementScope(snapshot) {
@@ -438,27 +470,30 @@ export function createStateController(adapter) {
     const result = adapter.assertOpeningReplacement(snapshot);
     if (result && typeof result.then === 'function') throw new Error('开局替换需要同步宿主校验，尚未写入。');
   }
-  async function commit(token, build, kind = 'state', openingReplacement = false) {
+  async function commit(token, build, kind = 'state', openingReplacement = false, operationScope = 'full') {
     const record = tokens.get(token);
     if (!record) throw new Error('操作凭据已失效，请重新读取当前分支。');
     if (record.kind !== kind) throw new Error('操作凭据用途不符；迁移必须通过明确的升级操作提交。');
+    if (operationScope !== 'full' && record.scope !== 'full' && record.scope !== operationScope) throw new Error('操作范围已变化，请重新读取后再执行。');
+    const scope = operationScope === 'full' ? 'full' : record.scope;
     if (record.busy) throw new Error('正在写入，请勿重复操作。');
     record.busy = true;
     try {
       if (openingReplacement) assertReplacementScope(record.snapshot);
-      const candidate = adapter.validate(build(cloneState(record.state)));
+      const candidate = adapter.validate(build(cloneState(record.state)), scope);
       if (record.done) {
         if (stateKey(candidate) !== stateKey(record.done)) throw new Error('同一凭据只能重试原操作，请重新读取后再执行新操作。');
         const now = await adapter.current(record.snapshot);
         if (openingReplacement) assertReplacementScope(record.snapshot);
-        if (stateKey(adapter.validate(now.data.stat_data)) !== stateKey(record.done)) throw new Error('当前状态已变化，请刷新。');
+        if (stateKey(adapter.validate(now.data.stat_data, scope)) !== stateKey(record.done)) throw new Error('当前状态已变化，请刷新。');
         return { state: cloneState(record.done), alreadyApplied: true };
       }
       const current = await adapter.current(record.snapshot);
       if (openingReplacement) assertReplacementScope(record.snapshot);
       // API 返回异常但写入已落地时，仅确认匹配结果，绝不再写一遍。
-      if (current.data.stat_data?.系统?.结构版本 === 4 && stateKey(adapter.validate(current.data.stat_data)) === stateKey(candidate)) {
+      if (current.data.stat_data?.系统?.结构版本 === 4 && stateKey(adapter.validate(current.data.stat_data, scope)) === stateKey(candidate)) {
         record.done = candidate;
+        record.doneScope = scope;
         record.openingReplacement = openingReplacement;
         return { state: cloneState(candidate), alreadyApplied: true };
       }
@@ -467,9 +502,10 @@ export function createStateController(adapter) {
       await adapter.write(record.snapshot, current.data, candidate, { openingReplacement });
       const persisted = await adapter.current(record.snapshot);
       if (openingReplacement) assertReplacementScope(record.snapshot);
-      const result = adapter.validate(persisted.data.stat_data);
+      const result = adapter.validate(persisted.data.stat_data, scope);
       if (stateKey(result) !== stateKey(candidate)) throw new Error('回读与提交内容不一致，未确认写入成功；请检查 MVU 通知后刷新。');
       record.done = result;
+      record.doneScope = scope;
       record.openingReplacement = openingReplacement;
       return { state: cloneState(result) };
     } finally { record.busy = false; }
@@ -485,8 +521,8 @@ export function createStateController(adapter) {
     setDorm: (token, active) => commit(token, state => {
       if (typeof active !== 'boolean' || state.系统.开局状态 !== '已建档') throw new Error('请先完成建档，再进入宿舍。');
       return { ...state, 场景: { ...state.场景, 宿舍: active } };
-    }),
-    tournamentAction: (token, request) => commit(token, state => prepareTournamentAction(state, request)),
+    }, 'state', false, 'dorm'),
+    tournamentAction: (token, request) => commit(token, state => prepareTournamentAction(state, request), 'state', false, 'tournament'),
     tournamentOpponents: (state, options) => suggestTournamentOpponents(state, options),
     tournamentParticipant: (state, options) => createTournamentParticipant(state, options),
     commitMigration: token => commit(token, state => state, 'migration'),
@@ -495,20 +531,21 @@ export function createStateController(adapter) {
       if (!record?.done) throw new Error('尚无已回读确认的建档结果。');
       const now = await adapter.current(record.snapshot);
       if (record.openingReplacement) assertReplacementScope(record.snapshot);
-      const state = adapter.validate(now.data.stat_data);
+      const state = adapter.validate(now.data.stat_data, record.doneScope);
       if (stateKey(state) !== stateKey(record.done)) throw new Error('本局状态已变化，请刷新后继续。');
       return { state: cloneState(state) };
     },
     commitOpening: (token, payload) => commit(token, state => applyOpening(state, payload)),
     replaceOpening: (token, payload) => commit(token, state => applyOpeningReplacement(state, payload), 'state', true),
-    transition: (token, request) => commit(token, state => applyTransition(state, request)),
+    transition: (token, request) => commit(token, state => applyTransition(state, request), 'state', false, 'story'),
     setRosterHidden: (token, name, hidden) => commit(token, state => {
       if (typeof name !== 'string' || !name.trim() || /[~/]/.test(name) ||
           ['__proto__', 'prototype', 'constructor'].includes(name) || typeof hidden !== 'boolean') throw new Error('名册操作参数不合法。');
       if (state.系统.开局状态 !== '已建档' || !Object.hasOwn(state.人际, name)) throw new Error('当前分支没有该人物档案，请刷新名册。');
+      if (!state.人际[name] || typeof state.人际[name] !== 'object' || Array.isArray(state.人际[name])) throw new Error('该人物资料不是对象，无法修改显示状态。');
       state.人际[name].名册隐藏 = hidden;
       return state;
-    }),
+    }, 'state', false, 'roster'),
     deleteRosterPerson: (token, name) => commit(token, state => {
       if (typeof name !== 'string' || !name.trim() || /[~/]/.test(name) ||
           ['__proto__', 'prototype', 'constructor'].includes(name)) throw new Error('人物名称不合法。');
@@ -516,6 +553,6 @@ export function createStateController(adapter) {
       delete state.人际[name];
       state.系统.已删除人物 = [...new Set([...(state.系统.已删除人物 || []), name])];
       return state;
-    }),
+    }, 'state', false, 'roster'),
   });
 }

@@ -428,7 +428,7 @@
         rosterSnapshotKey(snapshot.state) !== expectedState) throw new Error('名册来源或变量已变化，请刷新后再操作。');
     rosterEditBusy = true;
     try {
-      const captured = await controller.capture({ messageId: snapshot.source.messageId });
+      const captured = await controller.capture({ messageId: snapshot.source.messageId, scope: 'roster' });
       const latest = readSnapshot();
       if (SS.destroyed || generationPending || revision !== rosterEditRevision ||
           latest.pending || JSON.stringify(latest.source) !== JSON.stringify(expectedSource) ||
@@ -565,7 +565,7 @@
     tournamentWriting = true;
     try {
       // 赛程由剧情日期和玩家身份派生；日期推进后不得用旧表单保存。
-      const captured = await service.capture({ messageId: snapshot.source.messageId });
+      const captured = await service.capture({ messageId: snapshot.source.messageId, scope: 'tournament' });
       if (SS.destroyed || generationPending || correctionMainBusy() || revision !== rosterEditRevision ||
           !isExpected(readSnapshot()) || tournamentSnapshotKey(captured.state) !== expectedState) {
         throw new Error('当前分支或比赛记录已变化，尚未保存；请重新读取。');
@@ -582,7 +582,7 @@
       version: BUILD_VERSION,
       dorm: async (active, source) => {
         if (SS.destroyed || generationPending || correctionMainBusy() || readSnapshot().pending) throw new Error('请等待当前回复保存后再切换宿舍。');
-        const saved = await stateService().capture({ messageId: source?.messageId });
+        const saved = await stateService().capture({ messageId: source?.messageId, scope: 'dorm' });
         if (!source || SS.destroyed || generationPending || correctionMainBusy() || readSnapshot().pending || JSON.stringify(readSnapshot().source) !== JSON.stringify(source)) throw new Error('聊天或回复页已变化，请刷新后重试。');
         await stateService().setDorm(saved.token, active);
         terminalStateReader?.clear(); emit({ type: 'dorm' });

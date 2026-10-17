@@ -258,6 +258,7 @@
     clearInterval(state.timer);
     state.timer = null;
   }
+  window.RK_MATCH_CANON = { pause() { stop(); render(); } };
 
   function setStage(stage) {
     stop();

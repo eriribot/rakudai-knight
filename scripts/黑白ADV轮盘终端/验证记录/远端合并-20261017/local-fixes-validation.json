@@ -1,0 +1,78 @@
+{
+  "date": "2026-10-17",
+  "runtime": "离线回归，未连接真实酒馆",
+  "results": [
+    {
+      "file": "scripts/check-tournament.mjs",
+      "exitCode": 0,
+      "passed": 37,
+      "total": 37,
+      "stdout": "通过：只按明确学园归属放行，无关所在地、魔力或姓名\n通过：转校后旧账本可读，但不补名册或推演新赛果\n通过：无账本按日期预览正典和玩家，开幕两组首战相差一天\n通过：黄金周不增场，五月二十九日主要正典已打九场\n通过：原创或一辉玩家始终不自动产生已完成战果与积分\n通过：无账本直接登记玩家R9胜珠雫：珠雫8-1，本场90分，玩家总分仍待补\n通过：真实败绩在后续日期重算时保留，不恢复成全胜\n通过：同ID重放不重复加分，取消后原场槽不会被背景比赛复活\n通过：真实及背景对局不重复对手，建议也排除已战对手\n通过：已安排的真实比赛保留待赛状态，不被场外结果覆盖\n通过：稳定种子可重复，新增名册不重掷已有选手的背景比赛\n通过：手动初始战绩可接管正典背景，AI不能重写、移除或注入基线\n通过：首战有明细、跳过中间场次后可补累计战绩，后续比赛接着计分且不双算\n通过：累计战绩包含最后一场真实明细时以累计分为准，清除累计值可恢复原明细\n通过：两人的累计轮次不同也按时间计算，不用未来总胜场倒算早期对手积分\n通过：累计战绩不能抹掉已确认胜负或积分，也不能把待赛写成已结算\n通过：对手的背景推演积分不能否定玩家已确认累计分，真实赛前记录仍作为下界\n通过：缺少单场积分详情时可确认累计分；累计积分留空仍保留明细中已知的分数\n通过：AI删除带有手动基线的名册条目不能绕过基线保护\n通过：AI删除整个账本会恢复，其他玩家事实仍保留\n通过：坏比赛只局部恢复选拔赛，不回滚玩家字段与剧情时间\n通过：未来日期即使存为已完成也不提前计分，到比赛日真实结果才生效\n通过：分支日期回退重新计算，不写原状态且未来真实比赛不污染过去\n通过：无有效公历日期的旧T01仍能正常计算真实首轮10分\n通过：AI写派生胜场积分或赛前缓存不会篡改程序重算结果\n通过：真实Zod拒绝保留生成ID、同选手同轮重复与非法初始战绩\n通过：手动退选保留退选前九场投影，日期前进后不再追加比赛\n通过：取消过的对手组合不阻止后续轮次正典对局，但取消原槽仍保留\n通过：AI不能提前、推迟或删除既有入赛轮次，也不能给既有人物注入轮次\n通过：首战虚拟待赛不堵一辉对手建议，真实已安排仍会阻止重复安排\n通过：推演中已经退场的人物不再作为后续对手或被安排选手\n通过：手动、AI和真实schema均拒绝早于入赛轮次的已安排或已完成比赛\n通过：人工赛前五胜接管R9为60分，不补造珠雫早期比赛，后续重算保留该分数\n通过：未来日期的人工赛前胜场不会提前抑制既有背景历史\n通过：人工和AI交换甲乙按人物继承赛前五胜，换对手或轮次不会继承旧快照\n通过：结束赛季保存日期并冻结九场背景，重新进行中才恢复日期推进\n通过：AI冒充玩家来源不能抢玩家身份，也不能让正典背景消失\n选拔赛回归检查：37/37 项通过。\n",
+      "stderr": ""
+    },
+    {
+      "file": "scripts/check-tournament-guard.mjs",
+      "exitCode": 0,
+      "passed": 9,
+      "total": 9,
+      "stdout": "✔ guard binds canonical and underscore patch labels without rewriting the reply (52.0404ms)\n✔ mixed duplicate labels, mismatched aliases, invalid arrays and Analysis-only JSON cannot claim a reply (52.4185ms)\n✔ the same underscore block on two reply floors remains ambiguous (12.5442ms)\n✔ repair recognizes saved event evidence in underscore source labels while generating canonical JSONPatch (24.9781ms)\n✔ installed guard exposes T02 and initializes a dated T01 ledger with a program summary through ENDED (13.8523ms)\n✔ the real ENDED handler accepts OC victory: Shizuku becomes 8–1 and the actual ninth match awards 90 (26.1747ms)\n✔ ENDED rejects AI totals, generated flags, pre-match wins, and forged baselines without changing the real winner (33.9997ms)\n✔ an invalid real match restores only the tournament subtree and preserves unrelated facts from the same update (18.6879ms)\n✔ optional guard does not auto-create the Hagun ledger for another school (5.1166ms)\nℹ tests 9\nℹ suites 0\nℹ pass 9\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 250.1485\n",
+      "stderr": ""
+    },
+    {
+      "file": "scripts/check-tournament-calendar.mjs",
+      "exitCode": 0,
+      "passed": 10,
+      "total": 10,
+      "stdout": "通过：中文与连字符完整日期沿用剧情日历解析口径\n通过：严格拒绝非法日期，并正确处理闰年与世纪规则\n通过：开幕前、默认首战及一辉晚一天互不混淆\n通过：黄金周首尾均停赛，保持两场进度直到五月七日\n通过：六月泳池与第十一场相邻剧情不会机械每三日加场\n通过：拘押只改一辉第十七至十九场，不改全校或首战\n通过：终战当天只到待赛，次日才将第二十场列为已过排期\n通过：未知日期与赛季外年份明确待确认，不使用现实时间或查看月份\n通过：时间文字、状态本体与stat_data包装一致，调用不修改输入\n通过：各日期轨均为二十场，黄金周无排期且日期严格递增\n选拔赛日历检查完成：10 项通过。\n",
+      "stderr": ""
+    },
+    {
+      "file": "scripts/check-tournament-prompt-window.mjs",
+      "exitCode": 0,
+      "stdout": "✔ 下界前一天：真实主请求接线仅过滤程序号池，原存档与账本保留 (4.326ms)\n✔ 下界当天：真实主请求接线仅过滤程序号池，原存档与账本保留 (1.2989ms)\n✔ 中文下界日期：真实主请求接线仅过滤程序号池，原存档与账本保留 (1.3903ms)\n✔ 黄金周期间：真实主请求接线仅过滤程序号池，原存档与账本保留 (1.2421ms)\n✔ 上界当天：真实主请求接线仅过滤程序号池，原存档与账本保留 (1.2892ms)\n✔ 上界后一天：真实主请求接线仅过滤程序号池，原存档与账本保留 (1.3365ms)\n✔ 旧缓存跨年：真实主请求接线仅过滤程序号池，原存档与账本保留 (1.2674ms)\n✔ 未知日期：真实主请求接线仅过滤程序号池，原存档与账本保留 (2.2991ms)\n✔ 缺少年份：真实主请求接线仅过滤程序号池，原存档与账本保留 (1.367ms)\n✔ 不存在的日期：真实主请求接线仅过滤程序号池，原存档与账本保留 (1.3966ms)\n✔ 时间为null：真实主请求接线仅过滤程序号池，原存档与账本保留 (1.2522ms)\n✔ 日期区间内已结束：真实主请求接线仅过滤程序号池，原存档与账本保留 (1.4369ms)\n✔ 使用当前MVU日期关池，即便请求块包含区间内旧状态；重复执行幂等 (1.4899ms)\n✔ 使用当前MVU放行，不受请求块旧日期或卷章order影响 (1.122ms)\n✔ 当前回复所属=破军学园·一年一班：人在破军也按所属决定提示放行 (2.28ms)\n✔ 当前回复所属=破軍學園：人在破军也按所属决定提示放行 (1.6725ms)\n✔ 当前回复所属=武曲学园：人在破军也按所属决定提示放行 (1.6861ms)\n✔ 当前回复所属=未确认：人在破军也按所属决定提示放行 (1.2231ms)\n✔ GENERATION_STARTED将过滤器重新移到后加载模板之后，且不重复订阅 (1.4848ms)\n✔ GENERATION_AFTER_COMMANDS将过滤器重新移到后加载模板之后，且不重复订阅 (1.2182ms)\n✔ 销毁真实终端接线释放全部监听，包括多次移尾的号池监听 (1.0556ms)\n✔ 文本parts保留对象和位置，媒体与普通正文保持原样，仅删精确号池字段 (1.2069ms)\n✔ 坏JSON或非JSON模板块不猜补、不修改；其它有效块仍过滤 (1.2879ms)\n✔ 当前MVU读取失败时关闭程序池，仍保留块内实际账本 (1.1285ms)\n✔ 当前回复页已有同源MVU且pending=true：只用当前活动页，不凭pending或旧缓存放行 (1.0287ms)\n✔ 新楼层回退旧数据：只用当前活动页，不凭pending或旧缓存放行 (0.9577ms)\n✔ 新swipe回退旧数据：只用当前活动页，不凭pending或旧缓存放行 (1.1534ms)\n✔ 目标来源缺失：只用当前活动页，不凭pending或旧缓存放行 (1.3047ms)\n✔ 注入范围不改变UI日历与旧账本查看；缺时间仅关闭程序提示 (12.9403ms)\nℹ tests 29\nℹ suites 0\nℹ pass 29\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 58.9558\n",
+      "stderr": "",
+      "passed": 29,
+      "total": 29
+    },
+    {
+      "file": "scripts/check-state-controller.mjs",
+      "exitCode": 0,
+      "passed": 24,
+      "total": 24,
+      "stdout": "{\n  \"passed\": 24,\n  \"total\": 24,\n  \"results\": [\n    {\n      \"name\": \"建档一次整体写入且采用页面分数、保留包装字段\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"独立替换将黎恩改为有马风月，保留人际、系统附加信息及包装\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"已有事件、其他卷或未建档状态不能替换，已有竞争修改也不覆盖\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"替换必须具备同步宿主范围校验，觉醒仍仅接受布尔值\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"一辉模式为 F 且不重建一辉 NPC\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"两种身份模式建档都固定男性，缺性别的旧草稿兼容且不改输入\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"建档草稿显式其他玩家性别在纯规则和写入前均拒绝\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"切聊天或 swipe 导致旧凭据不能提交\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"其他更新抢先完成时不覆盖\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"无效字段在写入前拒绝\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"写入未落地时不给成功\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"写入落地但响应失败：重试只回读不重写\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"重复点击只有一个写入\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"已确认场景不可被建档重置\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"卷内章段依序结束和开始，卷末必须使用单独跨卷操作\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"切卷明确请求开始时原子进入进行中，旧请求仍保持未开始且不补造事件\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"已完成别名只推进相邻章，同轮副校正不重复推进且末卷正确收尾\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"模型父对象替换不能绕过系统和章段所有权\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"已建档玩家性别修改或删除会复原，合法剧情更新照常保留\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"替换玩家父对象也不能改性别，NPC 性别及恋爱阶段不被玩家约束重写\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"已建档旧存档缺玩家性别时保护仍固定男性，不把历史缺字段作为可选路线\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"待建档时模型无法代为初始化\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"更新把stat_data置空、换成字符串或数组时恢复\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"建档替换玩家对象后仍补齐成长容器，不修改导入档案\",\n      \"passed\": true\n    }\n  ]\n}\n",
+      "stderr": ""
+    },
+    {
+      "file": "scripts/黑白ADV轮盘终端/state-panel-test.mjs",
+      "exitCode": 0,
+      "passed": 20,
+      "total": 20,
+      "stdout": "{\n  \"total\": 20,\n  \"passed\": 20,\n  \"failed\": 0,\n  \"runtime\": \"真实 state-panel 事件与控制器，parse5 DOM 替身；没有模型调用\",\n  \"results\": [\n    {\n      \"name\": \"目录公开副本不能改写控制器的真实目录\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"第六卷显示实际目录；阶段按钮按结束、下一章、开始依次写入\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"卷末切卷预填本局场景，单次提交采用真实首节点并开始\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"未确认时间地点不猜测，玩家清空预填值后也不会自动补回\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"手动切入默认折叠；选项只含当前节点之后的卷章\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"切入说明随目标更新；玩家编辑后切目标、轮询和重开均保留三项输入\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"轮询不抹掉输入；并发状态变化后旧表单凭据拒绝写入并保留草稿\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"迁移显示具体差异与下载入口，只有确认升级才写当前活动槽\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"错误 v3 存档不能给出伪迁移候选，也不开放剧情按钮\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"注入预览只读，正文作为纯文本显示；开关只调用注入器设置\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"注入器缺失明确提示，旧预览不会冒充当前结果\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"切聊天会清理旧表单与凭据；晚到读取不能覆盖新聊天\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"销毁面板会注销现有刷新回调，收起期间轮询不额外读取\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"未启用约束时准确说明两种切章方式，合法存档按钮仍可写入\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"当前已保存人际缺字段显示准确路径，不冒充等待MVU或自动补齐人物\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"服务不可用保留只读资料并指出终端加载问题，不要求启用约束\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"真实pending暂显旧楼层并禁用操作，当前保存就绪后重新读取\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"本页只有部分已保存档案时说明字段不完整，不标成旧楼层等待\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"当前没有MVU数据时保留pending诊断，不误报服务或字段校验失败\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"保留显示的普通刷新仅说明正在核对，不伪报等待MVU\",\n      \"passed\": true\n    }\n  ]\n}\n",
+      "stderr": ""
+    },
+    {
+      "file": "scripts/黑白ADV轮盘终端/tournament-ui-test.mjs",
+      "exitCode": 0,
+      "passed": 15,
+      "total": 15,
+      "stdout": "✔ the complete terminal source compiles in memory without exporting artifacts (256.0848ms)\n✔ returning from the arena refreshes the entry after a season change (3.6185ms)\n✔ national tournament remains an explicit preview until a saved selection end, regardless of date or projected view (4.4713ms)\n✔ saved selection end unlocks viewing without granting qualification from an incomplete or tied ledger (2.1761ms)\n✔ an ended stale snapshot stays in preview while MVU is pending and unlocks after saving (1.2262ms)\n✔ other-school previews and ended historical ledgers do not grant Hagun qualification or edit state (2.2886ms)\n✔ unknown history leads with pending labels, while projected results are visibly read-only (1.0134ms)\n✔ new match follows the current calendar slot; synthetic results cannot prefill a persisted match (1.3272ms)\n✔ inapplicable players can read old results and ordinary schedules without tournament editing (2.5419ms)\n✔ date, player mode, name, and affiliation invalidate both UI and host snapshots and block stale drafts (2.328ms)\n✔ manual old-save repair remains available; entry round and detention require explicit input (3.0978ms)\n✔ cumulative backfill opens the player record directly and saves totals without changing match details (1.2924ms)\n✔ correction can accept an OC victory while rejecting direct and nested derived score changes (1.7349ms)\n✔ correction protects existing entry rounds and core-owned withdrawal dates even through parent objects (0.9688ms)\n✔ correction leaves the core-owned season end date read-only while accepting season status changes (0.882ms)\nℹ tests 15\nℹ suites 0\nℹ pass 15\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 292.6739\n",
+      "stderr": ""
+    },
+    {
+      "file": "scripts/黑白ADV轮盘终端/correction-exclusions-test.mjs",
+      "exitCode": 0,
+      "passed": 11,
+      "total": 11,
+      "stdout": "{\n  \"total\": 11,\n  \"passed\": 11,\n  \"runtime\": \"真实 correction.js + 固定上游请求与后端排除片段；宿主状态、MVU、网络和时钟为替身，未连接酒馆\",\n  \"results\": [\n    {\n      \"name\": \"旧配置默认空列表，首次请求保留输出上限与必需字段\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"混合分隔符去重并区分大小写，本机保存后重载恢复\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"保存其他配置未提供排除列表时保留；留空与空数组可清除\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"非法参数名、类型与超限输入不覆盖已保存的配置或密钥\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"64项、128字符参数名和连字符接受；大小写不同和未知名称不误删\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"固定上游实现最终序列化时排除三个常见参数，未排除字段及消息JSON不变\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"手动与自动校正经过相同真实宿主排除路径，重载后仍生效\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"清空并保存后后续请求恢复发送参数\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"排除仅处理API请求体；显式排除model/messages不破坏副连接路由和认证\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"保存、手动、自动均不修改主连接配置或借用主连接认证\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"当前版本导入组件包含排除请求字段与设置输入\",\n      \"passed\": true\n    }\n  ]\n}\n",
+      "stderr": ""
+    }
+  ],
+  "attempts": [
+    {
+      "file": "scripts/check-tournament-prompt.mjs",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "node:internal/modules/cjs/loader:1456\r\n  throw err;\r\n  ^\r\n\r\nError: Cannot find module 'E:\\web\\落第\\scripts\\check-tournament-prompt.mjs'\r\n    at Module._resolveFilename (node:internal/modules/cjs/loader:1453:15)\r\n    at defaultResolveImpl (node:internal/modules/cjs/loader:1064:19)\r\n    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1069:22)\r\n    at Module._load (node:internal/modules/cjs/loader:1239:25)\r\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\r\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)\r\n    at node:internal/main/run_main_module:33:47 {\r\n  code: 'MODULE_NOT_FOUND',\r\n  requireStack: []\r\n}\r\n\r\nNode.js v25.6.0\r\n"
+    }
+  ]
+}
