@@ -3,6 +3,7 @@ import vm from 'node:vm';
 import assert from 'node:assert/strict';
 import { RELATIONSHIP_SCORING, supportStage, romanceStage } from '../../世界书规则/MVU/schema.mjs';
 import { isHagunAffiliation, shouldInjectTournament } from '../rakudai-tournament-calendar.mjs';
+import { tournamentSnapshotKey } from './terminal-tournament.js';
 
 const read = file => fs.readFileSync(new URL(file, import.meta.url), 'utf8');
 const main = read('main.js');
@@ -19,6 +20,7 @@ const shellFunctions = between(main, '  function toggle()', '  /*__INJECT_STATE_
   .replace('/*__INJECT_APP_HTML__*/', JSON.stringify('<!doctype html><title>测试终端</title>'))
   .replace('/*__INJECT_PORTRAIT_RESERVED_NAMES__*/', '[]')
   .replace('/*__INJECT_LIME_CHARACTER_ALIASES__*/', '[]')
+  .replace('/*__INJECT_TOURNAMENT_SNAPSHOT_KEY__*/', tournamentSnapshotKey.toString())
   .replace('/*__INJECT_CORRECTION__*/', read('correction.js'));
 const lifecycleWiring = between(main, "  HW.addEventListener('resize', onResize);", "  console.info('[Hagun-Blazer-Terminal] initialized');");
 const pageRefresh = between(read('terminal-app.js'), 'function refreshTerminalState(event)', 'window.RKBoot = function(b)');
@@ -360,6 +362,7 @@ await check('分支变动清空旧名册，主回复更新保留只读展示等�
   const f = fixture();
   vm.runInContext("var bridgeRevision = 0, stateSignature = '', dataStatus = 'ready', dataError = '', stateSource = null, expandedPeople = new Set();\n" +
     "var stat = {}, stateTargetSource = null, stateMessage = '', hasDisplayedState = false, hiddenPeopleOpen = false, activeChat = null, rosterDeleteDraft = null, calendarState = { _initialized: false };\n" +
+    "var tournamentResets = 0, tournamentModule = { reset() { tournamentResets++; }, onSnapshot() {} };\n" +
     "var bridge = { getStat: () => new Promise(() => {}) };\nfunction refreshTerminalView() {}\nfunction resetCalendarLore() {}\n" + pageRefresh +
     '\nshell.makeBridge().onUpdate(refreshTerminalState);', f.realm);
   for (const name of ['CHAT_CHANGED', 'MESSAGE_SWIPED', 'MESSAGE_SWIPE_DELETED', 'MESSAGE_DELETED', 'MESSAGE_EDITED', 'CHARACTER_FIRST_MESSAGE_SELECTED']) {
@@ -368,6 +371,7 @@ await check('分支变动清空旧名册，主回复更新保留只读展示等�
     assert.equal(vm.runInContext('JSON.stringify(stat)', f.realm), '{}', name);
     assert.equal(f.realm.dataStatus, 'loading', name);
   }
+  assert.equal(f.realm.tournamentResets, 6, 'branch changes reset the module through its lifecycle entry');
   // 正常收到/保存主回复不会回放旧分支；保留当前展示时明确标记等待状态。
   for (const name of ['MESSAGE_UPDATED', 'MESSAGE_RECEIVED']) {
     vm.runInContext("stat = { 人际: { 本局人物: {} } }; dataStatus = 'ready'; hasDisplayedState = true;", f.realm);

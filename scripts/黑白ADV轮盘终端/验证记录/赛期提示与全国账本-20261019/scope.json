@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-19",
+  "deliveryMode": "component",
+  "target": "世界书规则/MVU/落第骑士-小手机-v1.3.29-B1-头像更新.json",
+  "sourceSha256": "40c62663c513c97df70188370f880ffd572cc34a8c62482d9100393c64cdc64a",
+  "id": "3d8c6c23-f78e-46e5-8e89-4a90bab6fb85",
+  "name": "落第骑士·黑白ADV轮盘终端 v1.3.29 B1（LIME状态精简）",
+  "goal": "两项赛事按当前剧情日期发送规则和数据；七星剑斗祭接入本局赛程、赛果、晋级记录及现有对战面板",
+  "companions": ["MVU三份TXT及Gemini草稿同步", "可选MVU字段约束"],
+  "boundaries": ["保留版号、稳定ID和原组件元信息", "普通多楼层MVU；沿用当前回复页", "不修改整卡或整本世界书", "不导入酒馆", "提示裁剪只改发送副本", "不按日期生成玩家胜负"],
+  "acceptance": ["缺少有效日期或未到赛期时省略赛事长规则及比赛账本", "各校资格登记独立于赛果", "本局改期覆盖参考窗口", "多人赛、纠错和直接晋级可记录并展示", "赛期外仍可预览和补录"],
+  "library": {"snapshot": "2026-08-18", "routes": ["sillytavern-component-update", "sillytavern-database-rolecards"], "newHostApis": false}
+}

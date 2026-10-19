@@ -5,6 +5,8 @@ import { test } from 'node:test';
 import { parse } from 'parse5';
 import { buildTournamentPanel } from './build-tournament-panel.mjs';
 import { buildPreview } from './preview.mjs';
+import { read as readTournamentState, samples } from '../../七星剑武祭-晋级面板预览/mvu-model.mjs';
+import { tournamentSnapshotKey } from './terminal-tournament.js';
 
 const catalog = {
   byName: { 紫乃宫天音: 'amane', 平贺玲泉: 'hiraga', 叶暮牡丹: 'botan', 叶暮桔梗: 'kikyo' },
@@ -39,25 +41,64 @@ test('embedded panel compiles as complete HTML with catalog portraits and no bun
   assert.equal(model.qualification.status, 'pending');
 });
 
+test('saved national matches render multiplayer screens and winner updates without interactive demo results', async () => {
+  const elements = new Map(), listeners = {};
+  const element = key => {
+    if (!elements.has(key)) elements.set(key, { innerHTML: '', textContent: '', value: '', hidden: false,
+      querySelector: () => element(key + '/label'), querySelectorAll: () => [], prepend() {},
+      addEventListener() {}, close() {}, showModal() {}, setAttribute() {} });
+    return elements.get(key);
+  };
+  const realm = vm.createContext({ structuredClone, requestAnimationFrame: fn => fn(), ResizeObserver: class { observe() {} },
+    document: { querySelector: element, querySelectorAll: () => [], createElement: () => element('button'), addEventListener: (type, fn) => { listeners[type] = fn; } } });
+  realm.window = realm;
+  Object.assign(realm, { RK_TOURNAMENT_EMBEDDED: true, RK_PREVIEW_MVU: { read: readTournamentState },
+    TOURNAMENT_DATA: { players: {} }, TOURNAMENT_PORTRAITS: {}, RK_TERMINAL_ACTIONS: { editSelection() {} } });
+  vm.runInContext(fs.readFileSync(new URL('../../七星剑武祭-晋级面板预览/session-ui.js', import.meta.url), 'utf8'), realm);
+  const click = async dataset => listeners.click({ target: { closest: () => ({ dataset, hasAttribute: name => name === 'data-session-back' && dataset.back }) } });
+  realm.RK_MATCH_PREVIEW.setSnapshot({ state: samples.national.state }, { reset: true });
+  await click({ sessionPage: 'national' });
+  await click({ sessionRegion: 'B' });
+  assert.match(element('#session-main').innerHTML, /特别赛/);
+  assert.match(element('#session-main').innerHTML, /裁定晋级/);
+  assert.doesNotMatch(element('#session-main').innerHTML, /data-demo-/);
+  await click({ sessionMatch: 'preview_special' });
+  assert.match(element('#session-main').innerHTML, /WINNER/);
+  assert.match(element('#session-main').innerHTML, /晋级 8强/);
+  const updated = structuredClone(samples.national.state);
+  updated.场景.七星剑斗祭.比赛.preview_special.状态 = '已安排';
+  delete updated.场景.七星剑斗祭.比赛.preview_special.胜者;
+  realm.RK_MATCH_PREVIEW.setSnapshot({ state: updated }, { reset: false });
+  assert.match(element('#session-main').innerHTML, /tv-special-duel/);
+  for (let i = 1; i <= 4; i++) assert.match(element('#session-main').innerHTML, new RegExp('预览选手' + i));
+  assert.doesNotMatch(element('#session-main').innerHTML, /WINNER|data-demo-winner/);
+  const noDate = structuredClone(updated); noDate.场景.时间 = '';
+  realm.RK_MATCH_PREVIEW.setSnapshot({ state: noDate }); await click({ back: true });
+  assert.match(element('#session-main').innerHTML, /剧情日期待确认/);
+});
+
 function hostFixture() {
   const calls = [], frames = [];
   const body = { replaceChildren(frame) { frames.push(frame); } };
   const elements = { 'arena-body': body, 'arena-title': {}, 'arena-preview-notice': {} };
+  const element = id => {
+    if (!elements[id]) elements[id] = { style: {}, classList: { add() {}, remove() {}, toggle() {} } };
+    return elements[id];
+  };
   const realm = vm.createContext({
-    document: { getElementById: id => elements[id], createElement: () => ({
+    document: { getElementById: element, querySelector: () => null, querySelectorAll: () => [], addEventListener() {}, createElement: () => ({
       contentWindow: { RK_MATCH_PREVIEW: { setSnapshot: (...args) => calls.push(args) } }, remove() { this.removed = true; }
     }) },
+    addEventListener() {},
     RK_TOURNAMENT_PANEL_HTML: '<p>赛事页</p>',
-    stat: { 玩家: { 姓名: '自捏骑士' } }, stateSource: { chatId: 'chat', messageId: 1, swipeId: 0 }, dataStatus: 'pending',
-    sourceKey: value => JSON.stringify(value), sourceLabel: () => '第 1 楼 · 已保存 MVU', resolvePlayer: () => ({ name: '自捏骑士' }),
-    resolveKnightAvatar: () => ({ src: 'https://example.test/player.png' }), tournamentView: () => ({ roster: [], playerId: 'oc' }),
-    currentStack: ['scr-home', 'scr-schedule', 'scr-arena'], renderSchedule() { calls.push('schedule-render'); }
   });
-  realm.goBack = () => realm.currentStack.pop();
-  realm.openApp = app => realm.currentStack.push('scr-' + app);
-  const appSource = fs.readFileSync(new URL('./terminal-app.js', import.meta.url), 'utf8');
-  vm.runInContext(appSource.match(/function tournamentPanelUnlocked\(\) \{[\s\S]*?\n\}/)[0], realm);
-  vm.runInContext(fs.readFileSync(new URL('./terminal-tournament.js', import.meta.url), 'utf8'), realm);
+  realm.window = realm;
+  vm.runInContext(fs.readFileSync(new URL('./terminal-tournament.js', import.meta.url), 'utf8').replace(/^export /gm, '') + '\n' +
+    fs.readFileSync(new URL('./terminal-app.js', import.meta.url), 'utf8'), realm);
+  Object.assign(realm, { stat: { 玩家: { 姓名: '自捏骑士' } }, stateSource: { chatId: 'chat', messageId: 1, swipeId: 0 },
+    dataStatus: 'pending', hasDisplayedState: true, currentStack: ['scr-home', 'scr-schedule', 'scr-arena'],
+    resolveKnightAvatar: () => ({ src: 'https://example.test/player.png' }), renderSchedule() { calls.push('schedule-render'); },
+    bridge: { tournament: { snapshotKey: tournamentSnapshotKey, view: () => ({ roster: [], playerId: 'oc' }) } } });
   return { realm, calls, frames, elements };
 }
 test('unfinished and pending sessions stay labelled as preview; saved completion opens the same panel without altering state', () => {
@@ -98,7 +139,8 @@ test('host pushes the displayed snapshot, keeps one iframe, and resets only when
   assert.equal(calls[2][1].reset, true);
   realm.destroyTournamentPanel();
   assert.equal(frames[0].removed, true); assert.equal(frames[0].onload, null);
-  assert.equal(realm.tournamentPanelFrame, null);
+  assert.equal(realm.tournamentPanelFrame, undefined, 'the frame reference stays private to the module');
+  realm.renderTournamentPanel(); assert.equal(frames.length, 2);
 });
 test('selection maintenance reuses an existing schedule page instead of stacking duplicate pages', () => {
   const { realm, frames } = hostFixture();
@@ -126,12 +168,14 @@ test('actual terminal preview receives derived OC, qualification, tie and other-
   assert.equal(oc.name, samples.selection.玩家.姓名);
   assert.equal(oc.player, true);
   assert.ok(selection.matches.some(match => !match.程序推演 && [match.甲方, match.乙方].includes(selection.playerId)));
-  assert.equal(tournamentViews.qualified.complete, true);
-  assert.equal(tournamentViews.qualified.qualificationTie, false);
-  assert.ok(tournamentViews.qualified.eligible.slice(0, 6).some(row => row.player));
+  assert.equal(tournamentViews.qualified.complete, false);
+  const qualified = readTournamentState({ state: samples.qualified }, tournamentViews.qualified).qualification;
+  assert.equal(qualified.status, 'qualified');
+  assert.ok(qualified.representatives.some(row => row.player));
   assert.equal(tournamentViews.tie.complete, true);
   assert.equal(tournamentViews.tie.qualificationTie, true);
   assert.equal(tournamentViews.other.applicable, false);
+  assert.equal(readTournamentState({ state: samples.other }, tournamentViews.other).qualification.status, 'qualified');
   assert.equal(tournamentViews.ikki.roster.filter(row => row.name === '黑铁一辉').length, 1);
   for (const name of ['紫乃宫天音', '平贺玲泉', '叶暮牡丹', '叶暮桔梗']) assert.ok(samples.avatars.人际[name]);
   assert.match(bootstrap, /赛事离线预览只读/);

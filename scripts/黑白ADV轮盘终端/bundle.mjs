@@ -6,6 +6,7 @@ import { parse } from 'parse5';
 import sourceMap from 'source-map-js';
 import { buildKnightAvatarCatalog } from './knight-avatars.mjs';
 import { buildTournamentPanel } from './build-tournament-panel.mjs';
+import { tournamentSnapshotKey } from './terminal-tournament.js';
 import { GROWTH_RULES, RELATIONSHIP_SCORING, supportStage, romanceStage } from '../../世界书规则/MVU/schema.mjs';
 
 export const directory = path.dirname(fileURLToPath(import.meta.url));
@@ -100,7 +101,7 @@ function buildApp(version) {
       builder.append('\n' + read('lime-chat.mjs').replace(/^export /gm, ''), 'lime-chat.mjs');
       builder.append('\n' + read('terminal-lime.js'), 'terminal-lime.js');
       builder.append('\nvar RK_TOURNAMENT_PANEL_HTML = ' + jsString(tournamentPanel) + ';\n');
-      builder.append('\n' + read('terminal-tournament.js'), 'terminal-tournament.js');
+      builder.append('\n' + read('terminal-tournament.js').replace(/^export /gm, ''), 'terminal-tournament.js');
     }
     if (file === 'terminal-app.js') builder.append('\nvar RK_KNIGHT_AVATARS = ' + jsString(knightAvatars) + ';\n');
     return '<script>' + builder.finish().code + '</script>';
@@ -122,6 +123,7 @@ export function buildTerminal() {
     .flatMap(person => [person.name, ...(person.aliases || [])])
     .concat((portraitManifest.ambiguousAliases || []).flatMap(item => item.aliases));
   const literals = { VERSION: jsString(version), STYLES: jsString(read('styles.css')), APP_HTML: jsString(html),
+    TOURNAMENT_SNAPSHOT_KEY: tournamentSnapshotKey.toString(),
     LIME_CHARACTER_ALIASES: jsString(portraitManifest.characters.map(person => ({ name: person.name, aliases: person.aliases || [] }))),
     PORTRAIT_RESERVED_NAMES: jsString(portraitReservedNames), PLAYER_BUBBLE_CSS: jsString(read('../正文气泡/bubble.css')),
     CORRECTION_RULES: jsString(read('../../世界书规则/MVU/变量更新规则.txt')), CORRECTION_FORMAT: jsString(read('../../世界书规则/MVU/变量输出格式.txt')),

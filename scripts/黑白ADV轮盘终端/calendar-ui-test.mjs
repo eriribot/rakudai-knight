@@ -7,7 +7,7 @@ import { test } from 'node:test';
 import { parseFragment } from 'parse5';
 
 const read = file => fs.readFileSync(new URL(file, import.meta.url), 'utf8');
-const source = read('terminal-app.js') + '\n' + read('lime-chat.mjs').replace(/^export /gm, '') + '\n' + read('terminal-lime.js');
+const source = read('terminal-tournament.js').replace(/^export /gm, '') + '\n' + read('terminal-app.js') + '\n' + read('lime-chat.mjs').replace(/^export /gm, '') + '\n' + read('terminal-lime.js');
 const plain = value => JSON.parse(JSON.stringify(value));
 const settle = () => new Promise(resolve => setImmediate(resolve));
 const modalIds = ['rk-calendar-story', 'rk-calendar-story-title', 'rk-calendar-story-source',

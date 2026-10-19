@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 import { stripModuleSyntax } from '../story-build.mjs';
 import { isHagunAffiliation, shouldInjectTournament } from '../rakudai-tournament-calendar.mjs';
+import { shouldInjectNationalTournament, deriveNationalTournament } from '../rakudai-national-tournament.mjs';
 
 // The dev workspace is already required by the project's schema checks. Missing
 // yaml is a setup failure, never a reason to substitute JSON.parse or skip tests.
@@ -300,12 +301,12 @@ function fixture(storage = new Map([[configKey, clone(defaultConnection)]])) {
     const id = ++timerId; timers.set(id, { fn, due: now + Number(ms), interval: interval ? Number(ms) : 0 }); return id;
   }
   class FixtureDate extends Date { static now() { return now; } }
-  const realm = vm.createContext({ HW, window: { parent: HW, top: HW, Mvu: mvu, RakudaiStateController: { isHagunAffiliation, shouldInjectTournament } },
+  const realm = vm.createContext({ HW, window: { parent: HW, top: HW, Mvu: mvu, RakudaiStateController: { isHagunAffiliation, shouldInjectTournament, shouldInjectNationalTournament } },
     SS: { destroyed: false, disposers: [] }, Date: FixtureDate, AbortController, URL, structuredClone,
     LS: { get: (key, fallback) => storage.has(key) ? clone(storage.get(key)) : fallback,
       set: (key, value) => { storageWrites.push(key); storage.set(key, clone(value)); } },
     generationPending: false, terminalStateReader: { clear() {} }, fn: name => helper[name], emit() {},
-    stateService: () => ({ tournamentView: () => ({ calendar: {}, roster: [], warnings: [] }) }),
+    stateService: () => ({ tournamentView: () => ({ calendar: {}, roster: [], warnings: [] }), nationalTournamentView: deriveNationalTournament }),
     setTimeout: (fn, ms) => timer(fn, ms), clearTimeout: id => timers.delete(id),
     setInterval: (fn, ms) => timer(fn, ms, true), clearInterval: id => timers.delete(id),
   });

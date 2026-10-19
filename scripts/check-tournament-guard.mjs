@@ -219,3 +219,24 @@ test('optional guard does not auto-create the Hagun ledger for another school', 
   assert.equal(Object.hasOwn(saved.场景, '选拔赛'), false);
   assert.equal(saved.场景.地点, '破军学园·参观席'); f.lifecycle.get('pagehide')();
 });
+
+test('real parsed/ENDED callbacks retain confirmed and cancelled national qualification for Hagun and another school', () => {
+  for (const school of ['破军学园', '武曲学园']) {
+    const row = { 姓名: '测试原创玩家', 学园: school, 资格状态: '已取得', 依据: '本局已公布代表名单', 旧备注: '保留' };
+    const national = { 资格名册: { player: row }, 旧资料: '保留' };
+    const content = `<UpdateVariable><JSONPatch>${JSON.stringify([{ op: 'add', path: '/场景/七星剑斗祭', value: national }])}</JSONPatch></UpdateVariable>`;
+    const cancellation = '<UpdateVariable><JSONPatch>[{"op":"replace","path":"/场景/七星剑斗祭/资格名册/player/资格状态","value":"已取消"}]</JSONPatch></UpdateVariable>';
+    const f = fixture([content, cancellation]), before = f.state();
+    before.玩家.所属 = school;
+    const confirmed = f.update(before, next => { next.场景.七星剑斗祭 = structuredClone(national); }, content);
+    assert.deepEqual(plain(confirmed.场景.七星剑斗祭), national);
+    const cancelled = f.update(confirmed, next => { next.场景.七星剑斗祭.资格名册.player.资格状态 = '已取消'; }, cancellation);
+    assert.deepEqual(plain(cancelled.场景.七星剑斗祭), {
+      ...national, 资格名册: { player: { ...row, 资格状态: '已取消' } },
+    });
+    if (school === '武曲学园') assert.equal(Object.hasOwn(cancelled.场景, '选拔赛'), false);
+    assert.deepEqual(f.context.chat.map(reply => reply.mes), [content, cancellation]);
+    assert.equal(f.warnings.some(message => message.includes('已恢复越权或非法修改')), false);
+    f.lifecycle.get('pagehide')();
+  }
+});

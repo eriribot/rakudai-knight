@@ -1,0 +1,33 @@
+{
+  "deliveryMode": "component",
+  "version": "1.3.29 B1",
+  "metadataPreserved": true,
+  "files": [
+    {
+      "path": "世界书规则/MVU/落第骑士-小手机-v1.3.29-B1-头像更新.json",
+      "sha256": "b13428cdcda129389753153eb073f363ba05a2e3fbf43bbfbffd4918e2fbaffb",
+      "bytes": 2391501
+    },
+    {
+      "path": "世界书规则/MVU/落第骑士-MVU-v4字段约束.json",
+      "sha256": "e436778ffb568459a4d6341d5ff01dcf61315745d796e54dc96199d4988fa02f",
+      "bytes": 175937
+    },
+    {
+      "path": "世界书规则/MVU/变量列表.txt",
+      "sha256": "969de1849a51d5bb9b70a323734bca7c2e65ce74ac89f771106b1978ef742ae5",
+      "bytes": 1097
+    },
+    {
+      "path": "世界书规则/MVU/变量更新规则.txt",
+      "sha256": "2b7c5616dd61bceaf6a819b1bb69ff461f1b8513ea1113098c95a641fc31307a",
+      "bytes": 9388
+    },
+    {
+      "path": "世界书规则/MVU/变量输出格式.txt",
+      "sha256": "5e5ce154d861152ffabab7fec147d08d6618e32bb5abb0ee5ea6b08d5db1f73d",
+      "bytes": 6516
+    }
+  ],
+  "imported": false
+}

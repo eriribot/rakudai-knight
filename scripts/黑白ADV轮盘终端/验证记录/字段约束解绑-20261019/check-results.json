@@ -1,0 +1,74 @@
+{
+  "date": "2026-10-19",
+  "runtime": "本地源码、构建组件、VM 宿主替身与事务回读；未连接真实酒馆或调用 AI",
+  "changedAreaChecks": [
+    { "command": "node scripts/check-state-browser.mjs", "passed": 56, "total": 56 },
+    { "command": "node scripts/黑白ADV轮盘终端/correction-readiness-test.mjs", "passed": 100, "total": 100 },
+    { "command": "node scripts/黑白ADV轮盘终端/correction-exclusions-test.mjs", "passed": 11, "total": 11 },
+    { "command": "node scripts/黑白ADV轮盘终端/tournament-ui-test.mjs", "passed": 19, "total": 19 },
+    { "command": "node scripts/黑白ADV轮盘终端/tournament-panel-test.mjs", "passed": 5, "total": 5 },
+    { "command": "node scripts/黑白ADV轮盘终端/calendar-ui-test.mjs", "passed": 18, "total": 18 },
+    { "command": "node scripts/黑白ADV轮盘终端/shell-test.mjs", "passed": 37, "total": 37 },
+    { "command": "node scripts/黑白ADV轮盘终端/packaging-test.mjs", "passed": 9, "total": 9 }
+  ],
+  "additionalPassedChecks": [
+    { "suite": "lime-chat", "passed": 27, "total": 27 },
+    { "suite": "lime-worldbook", "passed": 12, "total": 12 },
+    { "suite": "lime-host", "passed": 67, "total": 67 },
+    { "suite": "lime-story", "passed": 15, "total": 15 },
+    { "suite": "lime-ui", "passed": 24, "total": 24 },
+    { "suite": "avatar", "passed": 18, "total": 18 },
+    { "suite": "calendar-worldbook", "passed": 15, "total": 15 },
+    { "suite": "state-panel", "passed": 21, "total": 21 }
+  ],
+  "preexistingFailures": [
+    {
+      "suite": "state-reader",
+      "passed": 6,
+      "total": 9,
+      "baselinePassed": 6,
+      "baselineTotal": 9,
+      "baseline": "仅在内存运行 HEAD 源码与 HEAD 测试，3 项失败一致",
+      "details": "source 新增 characterId/groupId 与旧断言不同；当前空槽回退行为与旧测试不同；无 MVU 报错文案断言过期。"
+    },
+    {
+      "suite": "smoke",
+      "passed": 23,
+      "total": 30,
+      "baselinePassed": 23,
+      "baselineTotal": 30,
+      "baseline": "仅在内存使用 HEAD 已发布 B1 嵌入页面、reader、测试、package 与产物重放，7 项失败名称与断言一致"
+    },
+    {
+      "suite": "额外 avatar-ui",
+      "passed": 8,
+      "total": 13,
+      "baselinePassed": 8,
+      "baselineTotal": 13,
+      "baseline": "仅在内存以 HEAD 源码替换读取，5 项失败一致",
+      "details": "旧测试夹具缺少宿舍刷新所需 DOM 能力；没有修改头像生产代码或测试。"
+    }
+  ],
+  "fullSuite": "npm.cmd test 在 state-reader 的既存失败处停止；后续 state-panel、smoke、shell 已分别执行。未宣称完整回归全绿。",
+  "artifact": {
+    "controllerSourceInSync": true,
+    "guardSourceInSync": true,
+    "importableComponentErrors": [],
+    "allNonContentMetadataEqualToScope": true,
+    "genericQualificationPromptEmbedded": true,
+    "independentTournamentFactoryEmbedded": true,
+    "localValidationEmbedded": true,
+    "diffWhitespaceErrors": []
+  },
+  "temporaryScenario": {
+    "method": "仅通过标准输入构造内存账本，未新增案例文件或写入真实存档",
+    "wins": 20,
+    "losses": 0,
+    "points": 1220,
+    "rank": 1,
+    "qualificationCancellationSavedAndReadBack": true,
+    "originalSelectionLedgerPreserved": true,
+    "removedFromRepresentatives": true,
+    "aiInterpretationTested": false
+  }
+}

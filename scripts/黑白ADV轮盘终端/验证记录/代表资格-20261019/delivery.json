@@ -1,0 +1,63 @@
+{
+  "date": "2026-10-19",
+  "deliveryMode": "component",
+  "files": [
+    {
+      "path": "世界书规则/MVU/落第骑士-小手机-v1.3.29-B1-头像更新.json",
+      "sha256": "3fd7a9e05f03f30999ed318b5b10a6553cea2d57b1f97a6ee87a2daf25fcefbf"
+    },
+    {
+      "path": "世界书规则/MVU/落第骑士-MVU-v4字段约束.json",
+      "sha256": "7c7fb8bff78632724cbf3e56b9962e28556d2be527d6aefe358333fd4d249026"
+    },
+    {
+      "path": "世界书规则/MVU/变量列表.txt",
+      "sha256": "0765ba71ddde86d55d2a3b77cde47a2991a5d4f322d015a0712eb8d870de2585"
+    },
+    {
+      "path": "世界书规则/MVU/变量更新规则.txt",
+      "sha256": "947f05cf274bc86b38e9ba329fa075ce9b50471fae8c408cca2acb69ec4d3399"
+    },
+    {
+      "path": "世界书规则/MVU/变量输出格式.txt",
+      "sha256": "aa8322a53c73cd2dfda8484c1447831b76791be58697ffd254378072ecaf594e"
+    }
+  ],
+  "metadataPreserved": true,
+  "version": "v1.3.29 B1（LIME状态精简）",
+  "optionalGuardRequired": false,
+  "changed": [
+    "scripts/check-tournament-guard.mjs",
+    "scripts/rakudai-state-controller.js",
+    "scripts/rakudai-state-core.mjs",
+    "scripts/rakudai-tournament.mjs",
+    "scripts/黑白ADV轮盘终端/QUICKSTART.md",
+    "scripts/黑白ADV轮盘终端/README.md",
+    "scripts/黑白ADV轮盘终端/correction.js",
+    "scripts/黑白ADV轮盘终端/main.js",
+    "scripts/黑白ADV轮盘终端/preview.mjs",
+    "scripts/黑白ADV轮盘终端/terminal-app.js",
+    "scripts/黑白ADV轮盘终端/tournament-panel-test.mjs",
+    "scripts/黑白ADV轮盘终端/tournament-ui-test.mjs",
+    "七星剑武祭-晋级面板预览/README.md",
+    "七星剑武祭-晋级面板预览/mvu-model.js",
+    "七星剑武祭-晋级面板预览/mvu-model.mjs",
+    "七星剑武祭-晋级面板预览/mvu-model.test.mjs",
+    "七星剑武祭-晋级面板预览/session-bracket.test.mjs",
+    "七星剑武祭-晋级面板预览/session-ui.js",
+    "世界书规则/MVU/README.md",
+    "世界书规则/MVU/schema.mjs",
+    "世界书规则/MVU/变量列表.txt",
+    "世界书规则/MVU/变量更新规则.txt",
+    "世界书规则/MVU/变量输出格式.txt",
+    "世界书规则/MVU/落第骑士-MVU-v4字段约束.json",
+    "世界书规则/MVU/落第骑士-小手机-v1.3.29-B1-头像更新.json"
+  ],
+  "review": "审查说明.md",
+  "validation": "check-results.json",
+  "runtime": "离线验证通过；未导入真实酒馆",
+  "git": {
+    "committed": false,
+    "pushed": false
+  }
+}

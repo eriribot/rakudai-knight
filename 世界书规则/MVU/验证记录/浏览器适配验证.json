@@ -1,6 +1,6 @@
 {
-  "passed": 55,
-  "total": 55,
+  "passed": 56,
+  "total": 56,
   "runtime": "离线固定API语义模拟，未连接真实酒馆",
   "results": [
     {
@@ -8,7 +8,11 @@
       "passed": true
     },
     {
-      "name": "旧v4虽同为4.0.0也必须在建档前提示缺少觉醒schema，不写入存档",
+      "name": "外置约束的旧能力标记不阻断终端本地校验与建档",
+      "passed": true
+    },
+    {
+      "name": "内存候选校验只依赖本地schema，不依赖MVU或字段约束启动",
       "passed": true
     },
     {
@@ -104,7 +108,7 @@
       "passed": true
     },
     {
-      "name": "约束启动中或失败时明确诊断，不能当作关闭约束继续写入",
+      "name": "约束启动中或失败不阻断手动操作，保留其原有schema而非伪装为关闭",
       "passed": true
     },
     {
@@ -112,7 +116,7 @@
       "passed": true
     },
     {
-      "name": "旧新约束同时启用时拒绝写入，避免两个 schema 互相抵触",
+      "name": "终端校验不以外置旧新约束标记作开关",
       "passed": true
     },
     {

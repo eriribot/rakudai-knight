@@ -1,5 +1,7 @@
 import { TOURNAMENT_CANON, identifyTournamentPlayer, seedTournamentRoster, projectTournamentBackground } from './rakudai-tournament-background.mjs';
 import { tournamentCalendar, parseTournamentDate, isHagunAffiliation } from './rakudai-tournament-calendar.mjs';
+import { prepareNationalTournamentAction } from './rakudai-national-tournament.mjs';
+export { createNationalTournamentSchema } from './rakudai-national-tournament.mjs';
 
 // T01兼容存档 / T02引擎：实际账本与日期背景投影合并后统一重算。
 // 本模块无宿主、网络和 schema 依赖，可同时用于 MVU 校验与终端视图。
@@ -7,6 +9,7 @@ export const TOURNAMENT_VERSION = 'T01';
 const tournamentStates = ['未开始', '进行中', '已结束'];
 const matchStates = ['待定', '已安排', '已完成', '已取消'];
 const participantStates = ['参赛', '退选', '取消资格'];
+const qualificationStates = ['待确认', '已取得', '未取得', '已取消'];
 const sources = ['正典', '原创', '玩家'];
 const unsafeKeys = new Set(['__proto__', 'prototype', 'constructor']);
 const own = (value, key) => Object.prototype.hasOwnProperty.call(value || {}, key);
@@ -14,6 +17,7 @@ const object = value => Boolean(value && typeof value === 'object' && !Array.isA
 const copy = value => structuredClone(value);
 const natural = value => Number.isSafeInteger(value) && value >= 0;
 const nonblank = value => typeof value === 'string' && Boolean(value.trim());
+const qualificationId = value => nonblank(value) && !/[~/]/.test(value) && !unsafeKeys.has(value) && !value.startsWith('__rk_bg_');
 const fixtures = { 1: '桐原静矢', 9: '兔丸恋恋', 11: '绫辻绚濑', 20: '东堂刀华' };
 const canon = TOURNAMENT_CANON;
 const affiliationNotice = '所属未确认为破军学园：选拔赛暂停，仅可查看已有记录。';
@@ -417,6 +421,23 @@ export function suggestTournamentOpponents(state, { participantId, round } = {})
 // 终端手动记账使用同一校验入口；同 ID 是纠错替换，不是再发一次积分。
 export function prepareTournamentAction(state, request) {
   if (!object(state?.场景) || !object(request)) throw new Error('请先读取本局状态和操作内容');
+  if (['upsertNationalMatch', 'upsertNationalAdvancement', 'setNationalSchedule'].includes(request.action)) return prepareNationalTournamentAction(state, request);
+  // ponytail: 资格独立于校内积分账本；只更新这一个人的确认记录。
+  if (request.action === 'upsertQualification') {
+    if (!qualificationId(request.id)) throw new Error('资格记录 ID 不能为空、包含 / 或 ~，或使用保留名称');
+    const row = { 依据: '', ...request.qualification };
+    if (!object(request.qualification) || !nonblank(row.姓名) || !nonblank(row.学园)) throw new Error('请填写姓名与学园');
+    if (!qualificationStates.includes(row.资格状态)) throw new Error('请选择有效的资格状态');
+    if (typeof row.依据 !== 'string') throw new Error('资格依据须为文字，可留空');
+    const national = state.场景.七星剑斗祭;
+    if (national !== undefined && !object(national)) throw new Error('七星剑斗祭记录须为对象');
+    if (national?.资格名册 !== undefined && !object(national.资格名册)) throw new Error('资格名册须为按稳定 ID 保存的对象');
+    const next = copy(state);
+    next.场景.七星剑斗祭 ??= {};
+    const roster = next.场景.七星剑斗祭.资格名册 ??= {};
+    roster[request.id] = { ...roster[request.id], ...copy(row) };
+    return next;
+  }
   if (!isHagunAffiliation(state)) throw new Error(affiliationNotice);
   const next = copy(state);
   if (request.action === 'initialize') {

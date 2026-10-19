@@ -1,0 +1,36 @@
+{
+  "date": "2026-10-19",
+  "deliveryMode": "component",
+  "version": "v1.3.29 B1（LIME状态精简）",
+  "metadataPreserved": true,
+  "files": [
+    {
+      "path": "世界书规则/MVU/落第骑士-小手机-v1.3.29-B1-头像更新.json",
+      "sha256": "40c62663c513c97df70188370f880ffd572cc34a8c62482d9100393c64cdc64a"
+    },
+    {
+      "path": "世界书规则/MVU/变量列表.txt",
+      "sha256": "8130c6dc3e23854e0c42fe5e6d6c26cf818caf53c66b4d1457080c5c52ec4239"
+    },
+    {
+      "path": "世界书规则/MVU/变量更新规则.txt",
+      "sha256": "9ca3130dfdee096c7f2c9a3295a317d45a53810374d3f9fd7f703b213389e8e8"
+    },
+    {
+      "path": "世界书规则/MVU/变量输出格式.txt",
+      "sha256": "fdb4b5e7cbc7ee9dff525709b7b1fc5614611f12f94251a08f64ec882c31ba3d"
+    }
+  ],
+  "optionalGuard": {
+    "required": false,
+    "changedThisStep": false,
+    "path": "世界书规则/MVU/落第骑士-MVU-v4字段约束.json",
+    "sha256": "7c7fb8bff78632724cbf3e56b9962e28556d2be527d6aefe358333fd4d249026",
+    "note": "已启用者需使用包含资格名册定义的同步包；本次未新增资格字段或修改其 schema。"
+  },
+  "review": "审查说明.md",
+  "validation": "check-results.json",
+  "runtime": "仅离线测试，未导入真实酒馆或调用模型验证正文理解",
+  "fullCardRebuilt": false,
+  "git": { "committed": false, "pushed": false }
+}

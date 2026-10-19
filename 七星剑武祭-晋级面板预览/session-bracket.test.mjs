@@ -33,4 +33,12 @@ const vacant = empty.matches.find(m => [m.p1, m.p2].some(id => empty.players[id]
 engine.settle(empty, vacant.id, vacant.p1);
 assert.equal(vacant.winner, null);
 assert.equal(canon.players.ikki.player, undefined, '原著资料不被演示修改');
+const changedPlayerId = structuredClone(samples.ikki.state);
+changedPlayerId.场景.七星剑斗祭 = { 资格名册: { player: { 姓名: '黑铁一辉', 学园: '破军学园', 资格状态: '已取得', 依据: '先登记资格，后加入选拔名册。' } } };
+const changedModel = read(changedPlayerId);
+assert.equal(changedModel.player.id, 'canon_01');
+const changedBracket = engine.create(canon, changedModel.qualification.representatives);
+const changedPlayer = changedBracket.slots.flat().filter(id => changedBracket.players[id].player);
+assert.equal(changedPlayer.length, 1);
+assert.equal(changedBracket.players[changedPlayer[0]].rosterId, 'player');
 console.log('Preview bracket: 32 unique seats, 6 representatives, one player, no preset winners, result propagation and correction, pending seats passed.');

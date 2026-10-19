@@ -1,4 +1,4 @@
-import { createTournamentSchema } from '../../scripts/rakudai-tournament.mjs';
+import { createTournamentSchema, createNationalTournamentSchema } from '../../scripts/rakudai-tournament.mjs';
 import { getStoryVolume, resolveStoryChapter, storyPosition } from '../../scripts/rakudai-story-catalog.mjs';
 
 // 本卡 stat_data v4。纯 schema 工厂；不访问聊天、不自动迁移旧楼层。
@@ -276,7 +276,7 @@ function createStateSchema(z, version, { normalizeRelationships = true } = {}) {
       ...(version === 4 ? { 宿舍: z.boolean().optional() } : {}),
       已发生事件: record(z.object({ ...(version === 4 ? { 卷号: volumeNumber } : {}), 章段: version === 3 ? z.enum(CHAPTERS.slice(1)) : text.min(1), 结果: text.min(1), 参与者: z.array(text.min(1)), 知情者: z.array(text.min(1)) }).strict()),
       // 可选字段兼容现有 v4 存档；未来约定不占用已发生事件。
-      ...(version === 4 ? { 日程: record(schedule).optional(), 选拔赛: createTournamentSchema(z).optional() } : {}),
+      ...(version === 4 ? { 日程: record(schedule).optional(), 选拔赛: createTournamentSchema(z).optional(), 七星剑斗祭: createNationalTournamentSchema(z).optional() } : {}),
     }).strict(),
     玩家: z.object({
       性别: z.literal('男性').default('男性'),
