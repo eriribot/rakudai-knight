@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "bc68055f802358a8",
+        "id": "fd1c7a8afe2ee092",
         "type": "tabs",
         "children": [
           {
-            "id": "df10fbcad984cb29",
+            "id": "f7d55c3235f41a98",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "第十二卷-世界书整理/场景条目/06_第十四章场景_法米利昂之剑.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "06_第十四章场景_法米利昂之剑"
+              "title": "新标签页"
             }
           }
         ]
@@ -185,11 +181,11 @@
       "bases:新建数据库": false
     }
   },
-  "active": "df10fbcad984cb29",
+  "active": "f7d55c3235f41a98",
   "lastOpenFiles": [
+    "第十二卷-世界书整理/场景条目/06_第十四章场景_法米利昂之剑.md",
     "第十二卷-世界书整理/场景条目/05_第十三章场景_来自神龙寺的刺客.md",
     "第十二卷-世界书整理/场景条目/04_第十二章场景_严寒的考验.md",
-    "第十二卷-世界书整理/场景条目/06_第十四章场景_法米利昂之剑.md",
     "第十二卷-世界书整理/场景条目/03_第十一章场景_洁白之巅.md",
     "scripts/黑白ADV轮盘终端/验证记录/赛期提示与全国账本-20261019/prompt-size.json",
     "scripts/黑白ADV轮盘终端/验证记录/赛期提示与全国账本-20261019/审查说明.md",
