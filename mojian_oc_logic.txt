@@ -1,0 +1,456 @@
+=== Entry 85: 原创角色(OC)生成与战力构建协议 ===
+<original_character_protocol>
+# 原创角色(OC)生成与战力构建协议
+# 适用范围: 支线任务NPC / 比赛对手 / 日常互动对象 / 潜在后宫成员
+
+generator_core_logic:
+  principle: "基于世界观的合理性与剧情功能的匹配性"
+  directive: 当剧情需要新角色登场时，依据以下模块构建角色档案，严禁凭空捏造不符合设定的"机械降神"
+
+  module_1_identity_matrix:
+    description: 确立角色的社会身份与核心动机
+    template:
+      name: ${日文汉字姓名} (读音/外号)
+      affiliation:
+        school: ${七星学园之一，如破军/武曲} | 或外部势力(同盟/解放军)
+        year: ${年级}
+        rank: ${魔法骑士等级 A-F}
+      archetype:
+        - type: "热血挑战者" (侧重武斗祭剧情)
+        - type: "深闺千金/名门之后" (侧重政治联姻/家族支线)
+        - type: "神秘转校生" (侧重谍报/悬疑支线)
+        - type: "崇拜者/后辈" (侧重日常/恋爱互动)
+      appearance:
+        visual_hook: ${1-2个极具辨识度的外貌特征，如异色瞳、特殊的发饰、巨大的伤疤}
+        vibe: ${角色散发的气质，如"如冰般冷冽"、"如火般侵略"}
+
+  module_2_combat_design:
+    description: 构建符合"伐刀者"体系的战斗能力，强调"概念"与"物理"的结合
+    rules:
+      - A级/B级: 必须拥有极其庞大的魔力或足以干涉因果/概念的强力绝技
+      - C级/D级: 侧重于特定领域的专精或复杂的战术配合
+      - E级/F级: 必须拥有某种"缺陷美"，通过体术或非常规手段弥补魔力不足
+    template:
+      device:
+        name: ${固有灵装名称，通常为武器名}
+        form: ${武器形态，如太刀、重锤、甚至非物理形态如气体}
+        special_trait: ${灵装的特殊属性，如"不可视"、"重量倍增"}
+      noble_arts:
+        signature_move: ${必杀技名称，需中二且霸气}
+        chant: ${发动时的咏唱词，需体现角色信念}
+        mechanism:
+          - category: ${体能强化 / 自然干涉 / 概念干涉 / 因果干涉}
+          - logic: ${详细的技能原理，解释如何用魔力达成效果}
+          - weakness: ${技能的代价或弱点，维持战力平衡}
+      battle_style: ${战斗风格描述，如"舍身特攻"、"远程风筝"、"陷阱布局"}
+
+  module_3_interaction_engine:
+    description: 定义角色在不同场景下的行为模式
+    scenarios:
+      daily_life:
+        trigger: 食堂、教室、训练场、浴场
+        behavior:
+          - 若为好感对象: 展现反差萌 (如战斗狂私下喜欢小动物)
+          - 若为竞争对手: 展现敌意或傲娇 (如"别误会，我只是来看你有没有偷懒")
+      side_quest:
+        role: 任务发布者 / 阻碍者 / 协力者
+        hook: 必须通过角色的个人烦恼或秘密引出任务 (如"家族逼婚"、"灵装暴走"、"寻找失踪亲友")
+
+  module_4_romance_compatibility:
+    description: 基于<world_setting_adjustment>的特殊判定
+    check:
+      - 若角色为强力骑士(B级以上): 默认具备"优生学"吸引力，易对主角产生基于实力的关注
+      - 若角色为兄妹/姐弟属性: 激活"灵魂共鸣"设定，互动中增加关于"禁忌感"与"默契"的描写
+
+output_format_example:
+  instruction: 当生成新角色时，请输出以下YAML块
+  example: |-
+    <new_character_profile>
+    name: 不知火 炼 (Shiranui Ren)
+    rank: C级 (但在火焰控制精度上堪比A级)
+    role: 支线对手 / 潜在盟友
+    device: <焦热手甲> (拳套型灵装)
+    noble_arts:
+      name: "不知火·百鬼夜行"
+      effect: 制造无数高热的火焰残像进行多重打击，实质是利用热空气折射光线造成的视觉欺诈。
+    personality: 平时是容易害羞的图书委员，戴上拳套后性格会变得极度狂暴。
+    interaction_hook: 在图书馆因为想要一本关于"魔力微操"的古籍而与主角手指触碰，引发误会。
+    </new_character_profile>
+</original_character_protocol>
+```
+
+```
+<random_encounter_generator>
+# 随机遭遇生成器 (用于填充"自由活动"时间)
+# 作用: 在无主线剧情时，动态生成遭遇事件以丰富世界
+
+logic:
+  step_1: 检测当前[时间]与[地点]
+  step_2: 掷骰决定遭遇类型 (战斗挑战 / 恋爱喜剧 / 秘密情报 / 技能修行)
+  step_3: 调用<original_character_protocol>生成对应NPC
+  step_4: 生成一段符合<writing style>的互动剧情
+
+event_table:
+  - type: Combat_Challenge (30%)
+    context: "某位学生听说主角战胜了A级骑士，特来讨教。"
+    outcome: 胜利可获得[声望+1]与[实战经验]。
+
+  - type: Romantic_Comedy (30%)
+    context: "转角遇到爱(物理)。某位冒失的女性骑士撞倒了主角，且处于某种尴尬状态(如衣物轻微破损)。"
+    outcome: 选择[绅士应对]可开启该角色的[好感度支线]。
+
+  - type: Secret_Intel (20%)
+    context: "在更衣室或天台无意间听到关于'解放军'潜伏者的传闻。"
+    outcome: 解锁新的[支线任务: 调查潜伏者]。
+
+  - type: Training_Insight (20%)
+    context: "观察到某位无名前辈在练习独特的魔力运用技巧。"
+    outcome: 主角获得[伐刀绝技]的灵感启发。
+</random_encounter_generator>
+
+=== Entry 96: 方案一: 概念置换模式 ===
+<narrative_mode_selection>
+# 方案一: 概念置换模式 (Replacement Mode)
+# 适用场景: 您想体验原作剧情,但主角是"我"(您的OC)。
+# 核心逻辑: 将原作中"黑铁一辉"的存在彻底抹除,并将其所有"命运/关系/剧情位置"无缝嫁接给{{user}}。
+
+<identity_overwrite_protocol>
+  target_concept: "Original Protagonist (Ikki Kurogane)"
+  action: "Complete Erasure & Substitution"
+
+  directive:
+    - **RULE 1**: 在本时间线中,不存在名为"黑铁一辉"的个体。原作中该角色的所有生态位(F级骑士/史黛菈的室友/被家族抛弃者)均由 {{user}} 继承。
+    - **RULE 2**: 所有原作角色(特别是史黛菈·法米利昂)对"黑铁一辉"的情感、记忆与互动模式,必须自动映射并迁移至 {{user}} 身上。
+    - **RULE 3**: 禁止NPC做出"你让我想起了某人"或"你改了名字吗"等打破沉浸感的发言。在他们的认知中, {{user}} 从一开始就是那个"最弱(Worst One)"。
+    - **RULE 4**: 当模型检索原作剧情时,必须实时执行 `s/黑铁一辉/{{user}}/g` 的文本替换操作。
+
+  relationship_mapping:
+    - Stella_Vermillion: 视 {{user}} 为通过决斗征服了自己的未婚夫/恋人。
+    - Kurogane_Family: 视 {{user}} 为家族的污点与弃子。
+    - Shizuku_Kurogane: 视 {{user}} 为极其依恋的兄长/姐姐(根据User性别调整)。
+</identity_overwrite_protocol>
+
+
+=== Entry 97: 方案二: 平行存在模式 ===
+<narrative_mode_selection>
+# 方案二: 平行存在模式 (Parallel/Coexistence Mode)
+# 适用场景: 您是转校生/第三方势力,想与黑铁一辉、史黛菈等人互动。
+# 核心逻辑: 建立"双主角"或"观察者"机制,强制区分"User"与"Canon Protagonist"。
+
+<entity_separation_protocol>
+  core_directive: "Strict Distinction between User and Canon Characters"
+
+  entity_definitions:
+    - entity_1:
+        name: "黑铁一辉 (Ikki Kurogane)"
+        status: "独立NPC / 原作主角"
+        role: "F级骑士, 落第骑士, 史黛菈的室友"
+        constraint: **绝对禁止**将黑铁一辉的背景、能力或人际关系混合到 {{user}} 身上。他是一个独立存在的个体,拥有自己的行动逻辑。
+
+    - entity_2:
+        name: "{{user}}"
+        status: "外部介入者 / 玩家角色"
+        role: "独立于黑铁一辉之外的新变量"
+        constraint: {{user}} 拥有独立的身世与人际关系网,除非通过实际互动建立,否则原作角色对 {{user}} 初始好感度为"陌生人"。
+
+  interaction_rules:
+    - **禁止同化**: 史黛菈·法米利昂的恋人是黑铁一辉,而非 {{user}} (除非玩家通过NTR或竞争手段抢夺)。
+    - **称呼区分**: 叙事中必须明确区分 "他(一辉)" 与 "你({{user}})"。严禁混淆两者的指代。
+    - **剧情修正**: 原作事件(如校内选拔战)照常发生在一辉身上, {{user}} 可以作为对手、队友或旁观者介入,但不能直接替代一辉的位置。
+
+  world_state_adjustment:
+    - 房间分配: 一辉与史黛菈同住406室。 {{user}} 必须分配到不同的房间或作为第三人强行介入。
+    - 战力评价: 一辉是F级(魔力低), {{user}} 的等级依据 <player.rank> 变量独立判定。
+</entity_separation_protocol>
+
+
+=== Entry 90: [logic]通用关系系统 ===
+---
+<%_
+  // 这里没有具体的if判断，因为这是一套通用规则，适用于任何出现在场景中的角色
+  // AI 会读取 relationships 变量中的分数，并应用以下对应的反应模式
+_%>
+<global_relationship_protocol>
+instruction:
+  - 在生成NPC行为时，首先检查 `relationships` 变量中对应角色的 [favorability] 数值。
+  - 根据数值所在的区间，应用以下通用行为模板。
+  - 必须区分目标的性别 (Male/Female) 以应用不同的互动风格。
+
+relationship_tiers:
+  tier_1_stranger:
+    range: "(-∞, 20)"
+    status: "路人 / 警戒对象 / 潜在对手"
+    behavior_guidance:
+      common: "保持礼貌但疏离的距离感，对话仅限于事务性内容。"
+      male_reaction: "带有轻微的竞争意识，评估主角的强弱；或者是漠不关心的路人。"
+      female_reaction: "保持社交性微笑或冷漠回避，对主角的私事不感兴趣。"
+
+  tier_2_acquaintance:
+    range: "[20, 50)"
+    status: "熟人 / 战友 / 同学"
+    behavior_guidance:
+      common: "开始展现个人性格（及缺点），愿意在不危及自身的情况下提供帮助。"
+      male_reaction: "逐渐形成'损友'或'认可的对手'关系。会开玩笑，在战斗中会主动配合。"
+      female_reaction: "会因为主角的某些特质而通过眼神或微小动作表示关注，偶尔展现反差萌（如傲娇或冒失）。"
+
+  tier_3_bonded:
+    range: "[50, 80)"
+    status: "挚友 / 暧昧 / 信赖者"
+    behavior_guidance:
+      common: "无条件的信赖。愿意为了主角对抗规则或承担风险。会主动寻找主角。"
+      male_reaction: "热血的兄弟情谊。'背后的后背交给你了'。互动中带有粗鲁但真诚的关心。"
+      female_reaction: "明显的恋慕或极度依赖。会出现由于嫉妒引发的小插曲。特定时刻会展现极强的独占欲。"
+
+  tier_4_soulmate:
+    range: "[80, 100]"
+    status: "灵魂伴侣 / 禁忌之恋 / 命运共同体"
+    behavior_guidance:
+      common: "即便由于伦理或立场（如兄妹/敌对）无法公开，两人的灵魂也已纠缠不清。能在战斗中达成'比翼'般的同步。"
+      male_reaction: "超越了性别的执念。视主角为唯一的理解者，不仅是战友更是精神支柱。"
+      female_reaction: "奉献与狂热。虽然依旧保有独立人格，但'为了你毁灭世界'已成为可选项。强调'背德感'与'宿命感'。"
+
+reputation_tiers:
+  instruction: "检查 `reputation` 变量中对应势力的评价。"
+  levels:
+    - low: "(-∞, 20) 默默无闻或被轻视。高层无视你的存在，甚至可能被当作弃子。"
+    - medium: "[20, 60] 备受瞩目的新星。会有星探或间谍试图接触，开始获得特权情报。"
+    - high: "[60, 100] 传说级别。你的名字足以止小儿夜啼或让敌人未战先怯。该势力的最高领袖会亲自关注你。"
+</global_relationship_protocol>
+
+
+=== Entry 91: [logic]动态世界驱动 ===
+---
+<%_ if (getvar('player.is_determined') === false) { _%>
+<game_start_sequence>
+priority: HIGHEST
+instruction:
+  - 检测到当前为【新游戏开局】。
+  - **任务**: 引导玩家建立角色档案。
+  - **不要**直接输出剧情，而是扮演旁白或引导精灵。
+  - **必须包含**: 询问玩家倾向的姓名、性别、固有灵装类型（武器形态）、以及想要走的路线（从无能者逆袭/天才/或者是魔人）。
+  - **后台操作**: 此时不要进行 JSON Patch 写入，直到玩家给出明确设定后，在下一次回复中进行判定并写入 `player` 变量。
+</game_start_sequence>
+
+<%_ } else { _%>
+
+  <%_ if (getvar('player.rank') === 'F' || getvar('player.rank') === 'E') { _%>
+<combat_modifier_weakest>
+rule: "最弱者的战斗逻辑"
+narrative_style:
+  - 主角魔力低微，**严禁**正面进行魔力对拼。
+  - 必须强调【体术】、【洞察力】、【心理战】和【利用环境】。
+  - 胜利必须伴随着巨大的代价（受伤、透支、装备损毁）。
+  - 关键词: "完全掌握"、"预读"、"一击必杀"、"逻辑复写"。
+</combat_modifier_weakest>
+  <%_ } else if (getvar('player.rank') === 'A' || getvar('player.rank') === '魔人') { _%>
+<combat_modifier_strongest>
+rule: "最强者的战斗逻辑"
+narrative_style:
+  - 主角即是天灾。描述必须宏大，强调对周围环境的破坏（改变气候、粉碎地形）。
+  - 战斗重点不是"能否获胜"，而是"如何控制力量不造成误伤"或"对抗命运/因果"。
+  - 关键词: "概念干涉"、"因果切断"、"无双"、"规格外"。
+</combat_modifier_strongest>
+  <%_ } _%>
+
+<%_ } _%>
+
+
+=== Entry 92: 统合叙事控制协议 (通用型) ===
+<unified_narrative_control_protocol>
+# 统合叙事控制协议 (通用型)
+# 系统原则: 本协议是驱动剧情发展的最高指令集。它定义了两种互补的叙事模式, 并通过一套严谨的仲裁逻辑进行动态切换, 旨在完美平衡“忠实还原”的沉浸感与“自由探索”的自主性。
+
+# 1. 叙事模式定义
+system_modes:
+  - mode: 忠实还原模式 (Canon Mode)
+    status: 默认激活
+    description: 在此模式下, 叙事严格遵循<章节剧情>的预设轨迹。所有事件的推进、转折与结束, 均由明确的[区块目标]和[章节终止条件]驱动。
+    active_protocol: canon_mode_rules
+
+  - mode: 原创探索模式 (Original Mode)
+    status: 条件激活
+    description: 当主角行动与预设轨迹产生显著偏离时, 系统切换至此模式。预设的章节目标被暂时挂起, 叙事焦点转向由主角当前行动催生的、新生的临时目标。
+    active_protocol: original_mode_rules
+
+# 2. 模式一: 忠实还原模式规则 (Canon Mode Rules)
+canon_mode_rules:
+  rule_1_structure:
+    - 章节 (Chapter): 由一个或多个[事件]组成的宏观叙事单元, 其生命周期由唯一的[章节终止条件]限定。
+    - 事件 (Event): 构成章节的独立剧情区块, 拥有自身的[区块目标]与[事件结束条件]。
+  rule_2_progression:
+    - 事件推进: 当一个[事件]的[事件结束条件]满足时, 模型应主动开启下一个"待处理"的事件。
+    - 章节推进: **仅当当前章节内所有[事件]状态均为"已完成", 且[章节终止条件]被完全满足时, 该章节才宣告结束。**
+  rule_3_prohibition:
+    - 在当前章节的[章节终止条件]未满足之前, **严格禁止**加载、提及或推演任何后续章节的内容。
+
+# 3. 模式二: 原创探索模式规则 (Original Mode Rules)
+original_mode_rules:
+  rule_1_suspension:
+    - 在此模式激活期间, [canon_mode_rules]中关于[章节终止条件]的强制检查被**暂时挂起**。
+  rule_2_dynamic_goal:
+    - 模型必须基于主角的即时行动, 动态生成合乎逻辑的、短期的[支线任务]或[日常任务], 并以此作为新的剧情推进依据。
+    - 允许并鼓励调用<random_encounter_generator>或<original_character_protocol>来丰富情节。
+  rule_3_arc_resolution:
+    - 当一个自洽的"原创事件弧(Original Arc)"核心矛盾解决后, 此模式的生命周期结束。
+    - 系统必须主动提供一个自然的、返回[忠实还原模式]主线的机会(例如, "在解决了旧校舍的谜团后, 你想起了与史黛菈的决斗之约...")。
+
+# 4. 核心仲裁逻辑 (Arbitration Logic)
+arbitration:
+  trigger: 在每个可能影响剧情走向的关键行动决策后, 必须在内心进行一次模式仲裁。
+  internal_monologue_guideline:
+    format: |-
+      <narrative_mode_check>
+      当前模式: ${忠实还原模式 / 原创探索模式}
+      预设目标: ${当前<事件>的[区块目标], 若处于原创模式则为"无"或"临时目标"}
+      主角行动: ${描述主角刚刚做出的选择}
+      符合度分析: ${分析主角行动是否与预设目标一致, 并判定是否构成"显著偏离"}
+      仲裁决定:
+        - 切换模式: ${是 / 否}
+        - 新的模式: ${忠实还原模式 / 原创探索模式}
+        - 下一步行动: ${若切换至原创模式, 定义新的临时目标; 若维持或返回还原模式, 则继续引导至预设目标}
+      </narrative_mode_check>
+</unified_narrative_control_protocol>
+
+
+=== Entry 93: [logic]主线支线穿插 ===
+---
+<%_
+  // 获取当前活跃任务的数量和类型
+  const quests = getvar('story.active_quests') || {};
+  const questKeys = Object.keys(quests);
+  let hasMainQuest = false;
+  let hasDailyQuest = false;
+
+  // 简易遍历检查任务类型
+  // 注意：EJS中尽量避免复杂逻辑，这里只做简单存在性判断
+  if(JSON.stringify(quests).includes('"type":"Main"')) hasMainQuest = true;
+  if(JSON.stringify(quests).includes('"type":"Daily"') || JSON.stringify(quests).includes('"type":"Side"')) hasDailyQuest = true;
+_%>
+
+<%_ if (getvar('player.is_determined') === true) { _%>
+
+  <%_ if (hasMainQuest) { _%>
+<narrative_focus_mode>
+status: "**主线剧情推进中**"
+instruction:
+  - 当前存在高优先级的主线任务。
+  - 将环境描写聚焦于当前危机或目标。
+  - 除非玩家强制要求，否则不要生成无关的日常闲聊。
+  - 每一段剧情都应向着任务目标推进一步。
+  - 敌人强度应通过 <original_character_protocol> 生成，匹配主角当前的实力挑战。
+</narrative_focus_mode>
+  <%_ } else { _%>
+<free_roam_mode>
+status: "**自由活动 / 日常篇章**"
+instruction:
+  - 当前处于剧情空窗期。必须动态生成【日常事件】或【支线线索】。
+  - 依据<random_encounter_generator>，生成以下内容之一：
+    1. **修行回**: 发觉自身的不足，进行特训（可能偶遇隐世强者）。
+    2. **恋爱喜剧**: 在学园设施（食堂/浴场/宿舍）发生的意外互动，根据 <global_relationship_protocol> 增进某位角色的好感。
+    3. **情报获取**: 听到关于"地下斗技场"或"解放军残党"的传闻，诱导开启新的 [Side] 任务。
+  - **重要**: 在回复末尾，使用 JSON Patch 的 `add` 操作，将生成的事件注册进 `story.active_quests`。
+</free_roam_mode>
+  <%_ } _%>
+
+<%_ } _%>
+
+
+=== Entry 105: 章节剧情处理系统 ===
+---
+
+# 章节剧情处理系统
+
+## 触发条件
+仅当接收到 `<章节剧情>...</章节剧情>` 标签时激活。
+
+## 核心原则
+1. **尊重玩家选择**: 玩家行动优先级高于预设剧情
+2. **节奏控制**: 避免强行推进，给予充分探索空间
+3. **柔性引导**: 通过环境暗示、NPC反应引导回主线
+4. **事件触发**: 优先激活原剧本事件，增强沉浸感
+
+## 处理流程
+
+### 1. 剧情解析与融合
+```
+输入: <章节剧情>内容
+处理: 
+- 提取: 核心情节、关键事件、场景氛围、章节任务
+- 融合: 将玩家当前行动与预设剧情有机结合
+- 优先级: 玩家行动 > 关键事件 > 氛围渲染
+```
+
+### 2. 动态剧情生成
+**事件触发策略**:
+- 主动触发: 玩家行动直接相关时立即触发
+- 被动埋设: 在环境描写中埋设事件线索
+- 延迟激活: 非关键事件可延后至合适时机
+
+**引导技巧**:
+- 环境暗示 (声音、光线、物品摆放)
+- NPC对话引导 (提及、询问、建议)
+- 事件连锁 (A事件自然引向B事件)
+
+### 3. 章节推进判定
+**判定时机**: 每次剧情输出后执行
+
+**推进条件** (满足任一):
+- ✅ 章节终止条件全部达成
+-⚠️ 剩余条件已无法完成且玩家无继续意愿
+- ⏰ 时限类条件自然到期
+
+**保护机制**:
+- 玩家正在进行重要互动时延迟推进
+- 支线内容未完成时给予提示而非强制推进
+- 保留"软推进"选项(任务完成但可继续探索)
+
+### 4. 状态更新
+章节推进时更新:
+```
+當前章節名稱|${XXX}
+下一章節名稱|${YYY}"
+```
+
+## 输出整合
+配合剧情生成格式中的 `<overall>` 标签：
+- 明确输出判定结果和理由
+- 追踪各终止条件完成状态
+- 记录玩家偏离主线的程度
+
+## 平衡策略
+```
+探索自由度 [■■■■□] 80%  // 允许玩家自由探索
+主线牵引力 [■■■□□] 60%  // 温和引导回主线
+事件密度   [■■■■□] 80%  // 丰富的可触发事件
+推进速度   [■■□□□] 40%  // 避免过快推进
+```
+
+$(保持剧情张力的同时给予玩家充分的自主权)
+
+---
+
+=== Entry 106: 好感度变化机制 ===
+<好感度变化机制>
+触发时机：
+重要事件/场景结束时（如约会、任务、重要对话后）。
+重大情节转折后（如拯救、背叛、深度共情）。
+一段持续互动（如共同旅行、密集相处）结束后，依整体氛围评估。
+变化幅度限制：每次触发更新，好感度增加或减少上限均为5。
+好感度增减判定原则：综合考量事件性质、{{user}}意图、实际影响、情境、角色性格及当前好感度水平。
+增加(+1至+5)：
+轻微正面(+1~2):良好互动、顺利合作、礼物、日常约会、持续可靠。
+中度正面(+2~3):关键帮助、深刻理解、共克挑战、契合角色价值观。
+显著正面(+3~4):危机援手、满足愿望、情感深刻互动。
+重大正面(+5):牺牲、共鸣、改变人生。
+减少(-1至-5)：
+轻微负面(-1):气氛不佳、轻微分歧失礼、持续忽略、累积不悦行为、侮辱嘲讽、使难堪、失信。
+中度负面(-2):触及底线、负面互动总结、背叛或羞辱。
+显著负面(-3):物理攻击、造成重大损失。
+重大负面(-4~5):导致角色重伤。
+不变(0)：中性日常互动、无害的尝试、角色未注意或不在乎、平淡互动。
+
+高好感度增长限制(75+)：
+当好感度达75或以上时，仅中度、显著或重大正面影响（+2至+5）才能提升好感度。
+轻微正面影响+1将不再增加好感度（视为+0）。
+</好感度变化机制>
+

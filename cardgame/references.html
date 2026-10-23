@@ -4,7 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#0d1722">
-  <title>人物素材對照 · 一刀之間</title>
+  <title>人物素材對照 · 落第騎士英雄譚</title>
+  <link rel="stylesheet" href="ikki-unified.css">
   <style>
     :root{color-scheme:dark;--bg:#0a121d;--panel:#13202e;--line:#bca57435;--gold:#d4b789;--text:#ece6da;--muted:#9daab5;--blue:#a4d9e4;font-family:"Microsoft JhengHei","PingFang TC",sans-serif;font-synthesis:none}
     *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% 0,#20314388,transparent 44%),var(--bg);color:var(--text)}button,input{font:inherit}button,a,input{-webkit-tap-highlight-color:transparent}a{color:var(--gold);text-decoration:none}a:hover{text-decoration:underline}button{cursor:pointer;color:inherit}button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid #f1d29a;outline-offset:5px}button{touch-action:manipulation}[hidden]{display:none!important}
@@ -16,13 +17,23 @@
     @media(max-width:620px){.shell{width:calc(100% - 28px)}.topbar{height:68px}.brand{font-size:16px;letter-spacing:3px}.brand small{font-size:7px}.back{font-size:11px;letter-spacing:1px}.heading{padding:31px 0 23px;display:block}.heading h1{font-size:29px;letter-spacing:5px}.heading p{font-size:12px}.edition{display:none}.comparison{grid-template-columns:1fr}.target-panel{border-right:0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:135px 1fr;column-gap:20px;padding:22px}.target-panel>.panel-label,.target-panel>h2{grid-column:1/-1}.target-picture{grid-column:1;grid-row:3/5;min-height:0;padding:15px 0 0;align-self:start}.target-picture img{width:135px}.reference-caption{grid-column:2;font-size:10px;padding-top:15px}.likeness-points{grid-column:2;margin-top:13px;padding-top:13px}.likeness-points h3{font-size:10px;margin-bottom:9px}.likeness-points p{font-size:10px;line-height:1.6;margin:7px 0;gap:7px}.likeness-points p span{font-size:9px}.model-head{padding:22px}.model-frame{height:480px}.controls{gap:15px}.model-note{padding:15px 22px 20px}.section-heading{display:block;margin-top:36px}.section-heading h2{font-size:24px}.manifest-link{display:inline-block;margin-top:13px}.research-stats{gap:16px;padding:14px 0;row-gap:12px}.research-stats b{font-size:19px}.research-stats .policy{width:100%}.gallery{gap:13px;grid-template-columns:1fr}.reference-card figcaption{padding:16px 18px}.reference-card p{font-size:12px}.stella-panel{grid-template-columns:125px 1fr}.stella-image img{width:125px;height:210px}.stella-copy{padding:23px 17px}.stella-copy h2{font-size:18px;letter-spacing:1px}.stella-copy p{font-size:11px}.footer{display:block;padding-bottom:24px}.footer a{display:inline-block;margin-top:12px}}
     .model-frame img.is-loading{visibility:hidden}.model-frame .pending{z-index:5}.model-note a{color:var(--gold)}.anime-profile-crop{position:relative;width:min(230px,100%);aspect-ratio:177/183;overflow:hidden;border:1px solid #e2d4b438;box-shadow:0 12px 25px #0004}.target-picture .anime-profile-crop img{position:absolute;width:350.282486%;max-width:none;height:auto;left:-62.711864%;top:-.546448%;border:0;box-shadow:none}.user-reference{grid-column:1/-1;display:flex;align-items:center;gap:15px;margin-top:24px;padding-top:20px;border-top:1px solid var(--line)}.user-reference img{width:66px;height:auto;border:1px solid #e2d4b438}.user-reference p{font-size:11px;line-height:1.8;color:var(--muted);margin:0}
     @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+    .current-poses{grid-template-columns:repeat(2,minmax(0,1fr));margin-bottom:28px}.current-poses .ikki-frame-thumbnail{display:block;position:relative;height:290px;--actor-height:270px}.current-poses .actor-sprite{position:absolute;left:calc(50% - var(--ikki-unit) * var(--ikki-frame-w) / 2)!important}.archive>summary{padding:18px 0;color:var(--muted);cursor:pointer}.anime-sources{margin-bottom:30px}@media(max-width:620px){.current-poses{grid-template-columns:1fr}.current-poses .ikki-frame-thumbnail{--actor-height:250px;height:270px}}
   </style>
 </head>
 <body>
   <div class="shell">
-    <header class="topbar"><a class="brand" href="./index.html">一刀之間<small>CHIVALRY OF A FAILED KNIGHT</small></a><a class="back" href="./index.html"><span aria-hidden="true">←</span>返回戰鬥預覽</a></header>
+    <header class="topbar"><a class="brand" href="./index.html">落第騎士英雄譚<small>CHIVALRY OF A FAILED KNIGHT</small></a><a class="back" href="./index.html"><span aria-hidden="true">←</span>返回模擬戰</a></header>
     <main>
-      <div class="heading"><div><span class="eyebrow">CHARACTER STUDY / IKKI KUROGANE</span><h1>人物素材對照</h1><p>以動畫側臉和你指定的正面臉型為參考，重新生成頭、頸、制服與持劍身體一體的完整人物。右側是重建戰鬥動作的基準圖。</p></div><span class="edition">UNIFIED CHARACTER BASE</span></div>
+      <div class="heading"><div><span class="eyebrow">CHARACTER STUDY / IKKI KUROGANE</span><h1>人物素材對照</h1><p>以動畫側臉、全身動作及官方設定圖重畫站姿與揮砍。下方顯示目前場上人物；<a href="motion.html">播放站立 → 殘影 → 揮砍 → 歸位 ↗</a></p></div><span class="edition">2026.10.23 / TWO POSES</span></div>
+      <section class="gallery current-poses" aria-label="目前兩張戰鬥姿勢">
+        <figure class="reference-card"><span class="ikki-frame-thumbnail checkerboard" data-pose="guard" role="img" aria-label="目前一輝持刀站姿"><span class="actor-sprite"></span></span><figcaption><h3>站姿</h3><p>待機、突進殘影與歸位共用這張完整人物。</p></figcaption></figure>
+        <figure class="reference-card"><span class="ikki-frame-thumbnail checkerboard" data-pose="slash" role="img" aria-label="目前一輝揮砍姿勢"><span class="actor-sprite"></span></span><figcaption><h3>揮砍</h3><p>同一人物尺度、同一把刀。命中瞬間切換，隨後歸位。</p></figcaption></figure>
+      </section>
+      <section class="anime-sources" aria-labelledby="action-reference-heading"><div class="section-heading"><div><h2 id="action-reference-heading">這次採用的動畫畫面</h2><p>兩張皆為動畫評論頁轉載截圖。全身收刀與握劍近景分別補充動作、臉型和手勢；完整側身待機姿勢由多張參考重建，成品是生成素材。</p></div><a class="manifest-link" href="assets/references/ikki-web/anime-two-pose-references-20261023.json">本輪來源記錄 ↗</a></div><div class="gallery">
+        <figure class="reference-card"><a href="assets/references/ikki-web/ikki-ep08-duel-fullbody.jpg"><img src="assets/references/ikki-web/ikki-ep08-duel-fullbody.jpg" alt="第8話右側一輝背側收刀，雙腳及刀尖完整入鏡"></a><figcaption><h3>第 8 話 · 全身收刀</h3><p>右側白衣人物是一輝。用於雙腳、長褲與持刀方向；這是背側動作，並非待機姿勢。</p><a class="source" href="https://ponpokonwes.com/archives/48503593.html" target="_blank" rel="noopener">動畫評論頁來源 ↗</a></figcaption></figure>
+        <figure class="reference-card"><a href="assets/references/ikki-web/ikki-ep01-hands-face.jpg"><img src="assets/references/ikki-web/ikki-ep01-hands-face.jpg" alt="第1話一輝以雙手持黑色刀柄，展現少年臉型"></a><figcaption><h3>第 1 話 · 臉與握劍</h3><p>用於眼睛、短下巴和雙手握柄。前景金色劍屬於對手，下半身在畫外。</p><a class="source" href="http://blog.livedoor.jp/niwakasokuhou/archives/1041793241.html" target="_blank" rel="noopener">動畫評論頁來源 ↗</a></figcaption></figure>
+      </div></section>
+      <details class="archive"><summary>展開早期立繪存檔（目前戰鬥未使用）</summary>
       <section class="comparison" aria-label="一輝動畫參考與完整側身人物對照">
         <div class="target-panel">
           <div class="panel-label"><b>01</b> 動畫造型依據</div><h2>黑鐵一輝 · 側臉參考</h2>
@@ -39,6 +50,7 @@
         </div>
       </section>
 
+      </details>
       <section aria-labelledby="official-heading">
         <div class="section-heading"><div><h2 id="official-heading">動畫官方參考</h2><p>查閱角色設計頁與 5 集劇情頁，逐張檢視 30 張官方劇照；加上角色設計圖，選出以下 9 張作為臉型、表情與動作依據。</p></div><a class="manifest-link" href="assets/references/ikki-web/manifest.json" target="_blank" rel="noopener">來源記錄 ↗</a></div>
         <div class="research-stats"><span><b>30</b>張劇照已檢視</span><span><b>9</b>張參考保留</span><span><b>5</b>集劇情頁 ＋ 角色設計頁</span><span class="policy">以下皆為官方原圖</span></div>
@@ -55,9 +67,9 @@
         </div>
       </section>
 
-      <section class="stella-panel" aria-label="史黛菈素材預覽"><div class="stella-image checkerboard"><img id="stella-preview" src="assets/stella-idle.png" alt="史黛菈目前的全身待機生成立繪" loading="lazy"><p class="small-pending" id="stella-pending" hidden>史黛菈素材<br>未能載入</p></div><div class="stella-copy"><span class="eyebrow">STELLA VERMILLION</span><h2>史黛菈 · 搭配預覽</h2><p>搭配角色的目前素材，可一起比較兩人的線條、比例與站姿。一輝以新的完整人物基準圖製作戰鬥動作。</p><a href="assets/references/stella-anime.jpg" target="_blank" rel="noopener">查看史黛菈動畫官方設計圖 ↗</a></div></section>
+      <section class="stella-panel" aria-label="史黛菈素材預覽"><div class="stella-image checkerboard"><img id="stella-preview" src="assets/stella-idle.png" alt="史黛菈早期的全身待機生成立繪" loading="lazy"><p class="small-pending" id="stella-pending" hidden>史黛菈素材<br>未能載入</p></div><div class="stella-copy"><span class="eyebrow">STELLA VERMILLION</span><h2>史黛菈 · 早期立繪</h2><p>早期搭配立繪存檔。當前戰鬥使用動作表中的站姿與揮砍，可到動作預覽頁檢視。</p><a href="assets/references/stella-anime.jpg" target="_blank" rel="noopener">查看史黛菈動畫官方設計圖 ↗</a></div></section>
     </main>
-    <footer class="footer"><span>概念預覽 · 動畫官方參考與完整生成立繪已分別標示。<br>來源檢視記錄：2026.10.03</span><a href="./index.html">回到一刀之間，查看實際戰場 →</a></footer>
+    <footer class="footer"><span>動畫參考與生成素材已分別標示。<br>本輪更新：2026.10.23</span><a href="./index.html">返回模擬戰 →</a></footer>
   </div>
   <script>
     (() => {

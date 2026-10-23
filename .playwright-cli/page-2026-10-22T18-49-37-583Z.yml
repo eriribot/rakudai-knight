@@ -1,0 +1,118 @@
+- main [ref=e2]:
+  - generic [ref=e5]:
+    - generic [ref=e6]:
+      - generic [aria-hidden] [ref=e7]: ✦
+      - generic [ref=e8]:
+        - text: 破軍学園
+        - heading "放课后的约定" [level=1] [ref=e9]
+      - generic [ref=e10]: OC DEMO
+    - navigation "演示设置" [ref=e11]:
+      - button "自定义主角" [ref=e12] [cursor=pointer]
+      - button "玩法说明" [ref=e13] [cursor=pointer]: "?"
+      - button "重新对练" [ref=e14] [cursor=pointer]: ↻
+  - region "史黛菈状态" [ref=e15]:
+    - generic [ref=e16]: 紅蓮の皇女
+    - heading "史黛菈·法米利昂" [level=2] [ref=e17]
+    - generic [ref=e18]:
+      - progressbar "史黛菈生命" [ref=e19]
+      - generic [ref=e21]: 108 / 108
+    - generic [ref=e22]: 模拟战 · 幻想形态
+  - complementary "羁绊伙伴" [ref=e24]:
+    - generic [ref=e25]:
+      - generic [ref=e26]: 同行者
+      - generic [ref=e27]: "01"
+    - button "查看绫辻绚濑真命天女卡" [ref=e28] [cursor=pointer]:
+      - img "绫辻绚濑身穿素白浴衣，喜极而泣地抱着夺回的绫辻一刀流道场匾牌" [ref=e29]
+      - generic [aria-hidden] [ref=e30]: 絆
+      - generic [ref=e31]:
+        - generic [ref=e32]: 真命天女
+        - heading "绫辻绚濑" [level=2] [ref=e33]
+        - generic [ref=e34]: 取り戻した居場所
+      - generic [aria-hidden] [ref=e35]: ⤢
+    - button "并肩 回复 12 · 护盾 8 1 / 1" [ref=e36] [cursor=pointer]:
+      - generic [aria-hidden] [ref=e37]: ✧
+      - generic [ref=e38]:
+        - strong [ref=e39]: 并肩
+        - generic [ref=e40]: 回复 12 · 护盾 8
+      - emphasis [ref=e41]: 1 / 1
+    - paragraph [ref=e42]: 「终于……回来了。」
+  - region "对战场景":
+    - generic "史黛菈正面持剑迎战"
+    - generic "史黛菈下回合斩击，造成 14 点伤害":
+      - generic [aria-hidden]: ↘
+      - generic:
+        - generic: 下回合意图
+        - strong: 斩击
+      - generic: "14"
+    - generic: 来吧，让我看看你的剑术。
+  - complementary "回合记录" [ref=e43]:
+    - generic [ref=e44]:
+      - generic [ref=e45]: 交战记录
+      - generic [ref=e46]: ROUND 01
+    - list [ref=e47]:
+      - listitem [ref=e48]: 史黛菈摆好了架势。
+    - button "▷ 观看挥砍" [ref=e49] [cursor=pointer]
+  - status: 你的回合
+  - region "主角状态" [ref=e50]:
+    - generic [aria-hidden] [ref=e51]: 剣
+    - generic [ref=e52]:
+      - strong [ref=e54]: 无名剑士
+      - generic [ref=e55]:
+        - progressbar "主角生命" [ref=e56]
+        - generic [ref=e58]: 76 / 76
+      - generic [ref=e59]: 护盾 0
+  - region "手牌" [ref=e61]:
+    - generic [ref=e62]:
+      - generic [ref=e63]: 抽牌堆 7
+      - generic [ref=e64]: 弃牌堆 0
+    - generic [ref=e65]:
+      - button "斩击，消耗 1 行动，造成 12 点伤害" [ref=e66] [cursor=pointer]:
+        - generic [ref=e67]: "1"
+        - generic [ref=e68]: 斬撃
+        - generic [ref=e73]:
+          - strong [ref=e74]: 斩击
+          - generic [ref=e75]: 造成 12 点伤害
+        - generic [ref=e76]: 攻击
+        - generic [ref=e77]: "1"
+      - button "招架，消耗 1 行动，获得 12 点护盾" [ref=e78] [cursor=pointer]:
+        - generic [ref=e79]: "1"
+        - generic [ref=e80]: 受け流し
+        - generic [ref=e85]:
+          - strong [ref=e86]: 招架
+          - generic [ref=e87]: 获得 12 点护盾
+        - generic [ref=e88]: 防御
+        - generic [ref=e89]: "2"
+      - button "蓄力，消耗 1 行动，下次攻击 +8，抽 1 张牌" [ref=e90] [cursor=pointer]:
+        - generic [ref=e91]: "1"
+        - generic [ref=e92]: 精神統一
+        - generic [ref=e98]:
+          - strong [ref=e99]: 蓄力
+          - generic [ref=e100]: 下次攻击 +8抽 1 张牌
+        - generic [ref=e101]: 技巧
+        - generic [ref=e102]: "3"
+      - button "步法，消耗 0 行动，获得 4 点护盾，抽 1 张牌" [ref=e103] [cursor=pointer]:
+        - generic [ref=e104]: "0"
+        - generic [ref=e105]: 足運び
+        - generic [ref=e110]:
+          - strong [ref=e111]: 步法
+          - generic [ref=e112]: 获得 4 点护盾抽 1 张牌
+        - generic [ref=e113]: 身法
+        - generic [ref=e114]: "4"
+      - button "重斩，消耗 2 行动，造成 26 点伤害" [ref=e115] [cursor=pointer]:
+        - generic [ref=e116]: "2"
+        - generic [ref=e117]: 一振り
+        - generic [ref=e122]:
+          - strong [ref=e123]: 重斩
+          - generic [ref=e124]: 造成 26 点伤害
+        - generic [ref=e125]: 攻击
+        - generic [ref=e126]: "5"
+  - generic [ref=e127]:
+    - generic "行动点 3，上限 3" [ref=e128]:
+      - generic [ref=e129]: 行动
+      - strong [ref=e134]: 3 / 3
+    - button "结束回合 SPACE" [ref=e135] [cursor=pointer]:
+      - text: 结束回合
+      - generic [ref=e136]: SPACE
+  - generic [ref=e137]:
+    - generic [ref=e138]: 自定义主角 · 单场对练
+    - generic [ref=e139]: 1—5 出牌 · 空格结束回合

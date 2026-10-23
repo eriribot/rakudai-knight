@@ -1,0 +1,166 @@
+{
+  "schemaVersion": 1,
+  "title": "一輝兩姿態 v3：動畫參考與生成素材來源",
+  "recordedOn": "2026-10-23",
+  "status": "implemented-browser-verified-awaiting-user-visual-review",
+  "scope": "本輪兩姿態重建的獨立來源記錄；不修改或擴張旁邊 manifest.json 的舊官方來源清單。",
+  "pathBase": "repository-root",
+  "referenceReview": {
+    "visuallyInspected": true,
+    "inspectionEvidence": "本輪主任務已實際查看並提供各圖可用範圍；本記錄另核對本地檔案尺寸與 SHA-256。",
+    "completeSideViewIdleScreenshotFound": false,
+    "conclusion": "未找到合格的完整側身 idle 動畫截圖。採官方臉部／角色設計參考與完整背側動作、握柄畫面組合重建，不能宣稱直接還原某張完整 idle 截圖。"
+  },
+  "references": [
+    {
+      "file": "cardgame/assets/references/ikki-web/ikki-ep08-duel-fullbody.jpg",
+      "sourceUrl": "https://livedoor.blogimg.jp/ponpokonwes/imgs/2/3/232cafa0.jpg",
+      "sourcePage": "https://ponpokonwes.com/archives/48503593.html",
+      "sourceKind": "secondary-episode-review-repost",
+      "episode": 8,
+      "officialDirectRelease": false,
+      "width": 1200,
+      "height": 675,
+      "bytes": 59545,
+      "sha256": "079031cf6545e4fe4e052fb770e3730e906b52481113ffafa35320bb57949ea6",
+      "subject": "右側白衣一輝，全身收刀；雙腳和刀尖完整。",
+      "use": ["全身動作", "長褲與鞋", "黑刀及身體關係"],
+      "limitations": ["背側動作，並非完整側身待機姿勢。", "評論頁轉載的當集截圖，不是本張圖片由官方網站直接發佈的證據。", "未取得正版影片時間碼或逐幀定位。"]
+    },
+    {
+      "file": "cardgame/assets/references/ikki-web/ikki-official-character.jpg",
+      "sourceUrl": "https://ittoshura.com/character/chara_ikki.jpg",
+      "sourcePage": "https://ittoshura.com/character/",
+      "sourceKind": "official-character-design",
+      "officialDirectRelease": true,
+      "width": 960,
+      "height": 700,
+      "bytes": 321848,
+      "sha256": "455ea9352ff5a5772de2fdec35bd7fadf55049a4df3576a828aeafe42d5e07a5",
+      "sourceEvidence": "既有 manifest.json 的來源記錄；本輪本地雜湊再次吻合。",
+      "use": ["臉型及髮型的首要參考", "右側全身設計的人體比例", "制服與中性配色"],
+      "limitations": ["角色設計圖，不能稱為劇中完整側身待機截圖。"]
+    },
+    {
+      "file": "cardgame/assets/references/ikki-web/ikki-ep12-05-blue-sword-profile.jpg",
+      "sourceUrl": "https://ittoshura.com/story/img/onair_p12_5.jpg",
+      "sourcePage": "https://ittoshura.com/story/",
+      "sourceKind": "official-episode-still",
+      "episode": 12,
+      "officialDirectRelease": true,
+      "width": 620,
+      "height": 349,
+      "bytes": 47505,
+      "sha256": "dcb9149961578e3df7eb51aada09bcc48db38a130faeebe11759a8fbd684eef1",
+      "sourceEvidence": "既有 manifest.json 的 onair_p12_5.jpg 記錄；本輪本地雜湊再次吻合。",
+      "use": ["朝右側臉", "不對稱瀏海", "眼鼻下巴輪廓", "握劍動作"],
+      "limitations": ["藍光為戰鬥特效，不能用作日常髮色或服裝配色。", "不是完整側身全身 idle 參考，也不能僅憑藍光判定某個招式。"]
+    },
+    {
+      "file": "cardgame/assets/references/ikki-web/ikki-ep01-hands-face.jpg",
+      "sourceUrl": "https://livedoor.blogimg.jp/niwakasokuhou/imgs/9/1/91a62524.jpg",
+      "sourcePage": "http://blog.livedoor.jp/niwakasokuhou/archives/1041793241.html",
+      "sourceKind": "secondary-episode-review-repost",
+      "episode": 1,
+      "officialDirectRelease": false,
+      "width": 1280,
+      "height": 720,
+      "bytes": 95703,
+      "sha256": "0e0f2f00c5da89d037878d29c537dc767a672d13ecb6259d06247a367fc93c96",
+      "promptInputAlias": "093-91a62524.jpg",
+      "use": ["年輕臉型", "雙手握黑色刀柄的位置"],
+      "limitations": ["畫面裁去下半身，不能用作全身站姿。", "畫面中的金色劍屬對手，不納入一輝武器。", "評論頁轉載的當集截圖，未取得正版影片時間碼或逐幀定位。"]
+    }
+  ],
+  "selectedGeneratedAsset": {
+    "file": "cardgame/assets/ikki-anime-two-pose-v3.png",
+    "generator": "built-in imagegen",
+    "generatedSourceFilename": "exec-5ef67c9a-9d14-4a6e-afc5-0232cd6b1914.png",
+    "width": 1672,
+    "height": 941,
+    "bytes": 638994,
+    "sha256": "5b8fd6d0a61557d0766344d28d78ff96c96404ab0cfa13425555c8af7913a522",
+    "generatedSourceSha256": "5b8fd6d0a61557d0766344d28d78ff96c96404ab0cfa13425555c8af7913a522",
+    "sourceBytesEqual": true,
+    "sourcePixelsEditedAfterGeneration": false,
+    "promptFile": "cardgame/docs/ikki-two-pose-20261023-prompt.txt",
+    "poses": { "left": "idle / ready", "right": "slash" },
+    "officialArtwork": false,
+    "reconstructionBasis": "官方臉部／身體設計與實際動畫全身動作、握柄參考組合重建；不是對單張完整 idle 截圖的還原。",
+    "knownSourceLimitation": "源圖左右刀刃仍有長短差；生成提示詞的等長要求未直接實現在源圖中。",
+    "runtimeBladeTreatment": {
+      "status": "implemented-browser-verified-awaiting-user-visual-review",
+      "method": "兩姿態的 ::after 共用左側站姿同一刀刃紋理，人物及刀刃統一 H/880 源像素尺度；站姿旋轉 0 度，揮砍僅旋轉 -37.795966 度並定位。::before 保留人物、握柄及刀鍔，以 CSS 遮罩排除原刀刃；頭身未拆分。",
+      "sourcePngModification": false,
+      "geometryEvidence": "output/playwright/cardgame/ikki-two-pose-v3-geometry.json",
+      "sourcePixelScale": "actor-height / 880",
+      "sharedBladeCropXywh": [363, 488, 436, 146],
+      "sharedBladePivotInCrop": [0, 13],
+      "sharedBladeAxisLengthSourcePixels": 447.9341469457313,
+      "slashRotationDegrees": -37.79596607674155,
+      "allowedTransforms": ["rigid rotation", "translation"],
+      "poseSpecificScaleChange": false,
+      "frames": {
+        "guard": {
+          "compositeCropXywh": [12, 20, 787, 892],
+          "sourceFootAnchor": [252.5, 908],
+          "bladeRotationDegrees": 0,
+          "bladeAxisLengthAfterTransform": 447.9341469457313,
+          "bodyPixelsCut": 0,
+          "excludedOriginalPixelsRetained": 0
+        },
+        "slash": {
+          "compositeCropXywh": [633, 242, 1139, 664],
+          "sourceFootAnchor": [1006, 902],
+          "bladeRotationDegrees": -37.79596607674155,
+          "bladeAxisLengthAfterTransform": 447.93414694573124,
+          "bodyPixelsCut": 0,
+          "excludedOriginalPixelsRetained": 0,
+          "compositeExtendsBeyondSourceRight": true,
+          "extensionReason": "透明合成框容納旋轉後的共用刀尖；未壓縮刀身或改寫 PNG。"
+        }
+      },
+      "geometryAlphaThreshold": 16,
+      "geometryLimit": "零誤切與零殘留限定於 alpha > 16 的源像素中心檢查；不是人物相似度或瀏覽器實播驗收。",
+      "afterimages": "人物與 sprite 複製保留姿態上下文，沿用相同的 body／blade 偽元素。",
+      "browserEvidence": "output/playwright/cardgame/simple-motion-20261023-result.json"
+    },
+    "visualAcceptance": "awaiting-user-visual-review"
+  },
+  "validation": {
+    "localDimensionsAndHashesChecked": true,
+    "geometryEvidence": "output/playwright/cardgame/ikki-two-pose-v3-geometry.json",
+    "geometryStatus": "passed-at-alpha-threshold-16",
+    "browserStatus": "passed",
+    "browserEvidence": "output/playwright/cardgame/simple-motion-20261023-result.json",
+    "completedAt": "2026-10-22T18:05:06.450Z",
+    "checksPassed": 159,
+    "cases": 10,
+    "pageErrors": 0,
+    "httpFailures": 0,
+    "viewports": [{ "width": 1440, "height": 900 }, { "width": 390, "height": 844 }],
+    "motionTiming": {
+      "nominalNormalMs": 290,
+      "nominalShuraMs": 340,
+      "observedNormalMsRoundedRange": [323, 346],
+      "observedShuraMsRoundedRange": [370, 381],
+      "note": "實測包含瀏覽器幀調度；修羅動作數值不含前置 GIF。"
+    },
+    "mediaCoverage": {
+      "mobile390FullIntro": "passed; actual 2.25-second GIF intro completed",
+      "desktop1440IntroSkip": "passed",
+      "introRestartCancel": "passed",
+      "cutinDurationSeconds": 1.15,
+      "notRun": ["complete-victory-route", "music-track-ended-return", "offline-media"]
+    },
+    "visualPageCheck": {
+      "script": "output/playwright/cardgame/two-pose-visual-check-20261023.js",
+      "poseTiles": 4,
+      "slashCounter": "02 / 02",
+      "references390Overflow": false,
+      "pageErrors": 0,
+      "reportedScreenshotReview": "本輪已查看桌面與390待機、動作頁靜態揮砍及1440素材頁；雙腳、臉部與刀柄連接未見可見斷裂。這不是使用者視覺認可。"
+    },
+    "automatedTestsAreLikenessAcceptance": false
+  }
+}

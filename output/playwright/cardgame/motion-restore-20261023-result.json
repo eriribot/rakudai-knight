@@ -1,0 +1,360 @@
+{
+  "status": "passed",
+  "completedAt": "2026-10-22T16:46:40.299Z",
+  "checks": [
+    "1440 player: all six actual poses play",
+    "1440 player: three steps approach",
+    "1440 player: three steps retreat",
+    "1440 player: visible near-contact travel",
+    "1440 player: returns to original ground position",
+    "1440 player: same sheet and uniform pixel scale, no head transform",
+    "1440 player: source foot anchors remain grounded",
+    "1440 player: bodies remain on their side at contact",
+    "1440 player: visible slash and dash trail",
+    "1440 player: effects cleaned after return",
+    "1440 enemy: all six actual poses play",
+    "1440 enemy: three steps approach",
+    "1440 enemy: three steps retreat",
+    "1440 enemy: visible near-contact travel",
+    "1440 enemy: returns to original ground position",
+    "1440 enemy: same sheet and uniform pixel scale, no head transform",
+    "1440 enemy: source foot anchors remain grounded",
+    "1440 enemy: bodies remain on their side at contact",
+    "1440 enemy: visible slash and dash trail",
+    "1440 enemy: effects cleaned after return",
+    "1440: actual card and enemy attack settle once",
+    "390 player: all six actual poses play",
+    "390 player: three steps approach",
+    "390 player: three steps retreat",
+    "390 player: visible near-contact travel",
+    "390 player: returns to original ground position",
+    "390 player: same sheet and uniform pixel scale, no head transform",
+    "390 player: source foot anchors remain grounded",
+    "390 player: bodies remain on their side at contact",
+    "390 player: visible slash and dash trail",
+    "390 player: effects cleaned after return",
+    "390 enemy: all six actual poses play",
+    "390 enemy: three steps approach",
+    "390 enemy: three steps retreat",
+    "390 enemy: visible near-contact travel",
+    "390 enemy: returns to original ground position",
+    "390 enemy: same sheet and uniform pixel scale, no head transform",
+    "390 enemy: source foot anchors remain grounded",
+    "390 enemy: bodies remain on their side at contact",
+    "390 enemy: visible slash and dash trail",
+    "390 enemy: effects cleaned after return",
+    "390: actual card and enemy attack settle once",
+    "Guard and enemy attack preserve mitigation",
+    "Restart during run cancels pending hits and clears transforms/effects",
+    "Reduced motion preserves damage without running",
+    "Shura keeps user-approved 1.15s overlapping cut-in",
+    "Shura still pays costs and settles once",
+    "Motion preview loads twelve pose controls and both guard idle frames",
+    "Manual frame inspection remains functional",
+    "Slow playback advances actual pose",
+    "Motion preview enemy attack returns to idle",
+    "No page errors or asset HTTP errors"
+  ],
+  "cases": [
+    {
+      "size": {
+        "width": 1440,
+        "height": 900
+      },
+      "side": "player",
+      "travel": 395.609375,
+      "sourceUnit": 0.6640625,
+      "contactGap": 238,
+      "poseSequence": [
+        {
+          "pose": "idle",
+          "phase": "idle",
+          "frame": 5
+        },
+        {
+          "pose": "walk-a",
+          "phase": "approach",
+          "frame": 0
+        },
+        {
+          "pose": "walk-b",
+          "phase": "approach",
+          "frame": 1
+        },
+        {
+          "pose": "walk-c",
+          "phase": "approach",
+          "frame": 2
+        },
+        {
+          "pose": "windup",
+          "phase": "windup",
+          "frame": 3
+        },
+        {
+          "pose": "slash",
+          "phase": "strike",
+          "frame": 4
+        },
+        {
+          "pose": "guard",
+          "phase": "recovery",
+          "frame": 5
+        },
+        {
+          "pose": "walk-c",
+          "phase": "retreat",
+          "frame": 2
+        },
+        {
+          "pose": "walk-b",
+          "phase": "retreat",
+          "frame": 1
+        },
+        {
+          "pose": "walk-a",
+          "phase": "retreat",
+          "frame": 0
+        },
+        {
+          "pose": "idle",
+          "phase": "settle",
+          "frame": 5
+        },
+        {
+          "pose": "idle",
+          "phase": "idle",
+          "frame": 5
+        }
+      ],
+      "samples": 222
+    },
+    {
+      "size": {
+        "width": 1440,
+        "height": 900
+      },
+      "side": "enemy",
+      "travel": 395.609375,
+      "sourceUnit": 0.6640625,
+      "contactGap": 238,
+      "poseSequence": [
+        {
+          "pose": "walk-a",
+          "phase": "approach",
+          "frame": 0
+        },
+        {
+          "pose": "walk-b",
+          "phase": "approach",
+          "frame": 1
+        },
+        {
+          "pose": "walk-c",
+          "phase": "approach",
+          "frame": 2
+        },
+        {
+          "pose": "windup",
+          "phase": "windup",
+          "frame": 3
+        },
+        {
+          "pose": "slash",
+          "phase": "strike",
+          "frame": 4
+        },
+        {
+          "pose": "guard",
+          "phase": "recovery",
+          "frame": 5
+        },
+        {
+          "pose": "walk-c",
+          "phase": "retreat",
+          "frame": 2
+        },
+        {
+          "pose": "walk-b",
+          "phase": "retreat",
+          "frame": 1
+        },
+        {
+          "pose": "walk-a",
+          "phase": "retreat",
+          "frame": 0
+        },
+        {
+          "pose": "idle",
+          "phase": "settle",
+          "frame": 5
+        },
+        {
+          "pose": "idle",
+          "phase": "idle",
+          "frame": 5
+        }
+      ],
+      "samples": 215
+    },
+    {
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "side": "player",
+      "travel": 50.2293701171875,
+      "sourceUnit": 0.4296875,
+      "contactGap": 129.1612548828125,
+      "poseSequence": [
+        {
+          "pose": "idle",
+          "phase": "idle",
+          "frame": 5
+        },
+        {
+          "pose": "walk-a",
+          "phase": "approach",
+          "frame": 0
+        },
+        {
+          "pose": "walk-b",
+          "phase": "approach",
+          "frame": 1
+        },
+        {
+          "pose": "walk-c",
+          "phase": "approach",
+          "frame": 2
+        },
+        {
+          "pose": "windup",
+          "phase": "windup",
+          "frame": 3
+        },
+        {
+          "pose": "slash",
+          "phase": "strike",
+          "frame": 4
+        },
+        {
+          "pose": "guard",
+          "phase": "recovery",
+          "frame": 5
+        },
+        {
+          "pose": "walk-c",
+          "phase": "retreat",
+          "frame": 2
+        },
+        {
+          "pose": "walk-b",
+          "phase": "retreat",
+          "frame": 1
+        },
+        {
+          "pose": "walk-a",
+          "phase": "retreat",
+          "frame": 0
+        },
+        {
+          "pose": "idle",
+          "phase": "settle",
+          "frame": 5
+        },
+        {
+          "pose": "idle",
+          "phase": "idle",
+          "frame": 5
+        }
+      ],
+      "samples": 222
+    },
+    {
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "side": "enemy",
+      "travel": 50.2293701171875,
+      "sourceUnit": 0.4296875,
+      "contactGap": 129.1612548828125,
+      "poseSequence": [
+        {
+          "pose": "walk-a",
+          "phase": "approach",
+          "frame": 0
+        },
+        {
+          "pose": "walk-b",
+          "phase": "approach",
+          "frame": 1
+        },
+        {
+          "pose": "walk-c",
+          "phase": "approach",
+          "frame": 2
+        },
+        {
+          "pose": "windup",
+          "phase": "windup",
+          "frame": 3
+        },
+        {
+          "pose": "slash",
+          "phase": "strike",
+          "frame": 4
+        },
+        {
+          "pose": "guard",
+          "phase": "recovery",
+          "frame": 5
+        },
+        {
+          "pose": "walk-c",
+          "phase": "retreat",
+          "frame": 2
+        },
+        {
+          "pose": "walk-b",
+          "phase": "retreat",
+          "frame": 1
+        },
+        {
+          "pose": "walk-a",
+          "phase": "retreat",
+          "frame": 0
+        },
+        {
+          "pose": "idle",
+          "phase": "settle",
+          "frame": 5
+        },
+        {
+          "pose": "idle",
+          "phase": "idle",
+          "frame": 5
+        }
+      ],
+      "samples": 225
+    }
+  ],
+  "errors": [],
+  "failures": [],
+  "before": {
+    "reducedMotion": false,
+    "visibleArt": "ikki-unified-profile.png",
+    "walkFrames": 0,
+    "desktopTravel": 47.600006103515625,
+    "issue": "Idle portrait never changed to walk/windup/slash imagery; short static slide did not preserve running."
+  },
+  "screenshots": [
+    "motion-restored-idle-1440-20261023.png",
+    "motion-restored-player-1440-20261023.png",
+    "motion-restored-enemy-1440-20261023.png",
+    "motion-restored-idle-390-20261023.png",
+    "motion-restored-player-390-20261023.png",
+    "motion-restored-enemy-390-20261023.png"
+  ],
+  "humanAcceptance": "pending"
+}

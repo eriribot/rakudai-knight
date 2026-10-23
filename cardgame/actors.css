@@ -1,10 +1,9 @@
 @charset "UTF-8";
 
-/* Idle uses the source portrait; movement uses six articulated sheet frames. */
+/* Full-character poses and dash impressions retain the same grounded scale. */
 .combat-stage {
-  --actor-height: 300px;
   position: absolute;
-  inset: 0 0 115px;
+  inset: 0 0 var(--fighter-ground, 130px);
   z-index: 1;
   pointer-events: none;
 }
@@ -13,16 +12,16 @@
 .combat-stage .actor {
   --actor-color: 117, 213, 255;
   position: absolute;
-  width: calc(var(--actor-height) * .72);
-  height: var(--actor-height);
-  margin-left: calc(var(--actor-height) * -.36);
+  width: calc(var(--actor-height, 300px) * .72);
+  height: var(--actor-height, 300px);
+  margin-left: calc(var(--actor-height, 300px) * -.36);
   bottom: 0;
   isolation: isolate;
   transform-origin: 50% 93%;
   will-change: transform;
 }
-.combat-stage .actor-ikki { left: 33%; }
-.combat-stage .actor-stella { left: 67%; --actor-color: 255, 147, 77; }
+.combat-stage .actor-ikki { left: var(--player-x, 28%); }
+.combat-stage .actor-stella { left: var(--enemy-x, 72%); --actor-color: 255, 147, 77; }
 .combat-stage .actor-sprite {
   position: absolute;
   inset: 0;
@@ -32,33 +31,10 @@
   background-repeat: no-repeat;
   transform-origin: 50% 93%;
   filter: drop-shadow(0 3px 2px #070e1e70) drop-shadow(0 0 5px rgba(var(--actor-color), .13));
-  animation: actor-breathe 3.6s ease-in-out infinite;
+  transform: none;
 }
 .combat-stage .actor-ikki .actor-sprite { background-image: url('assets/ikki-unified-profile.png'); }
-.combat-stage .actor-stella .actor-sprite { background-image: url('assets/stella-idle.png'); animation-delay: -1.7s; }
-.combat-stage .actor:not([data-pose="idle"]) .actor-sprite {
-  /* A square viewport crops one cell without stretching the full-body art. */
-  inset: auto;
-  left: 50%;
-  bottom: calc(var(--actor-height) * -.09);
-  width: calc(var(--actor-height) * 1.13);
-  height: calc(var(--actor-height) * 1.13);
-  margin-left: calc(var(--actor-height) * -.565);
-  background-size: 300% 200%;
-  transform: none;
-  animation: none;
-}
-.combat-stage .actor-ikki:not([data-pose="idle"]) .actor-sprite { background-image: url('assets/ikki-unified-motion.png'); }
-.combat-stage .actor-stella:not([data-pose="idle"]) .actor-sprite { background-image: url('assets/stella-motion.png'); }
-.combat-stage .actor[data-pose="walk-a"] .actor-sprite { background-position: 0% 0%; }
-.combat-stage .actor[data-pose="walk-b"] .actor-sprite { background-position: 50% 0%; }
-.combat-stage .actor[data-pose="walk-c"] .actor-sprite { background-position: 100% 0%; }
-.combat-stage .actor[data-pose="windup"] .actor-sprite { background-position: 0% 100%; }
-.combat-stage .actor[data-pose="slash"] .actor-sprite { background-position: 50% 100%; }
-.combat-stage .actor[data-pose="guard"] .actor-sprite { background-position: 100% 100%; }
-.combat-stage .actor.is-active .actor-sprite {
-  animation: none;
-}
+.combat-stage .actor-stella .actor-sprite { background-image: url('assets/stella-idle.png'); }
 .combat-stage .actor-shadow {
   position: absolute;
   left: 14%;
@@ -90,6 +66,11 @@
   pointer-events: none;
 }
 .combat-effect[data-side="enemy"] { --effect-color: 255, 170, 94; }
+.combat-stage .actor.combat-afterimage {
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+}
 .combat-slash {
   height: 4px;
   border-radius: 100%;
@@ -134,15 +115,7 @@
 }
 .combat-read::after { inset: 35%; border-color: #effcff; }
 
-@keyframes actor-breathe {
-  0%, 100% { transform: translateY(0) scaleY(1); }
-  50% { transform: translateY(-1.5px) scaleY(1.006); }
-}
-@media (min-width: 1650px) { .combat-stage { --actor-height: 330px; } }
-@media (max-width: 1100px) { .combat-stage { --actor-height: 280px; } }
-@media (max-width: 760px) { .combat-stage { --actor-height: 235px; bottom: 145px; } .combat-stage .actor-ikki { left:29%; } .combat-stage .actor-stella { left:71%; } }
-@media (max-width: 420px) { .combat-stage { --actor-height: 220px; } }
 @media (prefers-reduced-motion: reduce) {
-  .combat-stage .actor-sprite { animation: none; }
   .combat-stage .actor { will-change: auto; }
+  .combat-stage .combat-afterimage { display: none; }
 }

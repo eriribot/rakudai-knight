@@ -1,0 +1,74 @@
+{
+  "updated": "2026-10-23",
+  "scope": "Standalone local OC battle demo. New artwork was made with the built-in imagegen tool.",
+  "assets": [
+    {
+      "file": "ayase-vow.png",
+      "dimensions": [1024, 1536],
+      "type": "generated illustration",
+      "generator": "built-in imagegen",
+      "prompt": "../docs/ayase-prompt.txt",
+      "original": "C:/Users/weijunxiang/.codex/generated_images/01a16427-6457-7360-b44d-623499084749/exec-ea6cf12f-4a7b-42e8-874e-0600892c92dc.png",
+      "references": [
+        {
+          "file": "references/ayase-official.jpg",
+          "url": "https://ittoshura.com/character/chara_ayase.jpg",
+          "role": "Face and hair identity. Not the outfit."
+        },
+        {
+          "file": "references/ayase-rooftop-ep07.jpg",
+          "url": "https://rabujoi.wordpress.com/wp-content/uploads/2015/11/cav712.jpg",
+          "page": "https://rabujoi.wordpress.com/2015/11/14/rakudai-kishi-no-cavalry-07/",
+          "role": "Episode 7 off-white yukata with dark obi; screenshot collage inspected visually."
+        },
+        {
+          "file": "references/ayase-uniform-ep08.jpg",
+          "url": "https://livedoor.blogimg.jp/ponpokonwes/imgs/4/e/4e0a80e1.jpg",
+          "page": "https://ponpokonwes.com/archives/48503593.html",
+          "role": "Dojo wooden plaque only. This screenshot has a school uniform, not a yukata."
+        }
+      ],
+      "adaptation": "Requested new composition: yukata, tears of joy, hugging the reclaimed plaque. Not an exact anime frame.",
+      "plaqueText": "綾辻一刀流道場"
+    },
+    {
+      "file": "stella-front.png",
+      "dimensions": [1536, 1024],
+      "type": "generated RGBA sprite atlas",
+      "generator": "built-in imagegen",
+      "prompt": "../docs/stella-prompt.txt",
+      "original": "C:/Users/weijunxiang/.codex/generated_images/01a16427-6457-7360-b44d-623499084749/exec-13b8af7d-79c2-4154-b7e3-f806612da313.png",
+      "references": [
+        {
+          "file": "references/stella-official.jpg",
+          "copiedFrom": "../../cardgame/assets/references/stella-anime.jpg",
+          "role": "Official anime face, body proportions, uniform and hair."
+        },
+        {
+          "file": "../../cardgame/assets/stella-anime-motion-v2.png",
+          "role": "Existing golden sword design reference only; new camera angle faces the player."
+        }
+      ],
+      "registration": {
+        "commonBaseHeight": 950,
+        "ready": {
+          "cell": [0, 0, 768, 1024],
+          "anchorInCell": [455, 974],
+          "alphaBoundsGreaterThan16": [15, 25, 746, 978]
+        },
+        "cut": {
+          "cell": [768, 0, 768, 1024],
+          "anchorInCell": [435, 990],
+          "alphaBoundsGreaterThan16": [20, 59, 741, 995]
+        },
+        "method": "One source-pixel scale for both whole-character poses. CSS atlas windows, no raster modification or independent head scaling. Sole anchors visually checked. Slashes, glow and sparks are rendered separately."
+      }
+    },
+    {
+      "file": "arena.png",
+      "dimensions": [1672, 941],
+      "type": "reused local background",
+      "copiedFrom": "../../cardgame/assets/arena-duel.png"
+    }
+  ]
+}

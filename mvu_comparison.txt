@@ -1,0 +1,782 @@
+========================================
+V0.22 MVU ENTRIES
+========================================
+--- UID 3: [initvar]变量初始化 ---
+系统:
+  结构版本: 4
+  开局状态: 待建档
+  主角模式: 未选择
+场景:
+  当前卷: 1
+  当前章: 待选择
+  阶段: 未开始
+  时间: ""
+  地点: ""
+  切入说明: ""
+  已发生事件: {}
+玩家:
+  性别: 男性
+  魔人觉醒: false
+  姓名: ""
+  性格关键词: ""
+  处事风格: ""
+  所属: ""
+  固有灵装: ""
+  角色简介: ""
+  战斗风格: ""
+  伐刀能力:
+    能力系别: ""
+    能力本质: ""
+    共通限制: ""
+    招式: {}
+  其他能力: {}
+  成长:
+    经验:
+      魔力控制: 0
+      体能: 0
+      魔力量: 0
+  六维:
+    攻击力: ""
+    防御力: ""
+    魔力量: ""
+    魔力控制: ""
+    体能: ""
+    运气: ""
+  综合初评:
+    规则版本: R05-第一版
+    分数: null
+    等级: null
+    拟定登记等级: null
+    评定状态: 待填写六维
+    待填写项:
+      - 攻击力
+      - 防御力
+      - 魔力量
+      - 魔力控制
+  登记等级: null
+人际: {}
+
+
+--- UID 8: [MVU]变量列表 ---
+<status_current_variable>
+<%
+const rkCurrent = getvar('stat_data');
+const rkPromptState = rkCurrent && typeof rkCurrent === 'object' ? JSON.parse(JSON.stringify(rkCurrent)) : null;
+const rkObject = value => value !== null && typeof value === 'object' && !Array.isArray(value);
+if (rkPromptState) {
+  delete rkPromptState.$internal;
+  if (rkObject(rkPromptState.系统)) delete rkPromptState.系统.关系计分;
+  if (rkObject(rkPromptState.场景)) {
+    delete rkPromptState.场景.已发生事件;
+  }
+  if (rkObject(rkPromptState.玩家) && rkObject(rkPromptState.玩家.成长)) {
+    const growth = rkPromptState.玩家.成长;
+    rkPromptState.玩家.成长 = Object.hasOwn(growth, '经验') ? { 经验: growth.经验 } : {};
+  }
+}
+%>
+<%- JSON.stringify(rkPromptState) %>
+</status_current_variable>
+
+--- UID 10: [MVU]变量更新规则 ---
+【变量更新规则】
+先读本分支旧值，再核对本轮事实，提交最终值。本局剧情、玩家设定与已保存变量优先于原著默认走向和模型记忆；不强制还原胜负、关系、死亡、觉醒时间或能力。不代玩家决定行动、内心、台词；计划和预告不记成已完成。
+主副 API 共用业务字段权限。主回复每轮自行检查场景、成长、遇见或互动人物的好感与支援、联系资料及赛事事实；实际变化当轮提交，不等副 API 或玩家提醒。不因没有重大事件、没有自身成长而略过日常人际变化。补漏与重试均使用当前聊天、楼层和回复页，只补漏或纠错，同一成果、重试和副校正不再次相加。
+
+【保存与字段】
+已建档不重建；待建档补丁为 []，由开局页完成建档。v2/v3 先经终端迁移；一辉模式不另建同名 NPC。固定字段及数据类型见输出格式。
+代码维护 /系统、/玩家/性别、/玩家/综合初评、成长版本与收据、/人际/<姓名>/名册隐藏及框架元数据。旧成长申请与收据只读留档；模型更新业务事实，不覆盖父对象重置它们。/系统/已删除人物 随分支保存，不从旧正文重建其中人物。
+玩家资料、能力、六维、正式登记等级、成长经验最终值、人际资料及分数均可按已确认事实修正；不另需终端审批。通常写具体叶字段；合并已有对象时保留未提到的资料。能力、事件、人际中的错误条目可以删除，离场或暂时失效不等于删除。
+
+【能力、评级与觉醒】
+伐刀能力包含能力系别、能力本质、共通限制、招式；剑术、体术、分析、生活技艺归其他能力。按本局实际学习、应用、改良结果更新，描述自由，不凭招式名称或原著未来资料授予掌握。
+六维实际档位按事实保存；永久成长与评级纠错可改六维，临时强化、疲劳或受伤写在描述中。正式登记/重评发生时可改登记等级，开局综合初评仍保留历史。无统一 HP/MP/AP/SP，不将原作比例换算成自造消耗数字。
+唯一觉醒开关为 /玩家/魔人觉醒（布尔值），缺字段按 false；本局明确觉醒才设 true，误记可按事实纠正。true 后不反复注入觉醒旧事，不以旧成长境界、卷号、字数或能力名替代布尔开关；觉醒本身不赠经验。
+
+【成长终值】
+<% if (getvar('stat_data.玩家.魔人觉醒') === true) { %>
+魔人觉醒:true。魔力控制、体能、魔力量可按本轮实际成果成长，已有觉醒不再复核。魔力控制与魔力量分别判断，不自动联动。
+<% } else { %>
+魔人觉醒:false。魔力控制、体能可成长，魔力量不获新成长经验；本轮明确觉醒后，先写 true，再计算其后实际产生的魔力量成长。
+<% } %>
+经验来自本轮实际练习、应用、改良或突破。身体实际参与练习才有体能成果，纯想象动作不算肉身训练；历史回忆、跳章和翻日历不补造训练。
+主副 API 直接提交 /玩家/成长/经验/<目标> 的非负整数终值及 /玩家/六维/<目标> 的最终档位，不新建成长申请。经验只记魔力控制、体能、魔力量三项，彼此独立。已有经验与六维可据已确认事实纠错，包括未觉醒时的魔力量旧值；纠错不冒充新成长，评级未知时不猜起点。
+经验是所提交评级的档内进度。门槛：F100、F+100、E150、E+150、D250、D+250、C400、C+400、B600、B+900、A1200、A+1600。达到门槛连续晋级，逐档扣除门槛并保留余量；S为顶档，保留余量。登记等级不随经验自动改变。无约束时模型也须算好晋级、评级与余量后提交终值。
+
+【剧情、事件与日程】
+宿舍按钮维护 /场景/宿舍 布尔值，缺项按 false；true 表示终端正在显示宿舍背景。模型不得进入宿舍、自动改地点或覆盖该标记；玩家主动点击离开由代码设 false。
+仅当本轮玩家指令为“休息”或“宿舍休息”，且旧 /场景/宿舍 为 true，才输出休息一晚及次日清晨的叙事，按上下文更新 /场景/时间（无明确日期不造日期，不保留原小时数），同时设 /场景/宿舍=false；保留地点和历史事件，终端恢复原背景。非宿舍时拒绝这两个休息指令，不推进时间、不提交休息补丁。
+章节完成标识和剧情内容以当前绑定条目为准，不能用目录概要替代。未开始实际入章可改进行中；进行中已满足完成标识，可写已结束（或已完成，代码归一为已结束）交代码推进，或写注入目录的相邻节点及进行中。本轮最多前进一个节点，主副共用本轮进度；正文停在交接处，下一轮展开新章。未确认完成就保留，不因转场或战斗结束自动切章；手动向前切入使用终端。
+完成事件归推进前章节，同事件补原键；只保存已发生结果，不写未来章节，不把不知情者列入。场景时间、地点、切入说明按实际情况更新，未知不编具体日期。日程只记本局已知安排，未知日期留空；实际开始/完成再改状态，完成另记事件。过期、缺席、未来原著安排不自动视为发生。取消或改期保留原条目和依据。
+
+【人际与分数】
+本局实际识别或明确认识的人物可建档；名单和传闻不等于见过。保留亲属、师生等背景关系，不因低分当陌生人。联系状态记录仅识别/已建立联系，首次双向言语或行动即建立联系；联系依据简记建立联系时的双方行动，后续日常互动不覆盖已有联系依据。已加联系方式独立，只在渠道成立时为 true，不以面对面交流代替。
+按事实补性别、身份、登记等级、灵装、已知能力；不填世界书秘密或未来资料。普通新人物好感/支援从0计，已确认背景可按实际深度直接核定。旧数字续算，不归零套初见奖励；未知/旧null保留待核定，可在事实明确时修正。
+好感表现对玩家态度变化，支援表现落实的支持、协作和信任，二者独立。正常友善回应可有普通好感+2—10；新生轻微好感、认可或防备缓和可参考中度+11—20；重大关系改变可参考重度+21—40。负向变化按实际影响核定，支援日常协作可参考+1—5、克服阻碍+6—10、重大协作+10—15。这些为叙事尺度参考，不是硬上限或审批分类。
+有对应回应就及时改分，不能只改态度印象；仍羞恼、没有恋爱、没有重大事件不等于无好感。只有玩家单方示好不强加对方好感；闲聊或许诺不自动增加协作支援。变化依据用一句简短事实记本轮变化与旧值→最终值，不追加历史旧依据，不要求独立突破依据、固定关键词或换措辞。一次回复给每人每项一个合并终值；后续可纠错终值，不能将重放补丁作为新奖励。
+羁绊由支援派生（0—79未建立、80—159 C、160—239 B、240—319 A、320 S）。恋爱阶段只对已确认女性且好感有效者派生（0—199路人、200—499在意、500—799暧昧、800—999交往、1000生死相随）。阶段是表现参考，不倒补未发生告白、婚约或亲密经历，不授予觉醒。
+
+<rk-selection-rules>
+【破军选拔赛】
+/场景/选拔赛 保存本局名册与比赛，本卡默认20轮、288人号池、6席。日期与背景结果由程序维护；只登记已知排期及实际赛果，玩家缺场保留待补。
+名册和比赛沿用稳定ID；每轮每人至多一场，已安排或完成的对手组合不重复，取消不占对手和积分。同场纠错沿用原ID，由程序重算战绩积分。
+本局胜负优先于原著和背景推演。退选或取消资格更新参赛状态；新人物仅在明确中途入赛时填入赛轮次。实际发生一辉拘押时可设/场景/选拔赛/一辉拘押=true，程序据此调整延赛。
+选拔结束时按本局结果确认代表，并更新资格名册；具体字段与程序维护项见输出格式。
+</rk-selection-rules>
+
+【七星剑斗祭代表资格】
+各校统一用/场景/七星剑斗祭/资格名册。沿用资格或选拔ID，无ID玩家用player。明确选定、落选、取消或恢复时更新原记录；玩家确认与纠错有效，缺记录待确认。
+战绩与资格独立；取得或恢复设已取得，失去设已取消，原因简记依据，原战绩保留。按已发生的正式决定更新，争议和预告保留待定。首次补齐缺少的父对象。
+
+<rk-national-rules>
+【七星剑斗祭赛程】
+按本局通知登记比赛、分区和参赛者，支持多人对战。参考日历只供排期；胜者和晋级按实际结果记录，保留玩家行动选择。
+比赛完成时填胜者、晋级至及简短依据。轮空、对手弃权或取消资格等正式晋级裁定写晋级记录，不补造比赛。同一比赛或裁定沿用ID纠错，取消比赛或撤销裁定后程序重算晋级。
+本局改期更新开始日期、结束日期，状态随实际开幕或结束更新；未知时间留空。比赛与晋级记录使用资格名册ID，新增选手先补资格记录。原著签表与回放不写作本局结果。
+</rk-national-rules>
+
+--- UID 41: [MVU]变量更新格式 ---
+【Rakudai · MVU Output Format】
+Follow [MVU]变量更新规则. End the narrative with exactly one <UpdateVariable> containing <Analysis> then <JSONPatch>, with all closing tags.
+Analysis is concise English and reports ONLY actual changes made this turn (`Target: old -> final (brief factual reason)`). Omit unchanged fields, unchanged NPCs, and 0-gain growth targets; never explain why a field did not change. If no factual updates occurred, write `None.` in <Analysis> and `[]` in <JSONPatch>.
+JSONPatch is one complete RFC 6902 JSON array without markdown fences, headings, comments, ellipses or escaped tags. Analysis alone does not save data.
+
+【Operations and Types】
+Paths start with /玩家, /场景 or /人际, never /stat_data.
+Ops: `add` (missing entries/parents), `replace` (existing values), `remove` (confirmed erroneous dynamic entries). Submit final values, not increments. Prefer changed leaf fields; when supplying an object, preserve unrelated existing data. Create missing parent objects with `{}` before children.
+Never write or reset code-owned fields: /系统, /玩家/性别, /玩家/综合初评, growth versions/requests/receipts, /人际/<姓名>/名册隐藏, 恋爱阶段, or framework $internal/display_data/delta_data. Never recreate names listed in /系统/已删除人物.
+Strings, null, {}, [], numbers and native true/false are strict types. Object keys must be stable non-empty names without `/`, `~`, `__proto__`, `prototype` or `constructor`.
+
+【Field Schemas & Enums】
+1. /玩家
+- /玩家/魔人觉醒: boolean (`true` | `false`).
+- /玩家/登记等级: `"F"` | `"E"` | `"D"` | `"C"` | `"B"` | `"A"` | `null`.
+- /玩家/六维/<目标>: targets are `攻击力` | `防御力` | `魔力量` | `魔力控制` | `体能` | `运气`. Grades: `"F"` | `"F+"` | `"E"` | `"E+"` | `"D"` | `"D+"` | `"C"` | `"C+"` | `"B"` | `"B+"` | `"A"` | `"A+"` | `"S"` | `""` (unconfirmed).
+- /玩家/成长/经验/<目标>: targets are `魔力控制` | `体能` | `魔力量`. Value: non-negative integer (remainder after threshold promotions).
+- /玩家/伐刀能力: `{ 能力系别: "" | "体能强化系" | "自然干涉系" | "概念干涉系" | "因果干涉系", 能力本质: string, 共通限制: string, 招式: { [name]: SkillObj } }`.
+- /玩家/其他能力: `{ [name]: SkillObj }`.
+  * `SkillObj`: `{ 说明: string, 条件与代价: string, 掌握状态: "待确认" | "学习中" | "已掌握" }`.
+
+2. /场景
+- /场景/宿舍: boolean (`false` only when executing valid dorm rest command; otherwise omit).
+- /场景/当前卷: integer (`1`..`19`).
+- /场景/当前章: string (exact injected directory key).
+- /场景/阶段: `"未开始"` | `"进行中"` | `"已结束"` (`"已完成"` normalized to `"已结束"`).
+- /场景/时间, /场景/地点, /场景/切入说明: string.
+- /场景/已发生事件/<事件名>: `{ 卷号: integer, 章段: string, 结果: non-empty string, 参与者: string[], 知情者: string[] }`.
+- /场景/日程/<日程名> (optional): `{ 类型: "比赛" | "训练" | "约定" | "其他", 日期: "YYYY-MM-DD" | "", 时间: string, 地点: string, 参与者: string[], 状态: "待定" | "已安排" | "进行中" | "已完成" | "已取消", 说明: string }`.
+
+3. /人际/<姓名>
+- Required on creation: `{ 关系: string, 态度印象: string, 好感: number(0..1000) | null, 支援度: integer(0..320) | null, 羁绊阶段: "未定" | "未建立" | "C" | "B" | "A" | "S", 变化依据: string }` (ordinary new records start at `0`, `0`, `"未建立"`).
+- Optional fields:
+  * `性别`: `"未知"` | `"男性"` | `"女性"`
+  * `联系状态`: `"仅识别"` | `"已建立联系"`
+  * `联系依据`: string (set on initial contact establishment or factual correction; do not overwrite on routine chat)
+  * `已加联系方式`: boolean
+  * `已知资料`: `{ 身份?: string, 登记等级?: string, 灵装?: string, 已知能力?: string }`
+- `变化依据`: brief current-turn factual basis + `旧值→最终值` without appending past history.
+
+<rk-selection-rules>
+4. /场景/选拔赛 (Hagun affiliation confirmed; create `{}` parent if missing)
+- Root defaults when initializing: `{ 版本: "T01", 赛季: "破军学园选拔赛", 状态: "未开始", 总轮次: 20, 代表名额: 6, 号池规模: 288, 模式: "跟随系统", 名册: {}, 比赛: {} }`.
+- Optional flag: `/场景/选拔赛/一辉拘押`: boolean.
+- `/场景/选拔赛/名册/<ID>`: `{ 姓名: string, 来源: "正典" | "原创" | "玩家", 参赛状态: "参赛" | "退选" | "取消资格", 入赛轮次?: integer(1..20) }`. (Never write `初始战绩`, `退赛日期`, or modify existing `入赛轮次`).
+- `/场景/选拔赛/比赛/<ID>`: `{ 轮次: integer, 甲方: rosterID, 乙方: rosterID, 日期: string, 时间: string, 地点: string, 状态: "待定" | "已安排" | "已完成" | "已取消", 胜者?: rosterID, 弃权方?: rosterID, 依据: string }`. (Never write `甲赛前胜场`, `乙赛前胜场`, `结束日期`, `程序战况`, derived points/rankings, or `__rk_bg_` IDs).
+</rk-selection-rules>
+
+5. /场景/七星剑斗祭/资格名册 (All schools; create `/场景/七星剑斗祭` and `资格名册` `{}` parents if missing)
+- `/场景/七星剑斗祭/资格名册/<ID>`: `{ 姓名: string, 学园: string, 资格状态: "待确认" | "已取得" | "未取得" | "已取消", 依据: string }` (Use `player` if player has no existing ID; `依据` states concise factual reason or `""`).
+
+<rk-national-rules>
+6. /场景/七星剑斗祭 (current tournament; preserve existing parents)
+- Optional: 状态: "未开始" | "进行中" | "已结束"; 开始日期、结束日期: "YYYY-MM-DD".
+- /比赛/<ID>: { 轮次: string, 分区: "A" | "B" | "C" | "D" | "决赛区" | "未定", 参赛者: qualificationID[], 日期: "YYYY-MM-DD" | "", 时间: string, 地点: string, 状态: "待定" | "已安排" | "进行中" | "已完成" | "已取消", 胜者?: participantID, 晋级至?: "16强" | "8强" | "4强" | "决赛" | "冠军" | "", 依据: string }. At least two distinct participants; completed matches require winner and basis.
+- /晋级记录/<ID>: { 选手: qualificationID, 阶段: "16强" | "8强" | "4强" | "决赛" | "冠军", 日期: "YYYY-MM-DD" | "", 状态: "已确认" | "已撤销", 依据: string }. Formal advancement without a played match; confirmed decisions require basis.
+</rk-national-rules>
+
+【Empty Result Example】
+<UpdateVariable>
+<Analysis>None.</Analysis>
+<JSONPatch>[]</JSONPatch>
+</UpdateVariable>
+
+========================================
+MOJIAN MVU ENTRIES
+========================================
+--- UID 86: [initvar]变量初始化 ---
+world:
+  date: "新学期伊始"
+  location: "破军学园正门"
+  weather: "晴朗"
+player:
+  is_determined: false
+  name: "待定"
+  identity: "待定"
+  rank: "F"
+  combat_style: "无"
+  device:
+    name: "尚未显现"
+    form: "无"
+    noble_arts: []
+  status:
+    hp_state: "健康"
+    mana_state: "充盈"
+story:
+  current_chapter: "第零卷 起點與日常的小插曲"
+  active_quests: {}
+relationships: {}
+inventory:
+  items: []
+  equipment: []
+  money: "0"
+reputation:
+  破军学园: "默默无闻"
+
+
+--- UID 87: [mvu_update]变量更新规则 ---
+---
+变量更新规则:
+  world:
+    date:
+      check:
+        - 随剧情推进自然变更日期与时间段（早晨/午休/放学后/深夜）。
+        - 需体现学园生活的时间流逝感。
+    location:
+      check:
+        - 主角移动场景时更新。
+    weather:
+      check:
+        - 随时间流逝自然变化。
+        - 在遭遇强力自然干涉系（如A级骑士或魔人）战斗时，天气可能因魔力爆发而突变（如：雷暴、极寒、热浪）。
+
+  player:
+    is_determined:
+      type: boolean
+      check:
+        - 仅在开场判定主角身份后，一次性设为 true。
+        - 此后不可更改，标志着角色档案的固化。
+
+    name:
+      check:
+        - 仅在 is_determined 变为 true 的同一时刻更新。
+
+    identity:
+      check:
+        - 仅在 is_determined 变为 true 的同一时刻更新。
+        - 必须包含：种族、学籍（如破军学园一年级）、职业（如学生骑士）。
+
+    rank:
+      type: string
+      check:
+        - 在初始判定时确立（F-A级）。
+        - 当且仅当主角触发【魔人觉醒 (Desperado)】事件，且意志力突破因果极限制约时，更新为 "魔人" 或 "规格外"。
+
+    combat_style:
+      check:
+        - 初始设定时更新。
+        - 当主角经历重大战斗并融合新的战术理念（如从单纯剑术转为魔剑二刀流）时可更新。
+
+    device:
+      type: |-
+        {
+          name: string;
+          form: string;
+          noble_arts: string[];
+        }
+      check:
+        - 初始判定时生成，基于主角的性格与灵魂本质。
+        - name (灵装真名) 和 form (形态) 通常不变，除非灵魂本质发生质变。
+        - noble_arts (伐刀绝技): 当主角在战斗中领悟新绝技或通过特训掌握新技能时，向数组添加新条目。
+
+    status:
+      hp_state:
+        check:
+          - 战斗中受创、体力耗尽或遭遇精神冲击（灵装受损）时更新。
+          - 描述需具体（如：轻微擦伤/左臂骨折/意识模糊/濒死）。
+          - 接受治疗（如iPS再生槽）后恢复为"健康"。
+      mana_state:
+        check:
+          - 施放大型绝技后消耗。
+          - 依据 rank 判定消耗速度（F级极易枯竭，A级近乎无限）。
+          - 状态描述：充盈 -> 消耗过半 -> 枯竭/透支 -> 魔力中毒。
+
+  story:
+    current_chapter:
+      check:
+        - 仅当满足当前章节所有目标，且剧情推进到下一卷的时间点时才变更。
+        - 必须严格对应<章节列表>中的名称。
+
+    active_quests:
+       type: |-
+        {
+          [任务名: string]: {
+            type: 'Main' | 'Side' | 'Daily' | 'Hidden';
+            description: string;
+            status: string;
+          }
+        }
+       check:
+         - 触发新事件时添加任务 (type: Main/Side/Daily)。
+         - 任务完成时，将 status 更新为 "已完成"，并在下一场景移除。
+         - 任务失败时，将 status 更新为 "失败"。
+
+  relationships:
+    type: |-
+      {
+        [角色名: string]: {
+          favorability: number;
+          relation_display: string;
+          notes: string;
+        }
+      }
+    check:
+      - favorability: 发生重要互动（战斗共斗、情感交流、送礼、冲突）后更新数值。
+      - relation_display: 当好感度跨越阈值（如陌生人->熟人->挚友->恋人/宿敌）时更新。
+      - **特殊规则**: 若为直系血亲且好感度>80，relation_display 可变为 "禁忌的灵魂伴侣" 等特殊描述。
+      - notes: 记录该角色对主角的关键印象或共同经历。
+
+  inventory:
+    items:
+      type: string[]
+      check:
+        - 获得关键道具、购买消耗品时添加。
+        - 消耗或丢失物品时移除。
+    equipment:
+      type: string[]
+      check:
+        - 穿戴/卸下物理装备（便携终端、校服、防具）时更新。
+        *注意：固有灵装包含在 player.device 中，不在此列。*
+    money:
+      type: string
+      check:
+        - 获得奖学金、打工收入或购买物品时更新数值。
+
+  reputation:
+    type: |-
+      { [势力名: string]: string }
+    check:
+      - 完成重大公开事件（如七星剑武祭胜出、挫败恐袭）后，更新对应势力（破军学园/联盟/解放军）的评价描述。
+
+
+--- UID 88: 变量列表 ---
+---
+<status_current_variable>
+{{format_message_variable::stat_data}}
+</status_current_variable>
+
+
+--- UID 89: [mvu_update]变量输出格式 ---
+---
+变量输出格式:
+  rule:
+    - you should output the update analysis and the actual update commands in the end of the next reply
+    - the update commands must strictly follow the **JSON Patch (RFC 6902)** standard, but can only use the following operations: `replace` (replace the value of existing paths), `add` (only used to insert new items into an object or array), `remove`; that is, the output must be a valid JSON array containing operation objects
+  format: |-
+    <UpdateVariable>
+    <Analysis>$(IN ENGLISH, no more than 80 words)
+    - ${calculate time passed: ...}
+    - ${decide whether dramatic updates are allowed as it's in a special case or the time passed is more than usual: yes/no}
+    - ${analyze every variable based on its corresponding `check`, according only to current reply instead of previous plots: ...}
+    </Analysis>
+    <JSONPatch>
+    [
+      { "op": "replace", "path": "${/path/to/variable}", "value": "${new_value}" },
+      { "op": "add", "path": "${/path/to/object/newKey}", "value": "${content}" }
+      { "op": "remove", "path": "${/path/to/array/0}" },
+      ...
+    ]
+    </JSONPatch>
+    </UpdateVariable>
+
+
+--- UID 90: [logic]通用关系系统 ---
+---
+<%_
+  // 这里没有具体的if判断，因为这是一套通用规则，适用于任何出现在场景中的角色
+  // AI 会读取 relationships 变量中的分数，并应用以下对应的反应模式
+_%>
+<global_relationship_protocol>
+instruction:
+  - 在生成NPC行为时，首先检查 `relationships` 变量中对应角色的 [favorability] 数值。
+  - 根据数值所在的区间，应用以下通用行为模板。
+  - 必须区分目标的性别 (Male/Female) 以应用不同的互动风格。
+
+relationship_tiers:
+  tier_1_stranger:
+    range: "(-∞, 20)"
+    status: "路人 / 警戒对象 / 潜在对手"
+    behavior_guidance:
+      common: "保持礼貌但疏离的距离感，对话仅限于事务性内容。"
+      male_reaction: "带有轻微的竞争意识，评估主角的强弱；或者是漠不关心的路人。"
+      female_reaction: "保持社交性微笑或冷漠回避，对主角的私事不感兴趣。"
+
+  tier_2_acquaintance:
+    range: "[20, 50)"
+    status: "熟人 / 战友 / 同学"
+    behavior_guidance:
+      common: "开始展现个人性格（及缺点），愿意在不危及自身的情况下提供帮助。"
+      male_reaction: "逐渐形成'损友'或'认可的对手'关系。会开玩笑，在战斗中会主动配合。"
+      female_reaction: "会因为主角的某些特质而通过眼神或微小动作表示关注，偶尔展现反差萌（如傲娇或冒失）。"
+
+  tier_3_bonded:
+    range: "[50, 80)"
+    status: "挚友 / 暧昧 / 信赖者"
+    behavior_guidance:
+      common: "无条件的信赖。愿意为了主角对抗规则或承担风险。会主动寻找主角。"
+      male_reaction: "热血的兄弟情谊。'背后的后背交给你了'。互动中带有粗鲁但真诚的关心。"
+      female_reaction: "明显的恋慕或极度依赖。会出现由于嫉妒引发的小插曲。特定时刻会展现极强的独占欲。"
+
+  tier_4_soulmate:
+    range: "[80, 100]"
+    status: "灵魂伴侣 / 禁忌之恋 / 命运共同体"
+    behavior_guidance:
+      common: "即便由于伦理或立场（如兄妹/敌对）无法公开，两人的灵魂也已纠缠不清。能在战斗中达成'比翼'般的同步。"
+      male_reaction: "超越了性别的执念。视主角为唯一的理解者，不仅是战友更是精神支柱。"
+      female_reaction: "奉献与狂热。虽然依旧保有独立人格，但'为了你毁灭世界'已成为可选项。强调'背德感'与'宿命感'。"
+
+reputation_tiers:
+  instruction: "检查 `reputation` 变量中对应势力的评价。"
+  levels:
+    - low: "(-∞, 20) 默默无闻或被轻视。高层无视你的存在，甚至可能被当作弃子。"
+    - medium: "[20, 60] 备受瞩目的新星。会有星探或间谍试图接触，开始获得特权情报。"
+    - high: "[60, 100] 传说级别。你的名字足以止小儿夜啼或让敌人未战先怯。该势力的最高领袖会亲自关注你。"
+</global_relationship_protocol>
+
+
+--- UID 91: [logic]动态世界驱动 ---
+---
+<%_ if (getvar('player.is_determined') === false) { _%>
+<game_start_sequence>
+priority: HIGHEST
+instruction:
+  - 检测到当前为【新游戏开局】。
+  - **任务**: 引导玩家建立角色档案。
+  - **不要**直接输出剧情，而是扮演旁白或引导精灵。
+  - **必须包含**: 询问玩家倾向的姓名、性别、固有灵装类型（武器形态）、以及想要走的路线（从无能者逆袭/天才/或者是魔人）。
+  - **后台操作**: 此时不要进行 JSON Patch 写入，直到玩家给出明确设定后，在下一次回复中进行判定并写入 `player` 变量。
+</game_start_sequence>
+
+<%_ } else { _%>
+
+  <%_ if (getvar('player.rank') === 'F' || getvar('player.rank') === 'E') { _%>
+<combat_modifier_weakest>
+rule: "最弱者的战斗逻辑"
+narrative_style:
+  - 主角魔力低微，**严禁**正面进行魔力对拼。
+  - 必须强调【体术】、【洞察力】、【心理战】和【利用环境】。
+  - 胜利必须伴随着巨大的代价（受伤、透支、装备损毁）。
+  - 关键词: "完全掌握"、"预读"、"一击必杀"、"逻辑复写"。
+</combat_modifier_weakest>
+  <%_ } else if (getvar('player.rank') === 'A' || getvar('player.rank') === '魔人') { _%>
+<combat_modifier_strongest>
+rule: "最强者的战斗逻辑"
+narrative_style:
+  - 主角即是天灾。描述必须宏大，强调对周围环境的破坏（改变气候、粉碎地形）。
+  - 战斗重点不是"能否获胜"，而是"如何控制力量不造成误伤"或"对抗命运/因果"。
+  - 关键词: "概念干涉"、"因果切断"、"无双"、"规格外"。
+</combat_modifier_strongest>
+  <%_ } _%>
+
+<%_ } _%>
+
+
+--- UID 92: 统合叙事控制协议 (通用型) ---
+<unified_narrative_control_protocol>
+# 统合叙事控制协议 (通用型)
+# 系统原则: 本协议是驱动剧情发展的最高指令集。它定义了两种互补的叙事模式, 并通过一套严谨的仲裁逻辑进行动态切换, 旨在完美平衡“忠实还原”的沉浸感与“自由探索”的自主性。
+
+# 1. 叙事模式定义
+system_modes:
+  - mode: 忠实还原模式 (Canon Mode)
+    status: 默认激活
+    description: 在此模式下, 叙事严格遵循<章节剧情>的预设轨迹。所有事件的推进、转折与结束, 均由明确的[区块目标]和[章节终止条件]驱动。
+    active_protocol: canon_mode_rules
+
+  - mode: 原创探索模式 (Original Mode)
+    status: 条件激活
+    description: 当主角行动与预设轨迹产生显著偏离时, 系统切换至此模式。预设的章节目标被暂时挂起, 叙事焦点转向由主角当前行动催生的、新生的临时目标。
+    active_protocol: original_mode_rules
+
+# 2. 模式一: 忠实还原模式规则 (Canon Mode Rules)
+canon_mode_rules:
+  rule_1_structure:
+    - 章节 (Chapter): 由一个或多个[事件]组成的宏观叙事单元, 其生命周期由唯一的[章节终止条件]限定。
+    - 事件 (Event): 构成章节的独立剧情区块, 拥有自身的[区块目标]与[事件结束条件]。
+  rule_2_progression:
+    - 事件推进: 当一个[事件]的[事件结束条件]满足时, 模型应主动开启下一个"待处理"的事件。
+    - 章节推进: **仅当当前章节内所有[事件]状态均为"已完成", 且[章节终止条件]被完全满足时, 该章节才宣告结束。**
+  rule_3_prohibition:
+    - 在当前章节的[章节终止条件]未满足之前, **严格禁止**加载、提及或推演任何后续章节的内容。
+
+# 3. 模式二: 原创探索模式规则 (Original Mode Rules)
+original_mode_rules:
+  rule_1_suspension:
+    - 在此模式激活期间, [canon_mode_rules]中关于[章节终止条件]的强制检查被**暂时挂起**。
+  rule_2_dynamic_goal:
+    - 模型必须基于主角的即时行动, 动态生成合乎逻辑的、短期的[支线任务]或[日常任务], 并以此作为新的剧情推进依据。
+    - 允许并鼓励调用<random_encounter_generator>或<original_character_protocol>来丰富情节。
+  rule_3_arc_resolution:
+    - 当一个自洽的"原创事件弧(Original Arc)"核心矛盾解决后, 此模式的生命周期结束。
+    - 系统必须主动提供一个自然的、返回[忠实还原模式]主线的机会(例如, "在解决了旧校舍的谜团后, 你想起了与史黛菈的决斗之约...")。
+
+# 4. 核心仲裁逻辑 (Arbitration Logic)
+arbitration:
+  trigger: 在每个可能影响剧情走向的关键行动决策后, 必须在内心进行一次模式仲裁。
+  internal_monologue_guideline:
+    format: |-
+      <narrative_mode_check>
+      当前模式: ${忠实还原模式 / 原创探索模式}
+      预设目标: ${当前<事件>的[区块目标], 若处于原创模式则为"无"或"临时目标"}
+      主角行动: ${描述主角刚刚做出的选择}
+      符合度分析: ${分析主角行动是否与预设目标一致, 并判定是否构成"显著偏离"}
+      仲裁决定:
+        - 切换模式: ${是 / 否}
+        - 新的模式: ${忠实还原模式 / 原创探索模式}
+        - 下一步行动: ${若切换至原创模式, 定义新的临时目标; 若维持或返回还原模式, 则继续引导至预设目标}
+      </narrative_mode_check>
+</unified_narrative_control_protocol>
+
+
+--- UID 93: [logic]主线支线穿插 ---
+---
+<%_
+  // 获取当前活跃任务的数量和类型
+  const quests = getvar('story.active_quests') || {};
+  const questKeys = Object.keys(quests);
+  let hasMainQuest = false;
+  let hasDailyQuest = false;
+
+  // 简易遍历检查任务类型
+  // 注意：EJS中尽量避免复杂逻辑，这里只做简单存在性判断
+  if(JSON.stringify(quests).includes('"type":"Main"')) hasMainQuest = true;
+  if(JSON.stringify(quests).includes('"type":"Daily"') || JSON.stringify(quests).includes('"type":"Side"')) hasDailyQuest = true;
+_%>
+
+<%_ if (getvar('player.is_determined') === true) { _%>
+
+  <%_ if (hasMainQuest) { _%>
+<narrative_focus_mode>
+status: "**主线剧情推进中**"
+instruction:
+  - 当前存在高优先级的主线任务。
+  - 将环境描写聚焦于当前危机或目标。
+  - 除非玩家强制要求，否则不要生成无关的日常闲聊。
+  - 每一段剧情都应向着任务目标推进一步。
+  - 敌人强度应通过 <original_character_protocol> 生成，匹配主角当前的实力挑战。
+</narrative_focus_mode>
+  <%_ } else { _%>
+<free_roam_mode>
+status: "**自由活动 / 日常篇章**"
+instruction:
+  - 当前处于剧情空窗期。必须动态生成【日常事件】或【支线线索】。
+  - 依据<random_encounter_generator>，生成以下内容之一：
+    1. **修行回**: 发觉自身的不足，进行特训（可能偶遇隐世强者）。
+    2. **恋爱喜剧**: 在学园设施（食堂/浴场/宿舍）发生的意外互动，根据 <global_relationship_protocol> 增进某位角色的好感。
+    3. **情报获取**: 听到关于"地下斗技场"或"解放军残党"的传闻，诱导开启新的 [Side] 任务。
+  - **重要**: 在回复末尾，使用 JSON Patch 的 `add` 操作，将生成的事件注册进 `story.active_quests`。
+</free_roam_mode>
+  <%_ } _%>
+
+<%_ } _%>
+
+
+--- UID 104: 标准输出格式定义 ---
+<output_structure_definition>
+instruction: "你的每一次回复都必须由<maintext>、<overall>、<UpdateVariable>和<StatusPlaceHolderImpl/>4个独立的、有序的模块构成,以实现'故事叙述'、'实时状态'、'宏观进程'和'数据更新'的清晰分离。"
+
+
+1. **<maintext>**
+   - 内容：故事的正文，包含对话、动作、心理描写。
+   - 要求：符合原著文风，生动具体。
+
+3.   - module: <overall>
+    "终止条件状态|${各条件完成情况}
+     判定理由|${具体分析}
+     判定结果|${继续当前章节/推进至下一章节}
+     當前章節名稱|${XXX}
+     下一章節名稱|${YYY}"
+
+4. **<UpdateVariable>**
+   - 内容：变量更新指令。
+   - 格式：
+     <Analysis>${英文分析变化原因}</Analysis>
+     <JSONPatch>
+     [
+       { "op": "replace", "path": "...", "value": ... },
+       ...
+     ]
+     </JSONPatch>
+
+5. **<StatusPlaceHolderImpl/>**
+   - 内容：固定输出 `<StatusPlaceHolderImpl/>` 标签，用于系统锚点。
+
+# 附加约束：
+- 除非玩家明确要求，否则不要省略 <overall> 和 <UpdateVariable>。
+- 严禁在 <maintext> 中出现 "设定上的"、"系统提示" 等打破第四面墙的词语（除非是模拟宇宙的系统音）。
+
+## 填写规则
+
+### 基础信息
+- **时间**: `时间段`(黎明/正午/黄昏/深夜)+`时刻`(如11:30)
+- **地点**: `主场景-子场景`格式
+- **人物**: 逗号分隔，无空格
+- **未知信息**: 使用`{{未知}}`占位
+
+### 章节推进判定
+**判定时机**: 每次输出都需判定
+**推进条件** (满足任一即推进):
+1. 所有终止条件已达成
+2. 剩余条件已无法达成(需说明原因)
+
+**判定输出**:
+- 判定结果: 明确声明`继续当前章节`或`推进至下一章节`
+- 判定理由: 50字内说明判定依据
+- 条件状态: 逐条标注`✓已完成`/`✗未完成`/`⚠无法完成`
+
+### 章节终止条件
+- **格式**: `1.条件一\n2.条件二\n3.条件三`（仅此处使用`\n`，其他字段均不使用）
+- 条件应具体可验证
+
+### 章节终止条件 ⚠️ 格式关键区域
+必须严格遵守以下格式，否则前端解析失败：
+✅ 强制要求：
+条目间使用\n换行符分隔（不是空格、不是实际换行）
+编号格式：1.条件描述\n2.条件描述\n3.条件描述
+条件应具体可验证
+字面输入字符\和n，不是实际换行
+
+###當前章節名稱與下一章節名稱
+**判定时机**: 每次输出都需判定
+**判定劇情名稱範圍** :僅限從<剧情列表>讀取
+**判定替換劇情名稱條件**: 當 判定结果 顯示 推进至下一章节，在下輪回覆要將下一章節名稱{YYY}替換至當前章節名稱{XXX}
+
+## <overall>示例输出
+
+示例1
+<overall>
+终止条件状态|1.✗未完成 2.✗未完成 3.✗未完成
+判定理由|三个终止条件均未达成，任务仍在进行中
+判定结果|推进至下一章节
+當前章節名稱|第三卷 故事的開端
+下一章節名稱|第十一卷 第二个故事
+</overall>
+
+示例2
+<overall>
+终止条件状态|1.✗未完成 2.✗未完成 3.✗未完成(剩120分钟)
+判定理由|三个终止条件均未达成，任务仍在进行中
+判定结果|继续当前章节
+當前章節名稱|第一卷 特洛伊战争
+下一章節名稱|第二卷 诸神黄昏之狼
+</overall>
+
+
+
+$(严格遵守XML格式，确保标签闭合完整)
+
+
+
+
+
+</output_structure_definition>
+
+
+--- UID 105: 章节剧情处理系统 ---
+---
+
+# 章节剧情处理系统
+
+## 触发条件
+仅当接收到 `<章节剧情>...</章节剧情>` 标签时激活。
+
+## 核心原则
+1. **尊重玩家选择**: 玩家行动优先级高于预设剧情
+2. **节奏控制**: 避免强行推进，给予充分探索空间
+3. **柔性引导**: 通过环境暗示、NPC反应引导回主线
+4. **事件触发**: 优先激活原剧本事件，增强沉浸感
+
+## 处理流程
+
+### 1. 剧情解析与融合
+```
+输入: <章节剧情>内容
+处理: 
+- 提取: 核心情节、关键事件、场景氛围、章节任务
+- 融合: 将玩家当前行动与预设剧情有机结合
+- 优先级: 玩家行动 > 关键事件 > 氛围渲染
+```
+
+### 2. 动态剧情生成
+**事件触发策略**:
+- 主动触发: 玩家行动直接相关时立即触发
+- 被动埋设: 在环境描写中埋设事件线索
+- 延迟激活: 非关键事件可延后至合适时机
+
+**引导技巧**:
+- 环境暗示 (声音、光线、物品摆放)
+- NPC对话引导 (提及、询问、建议)
+- 事件连锁 (A事件自然引向B事件)
+
+### 3. 章节推进判定
+**判定时机**: 每次剧情输出后执行
+
+**推进条件** (满足任一):
+- ✅ 章节终止条件全部达成
+-⚠️ 剩余条件已无法完成且玩家无继续意愿
+- ⏰ 时限类条件自然到期
+
+**保护机制**:
+- 玩家正在进行重要互动时延迟推进
+- 支线内容未完成时给予提示而非强制推进
+- 保留"软推进"选项(任务完成但可继续探索)
+
+### 4. 状态更新
+章节推进时更新:
+```
+當前章節名稱|${XXX}
+下一章節名稱|${YYY}"
+```
+
+## 输出整合
+配合剧情生成格式中的 `<overall>` 标签：
+- 明确输出判定结果和理由
+- 追踪各终止条件完成状态
+- 记录玩家偏离主线的程度
+
+## 平衡策略
+```
+探索自由度 [■■■■□] 80%  // 允许玩家自由探索
+主线牵引力 [■■■□□] 60%  // 温和引导回主线
+事件密度   [■■■■□] 80%  // 丰富的可触发事件
+推进速度   [■■□□□] 40%  // 避免过快推进
+```
+
+$(保持剧情张力的同时给予玩家充分的自主权)
+
+---
+
+--- UID 106: 好感度变化机制 ---
+<好感度变化机制>
+触发时机：
+重要事件/场景结束时（如约会、任务、重要对话后）。
+重大情节转折后（如拯救、背叛、深度共情）。
+一段持续互动（如共同旅行、密集相处）结束后，依整体氛围评估。
+变化幅度限制：每次触发更新，好感度增加或减少上限均为5。
+好感度增减判定原则：综合考量事件性质、{{user}}意图、实际影响、情境、角色性格及当前好感度水平。
+增加(+1至+5)：
+轻微正面(+1~2):良好互动、顺利合作、礼物、日常约会、持续可靠。
+中度正面(+2~3):关键帮助、深刻理解、共克挑战、契合角色价值观。
+显著正面(+3~4):危机援手、满足愿望、情感深刻互动。
+重大正面(+5):牺牲、共鸣、改变人生。
+减少(-1至-5)：
+轻微负面(-1):气氛不佳、轻微分歧失礼、持续忽略、累积不悦行为、侮辱嘲讽、使难堪、失信。
+中度负面(-2):触及底线、负面互动总结、背叛或羞辱。
+显著负面(-3):物理攻击、造成重大损失。
+重大负面(-4~5):导致角色重伤。
+不变(0)：中性日常互动、无害的尝试、角色未注意或不在乎、平淡互动。
+
+高好感度增长限制(75+)：
+当好感度达75或以上时，仅中度、显著或重大正面影响（+2至+5）才能提升好感度。
+轻微正面影响+1将不再增加好感度（视为+0）。
+</好感度变化机制>
+

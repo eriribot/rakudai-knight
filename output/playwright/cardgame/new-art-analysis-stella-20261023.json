@@ -1,0 +1,608 @@
+{
+  "source": "C:\\Users\\weijunxiang\\.codex\\generated_images\\01a16427-6457-7360-b44d-623499084749\\exec-053791d5-a2c5-4aca-8872-575e7dc46f42.png",
+  "sha256": "a3c6cfb61f180fc3f256f3aae5a5c173768fa7eff7b4bb2575bc298a3ceb2c57",
+  "dimensions": [
+    1536,
+    1024
+  ],
+  "source_mode": "RGBA",
+  "alpha_threshold": 16,
+  "connectivity": 8,
+  "alpha_extrema": [
+    0,
+    254
+  ],
+  "transparent_fraction": 0.661395,
+  "component_count": 6,
+  "candidate_min_pixels": 128,
+  "candidate_count": 6,
+  "candidates": [
+    {
+      "component_ids": [
+        6
+      ],
+      "alpha_bbox": [
+        422,
+        607,
+        1070,
+        969
+      ],
+      "crop_xywh": [
+        418,
+        603,
+        656,
+        370
+      ],
+      "alpha_pixels": 57314,
+      "foreign_components_in_crop": [
+        {
+          "component_id": 4,
+          "pixels_in_crop": 70
+        },
+        {
+          "component_id": 5,
+          "pixels_in_crop": 4070
+        }
+      ],
+      "requires_isolation_review": true,
+      "grid_cells_touched": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "foot_anchor": null
+    },
+    {
+      "component_ids": [
+        5
+      ],
+      "alpha_bbox": [
+        100,
+        529,
+        576,
+        969
+      ],
+      "crop_xywh": [
+        96,
+        525,
+        484,
+        448
+      ],
+      "alpha_pixels": 52713,
+      "foreign_components_in_crop": [
+        {
+          "component_id": 6,
+          "pixels_in_crop": 2153
+        }
+      ],
+      "requires_isolation_review": true,
+      "grid_cells_touched": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "foot_anchor": null
+    },
+    {
+      "component_ids": [
+        3
+      ],
+      "alpha_bbox": [
+        993,
+        116,
+        1523,
+        494
+      ],
+      "crop_xywh": [
+        989,
+        112,
+        538,
+        386
+      ],
+      "alpha_pixels": 51071,
+      "foreign_components_in_crop": [
+        {
+          "component_id": 1,
+          "pixels_in_crop": 57
+        }
+      ],
+      "requires_isolation_review": true,
+      "grid_cells_touched": [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      "foot_anchor": null
+    },
+    {
+      "component_ids": [
+        4
+      ],
+      "alpha_bbox": [
+        1054,
+        508,
+        1500,
+        974
+      ],
+      "crop_xywh": [
+        1050,
+        504,
+        454,
+        474
+      ],
+      "alpha_pixels": 50835,
+      "foreign_components_in_crop": [
+        {
+          "component_id": 6,
+          "pixels_in_crop": 359
+        }
+      ],
+      "requires_isolation_review": true,
+      "grid_cells_touched": [
+        [
+          2,
+          0
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "foot_anchor": null
+    },
+    {
+      "component_ids": [
+        2
+      ],
+      "alpha_bbox": [
+        14,
+        94,
+        532,
+        493
+      ],
+      "crop_xywh": [
+        10,
+        90,
+        526,
+        407
+      ],
+      "alpha_pixels": 50189,
+      "foreign_components_in_crop": [
+        {
+          "component_id": 1,
+          "pixels_in_crop": 444
+        }
+      ],
+      "requires_isolation_review": true,
+      "grid_cells_touched": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "foot_anchor": null
+    },
+    {
+      "component_ids": [
+        1
+      ],
+      "alpha_bbox": [
+        494,
+        77,
+        993,
+        499
+      ],
+      "crop_xywh": [
+        490,
+        73,
+        507,
+        430
+      ],
+      "alpha_pixels": 45169,
+      "foreign_components_in_crop": [
+        {
+          "component_id": 2,
+          "pixels_in_crop": 1312
+        },
+        {
+          "component_id": 3,
+          "pixels_in_crop": 11
+        }
+      ],
+      "requires_isolation_review": true,
+      "grid_cells_touched": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "foot_anchor": null
+    }
+  ],
+  "warnings": [
+    "Some bounding boxes cross nominal 3x2 cells; fixed-cell cropping is unsafe"
+  ],
+  "verified_poses": {
+    "walk-a": {
+      "component_ids": [
+        2
+      ],
+      "alpha_bbox": [
+        14,
+        94,
+        532,
+        493
+      ],
+      "crop_xywh": [
+        10,
+        90,
+        526,
+        407
+      ],
+      "alpha_pixels": 50189,
+      "foreign_components_in_crop": [
+        {
+          "component_id": 1,
+          "pixels_in_crop": 444
+        }
+      ],
+      "requires_isolation_review": true,
+      "grid_cells_touched": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "foot_anchor": null
+    },
+    "walk-b": {
+      "component_ids": [
+        1
+      ],
+      "alpha_bbox": [
+        494,
+        77,
+        993,
+        499
+      ],
+      "crop_xywh": [
+        490,
+        73,
+        507,
+        430
+      ],
+      "alpha_pixels": 45169,
+      "foreign_components_in_crop": [
+        {
+          "component_id": 2,
+          "pixels_in_crop": 1312
+        },
+        {
+          "component_id": 3,
+          "pixels_in_crop": 11
+        }
+      ],
+      "requires_isolation_review": true,
+      "grid_cells_touched": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "foot_anchor": null
+    },
+    "walk-c": {
+      "component_ids": [
+        3
+      ],
+      "alpha_bbox": [
+        993,
+        116,
+        1523,
+        494
+      ],
+      "crop_xywh": [
+        989,
+        112,
+        538,
+        386
+      ],
+      "alpha_pixels": 51071,
+      "foreign_components_in_crop": [
+        {
+          "component_id": 1,
+          "pixels_in_crop": 57
+        }
+      ],
+      "requires_isolation_review": true,
+      "grid_cells_touched": [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      "foot_anchor": null
+    },
+    "windup": {
+      "component_ids": [
+        5
+      ],
+      "alpha_bbox": [
+        100,
+        529,
+        576,
+        969
+      ],
+      "crop_xywh": [
+        96,
+        525,
+        484,
+        448
+      ],
+      "alpha_pixels": 52713,
+      "foreign_components_in_crop": [
+        {
+          "component_id": 6,
+          "pixels_in_crop": 2153
+        }
+      ],
+      "requires_isolation_review": true,
+      "grid_cells_touched": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "foot_anchor": null
+    },
+    "slash": {
+      "component_ids": [
+        6
+      ],
+      "alpha_bbox": [
+        422,
+        607,
+        1070,
+        969
+      ],
+      "crop_xywh": [
+        418,
+        603,
+        656,
+        370
+      ],
+      "alpha_pixels": 57314,
+      "foreign_components_in_crop": [
+        {
+          "component_id": 4,
+          "pixels_in_crop": 70
+        },
+        {
+          "component_id": 5,
+          "pixels_in_crop": 4070
+        }
+      ],
+      "requires_isolation_review": true,
+      "grid_cells_touched": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "foot_anchor": null
+    },
+    "guard": {
+      "component_ids": [
+        4
+      ],
+      "alpha_bbox": [
+        1054,
+        508,
+        1500,
+        974
+      ],
+      "crop_xywh": [
+        1050,
+        504,
+        454,
+        474
+      ],
+      "alpha_pixels": 50835,
+      "foreign_components_in_crop": [
+        {
+          "component_id": 6,
+          "pixels_in_crop": 359
+        }
+      ],
+      "requires_isolation_review": true,
+      "grid_cells_touched": [
+        [
+          2,
+          0
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "foot_anchor": null
+    }
+  },
+  "review_required": "Visually assign pose components and supporting shoe rectangles before deriving CSS anchors",
+  "alpha_background_diagnostics": {
+    "name": "stella",
+    "alpha_bands": {
+      "0-0": 1040284,
+      "1-4": 203260,
+      "5-16": 22029,
+      "17-64": 12634,
+      "65-128": 9048,
+      "129-249": 77988,
+      "250-255": 207621
+    },
+    "nonzero_alpha_farther_than_8px_from_core": 113496,
+    "max_alpha_noncore_distance": 213.95326592506132,
+    "samples": {
+      "0,0": [
+        7,
+        6,
+        1,
+        0
+      ],
+      "100,100": [
+        52,
+        36,
+        24,
+        0
+      ],
+      "450,400": [
+        90,
+        76,
+        76,
+        0
+      ],
+      "700,700": [
+        163,
+        112,
+        112,
+        1
+      ],
+      "1000,600": [
+        98,
+        61,
+        56,
+        0
+      ]
+    },
+    "far_residue_alpha_extrema": [
+      1,
+      6
+    ],
+    "transparent_rgb_note": "RGB color beneath alpha=0 is invisible under correct alpha compositing and is not an opaque background."
+  },
+  "interior_opacity_diagnostics": {
+    "sample_rgba": {
+      "274,466": [
+        61,
+        57,
+        61,
+        251
+      ],
+      "477,468": [
+        63,
+        58,
+        63,
+        251
+      ],
+      "293,280": [
+        240,
+        239,
+        240,
+        253
+      ],
+      "230,173": [
+        130,
+        43,
+        48,
+        253
+      ],
+      "326,173": [
+        198,
+        74,
+        91,
+        251
+      ],
+      "294,223": [
+        226,
+        227,
+        233,
+        253
+      ]
+    },
+    "eroded_interior_pixels": 253697,
+    "interior_alpha_below_230": 6228,
+    "interior_alpha_below_128": 2333,
+    "interior_alpha_quantiles": [
+      17.0,
+      139.0,
+      247.0,
+      252.0,
+      253.0,
+      254.0
+    ]
+  },
+  "nominal_grid": {
+    "columns": 3,
+    "rows": 2
+  },
+  "visually_identified_pose_components": {
+    "walk-a": 2,
+    "walk-b": 1,
+    "walk-c": 3,
+    "windup": 5,
+    "slash": 6,
+    "guard": 4
+  },
+  "visual_review": {
+    "status": "candidate_requires_art_review",
+    "foot_anchor_status": "Not measured; no visually verified shoe rectangles supplied.",
+    "anatomy_note": "Posed silhouette height includes crouching and raised legs; it cannot be used as a standing head-count measurement. Compare guard with the approved TV-anime reference at matched head size before calling the proportions final.",
+    "source_pixels_modified": false,
+    "art_findings": [
+      "The apparent diffuse colored backdrop is mostly RGB under alpha=0; there is also very low-alpha residue away from character edges.",
+      "Long twin tails and bows must not count toward anatomical head size. Guard is the appropriate standing-proportion reference.",
+      "All six rectangular alpha bounds include some neighboring pose pixels; direct rectangle-only sprite rendering will show fragments."
+    ]
+  }
+}

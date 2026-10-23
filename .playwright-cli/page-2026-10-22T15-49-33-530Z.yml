@@ -1,0 +1,156 @@
+- main [ref=e2]:
+  - generic [ref=e3]:
+    - generic [ref=e4]:
+      - link "重新開啟模擬戰" [ref=e5] [cursor=pointer]:
+        - /url: ./index.html
+        - text: 落第騎士英雄譚
+      - generic [ref=e6]: 破軍學園 / 模擬戰
+    - generic [ref=e7]:
+      - generic [ref=e8]: 第 1 回合
+      - generic [ref=e9]: 我方行動
+    - navigation "戰鬥工具" [ref=e10]:
+      - button "關閉音樂與音效" [pressed] [ref=e11] [cursor=pointer]: ♫
+      - button "玩法說明" [ref=e12] [cursor=pointer]: "?"
+      - group [ref=e13]:
+        - generic "開啟選單" [ref=e14] [cursor=pointer]:
+          - generic [aria-hidden] [ref=e15]: ☰
+  - region "一輝與史黛菈的戰場" [ref=e16]:
+    - img "暮色中的破軍學園訓練競技場"
+    - generic [ref=e17]:
+      - strong [ref=e18]: 烈焰斬
+      - generic [ref=e19]:
+        - generic [aria-hidden] [ref=e20]: ⚔
+        - generic [ref=e21]: "14"
+        - generic [ref=e22]: 對手意圖
+      - paragraph [ref=e23]: 回合結束：傷害 14 · 60 MP
+    - generic:
+      - img "黑鐵一輝：完整側身戰鬥人物"
+      - img "史黛菈：完整戰鬥人物"
+    - generic [aria-hidden]:
+      - generic: ITTO SHURA
+      - strong: 一刀修羅
+    - article "黑鐵一輝狀態" [ref=e24]:
+      - generic [ref=e25]:
+        - heading "黑鐵一輝" [level=2] [ref=e26]
+        - generic "格擋" [ref=e27]:
+          - generic [aria-hidden] [ref=e28]: ◇
+          - generic [ref=e30]: "0"
+      - generic [ref=e31]:
+        - generic [ref=e32]: 體力
+        - meter "一輝體力" [ref=e33]:
+          - generic [ref=e35]:
+            - generic [ref=e36]: "100"
+            - generic [ref=e37]: /
+            - generic [ref=e38]: "100"
+      - generic [ref=e39]:
+        - generic [ref=e40]: MP
+        - meter "一輝魔力" [ref=e41]:
+          - generic [ref=e43]:
+            - generic [ref=e44]: "10"
+            - generic [ref=e45]: /
+            - generic [ref=e46]: "10"
+      - generic [ref=e47]:
+        - generic [ref=e48]:
+          - text: 看破
+          - generic [ref=e49]: "0"
+          - generic [ref=e50]: "%"
+        - meter "看破進度" [ref=e51]
+    - article "史黛菈狀態" [ref=e52]:
+      - generic [ref=e53]:
+        - heading "史黛菈・法米利昂" [level=2] [ref=e54]
+        - generic "格擋" [ref=e55]:
+          - generic [aria-hidden] [ref=e56]: ◇
+          - generic [ref=e58]: "0"
+      - generic [ref=e59]:
+        - generic [ref=e60]: 體力
+        - meter "史黛菈體力" [ref=e61]:
+          - generic [ref=e63]:
+            - generic [ref=e64]: "120"
+            - generic [ref=e65]: /
+            - generic [ref=e66]: "120"
+      - generic [ref=e67]:
+        - generic [ref=e68]: MP
+        - meter "史黛菈魔力" [ref=e69]:
+          - generic [ref=e71]:
+            - generic [ref=e72]: "3000"
+            - generic [ref=e73]: /
+            - generic [ref=e74]: "3000"
+      - generic [ref=e75]:
+        - generic [aria-hidden] [ref=e76]: ◇
+        - generic [ref=e77]: 異能護盾
+        - generic [ref=e78]: "0"
+    - status [ref=e79]: 查看對手意圖，再選擇手牌。
+  - region "出牌區" [ref=e80]:
+    - generic [ref=e81]:
+      - generic [ref=e82]:
+        - generic [ref=e83]: 選擇手牌
+        - emphasis [ref=e84]: 5 張手牌
+      - generic [ref=e85]:
+        - text: 點擊出牌
+        - generic [ref=e86]: 1–6
+    - generic [ref=e87]:
+      - complementary "行動點與抽牌堆" [ref=e88]:
+        - generic [ref=e89]:
+          - generic [ref=e90]:
+            - generic [ref=e91]: "3"
+            - emphasis [ref=e92]: / 3
+          - strong [ref=e93]: AP
+        - button "抽牌堆 10" [ref=e98] [cursor=pointer]:
+          - generic [aria-hidden] [ref=e99]: ▱
+          - generic [ref=e100]: 抽牌堆
+          - generic [ref=e101]: "10"
+      - generic "手牌" [ref=e103]:
+        - button "看破，0 行動點。解析 +20%，抽 1 張牌。本回合下一張攻擊傷害 +4。" [ref=e104] [cursor=pointer]:
+          - generic [ref=e105]: "0"
+          - heading "看破" [level=3] [ref=e107]
+          - generic [ref=e108]: 解析
+          - generic [ref=e109]: 解析 +20% · 抽 1 張牌本回合下次攻擊 +4
+          - generic [ref=e111]:
+            - generic [ref=e112]: 解析
+            - generic [ref=e113]: "1"
+        - button "受身，1 行動點。獲得 14 格擋。本回合下一次敵方攻擊，格擋後傷害最多 4。" [ref=e114] [cursor=pointer]:
+          - generic [ref=e115]: "1"
+          - heading "受身" [level=3] [ref=e117]
+          - generic [ref=e118]: 防禦
+          - generic [ref=e119]: 格擋 14本回合下次受擊格擋後傷害最多 4
+          - generic [ref=e122]:
+            - generic [ref=e123]: 防禦
+            - generic [ref=e124]: "2"
+        - button "返擊，1 行動點。造成 10 點傷害；已有格擋時改為 18。交鋒增加 10% 解析。" [ref=e125] [cursor=pointer]:
+          - generic [ref=e126]: "1"
+          - heading "返擊" [level=3] [ref=e128]
+          - generic [ref=e129]: 反擊
+          - generic [ref=e130]: 傷害 10有格擋時：18交鋒解析 +10%
+          - generic [ref=e131]:
+            - generic [ref=e132]: 反擊
+            - generic [ref=e133]: "3"
+        - button "斬擊，1 行動點。造成 12 點傷害。交鋒增加 10% 解析。" [ref=e134] [cursor=pointer]:
+          - generic [ref=e135]: "1"
+          - heading "斬擊" [level=3] [ref=e137]
+          - generic [ref=e138]: 劍技
+          - generic [ref=e139]: 傷害 12交鋒解析 +10%
+          - generic [ref=e141]:
+            - generic [ref=e142]: 劍技
+            - generic [ref=e143]: "4"
+        - button "一刀修羅，2 行動點。消耗 10 MP，造成 42 點傷害。失去 18 體力，本場移除。" [ref=e144] [cursor=pointer]:
+          - generic [ref=e145]: "2"
+          - heading "一刀修羅" [level=3] [ref=e147]
+          - generic [ref=e148]: 奧義
+          - generic [ref=e149]: 傷害 42失去 18 體力 · 本場移除
+          - generic [ref=e151]:
+            - generic [ref=e152]: 10 MP
+            - generic [ref=e153]: "5"
+      - complementary [ref=e154]:
+        - button "結束回合 SPACE" [ref=e155] [cursor=pointer]:
+          - generic [ref=e156]: 結束回合
+          - generic [ref=e157]: SPACE
+          - generic [aria-hidden] [ref=e158]: →
+        - paragraph [ref=e159]: 對手將造成 14 傷害
+        - button "棄牌堆 0" [ref=e160] [cursor=pointer]:
+          - generic [aria-hidden] [ref=e161]: ▱
+          - generic [ref=e162]: 棄牌堆
+          - generic [ref=e163]: "0"
+  - generic [ref=e164]:
+    - generic [ref=e165]: 幻想形態 · 模擬戰
+    - generic [ref=e166]: 點擊後播放音樂
+    - generic [ref=e167]: 空白鍵結束回合 · R 重新開局

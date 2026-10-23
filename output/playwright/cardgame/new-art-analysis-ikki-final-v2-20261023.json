@@ -1,0 +1,235 @@
+{
+  "source": "C:\\Users\\weijunxiang\\.codex\\generated_images\\01a16427-6457-7360-b44d-623499084749\\exec-0234b45b-7d4d-44e9-afc2-f9588f04a017.png",
+  "sha256": "1d75062da04a9256211dbc9ee179f2486820a39673480152de781fad740a7fbc",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "source_mode": "RGBA",
+  "nominal_grid": {
+    "columns": 2,
+    "rows": 3
+  },
+  "alpha_threshold": 16,
+  "connectivity": 8,
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "transparent_fraction": 0.779384,
+  "component_count": 7,
+  "candidate_min_pixels": 128,
+  "candidate_count": 6,
+  "candidates": [
+    {
+      "component_ids": [
+        5
+      ],
+      "alpha_bbox": [
+        30,
+        516,
+        688,
+        885
+      ],
+      "crop_xywh": [
+        26,
+        512,
+        666,
+        377
+      ],
+      "alpha_pixels": 59848,
+      "foreign_components_in_crop": [],
+      "requires_isolation_review": false,
+      "grid_cells_touched": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "foot_anchor": null
+    },
+    {
+      "component_ids": [
+        2
+      ],
+      "alpha_bbox": [
+        41,
+        49,
+        619,
+        443
+      ],
+      "crop_xywh": [
+        37,
+        45,
+        586,
+        402
+      ],
+      "alpha_pixels": 54999,
+      "foreign_components_in_crop": [],
+      "requires_isolation_review": false,
+      "grid_cells_touched": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "foot_anchor": null
+    },
+    {
+      "component_ids": [
+        4
+      ],
+      "alpha_bbox": [
+        757,
+        452,
+        1180,
+        902
+      ],
+      "crop_xywh": [
+        753,
+        448,
+        431,
+        458
+      ],
+      "alpha_pixels": 49435,
+      "foreign_components_in_crop": [
+        {
+          "component_id": 6,
+          "pixels_in_crop": 2549
+        }
+      ],
+      "requires_isolation_review": true,
+      "grid_cells_touched": [
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "foot_anchor": null
+    },
+    {
+      "component_ids": [
+        1
+      ],
+      "alpha_bbox": [
+        746,
+        44,
+        1230,
+        444
+      ],
+      "crop_xywh": [
+        742,
+        40,
+        492,
+        408
+      ],
+      "alpha_pixels": 47789,
+      "foreign_components_in_crop": [
+        {
+          "component_id": 3,
+          "pixels_in_crop": 1
+        }
+      ],
+      "requires_isolation_review": true,
+      "grid_cells_touched": [
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "foot_anchor": null
+    },
+    {
+      "component_ids": [
+        7
+      ],
+      "alpha_bbox": [
+        42,
+        952,
+        734,
+        1240
+      ],
+      "crop_xywh": [
+        38,
+        948,
+        700,
+        296
+      ],
+      "alpha_pixels": 45482,
+      "foreign_components_in_crop": [],
+      "requires_isolation_review": false,
+      "grid_cells_touched": [
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "foot_anchor": null
+    },
+    {
+      "component_ids": [
+        6
+      ],
+      "alpha_bbox": [
+        802,
+        855,
+        1224,
+        1242
+      ],
+      "crop_xywh": [
+        798,
+        851,
+        430,
+        395
+      ],
+      "alpha_pixels": 37599,
+      "foreign_components_in_crop": [
+        {
+          "component_id": 4,
+          "pixels_in_crop": 5244
+        }
+      ],
+      "requires_isolation_review": true,
+      "grid_cells_touched": [
+        [
+          1,
+          2
+        ]
+      ],
+      "foot_anchor": null
+    }
+  ],
+  "warnings": [
+    "Some bounding boxes cross nominal 2x3 cells; fixed-cell cropping is unsafe"
+  ],
+  "verified_poses": {},
+  "review_required": "Visually assign pose components and supporting shoe rectangles before deriving CSS anchors"
+}

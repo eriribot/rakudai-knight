@@ -5,11 +5,9 @@
   const effects = new Set();
   const delays = new Set();
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const loadedImages = new Map();
-  const frameIndex = Object.freeze({ idle: -1, 'walk-a': 0, 'walk-b': 1, 'walk-c': 2, windup: 3, slash: 4, guard: 5 });
+  const frameIndex = Object.freeze({ idle: 5, 'walk-a': 0, 'walk-b': 1, 'walk-c': 2, windup: 3, slash: 4, guard: 5 });
   const assetPaths = [
-    'assets/ikki-unified-profile.png', 'assets/stella-idle.png',
-    'assets/ikki-unified-motion.png', 'assets/stella-motion.png'
+    'assets/ikki-anime-two-pose-v3.png', 'assets/stella-anime-motion-v2.png'
   ];
   let revision = 0;
 
@@ -22,7 +20,6 @@
         settled = true;
         window.clearTimeout(timeout);
         image.onload = image.onerror = null;
-        if (!error) loadedImages.set(path, image);
         resolve(Object.freeze({ path, ok: !error, width: image.naturalWidth, height: image.naturalHeight, error: error || null }));
       };
       const timeout = window.setTimeout(() => finish('圖片載入逾時'), 15000);
@@ -38,7 +35,8 @@
   }
 
   // A fulfilled report lets the page explain missing assets before enabling input.
-  // Actions still reject on failure: a missing sheet must never become fake walking.
+  // Idle and actions share the same sheet and source-pixel scale. Never switch
+  // back to the differently proportioned portrait when an action completes.
   const ready = Promise.all(assetPaths.map(preload)).then(assets => Object.freeze({
     ok: assets.every(asset => asset.ok),
     assets: Object.freeze(assets),
@@ -56,9 +54,11 @@
     const changed = actor.dataset.pose !== value || actor.dataset.phase !== phase;
     actor.dataset.pose = value;
     actor.dataset.phase = phase;
+    // Ikki now has two drawings; Stella uses the ready/slash pair of her sheet.
+    const sourceFrame = actor.id === 'actor-player' ? (value === 'slash' ? 1 : 0) : frameIndex[value];
     if (changed) window.dispatchEvent(new CustomEvent('combat:pose', { detail: Object.freeze({
       side: actor.id === 'actor-enemy' ? 'enemy' : 'player',
-      pose: value, frame: frameIndex[value], phase, sequence: revision, time: performance.now()
+      pose: value, frame: sourceFrame, phase, sequence: revision, time: performance.now()
     }) }));
   }
 
@@ -116,15 +116,6 @@
     });
   }
 
-  async function frames(token, actor, values, duration, phase) {
-    for (const value of values) {
-      if (!setPose(token, actor, value, phase)) return false;
-      await wait(duration / values.length);
-      if (!current(token)) return false;
-    }
-    return true;
-  }
-
   function animate(element, keyframes, options) {
     if (!element || typeof element.animate !== 'function') return Promise.resolve();
     const animation = element.animate(keyframes, { fill: 'forwards', easing: 'ease-out', ...options });
@@ -161,14 +152,44 @@
 
   function slash(side, target, finisher, duration) {
     const at = point(target);
-    const line = effect('slash', side, at, at.height * (finisher ? 1.4 : 1.05), finisher ? 6 : 4);
+    const line = effect('slash', side, at, at.height * (finisher ? 1.4 : 1.05), finisher ? 8 : 6);
     if (finisher) line.classList.add('is-finisher');
     const rotation = side === 'player' ? -35 : 35;
     return animate(line, [
       { opacity: 0, transform: `rotate(${rotation}deg) scaleX(.12)` },
-      { opacity: 1, transform: `rotate(${rotation}deg) scaleX(1)`, offset: .22 },
+      { opacity: 1, transform: `rotate(${rotation}deg) scaleX(1)`, offset: .18 },
+      { opacity: .95, transform: `rotate(${rotation}deg) scaleX(1.08)`, offset: .5 },
       { opacity: 0, transform: `rotate(${rotation}deg) scaleX(1.18)` }
     ], { duration });
+  }
+
+  function afterimages(actor, side, travel, duration) {
+    const source = sprite(actor);
+    if (!source || reducedMotion.matches) return Promise.resolve();
+    // Clone the entire current sprite and its pose context. The two impressions
+    // retain the exact source crop, body proportions and grounded anchor.
+    return Promise.all([0, .42].map((fraction, index) => {
+      const ghost = actor.cloneNode(false);
+      ghost.removeAttribute('id');
+      ghost.removeAttribute('role');
+      ghost.removeAttribute('aria-label');
+      ghost.classList.remove('is-active', 'is-attacking', 'is-charging');
+      ghost.classList.add('combat-effect', 'combat-afterimage');
+      ghost.dataset.side = side;
+      ghost.setAttribute('aria-hidden', 'true');
+      ghost.style.transform = `translate3d(${travel * fraction}px,0,0)`;
+      ghost.append(source.cloneNode(true));
+      stage().append(ghost);
+      effects.add(ghost);
+      return animate(ghost, [
+        { opacity: 0 },
+        { opacity: index === 0 ? .24 : .32, offset: .15 },
+        { opacity: 0 }
+      ], { duration: duration + 30, delay: index * 20 }).finally(() => {
+        ghost.remove();
+        effects.delete(ghost);
+      });
+    }));
   }
 
   async function attack(side, { finisher = false, blocked = false, onImpact } = {}) {
@@ -191,67 +212,62 @@
         return;
       }
 
-      const timing = finisher
-        ? { charge: 140, approach: 120, windup: 70, slash: 140, recovery: 60, retreat: 130, settle: 50 }
-        : { charge: 0, approach: 160, windup: 65, slash: 100, recovery: 65, retreat: 150, settle: 60 };
+      const timing = { prepare: finisher ? 90 : 40, approach: 80, slash: 90, retreat: 80 };
+      if (!setPose(token, attacker, 'guard', finisher ? 'charge' : 'ready')) return;
       if (finisher) {
         attacker.classList.add('is-charging');
-        if (!setPose(token, attacker, 'guard', 'charge')) return;
         await Promise.all([
-          animate(aura(attacker), [{ opacity: 0, transform: 'scale(.7)' }, { opacity: 1, transform: 'scale(1.2)', offset: .8 }, { opacity: .25, transform: 'scale(1)' }], { duration: timing.charge }),
-          wait(timing.charge)
+          animate(aura(attacker), [{ opacity: 0, transform: 'scale(.7)' }, { opacity: 1, transform: 'scale(1.2)', offset: .8 }, { opacity: .25, transform: 'scale(1)' }], { duration: timing.prepare }),
+          wait(timing.prepare)
         ]);
         if (!current(token)) return;
         attacker.classList.remove('is-charging');
-      }
+      } else await wait(timing.prepare);
+      if (!current(token)) return;
 
       const origin = point(attacker);
       const target = point(defender);
       const direction = Math.sign(target.x - origin.x);
-      const contactGap = Math.min(origin.width * .85, Math.abs(target.x - origin.x) * .4);
-      const travel = direction * Math.max(0, Math.abs(target.x - origin.x) - contactGap);
-      // Two low stride poses read as a short lunge, without the high-knee frame.
-      // Ground displacement stays separate, so the shadow never bobs or tilts.
+      const distance = Math.abs(target.x - origin.x);
+      const contactGap = Math.min(origin.height * .7, distance * .72);
+      const travel = direction * Math.max(0, distance - contactGap);
+      // Stop before the opponent's body; only weapons enter the contact area.
+      // Dash in the ready stance; no walk cycle or whole-body scaling is used.
+      if (!setPose(token, attacker, 'guard', 'approach')) return;
+      const approachEffects = afterimages(attacker, side, travel, timing.approach);
       await Promise.all([
-        animate(attacker, [{ transform: 'translate3d(0,0,0)' }, { transform: `translate3d(${travel}px,0,0)` }], { duration: timing.approach, easing: 'ease-out' }),
-        frames(token, attacker, ['walk-a', 'walk-c'], timing.approach, 'approach')
+        animate(attacker, [{ transform: 'translate3d(0,0,0)' }, { transform: `translate3d(${travel}px,0,0)` }], { duration: timing.approach, easing: 'cubic-bezier(.25,.65,.3,1)' }),
+        wait(timing.approach)
       ]);
       if (!current(token)) return;
 
-      if (!setPose(token, attacker, 'windup', 'windup')) return;
-      if (blocked && !setPose(token, defender, 'guard', 'block')) return;
-      await wait(timing.windup);
-      if (!current(token)) return;
-
-      // The damage callback belongs to the first visible slash frame, once.
+      // The damage callback belongs to the start of the visible hit effect, once.
       if (!setPose(token, attacker, 'slash', 'strike')) return;
       if (!setPose(token, defender, 'guard', blocked ? 'block' : 'recoil')) return;
       if (!impact()) return;
-      const impactDuration = timing.slash + timing.recovery;
+      const impactDuration = timing.slash;
       const impactPoint = point(defender);
       const spark = effect('spark', side, impactPoint, finisher ? 64 : 42, finisher ? 64 : 42);
       const recoil = direction * Math.min(blocked ? 6 : finisher ? 25 : 15, target.width * .22);
       const feedback = Promise.all([
         slash(side, defender, finisher, impactDuration),
         blocked ? shield(defenderSide, defender, impactDuration) : Promise.resolve(),
-        animate(spark, [{ opacity: 0, transform: 'scale(.2)' }, { opacity: 1, transform: 'scale(1.3)', offset: .22 }, { opacity: 0, transform: 'scale(.6)' }], { duration: impactDuration }),
+        animate(spark, [{ opacity: 0, transform: 'scale(.2)' }, { opacity: 1, transform: 'scale(1.3)', offset: .15 }, { opacity: .95, transform: 'scale(1.15)', offset: .48 }, { opacity: 0, transform: 'scale(.6)' }], { duration: impactDuration }),
         animate(defender, [{ transform: 'translateX(0)' }, { transform: `translateX(${recoil}px)`, offset: .25 }, { transform: 'translateX(0)' }], { duration: impactDuration }),
         animate(sprite(defender), [{ filter: 'brightness(1)' }, { filter: `brightness(${blocked ? 1.35 : 1.9})`, offset: .2 }, { filter: 'brightness(1)' }], { duration: impactDuration })
       ]);
-      await wait(timing.slash);
-      if (!current(token)) return;
-      if (!setPose(token, attacker, 'guard', 'recovery')) return;
-      await Promise.all([wait(timing.recovery), feedback]);
+      // Hold the full slash pose at contact while the white impact core resolves.
+      await Promise.all([wait(timing.slash), feedback, approachEffects]);
       if (!current(token)) return;
 
       if (!setPose(token, defender, 'idle', 'idle')) return;
+      if (!setPose(token, attacker, 'guard', 'retreat')) return;
       await Promise.all([
-        animate(attacker, [{ transform: `translate3d(${travel}px,0,0)` }, { transform: 'translate3d(0,0,0)' }], { duration: timing.retreat, easing: 'ease-out' }),
-        frames(token, attacker, ['walk-c', 'walk-a'], timing.retreat, 'retreat')
+        animate(attacker, [{ transform: `translate3d(${travel}px,0,0)` }, { transform: 'translate3d(0,0,0)' }], { duration: timing.retreat, easing: 'cubic-bezier(.2,.65,.3,1)' }),
+        wait(timing.retreat)
       ]);
       if (!current(token)) return;
-      if (!setPose(token, attacker, 'idle', 'settle')) return;
-      await wait(timing.settle);
+      setPose(token, attacker, 'idle', 'idle');
 
     } finally { finish(token); }
   }

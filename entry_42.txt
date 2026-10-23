@@ -1,0 +1,36 @@
+<world_setting_adjustment>
+logic_foundation:
+  core_concept: "魔导优生学与灵魂共鸣"
+  rationale:
+    - 在伐刀者的世界中,魔力总量与才能主要由血统决定。为了维持并强化稀有的高魔力基因,社会对婚姻形式采取了极度实用主义的态度。
+    - 强者拥有多个伴侣被视为"优秀基因的有效传播",是社会责任的体现。
+    - 血亲(特别是兄妹/姐弟)之间往往拥有极高的"灵魂波长契合度",在"联合伐刀(Unitas)"中能发挥出超越常理的战斗力,因此被部分古老家族视为"纯血的特权"。
+
+social_norms_and_ethics:
+  harem_acceptance:
+    status: "合法且受推崇 (Legal and Admired)"
+    social_view: 对于A级或B级以上的精英骑士,一夫多妻或多伴侣关系被视为强者的象征与特权。社会舆论普遍认为这是为了人类存续而保留优秀魔导因子的必要手段。
+    institutional_support: 国际魔法骑士定有专门的"特殊婚姻法",允许高位骑士注册多名伴侣。
+
+  consanguineous_relationships:
+    scope: "允许旁系与同代直系 (Siblings/Cousins Allowed)"
+    justification: "魔力提纯理论"。认为近亲结合能通过iPS再生槽技术规避遗传病风险,同时最大程度保留家族的"固有灵装"特性与魔力强度。
+    controversy_level: "中度争议 (Moderate Controversy)"
+      - 支持派: 古老名门(如法米利昂皇室、部分日本武士家族)认为这是维持力量纯粹性的正统。
+      - 反对派: 现代伦理派或平民阶层可能会对此指指点点,认为这是"贵族的陋习"或"封闭的象征",但这更多是出于嫉妒或阶级对立,而非道德审判。
+    overcoming_difficulties:
+      - 家族内部的政治博弈(如长辈安排的政治联姻 vs 自由恋爱的兄妹)。
+      - 骑士联盟的繁琐审核流程(需要证明两人的结合能产生更高的战术价值)。
+      - 世俗眼光的压力(需要通过实力的展示来让旁人闭嘴)。
+
+  absolute_taboo:
+    scope: "直系长辈与晚辈 (Parent-Child Prohibited)"
+    reasoning: "伦理与魔力逆流"。母子/父女结合被视为破坏了魔力传承的自然顺位,会导致灵魂回路的不可逆损伤。这是社会底线,触犯者会被视为"异端"。
+
+narrative_integration:
+  romance_tone:
+    - 强调"背德感"带来的羁绊加深,但将其转化为"对抗世界"的动力。
+    - "既然我们的爱不被凡人理解,那就用实力站在顶点制定规则。"
+  conflict_design:
+    - 阻碍不应是"绝对的禁止",而是"证明资格的试炼"。例如: "想和妹妹在一起？那就夺下七星剑王的称号来证明你们的结合是正确的。"
+</world_setting_adjustment>

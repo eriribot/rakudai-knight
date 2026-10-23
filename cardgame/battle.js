@@ -6,41 +6,49 @@
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
 
-  // Independent concept-demo rules. These values do not amend the TRPG v0.3 draft.
+  // Local training encounter: these calibrated numbers never write MVU stat_data.
+  // hp is the fantasy-mode stamina pool, not a claim about canonical life points.
   const CARDS = Object.freeze({
-    slash: Object.freeze({ id: 'slash', name: '斬擊', cost: 1, type: 'attack', keyword: '攻擊', description: '造成 7 點傷害。', damage: 7 }),
-    guard: Object.freeze({ id: 'guard', name: '受身', cost: 1, type: 'skill', keyword: '防禦', description: '獲得 8 點格擋。', block: 8 }),
-    insight: Object.freeze({ id: 'insight', name: '看破', cost: 0, type: 'skill', keyword: '洞察', description: '抽 1 張牌。本回合下一張攻擊牌傷害 +4。', draw: 1, bonus: 4 }),
-    step: Object.freeze({ id: 'step', name: '疾步', cost: 1, type: 'skill', keyword: '步法', description: '獲得 4 點格擋，抽 1 張牌。', block: 4, draw: 1 }),
-    riposte: Object.freeze({ id: 'riposte', name: '返擊', cost: 1, type: 'attack', keyword: '連攜', description: '造成 6 點傷害。若已有格擋，改為 12 點。', damage: 6, guardedDamage: 12 }),
-    shura: Object.freeze({ id: 'shura', name: '一刀修羅', cost: 2, type: 'attack', keyword: '終結', description: '造成 24 點傷害。失去 6 點生命。本場戰鬥移除。', damage: 24, selfDamage: 6, exhaust: true })
+    slash: Object.freeze({ id: 'slash', name: '斬擊', cost: 1, mpCost: 0, type: 'attack', keyword: '劍技', description: '造成 12 點傷害。交鋒增加 10% 解析。', damage: 12 }),
+    guard: Object.freeze({ id: 'guard', name: '受身', cost: 1, mpCost: 0, type: 'skill', keyword: '防禦', description: '獲得 14 格擋。本回合下一次敵方攻擊，格擋後傷害最多 4。', block: 14, glancing: true }),
+    insight: Object.freeze({ id: 'insight', name: '看破', cost: 0, mpCost: 0, type: 'skill', keyword: '解析', description: '解析 +20%，抽 1 張牌。本回合下一張攻擊傷害 +4。', draw: 1, bonus: 4, insight: 20 }),
+    step: Object.freeze({ id: 'step', name: '疾步', cost: 1, mpCost: 0, type: 'skill', keyword: '步法', description: '獲得 7 格擋，抽 1 張牌。', block: 7, draw: 1 }),
+    riposte: Object.freeze({ id: 'riposte', name: '返擊', cost: 1, mpCost: 0, type: 'attack', keyword: '反擊', description: '造成 10 點傷害；已有格擋時改為 18。交鋒增加 10% 解析。', damage: 10, guardedDamage: 18 }),
+    shura: Object.freeze({ id: 'shura', name: '一刀修羅', cost: 2, mpCost: 10, type: 'attack', keyword: '奧義', description: '消耗 10 MP，造成 42 點傷害。失去 18 體力，本場移除。', damage: 42, selfDamage: 18, exhaust: true })
   });
 
   const INTENTS = Object.freeze([
-    Object.freeze({ id: 'flame-slash', name: '烈焰斬', type: 'attack', amount: 8, description: '回合結束時造成 8 點傷害。' }),
-    Object.freeze({ id: 'dragon-charge', name: '赤龍蓄勢', type: 'block', amount: 10, description: '回合結束時獲得 10 點格擋。下次將發動吐息。' }),
-    Object.freeze({ id: 'dragon-breath', name: '妃龍吐息', type: 'attack', amount: 16, description: '回合結束時造成 16 點傷害。' })
+    Object.freeze({ id: 'flame-slash', name: '烈焰斬', type: 'attack', amount: 22, mpCost: 60, description: '回合結束：傷害 22 · 60 MP' }),
+    Object.freeze({ id: 'dragon-charge', name: '赤龍蓄勢', type: 'barrier', amount: 24, mpCost: 120, description: '回合結束：魔力護盾 24 · 120 MP' }),
+    Object.freeze({ id: 'dragon-breath', name: '妃龍吐息', type: 'attack', amount: 42, mpCost: 240, description: '回合結束：傷害 42 · 240 MP' })
   ]);
+  const PHYSICAL_INTENT = Object.freeze({ id: 'physical-slash', name: '斬擊', type: 'attack', amount: 10, mpCost: 0, description: '魔力不足：回合結束時造成 10 傷害' });
+
+  function currentIntent(state) {
+    const planned = INTENTS[state.intentIndex];
+    return state.enemy.mp >= planned.mpCost ? planned : PHYSICAL_INTENT;
+  }
 
   function createBattle(seed = 20261003) {
     let serial = 0;
     const card = id => ({ id, uid: 'card-' + (++serial) });
     return {
-      player: { hp: 48, maxHp: 48, block: 0 },
-      enemy: { hp: 72, maxHp: 72, block: 0 },
+      player: { hp: 100, maxHp: 100, mp: 10, maxMp: 10, block: 0, glancing: false },
+      enemy: { hp: 120, maxHp: 120, mp: 3000, maxMp: 3000, block: 0, barrier: 0 },
       turn: 1,
       energy: 3,
       maxEnergy: 3,
       hand: ['insight', 'guard', 'riposte', 'slash', 'shura'].map(card),
       // The next draw is index 0. The fixed opener teaches one readable combination.
-      draw: ['step', 'slash', 'guard', 'slash', 'guard'].map(card),
+      draw: ['step', 'slash', 'guard', 'slash', 'insight', 'riposte', 'step', 'guard', 'slash', 'riposte'].map(card),
       discard: [],
       exhaust: [],
       nextAttackBonus: 0,
+      insight: 0,
       status: 'playing',
       intentIndex: 0,
       rngState: (Number(seed) >>> 0) || 20261003,
-      logs: ['模擬戰開始。先看她的意圖，再決定出哪張牌。']
+      logs: ['幻想形態模擬戰開始。']
     };
   }
 
@@ -92,17 +100,30 @@
     if (amount) emit(state, events, 'blockExpired', amount, target, (target === 'player' ? '一輝' : '史黛菈') + '的剩餘格擋消退。');
   }
 
-  function damage(state, target, amount, events, isSelfDamage) {
+  function addInsight(state, amount, events) {
+    const gained = Math.min(amount, 100 - state.insight);
+    state.insight += gained;
+    if (gained) emit(state, events, 'insight', gained, 'player', state.insight === 100 ? '解析完成：下一次攻擊穿透魔力護盾。' : '解析 +' + gained + '%。');
+  }
+
+  function damage(state, target, amount, events, isSelfDamage, pierceBarrier = false) {
     const actor = state[target];
-    const blocked = isSelfDamage ? 0 : Math.min(actor.block, amount);
+    const barrierBlocked = isSelfDamage || pierceBarrier ? 0 : Math.min(actor.barrier || 0, amount);
+    if (barrierBlocked) actor.barrier -= barrierBlocked;
+    const blocked = isSelfDamage ? 0 : Math.min(actor.block, amount - barrierBlocked);
     actor.block -= blocked;
-    const lost = Math.min(actor.hp, amount - blocked);
+    let remaining = amount - barrierBlocked - blocked;
+    const glancing = !isSelfDamage && target === 'player' && actor.glancing;
+    const mitigated = glancing ? Math.max(0, remaining - 4) : 0;
+    if (glancing) { remaining = Math.min(remaining, 4); actor.glancing = false; }
+    const lost = Math.min(actor.hp, remaining);
     actor.hp -= lost;
     const name = target === 'player' ? '一輝' : '史黛菈';
     const text = isSelfDamage
-      ? name + '透支體力，失去 ' + lost + ' 點生命。'
-      : name + (blocked ? '抵擋 ' + blocked + ' 點，' : '') + '受到 ' + lost + ' 點傷害。';
-    emit(state, events, isSelfDamage ? 'selfDamage' : 'damage', lost, target, text, { attempted: amount, blocked });
+      ? name + '失去 ' + lost + ' 體力。'
+      : name + (barrierBlocked ? '護盾吸收 ' + barrierBlocked + '，' : '') + (blocked ? '格擋 ' + blocked + '，' : '') + (mitigated ? '受身卸去 ' + mitigated + '，' : '') + '受到 ' + lost + ' 傷害。';
+    emit(state, events, isSelfDamage ? 'selfDamage' : 'damage', lost, target, text, { attempted: amount, blocked, barrierBlocked, mitigated, pierceBarrier });
+    if (!isSelfDamage && target === 'player' && (blocked > 0 || glancing)) addInsight(state, 15, events);
   }
 
   function finishIfNeeded(state, events) {
@@ -113,7 +134,7 @@
       emit(state, events, 'loss', 0, 'player', '一輝無法繼續戰鬥。模擬戰結束。');
     } else if (state.enemy.hp <= 0) {
       state.status = 'won';
-      emit(state, events, 'win', 0, 'player', '勝負已分。這一劍，突破了烈焰。');
+      emit(state, events, 'win', 0, 'player', '史黛菈的體力歸零。模擬戰勝利。');
     }
     return state.status !== 'playing';
   }
@@ -122,7 +143,7 @@
     return { ok: false, reason, events: [] };
   }
 
-  function playCard(state, uid) {
+  function cardAvailability(state, uid) {
     if (state.status !== 'playing') return invalid('模擬戰已結束。');
     const index = state.hand.findIndex(card => card.uid === uid);
     if (index < 0) return invalid('這張牌已不在手牌中。');
@@ -130,12 +151,25 @@
     const definition = CARDS[instance.id];
     if (!definition) return invalid('無法辨識這張牌。');
     if (state.energy < definition.cost) return invalid('行動點不足。');
+    if (state.player.mp < definition.mpCost) return invalid('魔力不足。');
+    return { ok: true, reason: null };
+  }
+
+  function playCard(state, uid) {
+    const availability = cardAvailability(state, uid);
+    if (!availability.ok) return availability;
+    const index = state.hand.findIndex(card => card.uid === uid);
+    const instance = state.hand[index];
+    const definition = CARDS[instance.id];
 
     const events = [];
     state.hand.splice(index, 1);
     state.energy -= definition.cost;
+    state.player.mp -= definition.mpCost;
     emit(state, events, 'play', definition.cost, 'player', '一輝使出「' + definition.name + '」。', { cardId: instance.id, uid });
     if (definition.block) addBlock(state, 'player', definition.block, events);
+    if (definition.glancing) state.player.glancing = true;
+    if (definition.insight) addInsight(state, definition.insight, events);
     if (definition.bonus) {
       state.nextAttackBonus += definition.bonus;
       emit(state, events, 'bonus', definition.bonus, 'player', '看破破綻：本回合下一張攻擊牌傷害 +' + definition.bonus + '。');
@@ -144,7 +178,13 @@
       const baseDamage = definition.guardedDamage && state.player.block > 0 ? definition.guardedDamage : definition.damage;
       const attackDamage = baseDamage + state.nextAttackBonus;
       state.nextAttackBonus = 0;
-      damage(state, 'enemy', attackDamage, events, false);
+      const pierce = state.insight >= 100;
+      if (pierce) {
+        state.insight = 0;
+        emit(state, events, 'pierce', 100, 'player', '看破生效：本次攻擊穿透魔力護盾。');
+      }
+      damage(state, 'enemy', attackDamage, events, false, pierce);
+      if (!pierce) addInsight(state, 10, events);
     }
     if (definition.selfDamage) damage(state, 'player', definition.selfDamage, events, true);
     // A resolving card stays outside the discard pile until its draws complete.
@@ -170,16 +210,21 @@
     state.nextAttackBonus = 0;
     // The enemy's old block lasts through our whole turn, then expires before it acts.
     clearBlock(state, 'enemy', events);
-    const intent = INTENTS[state.intentIndex];
+    const intent = currentIntent(state);
+    state.enemy.mp -= intent.mpCost;
     emit(state, events, 'intent', intent.amount, 'enemy', '史黛菈發動「' + intent.name + '」。', { intentId: intent.id });
     if (intent.type === 'attack') damage(state, 'player', intent.amount, events, false);
-    else addBlock(state, 'enemy', intent.amount, events);
+    else {
+      state.enemy.barrier += intent.amount;
+      emit(state, events, 'barrier', intent.amount, 'enemy', '史黛菈獲得 ' + intent.amount + ' 魔力護盾。');
+    }
     if (finishIfNeeded(state, events)) return { ok: true, reason: null, events };
 
     state.intentIndex = (state.intentIndex + 1) % INTENTS.length;
     state.turn++;
     state.energy = state.maxEnergy;
     clearBlock(state, 'player', events);
+    state.player.glancing = false;
     emit(state, events, 'turn', state.turn, 'player', '第 ' + state.turn + ' 回合。行動點恢復至 ' + state.maxEnergy + '。');
     drawCards(state, 5, events);
     return { ok: true, reason: null, events };
@@ -189,5 +234,5 @@
     return JSON.parse(JSON.stringify(state));
   }
 
-  return Object.freeze({ CARDS, INTENTS, createBattle, playCard, endTurn, snapshot });
+  return Object.freeze({ CARDS, INTENTS, createBattle, playCard, cardAvailability, currentIntent, endTurn, snapshot });
 });

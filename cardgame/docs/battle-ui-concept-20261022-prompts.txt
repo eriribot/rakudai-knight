@@ -1,0 +1,24 @@
+Generation mode: built-in image_gen (no CLI/API fallback).
+Use case: ui-mockup.
+Purpose: design reference only; not a runtime UI or production sprite sheet.
+
+INITIAL PROMPT
+
+Use case: ui-mockup
+Asset type: One polished 16:9 landscape 2D playable battle screen concept for the existing local cardgame, at 1920x1080 composition.
+Primary request: Redesign this Rakudai Kishi / Chivalry of a Failed Knight card battle as a restrained Japanese console deckbuilding RPG. Use Slay the Spire's battle readability: grounded opposing full-body fighters, open duel space, enemy intent directly over the enemy, compact health/status below each fighter, a legible fan of five playable cards along the bottom, AP lower left, end turn lower right. This is a concrete achievable browser game screen, not a promotional poster.
+Input images: Image 1 (arena-duel.png) is the setting reference; Image 2 (ikki-unified-profile.png) is the male character identity, costume and normal body proportion reference; Image 3 (stella-idle.png) is the female character identity/costume reference. Preserve these characters and arena identity, but compose a NEW finished battle UI.
+Scene/backdrop: existing academy stone training arena at dusk, understated navy shadow, clear horizontal ground line and contact shadows. Fighters at about 28% and 72% of width; their entire bodies visible, feet on the same plane at about 60% of canvas height. Fixed side view, both facing each other. Ikki black hair, white uniform blazer with black trim, black trousers, black katana; Stella red hair, white/black uniform with red tie, black thigh-highs, golden sword. Keep anatomy natural, 7 to 7.5 heads tall, heads modest and consistent; no chibi proportions, no portrait enlargement.
+Composition: narrow 50 px top HUD with left small title "落第騎士英雄譚" and breadcrumb "破軍學園 / 模擬戰"; center "第 1 回合" and small "我方行動"; right small sound/settings/help icons. Arena occupies most of the screen. Large comfortable EMPTY center for combat. A short slim intent indicator immediately above Stella reads "烈焰斬" and a sword icon with "8"; small supporting line "下回合：攻擊". Compact name and thin HP bars under the fighters, Ikki "黑鐵一輝", "48 / 48", small shield "0"; Stella "史黛菈", "72 / 72", small shield "0". These labels are integrated in the battlefield, not large boxed character biographies.
+Bottom interface: translucent deep ink-blue gradient shelf only in lowest 28%, letting the arena remain visible. Five clearly readable slightly fanned cards, modest ivory face with ink-colored rules and slim understated frame. Card illustrations use close-cropped anime sword action, matching referenced characters. Each card shows one clear AP badge, name, and maximum two short rule lines. In order: cost 0 "看破" with "抽 1 張牌" / "下次攻擊 +4"; cost 1 "受身" with "格擋 8"; cost 1 "返擊" with "傷害 6" / "有格擋時：12"; cost 1 "斬擊" with "傷害 7"; cost 2 "一刀修羅" with "傷害 24" / "失去 6 體力・本場移除". Lower left small blue AP medallion "3 / 3" with "AP", and deck icon "抽牌 5"; lower right a substantial clean angled warm brass button "結束回合" with tiny "SPACE", discard icon "棄牌 0". Costs and rules must remain readable, no extreme card rotations. Selected card restrained pale cyan outline.
+Style: sophisticated anime JRPG battle HUD, precise typographic hierarchy, hairline borders, limited angled tabs, quiet ivory text, charcoal/navy UI, cool cyan for player, muted vermilion for enemy, brass only for primary action. Beautiful game art but pragmatically implementable with existing PNG sprites and HTML/CSS; no excessive glassmorphism, no oversized ornate frames.
+Constraints: single full-screen in-game UI mockup, no device frame, no concept annotations outside screen. Exact supplied Traditional Chinese text where practical. No title "一刀之間", no poetic slogans, no invented lore, no filler English, no giant VS, no character portraits, no giant foreground heads, no extra characters, no new currencies or systems, no neon, no sakura/torii decorations. Empty neutral battlefield center. Normal consistent head size.
+
+TARGETED CARD-ART CORRECTION
+
+Use case: precise-object-edit
+Asset type: correction to an existing battle UI concept.
+Edit target: the supplied full battle screen.
+Change ONLY the illustration inside the RIGHTMOST card labeled "一刀修羅". It currently incorrectly depicts a red-haired female. Replace that one small card illustration with black-haired male Ikki Kurogane from the fighter on the left, in the same white black-trim school uniform, with a black katana and a restrained electric-blue sword flash. It is Ikki's special attack card, not Stella's.
+Keep the card's name, cost badge 2, rule text, dimensions and position exactly unchanged. Preserve absolutely everything else: both full-size fighters, faces, normal body proportions, arena, all UI geometry, all other four cards, all text, HP bars, colors and composition. Do not redraw the rest of the screen. Single targeted card-art correction.
+

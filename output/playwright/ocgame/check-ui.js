@@ -1,0 +1,78 @@
+async (page) => {
+  const errors = [];
+  page.on('pageerror', e => errors.push(e.message));
+  const checks = [];
+  const check = (name, condition) => { if (!condition) throw new Error(name); checks.push(name); };
+  const idle = () => page.waitForFunction(() => document.querySelector('#game').dataset.busy === 'false');
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.getByRole('button', { name: '重新对练', exact: true }).click();
+  await page.screenshot({ path: 'output/playwright/ocgame/desktop.png' });
+  check('initial hand: 5 cards', await page.locator('.playing-card').count() === 5);
+  check('portrait loaded', await page.locator('#view-bond img').evaluate(el => el.complete && el.naturalWidth === 1024));
+  await page.getByRole('button', { name: '查看绫辻绚濑真命天女卡', exact: true }).click();
+  check('full bond card opens', await page.locator('#bond-dialog').evaluate(el => el.open));
+  await page.screenshot({ path: 'output/playwright/ocgame/ayase-card.png' });
+  await page.keyboard.press('Escape');
+  await page.getByRole('button', { name: '自定义主角', exact: true }).click();
+  await page.getByLabel('主角姓名').fill('朝雾 凛');
+  await page.locator('input[value=katana]').check();
+  await page.getByRole('button', { name: '保存并开始对练', exact: true }).click();
+  await page.reload();
+  check('profile survives reload', await page.locator('#player-name').textContent() === '朝雾 凛');
+  check('katana damage shown', await page.locator('.playing-card[data-kind=slash]').getAttribute('aria-label') === '斩击，消耗 1 行动，造成 15 点伤害');
+  await page.locator('.playing-card[data-kind=slash]').click(); await idle();
+  check('attack changes enemy HP', await page.locator('#enemy-health').textContent() === '93 / 108');
+  check('attack costs one energy', await page.locator('#energy-count').textContent() === '2 / 3');
+  await page.locator('.playing-card[data-kind=guard]').click(); await idle();
+  check('defense gives shield', await page.locator('#player-block').textContent() === '护盾 12');
+  check('unaffordable card disabled', await page.locator('.playing-card[data-kind=heavy]').isDisabled());
+  await page.evaluate(() => {
+    window.motionSamples = [];
+    window.motionStart = performance.now();
+    const sample = () => {
+      const root = document.querySelector('#actor-root'), actor = document.querySelector('#stella-motion');
+      window.motionSamples.push({ t: performance.now() - window.motionStart, pose: actor.dataset.pose, ghosts: document.querySelectorAll('.afterimage').length, slash: !!document.querySelector('.slash-fx.incoming'), matrix: getComputedStyle(actor).transform, height: getComputedStyle(root).getPropertyValue('--actor-height') });
+      if (performance.now() - window.motionStart < 1150) requestAnimationFrame(sample);
+    };
+    requestAnimationFrame(sample);
+  });
+  await page.getByRole('button', { name: '结束回合 SPACE', exact: true }).click(); await idle();
+  check('enemy hit respects shield', await page.locator('#player-health').textContent() === '74 / 76');
+  check('new round clears shield', await page.locator('#player-block').textContent() === '护盾 0');
+  check('new round restores energy', await page.locator('#energy-count').textContent() === '3 / 3');
+  check('next intent becomes defense', await page.locator('#intent-name').textContent() === '架势');
+  await page.locator('#support').click(); await idle();
+  check('support caps HP', await page.locator('#player-health').textContent() === '76 / 76');
+  check('support adds shield', await page.locator('#player-block').textContent() === '护盾 8');
+  check('support consumed', await page.locator('#support').isDisabled());
+  const samples = await page.evaluate(() => window.motionSamples);
+  check('cut pose seen', samples.some(s => s.pose === 'cut'));
+  check('afterimages seen', samples.some(s => s.ghosts > 0));
+  check('slash VFX seen', samples.some(s => s.slash));
+  check('rigid body: no scale in motion', samples.every(s => s.matrix === 'none' || /^matrix\(1, 0, 0, 1,/.test(s.matrix)));
+  // Reset while enemy is winding up. Old timers must not hit the new battle.
+  await page.getByRole('button', { name: '结束回合 SPACE', exact: true }).click();
+  await page.getByRole('button', { name: '重新对练', exact: true }).click();
+  await page.waitForTimeout(850);
+  check('restart cancels delayed hits', await page.locator('#player-health').textContent() === '76 / 76' && await page.locator('#game').getAttribute('data-turn') === '1');
+  check('reset removes ghosts and VFX', await page.locator('.afterimage').count() === 0 && await page.locator('#stage-fx>*').count() === 0);
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.getByRole('button', { name: '结束回合 SPACE', exact: true }).click(); await idle();
+  check('reduced motion still resolves damage', await page.locator('#player-health').textContent() === '62 / 76');
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.getByRole('button', { name: '重新对练', exact: true }).click();
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.screenshot({ path: 'output/playwright/ocgame/mobile.png' });
+  const geometry = await page.evaluate(() => {
+    const rect = s => { const r = document.querySelector(s).getBoundingClientRect(); return { x: r.x, y: r.y, w: r.width, h: r.height, bottom: r.bottom, right: r.right }; };
+    return { width: innerWidth, pageWidth: document.documentElement.scrollWidth, hand: rect('.hand'), end: rect('#end-turn'), hero: rect('.player-status'), card: rect('#view-bond'), intent: rect('#enemy-intent'), sprite: rect('.sprite-cell.ready') };
+  });
+  check('mobile has no page overflow', geometry.pageWidth === geometry.width);
+  check('mobile controls fit viewport', geometry.end.right <= 390 && geometry.end.bottom <= 844 && geometry.hero.bottom < geometry.end.bottom + 15);
+  await page.getByRole('button', { name: '查看绫辻绚濑真命天女卡', exact: true }).click();
+  await page.screenshot({ path: 'output/playwright/ocgame/mobile-card.png' });
+  check('mobile dialog can scroll', await page.locator('#bond-dialog').evaluate(el => el.scrollHeight > el.clientHeight));
+  await page.keyboard.press('Escape');
+  check('no JS errors', errors.length === 0);
+  return { checks, geometry, motion: { frames: samples.length, cutFrames: samples.filter(s => s.pose === 'cut').length, firstCut: samples.find(s => s.pose === 'cut'), lastCut: samples.findLast(s => s.pose === 'cut'), final: samples.at(-1) }, errors };
+}

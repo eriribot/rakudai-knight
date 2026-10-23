@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#111923" />
+    <title>放课后的约定 · OC 对战演示</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preload" as="image" href="assets/stella-front.png" />
+    <link rel="preload" as="image" href="assets/ayase-vow.png" />
+    <script type="module" src="app.js"></script>
+  </head>
+  <body>
+    <main class="game" id="game">
+      <div class="scenery" aria-hidden="true"></div>
+      <div class="vignette" aria-hidden="true"></div>
+      <header class="topbar">
+        <div class="brand">
+          <span class="crest" aria-hidden="true">✦</span>
+          <div>
+            <small>破軍学園</small>
+            <h1>放课后的约定</h1>
+          </div>
+          <span class="demo-mark">OC DEMO</span>
+        </div>
+        <div class="location">
+          <span>第一演习场</span><i></i><span>自由对练</span>
+        </div>
+        <nav aria-label="演示设置">
+          <button class="quiet" id="customize">自定义主角</button
+          ><button class="icon-button" id="help" aria-label="玩法说明">?</button
+          ><button
+            class="icon-button"
+            id="reset"
+            aria-label="重新对练"
+            title="重新对练"
+          >
+            ↻
+          </button>
+        </nav>
+      </header>
+
+      <section class="enemy-status" aria-label="史黛菈状态">
+        <div class="enemy-eyebrow">紅蓮の皇女</div>
+        <h2>史黛菈·法米利昂</h2>
+        <div class="enemy-hp">
+          <div
+            class="meter enemy-meter"
+            id="enemy-meter"
+            role="progressbar"
+            aria-label="史黛菈生命"
+            aria-valuemin="0"
+            aria-valuemax="108"
+          >
+            <span id="enemy-fill"></span>
+          </div>
+          <b id="enemy-health">108 / 108</b>
+        </div>
+        <div class="enemy-badges">
+          <span id="enemy-block" hidden></span><span>模拟战 · 幻想形态</span>
+        </div>
+      </section>
+
+      <aside class="companion" aria-label="羁绊伙伴">
+        <div class="section-label"><span>同行者</span><span>01</span></div>
+        <button
+          class="bond-card"
+          id="view-bond"
+          aria-label="查看绫辻绚濑真命天女卡"
+        >
+          <img
+            src="assets/ayase-vow.png"
+            alt="绫辻绚濑身穿素白浴衣，喜极而泣地抱着夺回的绫辻一刀流道场匾牌"
+          />
+          <div class="bond-corner" aria-hidden="true">絆</div>
+          <div class="bond-title">
+            <span>真命天女</span>
+            <h2>绫辻绚濑</h2>
+            <small>取り戻した居場所</small>
+          </div>
+          <span class="expand-mark" aria-hidden="true">⤢</span>
+        </button>
+        <button class="support-button" id="support">
+          <span class="support-icon" aria-hidden="true">✧</span
+          ><span
+            ><strong>并肩</strong
+            ><small id="support-desc">回复 12 · 护盾 8</small></span
+          ><em id="support-count">1 / 1</em>
+        </button>
+        <p class="bond-caption">「终于……回来了。」</p>
+      </aside>
+
+      <section class="encounter" aria-label="对战场景">
+        <div class="ground-shadow" aria-hidden="true"></div>
+        <div class="actor-root" id="actor-root" aria-label="史黛菈正面持剑迎战">
+          <div class="stella-motion" id="stella-motion" data-pose="ready">
+            <div class="sprite-cell ready"></div>
+            <div class="sprite-cell cut"></div>
+          </div>
+        </div>
+        <div class="enemy-intent" id="enemy-intent">
+          <span class="intent-symbol" aria-hidden="true">↘</span>
+          <div>
+            <small>下回合意图</small><strong id="intent-name">斩击</strong>
+          </div>
+          <b id="intent-value">14</b>
+        </div>
+        <div class="enemy-speech" id="enemy-speech">
+          来吧，让我看看你的剑术。
+        </div>
+        <div class="stage-fx" id="stage-fx" aria-hidden="true"></div>
+      </section>
+
+      <aside class="turn-notes" aria-label="回合记录">
+        <div class="section-label">
+          <span>交战记录</span><span id="round-label">ROUND 01</span>
+        </div>
+        <ol id="battle-log"></ol>
+        <button class="quiet motion-preview" id="motion-preview">
+          ▷ 观看挥砍
+        </button>
+      </aside>
+
+      <div
+        class="turn-message"
+        id="turn-message"
+        role="status"
+        aria-live="polite"
+      >
+        你的回合
+      </div>
+      <section class="player-status" aria-label="主角状态">
+        <div class="player-crest" id="player-crest" aria-hidden="true">剣</div>
+        <div class="player-info">
+          <div class="player-name">
+            <strong id="player-name">无名剑士</strong
+            ><span id="player-style">长剑</span>
+          </div>
+          <div class="player-hp">
+            <div
+              class="meter"
+              id="player-meter"
+              role="progressbar"
+              aria-label="主角生命"
+              aria-valuemin="0"
+              aria-valuemax="76"
+            >
+              <span id="player-fill"></span>
+            </div>
+            <b id="player-health">76 / 76</b>
+          </div>
+          <div class="player-effects">
+            <span id="player-block">护盾 0</span
+            ><span id="player-power" hidden></span>
+          </div>
+        </div>
+      </section>
+      <section class="hand-zone" aria-label="手牌">
+        <div class="hand-meta">
+          <span id="deck-count">抽牌堆 7</span
+          ><span class="hand-instruction">左右滑动手牌</span
+          ><span id="discard-count">弃牌堆 0</span>
+        </div>
+        <div class="hand" id="hand"></div>
+      </section>
+      <div class="turn-controls">
+        <div class="energy" aria-label="行动点">
+          <span>行动</span>
+          <div id="energy-pips" aria-hidden="true"></div>
+          <strong id="energy-count">3 / 3</strong>
+        </div>
+        <button class="end-turn" id="end-turn">
+          <span>结束回合</span><small>SPACE</small>
+        </button>
+      </div>
+      <footer class="bottom-line">
+        <span>自定义主角 · 单场对练</span><span>1—5 出牌 · 空格结束回合</span>
+      </footer>
+    </main>
+
+    <dialog id="custom-dialog" class="paper-dialog">
+      <form id="custom-form">
+        <button class="dialog-close" type="button" data-close aria-label="关闭">
+          ×</button
+        ><small class="dialog-eyebrow">YOUR CHARACTER</small>
+        <h2>写下你的名字</h2>
+        <p>这一场，轮到你站在她面前。</p>
+        <label class="field-label" for="name-input">主角姓名</label
+        ><input
+          id="name-input"
+          name="name"
+          maxlength="16"
+          required
+          autocomplete="off"
+          value="无名剑士"
+        />
+        <fieldset>
+          <legend>惯用武器</legend>
+          <label class="style-option"
+            ><input type="radio" name="style" value="sword" checked /><span
+              ><strong>长剑</strong><small>所有攻击伤害 +2</small></span
+            ><em>剣</em></label
+          ><label class="style-option"
+            ><input type="radio" name="style" value="katana" /><span
+              ><strong>太刀</strong><small>每回合首次攻击伤害 +5</small></span
+            ><em>刀</em></label
+          ><label class="style-option"
+            ><input type="radio" name="style" value="rapier" /><span
+              ><strong>细剑</strong><small>每回合开始获得 4 护盾</small></span
+            ><em>刺</em></label
+          >
+        </fieldset>
+        <button class="primary" type="submit">保存并开始对练</button>
+      </form>
+    </dialog>
+
+    <dialog id="bond-dialog" class="bond-dialog">
+      <button class="dialog-close" data-close aria-label="关闭">×</button>
+      <div class="full-card">
+        <img
+          src="assets/ayase-vow.png"
+          alt="绚濑穿着第七话的素白浴衣，抱住写有綾辻一刀流道場的木匾，带着泪水露出笑容"
+        />
+        <div class="full-card-caption">
+          <small>真命天女</small>
+          <h2>绫辻绚濑</h2>
+          <span>AYASE AYATSUJI</span>
+        </div>
+      </div>
+      <div class="bond-detail">
+        <small class="dialog-eyebrow">絆の記憶 · 01</small>
+        <h2>归来的道场</h2>
+        <p>她把木匾抱得很紧。<br />想说的话还没说出口，眼泪先落了下来。</p>
+        <blockquote>「谢谢你。<br />能再见到这块匾……真是太好了。」</blockquote>
+        <div class="bond-skill">
+          <span>并肩</span>
+          <p>
+            回复 <b>12</b> 点生命，获得 <b>8</b> 点护盾。<br /><small
+              >不消耗行动点 · 每场战斗一次</small
+            >
+          </p>
+        </div>
+        <button class="primary" id="support-from-card">请绚濑支援</button>
+        <p class="card-note">羁绊演示卡 · 浴衣与夺回匾牌场景的二次创作</p>
+      </div>
+    </dialog>
+
+    <dialog id="help-dialog" class="paper-dialog">
+      <button class="dialog-close" data-close aria-label="关闭">×</button
+      ><small class="dialog-eyebrow">HOW TO PLAY</small>
+      <h2>对练开始</h2>
+      <ol class="help-list">
+        <li>
+          每回合有 <b>3</b> 点行动，抽取 <b>5</b> 张牌。点选手牌立即使用。
+        </li>
+        <li>史黛菈的下次行动会显示在身旁。先招架，再寻找出剑的机会。</li>
+        <li>
+          护盾抵挡伤害，在各自下回合开始时清除；「蓄力」保留到下一次攻击。
+        </li>
+        <li>绚濑可以支援一次，回复生命并提供护盾。点卡面查看完整插画。</li>
+        <li>任一方生命归零时结束。可以随时重新对练或更换主角。</li>
+      </ol>
+      <p class="help-keys">1—5：出牌　空格：结束回合　Esc：关闭窗口</p>
+      <button class="primary" data-close>明白了</button>
+    </dialog>
+
+    <dialog id="result-dialog" class="paper-dialog result-dialog">
+      <small class="dialog-eyebrow">DUEL COMPLETE</small>
+      <h2 id="result-title">对练结束</h2>
+      <p id="result-copy"></p>
+      <div class="result-stats" id="result-stats"></div>
+      <button class="primary" id="play-again">再来一场</button
+      ><button class="quiet" data-close>留在演习场</button>
+    </dialog>
+    <noscript>请启用 JavaScript 以开始对练。</noscript>
+  </body>
+</html>

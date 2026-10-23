@@ -1,0 +1,163 @@
+{
+  "status": "passed",
+  "completedAt": "2026-10-22T16:27:16.679Z",
+  "checks": [
+    "Initial TRPG resources and 15-card deck",
+    "Visible intent uses adopted 22-damage rules",
+    "Demo settles costs, glancing damage and analysis",
+    "Demo closes tools menu",
+    "AP prevents unaffordable Shura",
+    "Analysis ready against a persistent 24-point barrier",
+    "Ready analysis visible in HUD",
+    "Full analysis pierces barrier once then ordinary slash damages barrier",
+    "Shura starts dedicated music and intro",
+    "Four-round victory after full Shura intro",
+    "Victory locks background controls",
+    "player full-body art and geometry stay invariant through actual actions",
+    "enemy full-body art and geometry stay invariant through actual actions",
+    "Skipping intro applies Shura exactly once",
+    "Restart cancels Shura and restores normal music mode",
+    "Restart restores all battle resources",
+    "Enemy actions can cause defeat",
+    "Rasetsu reference exists only as locked catalogue entry",
+    "Rasetsu is absent from definitions and all piles",
+    "1280px main controls visible without page overflow",
+    "1280px card rules do not overlap footer or clip",
+    "390px main controls visible without page overflow",
+    "390px card rules do not overlap footer or clip",
+    "Mobile card tap updates rules and draw",
+    "Reduced motion keeps settlement contract",
+    "No page exceptions or failed assets"
+  ],
+  "errors": [],
+  "failures": [],
+  "poseSamples": 274,
+  "layout": [
+    {
+      "size": {
+        "width": 1280,
+        "height": 720
+      },
+      "geometry": {
+        "viewport": 1280,
+        "pageWidth": 1280,
+        "end": {
+          "x": 1064.8125,
+          "y": 502.5,
+          "right": 1228.8125,
+          "bottom": 561.5,
+          "width": 164,
+          "height": 59
+        },
+        "energy": {
+          "x": 91.515625,
+          "y": 504,
+          "right": 111.390625,
+          "bottom": 540,
+          "width": 19.875,
+          "height": 36
+        },
+        "cardText": [
+          {
+            "descriptionBottom": 156,
+            "footerTop": 174,
+            "cardBottom": 195,
+            "footerBottom": 188
+          },
+          {
+            "descriptionBottom": 172,
+            "footerTop": 174,
+            "cardBottom": 195,
+            "footerBottom": 188
+          },
+          {
+            "descriptionBottom": 172,
+            "footerTop": 174,
+            "cardBottom": 195,
+            "footerBottom": 188
+          },
+          {
+            "descriptionBottom": 156,
+            "footerTop": 174,
+            "cardBottom": 195,
+            "footerBottom": 188
+          },
+          {
+            "descriptionBottom": 156,
+            "footerTop": 174,
+            "cardBottom": 195,
+            "footerBottom": 188
+          }
+        ]
+      }
+    },
+    {
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "viewport": 390,
+        "pageWidth": 390,
+        "end": {
+          "x": 235,
+          "y": 537,
+          "right": 380,
+          "bottom": 577,
+          "width": 145,
+          "height": 40
+        },
+        "energy": {
+          "x": 25.328125,
+          "y": 550.5,
+          "right": 40.78125,
+          "bottom": 578.5,
+          "width": 15.453125,
+          "height": 28
+        },
+        "cardText": [
+          {
+            "descriptionBottom": 150,
+            "footerTop": 168,
+            "cardBottom": 188,
+            "footerBottom": 182
+          },
+          {
+            "descriptionBottom": 165,
+            "footerTop": 168,
+            "cardBottom": 188,
+            "footerBottom": 182
+          },
+          {
+            "descriptionBottom": 165,
+            "footerTop": 168,
+            "cardBottom": 188,
+            "footerBottom": 182
+          },
+          {
+            "descriptionBottom": 150,
+            "footerTop": 168,
+            "cardBottom": 188,
+            "footerBottom": 182
+          },
+          {
+            "descriptionBottom": 150,
+            "footerTop": 168,
+            "cardBottom": 188,
+            "footerBottom": 182
+          }
+        ]
+      }
+    }
+  ],
+  "validationScope": "Local browser automation; human visual and touch acceptance remains pending.",
+  "screenshots": [
+    "ui-update-desktop-20261022.png",
+    "ui-update-1280-20261022.png",
+    "ui-update-390-20261022.png",
+    "ui-update-insight-20261022.png",
+    "ui-update-shura-20261022.png",
+    "ui-update-victory-20261022.png",
+    "ui-update-rasetsu-locked-20261022.png"
+  ]
+}

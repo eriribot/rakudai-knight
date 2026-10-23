@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "id": "rasetsu-locked",
+  "cardLabel": "一刀羅刹",
+  "status": "locked-reference-only",
+  "unlocked": false,
+  "playable": false,
+  "includedInDeck": false,
+  "collectedOn": "2026-10-22",
+  "file": "rasetsu-locked.jpg",
+  "mediaType": "image/jpeg",
+  "width": 1200,
+  "height": 675,
+  "bytes": 111479,
+  "sha256": "c7b41bb8d8d83dbf8e8556d1625b1be6295ea12f0dd41a3b9e37cedfb6f0771e",
+  "originalBytesUnchanged": true,
+  "pixelEditing": false,
+  "generated": false,
+  "visuallyInspected": true,
+  "sourceType": "anime-screencap-republished-in-episode-recap",
+  "sourcePage": "https://ponpokonwes.com/archives/50840264.html",
+  "sourcePageTitle": "「落第騎士の英雄譚」12話感想 全てを注ぐ一刀羅刹VS受けて立つ雷切！プロポーズは決闘の後に、綺麗な幕引き。(最終回 画像)",
+  "sourcePagePublishedOn": "2015-12-22",
+  "sourceImageLabel": "落第騎士の英雄譚 (24)",
+  "sourceUrl": "https://livedoor.blogimg.jp/ponpokonwes/imgs/a/6/a6c8a791.jpg",
+  "episode": 12,
+  "episodeTitle": "無冠の剣王 II",
+  "sceneDescription": "黑鐵一輝在競技場壓低重心向右突進，雙手握住向後蓄勢的陰鐵；人物與殘影呈紅色，觀眾席背景為黑白。",
+  "selectionReason": "第12話一輝對東堂刀華決戰的動畫截圖。全身突進輪廓清楚，與現有修羅卡使用的藍光側臉圖有所區別；作為未解鎖羅刹的資料配圖，不添加可用招式。",
+  "verification": {
+    "status": "episode-and-sequence-corroborated-no-timecode",
+    "identificationBasis": [
+      "動畫官方第12話劇情頁確認本集為一輝對東堂刀華的決戰。",
+      "截圖頁明確以一刀羅刹對雷切為主題，正文討論羅刹的透支與出血演出，並保留同場刀華及一輝受損的前後畫面。",
+      "本圖在該頁以完整尺寸圖連結提供；已檢視全圖中的一輝、陰鐵、競技場及紅黑突進演出。",
+      "動畫官方術語表分列一刀修羅與一刀羅刹，後者把前者的最強一分鐘凝縮為一次揮擊。"
+    ],
+    "references": [
+      {
+        "url": "https://ittoshura.com/story/",
+        "kind": "official-episode-context",
+        "supports": "第12話標題及一輝對刀華的對戰背景；不單獨證明本張截圖的招式或時間碼。"
+      },
+      {
+        "url": "https://www.ittoshura.com/glossary/index.html",
+        "kind": "official-technique-definition",
+        "supports": "一刀羅刹的正確名稱及單次揮擊機制；不為截圖逐幀標註。"
+      },
+      {
+        "url": "https://ponpokonwes.com/archives/50840264.html",
+        "kind": "secondary-episode-capture-context",
+        "supports": "截圖出處、當集羅刹對雷切的段落與相關演出。"
+      }
+    ],
+    "uncertainty": "尚未取得正版完整影片的對應時間碼或逐幀字幕核對。此圖可追溯到第12話羅刹決戰段落，但不宣稱是台詞喊出招式名的精確一幀。截圖來自當集評論頁，並非動畫官網直接發佈的這一張。",
+    "rejectedShortcut": "未把既有 onair_p12_5.jpg 的藍光直接當作羅刹證據；該圖原有來源記錄只承諾側向突進示意。"
+  },
+  "rights": {
+    "workCopyrightCredit": "©海空りく・SBクリエイティブ／落第騎士の英雄譚製作委員会",
+    "reuseLicense": "未取得另行商用或再散布授權；來源公開可讀不表示授予素材授權。"
+  },
+  "integrationBoundary": "僅新增鎖定素材與來源記錄。沒有新增卡牌定義、效果、解鎖條件或牌堆條目，也沒有改寫現有六張卡面 manifest。"
+}
