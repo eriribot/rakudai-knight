@@ -3,35 +3,57 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#111923" />
-    <title>放课后的约定 · OC 对战演示</title>
+    <meta name="theme-color" content="#0b0f19" />
+    <title>落第骑士英雄谭 · 放课后的约定（灵装构筑对战）</title>
     <link rel="stylesheet" href="styles.css" />
     <link rel="preload" as="image" href="assets/stella-front.png" />
     <link rel="preload" as="image" href="assets/ayase-vow.png" />
     <script type="module" src="app.js"></script>
   </head>
   <body>
-    <main class="game" id="game">
+    <main class="game" id="game" data-arcana="insight">
       <div class="scenery" aria-hidden="true"></div>
       <div class="vignette" aria-hidden="true"></div>
+      <div class="ln-cover-decor" aria-hidden="true">
+        <span class="ln-ribbon-top">GA BUNKO × CAVALRY DUEL SYSTEM</span>
+        <span class="ln-ribbon-bottom">最弱の魔力 × 最強の剣技</span>
+      </div>
+
       <header class="topbar">
         <div class="brand">
-          <span class="crest" aria-hidden="true">✦</span>
-          <div>
-            <small>破軍学園</small>
+          <span class="crest" aria-hidden="true">
+            <svg viewBox="0 0 100 115" width="34" height="39">
+              <path
+                d="M50 10 C61 12,77 8,88 5 C90 25,92 48,84 67 C75 86,60 98,50 108 C40 98,25 86,16 67 C8 48,10 25,12 5 C23 8,39 12,50 10 Z"
+                fill="#fff8eb"
+                stroke="#d81b47"
+                stroke-width="6"
+              />
+              <path
+                d="M50 46 C47 36,40 26,29 22 C31 28,34 33,38 36 C33 34,27 36,24 39 C30 41,37 42,50 48 C63 42,70 41,76 39 C73 36,67 34,62 36 C66 33,69 28,71 22 C60 26,53 36,50 46 Z M23 53 L77 53 L77 57 L23 57 Z M36 61 L42 75 L50 69 L58 75 L64 61 L50 67 Z"
+                fill="#b8143a"
+              />
+            </svg>
+          </span>
+          <div class="brand-titles">
+            <small>破軍学園 · A TALE OF WORST ONE</small>
             <h1>放课后的约定</h1>
           </div>
-          <span class="demo-mark">OC DEMO</span>
+          <span class="demo-mark" id="top-build-tag">F级 · 阴铁·改</span>
         </div>
         <div class="location">
-          <span>第一演习场</span><i></i><span>自由对练</span>
+          <span>第一演习场</span><i></i><span id="location-arcana">完全掌握 · 自由对练</span>
         </div>
         <nav aria-label="演示设置">
-          <button class="quiet" id="customize">自定义主角</button
-          ><button class="icon-button" id="help" aria-label="玩法说明">?</button
-          ><button
+          <button class="quiet" id="open-evolve-top" type="button" title="临场变招 · 锻造卡牌词条">
+            ✦ 临场变招 <b id="top-evolve-count">1</b>
+          </button>
+          <button class="quiet" id="customize" type="button">自定义主角</button>
+          <button class="icon-button" id="help" type="button" aria-label="玩法说明">?</button>
+          <button
             class="icon-button"
             id="reset"
+            type="button"
             aria-label="重新对练"
             title="重新对练"
           >
@@ -41,8 +63,13 @@
       </header>
 
       <section class="enemy-status" aria-label="史黛菈状态">
-        <div class="enemy-eyebrow">紅蓮の皇女</div>
-        <h2>史黛菈·法米利昂</h2>
+        <div class="enemy-header-row">
+          <span class="rank-seal enemy-rank" aria-hidden="true">A</span>
+          <div class="enemy-title-group">
+            <div class="enemy-eyebrow">〈紅蓮の皇女〉 · CRIMSON PRINCESS</div>
+            <h2>史黛菈·法米利昂</h2>
+          </div>
+        </div>
         <div class="enemy-hp">
           <div
             class="meter enemy-meter"
@@ -57,15 +84,20 @@
           <b id="enemy-health">108 / 108</b>
         </div>
         <div class="enemy-badges">
-          <span id="enemy-block" hidden></span><span>模拟战 · 幻想形态</span>
+          <span id="enemy-block" hidden></span>
+          <span id="enemy-weaken" class="debuff-badge" hidden></span>
+          <span class="device-tag">固有灵装《妃龙罪业》 · 幻想形态</span>
         </div>
       </section>
 
       <aside class="companion" aria-label="羁绊伙伴">
-        <div class="section-label"><span>同行者</span><span>01</span></div>
+        <div class="section-label">
+          <span>同行者 · PARTNER</span><span>絆 01</span>
+        </div>
         <button
           class="bond-card"
           id="view-bond"
+          type="button"
           aria-label="查看绫辻绚濑真命天女卡"
         >
           <img
@@ -80,18 +112,23 @@
           </div>
           <span class="expand-mark" aria-hidden="true">⤢</span>
         </button>
-        <button class="support-button" id="support">
-          <span class="support-icon" aria-hidden="true">✧</span
-          ><span
-            ><strong>并肩</strong
-            ><small id="support-desc">回复 12 · 护盾 8</small></span
-          ><em id="support-count">1 / 1</em>
+        <button class="support-button" id="support" type="button">
+          <span class="support-icon" aria-hidden="true">✧</span>
+          <span>
+            <strong>并肩</strong>
+            <small id="support-desc">回12血·8盾 · 同调+50%·变招+1</small>
+          </span>
+          <em id="support-count">1 / 1</em>
         </button>
         <p class="bond-caption">「终于……回来了。」</p>
       </aside>
 
       <section class="encounter" aria-label="对战场景">
         <div class="ground-shadow" aria-hidden="true"></div>
+        <div class="ln-vertical-callout" id="ln-callout" aria-hidden="true">
+          <span class="callout-speaker">〈紅蓮の皇女〉</span>
+          <p id="ln-callout-text">『来吧——让我见识你的灵装！』</p>
+        </div>
         <div class="actor-root" id="actor-root" aria-label="史黛菈正面持剑迎战">
           <div class="stella-motion" id="stella-motion" data-pose="ready">
             <div class="sprite-cell ready"></div>
@@ -101,22 +138,79 @@
         <div class="enemy-intent" id="enemy-intent">
           <span class="intent-symbol" aria-hidden="true">↘</span>
           <div>
-            <small>下回合意图</small><strong id="intent-name">斩击</strong>
+            <small>下回合意图 · INTENT</small>
+            <strong id="intent-name">斩击</strong>
           </div>
           <b id="intent-value">14</b>
         </div>
         <div class="enemy-speech" id="enemy-speech">
           来吧，让我看看你的剑术。
         </div>
+        <div class="cutin-banner" id="cutin-banner" hidden aria-hidden="true">
+          <div class="cutin-slash"></div>
+          <div class="cutin-inner">
+            <small id="cutin-device">固有霊装解放 · 《阴铁·改》</small>
+            <h2 id="cutin-title">一刀修罗</h2>
+            <p id="cutin-chant">「吞干我的血肉吧——把所有的力量，压进这一瞬！」</p>
+          </div>
+        </div>
         <div class="stage-fx" id="stage-fx" aria-hidden="true"></div>
       </section>
+
+      <aside class="device-hud" aria-label="固有灵装与流派构筑">
+        <div class="section-label">
+          <span>固有灵装 · BUILD</span>
+          <span id="hud-rank-label">RANK F</span>
+        </div>
+        <div class="device-card">
+          <div class="device-card-head">
+            <span class="device-glyph" id="hud-arcana-glyph" aria-hidden="true">眼</span>
+            <div class="device-titles">
+              <small id="hud-arcana-name">体能强化系 · 均衡</small>
+              <strong id="hud-device-name">《阴铁·改》</strong>
+            </div>
+          </div>
+          <div class="arcana-stack-bar" id="arcana-stack-bar">
+            <div class="stack-header">
+              <span id="stack-label">看破印记</span>
+              <b id="stack-count">0 / 3</b>
+            </div>
+            <div class="stack-pips" id="stack-pips" aria-hidden="true">
+              <i></i><i></i><i></i>
+            </div>
+            <p class="stack-hint" id="stack-hint">
+              再叠 3 层触发【完全掌握·秘剑】
+            </p>
+          </div>
+          <div class="device-actions">
+            <button class="noble-button" id="noble-art" type="button" disabled>
+              <div class="noble-progress" id="noble-fill"></div>
+              <div class="noble-content">
+                <span>
+                  <small>伐刀绝技 · NOBLE ART</small>
+                  <strong id="noble-name">一刀修罗</strong>
+                </span>
+                <em id="noble-sync">0%</em>
+              </div>
+            </button>
+            <button class="evolve-button" id="evolve-btn" type="button">
+              <span class="evolve-icon" aria-hidden="true">✦</span>
+              <span>
+                <strong>临场变招 · 词条铭刻</strong>
+                <small id="evolve-sub">改造手牌 · 打造专属流派</small>
+              </span>
+              <b id="evolve-count">1</b>
+            </button>
+          </div>
+        </div>
+      </aside>
 
       <aside class="turn-notes" aria-label="回合记录">
         <div class="section-label">
           <span>交战记录</span><span id="round-label">ROUND 01</span>
         </div>
         <ol id="battle-log"></ol>
-        <button class="quiet motion-preview" id="motion-preview">
+        <button class="quiet motion-preview" id="motion-preview" type="button">
           ▷ 观看挥砍
         </button>
       </aside>
@@ -129,12 +223,13 @@
       >
         你的回合
       </div>
+
       <section class="player-status" aria-label="主角状态">
         <div class="player-crest" id="player-crest" aria-hidden="true">剣</div>
         <div class="player-info">
           <div class="player-name">
-            <strong id="player-name">无名剑士</strong
-            ><span id="player-style">长剑</span>
+            <strong id="player-name">无名剑士</strong>
+            <span id="player-style">长剑</span>
           </div>
           <div class="player-hp">
             <div
@@ -150,72 +245,257 @@
             <b id="player-health">76 / 76</b>
           </div>
           <div class="player-effects">
-            <span id="player-block">护盾 0</span
-            ><span id="player-power" hidden></span>
+            <span id="player-block">护盾 0</span>
+            <span id="player-power" hidden></span>
+            <span id="player-overdrive" class="overdrive-tag" hidden>灵装解放</span>
           </div>
         </div>
       </section>
+
       <section class="hand-zone" aria-label="手牌">
         <div class="hand-meta">
-          <span id="deck-count">抽牌堆 7</span
-          ><span class="hand-instruction">左右滑动手牌</span
-          ><span id="discard-count">弃牌堆 0</span>
+          <span id="deck-count">抽牌堆 7</span>
+          <span class="hand-instruction">左右滑动手牌</span>
+          <span id="discard-count">弃牌堆 0</span>
         </div>
         <div class="hand" id="hand"></div>
       </section>
+
       <div class="turn-controls">
         <div class="energy" aria-label="行动点">
           <span>行动</span>
           <div id="energy-pips" aria-hidden="true"></div>
           <strong id="energy-count">3 / 3</strong>
         </div>
-        <button class="end-turn" id="end-turn">
+        <button class="end-turn" id="end-turn" type="button">
           <span>结束回合</span><small>SPACE</small>
         </button>
       </div>
+
       <footer class="bottom-line">
-        <span>自定义主角 · 单场对练</span><span>1—5 出牌 · 空格结束回合</span>
+        <span id="footer-build-summary">自定义灵装 · 流派构筑对练</span>
+        <span>1—5 出牌 · E 变招 · Q 绝技 · 空格结束回合</span>
       </footer>
     </main>
 
-    <dialog id="custom-dialog" class="paper-dialog">
+    <dialog id="custom-dialog" class="paper-dialog custom-dialog">
       <form id="custom-form">
         <button class="dialog-close" type="button" data-close aria-label="关闭">
-          ×</button
-        ><small class="dialog-eyebrow">YOUR CHARACTER</small>
-        <h2>写下你的名字</h2>
-        <p>这一场，轮到你站在她面前。</p>
-        <label class="field-label" for="name-input">主角姓名</label
-        ><input
-          id="name-input"
-          name="name"
-          maxlength="16"
-          required
-          autocomplete="off"
-          value="无名剑士"
-        />
+          ×
+        </button>
+        <small class="dialog-eyebrow">BLAZER ARCHIVE &amp; DEVICE FORGE</small>
+        <h2>学生证建档 · 固有灵装锻造</h2>
+        <p>定制你的伐刀者档案、固有灵装形态、异能系别与回路契约，构筑专属战斗流派。</p>
+
+        <div class="preset-bar" aria-label="一键流派预设">
+          <span class="preset-label">一键流派档案：</span>
+          <div class="preset-buttons">
+            <button type="button" class="preset-chip" data-preset="worst_blade">
+              F级·一刀修罗流
+            </button>
+            <button type="button" class="preset-chip" data-preset="crimson_dragon">
+              A级·红莲劫火流
+            </button>
+            <button type="button" class="preset-chip" data-preset="wind_scar">
+              D级·空间爪痕流
+            </button>
+            <button type="button" class="preset-chip" data-preset="phantom_star">
+              B级·因果蜃景流
+            </button>
+          </div>
+        </div>
+
+        <div class="form-grid-two">
+          <div>
+            <label class="field-label" for="name-input">主角姓名</label>
+            <input
+              id="name-input"
+              name="name"
+              maxlength="16"
+              required
+              autocomplete="off"
+              value="无名剑士"
+            />
+          </div>
+          <div>
+            <label class="field-label" for="rank-input">破军学园评级</label>
+            <select id="rank-input" name="rank" class="dialog-select">
+              <option value="F">Rank F · 落第骑士 (Worst One)</option>
+              <option value="D">Rank D · 异端专精</option>
+              <option value="B">Rank B · 选拔精锐</option>
+              <option value="A">Rank A · 冠位候补</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-grid-two">
+          <div>
+            <label class="field-label" for="device-input">固有灵装名称</label>
+            <input
+              id="device-input"
+              name="deviceName"
+              maxlength="18"
+              autocomplete="off"
+              placeholder="如：阴铁·改 / 绯爪"
+              value="阴铁·改"
+            />
+          </div>
+          <div>
+            <label class="field-label" for="noble-input">伐刀绝技名称</label>
+            <input
+              id="noble-input"
+              name="nobleArtName"
+              maxlength="20"
+              autocomplete="off"
+              placeholder="如：一刀修罗 / 真空断层"
+              value="一刀修罗"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label class="field-label" for="chant-input">灵装解放咏唱词</label>
+          <input
+            id="chant-input"
+            name="nobleChant"
+            maxlength="60"
+            autocomplete="off"
+            value="吞干我的血肉吧——把所有的力量，压进这一瞬！"
+          />
+        </div>
+
         <fieldset>
-          <legend>惯用武器</legend>
-          <label class="style-option"
-            ><input type="radio" name="style" value="sword" checked /><span
-              ><strong>长剑</strong><small>所有攻击伤害 +2</small></span
-            ><em>剣</em></label
-          ><label class="style-option"
-            ><input type="radio" name="style" value="katana" /><span
-              ><strong>太刀</strong><small>每回合首次攻击伤害 +5</small></span
-            ><em>刀</em></label
-          ><label class="style-option"
-            ><input type="radio" name="style" value="rapier" /><span
-              ><strong>细剑</strong><small>每回合开始获得 4 护盾</small></span
-            ><em>刺</em></label
-          >
+          <legend>第一轴 · 惯用武器（灵装物理形态）</legend>
+          <div class="option-grid-three">
+            <label class="style-option">
+              <input type="radio" name="style" value="sword" checked />
+              <span>
+                <strong>长剑</strong>
+                <small>所有攻击伤害 +2；单次 ≥18 伤害得 4 护盾</small>
+              </span>
+              <em>剣</em>
+            </label>
+            <label class="style-option">
+              <input type="radio" name="style" value="katana" />
+              <span>
+                <strong>太刀</strong>
+                <small>每回合首次攻击 +5 伤害，并 +15% 灵装同调</small>
+              </span>
+              <em>刀</em>
+            </label>
+            <label class="style-option">
+              <input type="radio" name="style" value="rapier" />
+              <span>
+                <strong>细剑</strong>
+                <small>每回合初获 4 护盾；单回合第 3 张牌追击 5 穿伤</small>
+              </span>
+              <em>刺</em>
+            </label>
+          </div>
         </fieldset>
+
+        <fieldset>
+          <legend>第二轴 · 伐刀异能系别（核心流派共鸣 &amp; 伐刀绝技）</legend>
+          <div class="option-grid-two">
+            <label class="style-option arcana-option">
+              <input type="radio" name="arcana" value="insight" checked />
+              <span>
+                <strong>体能强化系 · 完全掌握</strong>
+                <small>叠满3层【看破】：下次攻击 +8 穿伤并返还 1 行动点</small>
+              </span>
+              <em>眼</em>
+            </label>
+            <label class="style-option arcana-option">
+              <input type="radio" name="arcana" value="blaze" />
+              <span>
+                <strong>自然干涉系 · 红莲劫火</strong>
+                <small>叠满3层【残火】：下次攻击引爆 12 点穿伤并抽 1 张牌</small>
+              </span>
+              <em>炎</em>
+            </label>
+            <label class="style-option arcana-option">
+              <input type="radio" name="arcana" value="scar" />
+              <span>
+                <strong>概念干涉系 · 空间爪痕</strong>
+                <small>叠满3层【爪痕】：下次攻击追加 14 点穿伤并获 6 护盾</small>
+              </span>
+              <em>痕</em>
+            </label>
+            <label class="style-option arcana-option">
+              <input type="radio" name="arcana" value="mirage" />
+              <span>
+                <strong>因果干涉系 · 幻象定轨</strong>
+                <small>叠满3层【幻影】：追击 10 穿伤、抽 1 牌并削弱敌意图 6 点</small>
+              </span>
+              <em>幻</em>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>第三轴 · 灵装回路契约（被动法则铭刻）</legend>
+          <div class="option-grid-two">
+            <label class="style-option">
+              <input type="radio" name="pact" value="standard" checked />
+              <span>
+                <strong>均衡魔力回路</strong>
+                <small>每次触发流派共鸣或释放伐刀绝技时回复 3 点生命</small>
+              </span>
+            </label>
+            <label class="style-option">
+              <input type="radio" name="pact" value="overdrive" />
+              <span>
+                <strong>落第骑士·超限回路</strong>
+                <small>蓄力/步法额外 +1 印记与 +15% 同调；共鸣伤害 +4</small>
+              </span>
+            </label>
+            <label class="style-option">
+              <input type="radio" name="pact" value="crimson_vow" />
+              <span>
+                <strong>修罗血契·强袭铭刻</strong>
+                <small>流派共鸣与伐刀绝技伤害 +6；攻击牌额外 +10% 同调</small>
+              </span>
+            </label>
+            <label class="style-option">
+              <input type="radio" name="pact" value="aegis_flow" />
+              <span>
+                <strong>天衣无缝·受流铭刻</strong>
+                <small>护盾抵挡敌方攻击时，自动反震 8 点穿透伤害并 +25% 同调</small>
+              </span>
+            </label>
+          </div>
+        </fieldset>
+
         <button class="primary" type="submit">保存并开始对练</button>
       </form>
     </dialog>
 
+    <dialog id="evolve-dialog" class="paper-dialog evolve-dialog">
+      <button class="dialog-close" type="button" data-close aria-label="关闭">
+        ×
+      </button>
+      <small class="dialog-eyebrow">SWORD EVOLUTION · 臨場変招</small>
+      <h2>剑技推演 · 灵装词条铭刻</h2>
+      <p>
+        选择一张当前手牌，并为其永久锻造一项【灵装词条】。改造效果在本局所有洗牌循环中永久保留（每张牌最多可铭刻 2 项词条）。
+      </p>
+      <div class="evolve-section">
+        <span class="field-label">1. 选择要改造的手牌</span>
+        <div class="evolve-card-list" id="evolve-card-list"></div>
+      </div>
+      <div class="evolve-section">
+        <span class="field-label">2. 选择要注入的灵装词条</span>
+        <div class="evolve-mod-list" id="evolve-mod-list"></div>
+      </div>
+      <button class="primary" id="confirm-evolve" type="button">
+        确认铭刻词条
+      </button>
+    </dialog>
+
     <dialog id="bond-dialog" class="bond-dialog">
-      <button class="dialog-close" data-close aria-label="关闭">×</button>
+      <button class="dialog-close" type="button" data-close aria-label="关闭">
+        ×
+      </button>
       <div class="full-card">
         <img
           src="assets/ayase-vow.png"
@@ -235,33 +515,42 @@
         <div class="bond-skill">
           <span>并肩</span>
           <p>
-            回复 <b>12</b> 点生命，获得 <b>8</b> 点护盾。<br /><small
-              >不消耗行动点 · 每场战斗一次</small
-            >
+            回复 <b>12</b> 点生命，获得 <b>8</b> 点护盾，并触发【比翼共鸣】：立即获得 <b>+2</b> 层流派印记、<b>+50%</b> 灵装同调率与 <b>+1</b> 次临场变招机会。<br />
+            <small>不消耗行动点 · 每场战斗一次</small>
           </p>
         </div>
-        <button class="primary" id="support-from-card">请绚濑支援</button>
+        <button class="primary" id="support-from-card" type="button">
+          请绚濑支援
+        </button>
         <p class="card-note">羁绊演示卡 · 浴衣与夺回匾牌场景的二次创作</p>
       </div>
     </dialog>
 
     <dialog id="help-dialog" class="paper-dialog">
-      <button class="dialog-close" data-close aria-label="关闭">×</button
-      ><small class="dialog-eyebrow">HOW TO PLAY</small>
-      <h2>对练开始</h2>
+      <button class="dialog-close" type="button" data-close aria-label="关闭">
+        ×
+      </button>
+      <small class="dialog-eyebrow">HOW TO PLAY &amp; BUILD GUIDE</small>
+      <h2>灵装构筑与对练指南</h2>
       <ol class="help-list">
         <li>
-          每回合有 <b>3</b> 点行动，抽取 <b>5</b> 张牌。点选手牌立即使用。
+          <b>三轴灵装定制</b>：在「自定义主角」中搭配<b>武器形态 × 伐刀异能系别 × 灵装回路契约</b>，定义你的专属必杀技与流派引擎。
         </li>
-        <li>史黛菈的下次行动会显示在身旁。先招架，再寻找出剑的机会。</li>
         <li>
-          护盾抵挡伤害，在各自下回合开始时清除；「蓄力」保留到下一次攻击。
+          <b>流派印记共鸣</b>：每次出牌累积【看破／残火／爪痕／幻影】印记；叠满 <b>3 层</b>后下次攻击自动触发流派共鸣爆发（穿盾直伤、回能、抽牌或削弱敌方意图）。
         </li>
-        <li>绚濑可以支援一次，回复生命并提供护盾。点卡面查看完整插画。</li>
-        <li>任一方生命归零时结束。可以随时重新对练或更换主角。</li>
+        <li>
+          <b>临场变招（E）</b>：开局、牌库重洗与绚濑支援都会获得【临场变招】机会，可永久为手牌铭刻<b>★连斩、★零式（-1费）、★穿彻（+6穿甲）、★回流（抽牌回血）</b>词条！
+        </li>
+        <li>
+          <b>伐刀绝技（Q）</b>：灵装同调率达 <b>100%</b> 时可零费解放专属伐刀绝技，触发彩插特写演出并进入本回合【灵装解放】增伤态。
+        </li>
+        <li>
+          <b>真命天女支援</b>：绚濑每场可支援一次，除回血护盾外，还会直接提供 +50% 同调率、+2 层印记与 +1 次临场变招。
+        </li>
       </ol>
-      <p class="help-keys">1—5：出牌　空格：结束回合　Esc：关闭窗口</p>
-      <button class="primary" data-close>明白了</button>
+      <p class="help-keys">1—5：出牌　E：临场变招　Q：伐刀绝技　空格：结束回合</p>
+      <button class="primary" type="button" data-close>明白了</button>
     </dialog>
 
     <dialog id="result-dialog" class="paper-dialog result-dialog">
@@ -269,8 +558,8 @@
       <h2 id="result-title">对练结束</h2>
       <p id="result-copy"></p>
       <div class="result-stats" id="result-stats"></div>
-      <button class="primary" id="play-again">再来一场</button
-      ><button class="quiet" data-close>留在演习场</button>
+      <button class="primary" id="play-again" type="button">再来一场</button>
+      <button class="quiet" type="button" data-close>留在演习场</button>
     </dialog>
     <noscript>请启用 JavaScript 以开始对练。</noscript>
   </body>

@@ -70,6 +70,30 @@ await check('ISO跨月区间、中文并列和同标签省略年月只采用明�
   assert.deepEqual(result.entries[3].dates.map(date => date.key), ['2013-04-05', '2013-04-06']);
 });
 
+await check('场景时间识别第十五卷明确年月日，模糊日期保留原标签', async () => {
+  const labels = [
+    '西历 2013 年 8 月 30 日（星期五）·深夜（法米利昂战争决战终幕，紧接第二十三章〈死灵游戏〉发动）',
+    '西历 2013 年 9 月 2 日（星期一）',
+    '西历 2013 年 8 月中旬',
+  ];
+  const result = plain(await fixture(labels.map((date, uid) => entry(uid, date, {
+    content: '<第十五卷场景>\n【场景核心信息】\n- 场景章节：第十五卷\n- 场景时间：' + date + '\n- 场景地点：法米利昂\n【正文】\n日期：2014年1月1日',
+  }))).read());
+  assert.deepEqual(result.entries.map(item => item.dates.map(date => date.key)), [['2013-08-30'], ['2013-09-02'], []]);
+  assert.deepEqual(result.entries.map(item => item.dateLabel), labels);
+  assert.equal(result.undatedCount, 1);
+});
+
+await check('场景时间沿用元信息边界，正文同名字段不作为剧情日期', async () => {
+  const result = plain(await fixture([
+    entry(1, '', { content: '<剧情>\n场景时间: 2013-08-30\n【正文】\n场景时间：2014年1月1日' }),
+    entry(2, '', { content: '【场景核心信息】\n地点：学园\n【正文】\n场景时间：2013年8月30日' }),
+  ]).read());
+  assert.deepEqual(result.entries[0].dates.map(date => date.key), ['2013-08-30']);
+  assert.equal(result.entries[1].dateLabel, '未标注日期');
+  assert.deepEqual(result.entries[1].dates, []);
+});
+
 await check('逗号后的明确至/到可串联区间，纯列举或模糊端点不会扩成区间', async () => {
   const result = plain(await fixture([
     entry(1, '2013年5月31日至6月1日，至6月5日'),

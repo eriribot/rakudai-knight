@@ -6,19 +6,32 @@ import { parseFragment } from 'parse5';
 
 const source = fs.readFileSync(new URL('terminal-app.js', import.meta.url), 'utf8');
 const plain = value => JSON.parse(JSON.stringify(value));
+const cropPhoto = (id = 'photo') => ({ image: { id }, width: 1200, height: 800, x: 600, y: 400, zoom: 1, drag: null });
+const croppedPhoto = 'data:image/jpeg;base64,/9j/2Q==';
 function fixture() {
-  const elements = new Map(), calls = [];
+  const elements = new Map(), calls = [], draws = [];
   const imageUrl = 'https://example.test/oc.png';
   let snapshot = { version: 1, scope: 'chat-a', avatarUrl: imageUrl, aliases: ['黎恩'],
     primaryName: '黎恩·舒华泽', personaName: '玩家人物', revision: '1' };
   function element(id) {
     if (!elements.has(id)) elements.set(id, { _html: '', writes: 0, textContent: '', value: '', disabled: false,
-      style: {}, classList: { add() {}, remove() {}, toggle() {} },
+      style: {}, classList: { add() {}, remove() {}, toggle() {} }, setAttribute() {},
+      width: 640, height: 640, getContext: () => ({ fillRect() {}, drawImage: (...args) => draws.push(args) }),
+      toDataURL: () => croppedPhoto,
+      getBoundingClientRect: () => ({ width: 240, height: 240 }),
+      focus() {}, setPointerCapture() {}, hasPointerCapture: () => true, releasePointerCapture() {},
       set innerHTML(value) { this._html = value; this.writes++; }, get innerHTML() { return this._html; } });
     return elements.get(id);
   }
   const service = {
     get: () => structuredClone(snapshot),
+    saveAvatar(expected, value) {
+      assert.deepEqual(plain(expected), snapshot);
+      calls.push(['saveAvatar', plain(value)]);
+      snapshot = { ...snapshot, avatarUrl: value.avatarUrl, profileName: snapshot.primaryName,
+        profileMismatch: false, revision: String(Number(snapshot.revision) + 1) };
+      return structuredClone(snapshot);
+    },
     resolve: name => ['玩家', snapshot.primaryName, ...snapshot.aliases].includes(name)
       ? { src: snapshot.profileMismatch ? '' : snapshot.avatarUrl, hasShieldFrame: false, prepared: false, portraitScale: 1, player: true } : null,
     saveAliases(expected, value) {
@@ -36,8 +49,8 @@ function fixture() {
     },
   };
   const ui = vm.createContext({ URL, console, structuredClone,
-    setTimeout: () => 1, clearTimeout() {}, addEventListener() {},
-    document: { getElementById: element, querySelectorAll: () => [], addEventListener() {} },
+    setTimeout: () => 1, clearTimeout() {}, addEventListener() {}, confirm: () => true, renderLime() {},
+    document: { body: element('body'), createElement: tag => element('created-' + tag), getElementById: element, querySelectorAll: () => [], addEventListener() {} },
   });
   ui.window = ui;
   vm.runInContext(source, ui);
@@ -48,7 +61,7 @@ function fixture() {
   ui.stat = { 玩家: { 姓名: snapshot.primaryName }, 场景: {}, 系统: {}, 人际: {} };
   ui.currentStack = ['scr-home', 'scr-settings'];
   ui.renderSettings();
-  return { ui, service, elements, element, calls, imageUrl,
+  return { ui, service, elements, element, calls, draws, imageUrl,
     get snapshot() { return snapshot; }, set snapshot(value) { snapshot = value; } };
 }
 function imageSources(html) {
@@ -116,16 +129,18 @@ test('保存分隔与去重别名，清除别名保留开局页头像', () => {
   assert.deepEqual(imageSources(f.element('home-ava').innerHTML), [f.imageUrl]);
   assert.deepEqual(f.snapshot.aliases, []); assert.equal(f.snapshot.avatarUrl, f.imageUrl);
 });
-test('设置页只有称呼和只读头像预览，不存在重复 URL、文件上传或头像修改', () => {
+test('设置页保留操作与裁切控件，移除存储路径及常驻说明', () => {
   const f = fixture();
   const html = f.element('rk-player-portrait-settings').innerHTML;
-  assert.match(html, /玩家称呼 \/ 别名/); assert.match(html, /开局页/); assert.match(html, /应用头像到本局/);
-  assert.doesNotMatch(html, /type="(?:url|file)"|player-portrait-(?:url|file)|HTTPS 图片地址|保存头像/);
+  assert.match(html, /玩家头像与称呼/); assert.match(html, /读取已保存头像/); assert.match(html, /应用照片到本局/);
+  assert.match(html, /type="file"/); assert.doesNotMatch(html, /type="url"/);
+  assert.doesNotMatch(html, /保存位置|此浏览器|开局页与终端共用|自动居中|最大 8 MB|当前已保存头像|用逗号或换行/);
+  assert.match(html, /canvas.*rk-player-portrait-crop/); assert.match(html, /type="range"/);
+  assert.equal(f.element('rk-player-portrait-message').hidden, true);
   assert.deepEqual(imageSources(f.element('rk-player-portrait-preview').innerHTML), [f.imageUrl]);
-  assert.equal(f.ui.uploadPlayerPortrait, undefined); assert.equal(f.ui.playerPortraitPreviewUrl, undefined);
-  assert.equal(Object.hasOwn(f.ui.playerPortraitDraft, 'avatarUrl'), false);
+  assert.equal(f.element('rk-player-portrait-apply').disabled, true);
   f.ui.editPlayerPortraitDraft({ name: 'avatarUrl', value: 'javascript:alert(1)' });
-  assert.equal(Object.hasOwn(f.ui.playerPortraitDraft, 'avatarUrl'), false); assert.deepEqual(f.calls, []);
+  assert.equal(f.ui.playerPortraitDraft.crop, null); assert.deepEqual(f.calls, []);
 });
 test('开局应用新照片后只读预览即时更新，未保存别名保留并按新版本失效', async () => {
   const f = fixture();
@@ -136,13 +151,13 @@ test('开局应用新照片后只读预览即时更新，未保存别名保留�
   assert.equal(f.ui.playerPortraitDraft.aliasesText, '我的未保存称呼');
   f.ui.savePlayerAliases(); assert.deepEqual(f.calls, []);
 });
-test('照片所属姓名与当前玩家不符时禁止保存别名，提示返回开局应用当前人物照片', () => {
+test('照片所属姓名不符时禁止保存别名，允许终端上传当前人物照片', () => {
   const f = fixture(); f.snapshot = { ...f.snapshot, profileName: '另一人物', profileMismatch: true };
   f.ui.refreshTerminalView();
   assert.equal(f.element('rk-player-portrait-save').disabled, true);
   assert.equal(f.element('rk-player-portrait-clear').disabled, true);
-  assert.match(f.element('rk-player-portrait-message').textContent, /开局页/);
-  assert.match(f.element('rk-player-portrait-message').textContent, /玩家:台词/);
+  assert.match(f.element('rk-player-portrait-message').textContent, /上传当前人物/);
+  assert.equal(f.element('rk-player-portrait-file').disabled, false);
   assert.deepEqual(imageSources(f.element('rk-player-portrait-preview').innerHTML), []);
   f.ui.editPlayerPortraitDraft({ name: 'aliasesText', value: '新称呼' }); f.ui.savePlayerAliases();
   assert.deepEqual(f.calls, []);
@@ -155,4 +170,107 @@ test('头像服务失败时保留可见错误并阻止保存', () => {
   f.ui.refreshTerminalView();
   assert.match(f.element('rk-player-portrait-message').textContent, /浏览器存储不可用/);
   assert.equal(f.element('rk-player-portrait-save').disabled, true);
+});
+
+test('选图仅预览，应用后更新首页和档案并保留未保存别名', async () => {
+  const f = fixture(), before = plain(f.ui.stat), photo = croppedPhoto;
+  f.ui.preparePlayerPortraitFile = async () => cropPhoto();
+  f.ui.editPlayerPortraitDraft({ name: 'aliasesText', value: '未保存称呼' });
+  await f.ui.uploadPlayerPortrait({ files: [{}], value: 'photo.jpg' });
+  assert.deepEqual(f.calls, []); assert.equal(f.snapshot.avatarUrl, f.imageUrl);
+  assert.deepEqual(f.draws.at(-1).slice(1), [200, 0, 800, 800, 0, 0, 640, 640]);
+  assert.equal(f.element('rk-player-portrait-apply').disabled, false);
+  f.ui.refreshTerminalView(); assert.equal(f.ui.playerPortraitDraft.crop.image.id, 'photo');
+  f.ui.savePlayerAvatar();
+  assert.deepEqual(f.calls, [['saveAvatar', { avatarUrl: photo }]]);
+  assert.deepEqual(imageSources(f.element('home-ava').innerHTML), [photo]);
+  f.ui.blazerSubTab = 'overview'; f.ui.renderBlazer();
+  assert.deepEqual(imageSources(f.element('blazer-body').innerHTML), [photo]);
+  assert.equal(f.ui.playerPortraitDraft.aliasesText, '未保存称呼');
+  assert.equal(f.ui.playerPortraitDraft.dirty, true); assert.equal(f.ui.playerPortraitDraft.crop, null);
+  assert.deepEqual(plain(f.ui.stat), before);
+});
+
+test('读图期间切聊天、切玩家或外部换照时不接纳旧图片，也不保存', async () => {
+  for (const change of [{ scope: 'chat-b' }, { primaryName: '新玩家' }, { revision: '2' }]) {
+    const f = fixture(); let complete;
+    f.ui.preparePlayerPortraitFile = () => new Promise(resolve => { complete = resolve; });
+    const pending = f.ui.uploadPlayerPortrait({ files: [{}], value: '' });
+    f.snapshot = { ...f.snapshot, ...change }; complete(cropPhoto()); await pending;
+    f.ui.savePlayerAvatar();
+    assert.equal(f.ui.playerPortraitDraft.crop, null); assert.deepEqual(f.calls, []);
+    assert.equal(f.element('rk-player-portrait-apply').disabled, true);
+    assert.match(f.element('rk-player-portrait-message').textContent, /已变化/);
+  }
+});
+
+test('连续选图只接纳最后一次，读取保存值可取消草稿且迟到结果不覆盖', async () => {
+  const f = fixture(), pending = [];
+  f.ui.preparePlayerPortraitFile = () => new Promise(resolve => pending.push(resolve));
+  const first = f.ui.uploadPlayerPortrait({ files: [{}], value: '' });
+  const second = f.ui.uploadPlayerPortrait({ files: [{}], value: '' });
+  pending[1](cropPhoto('last')); await second;
+  pending[0](cropPhoto('first')); await first;
+  assert.equal(f.ui.playerPortraitDraft.crop.image.id, 'last');
+  f.ui.confirm = () => false; f.ui.reloadPlayerPortraitSettings();
+  assert.notEqual(f.ui.playerPortraitDraft.crop, null);
+  const third = f.ui.uploadPlayerPortrait({ files: [{}], value: '' });
+  f.ui.confirm = () => true; f.ui.reloadPlayerPortraitSettings();
+  pending[2](cropPhoto('late')); await third;
+  assert.equal(f.ui.playerPortraitDraft.crop, null); assert.equal(f.snapshot.avatarUrl, f.imageUrl);
+  assert.deepEqual(f.calls, []);
+});
+
+test('存储失败保留照片草稿供重试，未伪报成功', async () => {
+  const f = fixture(); f.ui.preparePlayerPortraitFile = async () => cropPhoto();
+  await f.ui.uploadPlayerPortrait({ files: [{}], value: '' });
+  f.service.saveAvatar = () => { throw new Error('本机存储空间不足'); };
+  f.ui.savePlayerAvatar();
+  assert.match(f.element('rk-player-portrait-message').textContent, /空间不足/);
+  assert.notEqual(f.ui.playerPortraitDraft.crop, null); assert.equal(f.snapshot.avatarUrl, f.imageUrl);
+});
+
+test('拒绝过大文件和非支持格式，缺玩家姓名时不能上传', async () => {
+  const f = fixture();
+  for (const file of [{ type: 'image/svg+xml', size: 10 }, { type: 'image/png', size: 9 * 1024 * 1024 }]) {
+    await f.ui.uploadPlayerPortrait({ files: [file], value: '' });
+    assert.match(f.element('rk-player-portrait-message').textContent, /8 MB/);
+    assert.equal(f.ui.playerPortraitDraft.crop, null);
+  }
+  f.snapshot = { ...f.snapshot, primaryName: '' }; f.ui.reloadPlayerPortraitSettings();
+  assert.equal(f.element('rk-player-portrait-file').disabled, true);
+  await f.ui.uploadPlayerPortrait({ files: [{}], value: '' });
+  assert.match(f.element('rk-player-portrait-message').textContent, /读取本局玩家/);
+  assert.deepEqual(f.calls, []);
+});
+
+test('拖动与缩放选择非中心区域，边界不露白，重置恢复原始中心', async () => {
+  const f = fixture(); f.ui.preparePlayerPortraitFile = async () => cropPhoto();
+  await f.ui.uploadPlayerPortrait({ files: [{}], value: '' });
+  f.ui.zoomPlayerPortraitCrop(2);
+  const canvas = f.element('rk-player-portrait-crop');
+  const event = (x, y, id = 1) => ({ currentTarget: canvas, button: 0, pointerId: id, clientX: x, clientY: y, preventDefault() {} });
+  f.ui.startPlayerPortraitDrag(event(100, 100));
+  f.ui.movePlayerPortraitDrag(event(160, 40));
+  assert.deepEqual(plain(f.ui.playerPortraitCropRect(f.ui.playerPortraitDraft.crop)), { x: 300, y: 300, side: 400 });
+  f.ui.movePlayerPortraitDrag(event(-1000, -1000));
+  assert.deepEqual(plain(f.ui.playerPortraitCropRect(f.ui.playerPortraitDraft.crop)), { x: 800, y: 400, side: 400 });
+  f.ui.endPlayerPortraitDrag(event(-1000, -1000));
+  assert.equal(f.ui.playerPortraitDraft.crop.drag, null);
+  f.ui.keyPlayerPortraitCrop({ key: 'ArrowLeft', shiftKey: true, preventDefault() {} });
+  assert.equal(f.ui.playerPortraitCropRect(f.ui.playerPortraitDraft.crop).x, 760);
+  f.ui.savePlayerAvatar();
+  assert.deepEqual(f.draws.at(-1).slice(1), [760, 400, 400, 400, 0, 0, 640, 640]);
+  await f.ui.uploadPlayerPortrait({ files: [{}], value: '' });
+  f.ui.zoomPlayerPortraitCrop(4); f.ui.resetPlayerPortraitCrop();
+  assert.deepEqual(plain(f.ui.playerPortraitCropRect(f.ui.playerPortraitDraft.crop)), { x: 200, y: 0, side: 800 });
+});
+
+test('取消裁切不改已保存头像，读图迟到结果也不能恢复已取消草稿', async () => {
+  const f = fixture(); let finish;
+  f.ui.preparePlayerPortraitFile = () => new Promise(resolve => { finish = resolve; });
+  const pending = f.ui.uploadPlayerPortrait({ files: [{}], value: '' });
+  f.ui.cancelPlayerPortraitCrop(); finish(cropPhoto()); await pending;
+  assert.equal(f.ui.playerPortraitDraft.crop, null); assert.equal(f.ui.playerPortraitDraft.loading, false);
+  f.ui.savePlayerAvatar(); assert.deepEqual(f.calls, []); assert.equal(f.snapshot.avatarUrl, f.imageUrl);
 });

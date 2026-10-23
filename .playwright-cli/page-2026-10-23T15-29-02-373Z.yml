@@ -1,0 +1,133 @@
+- main [ref=f2e2]:
+  - heading "终端 v1.3.29 · 离线状态预览" [level=1] [ref=f2e3]
+  - paragraph [ref=f2e4]: 本局状态使用独立虚拟样本；校历的剧情资料来自本地世界书 v0.02。页面使用实际编译后的终端 HTML，不连接酒馆，也不写入 MVU。头像上传仅保存于此预览站点的浏览器存储。
+  - generic "切换虚拟记录" [ref=f2e5]:
+    - button "男／女阶段" [pressed] [ref=f2e6] [cursor=pointer]
+    - button "女性好感 1000" [ref=f2e7] [cursor=pointer]
+    - button "旧 null · 待核定" [ref=f2e8] [cursor=pointer]
+    - button "另一回复 · 空槽" [ref=f2e9] [cursor=pointer]
+  - generic [ref=f2e10]:
+    - button "盾形头像" [ref=f2e11] [cursor=pointer]
+    - button "聊天记录" [ref=f2e12] [cursor=pointer]
+  - generic "赛事虚构样本" [ref=f2e13]:
+    - button "本局选拔" [ref=f2e14] [cursor=pointer]
+    - button "已出线" [ref=f2e15] [cursor=pointer]
+    - button "他校角色" [ref=f2e16] [cursor=pointer]
+    - button "全国赛记录" [ref=f2e17] [cursor=pointer]
+  - generic "预览显示条件" [ref=f2e18]:
+    - button "黑色外壳" [pressed] [ref=f2e19] [cursor=pointer]
+    - button "白色外壳" [ref=f2e20] [cursor=pointer]
+    - generic [ref=f2e21]:
+      - text: 容器宽度
+      - combobox "容器宽度" [ref=f2e22] [cursor=pointer]:
+        - option "320 px"
+        - option "420 px" [selected]
+        - option "560 px"
+  - status [ref=f2e23]: 虚拟数值样本：防御 B+；男性好感 1000、支援 S，没有恋爱阶段；女性好感 800 显示交往、支援仍为 C。点击人物展开。
+  - iframe [ref=f2e25]:
+    - generic [ref=f3e1]:
+      - generic [ref=f3e2]:
+        - generic [ref=f3e3]: HAGUN / OS
+        - button "宿舍 ↔" [ref=f3e4] [cursor=pointer]
+        - generic "终端 v1.3.29；读取当前回复的 MVU 记录，未获知的人物资料保持空白。" [ref=f3e5]: 本局档案
+        - generic [ref=f3e6]: 演示日 · 上午
+        - generic "魔力炉心正常" [ref=f3e8]
+      - generic [ref=f3e11]:
+        - generic [ref=f3e12]:
+          - generic "宿舍全景，左右拖动查看" [ref=f3e13]
+          - generic [ref=f3e14]:
+            - generic [ref=f3e15] [cursor=pointer]:
+              - generic [ref=f3e16]:
+                - generic [ref=f3e17]: HAGUN / BLAZER ID
+                - generic [ref=f3e18]: 伐刀者证
+              - generic [ref=f3e23]:
+                - generic [ref=f3e24]: 测试教官
+                - generic [ref=f3e25]: 演示学园／临时训练课程
+                - generic [ref=f3e26]: B级
+              - generic [ref=f3e27]:
+                - generic [ref=f3e28]: 演示训练剑
+                - generic [ref=f3e29]: 尚无命名招式
+              - generic [ref=f3e30]:
+                - generic [ref=f3e31]: 攻A
+                - generic [ref=f3e32]: 防B+
+                - generic [ref=f3e33]: 魔B
+                - generic [ref=f3e34]: 控A
+                - generic [ref=f3e35]: 体A
+                - generic [ref=f3e36]: 运E
+            - generic [ref=f3e37]:
+              - generic [ref=f3e38]: 终端应用
+              - generic "应用导航布局" [ref=f3e39]:
+                - button "轮盘" [pressed] [ref=f3e40] [cursor=pointer]
+                - button "列表" [ref=f3e41] [cursor=pointer]
+            - generic [ref=f3e42]:
+              - menu "终端应用轮盘" [ref=f3e43]:
+                - menuitem "伐刀者档案" [ref=f3e44] [cursor=pointer]:
+                  - generic: "01"
+                  - generic: 档案
+                - menuitem "破军 LIME" [ref=f3e46] [cursor=pointer]:
+                  - generic: "02"
+                  - generic: 通讯
+                - menuitem "学园圈" [ref=f3e48] [cursor=pointer]:
+                  - generic: "03"
+                  - generic: 动态
+                - menuitem "破军 BBS" [ref=f3e50] [cursor=pointer]:
+                  - generic: "04"
+                  - generic: 论坛
+                - menuitem "选拔赛程" [ref=f3e52] [cursor=pointer]:
+                  - generic: "05"
+                  - generic: 赛程
+                - menuitem "灵装画廊" [ref=f3e54] [cursor=pointer]:
+                  - generic: "06"
+                  - generic: 画廊
+                - menuitem "学园校历" [ref=f3e56] [cursor=pointer]:
+                  - generic: "07"
+                  - generic: 校历
+                - menuitem "终端配置" [ref=f3e58] [cursor=pointer]:
+                  - generic: "08"
+                  - generic: 设置
+              - button "查看伐刀者档案" [ref=f3e60] [cursor=pointer]:
+                - generic [ref=f3e68]: 操作
+              - generic:
+                - generic: 选择应用
+                - generic: SELECT COMMAND
+            - generic [ref=f3e69]:
+              - generic [ref=f3e70]: 点击扇区进入 · 黑白反转选中
+              - generic [ref=f3e71]: HAGUN / 01
+        - generic [ref=f3e72]:
+          - generic [ref=f3e73]:
+            - button [ref=f3e74] [cursor=pointer]
+            - generic [ref=f3e76]: 终端配置
+          - generic [ref=f3e77]:
+            - region "玩家头像与称呼" [ref=f3e78]:
+              - generic [ref=f3e80]: 测试教官
+              - generic [ref=f3e84]:
+                - text: 上传／更换照片
+                - button "上传／更换照片" [ref=f3e85]
+              - generic [ref=f3e86]:
+                - button "应用照片到本局" [disabled] [ref=f3e87] [cursor=pointer]
+                - button "读取已保存头像" [ref=f3e88] [cursor=pointer]
+              - generic [ref=f3e89]:
+                - text: 别名（选填）
+                - textbox "别名（选填）" [ref=f3e90]:
+                  - /placeholder: "黎恩，教官\n舒华泽"
+              - generic [ref=f3e91]:
+                - button "保存别名" [ref=f3e92] [cursor=pointer]
+                - button "清除别名" [ref=f3e93] [cursor=pointer]
+            - generic [ref=f3e94]:
+              - generic [ref=f3e95]: 视觉与个性化
+              - generic [ref=f3e96]:
+                - generic [ref=f3e97]: 色彩主题风格
+                - button "切换 黑底 / 白底" [ref=f3e98] [cursor=pointer]
+              - generic [ref=f3e99]:
+                - generic [ref=f3e100]: 窗口与悬浮球位置
+                - button "重置居中" [ref=f3e101] [cursor=pointer]
+            - generic [ref=f3e102]:
+              - generic [ref=f3e103]: 系统版本信息
+              - generic [ref=f3e104]:
+                - generic [ref=f3e105]: 破军学园伐刀者便携智能终端 OS
+                - generic [ref=f3e106]: 版本：v1.3.29 MONO ADV · 黑白轮盘版
+                - generic [ref=f3e107]: 内核驱动：TavernHelper / MVU Data Bridge
+      - generic [ref=f3e108]:
+        - button "← 返回" [ref=f3e109] [cursor=pointer]
+        - button "终端首页" [ref=f3e110] [cursor=pointer]
+        - button "× 收起" [ref=f3e188] [cursor=pointer]

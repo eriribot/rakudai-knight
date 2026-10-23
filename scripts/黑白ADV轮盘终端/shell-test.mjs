@@ -3,6 +3,7 @@ import vm from 'node:vm';
 import assert from 'node:assert/strict';
 import { RELATIONSHIP_SCORING, supportStage, romanceStage } from '../../世界书规则/MVU/schema.mjs';
 import { isHagunAffiliation, shouldInjectTournament } from '../rakudai-tournament-calendar.mjs';
+import { shouldInjectNationalTournament } from '../rakudai-national-tournament.mjs';
 import { tournamentSnapshotKey } from './terminal-tournament.js';
 
 const read = file => fs.readFileSync(new URL(file, import.meta.url), 'utf8');
@@ -85,7 +86,7 @@ function fixture(options = {}) {
   const eventNames = ['CHAT_CHANGED', 'MESSAGE_SWIPED', 'MESSAGE_SWIPE_DELETED', 'MESSAGE_DELETED', 'MESSAGE_UPDATED', 'MESSAGE_EDITED', 'MESSAGE_RECEIVED', 'CHARACTER_MESSAGE_RENDERED', 'CHARACTER_FIRST_MESSAGE_SELECTED', 'GENERATION_STARTED', 'GENERATION_AFTER_COMMANDS', 'GENERATION_ENDED', 'GENERATION_STOPPED', 'CHAT_COMPLETION_SETTINGS_READY'];
   const W = {
     Mvu: { events: { COMMAND_PARSED: 'mvu:parsed', VARIABLE_UPDATE_ENDED: 'mvu:ended' } },
-    RakudaiStateController: { isHagunAffiliation, shouldInjectTournament },
+    RakudaiStateController: { isHagunAffiliation, shouldInjectTournament, shouldInjectNationalTournament },
     tavern_events: Object.fromEntries(eventNames.map(name => [name, 'event:' + name])),
     addEventListener: (name, fn) => listen(pageListeners, name, fn),
     removeEventListener: (name, fn) => unlisten(pageListeners, name, fn),
@@ -522,8 +523,11 @@ await check('主壳桥接头像服务可保存别名，宿主只读，销毁后�
   assert.equal(f.HW.__RK_PHONE_SHELL__.playerPortrait.save, undefined);
   assert.equal(portrait.save, undefined);
   assert.equal(portrait.clear, undefined);
+  assert.equal(typeof portrait.saveAvatar, 'function');
+  assert.equal(f.HW.__RK_PHONE_SHELL__.playerPortrait.saveAvatar, undefined);
   f.api.destroy();
   assert.throws(() => portrait.saveAliases(saved, { aliases: ['朝阳'] }), /终端已关闭/);
+  assert.throws(() => portrait.saveAvatar(saved, { avatarUrl: 'https://example.test/oc.png' }), /终端已关闭/);
 });
 
 function seedLimeContext(f) {

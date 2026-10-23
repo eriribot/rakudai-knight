@@ -922,6 +922,16 @@ button {
 .rk-player-portrait-heading > div:last-child { min-width: 0; }
 .rk-player-portrait-heading .card-avatar { width: 64px; height: 64px; flex: none; }
 .rk-player-portrait-actions { display: flex; flex-wrap: wrap; gap: 8px; }
-.rk-player-portrait-actions button { min-height: 36px; padding: 7px 10px; font: inherit; cursor: pointer; }
+#settings-body .rk-player-portrait-actions button { min-height: 44px; padding: 7px 10px; font: inherit; cursor: pointer; }
 .rk-player-portrait-actions button:disabled { opacity: .5; cursor: default; }
-.rk-player-portrait-settings :is(textarea, button):focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.rk-player-portrait-settings :is(textarea, input, button):focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.rk-player-portrait-settings input[type="file"] { width: 100%; min-width: 0; color: var(--ink); font: inherit; }
+.rk-player-portrait-settings input::file-selector-button { min-height: 44px; margin-right: 8px; padding: 7px 10px; border: 1px solid var(--hair); color: var(--ink); background: var(--card2); font: inherit; cursor: pointer; }
+.rk-player-portrait-pending { margin: 10px 0; }
+.rk-player-portrait-pending[hidden], .rk-player-portrait-settings p[hidden] { display: none; }
+.rk-player-crop-title { margin: 8px 0; font-size: 12px; }
+#rk-player-portrait-crop { display: block; width: min(100%, 240px); height: auto; aspect-ratio: 1; margin: 0 auto; border: 1px solid var(--hair); touch-action: none; cursor: grab; }
+#rk-player-portrait-crop:active { cursor: grabbing; }
+#rk-player-portrait-crop:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.rk-player-portrait-settings .rk-player-crop-zoom { grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 12px; }
+.rk-player-crop-zoom input { width: 100%; min-width: 0; min-height: 44px; accent-color: var(--ink); }

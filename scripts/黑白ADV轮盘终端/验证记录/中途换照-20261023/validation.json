@@ -1,0 +1,62 @@
+{
+  "date": "2026-10-23",
+  "deliveryMode": "component",
+  "artifact": "世界书规则/MVU/落第骑士-小手机-v1.3.29-B1-头像更新.json",
+  "beforeSha256": "b13428cdcda129389753153eb073f363ba05a2e3fbf43bbfbffd4918e2fbaffb",
+  "metadata": {
+    "type": "script",
+    "enabled": true,
+    "name": "落第骑士·黑白ADV轮盘终端 v1.3.29 B1（LIME状态精简）",
+    "id": "3d8c6c23-f78e-46e5-8e89-4a90bab6fb85",
+    "button": {
+      "enabled": true,
+      "buttons": []
+    },
+    "data": {},
+    "export_with": {
+      "data": false,
+      "button": false
+    }
+  },
+  "checks": {
+    "portraitTests": {
+      "passed": 92,
+      "total": 92
+    },
+    "shellTests": {
+      "passed": 37,
+      "total": 37
+    },
+    "packagingTests": {
+      "passed": 9,
+      "total": 9
+    },
+    "componentValidation": "passed",
+    "browser": {
+      "environment": "Edge / isolated offline preview",
+      "uploadPreviewWithoutWrite": true,
+      "imageDimensions": [
+        640,
+        640
+      ],
+      "saveAndReloadRestored": true,
+      "readSavedAvatar": true,
+      "narrowContainerWidth": 320,
+      "horizontalOverflow": false,
+      "buttonHeight": 44,
+      "consoleErrors": 0
+    },
+    "liveSillyTavern": "pending"
+  },
+  "afterSha256": "cff3fbba25d7a9cab7a194ac738b99ff8aca01c0c36fbff91d7a35e98536c11a",
+  "sourceHashes": {
+    "main.js": "d81c4f953b6a028440fb0bb4355a13e582a36cc47603eebad4a6d7d5bcb7abc9",
+    "player-display-store.js": "eb5926fbb0adcd3ae1180c39bde122e556da83688f4f68c8d4d63ed958028b93",
+    "player-portrait.js": "4e152764535c4591666a36e7fd5dd6cc66745b2ae3cfe6460c7bfc76ed6a3a48",
+    "terminal-app.js": "36b5ac86da1ddb3da276c636b0617f8fa40e0e0454110980135412183fba3ef8",
+    "terminal-app.css": "7ecc81f04c971e3f401b7af559eec3b4de9e4b60b9bdc11069dd945176f23bdd",
+    "bundle.mjs": "814f0bb0cfd00bf99725bc0e574afc57beb9cf06c1517707f3e8f22b991da787"
+  },
+  "metadataPreserved": true,
+  "stagedArtifactSemanticParity": true
+}

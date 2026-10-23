@@ -242,6 +242,43 @@ test('共用 scope 使用宿主当前 chatId 函数，缺失才读取 ctx.chatId
   f.ctx = { ...f.ctx, getCurrentChatId: () => null }; assert.equal(f.displayStore.get().scope, JSON.stringify([1, null, 'stale']));
 });
 
+test('终端应用照片沿用开局存储、绑定当前姓名，保留别名和未知字段，不改MVU', () => {
+  const f = fixture(), before = plain(f.state);
+  f.displayStore.save(f.displayStore.get(), { avatarUrl: imageUrl, aliases: ['教官'], profileName: f.state.玩家.姓名, source: 'opening' });
+  const key = 'rk:oc:portrait:v1:' + f.service.get().scope;
+  f.records.set(key, JSON.stringify({ ...JSON.parse(f.records.get(key)), extension: 'keep' }));
+  f.service.saveAvatar(f.service.get(), { avatarUrl: bitmap, aliases: ['忽略'], profileName: '忽略' });
+  assert.equal(f.displayStore.get().avatarUrl, bitmap); assert.equal(f.displayStore.get().profileName, f.state.玩家.姓名);
+  assert.deepEqual(plain(f.displayStore.get().aliases), ['教官']); assert.equal(f.displayStore.get().source, '');
+  assert.equal(JSON.parse(f.records.get(key)).extension, 'keep'); assert.equal(f.changes.length, 1);
+  assert.deepEqual(plain(f.state), before);
+  f.displayStore.save(f.displayStore.get(), { avatarUrl: imageUrl, source: 'opening' });
+  assert.equal(f.service.get().avatarUrl, imageUrl);
+});
+
+test('姓名不符的旧照片可中途替换，不继承旧人物别名；缺少本局姓名则拒绝', () => {
+  const f = fixture();
+  f.displayStore.save(f.displayStore.get(), { avatarUrl: imageUrl, aliases: ['旧人物别名'], profileName: '另一人物', source: 'opening' });
+  assert.equal(f.service.get().profileMismatch, true);
+  f.service.saveAvatar(f.service.get(), { avatarUrl: bitmap });
+  assert.equal(f.service.get().profileMismatch, false); assert.deepEqual(plain(f.service.get().aliases), []);
+  f.state.玩家.姓名 = ''; const writes = f.writes.length;
+  assert.throws(() => f.service.saveAvatar(f.service.get(), { avatarUrl: imageUrl }), /玩家姓名/);
+  assert.equal(f.writes.length, writes);
+});
+
+test('头像应用拒绝旧聊天快照、外部更新、空照片和存储失败', () => {
+  const f = fixture(), old = f.service.get();
+  f.ctx = { ...f.ctx, chatId: 'chat-b' };
+  assert.throws(() => f.service.saveAvatar(old, { avatarUrl: bitmap }), /变化/);
+  const current = f.service.get(); f.displayStore.save(current, { avatarUrl: imageUrl });
+  assert.throws(() => f.service.saveAvatar(current, { avatarUrl: bitmap }), /变化/);
+  for (const avatarUrl of ['', 'javascript:alert(1)']) assert.throws(() => f.service.saveAvatar(f.service.get(), { avatarUrl }));
+  f.storage.setItem = () => { throw new Error('quota'); };
+  assert.throws(() => f.service.saveAvatar(f.service.get(), { avatarUrl: bitmap }), /未能保存/);
+  assert.equal(f.service.get().avatarUrl, imageUrl); assert.deepEqual(f.changes, []);
+});
+
 for (const raw of ['{', 'null', '[]', '{"version":2}', '{"version":1,"avatarUrl":"javascript:alert(1)","aliases":[]}']) {
   test(`损坏配置不静默覆盖 ${raw.slice(0, 35)}`, () => {
     const f = fixture(), key = 'rk:oc:portrait:v1:' + f.service.get().scope;

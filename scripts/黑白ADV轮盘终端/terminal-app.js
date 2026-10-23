@@ -1176,6 +1176,7 @@ window.closeCalendarStory = closeCalendarStory;
 // ===== 终端配置 (Settings) =====
 var playerPortraitDraft = null;
 var playerPortraitError = '';
+var playerPortraitUploadRevision = 0;
 function playerPortraitIdentity(snapshot) {
   return JSON.stringify([snapshot.version, snapshot.scope, snapshot.primaryName, snapshot.personaName, snapshot.revision,
     snapshot.profileName, snapshot.profileMismatch]);
@@ -1188,23 +1189,23 @@ function readPlayerPortraitSnapshot() {
   return JSON.parse(JSON.stringify(snapshot));
 }
 function beginPlayerPortraitDraft(snapshot) {
+  playerPortraitUploadRevision++;
   playerPortraitDraft = { snapshot: snapshot, identity: playerPortraitIdentity(snapshot),
-    aliasesText: (snapshot.aliases || []).join('\n'), dirty: false, invalidated: snapshot.profileMismatch === true };
-  playerPortraitError = snapshot.profileMismatch === true ? '当前照片属于另一人物；请在开局页为当前姓名应用照片后重新读取。暂可用“玩家:台词”。' : '';
+    aliasesText: (snapshot.aliases || []).join('\n'), dirty: false, invalidated: false, crop: null, loading: false };
+  playerPortraitError = snapshot.profileMismatch === true ? '已存照片属于另一人物，暂不显示。可直接上传当前人物的照片；别名需在照片应用后编辑。' : '';
 }
 function syncPlayerPortraitDraft() {
   try {
     var snapshot = readPlayerPortraitSnapshot();
     if (!playerPortraitDraft) { beginPlayerPortraitDraft(snapshot); return true; }
     if (playerPortraitIdentity(snapshot) !== playerPortraitDraft.identity) {
-      if (playerPortraitDraft.dirty) {
+      if (playerPortraitDraft.invalidated || playerPortraitDraft.dirty || playerPortraitDraft.crop || playerPortraitDraft.loading) {
         playerPortraitDraft.invalidated = true;
         playerPortraitError = '聊天、玩家身份或已保存设置已变化；请重新读取后编辑。';
       } else { beginPlayerPortraitDraft(snapshot); return true; }
     }
     if (snapshot.profileMismatch === true) {
-      playerPortraitDraft.invalidated = true;
-      playerPortraitError = '当前照片属于另一人物；请在开局页为当前姓名应用照片后重新读取。暂可用“玩家:台词”。';
+      if (!playerPortraitDraft.invalidated) playerPortraitError = '已存照片属于另一人物，暂不显示。可直接上传当前人物的照片；别名需在照片应用后编辑。';
     }
     return false;
   } catch (error) {
@@ -1215,11 +1216,26 @@ function syncPlayerPortraitDraft() {
 }
 function paintPlayerPortraitSettings() {
   var draft = playerPortraitDraft, message = document.getElementById('rk-player-portrait-message');
-  if (message) message.textContent = playerPortraitError || (draft && draft.dirty ? '别名尚未保存。' : '别名已保存于本机，仅用于当前聊天。');
+  if (message) {
+    message.textContent = playerPortraitError || (draft && draft.loading ? '正在读取照片…' : '');
+    message.hidden = !message.textContent;
+  }
   ['save', 'clear'].forEach(function(action) {
     var button = document.getElementById('rk-player-portrait-' + action);
-    if (button) button.disabled = !draft || draft.invalidated;
+    if (button) button.disabled = !draft || draft.invalidated || draft.loading || !!draft.crop || draft.snapshot.profileMismatch === true;
   });
+  var file = document.getElementById('rk-player-portrait-file');
+  if (file) file.disabled = !draft || draft.invalidated || !draft.snapshot.primaryName;
+  var apply = document.getElementById('rk-player-portrait-apply');
+  if (apply) apply.disabled = !draft || draft.invalidated || draft.loading || !draft.crop || !draft.snapshot.primaryName;
+  var pending = document.getElementById('rk-player-portrait-pending');
+  if (pending) {
+    pending.hidden = !draft || !draft.crop;
+    var canvas = document.getElementById('rk-player-portrait-crop');
+    if (draft && draft.crop && canvas) drawPlayerPortraitCrop(draft.crop, canvas);
+  }
+  var zoom = document.getElementById('rk-player-portrait-zoom');
+  if (zoom) { zoom.value = draft && draft.crop ? draft.crop.zoom : 1; zoom.disabled = !draft || draft.invalidated || draft.loading; }
   var preview = document.getElementById('rk-player-portrait-preview');
   if (preview) {
     var name = draft && (draft.snapshot.primaryName || draft.snapshot.personaName) || resolvePlayer().name;
@@ -1233,17 +1249,23 @@ function renderPlayerPortraitSettings() {
   syncPlayerPortraitDraft();
   var draft = playerPortraitDraft;
   var name = draft && (draft.snapshot.primaryName || draft.snapshot.personaName) || resolvePlayer().name;
-  section.innerHTML = '<div class="ct">玩家称呼 / 别名</div>' +
-    '<p>头像沿用开局页载入或上传的照片，首页、人物档案与正文气泡共用。这里仅登记明确称呼，不改变正式角色档案。</p>' +
+  section.innerHTML = '<div class="ct">玩家头像与称呼</div>' +
     '<div class="rk-player-portrait-heading"><div class="card-avatar" id="rk-player-portrait-preview"></div><div><b>' + esc(name) +
-    '</b><p>当前头像预览。更换照片请在开局页核对姓名后点击“应用头像到本局”，无需重新建档。</p></div></div>' +
+    '</b></div></div>' +
+    '<label for="rk-player-portrait-file">上传／更换照片<input id="rk-player-portrait-file" type="file" accept="image/png,image/jpeg,image/webp" onchange="uploadPlayerPortrait(this)"></label>' +
+    '<div id="rk-player-portrait-pending" class="rk-player-portrait-pending" hidden>' +
+      '<div class="rk-player-crop-title">裁切范围</div>' +
+      '<canvas id="rk-player-portrait-crop" width="640" height="640" tabindex="0" role="img" aria-label="照片裁切范围：拖动照片调整位置，方向键微调" ' +
+      'onpointerdown="startPlayerPortraitDrag(event)" onpointermove="movePlayerPortraitDrag(event)" onpointerup="endPlayerPortraitDrag(event)" onpointercancel="endPlayerPortraitDrag(event)" onlostpointercapture="endPlayerPortraitDrag(event)" onkeydown="keyPlayerPortraitCrop(event)"></canvas>' +
+      '<label for="rk-player-portrait-zoom" class="rk-player-crop-zoom">缩放<input id="rk-player-portrait-zoom" type="range" min="1" max="4" step="0.01" value="1" oninput="zoomPlayerPortraitCrop(this.value)"></label>' +
+      '<div class="rk-player-portrait-actions"><button type="button" onclick="resetPlayerPortraitCrop()">重置裁切</button><button type="button" onclick="cancelPlayerPortraitCrop()">取消裁切</button></div></div>' +
+    '<p id="rk-player-portrait-message" role="status" aria-live="polite" hidden></p>' +
+    '<div class="rk-player-portrait-actions"><button id="rk-player-portrait-apply" type="button" onclick="savePlayerAvatar()">应用照片到本局</button>' +
+    '<button type="button" onclick="reloadPlayerPortraitSettings()">读取已保存头像</button></div>' +
     '<label for="rk-player-portrait-aliases">别名（选填）<textarea id="rk-player-portrait-aliases" name="aliasesText" rows="3" maxlength="2048" placeholder="黎恩，教官\n舒华泽" oninput="editPlayerPortraitDraft(this)">' +
     esc(draft && draft.aliasesText || '') + '</textarea></label>' +
-    '<p>用逗号或换行分隔。正文推荐固定写“玩家:台词”；简称请明确登记，避免与其他人物重名。别名只保存在本机当前聊天。</p>' +
-    '<p id="rk-player-portrait-message" role="status" aria-live="polite"></p>' +
     '<div class="rk-player-portrait-actions"><button id="rk-player-portrait-save" type="button" onclick="savePlayerAliases()">保存别名</button>' +
-    '<button id="rk-player-portrait-clear" type="button" onclick="clearPlayerAliases()">清除别名</button>' +
-    '<button type="button" onclick="reloadPlayerPortraitSettings()">重新读取</button></div>';
+    '<button id="rk-player-portrait-clear" type="button" onclick="clearPlayerAliases()">清除别名</button></div>';
   paintPlayerPortraitSettings();
 }
 function refreshPlayerPortraitSettings() {
@@ -1258,10 +1280,138 @@ function editPlayerPortraitDraft(input) {
   if (!playerPortraitDraft.invalidated) playerPortraitError = '';
   paintPlayerPortraitSettings();
 }
+async function preparePlayerPortraitFile(file) {
+  if (!/^image\/(png|jpeg|webp)$/.test(file.type) || file.size > 8 * 1024 * 1024) {
+    throw new Error('请选择不超过 8 MB 的 PNG、JPEG 或 WebP 照片。');
+  }
+  var url = URL.createObjectURL(file), photo = new Image(), timer;
+  try {
+    await new Promise(function(resolve, reject) {
+      timer = setTimeout(function() { reject(new Error('照片读取超时，请重新选择。')); }, 15000);
+      photo.onload = resolve;
+      photo.onerror = function() { reject(new Error('无法读取这张照片，请选择有效的图片。')); };
+      photo.src = url;
+    });
+    if (!photo.naturalWidth || !photo.naturalHeight) throw new Error('照片尺寸无效，请重新选择。');
+    return { image: photo, width: photo.naturalWidth, height: photo.naturalHeight,
+      x: photo.naturalWidth / 2, y: photo.naturalHeight / 2, zoom: 1, drag: null };
+  } finally {
+    clearTimeout(timer); photo.onload = photo.onerror = null; URL.revokeObjectURL(url);
+  }
+}
+function playerPortraitCropRect(crop) {
+  crop.zoom = Math.max(1, Math.min(4, Number(crop.zoom) || 1));
+  var side = Math.min(crop.width, crop.height) / crop.zoom;
+  crop.x = Math.max(side / 2, Math.min(crop.width - side / 2, crop.x));
+  crop.y = Math.max(side / 2, Math.min(crop.height - side / 2, crop.y));
+  return { x: crop.x - side / 2, y: crop.y - side / 2, side: side };
+}
+function drawPlayerPortraitCrop(crop, canvas) {
+  var rect = playerPortraitCropRect(crop), context = canvas.getContext('2d');
+  if (!context) throw new Error('当前浏览器无法处理照片。');
+  context.fillStyle = '#fff'; context.fillRect(0, 0, canvas.width, canvas.height);
+  context.drawImage(crop.image, rect.x, rect.y, rect.side, rect.side, 0, 0, canvas.width, canvas.height);
+}
+function playerPortraitCropData(crop) {
+  var canvas = document.createElement('canvas'); canvas.width = canvas.height = 640;
+  drawPlayerPortraitCrop(crop, canvas);
+  var data = canvas.toDataURL('image/jpeg', .88);
+  if (!data.startsWith('data:image/jpeg;base64,') || data.length > 1398104) throw new Error('照片处理后仍过大，请换一张较小的图片。');
+  return data;
+}
+function currentPlayerPortraitCrop() {
+  syncPlayerPortraitDraft();
+  var draft = playerPortraitDraft;
+  return draft && !draft.invalidated && !draft.loading ? draft.crop : null;
+}
+function startPlayerPortraitDrag(event) {
+  var crop = currentPlayerPortraitCrop();
+  if (!crop || (event.button !== undefined && event.button !== 0) || crop.drag) return;
+  event.preventDefault();
+  event.currentTarget.focus({ preventScroll: true });
+  crop.drag = { id: event.pointerId, x: event.clientX, y: event.clientY };
+  event.currentTarget.setPointerCapture(event.pointerId);
+}
+function movePlayerPortraitDrag(event) {
+  var crop = currentPlayerPortraitCrop();
+  if (!crop || !crop.drag || crop.drag.id !== event.pointerId) return;
+  event.preventDefault();
+  var bounds = event.currentTarget.getBoundingClientRect(), side = playerPortraitCropRect(crop).side;
+  if (!bounds.width || !bounds.height) return;
+  crop.x -= (event.clientX - crop.drag.x) * side / bounds.width;
+  crop.y -= (event.clientY - crop.drag.y) * side / bounds.height;
+  crop.drag.x = event.clientX; crop.drag.y = event.clientY;
+  paintPlayerPortraitSettings();
+}
+function endPlayerPortraitDrag(event) {
+  var crop = playerPortraitDraft && playerPortraitDraft.crop;
+  if (!crop || !crop.drag || crop.drag.id !== event.pointerId) return;
+  crop.drag = null;
+  if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+}
+function zoomPlayerPortraitCrop(value) {
+  var crop = currentPlayerPortraitCrop();
+  if (!crop) return;
+  crop.zoom = value; paintPlayerPortraitSettings();
+}
+function keyPlayerPortraitCrop(event) {
+  var crop = currentPlayerPortraitCrop(), direction = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] }[event.key];
+  if (!crop || !direction) return;
+  event.preventDefault();
+  var step = playerPortraitCropRect(crop).side * (event.shiftKey ? .1 : .02);
+  crop.x += direction[0] * step; crop.y += direction[1] * step; paintPlayerPortraitSettings();
+}
+function resetPlayerPortraitCrop() {
+  var crop = currentPlayerPortraitCrop();
+  if (!crop) return;
+  crop.x = crop.width / 2; crop.y = crop.height / 2; crop.zoom = 1; crop.drag = null;
+  paintPlayerPortraitSettings();
+}
+function cancelPlayerPortraitCrop() {
+  playerPortraitUploadRevision++;
+  if (playerPortraitDraft) { playerPortraitDraft.crop = null; playerPortraitDraft.loading = false; }
+  if (!playerPortraitDraft || !playerPortraitDraft.invalidated) playerPortraitError = '';
+  paintPlayerPortraitSettings();
+}
+async function uploadPlayerPortrait(input) {
+  var file = input && input.files && input.files[0];
+  if (!file) return;
+  syncPlayerPortraitDraft();
+  var draft = playerPortraitDraft, operation = ++playerPortraitUploadRevision;
+  try {
+    if (!draft || draft.invalidated || !draft.snapshot.primaryName) throw new Error('请先读取本局玩家档案，再选择照片。');
+    draft.loading = true; playerPortraitError = ''; paintPlayerPortraitSettings();
+    var crop = await preparePlayerPortraitFile(file);
+    if (operation !== playerPortraitUploadRevision || draft !== playerPortraitDraft) return;
+    syncPlayerPortraitDraft();
+    if (draft.invalidated) return;
+    draft.crop = crop;
+  } catch (error) {
+    if (operation === playerPortraitUploadRevision && draft === playerPortraitDraft) playerPortraitError = error.message || '照片读取失败，请重试。';
+  } finally {
+    if (operation === playerPortraitUploadRevision && draft === playerPortraitDraft) {
+      if (draft) draft.loading = false;
+      input.value = ''; paintPlayerPortraitSettings();
+    }
+  }
+}
+function savePlayerAvatar() {
+  syncPlayerPortraitDraft();
+  var draft = playerPortraitDraft;
+  if (!draft || draft.invalidated || draft.loading || !draft.crop) { paintPlayerPortraitSettings(); return; }
+  try {
+    var api = bridge && bridge.playerPortrait;
+    if (!api || typeof api.saveAvatar !== 'function') throw new Error('照片保存接口尚未连接，请更新终端并重载。');
+    api.saveAvatar(draft.snapshot, { avatarUrl: playerPortraitCropData(draft.crop) });
+    beginPlayerPortraitDraft(readPlayerPortraitSnapshot());
+    playerPortraitDraft.aliasesText = draft.aliasesText; playerPortraitDraft.dirty = draft.dirty;
+    renderPlayerPortraitSettings(); refreshTerminalView(); toast('照片已保存，终端与正文气泡已更新。');
+  } catch (error) { playerPortraitError = error && error.message || '照片未保存，请重试。'; paintPlayerPortraitSettings(); }
+}
 function savePlayerAliases() {
   syncPlayerPortraitDraft();
   var draft = playerPortraitDraft;
-  if (!draft || draft.invalidated) { paintPlayerPortraitSettings(); return; }
+  if (!draft || draft.invalidated || draft.loading || draft.crop || draft.snapshot.profileMismatch) { paintPlayerPortraitSettings(); return; }
   try {
     var api = bridge && bridge.playerPortrait;
     if (!api || typeof api.saveAliases !== 'function') throw new Error('别名保存接口尚未连接。');
@@ -1273,7 +1423,7 @@ function savePlayerAliases() {
 function clearPlayerAliases() {
   syncPlayerPortraitDraft();
   var draft = playerPortraitDraft;
-  if (!draft || draft.invalidated) { paintPlayerPortraitSettings(); return; }
+  if (!draft || draft.invalidated || draft.loading || draft.crop || draft.snapshot.profileMismatch) { paintPlayerPortraitSettings(); return; }
   try {
     var api = bridge && bridge.playerPortrait;
     if (!api || typeof api.clearAliases !== 'function') throw new Error('别名清除接口尚未连接。');
@@ -1283,6 +1433,8 @@ function clearPlayerAliases() {
   } catch (error) { playerPortraitError = error && error.message || '别名未清除，请重试。'; paintPlayerPortraitSettings(); }
 }
 function reloadPlayerPortraitSettings() {
+  if (playerPortraitDraft && (playerPortraitDraft.dirty || playerPortraitDraft.crop || playerPortraitDraft.loading) &&
+      !window.confirm('读取已保存头像和称呼会放弃当前未应用的照片及别名，继续吗？')) return;
   try { beginPlayerPortraitDraft(readPlayerPortraitSnapshot()); } catch (error) { playerPortraitError = error.message; }
   renderPlayerPortraitSettings();
 }
@@ -1290,7 +1442,7 @@ function renderSettings() {
   var body = document.getElementById('settings-body');
   if (!body) return;
 
-  body.innerHTML = '<section class="card1 rk-player-portrait-settings" id="rk-player-portrait-settings" aria-label="玩家称呼与别名"></section>' +
+  body.innerHTML = '<section class="card1 rk-player-portrait-settings" id="rk-player-portrait-settings" aria-label="玩家头像与称呼"></section>' +
     '<div class="card1">' +
       '<div class="ct">视觉与个性化</div>' +
       '<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--hair);">' +

@@ -1,0 +1,43 @@
+{
+  "date": "2026-10-23",
+  "revision": "manual-crop",
+  "deliveryMode": "component",
+  "artifact": "世界书规则/MVU/落第骑士-小手机-v1.3.29-B1-头像更新.json",
+  "beforeSha256": "2e09bab7826290c2872cdcc82fd3b006eea49a3a0ae71e2f12a599249c91b2d4",
+  "afterSha256": "87ebf12707cd340d6a044a8259763f43c68672301b4715382bbfd4f51eb85f89",
+  "metadataPreserved": true,
+  "sourceHashes": {
+    "terminal-app.js": "81c8d8f163cf0beca91980d1a818657df61af46fd5359c9ec3a6d18dfc9de987",
+    "terminal-app.css": "a596a6c3bb60e2b6effe92d5db827cb38f51e7c66fadf8d6618f884027ae3308",
+    "player-portrait.js": "4e152764535c4591666a36e7fd5dd6cc66745b2ae3cfe6460c7bfc76ed6a3a48",
+    "bundle.mjs": "65e7aed0e177819644e6ec1561734b5fbacb48ee82a2792aa76634980b145dc2"
+  },
+  "checks": {
+    "portrait": 94,
+    "shell": 37,
+    "packaging": 9,
+    "allPassed": true,
+    "browser": {
+      "cropSelectedColor": [
+        220,
+        30,
+        30
+      ],
+      "originalCenteredColor": [
+        30,
+        190,
+        60
+      ],
+      "output": [
+        640,
+        640
+      ],
+      "narrowContentWidth": 288,
+      "narrowScrollWidth": 288,
+      "canvasWidth": 240,
+      "visibleHelpParagraphs": 0,
+      "errors": 0
+    },
+    "liveSillyTavern": "pending"
+  }
+}

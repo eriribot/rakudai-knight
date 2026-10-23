@@ -376,6 +376,7 @@
   }
   const portraitBridge = Object.freeze({
     get: () => { requirePortraitOwner(); return playerPortrait.get(); },
+    saveAvatar: (expected, values) => { requirePortraitOwner(); return playerPortrait.saveAvatar(expected, values); },
     saveAliases: (expected, values) => { requirePortraitOwner(); return playerPortrait.saveAliases(expected, values); },
     clearAliases: expected => { requirePortraitOwner(); return playerPortrait.clearAliases(expected); },
     resolve: name => { requirePortraitOwner(); return playerPortrait.resolve(name); }

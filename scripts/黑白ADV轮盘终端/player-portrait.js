@@ -71,6 +71,16 @@ function createPlayerPortraitService({ storage, getContext, getSnapshot, reserve
     const current = requireCurrent(expected);
     return finish(current, displayStore.save(current, { aliases: [] }));
   }
+  function saveAvatar(expected, values) {
+    const current = requireCurrent(expected);
+    if (!safePlayerPortraitName(current.primaryName)) throw new Error('尚未读取到本局玩家姓名，请等待人物档案就绪后重新读取。');
+    const avatarUrl = validatePlayerPortraitUrl(values?.avatarUrl);
+    if (!avatarUrl) throw new Error('请先选择照片并检查预览。');
+    // 空 source 表示非开局写入，保持旧开局页可读；不沿用其他姓名的别名。
+    return finish(current, displayStore.save(current, {
+      avatarUrl, aliases: current.aliases, profileName: current.primaryName, source: '',
+    }));
+  }
   function resolve(name, snapshot) {
     snapshot = snapshot || get();
     if (!safePlayerPortraitName(name)) return null;
@@ -81,7 +91,7 @@ function createPlayerPortraitService({ storage, getContext, getSnapshot, reserve
     return match ? { src: snapshot.avatarUrl, player: true, hasShieldFrame: false, prepared: false,
       portraitScale: 1, objectPosition: 'center top' } : null;
   }
-  return { get, save, clear, saveAliases, clearAliases, resolve };
+  return { get, save, clear, saveAvatar, saveAliases, clearAliases, resolve };
 }
 
 // 只处理正则产出的安全候选；不读写聊天原文，不从任意正文猜说话人。

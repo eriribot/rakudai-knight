@@ -54,7 +54,7 @@ function createCalendarWorldbookReader({ getCharWorldbookNames, getWorldbook, ge
     for (let index = start; index < lines.length; index++) {
       const line = lines[index];
       if (/^\s*【[^】]+】/.test(line) || /^\s*<\//.test(line)) break;
-      const match = line.match(/^\s*(?:[-*]\s*)?(?:发生时间|时间|日期|时序)[：:]\s*(.+?)\s*$/);
+      const match = line.match(/^\s*(?:[-*]\s*)?(?:场景时间|发生时间|时间|日期|时序)[：:]\s*(.+?)\s*$/);
       if (match) { labels.push(match[1]); continue; }
       if (block < 0 && !/^\s*$|^\s*<[^>]+>\s*$|^\s*#{1,6}\s|^\s*(?:[-*]\s*)?[^：:]{1,12}[：:]/.test(line)) break;
     }

@@ -1,10 +1,20 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {
+  ARCANAS,
+  PACTS,
+  CARD_MODS,
+  PRESETS,
   CARDS,
+  cleanProfile,
   createBattle,
+  cardCost,
+  cardBlockValue,
+  intent,
   attackValue,
   playCard,
+  evolveCard,
+  useNobleArt,
   useSupport,
   beginEnemy,
   resolveEnemy,
@@ -138,4 +148,78 @@ test("defeat is final and restart starts a separate healthy battle", () => {
   assert.equal(fresh.player.hp, 76);
   assert.equal(fresh.supportUsed, false);
   assert.equal(fresh.turn, 1);
+});
+
+test("custom device profile sanitizes arcana, pact, rank, and noble art fields", () => {
+  const p = cleanProfile(PRESETS.crimson_dragon);
+  assert.equal(p.arcana, "blaze");
+  assert.equal(p.pact, "crimson_vow");
+  assert.equal(p.rank, "A");
+  assert.equal(p.deviceName, "煌炎大剑");
+  const fallback = cleanProfile({ arcana: "invalid", pact: "bad", rank: "Z" });
+  assert.equal(fallback.arcana, "insight");
+  assert.equal(fallback.pact, "standard");
+  assert.equal(fallback.rank, "F");
+  assert.equal(fallback.deviceName, ARCANAS.insight.defaultDevice);
+});
+
+test("card evolution affixes persist on card instances and modify cost, damage, and effects", () => {
+  const s = createBattle(PRESETS.worst_blade);
+  assert.equal(s.evolveCharges, 1);
+  const heavy = s.hand.find((c) => c.kind === "heavy");
+  assert.equal(cardCost(CARDS.heavy, heavy), 2);
+  const evolved = evolveCard(s, heavy.id, "zero_step");
+  assert.ok(evolved);
+  assert.equal(s.evolveCharges, 0);
+  assert.equal(cardCost(CARDS.heavy, heavy), 1);
+
+  // Give another charge via support and attach soul_edge to guard
+  useSupport(s);
+  assert.equal(s.evolveCharges, 1);
+  const guard = s.hand.find((c) => c.kind === "guard");
+  evolveCard(s, guard.id, "soul_edge");
+  assert.equal(cardBlockValue(s, CARDS.guard, guard), 18);
+
+  const res = playCard(s, guard.id);
+  assert.equal(res.block, 18);
+  conserved(s);
+});
+
+test("all four arcana resonances and noble arts trigger distinct build payoffs", () => {
+  for (const arcana of Object.keys(ARCANAS)) {
+    const s = createBattle({
+      style: "katana",
+      arcana,
+      pact: arcana === "mirage" ? "aegis_flow" : "crimson_vow",
+    });
+    s.stacks = 3;
+    s.enemy.block = 10;
+    const attack = play(s, "slash");
+    assert.ok(attack.resonance, `expected resonance for ${arcana}`);
+    assert.equal(attack.resonance.arcana, arcana);
+    assert.equal(s.resonancesTriggered, 1);
+
+    // Charge sync to 100 and trigger Noble Art
+    s.sync = 100;
+    const noble = useNobleArt(s);
+    assert.ok(noble, `expected noble art for ${arcana}`);
+    assert.equal(s.sync, 0);
+    assert.equal(s.nobleArtsUsed, 1);
+    assert.equal(s.player.overdrive, true);
+    if (arcana === "mirage") {
+      assert.ok(intent(s).damage < 14);
+    }
+    conserved(s);
+  }
+});
+
+test("aegis_flow pact reflects damage and builds sync when blocking enemy attacks", () => {
+  const s = createBattle({ style: "sword", arcana: "scar", pact: "aegis_flow" });
+  play(s, "guard");
+  const enemyHpBefore = s.enemy.hp;
+  beginEnemy(s);
+  const enemyTurn = resolveEnemy(s);
+  assert.equal(enemyTurn.counterDamage, 8);
+  assert.equal(s.enemy.hp, enemyHpBefore - 8);
+  conserved(s);
 });

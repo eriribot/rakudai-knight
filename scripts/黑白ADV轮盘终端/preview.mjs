@@ -95,6 +95,12 @@ function previewRuntime() {
   let theme = 'dark';
   let app = null;
   const subscribers = new Set();
+  const playerPortrait = createPlayerPortraitService({
+    storage: localStorage,
+    getContext: () => ({ chatId: 'offline-preview', name1: '离线演示' }),
+    getSnapshot,
+    onChange: () => subscribers.forEach(callback => callback({ type: 'player-portrait' })),
+  });
   const limeMessages = JSON.parse(JSON.stringify(limePreviewMessages));
   let limeSending = false;
   let limeSequence = limeMessages.length;
@@ -170,6 +176,7 @@ function previewRuntime() {
       supportStage,
       romanceStage,
       getSnapshot,
+      playerPortrait,
       tournament: {
         snapshotKey: tournamentSnapshotKey,
         view: () => JSON.parse(JSON.stringify(tournamentViews[selected])),
@@ -210,6 +217,7 @@ function previewRuntime() {
       },
     });
     if (query.get('view') === 'arena') { app.openApp('schedule'); app.openApp('arena'); }
+    else if (query.get('view') === 'settings') app.openApp('settings');
     else if (query.get('view') === 'calendar') app.openApp('calendar');
     else if (['avatars', 'lime'].includes(selected) && query.get('view') === 'lime') {
       app.openApp('lime');
@@ -231,6 +239,7 @@ export function buildPreview() {
   const calendarWorldbookEntries = Object.values(exportedWorldbook.entries).filter(entry => entry.comment && entry.comment.startsWith('[剧情]'))
     .map(entry => ({ uid: entry.uid, name: entry.comment, content: entry.content }));
   const calendarReaderSource = fs.readFileSync(path.join(directory, 'calendar-worldbook.js'), 'utf8').replace(/\r\n/g, '\n');
+  const portraitSource = ['player-display-store.js', 'player-portrait.js'].map(file => fs.readFileSync(path.join(directory, file), 'utf8')).join('\n');
   const bootstrap = 'const compiledHtml = ' + jsString(built.html) + ';\n' +
     'const version = ' + jsString(built.version) + ';\n' +
     'const RELATIONSHIP_SCORING = ' + jsString(RELATIONSHIP_SCORING) + ';\n' +
@@ -242,7 +251,7 @@ export function buildPreview() {
     'const tournamentSnapshotKey = ' + tournamentSnapshotKey.toString() + ';\n' +
     'const limePreviewMessages = ' + jsString(makeLimeMessages()) + ';\n' +
     'const calendarWorldbookEntries = ' + jsString(calendarWorldbookEntries) + ';\n' + calendarReaderSource + '\n' +
-    '(' + previewRuntime.toString() + ')();\n';
+    portraitSource + '\n(' + previewRuntime.toString() + ')();\n';
   const html = `<!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>终端 v${built.version} · 离线状态预览</title>
@@ -255,7 +264,7 @@ button:focus-visible,select:focus-visible{outline:3px solid #b66226;outline-offs
 iframe{display:block;width:100%;height:min(760px,80vh);min-height:420px;border:0}
 </style></head><body><main>
 <h1>终端 v${built.version} · 离线状态预览</h1>
-<p class="note">本局状态使用独立虚拟样本；校历的剧情资料来自本地世界书 v0.02。页面使用实际编译后的终端 HTML，不连接酒馆，也不写入 MVU。</p>
+<p class="note">本局状态使用独立虚拟样本；校历的剧情资料来自本地世界书 v0.02。页面使用实际编译后的终端 HTML，不连接酒馆，也不写入 MVU。头像上传仅保存于此预览站点的浏览器存储。</p>
 <div class="controls" aria-label="切换虚拟记录">
 <button type="button" data-sample="numeric" aria-pressed="true">男／女阶段</button>
 <button type="button" data-sample="highest" aria-pressed="false">女性好感 1000</button>
