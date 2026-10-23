@@ -223,9 +223,135 @@ function projectTournamentBackground(state, ledger) {
 
 return {TOURNAMENT_CANON,tournamentBackgroundHash,identifyTournamentPlayer,seedTournamentRoster,projectTournamentBackground};
 })();
+const national=(function(){
+const {parseTournamentDate}=calendar;
+const nationalTournamentDates={"name":"七星剑斗祭","startDate":"2013-08-07","endDate":"2013-08-12","source":"世界观/七星剑武祭考据/32强分区与赛制.md#轮次与日期","note":"本卡沿用2013年；日期按原文相对日序整理，实际排期以本局记录为准。","schedule":[{"date":"2013-08-07","time":"","round":"第一轮","note":"32进16"},{"date":"2013-08-08","time":"09:00","round":"第二轮","note":"16进8"},{"date":"2013-08-08","time":"18:00","round":"第三轮","note":"8进4，分区决赛"},{"date":"2013-08-09","time":"","round":"准决赛","note":"4进2，A–B、C–D"},{"date":"2013-08-10","time":"","round":"原定决赛","note":"原著后续改期；本局按实际通知登记"},{"date":"2013-08-11","time":"19:00","round":"延期决赛","note":"原著延期参考，不自动改写本局安排"},{"date":"2013-08-12","time":"","round":"颁奖闭幕","note":"原著决赛次日"}]};
+
+
+const ntStates = ['未开始', '进行中', '已结束'];
+const ntMatchStates = ['待定', '已安排', '进行中', '已完成', '已取消'];
+const ntQualificationStates = ['待确认', '已取得', '未取得', '已取消'];
+const ntBlocks = ['A', 'B', 'C', 'D', '决赛区', '未定'];
+const ntStages = ['16强', '8强', '4强', '决赛', '冠军'];
+const ntDecisionStates = ['已确认', '已撤销'];
+const ntObject = value => Boolean(value && typeof value === 'object' && !Array.isArray(value));
+const ntNonblank = value => typeof value === 'string' && Boolean(value.trim());
+const ntId = value => ntNonblank(value) && !/[~/]/.test(value) && !['__proto__', 'prototype', 'constructor'].includes(value) && !value.startsWith('__rk_bg_');
+const ntDate = value => typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value) && parseTournamentDate(value)?.key === value;
+const ntOwn = (value, key) => Object.prototype.hasOwnProperty.call(value || {}, key);
+
+function nationalTournamentIssues(tournament) {
+  if (!ntObject(tournament)) return ['七星剑斗祭记录须为对象'];
+  const issues = [], add = message => issues.push(message);
+  if (tournament.状态 !== undefined && !ntStates.includes(tournament.状态)) add('全国赛状态无效');
+  for (const field of ['开始日期', '结束日期']) if (tournament[field] !== undefined && !ntDate(tournament[field])) add(field + '须为有效的 YYYY-MM-DD 日期');
+  if (tournament.开始日期 && tournament.结束日期 && tournament.开始日期 > tournament.结束日期) add('结束日期不能早于开始日期');
+  for (const field of ['资格名册', '比赛', '晋级记录']) {
+    if (tournament[field] !== undefined && !ntObject(tournament[field])) add(field + '须为按稳定 ID 保存的对象');
+  }
+  const roster = ntObject(tournament.资格名册) ? tournament.资格名册 : {};
+  for (const [id, row] of Object.entries(roster)) {
+    if (!ntId(id) || !ntObject(row) || !ntNonblank(row.姓名) || !ntNonblank(row.学园) || !ntQualificationStates.includes(row.资格状态) || typeof row.依据 !== 'string') add('资格记录 ' + id + ' 无效');
+  }
+  for (const [id, match] of Object.entries(ntObject(tournament.比赛) ? tournament.比赛 : {})) {
+    if (!ntId(id) || !ntObject(match)) { add('比赛 ' + id + ' 无效'); continue; }
+    if (!ntNonblank(match.轮次) || !ntBlocks.includes(match.分区) || !ntMatchStates.includes(match.状态)) add('比赛 ' + id + ' 的轮次、分区或状态无效');
+    for (const field of ['日期', '时间', '地点', '依据']) if (typeof match[field] !== 'string') add('比赛 ' + id + ' ' + field + '须为文字');
+    if (match.日期 && !ntDate(match.日期)) add('比赛 ' + id + ' 日期无效');
+    const participants = Array.isArray(match.参赛者) ? match.参赛者 : [];
+    if (participants.length < 2 || participants.some(pid => !ntId(pid) || !ntOwn(roster, pid)) || new Set(participants).size !== participants.length) add('比赛 ' + id + ' 须引用至少两名不同的资格名册选手');
+    if (match.胜者 !== undefined && !participants.includes(match.胜者)) add('比赛 ' + id + ' 胜者须为参赛者');
+    if (match.晋级至 !== undefined && match.晋级至 !== '' && !ntStages.includes(match.晋级至)) add('比赛 ' + id + ' 晋级阶段无效');
+    if (match.状态 === '已完成' && (!match.胜者 || !participants.includes(match.胜者) || !ntNonblank(match.依据))) add('比赛 ' + id + ' 完成时须填写胜者与结果依据');
+  }
+  for (const [id, row] of Object.entries(ntObject(tournament.晋级记录) ? tournament.晋级记录 : {})) {
+    if (!ntId(id) || !ntObject(row)) { add('晋级记录 ' + id + ' 无效'); continue; }
+    if (!ntId(row.选手) || !ntOwn(roster, row.选手)) add('晋级记录 ' + id + ' 须引用资格名册选手');
+    if (!ntStages.includes(row.阶段) || !ntDecisionStates.includes(row.状态)) add('晋级记录 ' + id + ' 的阶段或状态无效');
+    if (typeof row.日期 !== 'string' || row.日期 && !ntDate(row.日期)) add('晋级记录 ' + id + ' 日期无效');
+    if (typeof row.依据 !== 'string' || row.状态 === '已确认' && !ntNonblank(row.依据)) add('晋级记录 ' + id + ' 须填写裁定依据');
+  }
+  return issues;
+}
+
+function createNationalTournamentSchema(z) {
+  const id = () => z.string().refine(ntId);
+  const qualification = z.object({ 姓名: z.string().refine(ntNonblank), 学园: z.string().refine(ntNonblank), 资格状态: z.enum(ntQualificationStates), 依据: z.string() }).passthrough();
+  const match = z.object({ 轮次: z.string().min(1), 分区: z.enum(ntBlocks), 参赛者: z.array(id()).min(2), 日期: z.string(), 时间: z.string(), 地点: z.string(), 状态: z.enum(ntMatchStates), 胜者: id().optional(), 晋级至: z.enum(['', ...ntStages]).optional(), 依据: z.string() }).passthrough();
+  const advancement = z.object({ 选手: id(), 阶段: z.enum(ntStages), 日期: z.string(), 状态: z.enum(ntDecisionStates), 依据: z.string() }).passthrough();
+  return z.object({
+    资格名册: z.record(id(), qualification).optional(), 状态: z.enum(ntStates).optional(),
+    开始日期: z.string().optional(), 结束日期: z.string().optional(),
+    比赛: z.record(id(), match).optional(), 晋级记录: z.record(id(), advancement).optional(),
+  }).passthrough().superRefine((value, ctx) => {
+    for (const message of nationalTournamentIssues(value)) ctx.addIssue({ code: 'custom', message });
+  });
+}
+
+function shouldInjectNationalTournament(state) {
+  const scene = (state?.stat_data || state)?.场景;
+  const date = parseTournamentDate(scene?.时间), tournament = scene?.七星剑斗祭;
+  const start = tournament?.开始日期 ?? nationalTournamentDates.startDate;
+  const end = tournament?.结束日期 ?? nationalTournamentDates.endDate;
+  return Boolean(date && ntDate(start) && ntDate(end) && date.key >= start && date.key <= end && tournament?.状态 !== '已结束');
+}
+
+function deriveNationalTournament(input) {
+  const state = input?.stat_data || input, raw = state?.场景?.七星剑斗祭;
+  const tournament = ntObject(raw) ? structuredClone(raw) : null;
+  const roster = ntObject(tournament?.资格名册) ? tournament.资格名册 : {};
+  const participants = Object.entries(roster).filter(([, row]) => ntObject(row)).map(([id, row]) => ({ id, name: row.姓名, school: row.学园, status: row.资格状态, basis: row.依据 }));
+  const matches = Object.entries(ntObject(tournament?.比赛) ? tournament.比赛 : {}).filter(([, row]) => ntObject(row)).map(([id, row]) => ({
+    ...row, id, 参赛者姓名: (Array.isArray(row.参赛者) ? row.参赛者 : []).map(pid => roster[pid]?.姓名 || pid), 胜者姓名: roster[row.胜者]?.姓名 || row.胜者 || '',
+  })).sort((a, b) => (a.日期 || '').localeCompare(b.日期 || '') || (a.时间 || '').localeCompare(b.时间 || '') || a.id.localeCompare(b.id));
+  const candidates = matches.filter(row => row.状态 === '已完成' && row.参赛者?.includes(row.胜者) && ntOwn(roster, row.胜者) && ntStages.includes(row.晋级至))
+    .map(row => ({ id: row.胜者, stage: row.晋级至, date: row.日期 || '', matchId: row.id }));
+  for (const [id, row] of Object.entries(ntObject(tournament?.晋级记录) ? tournament.晋级记录 : {})) {
+    if (row?.状态 === '已确认' && ntOwn(roster, row.选手) && ntStages.includes(row.阶段)) candidates.push({ id: row.选手, stage: row.阶段, date: row.日期 || '', decisionId: id });
+  }
+  // ponytail: 晋级从现存结果重算；同阶段取较晚记录，只存一份事实账本。
+  candidates.sort((a, b) => ntStages.indexOf(a.stage) - ntStages.indexOf(b.stage) || a.date.localeCompare(b.date) || (a.matchId || a.decisionId).localeCompare(b.matchId || b.decisionId));
+  const progression = new Map(candidates.map(row => [row.id, { ...row, name: roster[row.id].姓名 }]));
+  const date = parseTournamentDate(state?.场景?.时间);
+  return { exists: raw !== undefined, tournament, participants, matches, advancement: [...progression.values()], calendar: {
+    date, valid: Boolean(date), active: shouldInjectNationalTournament(state),
+    startDate: tournament?.开始日期 ?? nationalTournamentDates.startDate, endDate: tournament?.结束日期 ?? nationalTournamentDates.endDate,
+    reference: structuredClone(nationalTournamentDates.schedule),
+    matches: matches.filter(row => row.日期).map(row => ({ id: row.id, date: row.日期, time: row.时间, round: row.轮次, status: row.状态, title: row.参赛者姓名.join(' / ') })),
+  } };
+}
+
+function prepareNationalTournamentAction(state, request) {
+  if (!ntObject(state?.场景) || !ntObject(request)) throw new Error('请先读取本局状态和操作内容');
+  if (state.场景.七星剑斗祭 !== undefined && !ntObject(state.场景.七星剑斗祭)) throw new Error('七星剑斗祭记录须为对象');
+  const next = structuredClone(state), tournament = next.场景.七星剑斗祭 ??= {};
+  if (request.action === 'setNationalSchedule') {
+    const schedule = request.schedule ?? request;
+    if (!ntObject(schedule)) throw new Error('请填写赛程设置');
+    for (const field of ['开始日期', '结束日期', '状态']) if (ntOwn(schedule, field)) tournament[field] = schedule[field];
+  } else if (request.action === 'upsertNationalMatch' || request.action === 'upsertNationalAdvancement') {
+    if (!ntId(request.id)) throw new Error('记录 ID 不能为空、包含 / 或 ~，或使用保留名称');
+    const match = request.action === 'upsertNationalMatch';
+    const field = match ? '比赛' : '晋级记录', data = match ? request.match : request.advancement;
+    if (!ntObject(data)) throw new Error(match ? '请填写比赛资料' : '请填写晋级裁定');
+    if (tournament[field] !== undefined && !ntObject(tournament[field])) throw new Error(field + '须为按稳定 ID 保存的对象');
+    const records = tournament[field] ??= {};
+    records[request.id] = { ...(match ? { 分区: '未定', 日期: '', 时间: '', 地点: '', 状态: '待定', 依据: '' } : { 日期: '', 状态: '已确认', 依据: '' }), ...records[request.id], ...structuredClone(data) };
+    if (match && records[request.id].胜者 === '') delete records[request.id].胜者;
+  } else throw new Error('未知全国赛操作');
+  const issues = nationalTournamentIssues(tournament);
+  if (issues.length) throw new Error(issues.join('；'));
+  return next;
+}
+
+return {createNationalTournamentSchema,shouldInjectNationalTournament,deriveNationalTournament,prepareNationalTournamentAction};
+})();
 const tournament=(function(){
 const {TOURNAMENT_CANON,identifyTournamentPlayer,seedTournamentRoster,projectTournamentBackground}=background;
 const {tournamentCalendar,parseTournamentDate,isHagunAffiliation}=calendar;
+const {prepareNationalTournamentAction}=national;
+
+
 
 
 // T01兼容存档 / T02引擎：实际账本与日期背景投影合并后统一重算。
@@ -234,6 +360,7 @@ const TOURNAMENT_VERSION = 'T01';
 const tournamentStates = ['未开始', '进行中', '已结束'];
 const matchStates = ['待定', '已安排', '已完成', '已取消'];
 const participantStates = ['参赛', '退选', '取消资格'];
+const qualificationStates = ['待确认', '已取得', '未取得', '已取消'];
 const sources = ['正典', '原创', '玩家'];
 const unsafeKeys = new Set(['__proto__', 'prototype', 'constructor']);
 const own = (value, key) => Object.prototype.hasOwnProperty.call(value || {}, key);
@@ -241,6 +368,7 @@ const object = value => Boolean(value && typeof value === 'object' && !Array.isA
 const copy = value => structuredClone(value);
 const natural = value => Number.isSafeInteger(value) && value >= 0;
 const nonblank = value => typeof value === 'string' && Boolean(value.trim());
+const qualificationId = value => nonblank(value) && !/[~/]/.test(value) && !unsafeKeys.has(value) && !value.startsWith('__rk_bg_');
 const fixtures = { 1: '桐原静矢', 9: '兔丸恋恋', 11: '绫辻绚濑', 20: '东堂刀华' };
 const canon = TOURNAMENT_CANON;
 const affiliationNotice = '所属未确认为破军学园：选拔赛暂停，仅可查看已有记录。';
@@ -644,6 +772,23 @@ function suggestTournamentOpponents(state, { participantId, round } = {}) {
 // 终端手动记账使用同一校验入口；同 ID 是纠错替换，不是再发一次积分。
 function prepareTournamentAction(state, request) {
   if (!object(state?.场景) || !object(request)) throw new Error('请先读取本局状态和操作内容');
+  if (['upsertNationalMatch', 'upsertNationalAdvancement', 'setNationalSchedule'].includes(request.action)) return prepareNationalTournamentAction(state, request);
+  // ponytail: 资格独立于校内积分账本；只更新这一个人的确认记录。
+  if (request.action === 'upsertQualification') {
+    if (!qualificationId(request.id)) throw new Error('资格记录 ID 不能为空、包含 / 或 ~，或使用保留名称');
+    const row = { 依据: '', ...request.qualification };
+    if (!object(request.qualification) || !nonblank(row.姓名) || !nonblank(row.学园)) throw new Error('请填写姓名与学园');
+    if (!qualificationStates.includes(row.资格状态)) throw new Error('请选择有效的资格状态');
+    if (typeof row.依据 !== 'string') throw new Error('资格依据须为文字，可留空');
+    const national = state.场景.七星剑斗祭;
+    if (national !== undefined && !object(national)) throw new Error('七星剑斗祭记录须为对象');
+    if (national?.资格名册 !== undefined && !object(national.资格名册)) throw new Error('资格名册须为按稳定 ID 保存的对象');
+    const next = copy(state);
+    next.场景.七星剑斗祭 ??= {};
+    const roster = next.场景.七星剑斗祭.资格名册 ??= {};
+    roster[request.id] = { ...roster[request.id], ...copy(row) };
+    return next;
+  }
   if (!isHagunAffiliation(state)) throw new Error(affiliationNotice);
   const next = copy(state);
   if (request.action === 'initialize') {
@@ -688,20 +833,29 @@ return {TOURNAMENT_VERSION,normalizeTournament,createTournamentSchema,deriveTour
 })();
 const model=(function(){
 const {deriveTournament}=tournament;
+const {deriveNationalTournament}=national;
 const {TOURNAMENT_CANON,seedTournamentRoster}=background;
 
 
-// 只读预览适配：复用正式选拔引擎；没有写档、全国赛签位或剧情文本确权。
+
+// 只读适配：赛程、资格和赛果均读取当前账本。
 function read(input, providedView) {
   const snapshot = input?.state ? input : { state: input?.stat_data || input };
   const stat = structuredClone(snapshot.state?.stat_data || snapshot.state || {});
   const source = snapshot.source ? structuredClone(snapshot.source) : null;
   const pending = snapshot.pending === true;
   const view = providedView || deriveTournament(stat);
-  const row = view.roster.find(person => person.id === view.playerId);
+  const schoolName = value => String(value || '').trim().split(/\s*[/／·]\s*/)[0].replace('破軍學園', '破军学园');
+  const name = stat.系统?.主角模式 === '黑铁一辉' ? '黑铁一辉' : stat.玩家?.姓名?.trim();
+  const school = schoolName(stat.玩家?.所属);
+  const registry = Object.entries(stat.场景?.七星剑斗祭?.资格名册 || {});
+  const matchesPlayer = ([, entry]) => name && school && entry.姓名 === name && schoolName(entry.学园) === school;
+  const matches = registry.filter(matchesPlayer);
+  // ponytail: 沿用已保存的稳定 ID；先登记资格、后加入选拔名册时用唯一姓名与学园接续。
+  const recordedPlayer = matches.find(([id]) => id === view.playerId) || (matches.length === 1 ? matches[0] : null);
   const player = {
-    id: view.playerId,
-    name: row?.name || stat.玩家?.姓名 || '未建档',
+    id: view.playerId || recordedPlayer?.[0] || 'player',
+    name: name || '未建档',
     school: stat.玩家?.所属 || '所属待确认',
     device: stat.玩家?.固有灵装 || '灵装待登记',
     rank: stat.玩家?.登记等级 || '未登记',
@@ -710,21 +864,34 @@ function read(input, providedView) {
   const status = (key, label, reason, representatives = []) => ({ status: key, label, reason, representatives });
   if (pending) {
     qualification = status('pending', '等待 MVU 保存', '当前回复尚未保存完成，暂不确认代表资格。');
-  } else if (!view.applicable) {
-    qualification = status('not-applicable', '他校资格待确认', '当前所属不适用破军选拔；保留角色档案，须依据所属学校的代表资格进入全国赛。');
-  } else if (snapshot.incomplete === true || !view.exists || !view.complete || view.tournament?.状态 !== '已结束') {
-    qualification = status('unconfirmed', '代表资格待确认', '当前选拔仍在进行或完整账本尚未确认，已记录积分和背景推演不直接授予代表资格。');
-  } else if (view.qualificationTie) {
-    qualification = status('tie', '代表席位同分待决', '第六名席位边界同分，须由本局附加赛或已确认规则决定。');
-  } else if (!row) {
-    qualification = status('unconfirmed', '玩家参赛身份待确认', '当前选拔名册尚未绑定本局玩家。');
+  } else if (snapshot.incomplete === true) {
+    qualification = status('unconfirmed', '代表资格待确认', '当前快照尚不完整，等待已保存的资格记录。');
   } else {
-    const representatives = view.eligible.slice(0, view.tournament.代表名额);
-    const qualified = representatives.some(person => person.id === player.id);
-    qualification = status(qualified ? 'qualified' : 'not-qualified', qualified ? '已取得破军代表资格' : '本届未取得代表资格',
-      qualified ? '已结束的完整选拔账本无席位同分，玩家位于有效代表名额内。' : '已结束的完整选拔账本无席位同分，玩家未列入有效代表名额。', representatives);
+    const representatives = registry.filter(([, entry]) => schoolName(entry.学园) === '破军学园' && entry.资格状态 === '已取得')
+      .map(([id, entry]) => ({ ...view.roster.find(row => row.id === id && row.name === entry.姓名),
+        id, name: entry.姓名, school: entry.学园, source: '资格名册', status: entry.资格状态,
+        player: id === recordedPlayer?.[0], basis: entry.依据 }));
+    const entry = recordedPlayer?.[1];
+    const labels = {
+      已取得: ['qualified', `已取得${school}代表资格`, '本局资格名册已确认取得代表资格。'],
+      未取得: ['not-qualified', '本届未取得代表资格', '本局资格名册已记录未取得代表资格。'],
+      已取消: ['revoked', '代表资格已取消', '本局资格名册已记录取消代表资格。'],
+    };
+    const [key, label, reason] = labels[entry?.资格状态] || ['unconfirmed', '代表资格待确认', '本局尚未确认代表资格；可在终端依据剧情登记，积分与背景推演不直接授予资格。'];
+    qualification = status(key, label, entry?.依据 || reason, representatives);
   }
-  return { stat, source, pending, view, player, qualification };
+  const national = snapshot.nationalView || (typeof deriveNationalTournament === 'function' ? deriveNationalTournament(stat) : { exists: false, tournament: {}, participants: [], matches: [], advancement: [] });
+  const stages = ['16强', '8强', '4强', '决赛', '冠军'];
+  const bracket = national.matches.length || national.advancement.length ? {
+    actual: true,
+    players: Object.fromEntries(national.participants.map(row => [row.id, { ...row, player: row.id === (recordedPlayer?.[0] || player.id) }])),
+    matches: national.matches.map(row => ({ id: row.id, people: row.参赛者, p1: row.参赛者[0], p2: row.参赛者[1],
+      zone: row.分区 === '决赛区' ? 'finals' : row.分区, round: stages.indexOf(row.晋级至) + 1,
+      label: row.轮次, winner: row.状态 === '已完成' ? row.胜者 : '', promotion: row.晋级至,
+      date: row.日期, time: row.时间, place: row.地点, status: row.状态, basis: row.依据, from: [] })),
+    advancement: national.advancement,
+  } : null;
+  return { stat, source, pending, view, player, qualification, national, bracket };
 }
 
 function sampleState(ikki = false) {
@@ -786,15 +953,40 @@ function completedSample(tie = false) {
   return state;
 }
 
+function qualifiedSample() {
+  const state = selectionSample();
+  state.场景.选拔赛.状态 = '已结束';
+  const names = ['史黛菈·法米利昂', '黑铁一辉', '东堂刀华', '黑铁珠雫', '贵德原彼方', '示例骑士'];
+  state.场景.七星剑斗祭 = { 资格名册: Object.fromEntries(Object.entries(state.场景.选拔赛.名册)
+    .filter(([, entry]) => names.includes(entry.姓名))
+    .map(([id, entry]) => [id, { 姓名: entry.姓名, 学园: '破军学园', 资格状态: '已取得', 依据: '虚构预览：本局已确认的代表名单。' }])) };
+  return state;
+}
+
 const otherState = selectionSample();
 otherState.玩家.所属 = '武曲学园 / 一年一班';
 delete otherState.场景.选拔赛;
+otherState.场景.七星剑斗祭 = { 资格名册: { player: { 姓名: '示例骑士', 学园: '武曲学园', 资格状态: '已取得', 依据: '虚构预览：武曲学园已确认的代表资格。' } } };
+
+function nationalSample() {
+  const state = structuredClone(otherState), ledger = state.场景.七星剑斗祭;
+  state.场景.时间 = '2013-08-08';
+  ledger.状态 = '进行中';
+  for (let i = 1; i <= 4; i++) ledger.资格名册['guest_' + i] = { 姓名: '预览选手' + i, 学园: '预览学园', 资格状态: '已取得', 依据: '虚构演示' };
+  ledger.比赛 = {
+    preview_special: { 轮次: '特别赛', 分区: 'B', 参赛者: ['player', 'guest_1', 'guest_2', 'guest_3', 'guest_4'], 日期: '2013-08-08', 时间: '14:00', 地点: '预览赛场', 状态: '已完成', 胜者: 'player', 晋级至: '8强', 依据: '虚构多人赛果，展示本局账本' },
+    preview_final: { 轮次: '分区决赛', 分区: 'B', 参赛者: ['player', 'guest_1'], 日期: '2013-08-10', 时间: '', 地点: '预览赛场', 状态: '已安排', 晋级至: '4强', 依据: '虚构排期，尚未比赛' },
+  };
+  ledger.晋级记录 = { preview_advance: { 选手: 'guest_1', 阶段: '8强', 日期: '2013-08-08', 状态: '已确认', 依据: '虚构直接晋级裁定' } };
+  return state;
+}
 
 const samples = {
   selection: { label: '选拔进行中', description: '虚构 OC 与原作角色共用现有 MVU 选拔账本；资格尚待确认。', state: selectionSample() },
-  qualified: { label: '完整账本 · 已出线', description: '虚构完整旧账本：288 人、20 轮基线、赛季结束且代表边界不同分；现有引擎确认完整。', state: completedSample() },
-  tie: { label: '代表席位同分', description: '虚构完整旧账本：第六、第七名同分，保留待决。', state: completedSample(true) },
-  other: { label: '他校自捏角色', description: '虚构他校 OC：读取同一角色档案，不套用破军选拔资格。', state: otherState },
+  qualified: { label: '资格已登记 · 已出线', description: '虚构的已确认代表名单：选拔账本可不完整，资格读取本局已保存记录。', state: qualifiedSample() },
+  tie: { label: '选拔同分 · 资格待确认', description: '虚构完整旧账本：第六、第七名同分；资格名册未登记，不从积分自动授予资格。', state: completedSample(true) },
+  other: { label: '他校自捏角色 · 已出线', description: '虚构他校 OC：读取同一角色档案与已保存的武曲代表资格。', state: otherState },
+  national: { label: '全国赛 · 已登记赛果', description: '虚构全国赛账本，展示多人对局、排期与直接晋级裁定。', state: nationalSample() },
   ikki: { label: '黑铁一辉模式', description: '虚构一辉模式：绑定现有一辉参赛 ID，名册不重复添加。', state: selectionSample(true) },
 };
 

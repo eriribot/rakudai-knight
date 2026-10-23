@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-19",
+  "evidence": "维护源码、生成组件和宿主替身的离线检查；未导入真实酒馆",
+  "checks": [
+    { "suite": "check-national-tournament.mjs", "passed": 8, "total": 8 },
+    { "suite": "check-tournament-qualification.mjs", "passed": 7, "total": 7 },
+    { "suite": "check-tournament-guard.mjs", "passed": 10, "total": 10 },
+    { "suite": "check-tournament.mjs", "passed": 37, "total": 37 },
+    { "suite": "check-tournament-prompt-window.mjs", "passed": 48, "total": 48 },
+    { "suite": "correction-readiness-test.mjs", "passed": 100, "total": 100 },
+    { "suite": "correction-exclusions-test.mjs", "passed": 11, "total": 11 },
+    { "suite": "check-state-controller.mjs", "passed": 24, "total": 24 },
+    { "suite": "packaging-test.mjs", "passed": 9, "total": 9 },
+    { "suite": "赛事UI、面板交互、日历及MVU读模型", "passed": 46, "total": 46 }
+  ],
+  "integration": [
+    "生成控制器：五人赛改为两人并纠正胜者，晋级更新，兄弟回复页及元数据保留",
+    "副校正真实request/apply：参赛者数组缩减与赛果纠错保存回读成功，其他比赛保留",
+    "生成字段约束真实ENDED回调：接纳全国赛保存和数组纠错",
+    "两份可导入组件格式检查通过，字段约束与维护源码一致",
+    "B1原组件元信息逐项相等，源码diff空白检查通过"
+  ],
+  "limitations": ["未测试真实宿主导入及真实模型回复", "浏览器file协议未打开；UI证据为离线DOM交互检查"],
+  "fixedDuringChecks": ["不完整旧选拔账本缺少calendar时仍可请求副校正", "旧测试替身补齐新的全国赛控制器入口"]
+}

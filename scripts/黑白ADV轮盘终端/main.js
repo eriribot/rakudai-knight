@@ -549,26 +549,24 @@
   }
 
   let tournamentWriting = false;
-  const tournamentSnapshotKey = state => JSON.stringify({ ledger: state?.场景?.选拔赛 ?? null,
-    time: state?.场景?.时间 ?? null, mode: state?.系统?.主角模式 ?? null, player: state?.玩家?.姓名 ?? null,
-    affiliation: state?.玩家?.所属 ?? null });
+  const tournamentSnapshotKey = /*__INJECT_TOURNAMENT_SNAPSHOT_KEY__*/;
   async function writeTournament(request, expectedSource, expectedState) {
     if (SS.destroyed) throw new Error('终端已关闭，请重新打开后保存。');
-    if (tournamentWriting) throw new Error('正在保存选拔赛记录，请稍候。');
+    if (tournamentWriting) throw new Error('正在保存赛事记录，请稍候。');
     if (generationPending || correctionMainBusy()) throw new Error('正在等待主回复与 MVU 保存完成，请稍后登记。');
     const service = stateService();
     if (service.capabilities?.tournament !== 'T01' || service.capabilities?.tournamentEngine !== 'T02' || typeof service.tournamentAction !== 'function') throw new Error('请更新包含 T02 日期结算的终端状态控制器。');
     const revision = rosterEditRevision, snapshot = readSnapshot();
     const isExpected = current => !current.pending && JSON.stringify(current.source) === JSON.stringify(expectedSource) &&
       tournamentSnapshotKey(current.state) === expectedState;
-    if (!isExpected(snapshot)) throw new Error('比赛记录、剧情日期、玩家身份或聊天来源已变化，请刷新后再保存。');
+    if (!isExpected(snapshot)) throw new Error('赛事记录、剧情日期、玩家身份或聊天来源已变化，请刷新后再保存。');
     tournamentWriting = true;
     try {
       // 赛程由剧情日期和玩家身份派生；日期推进后不得用旧表单保存。
-      const captured = await service.capture({ messageId: snapshot.source.messageId, scope: 'tournament' });
+      const captured = await service.capture({ messageId: snapshot.source.messageId, scope: request.action.includes('National') ? 'national' : request.action === 'upsertQualification' ? 'qualification' : 'tournament' });
       if (SS.destroyed || generationPending || correctionMainBusy() || revision !== rosterEditRevision ||
           !isExpected(readSnapshot()) || tournamentSnapshotKey(captured.state) !== expectedState) {
-        throw new Error('当前分支或比赛记录已变化，尚未保存；请重新读取。');
+        throw new Error('当前分支或赛事记录已变化，尚未保存；请重新读取。');
       }
       const result = await service.tournamentAction(captured.token, request);
       terminalStateReader?.clear();
@@ -592,7 +590,9 @@
       get contactBaselineVersion() { return (HW.__RK_MVU_GUARD_V4__ || window.__RK_MVU_GUARD_V4__)?.contactBaseline || null; },
       growthRules: window.RakudaiStateController?.growthRules,
       tournament: {
+        snapshotKey: tournamentSnapshotKey,
         view: state => stateService().tournamentView(state),
+        nationalView: state => stateService().nationalTournamentView(state),
         action: writeTournament,
         opponents: (state, options) => stateService().tournamentOpponents(state, options),
         participant: (state, options) => stateService().tournamentParticipant(state, options)

@@ -36,6 +36,7 @@ function nextStoryChapter(volume, key) {
 }
 
 const tournamentCalendar2013 = {"id":"S01","year":2013,"status":"日期裁定；尚未接入运行时","totalRounds":20,"openingDate":"2013-04-22","finalDate":"2013-07-08","clock":{"source":"stat_data.场景.时间","existingParser":"scripts/黑白ADV轮盘终端/terminal-app.js#parseSceneDate","calendarSelectionAdvancesTime":false,"dateOnlyRule":"赛程日小于剧情日期才算该排期已过去；当天标为本日待赛或待赛果，不能在零点直接判胜。","resultsRule":"日期只决定赛程进度，不单独证明胜负；本局实际比赛日期和赛果优先。"},"suspensions":[{"start":"2013-04-27","end":"2013-05-06","inclusive":true,"name":"破军学园黄金周停赛","basis":"用户确认的本卡学园安排；4月30日至5月2日并非日本法定假日。"}],"publicHolidaysDuringSeason":[{"date":"2013-04-29","name":"昭和之日"},{"date":"2013-05-03","name":"宪法纪念日"},{"date":"2013-05-04","name":"绿之日"},{"date":"2013-05-05","name":"儿童之日"},{"date":"2013-05-06","name":"补休日"}],"rounds":[{"round":1,"defaultDate":"2013-04-22","ikkiDate":"2013-04-23","note":"周一开幕；一辉对桐原在翌日周二。"},{"round":2,"defaultDate":"2013-04-25","ikkiDate":"2013-04-26","note":"首轮两组各隔三天；假期前最后一场。"},{"round":3,"defaultDate":"2013-05-07","ikkiDate":"2013-05-07","note":"黄金周后复赛；从此合并常规日期。"},{"round":4,"defaultDate":"2013-05-10","ikkiDate":"2013-05-10","note":"五月常规每周二、五排期。"},{"round":5,"defaultDate":"2013-05-14","ikkiDate":"2013-05-14","note":"五月常规排期。"},{"round":6,"defaultDate":"2013-05-17","ikkiDate":"2013-05-17","note":"五月常规排期。"},{"round":7,"defaultDate":"2013-05-21","ikkiDate":"2013-05-21","note":"五月常规排期。"},{"round":8,"defaultDate":"2013-05-24","ikkiDate":"2013-05-24","note":"第九战前的常规排期。"},{"round":9,"defaultDate":"2013-05-28","ikkiDate":"2013-05-28","note":"一辉对恋恋、史黛菈对碎城雷；均是个人第九战。"},{"round":10,"defaultDate":"2013-05-31","ikkiDate":"2013-05-31","note":"翌日六月一日泳池；满足昨天取得第十胜。"},{"round":11,"defaultDate":"2013-06-05","ikkiDate":"2013-06-05","note":"六月一日通知后，三天不见面的六月四日为赛前一天。"},{"round":12,"defaultDate":"2013-06-08","ikkiDate":"2013-06-08","note":"六月前中段按三天间隔排期；周末并非一律停赛。"},{"round":13,"defaultDate":"2013-06-11","ikkiDate":"2013-06-11","note":"常规排期。"},{"round":14,"defaultDate":"2013-06-14","ikkiDate":"2013-06-14","note":"珠雫对刀华按第二卷第十四场通知裁定；不采第三卷十五胜的冲突播报。"},{"round":15,"defaultDate":"2013-06-17","ikkiDate":"2013-06-17","note":"常规排期；日期不强制已退选者出赛。"},{"round":16,"defaultDate":"2013-06-20","ikkiDate":"2013-06-20","note":"六月二十三日奥多摩事件前，一辉完成十六场。"},{"round":17,"defaultDate":"2013-06-24","ikkiDate":"2013-06-29","note":"一辉采用拘押期间的个人延赛；六月三十日父亲探访提到昨日第十七胜。"},{"round":18,"defaultDate":"2013-06-27","ikkiDate":"2013-07-03","note":"一辉第十八场为六月二十三日被带走之后第十天。"},{"round":19,"defaultDate":"2013-06-30","ikkiDate":"2013-07-05","note":"一辉第十九场补白在第十八场与终战之间；两组在终战前均留恢复时间。"},{"round":20,"defaultDate":"2013-07-08","ikkiDate":"2013-07-08","note":"共同终战日，星期一；七月七日拘押已两周，翌日终战。"}],"storyAnchors":[{"date":"2013-04-21","event":"购物中心解放军事件；不计选拔赛场次。"},{"date":"2013-06-01","event":"泳池与餐厅事件，晚间收到第十一场对阵通知。"},{"date":"2013-06-04","event":"绚濑避不见面已三天；第十一场前夕。"},{"date":"2013-06-06","event":"对绚濑比赛翌日挑战藏人；非选拔赛，不占第十二场。"},{"date":"2013-06-13","event":"本卡安排第十四场通知；位于藏人决斗后的隔周。"},{"date":"2013-06-23","event":"隔周星期天奥多摩事件与一辉被捕。"},{"date":"2013-06-26","event":"一辉被拘禁三天；不把这一日误作第十七场。"},{"date":"2013-06-30","event":"拘押一周，父亲探访；一辉昨日取得第十七胜。"},{"date":"2013-07-07","event":"拘押两周；翌日最终选拔战。"}],"decisions":["2013年为本卡沿用年份，不声称原著明示了公历年。","表中具体月日均为本卡排程裁定；原文星期、季节、场次与相对间隔作为约束。","20为每名选手最多20场的日期槽，不是全校总共20场，不是要求退选者补满20场。","场馆今日第七场、第八场不等于选手个人第七战、第八战。","每三天左右为常规频率，不能用统一三日等差数列覆盖假期、剧情间隔与个人延赛。","默认表为普通选手及未特别改期的OC提供日期；一辉表仅用于黑铁一辉，不能套到全校或所有OC。","一辉拘押相关日期只在本局确实发生拘押时使用；未发生拘押则沿默认日期，不强制剧情。","新登记OC不把登记当天重新当第一轮；参与身份与入场基线另由运行时确定。","本轮仅裁定日历与轮次，不生成场外胜负、积分、排名，也不迁移旧存档。"],"evidence":{"holidays":"https://eco.mtk.nao.ac.jp/koyomi/yoko/2013/rekiyou131.html","firstVolume":"落第骑士英雄谭 第一卷 gbk.txt:5557-5559,5594-5596,6002","juneAndRound11":"第二卷-世界书整理/第二卷_第二章_逢魔时刻.txt:4,184,798,1304,1428-1430,1488","round14Notice":"第二卷-世界书整理/第二卷_终章_寒冰微笑.txt:316","round14Conflict":"第三卷-世界书整理/第三卷_序章_珠雫的挑战.txt:160","sunday":"第三卷-世界书整理/第三卷_第二章_奥多摩的怪物.txt:98","detention":"第三卷-世界书整理/第三卷_第三章_身陷逆境的落第骑士.txt:730,988-990,1298-1300,1404,1514","weekdayFinal":"第三卷-世界书整理/第三卷_第四章_一刀两断.txt:336,348,1340,1374"}};
+const nationalTournamentDates = {"name":"七星剑斗祭","startDate":"2013-08-07","endDate":"2013-08-12","source":"世界观/七星剑武祭考据/32强分区与赛制.md#轮次与日期","note":"本卡沿用2013年；日期按原文相对日序整理，实际排期以本局记录为准。","schedule":[{"date":"2013-08-07","time":"","round":"第一轮","note":"32进16"},{"date":"2013-08-08","time":"09:00","round":"第二轮","note":"16进8"},{"date":"2013-08-08","time":"18:00","round":"第三轮","note":"8进4，分区决赛"},{"date":"2013-08-09","time":"","round":"准决赛","note":"4进2，A–B、C–D"},{"date":"2013-08-10","time":"","round":"原定决赛","note":"原著后续改期；本局按实际通知登记"},{"date":"2013-08-11","time":"19:00","round":"延期决赛","note":"原著延期参考，不自动改写本局安排"},{"date":"2013-08-12","time":"","round":"颁奖闭幕","note":"原著决赛次日"}]};
 // S01：只读取剧情时钟和裁定日期，不写存档，也不从日期推断比赛胜负。
 // 与终端 parseSceneDate 接受相同的中文/连字符日期，拒绝不存在的公历日。
 function parseTournamentDate(text) {
@@ -248,12 +249,129 @@ function projectTournamentBackground(state, ledger) {
   return { ledger: next, calendar, visibleIds, simulatedCounts, pendingRounds, warnings, stoppedRounds: Object.fromEntries(stopped), active: true };
 }
 
+const ntStates = ['未开始', '进行中', '已结束'];
+const ntMatchStates = ['待定', '已安排', '进行中', '已完成', '已取消'];
+const ntQualificationStates = ['待确认', '已取得', '未取得', '已取消'];
+const ntBlocks = ['A', 'B', 'C', 'D', '决赛区', '未定'];
+const ntStages = ['16强', '8强', '4强', '决赛', '冠军'];
+const ntDecisionStates = ['已确认', '已撤销'];
+const ntObject = value => Boolean(value && typeof value === 'object' && !Array.isArray(value));
+const ntNonblank = value => typeof value === 'string' && Boolean(value.trim());
+const ntId = value => ntNonblank(value) && !/[~/]/.test(value) && !['__proto__', 'prototype', 'constructor'].includes(value) && !value.startsWith('__rk_bg_');
+const ntDate = value => typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value) && parseTournamentDate(value)?.key === value;
+const ntOwn = (value, key) => Object.prototype.hasOwnProperty.call(value || {}, key);
+
+function nationalTournamentIssues(tournament) {
+  if (!ntObject(tournament)) return ['七星剑斗祭记录须为对象'];
+  const issues = [], add = message => issues.push(message);
+  if (tournament.状态 !== undefined && !ntStates.includes(tournament.状态)) add('全国赛状态无效');
+  for (const field of ['开始日期', '结束日期']) if (tournament[field] !== undefined && !ntDate(tournament[field])) add(field + '须为有效的 YYYY-MM-DD 日期');
+  if (tournament.开始日期 && tournament.结束日期 && tournament.开始日期 > tournament.结束日期) add('结束日期不能早于开始日期');
+  for (const field of ['资格名册', '比赛', '晋级记录']) {
+    if (tournament[field] !== undefined && !ntObject(tournament[field])) add(field + '须为按稳定 ID 保存的对象');
+  }
+  const roster = ntObject(tournament.资格名册) ? tournament.资格名册 : {};
+  for (const [id, row] of Object.entries(roster)) {
+    if (!ntId(id) || !ntObject(row) || !ntNonblank(row.姓名) || !ntNonblank(row.学园) || !ntQualificationStates.includes(row.资格状态) || typeof row.依据 !== 'string') add('资格记录 ' + id + ' 无效');
+  }
+  for (const [id, match] of Object.entries(ntObject(tournament.比赛) ? tournament.比赛 : {})) {
+    if (!ntId(id) || !ntObject(match)) { add('比赛 ' + id + ' 无效'); continue; }
+    if (!ntNonblank(match.轮次) || !ntBlocks.includes(match.分区) || !ntMatchStates.includes(match.状态)) add('比赛 ' + id + ' 的轮次、分区或状态无效');
+    for (const field of ['日期', '时间', '地点', '依据']) if (typeof match[field] !== 'string') add('比赛 ' + id + ' ' + field + '须为文字');
+    if (match.日期 && !ntDate(match.日期)) add('比赛 ' + id + ' 日期无效');
+    const participants = Array.isArray(match.参赛者) ? match.参赛者 : [];
+    if (participants.length < 2 || participants.some(pid => !ntId(pid) || !ntOwn(roster, pid)) || new Set(participants).size !== participants.length) add('比赛 ' + id + ' 须引用至少两名不同的资格名册选手');
+    if (match.胜者 !== undefined && !participants.includes(match.胜者)) add('比赛 ' + id + ' 胜者须为参赛者');
+    if (match.晋级至 !== undefined && match.晋级至 !== '' && !ntStages.includes(match.晋级至)) add('比赛 ' + id + ' 晋级阶段无效');
+    if (match.状态 === '已完成' && (!match.胜者 || !participants.includes(match.胜者) || !ntNonblank(match.依据))) add('比赛 ' + id + ' 完成时须填写胜者与结果依据');
+  }
+  for (const [id, row] of Object.entries(ntObject(tournament.晋级记录) ? tournament.晋级记录 : {})) {
+    if (!ntId(id) || !ntObject(row)) { add('晋级记录 ' + id + ' 无效'); continue; }
+    if (!ntId(row.选手) || !ntOwn(roster, row.选手)) add('晋级记录 ' + id + ' 须引用资格名册选手');
+    if (!ntStages.includes(row.阶段) || !ntDecisionStates.includes(row.状态)) add('晋级记录 ' + id + ' 的阶段或状态无效');
+    if (typeof row.日期 !== 'string' || row.日期 && !ntDate(row.日期)) add('晋级记录 ' + id + ' 日期无效');
+    if (typeof row.依据 !== 'string' || row.状态 === '已确认' && !ntNonblank(row.依据)) add('晋级记录 ' + id + ' 须填写裁定依据');
+  }
+  return issues;
+}
+
+function createNationalTournamentSchema(z) {
+  const id = () => z.string().refine(ntId);
+  const qualification = z.object({ 姓名: z.string().refine(ntNonblank), 学园: z.string().refine(ntNonblank), 资格状态: z.enum(ntQualificationStates), 依据: z.string() }).passthrough();
+  const match = z.object({ 轮次: z.string().min(1), 分区: z.enum(ntBlocks), 参赛者: z.array(id()).min(2), 日期: z.string(), 时间: z.string(), 地点: z.string(), 状态: z.enum(ntMatchStates), 胜者: id().optional(), 晋级至: z.enum(['', ...ntStages]).optional(), 依据: z.string() }).passthrough();
+  const advancement = z.object({ 选手: id(), 阶段: z.enum(ntStages), 日期: z.string(), 状态: z.enum(ntDecisionStates), 依据: z.string() }).passthrough();
+  return z.object({
+    资格名册: z.record(id(), qualification).optional(), 状态: z.enum(ntStates).optional(),
+    开始日期: z.string().optional(), 结束日期: z.string().optional(),
+    比赛: z.record(id(), match).optional(), 晋级记录: z.record(id(), advancement).optional(),
+  }).passthrough().superRefine((value, ctx) => {
+    for (const message of nationalTournamentIssues(value)) ctx.addIssue({ code: 'custom', message });
+  });
+}
+
+function shouldInjectNationalTournament(state) {
+  const scene = (state?.stat_data || state)?.场景;
+  const date = parseTournamentDate(scene?.时间), tournament = scene?.七星剑斗祭;
+  const start = tournament?.开始日期 ?? nationalTournamentDates.startDate;
+  const end = tournament?.结束日期 ?? nationalTournamentDates.endDate;
+  return Boolean(date && ntDate(start) && ntDate(end) && date.key >= start && date.key <= end && tournament?.状态 !== '已结束');
+}
+
+function deriveNationalTournament(input) {
+  const state = input?.stat_data || input, raw = state?.场景?.七星剑斗祭;
+  const tournament = ntObject(raw) ? structuredClone(raw) : null;
+  const roster = ntObject(tournament?.资格名册) ? tournament.资格名册 : {};
+  const participants = Object.entries(roster).filter(([, row]) => ntObject(row)).map(([id, row]) => ({ id, name: row.姓名, school: row.学园, status: row.资格状态, basis: row.依据 }));
+  const matches = Object.entries(ntObject(tournament?.比赛) ? tournament.比赛 : {}).filter(([, row]) => ntObject(row)).map(([id, row]) => ({
+    ...row, id, 参赛者姓名: (Array.isArray(row.参赛者) ? row.参赛者 : []).map(pid => roster[pid]?.姓名 || pid), 胜者姓名: roster[row.胜者]?.姓名 || row.胜者 || '',
+  })).sort((a, b) => (a.日期 || '').localeCompare(b.日期 || '') || (a.时间 || '').localeCompare(b.时间 || '') || a.id.localeCompare(b.id));
+  const candidates = matches.filter(row => row.状态 === '已完成' && row.参赛者?.includes(row.胜者) && ntOwn(roster, row.胜者) && ntStages.includes(row.晋级至))
+    .map(row => ({ id: row.胜者, stage: row.晋级至, date: row.日期 || '', matchId: row.id }));
+  for (const [id, row] of Object.entries(ntObject(tournament?.晋级记录) ? tournament.晋级记录 : {})) {
+    if (row?.状态 === '已确认' && ntOwn(roster, row.选手) && ntStages.includes(row.阶段)) candidates.push({ id: row.选手, stage: row.阶段, date: row.日期 || '', decisionId: id });
+  }
+  // ponytail: 晋级从现存结果重算；同阶段取较晚记录，只存一份事实账本。
+  candidates.sort((a, b) => ntStages.indexOf(a.stage) - ntStages.indexOf(b.stage) || a.date.localeCompare(b.date) || (a.matchId || a.decisionId).localeCompare(b.matchId || b.decisionId));
+  const progression = new Map(candidates.map(row => [row.id, { ...row, name: roster[row.id].姓名 }]));
+  const date = parseTournamentDate(state?.场景?.时间);
+  return { exists: raw !== undefined, tournament, participants, matches, advancement: [...progression.values()], calendar: {
+    date, valid: Boolean(date), active: shouldInjectNationalTournament(state),
+    startDate: tournament?.开始日期 ?? nationalTournamentDates.startDate, endDate: tournament?.结束日期 ?? nationalTournamentDates.endDate,
+    reference: structuredClone(nationalTournamentDates.schedule),
+    matches: matches.filter(row => row.日期).map(row => ({ id: row.id, date: row.日期, time: row.时间, round: row.轮次, status: row.状态, title: row.参赛者姓名.join(' / ') })),
+  } };
+}
+
+function prepareNationalTournamentAction(state, request) {
+  if (!ntObject(state?.场景) || !ntObject(request)) throw new Error('请先读取本局状态和操作内容');
+  if (state.场景.七星剑斗祭 !== undefined && !ntObject(state.场景.七星剑斗祭)) throw new Error('七星剑斗祭记录须为对象');
+  const next = structuredClone(state), tournament = next.场景.七星剑斗祭 ??= {};
+  if (request.action === 'setNationalSchedule') {
+    const schedule = request.schedule ?? request;
+    if (!ntObject(schedule)) throw new Error('请填写赛程设置');
+    for (const field of ['开始日期', '结束日期', '状态']) if (ntOwn(schedule, field)) tournament[field] = schedule[field];
+  } else if (request.action === 'upsertNationalMatch' || request.action === 'upsertNationalAdvancement') {
+    if (!ntId(request.id)) throw new Error('记录 ID 不能为空、包含 / 或 ~，或使用保留名称');
+    const match = request.action === 'upsertNationalMatch';
+    const field = match ? '比赛' : '晋级记录', data = match ? request.match : request.advancement;
+    if (!ntObject(data)) throw new Error(match ? '请填写比赛资料' : '请填写晋级裁定');
+    if (tournament[field] !== undefined && !ntObject(tournament[field])) throw new Error(field + '须为按稳定 ID 保存的对象');
+    const records = tournament[field] ??= {};
+    records[request.id] = { ...(match ? { 分区: '未定', 日期: '', 时间: '', 地点: '', 状态: '待定', 依据: '' } : { 日期: '', 状态: '已确认', 依据: '' }), ...records[request.id], ...structuredClone(data) };
+    if (match && records[request.id].胜者 === '') delete records[request.id].胜者;
+  } else throw new Error('未知全国赛操作');
+  const issues = nationalTournamentIssues(tournament);
+  if (issues.length) throw new Error(issues.join('；'));
+  return next;
+}
+
 // T01兼容存档 / T02引擎：实际账本与日期背景投影合并后统一重算。
 // 本模块无宿主、网络和 schema 依赖，可同时用于 MVU 校验与终端视图。
 const TOURNAMENT_VERSION = 'T01';
 const tournamentStates = ['未开始', '进行中', '已结束'];
 const matchStates = ['待定', '已安排', '已完成', '已取消'];
 const participantStates = ['参赛', '退选', '取消资格'];
+const qualificationStates = ['待确认', '已取得', '未取得', '已取消'];
 const sources = ['正典', '原创', '玩家'];
 const unsafeKeys = new Set(['__proto__', 'prototype', 'constructor']);
 const own = (value, key) => Object.prototype.hasOwnProperty.call(value || {}, key);
@@ -261,6 +379,7 @@ const object = value => Boolean(value && typeof value === 'object' && !Array.isA
 const copy = value => structuredClone(value);
 const natural = value => Number.isSafeInteger(value) && value >= 0;
 const nonblank = value => typeof value === 'string' && Boolean(value.trim());
+const qualificationId = value => nonblank(value) && !/[~/]/.test(value) && !unsafeKeys.has(value) && !value.startsWith('__rk_bg_');
 const fixtures = { 1: '桐原静矢', 9: '兔丸恋恋', 11: '绫辻绚濑', 20: '东堂刀华' };
 const canon = TOURNAMENT_CANON;
 const affiliationNotice = '所属未确认为破军学园：选拔赛暂停，仅可查看已有记录。';
@@ -664,6 +783,23 @@ function suggestTournamentOpponents(state, { participantId, round } = {}) {
 // 终端手动记账使用同一校验入口；同 ID 是纠错替换，不是再发一次积分。
 function prepareTournamentAction(state, request) {
   if (!object(state?.场景) || !object(request)) throw new Error('请先读取本局状态和操作内容');
+  if (['upsertNationalMatch', 'upsertNationalAdvancement', 'setNationalSchedule'].includes(request.action)) return prepareNationalTournamentAction(state, request);
+  // ponytail: 资格独立于校内积分账本；只更新这一个人的确认记录。
+  if (request.action === 'upsertQualification') {
+    if (!qualificationId(request.id)) throw new Error('资格记录 ID 不能为空、包含 / 或 ~，或使用保留名称');
+    const row = { 依据: '', ...request.qualification };
+    if (!object(request.qualification) || !nonblank(row.姓名) || !nonblank(row.学园)) throw new Error('请填写姓名与学园');
+    if (!qualificationStates.includes(row.资格状态)) throw new Error('请选择有效的资格状态');
+    if (typeof row.依据 !== 'string') throw new Error('资格依据须为文字，可留空');
+    const national = state.场景.七星剑斗祭;
+    if (national !== undefined && !object(national)) throw new Error('七星剑斗祭记录须为对象');
+    if (national?.资格名册 !== undefined && !object(national.资格名册)) throw new Error('资格名册须为按稳定 ID 保存的对象');
+    const next = copy(state);
+    next.场景.七星剑斗祭 ??= {};
+    const roster = next.场景.七星剑斗祭.资格名册 ??= {};
+    roster[request.id] = { ...roster[request.id], ...copy(row) };
+    return next;
+  }
   if (!isHagunAffiliation(state)) throw new Error(affiliationNotice);
   const next = copy(state);
   if (request.action === 'initialize') {
@@ -1197,7 +1333,7 @@ function createStateSchema(z, version, { normalizeRelationships = true } = {}) {
       ...(version === 4 ? { 宿舍: z.boolean().optional() } : {}),
       已发生事件: record(z.object({ ...(version === 4 ? { 卷号: volumeNumber } : {}), 章段: version === 3 ? z.enum(CHAPTERS.slice(1)) : text.min(1), 结果: text.min(1), 参与者: z.array(text.min(1)), 知情者: z.array(text.min(1)) }).strict()),
       // 可选字段兼容现有 v4 存档；未来约定不占用已发生事件。
-      ...(version === 4 ? { 日程: record(schedule).optional(), 选拔赛: createTournamentSchema(z).optional() } : {}),
+      ...(version === 4 ? { 日程: record(schedule).optional(), 选拔赛: createTournamentSchema(z).optional(), 七星剑斗祭: createNationalTournamentSchema(z).optional() } : {}),
     }).strict(),
     玩家: z.object({
       性别: z.literal('男性').default('男性'),
@@ -1372,9 +1508,11 @@ function validateStateOperation(value, scope, z) {
   } else if (scope === 'tournament') {
     fields.玩家 = z.object({ 姓名: z.string().trim().min(1), 所属: z.string() }).passthrough();
     fields.场景 = z.object({ 时间: z.string(), 选拔赛: z.object({}).passthrough().optional() }).passthrough();
+  } else if (scope === 'national') {
+    fields.场景 = z.object({ 七星剑斗祭: createNationalTournamentSchema(z).optional() }).passthrough();
   } else if (scope === 'roster') {
     fields.人际 = z.record(z.string(), z.unknown());
-  } else if (scope === 'dorm') {
+  } else if (scope === 'dorm' || scope === 'qualification') {
     fields.场景 = z.object({}).passthrough();
   } else throw new Error('未知的状态操作范围。');
   const parsed = z.object(fields).passthrough().parse(value);
@@ -1781,7 +1919,7 @@ function createStateController(adapter) {
   const tokens = new WeakMap();
   async function capture(options = {}) {
     const scope = options.scope || 'full';
-    if (!['full', 'story', 'tournament', 'roster', 'dorm'].includes(scope)) throw new Error('未知的状态操作范围。');
+    if (!['full', 'story', 'tournament', 'qualification', 'national', 'roster', 'dorm'].includes(scope)) throw new Error('未知的状态操作范围。');
     const snapshot = await adapter.capture(options);
     if (snapshot.data.stat_data?.系统?.结构版本 === 3) {
       const error = new Error('当前楼层是 v3 档案，请先查看迁移差异并确认升级为 v4。');
@@ -1854,13 +1992,15 @@ function createStateController(adapter) {
       tournament: 'T01', tournamentEngine: 'T02', nativeMvu: 'N01' }),
     get growthRules() { return cloneState(GROWTH_RULES); },
     tournamentView: state => deriveTournament(state),
+    nationalTournamentView: state => deriveNationalTournament(state),
     isHagunAffiliation,
     shouldInjectTournament,
+    shouldInjectNationalTournament,
     setDorm: (token, active) => commit(token, state => {
       if (typeof active !== 'boolean' || state.系统.开局状态 !== '已建档') throw new Error('请先完成建档，再进入宿舍。');
       return { ...state, 场景: { ...state.场景, 宿舍: active } };
     }, 'state', false, 'dorm'),
-    tournamentAction: (token, request) => commit(token, state => prepareTournamentAction(state, request), 'state', false, 'tournament'),
+    tournamentAction: (token, request) => commit(token, state => prepareTournamentAction(state, request), 'state', false, request?.action === 'upsertQualification' ? 'qualification' : ['upsertNationalMatch', 'upsertNationalAdvancement', 'setNationalSchedule'].includes(request?.action) ? 'national' : 'tournament'),
     tournamentOpponents: (state, options) => suggestTournamentOpponents(state, options),
     tournamentParticipant: (state, options) => createTournamentParticipant(state, options),
     commitMigration: token => commit(token, state => state, 'migration'),
@@ -2017,15 +2157,18 @@ window.RakudaiMvuNative = { version: "N04", runtime: rakudaiMvuRuntime, prepare:
     if (typeof W.TavernHelper?.[name] === 'function') return W.TavernHelper[name].bind(W.TavernHelper);
     throw new Error(`酒馆助手缺少 ${name}，尚未写入。`);
   }
+  function validationZ() {
+    const Z = W.z || host().z;
+    if (!Z?.preprocess || !Z?.toJSONSchema) throw new Error('未找到酒馆助手提供的 Zod 4，尚未写入。');
+    return Z;
+  }
   function runtime() {
     const H = host(), mvu = W.Mvu || H.Mvu;
     if (!mvu || typeof mvu.getMvuData !== 'function') throw new Error('MVU 尚未就绪，请启用变量框架后重试。');
     const version = helper('getTavernHelperVersion')();
     const parts = String(version).match(/^(\d+)\.(\d+)\.(\d+)/);
     if (!parts || Number(parts[1]) < 4 || (Number(parts[1]) === 4 && (Number(parts[2]) < 8 || (Number(parts[2]) === 8 && Number(parts[3]) < 19)))) throw new Error('本建档器需要酒馆助手 4.8.19 或以上的同步变量接口。');
-    const Z = W.z || H.z;
-    if (!Z?.preprocess || !Z?.toJSONSchema) throw new Error('未找到酒馆助手提供的 Zod 4，尚未写入。');
-    return { H, mvu, Z };
+    return { H, mvu, Z: validationZ() };
   }
   function sync(value, label) {
     if (value && typeof value.then === 'function') throw new Error(`${label} 在此版本不是同步接口，不能确认分支隔离。`);
@@ -2033,23 +2176,7 @@ window.RakudaiMvuNative = { version: "N04", runtime: rakudaiMvuRuntime, prepare:
   }
   function position(messageId) {
     const { H, mvu } = runtime();
-    const oldGuard = [W, H].some(scope => scope.__RK_MVU_GUARD_V3__) || (function () {
-      try { return W.parent?.__RK_MVU_GUARD_V3__ || W.top?.__RK_MVU_GUARD_V3__; } catch (_) { return false; }
-    })();
-    if (oldGuard) throw new Error('旧版 v3 约束仍在运行，请先停用并重载酒馆，避免与 v4 档案冲突。');
-    const mode = rakudaiMvuRuntime([W, H]);
-    if (mode.mode === 'loading' || mode.mode === 'failed') {
-      const error = new Error('MVU v4 约束' + (mode.mode === 'loading' ? '正在初始化：' : '启动失败：') +
-        (mode.boot?.message || '请查看约束脚本日志，排除加载错误后重载酒馆。'));
-      error.code = mode.mode === 'loading' ? 'RK_GUARD_LOADING' : 'RK_GUARD_FAILED';
-      throw error;
-    }
-    const guard = mode.guard;
-    if (guard) {
-      if (guard.version !== '4.0.0') throw new Error('当前字段约束版本不兼容，请更新为配套 MVU v4 约束，或停用后重载酒馆。');
-      // 旧v4也叫4.0.0，但不认识魔人觉醒；只对实际开启的约束核对修订。
-      if (guard.growth !== 'G03') throw new Error('当前运行的是旧v4约束，不支持玩家.魔人觉醒。请替换为标有G03/P02的v4约束并重载酒馆；保留现有true/false，不要重新初始化。');
-    }
+    // ponytail: 操作由本地校验负责，外置字段约束的启动与版本不作为读取门禁。
     const ctx = H.SillyTavern.getContext();
     const chatId = ctx.chatId;
     if (chatId === null || chatId === undefined || chatId === '' || !Array.isArray(ctx.chat) || !ctx.chat.length) throw new Error('当前没有可建档的聊天。');
@@ -2082,7 +2209,7 @@ window.RakudaiMvuNative = { version: "N04", runtime: rakudaiMvuRuntime, prepare:
   }
   function validateState(value) {
     // 页面与副校正仅校验内存候选，不重算人际，也不创建楼层写入凭据。
-    const parsed = createSchema(runtime().Z, { normalizeRelationships: false }).parse(value);
+    const parsed = createSchema(validationZ(), { normalizeRelationships: false }).parse(value);
     const state = cloneState(value);
     state.场景.当前章 = parsed.场景.当前章;
     state.场景.阶段 = parsed.场景.阶段;
@@ -2097,8 +2224,8 @@ window.RakudaiMvuNative = { version: "N04", runtime: rakudaiMvuRuntime, prepare:
       return position(messageId);
     },
     current, assertOpeningReplacement,
-    validate: (value, scope = 'full') => scope === 'full' ? validateState(value) : validateStateOperation(value, scope, runtime().Z),
-    migrate: value => prepareStateMigration(value, runtime().Z),
+    validate: (value, scope = 'full') => scope === 'full' ? validateState(value) : validateStateOperation(value, scope, validationZ()),
+    migrate: value => prepareStateMigration(value, validationZ()),
     write: (saved, expected, state, { openingReplacement = false } = {}) => {
       if (openingReplacement) assertOpeningReplacement(saved);
       const now = current(saved), H = now.H;

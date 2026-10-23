@@ -1,0 +1,22 @@
+<status_current_variable>
+<%
+// 只裁剪发给模型的副本；当前楼层的事件与结算历史原样保存。
+const rkCurrent = getvar('stat_data');
+const rkPromptState = rkCurrent && typeof rkCurrent === 'object' ? JSON.parse(JSON.stringify(rkCurrent)) : null;
+const rkObject = value => value !== null && typeof value === 'object' && !Array.isArray(value);
+if (rkPromptState) {
+  delete rkPromptState.$internal;
+  // 收据、事件及赛期外赛事数据只从提示副本省略。
+  if (rkObject(rkPromptState.系统)) delete rkPromptState.系统.关系计分;
+  if (rkObject(rkPromptState.场景)) {
+    delete rkPromptState.场景.已发生事件;
+  }
+  if (rkObject(rkPromptState.玩家) && rkObject(rkPromptState.玩家.成长)) {
+    const growth = rkPromptState.玩家.成长;
+    rkPromptState.玩家.成长 = Object.hasOwn(growth, '经验') ? { 经验: growth.经验 } : {};
+  }
+}
+%>
+<%- JSON.stringify(rkPromptState) %>
+</status_current_variable>
+历史、收据及赛期外赛事账本留在存档，省略不代表未发生；保留原记录，按本轮事实提交变化。

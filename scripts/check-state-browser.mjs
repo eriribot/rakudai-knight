@@ -61,9 +61,21 @@ await check('副校正候选可独立完整校验，坏人物不通过且不读�
   assert.throws(() => f.api.validateState(state), error => error.issues.some(issue => issue.path.includes('态度印象')));
   assert.deepEqual(f.ctx.chat, before); assert.equal(f.writes, 0); assert.equal(f.waitCalls, 0);
 });
-await check('旧v4虽同为4.0.0也必须在建档前提示缺少觉醒schema，不写入存档', async () => {
+await check('外置约束的旧能力标记不阻断终端本地校验与建档', async () => {
   const f = fixture(); delete f.H.__RK_MVU_GUARD_V4__.growth;
-  await assert.rejects(f.api.capture(), /旧v4约束.*魔人觉醒/); assert.equal(f.writes, 0);
+  await f.api.commitOpening((await f.api.capture()).token, payload());
+  assert.equal(f.ctx.chat[0].variables[0].stat_data.系统.开局状态, '已建档');
+  assert.equal(f.writes, 1);
+});
+await check('内存候选校验只依赖本地schema，不依赖MVU或字段约束启动', () => {
+  const f = fixture({ guarded: false });
+  delete f.H.Mvu;
+  delete f.W.getTavernHelperVersion;
+  f.H.__RK_MVU_GUARD_BOOT_V4__ = { state: 'failed' };
+  assert.deepEqual(f.api.validateState(clone(INITIAL_STATE)), INITIAL_STATE);
+  const invalid = clone(INITIAL_STATE); invalid.场景.阶段 = '任意阶段';
+  assert.throws(() => f.api.validateState(invalid));
+  assert.equal(f.writes, 0);
 });
 await check('消息iframe与scriptiframe都使用明确message接口并保留其他数据', async () => {
   const f = fixture(); const first = await f.api.capture({ messageId: 0 });
@@ -304,12 +316,16 @@ await check('名册与宿舍仅验证本次操作，缺少人物说明不再连�
   await f.api.deleteRosterPerson((await f.api.capture({ scope: 'roster' })).token, '同伴');
   assert.equal(Object.hasOwn(state().人际, '同伴'), false); assert.deepEqual(state().系统.已删除人物, ['同伴']);
 });
-await check('约束启动中或失败时明确诊断，不能当作关闭约束继续写入', async () => {
-  for (const [state, code, text] of [['loading', 'RK_GUARD_LOADING', /正在初始化/], ['failed', 'RK_GUARD_FAILED', /启动失败/]]) {
+await check('约束启动中或失败不阻断手动操作，保留其原有schema而非伪装为关闭', async () => {
+  for (const state of ['loading', 'failed']) {
     const f = fixture({ guarded: false });
     f.H.__RK_MVU_GUARD_BOOT_V4__ = { state, message: '桥接依赖尚未就绪', bridgeActive: state === 'failed' };
-    await assert.rejects(f.api.capture(), error => error.code === code && text.test(error.message));
-    assert.equal(f.writes, 0);
+    f.ctx.chat[0].variables[0].schema = '外置桥接原有结构';
+    await f.api.commitOpening((await f.api.capture()).token, payload());
+    await f.api.setDorm((await f.api.capture({ scope: 'dorm' })).token, true);
+    assert.equal(f.ctx.chat[0].variables[0].stat_data.场景.宿舍, true);
+    assert.equal(f.ctx.chat[0].variables[0].schema, '外置桥接原有结构');
+    assert.equal(f.writes, 2);
   }
 });
 await check('已开启约束的写入保持桥接原有schema，不改为native', async () => {
@@ -317,9 +333,11 @@ await check('已开启约束的写入保持桥接原有schema，不改为native'
   await f.api.commitOpening((await f.api.capture()).token, payload());
   assert.equal(f.ctx.chat[0].variables[0].schema, '没有用别管这个'); assert.equal(f.writes, 1);
 });
-await check('旧新约束同时启用时拒绝写入，避免两个 schema 互相抵触', async () => {
+await check('终端校验不以外置旧新约束标记作开关', async () => {
   const f = fixture(); f.H.__RK_MVU_GUARD_V3__ = { version: '3.1.0' };
-  await assert.rejects(f.api.capture(), /旧版 v3 约束仍在运行/); assert.equal(f.writes, 0);
+  await f.api.commitOpening((await f.api.capture()).token, payload());
+  assert.equal(f.ctx.chat[0].variables[0].stat_data.系统.开局状态, '已建档');
+  assert.equal(f.writes, 1);
 });
 await check('消息返回无效活动 swipe 时拒绝读取，不猜测默认槽', async () => {
   for (const swipe of [-1, 2, null]) {

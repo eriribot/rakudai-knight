@@ -1,0 +1,63 @@
+【Rakudai · MVU Output Format】
+Follow [MVU]变量更新规则. End the narrative with exactly one <UpdateVariable> containing <Analysis> then <JSONPatch>, with all closing tags.
+Analysis is concise English and reports ONLY actual changes made this turn (`Target: old -> final (brief factual reason)`). Omit unchanged fields, unchanged NPCs, and 0-gain growth targets; never explain why a field did not change. If no factual updates occurred, write `None.` in <Analysis> and `[]` in <JSONPatch>.
+JSONPatch is one complete RFC 6902 JSON array without markdown fences, headings, comments, ellipses or escaped tags. Analysis alone does not save data.
+
+【Operations and Types】
+Paths start with /玩家, /场景 or /人际, never /stat_data.
+Ops: `add` (missing entries/parents), `replace` (existing values), `remove` (confirmed erroneous dynamic entries). Submit final values, not increments. Prefer changed leaf fields; when supplying an object, preserve unrelated existing data. Create missing parent objects with `{}` before children.
+Never write or reset code-owned fields: /系统, /玩家/性别, /玩家/综合初评, growth versions/requests/receipts, /人际/<姓名>/名册隐藏, 恋爱阶段, or framework $internal/display_data/delta_data. Never recreate names listed in /系统/已删除人物.
+Strings, null, {}, [], numbers and native true/false are strict types. Object keys must be stable non-empty names without `/`, `~`, `__proto__`, `prototype` or `constructor`.
+
+【Field Schemas & Enums】
+1. /玩家
+- /玩家/魔人觉醒: boolean (`true` | `false`).
+- /玩家/登记等级: `"F"` | `"E"` | `"D"` | `"C"` | `"B"` | `"A"` | `null`.
+- /玩家/六维/<目标>: targets are `攻击力` | `防御力` | `魔力量` | `魔力控制` | `体能` | `运气`. Grades: `"F"` | `"F+"` | `"E"` | `"E+"` | `"D"` | `"D+"` | `"C"` | `"C+"` | `"B"` | `"B+"` | `"A"` | `"A+"` | `"S"` | `""` (unconfirmed).
+- /玩家/成长/经验/<目标>: targets are `魔力控制` | `体能` | `魔力量`. Value: non-negative integer (remainder after threshold promotions).
+- /玩家/伐刀能力: `{ 能力系别: "" | "体能强化系" | "自然干涉系" | "概念干涉系" | "因果干涉系", 能力本质: string, 共通限制: string, 招式: { [name]: SkillObj } }`.
+- /玩家/其他能力: `{ [name]: SkillObj }`.
+  * `SkillObj`: `{ 说明: string, 条件与代价: string, 掌握状态: "待确认" | "学习中" | "已掌握" }`.
+
+2. /场景
+- /场景/宿舍: boolean (`false` only when executing valid dorm rest command; otherwise omit).
+- /场景/当前卷: integer (`1`..`19`).
+- /场景/当前章: string (exact injected directory key).
+- /场景/阶段: `"未开始"` | `"进行中"` | `"已结束"` (`"已完成"` normalized to `"已结束"`).
+- /场景/时间, /场景/地点, /场景/切入说明: string.
+- /场景/已发生事件/<事件名>: `{ 卷号: integer, 章段: string, 结果: non-empty string, 参与者: string[], 知情者: string[] }`.
+- /场景/日程/<日程名> (optional): `{ 类型: "比赛" | "训练" | "约定" | "其他", 日期: "YYYY-MM-DD" | "", 时间: string, 地点: string, 参与者: string[], 状态: "待定" | "已安排" | "进行中" | "已完成" | "已取消", 说明: string }`.
+
+3. /人际/<姓名>
+- Required on creation: `{ 关系: string, 态度印象: string, 好感: number(0..1000) | null, 支援度: integer(0..320) | null, 羁绊阶段: "未定" | "未建立" | "C" | "B" | "A" | "S", 变化依据: string }` (ordinary new records start at `0`, `0`, `"未建立"`).
+- Optional fields:
+  * `性别`: `"未知"` | `"男性"` | `"女性"`
+  * `联系状态`: `"仅识别"` | `"已建立联系"`
+  * `联系依据`: string (set on initial contact establishment or factual correction; do not overwrite on routine chat)
+  * `已加联系方式`: boolean
+  * `已知资料`: `{ 身份?: string, 登记等级?: string, 灵装?: string, 已知能力?: string }`
+- `变化依据`: brief current-turn factual basis + `旧值→最终值` without appending past history.
+
+<rk-selection-rules>
+4. /场景/选拔赛 (Hagun affiliation confirmed; create `{}` parent if missing)
+- Root defaults when initializing: `{ 版本: "T01", 赛季: "破军学园选拔赛", 状态: "未开始", 总轮次: 20, 代表名额: 6, 号池规模: 288, 模式: "跟随系统", 名册: {}, 比赛: {} }`.
+- Optional flag: `/场景/选拔赛/一辉拘押`: boolean.
+- `/场景/选拔赛/名册/<ID>`: `{ 姓名: string, 来源: "正典" | "原创" | "玩家", 参赛状态: "参赛" | "退选" | "取消资格", 入赛轮次?: integer(1..20) }`. (Never write `初始战绩`, `退赛日期`, or modify existing `入赛轮次`).
+- `/场景/选拔赛/比赛/<ID>`: `{ 轮次: integer, 甲方: rosterID, 乙方: rosterID, 日期: string, 时间: string, 地点: string, 状态: "待定" | "已安排" | "已完成" | "已取消", 胜者?: rosterID, 弃权方?: rosterID, 依据: string }`. (Never write `甲赛前胜场`, `乙赛前胜场`, `结束日期`, `程序战况`, derived points/rankings, or `__rk_bg_` IDs).
+</rk-selection-rules>
+
+5. /场景/七星剑斗祭/资格名册 (All schools; create `/场景/七星剑斗祭` and `资格名册` `{}` parents if missing)
+- `/场景/七星剑斗祭/资格名册/<ID>`: `{ 姓名: string, 学园: string, 资格状态: "待确认" | "已取得" | "未取得" | "已取消", 依据: string }` (Use `player` if player has no existing ID; `依据` states concise factual reason or `""`).
+
+<rk-national-rules>
+6. /场景/七星剑斗祭 (current tournament; preserve existing parents)
+- Optional: 状态: "未开始" | "进行中" | "已结束"; 开始日期、结束日期: "YYYY-MM-DD".
+- /比赛/<ID>: { 轮次: string, 分区: "A" | "B" | "C" | "D" | "决赛区" | "未定", 参赛者: qualificationID[], 日期: "YYYY-MM-DD" | "", 时间: string, 地点: string, 状态: "待定" | "已安排" | "进行中" | "已完成" | "已取消", 胜者?: participantID, 晋级至?: "16强" | "8强" | "4强" | "决赛" | "冠军" | "", 依据: string }. At least two distinct participants; completed matches require winner and basis.
+- /晋级记录/<ID>: { 选手: qualificationID, 阶段: "16强" | "8强" | "4强" | "决赛" | "冠军", 日期: "YYYY-MM-DD" | "", 状态: "已确认" | "已撤销", 依据: string }. Formal advancement without a played match; confirmed decisions require basis.
+</rk-national-rules>
+
+【Empty Result Example】
+<UpdateVariable>
+<Analysis>None.</Analysis>
+<JSONPatch>[]</JSONPatch>
+</UpdateVariable>

@@ -1,5 +1,6 @@
 import { deriveTournament, prepareTournamentAction, suggestTournamentOpponents, createTournamentParticipant } from './rakudai-tournament.mjs';
 import { isHagunAffiliation, shouldInjectTournament } from './rakudai-tournament-calendar.mjs';
+import { createNationalTournamentSchema, deriveNationalTournament, shouldInjectNationalTournament } from './rakudai-national-tournament.mjs';
 import { STORY_VOLUMES, getStoryVolume, resolveStoryChapter, storyPosition, nextStoryChapter, firstStoryChapter } from './rakudai-story-catalog.mjs';
 import { GROWTH_RULES, GROWTH_AXES, ATTRIBUTE_GRADES, normalizeSkillEntry, normalizeGrowthRequests, normalizeStoryPhase, normalizeStoryVolume } from '../世界书规则/MVU/schema.mjs';
 import { repairRakudaiMvuStructure } from './rakudai-mvu-structure.mjs';
@@ -34,9 +35,11 @@ export function validateStateOperation(value, scope, z) {
   } else if (scope === 'tournament') {
     fields.玩家 = z.object({ 姓名: z.string().trim().min(1), 所属: z.string() }).passthrough();
     fields.场景 = z.object({ 时间: z.string(), 选拔赛: z.object({}).passthrough().optional() }).passthrough();
+  } else if (scope === 'national') {
+    fields.场景 = z.object({ 七星剑斗祭: createNationalTournamentSchema(z).optional() }).passthrough();
   } else if (scope === 'roster') {
     fields.人际 = z.record(z.string(), z.unknown());
-  } else if (scope === 'dorm') {
+  } else if (scope === 'dorm' || scope === 'qualification') {
     fields.场景 = z.object({}).passthrough();
   } else throw new Error('未知的状态操作范围。');
   const parsed = z.object(fields).passthrough().parse(value);
@@ -443,7 +446,7 @@ export function createStateController(adapter) {
   const tokens = new WeakMap();
   async function capture(options = {}) {
     const scope = options.scope || 'full';
-    if (!['full', 'story', 'tournament', 'roster', 'dorm'].includes(scope)) throw new Error('未知的状态操作范围。');
+    if (!['full', 'story', 'tournament', 'qualification', 'national', 'roster', 'dorm'].includes(scope)) throw new Error('未知的状态操作范围。');
     const snapshot = await adapter.capture(options);
     if (snapshot.data.stat_data?.系统?.结构版本 === 3) {
       const error = new Error('当前楼层是 v3 档案，请先查看迁移差异并确认升级为 v4。');
@@ -516,13 +519,15 @@ export function createStateController(adapter) {
       tournament: 'T01', tournamentEngine: 'T02', nativeMvu: 'N01' }),
     get growthRules() { return cloneState(GROWTH_RULES); },
     tournamentView: state => deriveTournament(state),
+    nationalTournamentView: state => deriveNationalTournament(state),
     isHagunAffiliation,
     shouldInjectTournament,
+    shouldInjectNationalTournament,
     setDorm: (token, active) => commit(token, state => {
       if (typeof active !== 'boolean' || state.系统.开局状态 !== '已建档') throw new Error('请先完成建档，再进入宿舍。');
       return { ...state, 场景: { ...state.场景, 宿舍: active } };
     }, 'state', false, 'dorm'),
-    tournamentAction: (token, request) => commit(token, state => prepareTournamentAction(state, request), 'state', false, 'tournament'),
+    tournamentAction: (token, request) => commit(token, state => prepareTournamentAction(state, request), 'state', false, request?.action === 'upsertQualification' ? 'qualification' : ['upsertNationalMatch', 'upsertNationalAdvancement', 'setNationalSchedule'].includes(request?.action) ? 'national' : 'tournament'),
     tournamentOpponents: (state, options) => suggestTournamentOpponents(state, options),
     tournamentParticipant: (state, options) => createTournamentParticipant(state, options),
     commitMigration: token => commit(token, state => state, 'migration'),

@@ -1,0 +1,41 @@
+{
+  "source": "落第骑士英雄谭 第十一卷 gbk.txt",
+  "target": "第十一卷-世界书整理/核验记录/第十一卷原文_UTF8.txt",
+  "decoding": "GB18030 (GBK compatible)",
+  "transformations": "Encoding only; preserve all decoded characters and line breaks.",
+  "lineNumbering": "1-based physical lines; blank lines counted; final empty split token not counted.",
+  "sourceBytes": 205038,
+  "sourceSha256": "08ae9cca492c3a53cb77fadfec86771a3e118cd9d35815cfdeb9d7cd87e09c5c",
+  "utf8Sha256": "c5ebd42d82ab87f74584e192dc4087c990384ab4ec163277af0acea7c4bebb99",
+  "lineCount": 7387,
+  "headings": [
+    {
+      "line": 3,
+      "text": "第十一卷 第五章 〈落第骑士（Worst One）〉VS〈红莲狂狮〉！？"
+    },
+    {
+      "line": 926,
+      "text": "第十一卷 第六章 杀戮之夜"
+    },
+    {
+      "line": 2059,
+      "text": "第十一卷 第七章 访问奎多兰"
+    },
+    {
+      "line": 2724,
+      "text": "第十一卷 第八章 名为「法米利昂」的国家"
+    },
+    {
+      "line": 4273,
+      "text": "第十一卷 第九章 卡尔迪亚城镇战"
+    },
+    {
+      "line": 7354,
+      "text": "第十一卷 后记"
+    },
+    {
+      "line": 7383,
+      "text": "第十一卷 插图"
+    }
+  ]
+}

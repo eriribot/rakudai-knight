@@ -1,0 +1,62 @@
+{
+  "material_id": "MAT-012",
+  "title": "落第骑士英雄谭 第十二卷",
+  "raw_file": "落第骑士英雄谭 第十二卷 gbk.txt",
+  "raw_bytes": 253839,
+  "raw_lines": 8920,
+  "raw_sha256": "7a424ab7595bdc34fd79f1815ee83a29dbc0e732b0d345cb1f8ed16285e8a608",
+  "utf8_export_file": "第十二卷-世界书整理/核验记录/第十二卷原文_UTF8.txt",
+  "utf8_sha256": "58c67cd5a2f92fd404a185f515026d698ba581f0c0cdd393aeba659b07951a78",
+  "encoding": "GB18030 -> UTF-8 without BOM",
+  "chapter_boundaries": [
+    {
+      "chapter": "间章 第一皇女的决心",
+      "file": "第十二卷_间章_第一皇女的决心.txt",
+      "start_line": 3,
+      "end_line": 173,
+      "lines": 171
+    },
+    {
+      "chapter": "第十章 皇族的职责",
+      "file": "第十二卷_第十章_皇族的职责.txt",
+      "start_line": 174,
+      "end_line": 1258,
+      "lines": 1085
+    },
+    {
+      "chapter": "第十一章 洁白之巅",
+      "file": "第十二卷_第十一章_洁白之巅.txt",
+      "start_line": 1259,
+      "end_line": 2669,
+      "lines": 1411
+    },
+    {
+      "chapter": "第十二章 严寒的考验",
+      "file": "第十二卷_第十二章_严寒的考验.txt",
+      "start_line": 2670,
+      "end_line": 5798,
+      "lines": 3129
+    },
+    {
+      "chapter": "第十三章 来自神龙寺的刺客",
+      "file": "第十二卷_第十三章_来自神龙寺的刺客.txt",
+      "start_line": 5799,
+      "end_line": 8399,
+      "lines": 2601
+    },
+    {
+      "chapter": "第十四章 法米利昂之剑",
+      "file": "第十二卷_第十四章_法米利昂之剑.txt",
+      "start_line": 8400,
+      "end_line": 8876,
+      "lines": 477
+    },
+    {
+      "chapter": "后记",
+      "file": "第十二卷_后记.txt",
+      "start_line": 8877,
+      "end_line": 8915,
+      "lines": 39
+    }
+  ]
+}

@@ -6,6 +6,7 @@ import { stripModuleSyntax } from '../story-build.mjs';
 import { createSchema, INITIAL_STATE, supportStage } from '../../世界书规则/MVU/schema.mjs';
 import { shouldInjectTournament, parseTournamentDate, isHagunAffiliation } from '../rakudai-tournament-calendar.mjs';
 import { deriveTournament, normalizeTournament } from '../rakudai-tournament.mjs';
+import { shouldInjectNationalTournament, deriveNationalTournament } from '../rakudai-national-tournament.mjs';
 
 const { z } = createRequire(new URL('../../output/worldbook-calibration/dev/package.json', import.meta.url))('zod');
 const stateSchema = createSchema(z, { normalizeRelationships: false });
@@ -73,7 +74,7 @@ function fixture({ autoApply = true, connected = true, hostRenderEvent = true, t
         assert.ok(parent && typeof parent === 'object' && !Array.isArray(parent));
         if (op.op === 'remove') delete parent[key]; else parent[key] = clone(op.value);
       }
-      if (mvu.onParse) await mvu.onParse();
+      if (mvu.onParse) await mvu.onParse(next, data);
       next.schema = '没有用别管这个';
       return next;
     },
@@ -95,7 +96,7 @@ function fixture({ autoApply = true, connected = true, hostRenderEvent = true, t
   top.top = top; top.parent = top;
   const middle = { top, parent: top };
   const HW = { top, parent: middle, SillyTavern: { getContext: () => context }, Mvu: mvu };
-  const window = { parent: HW, top, Mvu: mvu, RakudaiStateController: { shouldInjectTournament, isHagunAffiliation } };
+  const window = { parent: HW, top, Mvu: mvu, RakudaiStateController: { shouldInjectTournament, shouldInjectNationalTournament, isHagunAffiliation } };
   const SS = { destroyed: false, disposers: [] };
   const helper = {
     ...(tailEvents ? {
@@ -134,6 +135,7 @@ function fixture({ autoApply = true, connected = true, hostRenderEvent = true, t
     generationPending: false, terminalStateReader: { clear() {} },
     fn: name => helper[name], emit() {},
     stateService: () => ({ tournamentView: state => { tournamentInputs.push(clone(state)); return deriveTournament(state); },
+      nationalTournamentView: deriveNationalTournament,
       validateState: value => { stateSchema.parse(value); return clone(value); } }),
     setTimeout: (fn, ms) => setTimer(fn, ms, false), clearTimeout: id => timers.delete(id),
     setInterval: (fn, ms) => setTimer(fn, ms, true), clearInterval: id => timers.delete(id),
@@ -242,32 +244,23 @@ await check('不可访问的 parent 不阻断可读 top 的能力发现', async 
   assert.equal(f.writes.length, 1);
 });
 
-await check('loading 后 ready 自动续跑原轮次并且只请求和写入一次', async () => {
-  const f = fixture();
-  f.loading();
-  f.startTurn();
+await check('约束 loading 不阻断校正，后来 ready 不重复请求或写入', async () => {
+  const f = fixture(); f.loading(); f.startTurn();
   await f.advance(1200);
-  f.assertNoWork();
-  assert.equal(f.api.getCorrectionStatus().state, 'waiting');
-  f.ready();
-  await f.advance(3000);
-  assert.equal(f.requests.length, 1);
-  assert.equal(f.writes.length, 1);
-  assert.equal(f.writes[0].message_id, 1);
   assert.equal(f.api.getCorrectionStatus().state, 'applied');
-  await f.advance(5000);
-  assert.equal(f.requests.length, 1);
-  assert.equal(f.writes.length, 1);
+  assert.equal(f.parses[0].native, true);
+  assert.equal(f.state().schema, '没有用别管这个', '不把临时解析 schema 写回加载中的约束包装');
+  f.ready(); await f.advance(5000);
+  assert.equal(f.requests.length, 1); assert.equal(f.writes.length, 1);
 });
 
-await check('依赖启动失败显示明确失败原因且不请求不写入', async () => {
+await check('可选约束依赖启动失败时仍通过 MVU 与本地校验保存', async () => {
   const f = fixture();
   f.HW[bootKey] = { state: 'failed', stage: 'dependencies', message: 'Zod 依赖 CDN 加载失败', startedAt: f.now() };
-  f.startTurn();
-  await f.advance(1500);
-  f.assertNoWork();
-  assert.equal(f.api.getCorrectionStatus().state, 'failed');
-  assert.match(f.api.getCorrectionStatus().message, /Zod.*CDN.*失败/);
+  f.startTurn(); await f.advance(1500);
+  assert.equal(f.api.getCorrectionStatus().state, 'applied');
+  assert.equal(f.parses[0].native, true);
+  assert.equal(f.requests.length, 1); assert.equal(f.writes.length, 1);
 });
 
 await check('完全缺少 marker 和 boot 时副校正使用原生 MVU 并确认保存', async () => {
@@ -281,34 +274,29 @@ await check('完全缺少 marker 和 boot 时副校正使用原生 MVU 并确认
   assert.equal(f.state().schema.type, 'object');
 });
 
-await check('真实旧 guard 不因脚本标题含 G04 而通过 T02 能力门禁', async () => {
+await check('旧约束能力标签不成为校正门禁，可用来源适配器仍参与解析', async () => {
   const f = fixture();
-  const old = { ...f.guard, tournamentEngine: 'T01', title: 'MVU v4 G04 / T02' };
-  f.ready(f.HW, old);
-  f.startTurn();
-  await f.advance(1500);
-  f.assertNoWork();
-  assert.equal(f.api.getCorrectionStatus().state, 'failed');
-  assert.match(f.api.getCorrectionStatus().message, /tournamentEngine|T02/);
-  assert.doesNotMatch(f.api.getCorrectionStatus().message, /^请同步启用说明含/);
+  f.ready(f.HW, { ...f.guard, tournamentEngine: 'T01', title: '旧约束' });
+  f.startTurn(); await f.advance(1500);
+  assert.equal(f.api.getCorrectionStatus().state, 'applied');
+  assert.equal(f.parses[0].native, undefined);
+  assert.equal(f.requests.length, 1); assert.equal(f.writes.length, 1);
 });
 
-await check('缺少 parseRepair 能力不能通过并指出缺失字段', async () => {
-  const f = fixture();
-  const old = { ...f.guard }; delete old.parseRepair;
-  f.ready(f.HW, old);
-  f.startTurn();
-  await f.advance(1500);
-  f.assertNoWork();
-  assert.equal(f.api.getCorrectionStatus().state, 'failed');
-  assert.match(f.api.getCorrectionStatus().message, /parseRepair/);
+await check('约束缺少 parseRepair 时使用 MVU 解析副本，保留活动包装 schema', async () => {
+  const f = fixture(), old = { ...f.guard }; delete old.parseRepair;
+  f.ready(f.HW, old); f.startTurn(); await f.advance(1500);
+  assert.equal(f.api.getCorrectionStatus().state, 'applied');
+  assert.equal(f.parses[0].native, true);
+  assert.equal(f.state().schema, '没有用别管这个');
+  assert.equal(f.requests.length, 1); assert.equal(f.writes.length, 1);
 });
 
 for (const action of ['切换聊天', '手动取消']) {
-  await check('等待约束期间' + action + '，后来 ready 不补跑旧轮', async () => {
+  await check('主保存尚未完成期间' + action + '，后来 ready 不补跑旧轮', async () => {
     const f = fixture();
     f.loading();
-    f.startTurn();
+    const candidate = f.startTurn({ save: false });
     await f.advance(1200);
     assert.equal(f.api.getCorrectionStatus().state, 'waiting');
     if (action === '切换聊天') {
@@ -316,71 +304,52 @@ for (const action of ['切换聊天', '手动取消']) {
       f.context.chat = [{ mes: '其他聊天' + block, is_user: false, swipe_id: 0 }];
       f.api.correctionHostReset('CHAT_CHANGED');
     } else f.api.cancelCorrection();
-    f.ready();
+    f.ready(); f.save(candidate);
     await f.advance(5000);
     f.assertNoWork();
   });
 }
 
-await check('loading 时即使旧完整 marker 残留，也等待当前 boot ready', async () => {
-  const f = fixture();
-  f.HW[markerKey] = f.guard;
-  f.loading();
-  f.startTurn();
-  await f.advance(1500);
-  f.assertNoWork();
-  assert.equal(f.api.getCorrectionStatus().state, 'waiting');
-  const replacement = { ...f.guard };
-  f.ready(f.HW, replacement);
-  await f.advance(2000);
-  assert.equal(f.requests.length, 1);
+await check('loading 残留旧 marker 不调用旧来源适配器，也不阻断本轮保存', async () => {
+  const f = fixture(); f.HW[markerKey] = f.guard; f.loading();
+  f.guard.parseRepair = () => { throw new Error('不应调用加载中的旧适配器'); };
+  f.startTurn(); await f.advance(1500);
+  assert.equal(f.api.getCorrectionStatus().state, 'applied');
+  assert.equal(f.parses[0].native, true);
+  f.ready(f.HW, { ...f.guard }); await f.advance(2000);
+  assert.equal(f.requests.length, 1); assert.equal(f.writes.length, 1);
+});
+
+await check('failed boot 与旧 marker 残留不阻断核心 MVU 校正', async () => {
+  const f = fixture(); f.HW[markerKey] = f.guard;
+  f.HW[bootKey] = { state: 'failed', stage: 'register', message: 'schema 注册失败', startedAt: f.now() };
+  f.startTurn(); await f.advance(1500);
+  assert.equal(f.api.getCorrectionStatus().state, 'applied');
+  assert.equal(f.parses[0].native, true);
   assert.equal(f.writes.length, 1);
 });
 
-await check('failed boot 不能被同宿主残留的旧完整 marker 掩盖', async () => {
-  const f = fixture();
-  f.HW[markerKey] = f.guard;
-  f.HW[bootKey] = { state: 'failed', stage: 'register', message: 'schema 注册失败', startedAt: f.now() };
-  f.startTurn();
-  await f.advance(1500);
-  f.assertNoWork();
-  assert.equal(f.api.getCorrectionStatus().state, 'failed');
-  assert.match(f.api.getCorrectionStatus().message, /schema.*失败/);
+await check('ready.guard 与 marker 不同不借用旧适配器，核心 MVU 仍可校正', async () => {
+  const f = fixture(); f.ready(); f.HW[markerKey] = { ...f.guard };
+  f.startTurn(); await f.advance(1500);
+  assert.equal(f.api.getCorrectionStatus().state, 'applied');
+  assert.equal(f.parses[0].native, true);
 });
 
-await check('ready.guard 与当前 marker 不一致不能放行', async () => {
-  const f = fixture();
-  f.ready();
-  f.HW[markerKey] = { ...f.guard };
-  f.startTurn();
-  await f.advance(1500);
-  f.assertNoWork();
-  assert.notEqual(f.api.getCorrectionStatus().state, 'applied');
+await check('约束长期未加载也只校正一次，不新增约束等待或重试', async () => {
+  const f = fixture(); f.loading(); f.startTurn(); await f.advance(61500);
+  assert.equal(f.api.getCorrectionStatus().state, 'applied');
+  assert.equal(f.requests.length, 1); assert.equal(f.writes.length, 1);
 });
 
-await check('约束加载超过 60 秒后停止并说明约束启动超时', async () => {
-  const f = fixture();
-  f.loading();
-  f.startTurn();
-  await f.advance(61500);
-  f.assertNoWork();
-  assert.equal(f.api.getCorrectionStatus().state, 'failed');
-  assert.match(f.api.getCorrectionStatus().message, /约束/);
-  assert.match(f.api.getCorrectionStatus().message, /超时|超过|未.*就绪/);
-});
-
-await check('预览之后约束被替换，旧 guard 不再用于解析或写入', async () => {
-  const f = fixture();
-  f.ready();
-  f.context.chat[0].mes += block;
-  const preview = await f.api.requestCorrection();
-  assert.equal(preview.count, 1);
-  f.ready(f.HW, { ...f.guard });
-  await assert.rejects(f.api.applyCorrection(), /约束|变化/);
-  assert.equal(f.requests.length, 1);
-  assert.equal(f.parses.length, 0);
-  assert.equal(f.writes.length, 0);
-  assert.equal(f.state().stat_data.场景.地点, '校门');
+await check('预览后约束被替换仍使用应用时的现用适配器，不误判变量过期', async () => {
+  const f = fixture(); f.ready(); f.context.chat[0].mes += block;
+  await f.api.requestCorrection();
+  let currentCalls = 0;
+  const replacement = { ...f.guard, parseRepair(...args) { currentCalls++; return f.guard.parseRepair(...args); } };
+  f.ready(f.HW, replacement); await f.api.applyCorrection();
+  assert.equal(currentCalls, 1); assert.equal(f.requests.length, 1); assert.equal(f.writes.length, 1);
+  assert.equal(f.state().stat_data.场景.地点, '演武场');
 });
 
 await check('约束就绪不能跳过主 MVU 保存一致性，渲染本身不证明写入', async () => {
@@ -565,15 +534,13 @@ await check('桥接后加载时下一轮重新移尾且不重复订阅，销毁�
   assert.deepEqual(f.listeners.get(tailEvent), [laterBridge]);
 });
 
-await check('没有尾部事件能力时原生仍可保存，有约束则明确失败且不退回渲染判定', async () => {
-  const native = fixture({ tailEvents: false });
-  native.startTurn({ render: false }); await native.advance(1000);
-  assert.equal(native.api.getCorrectionStatus().state, 'applied');
-  const guarded = fixture({ tailEvents: false }); guarded.ready();
-  guarded.startTurn(); await guarded.advance(1000);
-  assert.equal(guarded.api.getCorrectionStatus().mainSave, 'failed');
-  assert.match(guarded.api.getCorrectionStatus().message, /eventMakeLast.*eventRemoveListener/);
-  guarded.assertNoWork();
+await check('有无约束均凭真实保存收据确认，不把可选尾监听能力作为门禁', async () => {
+  for (const guarded of [false, true]) {
+    const f = fixture({ tailEvents: false }); if (guarded) f.ready();
+    f.startTurn({ render: false }); await f.advance(1000);
+    assert.equal(f.api.getCorrectionStatus().mainSave, 'saved');
+    assert.equal(f.api.getCorrectionStatus().state, 'applied');
+  }
 });
 
 await check('尾部只认当前候选对象，不替其他解析或不同回复页签发保存收据', async () => {
@@ -682,21 +649,13 @@ await check('确认期间换 swipe 即使读回相同变量也拒绝原候选', 
   assert.equal(f.api.getCorrectionStatus().scope, 'main');
 });
 
-await check('副校正约束失败不否认已落地主保存；重试仍核对原变量', async () => {
-  const f = fixture();
-  f.HW[bootKey] = { state: 'failed', message: '桥接加载失败' };
-  f.startTurn();
-  await f.advance(2000);
-  f.assertNoWork();
-  assert.equal(f.api.getCorrectionStatus().state, 'failed');
-  assert.equal(f.api.getCorrectionStatus().scope, 'correction');
+await check('副校正约束加载失败不否认主保存，核心 MVU 校正仍一次完成', async () => {
+  const f = fixture(); f.HW[bootKey] = { state: 'failed', message: '桥接加载失败' };
+  f.startTurn(); await f.advance(2000);
   assert.equal(f.api.getCorrectionStatus().mainSave, 'saved');
   assert.equal(f.api.correctionMainBusy(), false);
-  f.ready();
-  await f.api.retryCorrection();
-  await f.advance(1500);
   assert.equal(f.api.getCorrectionStatus().state, 'applied');
-  assert.equal(f.requests.length, 1);
+  assert.equal(f.requests.length, 1); assert.equal(f.writes.length, 1);
 });
 
 await check('原生副校正新增人物保留外层包装并回读当前页', async () => {
@@ -710,14 +669,61 @@ await check('原生副校正新增人物保留外层包装并回读当前页', a
   assert.equal(f.writes[0].message_id, 1);
 });
 
-await check('原生解析在异步返回前切换约束模式时拒绝落地', async () => {
-  const f = fixture();
-  f.context.chat[0].mes += block;
+await check('解析期间约束 ready 不使业务快照过期，保留新活动 schema', async () => {
+  const f = fixture(); f.context.chat[0].mes += block;
   await f.api.requestCorrection();
-  f.mvu.onParse = () => f.ready();
-  await assert.rejects(f.api.applyCorrection(), /变化/);
+  f.mvu.onParse = () => {
+    const saved = f.state(); saved.schema = { activeGuard: '新约束包装' }; f.save(saved); f.ready();
+  };
+  await f.api.applyCorrection();
+  assert.equal(f.writes.length, 1);
+  assert.equal(f.state().stat_data.场景.地点, '演武场');
+  assert.deepEqual(f.state().schema, { activeGuard: '新约束包装' });
+});
+
+await check('解析期间实际变量变化仍拒绝旧补丁，不被约束解耦放宽', async () => {
+  const f = fixture(); f.context.chat[0].mes += block;
+  await f.api.requestCorrection();
+  f.mvu.onParse = () => {
+    const saved = f.state(); saved.stat_data.场景.地点 = '其他操作已保存'; f.save(saved);
+  };
+  await assert.rejects(f.api.applyCorrection(), /实际变量已变化/);
   assert.equal(f.writes.length, 0);
-  assert.equal(f.state().stat_data.场景.地点, '校门');
+  assert.equal(f.state().stat_data.场景.地点, '其他操作已保存');
+});
+
+await check('无来源适配器时仍接受 MVU 活动监听的拒绝结果，不重放被拒补丁', async () => {
+  const f = fixture(), old = { ...f.guard }; delete old.parseRepair;
+  f.ready(f.HW, old); f.context.chat[0].mes += block;
+  f.mvu.onParse = (next, before) => { next.stat_data.场景.地点 = before.stat_data.场景.地点; };
+  await f.api.requestCorrection();
+  await assert.rejects(f.api.applyCorrection(), /没有可保存的变化/);
+  assert.equal(f.requests.length, 1); assert.equal(f.parses.length, 1); assert.equal(f.writes.length, 0);
+});
+
+await check('活动来源适配器报错时不退回第二次解析或写入', async () => {
+  const f = fixture(); f.ready(); f.context.chat[0].mes += block;
+  let repairCalls = 0;
+  f.guard.parseRepair = () => { repairCalls++; throw new Error('活动约束拒绝本次补丁'); };
+  await f.api.requestCorrection();
+  await assert.rejects(f.api.applyCorrection(), /活动约束拒绝/);
+  assert.equal(repairCalls, 1); assert.equal(f.parses.length, 0); assert.equal(f.writes.length, 0);
+});
+
+for (const guardState of ['missing', 'loading', 'failed']) await check('约束 ' + guardState + ' 时本地仍拒绝非法类型及负成长余额', async () => {
+  for (const patch of [
+    { op: 'replace', path: '/玩家/魔人觉醒', value: 'true' },
+    { op: 'replace', path: '/玩家/成长/经验/体能', value: -1 },
+  ]) {
+    const f = fixture({ patch: [patch] }), saved = f.state();
+    saved.stat_data.玩家.六维.体能 = 'F'; f.save(saved);
+    if (guardState === 'loading') f.loading();
+    if (guardState === 'failed') f.HW[bootKey] = { state: 'failed' };
+    f.context.chat[0].mes += block;
+    await f.api.requestCorrection();
+    await assert.rejects(f.api.applyCorrection(), /校正结果仍不符合档案结构/);
+    assert.equal(f.writes.length, 0); assert.deepEqual(f.state(), saved);
+  }
 });
 
 for (const tag of ['JSONPatch', 'json_patch', 'JSONPATCH', 'JSON_PATCH']) {
@@ -809,13 +815,13 @@ for (const autoApply of [true, false]) {
   });
 }
 
-await check('旧 MVU01 约束仍处理完整主补丁，但坏来源明确要求升级且不请求不写入', async () => {
-  const f = fixture(); f.ready();
-  f.startTurn({ contentBlock: '', location: '校门' });
+await check('旧 MVU01 不支持坏主来源时改用核心 MVU，不要求升级可选约束', async () => {
+  const f = fixture(); f.ready(); f.startTurn({ contentBlock: '', location: '校门' });
   await f.advance(1000);
   assert.equal(f.api.getCorrectionStatus().mainSave, 'saved');
-  assert.match(f.api.getCorrectionStatus().message, /MVU02/);
-  f.assertNoWork();
+  assert.equal(f.api.getCorrectionStatus().state, 'applied');
+  assert.equal(f.parses[0].native, true);
+  assert.equal(f.requests.length, 1); assert.equal(f.writes.length, 1);
 });
 
 await check('收据持久化后新增末尾 StatusPlaceHolderImpl 不使坏主补丁来源失效', async () => {
@@ -898,7 +904,7 @@ for (const [name, volume, chapter, time, status, inject, affiliation = '破军�
   ['约束模式他校在破军参观', 1, '第一章', '2013-06-01', '进行中', false, '武曲学园', true],
   ['约束模式所属未确认', 1, '第一章', '2013-06-01', '进行中', false, '', true],
   ['约束模式已确认破军所属', 1, '第一章', '2013-06-01', '进行中', true, '破军学园·一年一班', true],
-]) await check(name + '：副API只门禁程序号池摘要，实际账本、原存档及其它变量保留', async () => {
+]) await check(name + '：副API按赛期投影账本，原存档及其它变量保留', async () => {
   const f = fixture(), data = f.state();
   if (guarded) f.ready();
   data.stat_data.玩家.所属 = affiliation;
@@ -911,7 +917,7 @@ for (const [name, volume, chapter, time, status, inject, affiliation = '破军�
   await f.api.requestCorrection();
   assert.equal(f.requests.length, 1);
   const sent = JSON.parse(f.requests[0].messages[1].content);
-  assert.equal(Object.hasOwn(sent.当前变量.场景, '选拔赛'), true, '关闭程序号池不得省略真实赛程账本。');
+  assert.equal(Object.hasOwn(sent.当前变量.场景, '选拔赛'), inject, '选拔账本只在赛期进入提示副本。');
   assert.equal(Object.hasOwn(sent, '程序选拔赛'), inject, '关闭时整个摘要字段应不进入 JSON，而非发空对象或 null。');
   assert.equal(sent.当前变量.场景.当前卷, volume);
   assert.equal(sent.当前变量.场景.当前章, chapter);
@@ -921,11 +927,12 @@ for (const [name, volume, chapter, time, status, inject, affiliation = '破军�
   assert.equal(sent.当前变量.玩家.姓名, data.stat_data.玩家.姓名);
   assert.equal(sent.当前变量.玩家.所属, affiliation);
   const expectedLedger = clone(data.stat_data.场景.选拔赛); delete expectedLedger.程序战况;
-  assert.deepEqual(sent.当前变量.场景.选拔赛, expectedLedger);
+  assert.deepEqual(sent.当前变量.场景.选拔赛, inject ? expectedLedger : undefined);
   if (inject) {
     assert.equal(sent.程序选拔赛.日历.date ?? null, parseTournamentDate(time)?.key ?? null);
     assert.ok(sent.程序选拔赛.名册.some(row => row.name === '测试角色'));
-    assert.deepEqual(f.tournamentInputs, [data.stat_data], '摘要应读取未经提示词裁剪的原快照。');
+    assert.ok(f.tournamentInputs.length > 0);
+    for (const input of f.tournamentInputs) assert.deepEqual(input, data.stat_data, '战况与日期摘要须读取未经提示词裁剪的原快照。');
   } else assert.equal(f.tournamentInputs.length, 0, '关闭注入时不计算或发送背景名册。');
   assert.deepEqual(f.state(), data);
   assert.equal(f.writes.length, 0);
@@ -975,9 +982,13 @@ await check('关闭约束时，副校正直接走原生终值路径并补缺失�
   assert.deepEqual(f.state().stat_data.玩家.成长.经验, { 魔力控制: 0, 体能: 0, 魔力量: 0 });
 });
 await check('旧独立成长仍运行时不请求副API，避免旧申请混入终值模式', async () => {
-  const f = fixture(); f.context.chat[0].mes += block;
-  f.HW.__RK_MVU_GROWTH_G04__ = { state: 'ready', growthSettlement: 'G04', parseRepair() { throw new Error('不能调用旧解析器'); } };
-  await assert.rejects(f.api.requestCorrection(), /关闭旧独立成长/); f.assertNoWork();
+  for (const guardState of ['missing', 'loading', 'failed']) {
+    const f = fixture(); f.context.chat[0].mes += block;
+    if (guardState === 'loading') f.loading();
+    if (guardState === 'failed') f.HW[bootKey] = { state: 'failed' };
+    f.HW.__RK_MVU_GROWTH_G04__ = { state: 'ready', growthSettlement: 'G04', parseRepair() { throw new Error('不能调用旧解析器'); } };
+    await assert.rejects(f.api.requestCorrection(), /关闭旧独立成长/); f.assertNoWork();
+  }
 });
 await check('预览之后开启旧独立成长，旧候选不进入解析或写入', async () => {
   const f = fixture(); f.context.chat[0].mes += block;
@@ -1012,10 +1023,12 @@ await check('终值提示投影只送经验，历史申请与收据不请求也�
   assert.match(f.requests[0].messages[0].content, /不创建或修改成长申请/);
   assert.match(f.requests[0].messages[0].content, /无约束时由模型完成计算/);
 });
-await check('旧约束没有终值能力标记时明确提示更新，预览和写入均不启动', async () => {
+await check('旧约束终值能力标记缺失不阻止本地验证与保存', async () => {
   const f = fixture(); f.context.chat[0].mes += block;
   delete f.guard.growthProtocol; f.ready();
-  await assert.rejects(f.api.requestCorrection(), /final-values-v1/); f.assertNoWork();
+  await f.api.requestCorrection(); await f.api.applyCorrection();
+  assert.equal(f.state().stat_data.场景.地点, '演武场');
+  assert.equal(f.requests.length, 1); assert.equal(f.writes.length, 1);
 });
 await check('副模型误加单层代码围栏或MVU标签时本地提取，不另发修复请求', async () => {
   const patch = JSON.stringify([{ op: 'replace', path: '/场景/地点', value: '演武场' }]);

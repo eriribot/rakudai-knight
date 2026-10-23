@@ -1,47 +1,63 @@
-【Rakudai · MVU Output Format / G04 / T02】
-Read the current branch state and follow [MVU]变量更新规则. Main and secondary APIs use the same business-field permissions; code manages identity metadata, derived stages and settlement receipts.
-End the narrative with exactly one <UpdateVariable> containing <Analysis> then <JSONPatch>, with all closing tags. Analysis is concise English: check scene, each growth target, affection and support separately, contact/profile facts and tournament changes. State old→final values or concrete no-change reasons; no major event is not a reason to skip everyday changes.
-JSONPatch is one complete JSON array. No fences, headings, comments, ellipses or escaped tags. Do not impose a word or operation limit that omits valid updates. Analysis alone does not save data.
+【Rakudai · MVU Output Format】
+Follow [MVU]变量更新规则. End the narrative with exactly one <UpdateVariable> containing <Analysis> then <JSONPatch>, with all closing tags.
+Analysis is concise English and reports ONLY actual changes made this turn (`Target: old -> final (brief factual reason)`). Omit unchanged fields, unchanged NPCs, and 0-gain growth targets; never explain why a field did not change. If no factual updates occurred, write `None.` in <Analysis> and `[]` in <JSONPatch>.
+JSONPatch is one complete RFC 6902 JSON array without markdown fences, headings, comments, ellipses or escaped tags. Analysis alone does not save data.
 
 【Operations and Types】
-Paths start with /玩家, /场景 or /人际, never /stat_data. Use add for missing entries/parents, replace for existing values, remove for confirmed erroneous dynamic entries. Submit final values, not increments. Prefer changed child fields; when supplying an object, preserve unrelated existing data. Do not reset /系统, /玩家/性别, /玩家/综合初评, growth receipts or terminal roster visibility through parent replacements.
-Strings, null, {}, [], numbers and native true/false have different meanings. Names are stable non-empty keys without /, ~, __proto__, prototype or constructor. Framework $internal/display_data/delta_data are not business fields.
+Paths start with /玩家, /场景 or /人际, never /stat_data.
+Ops: `add` (missing entries/parents), `replace` (existing values), `remove` (confirmed erroneous dynamic entries). Submit final values, not increments. Prefer changed leaf fields; when supplying an object, preserve unrelated existing data. Create missing parent objects with `{}` before children.
+Never write or reset code-owned fields: /系统, /玩家/性别, /玩家/综合初评, growth versions/requests/receipts, /人际/<姓名>/名册隐藏, 恋爱阶段, or framework $internal/display_data/delta_data. Never recreate names listed in /系统/已删除人物.
+Strings, null, {}, [], numbers and native true/false are strict types. Object keys must be stable non-empty names without `/`, `~`, `__proto__`, `prototype` or `constructor`.
 
-【Player and Abilities】
-/玩家/魔人觉醒 is native true/false only. No parallel realm flag; a confirmed awakening itself gives no experience. Main and secondary APIs may correct confirmed player data, /玩家/六维, /玩家/登记等级 and /玩家/成长/经验 final values.
-六维 keys: 攻击力, 防御力, 魔力量, 魔力控制, 体能, 运气. Grades: F,F+,E,E+,D,D+,C,C+,B,B+,A,A+,S; empty string means unconfirmed. 登记等级 uses F through A or null; it records actual registration, not automatic experience advancement.
-/玩家/伐刀能力 contains 能力系别, 能力本质, 共通限制, 招式. 能力系别 is empty or 体能强化系/自然干涉系/概念干涉系/因果干涉系. 招式 and /玩家/其他能力 map stable names to {说明:string,条件与代价:string,掌握状态:待确认|学习中|已掌握}. Use confirmed learning results; descriptions and method names are free text.
+【Field Schemas & Enums】
+1. /玩家
+- /玩家/魔人觉醒: boolean (`true` | `false`).
+- /玩家/登记等级: `"F"` | `"E"` | `"D"` | `"C"` | `"B"` | `"A"` | `null`.
+- /玩家/六维/<目标>: targets are `攻击力` | `防御力` | `魔力量` | `魔力控制` | `体能` | `运气`. Grades: `"F"` | `"F+"` | `"E"` | `"E+"` | `"D"` | `"D+"` | `"C"` | `"C+"` | `"B"` | `"B+"` | `"A"` | `"A+"` | `"S"` | `""` (unconfirmed).
+- /玩家/成长/经验/<目标>: targets are `魔力控制` | `体能` | `魔力量`. Value: non-negative integer (remainder after threshold promotions).
+- /玩家/伐刀能力: `{ 能力系别: "" | "体能强化系" | "自然干涉系" | "概念干涉系" | "因果干涉系", 能力本质: string, 共通限制: string, 招式: { [name]: SkillObj } }`.
+- /玩家/其他能力: `{ [name]: SkillObj }`.
+  * `SkillObj`: `{ 说明: string, 条件与代价: string, 掌握状态: "待确认" | "学习中" | "已掌握" }`.
 
-【Growth】
-Main and secondary APIs write final values directly: /玩家/成长/经验/<目标> is a non-negative JSON integer; /玩家/六维/<目标> is the final grade. Experience targets are 魔力控制, 体能 and 魔力量. Create missing /玩家/成长 and /玩家/成长/经验 parents with {} before children; preserve existing data. Do not create growth requests or write legacy requests, versions or receipts.
-New experience needs actual practice, application, improvement or breakthrough; body growth needs actual physical participation. New 魔力量 growth requires 魔人觉醒:true; confirmed errors in stored magic experience or grade may still be corrected while false. Awakening alone gives no experience. Do not guess an unknown starting grade.
-Experience is progress within the submitted grade. Calculate repeated promotions using the thresholds in [MVU]变量更新规则, subtract each crossed threshold and submit the resulting grade plus remainder; S retains excess. 登记等级 changes only on actual registration. Compute final values even without the optional constraint; it may further validate/correct them and reject replay.
-Read the currently saved result before updating. Secondary correction fills omissions or corrects final values after the main reply; never add the same result again during correction or retry.
+2. /场景
+- /场景/宿舍: boolean (`false` only when executing valid dorm rest command; otherwise omit).
+- /场景/当前卷: integer (`1`..`19`).
+- /场景/当前章: string (exact injected directory key).
+- /场景/阶段: `"未开始"` | `"进行中"` | `"已结束"` (`"已完成"` normalized to `"已结束"`).
+- /场景/时间, /场景/地点, /场景/切入说明: string.
+- /场景/已发生事件/<事件名>: `{ 卷号: integer, 章段: string, 结果: non-empty string, 参与者: string[], 知情者: string[] }`.
+- /场景/日程/<日程名> (optional): `{ 类型: "比赛" | "训练" | "约定" | "其他", 日期: "YYYY-MM-DD" | "", 时间: string, 地点: string, 参与者: string[], 状态: "待定" | "已安排" | "进行中" | "已完成" | "已取消", 说明: string }`.
 
-【Scene, Events and Schedule】
-Optional /场景/宿舍 is a JSON boolean owned by the dorm button. Only an explicit 休息 or 宿舍休息 command while its previous value is true may write false together with the contextual next-morning time; never move location automatically or clear history. Otherwise do not write this flag.
-场景 fields: 当前卷 (integer 1—19), 当前章 (exact injected directory key), 阶段 (未开始|进行中|已结束), 时间, 地点, 切入说明 (strings). Follow actual completion markers. Main and secondary share one chapter advance per reply; do not finish the next chapter again during correction.
-For /场景/阶段, 已完成 is accepted as an alias of 已结束 and normalized to 已结束; it follows the same chapter-advance rules.
-已发生事件 maps stable names to {卷号:integer,章段:string,结果:non-empty string,参与者:string[],知情者:string[]}. Record the chapter where it happened, not a future chapter. Existing event names stay stable.
-日程 is optional and maps stable names to {类型:比赛|训练|约定|其他,日期:string,时间:string,地点:string,参与者:string[],状态:待定|已安排|进行中|已完成|已取消,说明:string}. 日期 is a real YYYY-MM-DD or empty. Plans and elapsed dates do not prove completion.
+3. /人际/<姓名>
+- Required on creation: `{ 关系: string, 态度印象: string, 好感: number(0..1000) | null, 支援度: integer(0..320) | null, 羁绊阶段: "未定" | "未建立" | "C" | "B" | "A" | "S", 变化依据: string }` (ordinary new records start at `0`, `0`, `"未建立"`).
+- Optional fields:
+  * `性别`: `"未知"` | `"男性"` | `"女性"`
+  * `联系状态`: `"仅识别"` | `"已建立联系"`
+  * `联系依据`: string (set on initial contact establishment or factual correction; do not overwrite on routine chat)
+  * `已加联系方式`: boolean
+  * `已知资料`: `{ 身份?: string, 登记等级?: string, 灵装?: string, 已知能力?: string }`
+- `变化依据`: brief current-turn factual basis + `旧值→最终值` without appending past history.
 
-【People】
-New /人际/<姓名> requires 关系:string,态度印象:string,好感:number|null,支援度:integer|null,羁绊阶段:未定|未建立|C|B|A|S,变化依据:string. Ordinary new no-change records start at 0/0 and 未建立; confirmed background may use its assessed final values. Existing values continue from their real baseline.
-Optional fields: 性别 (未知|男性|女性), 联系状态 (仅识别|已建立联系), 联系依据:string, 已加联系方式:boolean, 已知资料:{身份?,登记等级?,灵装?,已知能力?} with string children. Contact interaction and exchanged contact details are independent. Never recreate names in /系统/已删除人物.
-好感 is 0—1000; 支援度 is integer 0—320. Write justified final values and concise 变化依据. Ordinary friendliness, eased defenses and major trust changes are narrative guidance, not hard numeric tiers. No separate 好感突破依据 is required. Scores can be corrected up or down; each field remains independent. Code derives 羁绊阶段 and 恋爱阶段, which never invent actual relationship events. Do not write 名册隐藏.
+<rk-selection-rules>
+4. /场景/选拔赛 (Hagun affiliation confirmed; create `{}` parent if missing)
+- Root defaults when initializing: `{ 版本: "T01", 赛季: "破军学园选拔赛", 状态: "未开始", 总轮次: 20, 代表名额: 6, 号池规模: 288, 模式: "跟随系统", 名册: {}, 比赛: {} }`.
+- Optional flag: `/场景/选拔赛/一辉拘押`: boolean.
+- `/场景/选拔赛/名册/<ID>`: `{ 姓名: string, 来源: "正典" | "原创" | "玩家", 参赛状态: "参赛" | "退选" | "取消资格", 入赛轮次?: integer(1..20) }`. (Never write `初始战绩`, `退赛日期`, or modify existing `入赛轮次`).
+- `/场景/选拔赛/比赛/<ID>`: `{ 轮次: integer, 甲方: rosterID, 乙方: rosterID, 日期: string, 时间: string, 地点: string, 状态: "待定" | "已安排" | "已完成" | "已取消", 胜者?: rosterID, 弃权方?: rosterID, 依据: string }`. (Never write `甲赛前胜场`, `乙赛前胜场`, `结束日期`, `程序战况`, derived points/rankings, or `__rk_bg_` IDs).
+</rk-selection-rules>
 
-【Tournament T02 / T01 storage compatibility】
-First check /玩家/所属: this tournament applies only to an explicitly confirmed 破军学园 (破軍學園) affiliation. Other or unknown affiliations must not create or change /场景/选拔赛; preserve any existing ledger. Location and magic grade do not establish school affiliation or representative status.
-/场景/选拔赛 is optional; create {} first, then business entries. Defaults: 版本:T01,赛季:破军学园选拔赛,状态:未开始,总轮次:20,代表名额:6,号池规模:288,模式:跟随系统,名册:{},比赛:{}. Use current system protagonist mode; do not set a separate player mode.
-名册/<ID>: {姓名:string,来源:正典|原创|玩家,参赛状态:参赛|退选|取消资格,入赛轮次?:integer(1..20)}. Preserve legacy 初始战绩 but never create or change it via AI; only the user's manual recovery form may do so.
-比赛/<ID>: {轮次:integer,甲方:rosterID,乙方:rosterID,日期:string,时间:string,地点:string,状态:待定|已安排|已完成|已取消,胜者?:rosterID,弃权方?:rosterID,依据:string}. Completed matches require actual winner and basis. Never write 甲赛前胜场/乙赛前胜场 or computed totals. The same pair cannot play twice; each person plays at most once per round. Do not overlap baseline-covered rounds. Cancel via 状态:已取消; do not delete the ledger or old matches.
-S01 reads 场景/时间. T02 merges actual results with deterministic background matches and computes points = 10 + 10 × opponent pre-match wins. Actual OC victories override canon expectations. 玩家 unknown matches are never simulated. 程序战况, derived points/rankings and __rk_bg_ IDs are read-only; do not persist the background projection. 一辉拘押?:boolean is a factual flag enabling his R17–19 delayed dates only when detention actually happened. Amend the same match ID for corrections.
+5. /场景/七星剑斗祭/资格名册 (All schools; create `/场景/七星剑斗祭` and `资格名册` `{}` parents if missing)
+- `/场景/七星剑斗祭/资格名册/<ID>`: `{ 姓名: string, 学园: string, 资格状态: "待确认" | "已取得" | "未取得" | "已取消", 依据: string }` (Use `player` if player has no existing ID; `依据` states concise factual reason or `""`).
 
-【Empty Result】
-Only use [] after independently checking every relevant area and finding no factual updates:
+<rk-national-rules>
+6. /场景/七星剑斗祭 (current tournament; preserve existing parents)
+- Optional: 状态: "未开始" | "进行中" | "已结束"; 开始日期、结束日期: "YYYY-MM-DD".
+- /比赛/<ID>: { 轮次: string, 分区: "A" | "B" | "C" | "D" | "决赛区" | "未定", 参赛者: qualificationID[], 日期: "YYYY-MM-DD" | "", 时间: string, 地点: string, 状态: "待定" | "已安排" | "进行中" | "已完成" | "已取消", 胜者?: participantID, 晋级至?: "16强" | "8强" | "4强" | "决赛" | "冠军" | "", 依据: string }. At least two distinct participants; completed matches require winner and basis.
+- /晋级记录/<ID>: { 选手: qualificationID, 阶段: "16强" | "8强" | "4强" | "决赛" | "冠军", 日期: "YYYY-MM-DD" | "", 状态: "已确认" | "已撤销", 依据: string }. Formal advancement without a played match; confirmed decisions require basis.
+</rk-national-rules>
+
+【Empty Result Example】
 <UpdateVariable>
-<Analysis>No scene, player, growth, relationship or tournament changes require updates.</Analysis>
+<Analysis>None.</Analysis>
 <JSONPatch>[]</JSONPatch>
 </UpdateVariable>
-
-退赛日期 and 结束日期 are code-owned cutoffs, never write or remove them. Change 参赛状态 / 状态 by actual facts; the engine captures the scene date. Existing 入赛轮次 is protected; only manual terminal correction can revise it. 来源=玩家 is resolved uniquely from 系统/主角模式 and 玩家/姓名.

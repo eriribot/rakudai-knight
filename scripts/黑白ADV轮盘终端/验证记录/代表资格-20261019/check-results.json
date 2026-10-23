@@ -1,0 +1,509 @@
+{
+  "date": "2026-10-19",
+  "runtime": "本地源码、生成组件、模拟宿主回调与事务回读；未导入真实酒馆",
+  "regressions": [
+    {
+      "command": "node scripts/check-state-controller.mjs",
+      "exitCode": 0,
+      "report": {
+        "passed": 24,
+        "total": 24,
+        "results": [
+          {
+            "name": "建档一次整体写入且采用页面分数、保留包装字段",
+            "passed": true
+          },
+          {
+            "name": "独立替换将黎恩改为有马风月，保留人际、系统附加信息及包装",
+            "passed": true
+          },
+          {
+            "name": "已有事件、其他卷或未建档状态不能替换，已有竞争修改也不覆盖",
+            "passed": true
+          },
+          {
+            "name": "替换必须具备同步宿主范围校验，觉醒仍仅接受布尔值",
+            "passed": true
+          },
+          {
+            "name": "一辉模式为 F 且不重建一辉 NPC",
+            "passed": true
+          },
+          {
+            "name": "两种身份模式建档都固定男性，缺性别的旧草稿兼容且不改输入",
+            "passed": true
+          },
+          {
+            "name": "建档草稿显式其他玩家性别在纯规则和写入前均拒绝",
+            "passed": true
+          },
+          {
+            "name": "切聊天或 swipe 导致旧凭据不能提交",
+            "passed": true
+          },
+          {
+            "name": "其他更新抢先完成时不覆盖",
+            "passed": true
+          },
+          {
+            "name": "无效字段在写入前拒绝",
+            "passed": true
+          },
+          {
+            "name": "写入未落地时不给成功",
+            "passed": true
+          },
+          {
+            "name": "写入落地但响应失败：重试只回读不重写",
+            "passed": true
+          },
+          {
+            "name": "重复点击只有一个写入",
+            "passed": true
+          },
+          {
+            "name": "已确认场景不可被建档重置",
+            "passed": true
+          },
+          {
+            "name": "卷内章段依序结束和开始，卷末必须使用单独跨卷操作",
+            "passed": true
+          },
+          {
+            "name": "切卷明确请求开始时原子进入进行中，旧请求仍保持未开始且不补造事件",
+            "passed": true
+          },
+          {
+            "name": "已完成别名只推进相邻章，同轮副校正不重复推进且末卷正确收尾",
+            "passed": true
+          },
+          {
+            "name": "模型父对象替换不能绕过系统和章段所有权",
+            "passed": true
+          },
+          {
+            "name": "已建档玩家性别修改或删除会复原，合法剧情更新照常保留",
+            "passed": true
+          },
+          {
+            "name": "替换玩家父对象也不能改性别，NPC 性别及恋爱阶段不被玩家约束重写",
+            "passed": true
+          },
+          {
+            "name": "已建档旧存档缺玩家性别时保护仍固定男性，不把历史缺字段作为可选路线",
+            "passed": true
+          },
+          {
+            "name": "待建档时模型无法代为初始化",
+            "passed": true
+          },
+          {
+            "name": "更新把stat_data置空、换成字符串或数组时恢复",
+            "passed": true
+          },
+          {
+            "name": "建档替换玩家对象后仍补齐成长容器，不修改导入档案",
+            "passed": true
+          }
+        ]
+      }
+    },
+    {
+      "command": "node scripts/check-state-browser.mjs",
+      "exitCode": 0,
+      "report": {
+        "passed": 55,
+        "total": 55,
+        "runtime": "离线固定API语义模拟，未连接真实酒馆",
+        "results": [
+          {
+            "name": "副校正候选可独立完整校验，坏人物不通过且不读取或改写存档",
+            "passed": true
+          },
+          {
+            "name": "旧v4虽同为4.0.0也必须在建档前提示缺少觉醒schema，不写入存档",
+            "passed": true
+          },
+          {
+            "name": "消息iframe与scriptiframe都使用明确message接口并保留其他数据",
+            "passed": true
+          },
+          {
+            "name": "仅有开局楼层时独立替换玩家，保留人际及其他回复页；重复建档仍拒绝",
+            "passed": true
+          },
+          {
+            "name": "真实聊天已有用户楼层或剧情事件时，不因助手列表仍只有楼层0而允许替换",
+            "passed": true
+          },
+          {
+            "name": "替换临写时新增楼层、换回复页或竞争改变量均拒绝，不能靠先前页面检查放行",
+            "passed": true
+          },
+          {
+            "name": "iframe自带SillyTavern getter且MVU稍后初始化时，等待本iframe并选择最外层宿主",
+            "passed": true
+          },
+          {
+            "name": "跨源top不可访问时继续使用同源parent，不让iframe代理掩盖宿主",
+            "passed": true
+          },
+          {
+            "name": "MVU等待失败时不读取或写入，恢复后可重新读取",
+            "passed": true
+          },
+          {
+            "name": "切swipe后旧凭据不能写入",
+            "passed": true
+          },
+          {
+            "name": "切聊天但变量相同后旧凭据不能写入",
+            "passed": true
+          },
+          {
+            "name": "当前 context 原地更换角色后旧凭据不能写入",
+            "passed": true
+          },
+          {
+            "name": "当前 context 原地更换群组后旧凭据不能写入",
+            "passed": true
+          },
+          {
+            "name": "当前 context 替换聊天数组但保留消息引用后旧凭据不能写入",
+            "passed": true
+          },
+          {
+            "name": "楼层被删除后同位置重建后旧凭据不能写入",
+            "passed": true
+          },
+          {
+            "name": "正文被编辑后旧凭据不能写入",
+            "passed": true
+          },
+          {
+            "name": "追加用户消息后旧凭据不能写入",
+            "passed": true
+          },
+          {
+            "name": "不允许旧开局页修改已有后续助手楼层",
+            "passed": true
+          },
+          {
+            "name": "关闭约束可读取和建档，只修当前回复页native schema并保留包装数据",
+            "passed": true
+          },
+          {
+            "name": "native准备保留stat_data对象与业务值，只更新schema",
+            "passed": true
+          },
+          {
+            "name": "关闭约束仍可切章、整理名册及保存赛程，controller公开自身能力",
+            "passed": true
+          },
+          {
+            "name": "关闭约束仍保留本地页面校验及变量并发比较",
+            "passed": true
+          },
+          {
+            "name": "终端操作不因无关旧字段失败，开关约束两种状态下切卷与补录都保留原资料",
+            "passed": true
+          },
+          {
+            "name": "操作范围保留目标、比分及并发检查，不能用窄范围绕开建档校验",
+            "passed": true
+          },
+          {
+            "name": "名册与宿舍仅验证本次操作，缺少人物说明不再连带阻止保存",
+            "passed": true
+          },
+          {
+            "name": "约束启动中或失败时明确诊断，不能当作关闭约束继续写入",
+            "passed": true
+          },
+          {
+            "name": "已开启约束的写入保持桥接原有schema，不改为native",
+            "passed": true
+          },
+          {
+            "name": "旧新约束同时启用时拒绝写入，避免两个 schema 互相抵触",
+            "passed": true
+          },
+          {
+            "name": "消息返回无效活动 swipe 时拒绝读取，不猜测默认槽",
+            "passed": true
+          },
+          {
+            "name": "没有MVU数据不自行伪造初始化",
+            "passed": true
+          },
+          {
+            "name": "旧异步API版本在写入前拒绝",
+            "passed": true
+          },
+          {
+            "name": "两个界面并发提交只允许一次落地",
+            "passed": true
+          },
+          {
+            "name": "迁移只升级当前活动 swipe，保留另一回复页与 MVU 包装",
+            "passed": true
+          },
+          {
+            "name": "迁移预览后切换 swipe 或编辑正文时旧迁移凭据不能提交",
+            "passed": true
+          },
+          {
+            "name": "真实浏览器适配的迁移与跨卷只修改剧情字段，不重新派生旧人物或补默认性别",
+            "passed": true
+          },
+          {
+            "name": "开局建档前同步捕获外观，成功回读后绑定新姓名；无需小手机且不额外写MVU",
+            "passed": true
+          },
+          {
+            "name": "已游玩聊天按最新活动回复页捕获头像，旧开局页不能借此重建人物，应用外观不写MVU",
+            "passed": true
+          },
+          {
+            "name": "头像姓名仅按当前已建档姓名去首尾空白匹配，不接受不同人物或相似昵称",
+            "passed": true
+          },
+          {
+            "name": "待建档状态即使填写同名也不能应用头像，不伪造开局完成",
+            "passed": true
+          },
+          {
+            "name": "头像凭据只属于生成它的控制器，伪造或另一iframe凭据均不能保存",
+            "passed": true
+          },
+          {
+            "name": "开局外观捕获后切聊天使旧头像凭据失效，不写存储或MVU",
+            "passed": true
+          },
+          {
+            "name": "开局外观捕获后换角色使旧头像凭据失效，不写存储或MVU",
+            "passed": true
+          },
+          {
+            "name": "开局外观捕获后换群组使旧头像凭据失效，不写存储或MVU",
+            "passed": true
+          },
+          {
+            "name": "开局外观捕获后切swipe使旧头像凭据失效，不写存储或MVU",
+            "passed": true
+          },
+          {
+            "name": "开局外观捕获后编辑正文使旧头像凭据失效，不写存储或MVU",
+            "passed": true
+          },
+          {
+            "name": "开局外观捕获后新增楼层使旧头像凭据失效，不写存储或MVU",
+            "passed": true
+          },
+          {
+            "name": "开局外观捕获后替换聊天数组使旧头像凭据失效，不写存储或MVU",
+            "passed": true
+          },
+          {
+            "name": "开局外观捕获后重建同位置消息使旧头像凭据失效，不写存储或MVU",
+            "passed": true
+          },
+          {
+            "name": "头像capture后另一界面保存使revision过期，保留竞争结果且不发变更事件",
+            "passed": true
+          },
+          {
+            "name": "无profileName与revision的旧终端头像记录可兼容，更新同玩家头像保留别名",
+            "passed": true
+          },
+          {
+            "name": "捕获后存储变成未知版本或来源时拒绝覆盖，保留原记录而不伪装成新开局来源",
+            "passed": true
+          },
+          {
+            "name": "明确替换开局人物后头像绑定新玩家，清掉前玩家别名并只保留一次MVU人物替换",
+            "passed": true
+          },
+          {
+            "name": "同一头像凭据保存一次后不可重放，不能再次覆写头像或发送事件",
+            "passed": true
+          },
+          {
+            "name": "本机外观存储失败不修改MVU，也不发出保存成功事件",
+            "passed": true
+          },
+          {
+            "name": "伴随guard运行时保护：恢复章段后也拒绝关联未来事件",
+            "passed": true
+          }
+        ]
+      }
+    },
+    {
+      "command": "node scripts/check-mvu-native.mjs",
+      "exitCode": 0,
+      "report": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "新初始化只有经验三轴零初值，不生成申请、收据或奖励",
+            "passed": true
+          },
+          {
+            "name": "纯结构修复补双缺容器，保留业务值、未知字段与调用方",
+            "passed": true
+          },
+          {
+            "name": "只缺申请时保留经验、旧收据与未知字段；完整状态无变化",
+            "passed": true
+          },
+          {
+            "name": "成长或申请已有null、数组和原始坏值一律保留",
+            "passed": true
+          },
+          {
+            "name": "经验容器与轴的已有坏值不覆盖；只填真正缺失的轴",
+            "passed": true
+          },
+          {
+            "name": "新建档模式仅补经验，旧申请历史保持原样且不补新申请",
+            "passed": true
+          },
+          {
+            "name": "非本卡v4中文结构不补容器，不猜测坏掉的玩家父对象",
+            "passed": true
+          },
+          {
+            "name": "迁移哨兵/锁定原生结构，保留全部业务值和外部包装，不推导内部镜像",
+            "passed": true
+          },
+          {
+            "name": "原生准备幂等，未知子字段、空/混合数组与模板保存",
+            "passed": true
+          },
+          {
+            "name": "桥接加载、注册后失败、有效guard与不完整ready都不误入原生",
+            "passed": true
+          },
+          {
+            "name": "结构修复先于运行模式判断；Zod、加载和失败状态仍保留schema门禁",
+            "passed": true
+          },
+          {
+            "name": "终值约束已就绪时只补经验，不制造空申请或替换Zod schema",
+            "passed": true
+          },
+          {
+            "name": "跨源top不可访问时仍识别同源parent的实际guard",
+            "passed": true
+          },
+          {
+            "name": "独立监听只处理本卡事件参数；关闭/重开不重复注册、不写楼层",
+            "passed": true
+          },
+          {
+            "name": "STARTED事件在两种模式及加载/失败状态补齐父容器，仅原生模式重建schema",
+            "passed": true
+          },
+          {
+            "name": "N04沿用原slot替换N01/N02/N03且重复安装保持唯一监听",
+            "passed": true
+          },
+          {
+            "name": "加载失败可重试；其他结构版本不会被迁移",
+            "passed": true
+          },
+          {
+            "name": "N04纯归一合并缺父记录并纠正replace缺字段，不修改输入",
+            "passed": true
+          },
+          {
+            "name": "N04遇到混合操作、数组路径、坏父或既有容器替换时完全保留原命令",
+            "passed": true
+          }
+        ]
+      }
+    }
+  ],
+  "packaging": [
+    {
+      "check": "package",
+      "exitCode": 1,
+      "output": "{\n  \"evidence\": \"parse5 HTML解析 → 实际完整脚本V8编译；独立源映射消费；未连接真实酒馆\",\n  \"passed\": 9,\n  \"total\": 9,\n  \"results\": [\n    {\n      \"name\": \"旧包直接编译通过，但完整宿主HTML解析后稳定复现两段SyntaxError\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"新包在HTML宿主中只产生一个未截断的完整脚本\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"实际JSON交付物经反序列化、宿主HTML及内页入口仍还原完整页面\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"HTML闭合标签、大小写、注释、中文、反斜杠及行分隔符往返保持原值\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"打包页面包含当前维护的全部 JS 与 CSS 模块，没有滞留旧版源码\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"交付脚本中注入的关系函数可独立执行，共享新上限且不缺闭包依赖\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"主壳与注入模块的真实生成位置可映射回原文件行\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"内页真实script文本不trim：源映射与原文件行一致且来源名明确\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"打包保留原脚本身份与按钮数据，不另建第二个运行实例\",\n      \"passed\": true\n    }\n  ]\n}\n✔ scripts\\黑白ADV轮盘终端\\packaging-test.mjs (667.5735ms)\n✔ embedded panel compiles as complete HTML with catalog portraits and no bundled sample/engine (21.6461ms)\n✔ unfinished and pending sessions stay labelled as preview; saved completion opens the same panel without altering state (1.5373ms)\n✔ host pushes the displayed snapshot, keeps one iframe, and resets only when source changes (0.9493ms)\n✔ selection maintenance reuses an existing schedule page instead of stacking duplicate pages (1.1845ms)\n✖ actual terminal preview receives derived OC, qualification, tie and other-school views only as offline fixtures (356.8221ms)\nℹ tests 6\nℹ suites 0\nℹ pass 5\nℹ fail 1\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 673.432\n\n✖ failing tests:\n\ntest at scripts\\黑白ADV轮盘终端\\tournament-panel-test.mjs:113:1\n✖ actual terminal preview receives derived OC, qualification, tie and other-school views only as offline fixtures (356.8221ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  \n  false !== true\n  \n      at TestContext.<anonymous> (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/%E9%BB%91%E7%99%BDADV%E8%BD%AE%E7%9B%98%E7%BB%88%E7%AB%AF/tournament-panel-test.mjs:129:10)\n      at Test.runInAsyncScope (node:async_hooks:226:14)\n      at Test.run (node:internal/test_runner/test:1118:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:787:18)\n      at Test.postRun (node:internal/test_runner/test:1247:19)\n      at Test.run (node:internal/test_runner/test:1175:12)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:787:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: false,\n    expected: true,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n"
+    },
+    {
+      "check": "controller-sync",
+      "exitCode": 0,
+      "output": "共享状态控制器与来源同步。\n"
+    },
+    {
+      "check": "guard-sync",
+      "exitCode": 0,
+      "output": "字段约束脚本与源文件一致；未读写世界书、三份 TXT 或初始化。\n"
+    },
+    {
+      "check": "component",
+      "exitCode": 0,
+      "output": "{\n  \"schemaVersion\": 1,\n  \"target\": \"E:\\\\web\\\\落第\\\\世界书规则\\\\MVU\\\\落第骑士-小手机-v1.3.29-B1-头像更新.json\",\n  \"errors\": [],\n  \"files\": [\n    {\n      \"file\": \"E:\\\\web\\\\落第\\\\世界书规则\\\\MVU\\\\落第骑士-小手机-v1.3.29-B1-头像更新.json\",\n      \"kind\": \"helper-script\",\n      \"errors\": []\n    }\n  ]\n}\n"
+    },
+    {
+      "check": "guard-component",
+      "exitCode": 0,
+      "output": "{\n  \"schemaVersion\": 1,\n  \"target\": \"E:\\\\web\\\\落第\\\\世界书规则\\\\MVU\\\\落第骑士-MVU-v4字段约束.json\",\n  \"errors\": [],\n  \"files\": [\n    {\n      \"file\": \"E:\\\\web\\\\落第\\\\世界书规则\\\\MVU\\\\落第骑士-MVU-v4字段约束.json\",\n      \"kind\": \"helper-script\",\n      \"errors\": []\n    }\n  ]\n}\n"
+    }
+  ],
+  "finalChecks": [
+    {
+      "check": "panel",
+      "exitCode": 0,
+      "output": "✔ embedded panel compiles as complete HTML with catalog portraits and no bundled sample/engine (18.8983ms)\n✔ unfinished and pending sessions stay labelled as preview; saved completion opens the same panel without altering state (1.3797ms)\n✔ host pushes the displayed snapshot, keeps one iframe, and resets only when source changes (0.842ms)\n✔ selection maintenance reuses an existing schedule page instead of stacking duplicate pages (1.1877ms)\n✔ actual terminal preview receives derived OC, qualification, tie and other-school views only as offline fixtures (412.4676ms)\nℹ tests 5\nℹ suites 0\nℹ pass 5\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 531.6166\n"
+    },
+    {
+      "check": "correction",
+      "exitCode": 0,
+      "output": "{\n  \"total\": 11,\n  \"passed\": 11,\n  \"runtime\": \"真实 correction.js + 固定上游请求与后端排除片段；宿主状态、MVU、网络和时钟为替身，未连接酒馆\",\n  \"results\": [\n    {\n      \"name\": \"旧配置默认空列表，首次请求保留输出上限与必需字段\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"混合分隔符去重并区分大小写，本机保存后重载恢复\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"保存其他配置未提供排除列表时保留；留空与空数组可清除\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"非法参数名、类型与超限输入不覆盖已保存的配置或密钥\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"64项、128字符参数名和连字符接受；大小写不同和未知名称不误删\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"固定上游实现最终序列化时排除三个常见参数，未排除字段及消息JSON不变\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"手动与自动校正经过相同真实宿主排除路径，重载后仍生效\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"清空并保存后后续请求恢复发送参数\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"排除仅处理API请求体；显式排除model/messages不破坏副连接路由和认证\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"保存、手动、自动均不修改主连接配置或借用主连接认证\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"当前版本导入组件包含排除请求字段与设置输入\",\n      \"passed\": true\n    }\n  ]\n}\n"
+    },
+    {
+      "check": "metadata",
+      "exitCode": 0,
+      "output": "{\"metadataPreserved\":true,\"versionUnchanged\":true,\"qualificationBundled\":true}\n"
+    }
+  ],
+  "resolvedFailure": "内嵌预览检查仍断言完整288人账本；改为验证不完整账本下已保存资格可显示，并重跑通过。打包9项检查在首轮已经全部通过。",
+  "delegatedChecks": [
+    {
+      "file": "scripts/check-tournament-qualification.mjs",
+      "passed": 7,
+      "total": 7
+    },
+    {
+      "file": "scripts/check-tournament.mjs",
+      "passed": 37,
+      "total": 37
+    },
+    {
+      "file": "scripts/check-mvu-runtime-schema.mjs",
+      "passed": 24,
+      "total": 24
+    },
+    {
+      "file": "scripts/check-tournament-guard.mjs",
+      "passed": 10,
+      "total": 10
+    },
+    {
+      "file": "scripts/黑白ADV轮盘终端/tournament-ui-test.mjs",
+      "passed": 19,
+      "total": 19
+    },
+    {
+      "file": "七星剑武祭-晋级面板预览/mvu-model.test.mjs",
+      "passed": true
+    },
+    {
+      "file": "七星剑武祭-晋级面板预览/session-bracket.test.mjs",
+      "passed": true
+    }
+  ],
+  "review": "独立只读复核：无新增实质阻塞；空依据显示、ID冲突已修复；积分/日历/背景推演和全国签表流程未改。"
+}

@@ -15,15 +15,18 @@
     if (typeof W.TavernHelper?.[name] === 'function') return W.TavernHelper[name].bind(W.TavernHelper);
     throw new Error(`酒馆助手缺少 ${name}，尚未写入。`);
   }
+  function validationZ() {
+    const Z = W.z || host().z;
+    if (!Z?.preprocess || !Z?.toJSONSchema) throw new Error('未找到酒馆助手提供的 Zod 4，尚未写入。');
+    return Z;
+  }
   function runtime() {
     const H = host(), mvu = W.Mvu || H.Mvu;
     if (!mvu || typeof mvu.getMvuData !== 'function') throw new Error('MVU 尚未就绪，请启用变量框架后重试。');
     const version = helper('getTavernHelperVersion')();
     const parts = String(version).match(/^(\d+)\.(\d+)\.(\d+)/);
     if (!parts || Number(parts[1]) < 4 || (Number(parts[1]) === 4 && (Number(parts[2]) < 8 || (Number(parts[2]) === 8 && Number(parts[3]) < 19)))) throw new Error('本建档器需要酒馆助手 4.8.19 或以上的同步变量接口。');
-    const Z = W.z || H.z;
-    if (!Z?.preprocess || !Z?.toJSONSchema) throw new Error('未找到酒馆助手提供的 Zod 4，尚未写入。');
-    return { H, mvu, Z };
+    return { H, mvu, Z: validationZ() };
   }
   function sync(value, label) {
     if (value && typeof value.then === 'function') throw new Error(`${label} 在此版本不是同步接口，不能确认分支隔离。`);
@@ -31,23 +34,7 @@
   }
   function position(messageId) {
     const { H, mvu } = runtime();
-    const oldGuard = [W, H].some(scope => scope.__RK_MVU_GUARD_V3__) || (function () {
-      try { return W.parent?.__RK_MVU_GUARD_V3__ || W.top?.__RK_MVU_GUARD_V3__; } catch (_) { return false; }
-    })();
-    if (oldGuard) throw new Error('旧版 v3 约束仍在运行，请先停用并重载酒馆，避免与 v4 档案冲突。');
-    const mode = rakudaiMvuRuntime([W, H]);
-    if (mode.mode === 'loading' || mode.mode === 'failed') {
-      const error = new Error('MVU v4 约束' + (mode.mode === 'loading' ? '正在初始化：' : '启动失败：') +
-        (mode.boot?.message || '请查看约束脚本日志，排除加载错误后重载酒馆。'));
-      error.code = mode.mode === 'loading' ? 'RK_GUARD_LOADING' : 'RK_GUARD_FAILED';
-      throw error;
-    }
-    const guard = mode.guard;
-    if (guard) {
-      if (guard.version !== '4.0.0') throw new Error('当前字段约束版本不兼容，请更新为配套 MVU v4 约束，或停用后重载酒馆。');
-      // 旧v4也叫4.0.0，但不认识魔人觉醒；只对实际开启的约束核对修订。
-      if (guard.growth !== 'G03') throw new Error('当前运行的是旧v4约束，不支持玩家.魔人觉醒。请替换为标有G03/P02的v4约束并重载酒馆；保留现有true/false，不要重新初始化。');
-    }
+    // ponytail: 操作由本地校验负责，外置字段约束的启动与版本不作为读取门禁。
     const ctx = H.SillyTavern.getContext();
     const chatId = ctx.chatId;
     if (chatId === null || chatId === undefined || chatId === '' || !Array.isArray(ctx.chat) || !ctx.chat.length) throw new Error('当前没有可建档的聊天。');
@@ -80,7 +67,7 @@
   }
   function validateState(value) {
     // 页面与副校正仅校验内存候选，不重算人际，也不创建楼层写入凭据。
-    const parsed = createSchema(runtime().Z, { normalizeRelationships: false }).parse(value);
+    const parsed = createSchema(validationZ(), { normalizeRelationships: false }).parse(value);
     const state = cloneState(value);
     state.场景.当前章 = parsed.场景.当前章;
     state.场景.阶段 = parsed.场景.阶段;
@@ -95,8 +82,8 @@
       return position(messageId);
     },
     current, assertOpeningReplacement,
-    validate: (value, scope = 'full') => scope === 'full' ? validateState(value) : validateStateOperation(value, scope, runtime().Z),
-    migrate: value => prepareStateMigration(value, runtime().Z),
+    validate: (value, scope = 'full') => scope === 'full' ? validateState(value) : validateStateOperation(value, scope, validationZ()),
+    migrate: value => prepareStateMigration(value, validationZ()),
     write: (saved, expected, state, { openingReplacement = false } = {}) => {
       if (openingReplacement) assertOpeningReplacement(saved);
       const now = current(saved), H = now.H;
