@@ -1,0 +1,132 @@
+{
+  "updated": "2026-10-24",
+  "scope": "OC visual presentation update; generated adaptation assets, not official frames.",
+  "assets": [
+    {
+      "file": "cards/slash.png",
+      "type": "generated combat illustration",
+      "generator": "built-in imagegen",
+      "original": "C:\\Users\\weijunxiang\\.codex\\generated_images\\01a16427-6457-7360-b44d-623499084749\\exec-00a305c5-f809-4553-8662-71e92d6e7c90.png",
+      "prompt": "../docs/visual-prompts-20261024.md",
+      "references": [],
+      "dimensions": [1536, 1024],
+      "adaptation": "Original faceless OC combat scene, not an anime screenshot.",
+      "usage": "Archived generated illustration; no longer referenced by the live UI after user feedback. Hand and evolution cards use SVG emblems, and the default portrait uses the academy shield."
+    },
+    {
+      "file": "cards/thrust.png",
+      "type": "generated combat illustration",
+      "generator": "built-in imagegen",
+      "original": "C:\\Users\\weijunxiang\\.codex\\generated_images\\01a16427-6457-7360-b44d-623499084749\\exec-144bbd90-d942-4ff5-9bb4-f140debc9b48.png",
+      "prompt": "../docs/visual-prompts-20261024.md",
+      "references": [],
+      "dimensions": [1536, 1024],
+      "adaptation": "Original faceless OC combat scene, not an anime screenshot.",
+      "usage": "Archived generated illustration; no longer referenced by the live UI after user feedback. Hand and evolution cards use SVG emblems, and the default portrait uses the academy shield."
+    },
+    {
+      "file": "cards/guard.png",
+      "type": "generated combat illustration",
+      "generator": "built-in imagegen",
+      "original": "C:\\Users\\weijunxiang\\.codex\\generated_images\\01a16427-6457-7360-b44d-623499084749\\exec-0e9d5960-9c00-4e08-b495-b9a5ee016dfc.png",
+      "prompt": "../docs/visual-prompts-20261024.md",
+      "references": [],
+      "dimensions": [1536, 1024],
+      "adaptation": "Original faceless OC combat scene, not an anime screenshot.",
+      "usage": "Archived generated illustration; no longer referenced by the live UI after user feedback. Hand and evolution cards use SVG emblems, and the default portrait uses the academy shield."
+    },
+    {
+      "file": "cards/focus.png",
+      "type": "generated combat illustration",
+      "generator": "built-in imagegen",
+      "original": "C:\\Users\\weijunxiang\\.codex\\generated_images\\01a16427-6457-7360-b44d-623499084749\\exec-614713bf-c933-4e93-9642-58d2c938acbd.png",
+      "prompt": "../docs/visual-prompts-20261024.md",
+      "references": [],
+      "dimensions": [1536, 1024],
+      "adaptation": "Original faceless OC combat scene, not an anime screenshot.",
+      "usage": "Archived generated illustration; no longer referenced by the live UI after user feedback. Hand and evolution cards use SVG emblems, and the default portrait uses the academy shield."
+    },
+    {
+      "file": "cards/step.png",
+      "type": "generated combat illustration",
+      "generator": "built-in imagegen",
+      "original": "C:\\Users\\weijunxiang\\.codex\\generated_images\\01a16427-6457-7360-b44d-623499084749\\exec-870c9e20-bad1-4877-a507-a4338b49dee2.png",
+      "prompt": "../docs/visual-prompts-20261024.md",
+      "references": [],
+      "dimensions": [1536, 1024],
+      "adaptation": "Original faceless OC combat scene, not an anime screenshot.",
+      "usage": "Archived generated illustration; no longer referenced by the live UI after user feedback. Hand and evolution cards use SVG emblems, and the default portrait uses the academy shield."
+    },
+    {
+      "file": "cards/heavy.png",
+      "type": "generated combat illustration",
+      "generator": "built-in imagegen",
+      "original": "C:\\Users\\weijunxiang\\.codex\\generated_images\\01a16427-6457-7360-b44d-623499084749\\exec-914f3eb2-8cbb-4563-9915-8f1f1853da6e.png",
+      "prompt": "../docs/visual-prompts-20261024.md",
+      "references": [],
+      "dimensions": [1536, 1024],
+      "adaptation": "Original faceless OC combat scene, not an anime screenshot.",
+      "usage": "Archived generated illustration; no longer referenced by the live UI after user feedback. Hand and evolution cards use SVG emblems, and the default portrait uses the academy shield."
+    },
+    {
+      "file": "stella-front-ready-v5.png",
+      "type": "generated RGBA full-body pose",
+      "generator": "built-in imagegen",
+      "original": "C:\\Users\\weijunxiang\\.codex\\generated_images\\01a16427-6457-7360-b44d-623499084749\\exec-71c67c0c-cb9b-4d1d-bc59-3d0e44493830.png",
+      "prompt": "../docs/stella-front-v5-prompts.txt",
+      "references": [
+        "stella-front.png",
+        "references/stella-official.jpg",
+        "../../cardgame/assets/references/stella-user-poses.png"
+      ],
+      "dimensions": [1254, 1254],
+      "registrationSource": "../art.mjs",
+      "viewpoint": "front-facing opponent, gaze toward the player",
+      "effects": "Flames are separate vector effects; complete pose uses one shared source-pixel scale."
+    },
+    {
+      "file": "stella-front-cut-v5.png",
+      "type": "generated RGBA full-body pose",
+      "generator": "built-in imagegen",
+      "original": "C:\\Users\\weijunxiang\\.codex\\generated_images\\01a16427-6457-7360-b44d-623499084749\\exec-449b6b3c-b1a5-4cef-b4f8-5dba0ac597cf.png",
+      "prompt": "../docs/stella-front-v5-prompts.txt",
+      "references": ["stella-front-ready-v5.png"],
+      "dimensions": [1254, 1254],
+      "registrationSource": "../art.mjs",
+      "viewpoint": "front-facing opponent, gaze toward the player",
+      "effects": "Flames are separate vector effects; complete pose uses one shared source-pixel scale."
+    },
+    {
+      "file": "ayase-critical-v1.png",
+      "type": "generated anime eye cut-in",
+      "generator": "built-in imagegen",
+      "original": "C:/Users/weijunxiang/.codex/generated_images/01a16427-6457-7360-b44d-623499084749/exec-2b434587-a7bf-4db7-975f-61aaaa4f568f.png",
+      "prompt": "../docs/ayase-critical-prompt-20261024.txt",
+      "dimensions": [2172, 724],
+      "references": [
+        {
+          "file": "references/ayase-official.jpg",
+          "role": "primary anime character identity, right eye hidden by bangs (viewer left)",
+          "url": "https://ittoshura.com/character/chara_ayase.jpg"
+        },
+        {
+          "file": "references/ayase-rooftop-ep07.jpg",
+          "role": "anime episode 7 face and cel coloring"
+        },
+        {
+          "file": "references/p3p-critical-cut-in-reference.jpg",
+          "role": "horizontal eye close-up composition; screenshot of P3P Critical Cut-Ins recreated in P3 FES by StavaasEVG, not an unmodified game screenshot",
+          "url": "https://gamebanana.com/mods/546421",
+          "imageUrl": "https://images.gamebanana.com/img/ss/mods/670815a03c109.jpg"
+        },
+        {
+          "file": "references/p3r-cut-in-reference.jpg",
+          "role": "P3 Reload shared battle cut-in look: cobalt lighting and glasslike droplets. Image shows Agi casting, not proof of a physical critical-hit event.",
+          "url": "https://x.com/Screenments/status/1694262005106905534",
+          "imageUrl": "https://pbs.twimg.com/media/F4M6RV1W8AAf_S2.jpg"
+        }
+      ],
+      "adaptation": "New Ayase artwork, generated from anime identity references and P3 cut-in visual references. Not an official frame. Only this new illustration is displayed by the demo; P3 screenshot files remain references."
+    }
+  ]
+}

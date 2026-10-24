@@ -1,0 +1,167 @@
+- main [ref=e2]:
+  - generic [aria-hidden]:
+    - generic: GA BUNKO × CAVALRY DUEL SYSTEM
+    - generic: 最弱の魔力 × 最強の剣技
+  - generic [ref=e5]:
+    - generic [ref=e6]:
+      - generic [ref=e11]:
+        - generic [ref=e12]: 破軍学園 · A TALE OF WORST ONE
+        - heading "放课后的约定" [level=1] [ref=e13]
+      - generic [ref=e14]: F级 · 《阴铁·改》
+    - generic [ref=e15]:
+      - generic [ref=e16]: 第一演习场
+      - generic [ref=e18]: 完全掌握 · 均衡回路
+    - navigation "演示设置" [ref=e19]:
+      - button "✦ 临场变招 1" [ref=e20] [cursor=pointer]:
+        - text: ✦ 临场变招
+        - generic [ref=e21]: "1"
+      - button "自定义主角" [ref=e22] [cursor=pointer]
+      - button "玩法说明" [ref=e23] [cursor=pointer]: "?"
+      - button "重新对练" [ref=e24] [cursor=pointer]: ↻
+  - region "史黛菈状态" [ref=e25]:
+    - generic [ref=e26]:
+      - generic [aria-hidden] [ref=e27]: A
+      - generic [ref=e28]:
+        - generic [ref=e29]: 〈紅蓮の皇女〉 · CRIMSON PRINCESS
+        - heading "史黛菈·法米利昂" [level=2] [ref=e30]
+    - generic [ref=e31]:
+      - progressbar "史黛菈生命" [ref=e32]
+      - generic [ref=e34]: 108 / 108
+    - generic [ref=e35]: 固有灵装《妃龙罪业》 · 幻想形态
+  - complementary "羁绊伙伴" [ref=e37]:
+    - generic [ref=e38]:
+      - generic [ref=e39]: 同行者 · PARTNER
+      - generic [ref=e40]: 絆 01
+    - button "查看绫辻绚濑真命天女卡" [ref=e41] [cursor=pointer]:
+      - img "绫辻绚濑身穿素白浴衣，喜极而泣地抱着夺回的绫辻一刀流道场匾牌" [ref=e42]
+      - generic [aria-hidden] [ref=e43]: 絆
+      - generic [ref=e44]:
+        - generic [ref=e45]: 真命天女
+        - heading "绫辻绚濑" [level=2] [ref=e46]
+        - generic [ref=e47]: 取り戻した居場所
+      - generic [aria-hidden] [ref=e48]: ⤢
+    - button "并肩 回12血·8盾 · 同调+50%·变招+1 1 / 1" [ref=e49] [cursor=pointer]:
+      - generic [aria-hidden] [ref=e50]: ✧
+      - generic [ref=e51]:
+        - strong [ref=e52]: 并肩
+        - generic [ref=e53]: 回12血·8盾 · 同调+50%·变招+1
+      - emphasis [ref=e54]: 1 / 1
+    - paragraph [ref=e55]: 「终于……回来了。」
+  - region "对战场景":
+    - generic [aria-hidden]:
+      - generic: 〈紅蓮の皇女〉
+      - paragraph: 『来吧——让我见识你的灵装！』
+    - generic "史黛菈正面持剑迎战"
+    - generic "史黛菈下回合斩击，造成 14 点伤害":
+      - generic [aria-hidden]: ↘
+      - generic:
+        - generic: 下回合意图 · INTENT
+        - strong: 斩击
+      - generic: "14"
+    - generic: 来吧，让我看看你的剑术。
+  - complementary "固有灵装与流派构筑" [ref=e56]:
+    - generic [ref=e57]:
+      - generic [ref=e58]: 固有灵装 · BUILD
+      - generic [ref=e59]: RANK F
+    - generic [ref=e60]:
+      - generic [ref=e61]:
+        - generic [aria-hidden] [ref=e62]: 眼
+        - generic [ref=e63]:
+          - generic [ref=e64]: 体能强化系 · 均衡铭刻
+          - strong [ref=e65]: 《阴铁·改》
+      - generic [ref=e66]:
+        - generic [ref=e67]:
+          - generic [ref=e68]: 【看破】印记
+          - generic [ref=e69]: 0 / 3
+        - paragraph [ref=e74]: 出牌叠满 3 层【看破】触发【完全掌握·秘剑】
+      - generic [ref=e75]:
+        - button "伐刀绝技 · NOBLE ART 一刀修罗 0%" [disabled] [ref=e76]:
+          - generic [ref=e77]:
+            - generic [ref=e78]:
+              - generic [ref=e79]: 伐刀绝技 · NOBLE ART
+              - strong [ref=e80]: 一刀修罗
+            - emphasis [ref=e81]: 0%
+        - button "临场变招 · 词条铭刻 可用 1 次 · 已铭刻 0 项词条 1" [ref=e82] [cursor=pointer]:
+          - generic [aria-hidden] [ref=e83]: ✦
+          - generic [ref=e84]:
+            - strong [ref=e85]: 临场变招 · 词条铭刻
+            - generic [ref=e86]: 可用 1 次 · 已铭刻 0 项词条
+          - generic [ref=e87]: "1"
+  - complementary "回合记录" [ref=e88]:
+    - generic [ref=e89]:
+      - generic [ref=e90]: 交战记录
+      - generic [ref=e91]: ROUND 01
+    - list [ref=e92]:
+      - listitem [ref=e93]: 史黛菈摆好了架势。
+    - button "▷ 观看挥砍" [ref=e94] [cursor=pointer]
+  - status: 你的回合
+  - region "主角状态" [ref=e95]:
+    - generic [aria-hidden] [ref=e96]: 剣
+    - generic [ref=e97]:
+      - generic [ref=e98]:
+        - strong [ref=e99]: 无名剑士
+        - generic [ref=e100]: 长剑·看破
+      - generic [ref=e101]:
+        - progressbar "主角生命" [ref=e102]
+        - generic [ref=e104]: 76 / 76
+      - generic [ref=e105]: 护盾 0
+  - region "手牌" [ref=e107]:
+    - generic [ref=e108]:
+      - generic [ref=e109]: 抽牌堆 7
+      - generic [ref=e110]: 弃牌堆 0
+    - generic [ref=e111]:
+      - button "斩击，消耗 1 行动，造成 12 点伤害" [ref=e112] [cursor=pointer]:
+        - generic [ref=e113]: "1"
+        - generic [ref=e114]: 斬撃
+        - generic [ref=e119]:
+          - strong [ref=e120]: 斩击
+          - generic [ref=e121]: 造成 12 点伤害
+          - generic [ref=e122]: +1 看破
+        - generic [ref=e123]: 攻击
+        - generic [ref=e124]: "1"
+      - button "招架，消耗 1 行动，获得 12 点护盾" [ref=e125] [cursor=pointer]:
+        - generic [ref=e126]: "1"
+        - generic [ref=e127]: 受け流し
+        - generic [ref=e132]:
+          - strong [ref=e133]: 招架
+          - generic [ref=e134]: 获得 12 点护盾
+          - generic [ref=e135]: +1 看破
+        - generic [ref=e136]: 防御
+        - generic [ref=e137]: "2"
+      - button "蓄力，消耗 1 行动，下次攻击 +8，抽 1 张牌" [ref=e138] [cursor=pointer]:
+        - generic [ref=e139]: "1"
+        - generic [ref=e140]: 精神統一
+        - generic [ref=e146]:
+          - strong [ref=e147]: 蓄力
+          - generic [ref=e148]: 下次攻击 +8抽 1 张牌
+          - generic [ref=e149]: +1 看破
+        - generic [ref=e150]: 技巧
+        - generic [ref=e151]: "3"
+      - button "步法，消耗 0 行动，获得 4 点护盾，抽 1 张牌" [ref=e152] [cursor=pointer]:
+        - generic [ref=e153]: "0"
+        - generic [ref=e154]: 足運び
+        - generic [ref=e159]:
+          - strong [ref=e160]: 步法
+          - generic [ref=e161]: 获得 4 点护盾抽 1 张牌
+          - generic [ref=e162]: +1 看破
+        - generic [ref=e163]: 身法
+        - generic [ref=e164]: "4"
+      - button "重斩，消耗 2 行动，造成 26 点伤害" [ref=e165] [cursor=pointer]:
+        - generic [ref=e166]: "2"
+        - generic [ref=e167]: 一振り
+        - generic [ref=e172]:
+          - strong [ref=e173]: 重斩
+          - generic [ref=e174]: 造成 26 点伤害
+          - generic [ref=e175]: +1 看破
+        - generic [ref=e176]: 攻击
+        - generic [ref=e177]: "5"
+  - generic [ref=e178]:
+    - generic "行动点 3，上限 3" [ref=e179]:
+      - generic [ref=e180]: 行动
+      - strong [ref=e185]: 3 / 3
+    - button "结束回合 SPACE" [ref=e186] [cursor=pointer]:
+      - text: 结束回合
+      - generic [ref=e187]: SPACE
+  - generic [ref=e188]:
+    - generic [ref=e189]: 《阴铁·改》 · 体能强化系 × 均衡魔力回路
+    - generic [ref=e190]: 1—5 出牌 · E 变招 · Q 绝技 · 空格结束回合

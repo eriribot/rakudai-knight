@@ -2,6 +2,8 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {
   ARCANAS,
+  ABILITY_CLASSES,
+  applyStatus,
   PACTS,
   CARD_MODS,
   PRESETS,
@@ -21,6 +23,123 @@ import {
   nextTurn,
 } from "./engine.mjs";
 const play = (s, kind) => playCard(s, s.hand.find((c) => c.kind === kind)?.id);
+
+test("five setting classes, freeform appearance and attack status survive profile roundtrip independently", () => {
+  assert.equal(Object.keys(ABILITY_CLASSES).length, 5);
+  for (const abilityClass of Object.keys(ABILITY_CLASSES)) {
+    const p = cleanProfile({
+      abilityClass,
+      arcana: "scar",
+      attackStatus: "poison",
+      deviceAppearance: "一副银色手套，指节缠着细线。",
+      rank: "C",
+    });
+    assert.deepEqual(cleanProfile(JSON.parse(JSON.stringify(p))), p);
+    assert.equal(p.arcana, "scar");
+    assert.equal(p.abilityClass, abilityClass);
+    assert.equal(p.deviceAppearance, "一副银色手套，指节缠着细线。");
+    assert.equal(p.rank, "C");
+  }
+  assert.equal(cleanProfile({ arcana: "blaze" }).abilityClass, "nature");
+  assert.equal(
+    cleanProfile({
+      avatarDataUrl: 'data:image/svg+xml,<svg onload="alert(1)"/>',
+    }).avatarDataUrl,
+    "",
+  );
+  assert.equal(cleanProfile({ attackStatus: "bad" }).attackStatus, "none");
+});
+
+test("attack ailments require HP damage; reapplication stacks and refreshes duration", () => {
+  const s = createBattle({ attackStatus: "poison" });
+  s.enemy.block = 100;
+  play(s, "slash");
+  assert.deepEqual(s.enemy.statuses, {});
+  s.enemy.block = 0;
+  play(s, "heavy");
+  assert.deepEqual(s.enemy.statuses.poison, { stacks: 1, remaining: 3 });
+  turn(s);
+  assert.deepEqual(s.enemy.statuses.poison, { stacks: 1, remaining: 2 });
+  play(s, "slash");
+  assert.deepEqual(s.enemy.statuses.poison, { stacks: 2, remaining: 3 });
+  applyStatus(s, "enemy", "poison", 99);
+  assert.equal(s.enemy.statuses.poison.stacks, 20);
+});
+
+test("poison and burn tick at their owner's turn end, bypass block, and expire", () => {
+  const s = createBattle();
+  applyStatus(s, "enemy", "poison", 2);
+  applyStatus(s, "enemy", "burn", 1);
+  beginEnemy(s);
+  assert.equal(s.enemy.hp, 108);
+  resolveEnemy(s);
+  assert.equal(s.enemy.hp, 104);
+  nextTurn(s);
+  turn(s); // enemy guards for 14, ailments must ignore that shield
+  assert.equal(s.enemy.hp, 100);
+  assert.equal(s.enemy.block, 14);
+  assert.equal(s.enemy.statuses.burn, undefined);
+  turn(s);
+  assert.equal(s.enemy.hp, 98);
+  assert.equal(s.enemy.statuses.poison, undefined);
+  assert.equal(s.damageDealt, 10);
+});
+
+test("bleed ticks on attacks including noble arts, but not guard or support", () => {
+  const s = createBattle();
+  applyStatus(s, "player", "bleed", 2);
+  play(s, "guard");
+  useSupport(s);
+  assert.equal(s.player.hp, 76);
+  play(s, "slash");
+  assert.equal(s.player.hp, 72);
+  assert.equal(s.player.statuses.bleed.remaining, 1);
+  s.sync = 100;
+  useNobleArt(s); // standard pact heals 3 before the four-point bleed tick
+  assert.equal(s.player.hp, 71);
+  assert.equal(s.player.statuses.bleed, undefined);
+});
+
+test("Stella's flame attack applies two burn stacks only when it reaches HP", () => {
+  const exposed = createBattle(),
+    guarded = createBattle();
+  for (const s of [exposed, guarded]) {
+    s.turn = 3;
+    beginEnemy(s);
+  }
+  guarded.player.block = 30;
+  resolveEnemy(exposed);
+  resolveEnemy(guarded);
+  assert.deepEqual(exposed.player.statuses.burn, { stacks: 2, remaining: 2 });
+  assert.equal(exposed.player.hp, 53);
+  assert.equal(guarded.player.statuses.burn, undefined);
+  nextTurn(exposed);
+  beginEnemy(exposed);
+  assert.equal(exposed.player.hp, 49);
+});
+
+test("lethal player status ends combat before enemy action and cannot advance", () => {
+  const s = createBattle();
+  s.player.hp = 1;
+  applyStatus(s, "player", "poison");
+  assert.equal(beginEnemy(s), null);
+  assert.equal(s.phase, "lost");
+  assert.equal(resolveEnemy(s), null);
+  assert.equal(nextTurn(s), false);
+});
+
+test("a turn cannot advance early or resolve enemy damage and statuses twice", () => {
+  const s = createBattle();
+  applyStatus(s, "enemy", "burn");
+  beginEnemy(s);
+  assert.equal(nextTurn(s), false);
+  resolveEnemy(s);
+  const snapshot = JSON.stringify(s);
+  assert.equal(resolveEnemy(s), null);
+  assert.equal(JSON.stringify(s), snapshot);
+  assert.equal(nextTurn(s), true);
+  assert.equal(nextTurn(s), false);
+});
 function turn(s) {
   beginEnemy(s);
   const result = resolveEnemy(s);
@@ -214,7 +333,11 @@ test("all four arcana resonances and noble arts trigger distinct build payoffs",
 });
 
 test("aegis_flow pact reflects damage and builds sync when blocking enemy attacks", () => {
-  const s = createBattle({ style: "sword", arcana: "scar", pact: "aegis_flow" });
+  const s = createBattle({
+    style: "sword",
+    arcana: "scar",
+    pact: "aegis_flow",
+  });
   play(s, "guard");
   const enemyHpBefore = s.enemy.hp;
   beginEnemy(s);

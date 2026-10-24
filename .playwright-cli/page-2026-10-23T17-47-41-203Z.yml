@@ -1,0 +1,125 @@
+- main [ref=f1e2]:
+  - generic [ref=f1e3]:
+    - generic [ref=f1e5]:
+      - text: 落第騎士の英雄譚 · 破軍学園
+      - heading "VS 史黛菈" [level=1] [ref=f1e6]
+    - navigation "演示设置" [ref=f1e7]:
+      - button "自定义主角" [ref=f1e8] [cursor=pointer]
+      - button "玩法说明" [ref=f1e9] [cursor=pointer]: "?"
+      - button "重新对练" [ref=f1e10] [cursor=pointer]: ↻
+  - region "史黛菈状态" [ref=f1e11]:
+    - generic [ref=f1e12]:
+      - generic [aria-hidden] [ref=f1e13]: A
+      - generic [ref=f1e14]:
+        - generic [ref=f1e15]: 〈紅蓮の皇女〉 · CRIMSON PRINCESS
+        - heading "史黛菈·法米利昂" [level=2] [ref=f1e16]
+    - generic [ref=f1e17]:
+      - progressbar "史黛菈生命" [ref=f1e18]
+      - generic [ref=f1e20]: 108 / 108
+    - generic [ref=f1e21]: 固有灵装〈妃龙罪剑〉 · 幻想形态
+  - complementary "羁绊伙伴" [ref=f1e23]:
+    - generic [ref=f1e24]: 同行者 · PARTNER
+    - button "查看绫辻绚濑真命天女卡" [ref=f1e26] [cursor=pointer]:
+      - img "绫辻绚濑身穿素白浴衣，喜极而泣地抱着夺回的绫辻一刀流道场匾牌" [ref=f1e27]
+      - generic [aria-hidden] [ref=f1e28]: 絆
+      - generic [ref=f1e29]:
+        - text: 真命天女
+        - heading "绫辻绚濑" [level=2] [ref=f1e30]
+    - button [ref=f1e31] [cursor=pointer]:
+      - strong [ref=f1e33]: 并肩
+      - emphasis [ref=f1e34]: 1 / 1
+  - region "对战场景":
+    - generic:
+      - generic: 史黛菈
+      - paragraph: 来吧，让我看看你的剑术。
+    - generic "史黛菈正面持剑迎战"
+    - generic "史黛菈下回合斩击，造成 14 点伤害":
+      - generic [aria-hidden]: ↘
+      - generic:
+        - generic: 下一击
+        - strong: 斩击
+      - generic: "14"
+  - complementary "固有灵装与流派构筑" [ref=f1e35]:
+    - generic [ref=f1e36]:
+      - generic [ref=f1e38]:
+        - generic [ref=f1e39]: 体能强化系 · 均衡铭刻
+        - strong [ref=f1e40]: 《阴铁·改》
+      - generic [ref=f1e41]:
+        - generic [ref=f1e42]:
+          - generic [ref=f1e43]: 【看破】印记
+          - generic [ref=f1e44]: 0 / 3
+        - paragraph [ref=f1e49]: 出牌叠满 3 层【看破】触发【完全掌握·秘剑】
+      - generic [ref=f1e50]:
+        - button "伐刀绝技 · NOBLE ART 一刀修罗 0%" [disabled] [ref=f1e51]:
+          - generic [ref=f1e52]:
+            - generic [ref=f1e53]:
+              - generic [ref=f1e54]: 伐刀绝技 · NOBLE ART
+              - strong [ref=f1e55]: 一刀修罗
+            - emphasis [ref=f1e56]: 0%
+        - button "临场变招 1" [ref=f1e57] [cursor=pointer]:
+          - strong [ref=f1e59]: 临场变招
+          - generic [ref=f1e60]: "1"
+  - complementary "回合记录" [ref=f1e61]:
+    - button "▷ 观看挥砍" [ref=f1e62] [cursor=pointer]
+  - status [ref=f1e63]: 你的回合
+  - region "主角状态" [ref=f1e64]:
+    - generic [ref=f1e65]:
+      - generic [ref=f1e66]:
+        - strong [ref=f1e67]: 无名剑士
+        - generic [ref=f1e68]: 长剑·看破
+      - generic [ref=f1e69]:
+        - progressbar "主角生命" [ref=f1e70]
+        - generic [ref=f1e72]: 76 / 76
+      - generic [ref=f1e73]: 护盾 0
+  - region "手牌" [ref=f1e75]:
+    - generic [ref=f1e76]:
+      - generic [ref=f1e77]: 抽牌堆 7
+      - generic [ref=f1e78]: 左右滑动手牌
+      - generic [ref=f1e79]: 弃牌堆 0
+    - generic [ref=f1e80]:
+      - button "斩击，消耗 1 行动，造成 12 点伤害" [ref=f1e81] [cursor=pointer]:
+        - generic [ref=f1e82]: "1"
+        - generic [ref=f1e83]: 斬撃
+        - generic [ref=f1e85]:
+          - strong [ref=f1e86]: 斩击
+          - generic [ref=f1e87]: 造成 12 点伤害
+          - generic [ref=f1e88]: +1 看破
+        - generic [ref=f1e89]: 攻击
+      - button "招架，消耗 1 行动，获得 12 点护盾" [ref=f1e90] [cursor=pointer]:
+        - generic [ref=f1e91]: "1"
+        - generic [ref=f1e92]: 受け流し
+        - generic [ref=f1e94]:
+          - strong [ref=f1e95]: 招架
+          - generic [ref=f1e96]: 获得 12 点护盾
+          - generic [ref=f1e97]: +1 看破
+        - generic [ref=f1e98]: 防御
+      - button "蓄力，消耗 1 行动，下次攻击 +8，抽 1 张牌" [ref=f1e99] [cursor=pointer]:
+        - generic [ref=f1e100]: "1"
+        - generic [ref=f1e101]: 精神統一
+        - generic [ref=f1e103]:
+          - strong [ref=f1e104]: 蓄力
+          - generic [ref=f1e105]: 下次攻击 +8抽 1 张牌
+          - generic [ref=f1e106]: +1 看破
+        - generic [ref=f1e107]: 技巧
+      - button "步法，消耗 0 行动，获得 4 点护盾，抽 1 张牌" [ref=f1e108] [cursor=pointer]:
+        - generic [ref=f1e109]: "0"
+        - generic [ref=f1e110]: 足運び
+        - generic [ref=f1e112]:
+          - strong [ref=f1e113]: 步法
+          - generic [ref=f1e114]: 获得 4 点护盾抽 1 张牌
+          - generic [ref=f1e115]: +1 看破
+        - generic [ref=f1e116]: 身法
+      - button "重斩，消耗 2 行动，造成 26 点伤害" [ref=f1e117] [cursor=pointer]:
+        - generic [ref=f1e118]: "2"
+        - generic [ref=f1e119]: 一振り
+        - generic [ref=f1e121]:
+          - strong [ref=f1e122]: 重斩
+          - generic [ref=f1e123]: 造成 26 点伤害
+          - generic [ref=f1e124]: +1 看破
+        - generic [ref=f1e125]: 攻击
+  - generic [ref=f1e126]:
+    - generic "行动点 3，上限 3" [ref=f1e127]:
+      - generic [ref=f1e128]: 行动
+      - strong [ref=f1e133]: 3 / 3
+    - button "结束回合" [ref=f1e134] [cursor=pointer]
+  - generic [ref=f1e136]: 《阴铁·改》 · 体能强化系 × 均衡魔力回路

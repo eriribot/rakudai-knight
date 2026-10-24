@@ -1,0 +1,38 @@
+async (page) => {
+  const errors = []; page.on('pageerror', e => errors.push(e.message));
+  await page.goto('http://127.0.0.1:4178/');
+  await page.setViewportSize({width:799,height:764});
+  await page.screenshot({path:'output/playwright/ocgame/feedback-799-initial.png',fullPage:true});
+  await page.locator('#customize').click();
+  await page.locator('#name-input').fill('雾月');
+  await page.locator('#appearance-input').fill('银色指环，展开后像一把半透明的弓，弓弦泛着微光。');
+  await page.locator('[name=abilityClass][value=unclassified]').check();
+  await page.locator('#attack-status-input').selectOption('poison');
+  await page.locator('#avatar-input').setInputFiles('ocgame/assets/references/ayase-official.jpg');
+  await page.locator('#avatar-message').filter({hasText:'头像已预览'}).waitFor();
+  await page.locator('#custom-dialog').evaluate(el => el.scrollTop=0);
+  await page.screenshot({path:'output/playwright/ocgame/feedback-registration-799.png'});
+  console.log('FORM', await page.locator('#passport-style').textContent(), await page.locator('#passport-appearance').textContent());
+  await page.locator('#profile-submit').click();
+  await page.reload();
+  console.log('STORED', await page.evaluate(() => { const p=JSON.parse(localStorage.getItem('ocgame.profile.v1')); return {name:p.name,appearance:p.deviceAppearance,category:p.abilityClass,avatar:p.avatarDataUrl.length}; }));
+  await page.locator('.playing-card[data-kind=slash]').first().click();
+  await page.locator('#game[data-busy=false]').waitFor();
+  await page.locator('#enemy-statuses [data-status=poison]').waitFor();
+  await page.screenshot({path:'output/playwright/ocgame/feedback-status-799.png',fullPage:true});
+  await page.locator('#enemy-statuses [data-status=poison]').click();
+  await page.screenshot({path:'output/playwright/ocgame/feedback-status-explanation.png'});
+  await page.locator('#status-dialog [data-close]').last().click();
+  await page.locator('#end-turn').click();
+  await page.locator('#game[data-busy=false]').waitFor();
+  console.log('AFTER TURN',await page.locator('#enemy-health').textContent(), await page.locator('#enemy-statuses').textContent());
+  await page.locator('#support').click();
+  await page.locator('#support-cutin[data-stage=portrait]').waitFor();
+  await page.screenshot({path:'output/playwright/ocgame/feedback-cutin-799.png'});
+  await page.locator('#game[data-busy=false]').waitFor();
+  await page.setViewportSize({width:390,height:844});
+  await page.screenshot({path:'output/playwright/ocgame/feedback-mobile.png',fullPage:true});
+  await page.locator('#customize').click();
+  await page.screenshot({path:'output/playwright/ocgame/feedback-registration-mobile.png'});
+  console.log('ERRORS',errors);
+}

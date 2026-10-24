@@ -1,21 +1,69 @@
 export const STYLES = Object.freeze({
   sword: {
-    name: "长剑",
+    name: "强攻",
     glyph: "剣",
     title: "重装破军",
     description: "所有攻击伤害 +2；单次攻击 ≥18 伤害时获得 4 护盾",
   },
   katana: {
-    name: "太刀",
+    name: "先手",
     glyph: "刀",
     title: "居合拔刀",
     description: "每回合首次攻击伤害 +5，并额外获得 +15% 灵装同调",
   },
   rapier: {
-    name: "细剑",
+    name: "连击",
     glyph: "刺",
     title: "迅捷连刺",
     description: "每回合开始获得 4 护盾；单回合出满 3 张牌追击 5 点穿透伤害",
+  },
+});
+
+// Setting taxonomy is independent of the demo's four resonance loadouts.
+export const ABILITY_CLASSES = Object.freeze({
+  physical: { name: "体能强化系", description: "强化身体能力。" },
+  nature: { name: "自然干涉系", description: "干涉火、水、风、雷等自然现象。" },
+  concept: { name: "概念干涉系", description: "干涉由概念定义的事物或性质。" },
+  causality: { name: "因果干涉系", description: "干涉因果关系与事物的结果。" },
+  unclassified: { name: "未归类系", description: "无法归入上述四类的能力。" },
+});
+const LEGACY_CLASS = {
+  insight: "physical",
+  blaze: "nature",
+  scar: "concept",
+  mirage: "causality",
+};
+
+export const STATUS_EFFECTS = Object.freeze({
+  poison: {
+    name: "中毒",
+    color: "#b3cf80",
+    timing: "turnEnd",
+    duration: 3,
+    damage: 1,
+    unit: "回合",
+    description:
+      "自身回合结束时，每层失去 1 点生命，无视护盾；结算后剩余回合减 1。",
+  },
+  bleed: {
+    name: "流血",
+    color: "#f09caa",
+    timing: "attack",
+    duration: 2,
+    damage: 2,
+    unit: "次攻击",
+    description:
+      "自身每次攻击后，每层失去 2 点生命，无视护盾；结算后剩余触发次数减 1。",
+  },
+  burn: {
+    name: "烧伤",
+    color: "#ffc080",
+    timing: "turnEnd",
+    duration: 2,
+    damage: 2,
+    unit: "回合",
+    description:
+      "自身回合结束时，每层失去 2 点生命，无视护盾；结算后剩余回合减 1。",
   },
 });
 
@@ -121,7 +169,8 @@ export const CARD_MODS = Object.freeze({
     name: "零式疾驱",
     badge: "★零式",
     short: "费用-1·同调+20%",
-    description: "该牌行动消耗永久 -1（最低 0），打出时额外获得 +20% 灵装同调率",
+    description:
+      "该牌行动消耗永久 -1（最低 0），打出时额外获得 +20% 灵装同调率",
   },
   soul_edge: {
     id: "soul_edge",
@@ -266,7 +315,7 @@ const DECK = [
   "step",
 ];
 
-const VALID_RANKS = new Set(["F", "D", "B", "A"]);
+const VALID_RANKS = new Set(["F", "E", "D", "C", "B", "A"]);
 
 export function cleanProfile(profile = {}) {
   const style = Object.hasOwn(STYLES, profile.style) ? profile.style : "sword";
@@ -283,6 +332,23 @@ export function cleanProfile(profile = {}) {
         .slice(0, 16) || "无名剑士",
     style,
     arcana,
+    abilityClass: Object.hasOwn(ABILITY_CLASSES, profile.abilityClass)
+      ? profile.abilityClass
+      : LEGACY_CLASS[arcana],
+    attackStatus: Object.hasOwn(STATUS_EFFECTS, profile.attackStatus)
+      ? profile.attackStatus
+      : "none",
+    deviceAppearance: String(profile.deviceAppearance || "")
+      .trim()
+      .slice(0, 300),
+    avatarDataUrl:
+      typeof profile.avatarDataUrl === "string" &&
+      profile.avatarDataUrl.length <= 2800000 &&
+      /^data:image\/(png|jpeg|webp);base64,[A-Za-z0-9+/=]+$/.test(
+        profile.avatarDataUrl,
+      )
+        ? profile.avatarDataUrl
+        : "",
     pact,
     rank,
     deviceName:
@@ -307,8 +373,17 @@ export function createBattle(profile = {}) {
     turn: 1,
     phase: "player",
     energy: 3,
-    player: { hp: 76, maxHp: 76, block: 0, power: 0, overdrive: false },
-    enemy: { hp: 108, maxHp: 108, block: 0, weaken: 0 },
+    player: {
+      hp: 76,
+      maxHp: 76,
+      block: 0,
+      power: 0,
+      overdrive: false,
+      statuses: {},
+    },
+    enemy: { hp: 108, maxHp: 108, block: 0, weaken: 0, statuses: {} },
+    statusEvents: [],
+    enemyResolved: false,
     hand: [],
     deck: [],
     discard: [],
@@ -356,7 +431,10 @@ function draw(state, count) {
 
 export function cardCost(cardOrInstance, instance) {
   const inst = instance || (cardOrInstance?.mods ? cardOrInstance : null);
-  const base = CARDS[inst?.kind || cardOrInstance?.kind]?.cost ?? cardOrInstance?.cost ?? 0;
+  const base =
+    CARDS[inst?.kind || cardOrInstance?.kind]?.cost ??
+    cardOrInstance?.cost ??
+    0;
   const discount = inst?.mods?.includes("zero_step") ? 1 : 0;
   return Math.max(0, base - discount);
 }
@@ -432,6 +510,46 @@ function settle(state) {
   else if (state.player.hp <= 0) state.phase = "lost";
 }
 
+export function applyStatus(state, side, kind, stacks = 1) {
+  const meta = STATUS_EFFECTS[kind],
+    target = state[side];
+  if (
+    !meta ||
+    !target ||
+    target.hp <= 0 ||
+    !Number.isFinite(stacks) ||
+    stacks <= 0
+  )
+    return null;
+  const old = target.statuses[kind];
+  const value = {
+    stacks: Math.min(20, (old?.stacks || 0) + Math.floor(stacks)),
+    remaining: meta.duration,
+  };
+  target.statuses[kind] = value;
+  state.statusEvents.push({ type: "apply", side, kind, ...value });
+  return value;
+}
+
+function tickStatuses(state, side, timing) {
+  for (const [kind, value] of Object.entries(state[side].statuses)) {
+    const meta = STATUS_EFFECTS[kind];
+    if (meta.timing !== timing || state[side].hp <= 0) continue;
+    const result = hit(state[side], value.stacks * meta.damage, true);
+    if (side === "enemy") state.damageDealt += result.lost;
+    value.remaining--;
+    state.statusEvents.push({
+      type: "tick",
+      side,
+      kind,
+      lost: result.lost,
+      ...value,
+    });
+    if (value.remaining <= 0) delete state[side].statuses[kind];
+  }
+  settle(state);
+}
+
 export function evolveCard(state, id, modId) {
   if (state.phase !== "player" || state.evolveCharges <= 0) return null;
   if (!Object.hasOwn(CARD_MODS, modId)) return null;
@@ -496,6 +614,8 @@ export function useNobleArt(state) {
   if (weakenGain) state.enemy.weaken += weakenGain;
   const healed = state.profile.pact === "standard" ? healPlayer(state, 3) : 0;
   if (drawCount) draw(state, drawCount);
+  if (hitResult.lost) applyStatus(state, "enemy", state.profile.attackStatus);
+  tickStatuses(state, "player", "attack");
   settle(state);
 
   return {
@@ -539,9 +659,7 @@ export function playCard(state, id) {
     const isInsightBurst =
       state.stacks >= 3 && state.profile.arcana === "insight";
     const isPierce =
-      Boolean(card.pierce) ||
-      mods.includes("soul_edge") ||
-      isInsightBurst;
+      Boolean(card.pierce) || mods.includes("soul_edge") || isInsightBurst;
     const dmg = attackValue(state, card, instance);
     const isFirstKatana =
       state.profile.style === "katana" && state.attacksThisTurn === 0;
@@ -667,6 +785,8 @@ export function playCard(state, id) {
     result.bonusHit = (result.bonusHit || 0) + chain.lost;
   }
 
+  if (result.hit?.lost) applyStatus(state, "enemy", state.profile.attackStatus);
+  if (card.damage) tickStatuses(state, "player", "attack");
   settle(state);
   return result;
 }
@@ -686,13 +806,17 @@ export function useSupport(state) {
 export function beginEnemy(state) {
   if (state.phase !== "player") return null;
   state.phase = "enemy";
+  state.enemyResolved = false;
   state.discard.push(...state.hand.splice(0));
   state.enemy.block = 0;
+  tickStatuses(state, "player", "turnEnd");
+  if (state.phase !== "enemy") return null;
   return intent(state);
 }
 
 export function resolveEnemy(state) {
-  if (state.phase !== "enemy") return null;
+  if (state.phase !== "enemy" || state.enemyResolved) return null;
+  state.enemyResolved = true;
   const next = intent(state);
   const hitResult = next.damage ? hit(state.player, next.damage) : null;
   const result = {
@@ -712,12 +836,16 @@ export function resolveEnemy(state) {
   }
   state.enemy.block = next.block;
   state.enemy.weaken = 0;
+  if (next.name === "烈焰斩" && hitResult?.lost > 0)
+    applyStatus(state, "player", "burn", 2);
+  if (next.damage) tickStatuses(state, "enemy", "attack");
+  if (state.phase === "enemy") tickStatuses(state, "enemy", "turnEnd");
   settle(state);
   return result;
 }
 
 export function nextTurn(state) {
-  if (state.phase !== "enemy") return false;
+  if (state.phase !== "enemy" || !state.enemyResolved) return false;
   state.turn++;
   state.phase = "player";
   state.energy = 3;

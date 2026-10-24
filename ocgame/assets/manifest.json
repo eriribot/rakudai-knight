@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-23",
+  "updated": "2026-10-24",
   "scope": "Standalone local OC battle demo. New artwork was made with the built-in imagegen tool.",
   "assets": [
     {
@@ -62,7 +62,8 @@
           "alphaBoundsGreaterThan16": [20, 59, 741, 995]
         },
         "method": "One source-pixel scale for both whole-character poses. CSS atlas windows, no raster modification or independent head scaling. Sole anchors visually checked. Slashes, glow and sparks are rendered separately."
-      }
+      },
+      "status": "Legacy generation reference; no longer rendered."
     },
     {
       "file": "arena.png",
@@ -70,5 +71,6 @@
       "type": "reused local background",
       "copiedFrom": "../../cardgame/assets/arena-duel.png"
     }
-  ]
+  ],
+  "activeVisualManifest": "visual-update-20261024.json"
 }

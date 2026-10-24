@@ -3,7 +3,8 @@ import {
   ARCANAS,
   PACTS,
   CARD_MODS,
-  PRESETS,
+  ABILITY_CLASSES,
+  STATUS_EFFECTS,
   CARDS,
   cleanProfile,
   createBattle,
@@ -19,13 +20,19 @@ import {
   resolveEnemy,
   nextTurn,
 } from "./engine.mjs";
+import { registerStella } from "./art.mjs";
+import { cardIcon } from "./card-icons.mjs";
+import { setupCustomization } from "./customization.mjs";
+import { renderStatuses, statusIcon } from "./status-ui.mjs";
 
 const $ = (id) => document.getElementById(id);
 const game = $("game"),
   actor = $("stella-motion"),
   fx = $("stage-fx"),
-  cutin = $("cutin-banner");
+  cutin = $("cutin-banner"),
+  supportCutin = $("support-cutin");
 const reduced = matchMedia("(prefers-reduced-motion: reduce)");
+registerStella(actor);
 
 let profile;
 try {
@@ -45,24 +52,6 @@ let logs = ["史黛菈摆好了架势。"],
   selectedEvolveCardId = null,
   selectedEvolveModId = "twin_fang";
 const animations = new Set();
-
-const icons = {
-  sword:
-    '<path d="m24 53 27-40 3 15-22 31M24 53l8 6m-14-2 17 10M23 61l-7 12m-5-2 9 5"/><path d="m29 49 19-28"/>',
-  thrust:
-    '<path d="m9 69 45-51 3-11-11 4L9 69Zm0 0 9-3M12 58l13 12M5 74l7-8"/><path d="m38 18 5-6m-6 16-9 10m21-1-10 11" opacity=".4"/>',
-  shield:
-    '<path d="M14 20 35 10l21 10v23c0 14-21 28-21 28S14 57 14 43Z"/><path d="M21 25 35 18l14 7v17c0 10-14 21-14 21S21 52 21 42ZM35 22v35m-10-23 10 10 10-10"/>',
-  focus:
-    '<circle cx="35" cy="41" r="22"/><path d="m35 8 4 27 21 6-21 5-4 28-4-28-21-5 21-6Z"/><path d="m15 19 5 7m32-7-4 7m-33 35 6-7m31 8-5-8" opacity=".5"/>',
-  step: '<path d="M43 11c6 5 10 14 6 21l-8 15-14-6 4-18ZM24 47l14 7-5 10c-3 7-13 7-15 0Z"/><path d="m12 22 12 2M8 33l13 2M5 44l11 2M42 64l11 2" opacity=".5"/>',
-  heavy:
-    '<path d="m21 56 20-44 11 1 5 11-28 38ZM42 19l7 7-22 30M16 53l20 13M23 63l-7 12m-6-1 12 6"/><path d="m12 21 8 20m36 6-15 11" opacity=".4"/>',
-};
-
-function icon(name) {
-  return `<svg viewBox="0 0 70 82" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icons[name]}</svg>`;
-}
 
 function text(id, value) {
   const el = $(id);
@@ -148,15 +137,19 @@ function renderHand() {
           ? `<span class="card-synergy-tag burst">⚡ 触发${arcanaMeta.short}</span>`
           : `<span class="card-synergy-tag">+1 ${arcanaMeta.markName}</span>`;
 
+      const status = card.damage && STATUS_EFFECTS[battle.profile.attackStatus];
+      const statusTag = status
+        ? `<span class="card-affliction" title="命中生命时附加 1 层${status.name}">${statusIcon(battle.profile.attackStatus)}${status.name} +1</span>`
+        : "";
       button.className = `playing-card${mods.length ? " is-evolved" : ""}${burstReady && card.damage ? " is-burst-ready" : ""}`;
       button.dataset.id = instance.id;
       button.dataset.kind = instance.kind;
       button.dataset.type = card.type;
       button.dataset.cost = cost;
-      button.innerHTML = `<span class="card-cost">${cost}</span><span class="card-kana">${card.kana}</span><span class="card-art">${icon(card.icon)}${modBadges ? `<span class="card-mod-strip">${modBadges}</span>` : ""}</span><span class="card-content"><strong class="card-name">${card.name}${mods.length ? `<sup class="card-plus">+${mods.length}</sup>` : ""}</strong><span class="card-rule">${baseRule}</span>${synergyTag}</span><span class="card-type">${card.label}</span><span class="card-key">${index + 1}</span>`;
+      button.innerHTML = `<span class="card-cost">${cost}</span><span class="card-kana">${card.kana}</span><span class="card-art">${cardIcon(card.icon)}${modBadges ? `<span class="card-mod-strip">${modBadges}</span>` : ""}</span><span class="card-content"><strong class="card-name">${card.name}${mods.length ? `<sup class="card-plus">+${mods.length}</sup>` : ""}</strong><span class="card-rule">${baseRule}</span>${synergyTag}${statusTag}</span><span class="card-type">${card.label}</span><span class="card-key">${index + 1}</span>`;
       button.setAttribute(
         "aria-label",
-        `${card.name}，消耗 ${cost} 行动，${baseRule.replace(/<br>/g, "，").replace(/<[^>]+>/g, "")}`,
+        `${card.name}，消耗 ${cost} 行动，${baseRule.replace(/<br>/g, "，").replace(/<[^>]+>/g, "")}${status ? `，命中生命时附加 1 层${status.name}` : ""}`,
       );
       button.addEventListener("click", () => onCard(instance.id));
       return button;
@@ -175,12 +168,15 @@ function renderDeviceHud() {
   text("location-arcana", `${arcana.short} · ${pact.tag}回路`);
   text(
     "footer-build-summary",
-    `《${p.deviceName}》 · ${arcana.name} × ${pact.name}`,
+    `《${p.deviceName}》 · ${ABILITY_CLASSES[p.abilityClass].name} · ${pact.name}`,
   );
 
   text("hud-rank-label", `RANK ${p.rank}`);
   text("hud-arcana-glyph", arcana.glyph);
-  text("hud-arcana-name", `${arcana.name} · ${pact.tag}铭刻`);
+  text(
+    "hud-arcana-name",
+    `${ABILITY_CLASSES[p.abilityClass].name} · ${pact.tag}`,
+  );
   text("hud-device-name", `《${p.deviceName}》`);
 
   text("stack-label", `【${arcana.markName}】印记`);
@@ -222,7 +218,7 @@ function render() {
     "player-style",
     `${STYLES[battle.profile.style].name}·${ARCANAS[battle.profile.arcana].markName}`,
   );
-  text("player-crest", STYLES[battle.profile.style].glyph);
+  text("player-crest-symbol", STYLES[battle.profile.style].glyph);
   text("player-health", `${battle.player.hp} / ${battle.player.maxHp}`);
   text("enemy-health", `${battle.enemy.hp} / ${battle.enemy.maxHp}`);
   setMeter(
@@ -277,6 +273,28 @@ function render() {
   game.dataset.phase = battle.phase;
   game.dataset.turn = battle.turn;
   game.dataset.busy = String(busy);
+  $("player-avatar").hidden = !battle.profile.avatarDataUrl;
+  $("player-crest-symbol").hidden = Boolean(battle.profile.avatarDataUrl);
+  if (
+    battle.profile.avatarDataUrl &&
+    $("player-avatar").getAttribute("src") !== battle.profile.avatarDataUrl
+  )
+    $("player-avatar").src = battle.profile.avatarDataUrl;
+  renderStatuses(battle);
+  for (const event of battle.statusEvents.splice(0)) {
+    const owner = event.side === "player" ? battle.profile.name : "史黛菈",
+      name = STATUS_EFFECTS[event.kind].name;
+    log(
+      event.type === "apply"
+        ? `${owner}：${name} ${event.stacks} 层。`
+        : `${owner}：${name}造成 ${event.lost} 伤害${event.remaining ? "" : "，状态解除"}。`,
+    );
+    if (event.type === "tick")
+      floatNumber(
+        `−${event.lost} ${name}`,
+        event.side === "player" ? "player" : "",
+      );
+  }
   renderDeviceHud();
   renderHand();
   renderLog();
@@ -346,11 +364,15 @@ function message(value) {
   text("turn-message", value);
 }
 
-function setCallout(speaker, quote) {
-  const box = $("ln-callout");
-  if (!box) return;
-  box.querySelector(".callout-speaker").textContent = speaker;
-  text("ln-callout-text", quote);
+function setDialogue(speaker, quote) {
+  const name = speaker.includes("紅蓮")
+    ? "史黛菈"
+    : speaker.includes("绚濑")
+      ? "绫辻绚濑"
+      : battle.profile.name;
+  text("dialogue-speaker", name);
+  text("dialogue-text", quote.replace(/^[『「]|[』」]$/g, ""));
+  $("battle-dialogue").dataset.voice = name === "绫辻绚濑" ? "ayase" : "stella";
 }
 
 async function showCutin(deviceName, artName, chant, signal) {
@@ -360,6 +382,7 @@ async function showCutin(deviceName, artName, chant, signal) {
   cutin.hidden = false;
   cutin.classList.add("is-active");
   const ok = await wait(reduced.matches ? 90 : 720, signal);
+  if (!ok) return false;
   cutin.classList.remove("is-active");
   cutin.hidden = true;
   return ok;
@@ -386,6 +409,10 @@ async function runAction(action) {
       actor.style.transform = "";
       cutin.hidden = true;
       cutin.classList.remove("is-active");
+      supportCutin.hidden = true;
+      delete supportCutin.dataset.stage;
+      delete game.dataset.cinematic;
+      delete actor.dataset.motion;
       document.querySelectorAll(".afterimage").forEach((node) => node.remove());
       render();
       showResult();
@@ -400,7 +427,11 @@ async function onCard(id) {
   await runAction(async (signal) => {
     const result = playCard(battle, id);
     if (!result) return;
-    message(result.resonance ? `${result.name} · ${result.resonance.name}` : result.name);
+    message(
+      result.resonance
+        ? `${result.name} · ${result.resonance.name}`
+        : result.name,
+    );
     render();
     if (result.hit) {
       const isBig = result.kind === "heavy" || Boolean(result.resonance);
@@ -421,10 +452,7 @@ async function onCard(id) {
       );
       if (result.resonance) {
         effect("support-light");
-        setCallout(
-          `〈${battle.profile.deviceName}〉`,
-          `『${result.resonance.name}——破！』`,
-        );
+        setDialogue(`〈${battle.profile.deviceName}〉`, "就是现在！");
         log(
           `【${result.resonance.name}】触发！${result.name}共造成 ${totalDisplayed} 伤害。`,
         );
@@ -454,9 +482,9 @@ async function onCard(id) {
 async function onNobleArt() {
   if (!canAct() || battle.sync < 100) return;
   await runAction(async (signal) => {
-    setCallout(
+    setDialogue(
       `〈${battle.profile.deviceName}〉`,
-      `『${battle.profile.nobleArtName}！！』`,
+      battle.profile.nobleArtName + "！",
     );
     message(`伐刀绝技 · ${battle.profile.nobleArtName}`);
     if (
@@ -504,7 +532,8 @@ function renderEvolveOptions() {
       btn.type = "button";
       btn.dataset.cardId = instance.id;
       btn.className = `evolve-card-item${instance.id === selectedEvolveCardId ? " is-selected" : ""}`;
-      btn.innerHTML = `<strong>${card.name}</strong><small>${cardCost(card, instance)} 费 · ${card.label}</small>${mods.length ? `<em>${mods.map((m) => CARD_MODS[m].badge).join(" ")}</em>` : "<em>未铭刻</em>"}`;
+      btn.dataset.type = card.type;
+      btn.innerHTML = `<span class="evolve-card-emblem">${cardIcon(card.icon)}</span><strong>${card.name}</strong><small>${cardCost(card, instance)} 费 · ${card.label}</small>${mods.length ? `<em>${mods.map((m) => CARD_MODS[m].badge).join(" ")}</em>` : "<em>未铭刻</em>"}`;
       btn.addEventListener("click", () => {
         selectedEvolveCardId = instance.id;
         renderEvolveOptions();
@@ -513,7 +542,8 @@ function renderEvolveOptions() {
     }),
   );
 
-  const activeCard = eligible.find((c) => c.id === selectedEvolveCardId) || eligible[0];
+  const activeCard =
+    eligible.find((c) => c.id === selectedEvolveCardId) || eligible[0];
   const existingMods = activeCard?.mods || [];
   if (existingMods.includes(selectedEvolveModId)) {
     const firstAvailable = Object.keys(CARD_MODS).find(
@@ -546,79 +576,84 @@ async function confirmEvolve() {
   if (!res) return;
   $("evolve-dialog").close();
   effect("guard-fx");
-  setCallout(
-    `〈${battle.profile.deviceName}〉`,
-    `『剑技推演——【${res.cardName}·${res.mod.name}】！』`,
+  setDialogue(`〈${battle.profile.deviceName}〉`, "换个打法试试。");
+  log(
+    `临场变招：【${res.cardName}】永久铭刻${res.mod.badge}（+20%同调，+1印记）。`,
   );
-  log(`临场变招：【${res.cardName}】永久铭刻${res.mod.badge}（+20%同调，+1印记）。`);
   message(`铭刻完成 · ${res.cardName}`);
   render();
 }
 
+function fireSlash() {
+  const arc = effect("fire-slash");
+  arc.innerHTML = `<svg viewBox="0 0 1000 650" preserveAspectRatio="none"><path class="fire-outer" d="M910 40C850 270 525 560 35 540C430 650 865 423 970 130L850 255Z"/><path class="fire-core" d="M910 40C820 325 470 565 35 540C420 585 785 425 910 40Z"/><path class="fire-tail" d="M843 112C730 363 405 510 126 516M880 176C679 456 489 481 321 507"/></svg>`;
+  for (let i = 0; i < 12; i++) {
+    const ember = effect("fire-ember");
+    ember.style.left = `${27 + i * 4.2}%`;
+    ember.style.top = `${64 - i * 2.5}%`;
+    ember.style.setProperty("--angle", `${i * 29 + 8}deg`);
+    ember.style.setProperty("--distance", `${60 + (i % 4) * 25}px`);
+  }
+}
+
 async function stellaCut(signal, impact = () => {}) {
+  if (signal.aborted) return;
   if (reduced.matches) {
     actor.dataset.pose = "cut";
     impact();
-    await wait(90, signal);
-    if (!signal.aborted) actor.dataset.pose = "ready";
+    if (await wait(100, signal)) actor.dataset.pose = "ready";
     return;
   }
-  // Rigid full-character poses. No part of the face or weapon is independently scaled.
-  if (!(await wait(35, signal))) return;
+  // Camera faces the opponent. Translate complete registered sprites; never scale the head.
+  const advance = Math.min(72, Math.max(38, innerWidth * 0.07));
+  actor.dataset.motion = "windup";
+  animate(
+    actor,
+    [{ transform: "translate(0,0)" }, { transform: "translate(0,-6px)" }],
+    { duration: 45, fill: "forwards", easing: "ease-out" },
+  );
+  if (!(await wait(45, signal))) return;
   const ghost = actor.cloneNode(true);
   ghost.removeAttribute("id");
+  ghost.removeAttribute("data-motion");
   ghost.classList.add("afterimage");
   ghost.setAttribute("aria-hidden", "true");
   $("actor-root").append(ghost);
   animate(
     ghost,
-    [
-      { opacity: 0.24, transform: "translate(-8px,-8px)" },
-      { opacity: 0, transform: "translate(-14px,-12px)" },
-    ],
-    { duration: 150, fill: "forwards" },
+    [{ opacity: 0.4 }, { opacity: 0, transform: "translate(0,-22px)" }],
+    { duration: 180, fill: "forwards" },
   );
+  actor.dataset.motion = "advance";
   animate(
     actor,
-    [{ transform: "translate(0,0)" }, { transform: "translate(10px,20px)" }],
-    { duration: 65, fill: "forwards", easing: "cubic-bezier(.15,.7,.25,1)" },
+    [
+      { transform: "translate(0,-6px)" },
+      { transform: `translate(-12px,${advance}px)` },
+    ],
+    { duration: 55, fill: "forwards", easing: "cubic-bezier(.75,0,1,.5)" },
   );
-  if (!(await wait(65, signal))) return;
+  if (!(await wait(55, signal))) return;
   actor.dataset.pose = "cut";
-  const ghost2 = actor.cloneNode(true);
-  ghost2.removeAttribute("id");
-  ghost2.classList.add("afterimage");
-  ghost2.setAttribute("aria-hidden", "true");
-  $("actor-root").append(ghost2);
-  animate(
-    ghost2,
-    [
-      { opacity: 0.17, transform: "translate(15px,12px)" },
-      { opacity: 0, transform: "translate(22px,8px)" },
-    ],
-    { duration: 100, fill: "forwards" },
-  );
-  animate(
-    actor,
-    [
-      { transform: "translate(10px,20px)" },
-      { transform: "translate(-7px,27px)" },
-    ],
-    { duration: 85, fill: "forwards", easing: "ease-out" },
-  );
-  slash(true);
+  actor.dataset.motion = "impact";
+  fireSlash();
   shake();
   impact();
+  // Brief impact hold makes the second pose readable without slowing the approach.
   if (!(await wait(85, signal))) return;
+  actor.dataset.motion = "return";
   animate(
     actor,
-    [{ transform: "translate(-7px,27px)" }, { transform: "translate(0,0)" }],
-    { duration: 90, fill: "forwards", easing: "ease-out" },
+    [
+      { transform: `translate(-12px,${advance}px)` },
+      { transform: "translate(0,0)" },
+    ],
+    { duration: 100, fill: "forwards", easing: "cubic-bezier(.2,.8,.2,1)" },
   );
-  if (!(await wait(90, signal))) return;
+  if (!(await wait(100, signal))) return;
   ghost.remove();
-  ghost2.remove();
   actor.dataset.pose = "ready";
+  delete actor.dataset.motion;
   actor.getAnimations().forEach((a) => a.cancel());
 }
 
@@ -627,9 +662,9 @@ async function endTurn() {
   await runAction(async (signal) => {
     const next = beginEnemy(battle);
     render();
+    if (!next) return;
     message("史黛菈的回合");
-    text("enemy-speech", next.cue);
-    setCallout("〈紅蓮の皇女〉", `『${next.cue}』`);
+    setDialogue("〈紅蓮の皇女〉", `『${next.cue}』`);
     if (!(await wait(240, signal))) return;
     let result;
     if (next.damage) {
@@ -657,8 +692,7 @@ async function endTurn() {
       message(`第 ${battle.turn} 回合 · 你的回合`);
       const nextCue =
         battle.turn % 3 === 0 ? "下一剑，我会认真一些。" : "继续吧。";
-      text("enemy-speech", nextCue);
-      setCallout("〈紅蓮の皇女〉", `『${nextCue}』`);
+      setDialogue("〈紅蓮の皇女〉", `『${nextCue}』`);
     }
   });
 }
@@ -667,18 +701,32 @@ async function support() {
   if (!canAct() || battle.supportUsed) return;
   $("bond-dialog").close();
   await runAction(async (signal) => {
+    game.dataset.cinematic = "support";
+    supportCutin.hidden = false;
+    supportCutin.dataset.stage = reduced.matches ? "portrait" : "eyes";
+    message("绫辻绚濑 · 支援");
+    if (!(await wait(reduced.matches ? 100 : 200, signal))) return;
+    supportCutin.dataset.stage = "portrait";
+    if (!(await wait(reduced.matches ? 100 : 520, signal))) return;
+    // Apply support once, at the reveal. Aborted presentations cannot mutate a new battle.
     const result = useSupport(battle);
+    if (!result) return;
     render();
+    text("support-reward", `生命 +${result.healing} · 护盾 +8 · 同调 +50%`);
+    supportCutin.dataset.stage = "resolve";
     document.querySelector(".companion").classList.add("supported");
-    effect("support-light");
-    effect("guard-fx");
-    floatNumber(result.healing ? `+${result.healing}` : "护盾 +8", "support");
-    setCallout("〈真命天女〉绫辻绚濑", "『我也会……与你并肩到最后一剑！』");
-    message("绚濑 · 并肩共鸣");
+    setDialogue("绫辻绚濑", "这一次，让我来帮你。");
     log(
       `绚濑支援：回复 ${result.healing}，护盾 +8，同调 +50%，印记 +2，变招 +1。`,
     );
-    if (!(await wait(reduced.matches ? 90 : 650, signal))) return;
+    if (!(await wait(reduced.matches ? 150 : 360, signal))) return;
+    supportCutin.dataset.stage = "exit";
+    if (!(await wait(reduced.matches ? 30 : 200, signal))) return;
+    supportCutin.hidden = true;
+    delete game.dataset.cinematic;
+    effect("support-light");
+    effect("guard-fx");
+    floatNumber(result.healing ? `+${result.healing}` : "护盾 +8", "support");
     document.querySelector(".companion").classList.remove("supported");
     message("你的回合");
   });
@@ -695,8 +743,7 @@ function showResult() {
       ? "「不错嘛。下次，我可不会再输了。」"
       : "「别急，再把刚才那一剑练好。」",
   );
-  text("enemy-speech", won ? "这一局，算你赢了。" : "再来吧。我等着你。");
-  setCallout(
+  setDialogue(
     "〈紅蓮の皇女〉",
     won ? "『这一局，算你赢了。』" : "『再来吧。我等着你。』",
   );
@@ -705,23 +752,6 @@ function showResult() {
     `<span><b>${battle.turn}</b>回合</span><span><b>${battle.played}</b>出牌</span><span><b>${battle.damageDealt}</b>伤害</span><span><b>${battle.resonancesTriggered + battle.nobleArtsUsed}</b>流派爆发</span>`;
   document.querySelectorAll("dialog[open]").forEach((d) => d.close());
   $("result-dialog").showModal();
-}
-
-function populateCustomDialog(p = profile) {
-  $("name-input").value = p.name;
-  $("rank-input").value = p.rank || "F";
-  $("device-input").value = p.deviceName || ARCANAS[p.arcana].defaultDevice;
-  $("noble-input").value = p.nobleArtName || ARCANAS[p.arcana].defaultArt;
-  $("chant-input").value = p.nobleChant || ARCANAS[p.arcana].defaultChant;
-  document.querySelectorAll("input[name=style]").forEach((input) => {
-    input.checked = input.value === p.style;
-  });
-  document.querySelectorAll("input[name=arcana]").forEach((input) => {
-    input.checked = input.value === p.arcana;
-  });
-  document.querySelectorAll("input[name=pact]").forEach((input) => {
-    input.checked = input.value === p.pact;
-  });
 }
 
 function restart(nextProfile = profile) {
@@ -735,6 +765,10 @@ function restart(nextProfile = profile) {
   actor.style.transform = "";
   cutin.hidden = true;
   cutin.classList.remove("is-active");
+  supportCutin.hidden = true;
+  delete supportCutin.dataset.stage;
+  delete game.dataset.cinematic;
+  delete actor.dataset.motion;
   document.querySelectorAll(".afterimage").forEach((node) => node.remove());
   fx.replaceChildren();
   document.querySelector(".companion").classList.remove("supported");
@@ -749,8 +783,7 @@ function restart(nextProfile = profile) {
     "史黛菈摆好了架势。",
   ];
   message("你的回合");
-  text("enemy-speech", "来吧，让我看看你的剑术。");
-  setCallout("〈紅蓮の皇女〉", "『来吧——让我见识你的灵装！』");
+  setDialogue("〈紅蓮の皇女〉", "来吧，让我看看你的剑术。");
   render();
 }
 
@@ -768,71 +801,13 @@ $("play-again").addEventListener("click", () => restart());
 $("motion-preview").addEventListener("click", () =>
   runAction(async (signal) => {
     message("动作演示");
-    text("enemy-speech", "看清楚了吗？");
-    setCallout("〈紅蓮の皇女〉", "『看清楚这一剑的轨迹了吗？』");
+    setDialogue("〈紅蓮の皇女〉", "看好了！");
     await stellaCut(signal);
     if (!signal.aborted)
       message(battle.phase === "player" ? "你的回合" : "对练结束");
   }),
 );
-$("customize").addEventListener("click", () => {
-  populateCustomDialog(profile);
-  $("custom-dialog").showModal();
-});
-
-document.querySelectorAll(".preset-chip").forEach((btn) => {
-  btn.addEventListener("click", () => {
-    const preset = PRESETS[btn.dataset.preset];
-    if (preset) populateCustomDialog(cleanProfile(preset));
-  });
-});
-
-document.querySelectorAll("input[name=arcana]").forEach((radio) => {
-  radio.addEventListener("change", () => {
-    if (!radio.checked) return;
-    const meta = ARCANAS[radio.value];
-    if (!meta) return;
-    const allDefaultDevices = new Set(
-      Object.values(ARCANAS).map((a) => a.defaultDevice),
-    );
-    const allDefaultArts = new Set(
-      Object.values(ARCANAS).map((a) => a.defaultArt),
-    );
-    const allDefaultChants = new Set(
-      Object.values(ARCANAS).map((a) => a.defaultChant),
-    );
-    if (allDefaultDevices.has($("device-input").value.trim())) {
-      $("device-input").value = meta.defaultDevice;
-    }
-    if (allDefaultArts.has($("noble-input").value.trim())) {
-      $("noble-input").value = meta.defaultArt;
-    }
-    if (allDefaultChants.has($("chant-input").value.trim())) {
-      $("chant-input").value = meta.defaultChant;
-    }
-  });
-});
-
-$("custom-form").addEventListener("submit", (event) => {
-  event.preventDefault();
-  const form = new FormData(event.currentTarget),
-    nextProfile = cleanProfile({
-      name: form.get("name"),
-      rank: form.get("rank"),
-      style: form.get("style"),
-      arcana: form.get("arcana"),
-      pact: form.get("pact"),
-      deviceName: form.get("deviceName"),
-      nobleArtName: form.get("nobleArtName"),
-      nobleChant: form.get("nobleChant"),
-    });
-  try {
-    localStorage.setItem("ocgame.profile.v1", JSON.stringify(nextProfile));
-  } catch {
-    /* The demo remains usable when storage is unavailable. */
-  }
-  restart(nextProfile);
-});
+setupCustomization({ getProfile: () => profile, onSave: restart });
 
 document
   .querySelectorAll("[data-close]")

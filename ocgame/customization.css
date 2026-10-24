@@ -1,0 +1,190 @@
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.passport-photo {
+  display: block;
+  position: relative;
+  aspect-ratio: 1.14;
+  width: 100%;
+  margin: 20px 0 8px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 5px solid #fff9ed;
+  background: #172134;
+  box-shadow: 0 2px 6px #0002;
+}
+.passport-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.passport-photo img.is-placeholder {
+  object-fit: contain;
+  padding: 22px 25px 42px;
+  background: linear-gradient(145deg, #26334a, #121a29);
+}
+.passport-photo > span {
+  position: absolute;
+  inset: auto 0 0;
+  padding: 8px 10px;
+  background: #101724de;
+  color: #fff5df;
+  font: 12px var(--sans);
+  display: flex;
+  justify-content: space-between;
+}
+.passport-photo:focus-visible {
+  outline: 3px solid #a42a48;
+  outline-offset: 4px;
+}
+.avatar-tools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.avatar-tools small {
+  font-size: 10px;
+  color: #6d655e;
+  line-height: 1.6;
+}
+.avatar-tools button {
+  padding: 5px 8px;
+  background: transparent;
+  border: 1px solid #948679;
+  color: #493a35;
+  font-size: 11px;
+  white-space: nowrap;
+}
+.form-message {
+  font-size: 12px !important;
+  color: #9d2946 !important;
+  line-height: 1.6;
+  margin: 6px 0;
+}
+.form-message:empty {
+  display: none;
+}
+#passport-appearance {
+  font: 12px/1.7 var(--sans);
+  color: #63574e;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+.registration-fields textarea {
+  display: block;
+  resize: vertical;
+  width: 100%;
+  min-height: 116px;
+  padding: 14px;
+  font: 15px/1.8 var(--serif);
+  color: #1a2539;
+  border: 1px solid #c8bcac;
+  background: #fffbf4;
+}
+.registration-fields textarea:focus {
+  outline: 2px solid #8b2944;
+  outline-offset: 2px;
+}
+.registration-fields .field-note {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 11px;
+  color: #81705f;
+  line-height: 1.7;
+  margin-top: 8px;
+}
+.source-note,
+.practice-description {
+  font-size: 12px !important;
+  line-height: 1.8;
+  color: #6b6057 !important;
+  margin: 10px 0 18px;
+}
+.source-note a {
+  color: #8a2d45;
+  text-underline-offset: 3px;
+}
+.ability-option {
+  min-height: 98px;
+}
+.ability-option:last-child {
+  grid-column: 1 / -1;
+}
+.registration-fields select {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px;
+  font: 14px var(--serif);
+  background: #fffbf4;
+  color: #233047;
+  border: 1px solid #c8bcac;
+}
+.player-crest img {
+  width: 46px;
+  height: 56px;
+  object-fit: cover;
+}
+.player-crest:has(img:not([hidden])) {
+  display: block;
+  padding: 0;
+  border-left-width: 2px;
+  flex-shrink: 0;
+}
+@media (max-width: 600px) {
+  .passport-photo {
+    width: 108px;
+    margin: 12px 0;
+  }
+  .student-passport:has(.passport-photo) {
+    display: block;
+    height: auto;
+    min-height: 270px;
+  }
+  .avatar-tools {
+    max-width: 100%;
+  }
+  .student-passport .passport-identity {
+    position: absolute;
+    left: 150px;
+    top: 85px;
+    right: 12px;
+  }
+  .student-passport .passport-identity h2 {
+    font-size: 22px;
+  }
+  .student-passport .passport-rank {
+    position: absolute;
+    left: 150px;
+    right: 20px;
+    top: 145px;
+    width: auto;
+    gap: 8px;
+    border: 0;
+  }
+  .student-passport dl,
+  .student-passport .passport-stamp,
+  .student-passport .passport-note {
+    display: none;
+  }
+  .registration-fields textarea {
+    font-size: 14px;
+  }
+  .ability-option {
+    min-height: 84px;
+  }
+  .ability-option small {
+    font-size: 11px;
+  }
+  .player-crest img {
+    width: 32px;
+    height: 40px;
+  }
+}
