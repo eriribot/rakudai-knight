@@ -1,0 +1,13 @@
+{
+  "url": "https://github.com/eriribot/rakudai-knight/releases/download/mv-v6-original/rakudai-asterisk-v6-720p.mp4",
+  "size": 116002353,
+  "sha256": "65098ec436edbc21af5c6c7bec18bc2750274eecca9e335bcc3d8431506e38aa",
+  "exclude_prefixes": [
+    "DLC/MV工程/",
+    "scratch/",
+    "39688/",
+    "output/playwright/",
+    "output/imagegen/",
+    "resource/knightavatars/research/"
+  ]
+}

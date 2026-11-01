@@ -35,3 +35,4 @@ start_bridge.bat
 __pycache__/
 *.pyc
 *.pyo
+/_site/
