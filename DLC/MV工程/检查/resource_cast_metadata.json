@@ -1,0 +1,62 @@
+[
+  {
+    "character": "一辉",
+    "file": "E:\\web\\落第\\resource\\knightavatars\\ikki.png",
+    "size": [
+      172,
+      249
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "transparent_fraction": 0.3014,
+    "partial_alpha_fraction": 0.1015
+  },
+  {
+    "character": "史黛菈",
+    "file": "E:\\web\\落第\\resource\\knightavatars\\stella.png",
+    "size": [
+      172,
+      249
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "transparent_fraction": 0.2946,
+    "partial_alpha_fraction": 0.109
+  },
+  {
+    "character": "刀华",
+    "file": "E:\\web\\落第\\resource\\knightavatars\\toka.png",
+    "size": [
+      172,
+      249
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "transparent_fraction": 0.3021,
+    "partial_alpha_fraction": 0.1008
+  },
+  {
+    "character": "珠雫",
+    "file": "E:\\web\\落第\\resource\\knightavatars\\shizuku.png",
+    "size": [
+      172,
+      249
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "transparent_fraction": 0.303,
+    "partial_alpha_fraction": 0.0986
+  }
+]

@@ -1,0 +1,14 @@
+{
+  "source_page": "https://anime1.in/_player_y_/566785",
+  "playlist_url": "https://hd.ijycnd.com/play/zbqWA4pe/index.m3u8",
+  "requested_excerpt_window_seconds": [421, 495],
+  "status": "unavailable",
+  "attempts": [
+    {"client": "Python requests", "result": "TLS UNEXPECTED_EOF_WHILE_READING"},
+    {"client": "FFprobe", "result": "TLS IO error: End of file"}
+  ],
+  "downloaded_video_bytes": 0,
+  "metadata_verified": false,
+  "scenes_verified": false,
+  "notes": "Normal public requests only. No authentication, protection or DRM bypass attempted."
+}

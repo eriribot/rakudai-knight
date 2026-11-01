@@ -1,0 +1,483 @@
+<!DOCTYPE HTML>
+<!--[if lt IE 7]><html lang="ja" class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html lang="ja" class="no-js lt-ie9 lt-ie8"><![endif]-->
+<!--[if IE 8]><html lang="ja" class="no-js lt-ie9"><![endif]-->
+<!--[if gt IE 8]><!--><html lang="ja" class="no-js"><!--<![endif]-->
+<html>
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>TVアニメ「落第騎士の英雄譚」公式サイト</title>
+<link rel="shortcut icon" href="favicon.ico" />
+<meta property="og:title" content="TVアニメ 落第騎士の英雄譚 公式サイト">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ittoshura.com/">
+<meta property="og:image" content="https://ittoshura.com/img/ogp_image.jpg">
+<meta name="description" content="GA文庫10周年プロジェクト第3弾 TVアニメ「落第騎士の英雄譚」" />
+<meta name="keywords" content="落第騎士の英雄譚,アニメ,海空りく,をん,GA文庫" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="ittoshura" />
+<meta name="twitter:title" content="TVアニメ 落第騎士の英雄譚 公式サイト" />
+<meta name="twitter:description" content=" GA文庫10周年プロジェクト第3弾 TVアニメ「落第騎士の英雄譚」" />
+<meta name="twitter:image" content="https://ittoshura.com/img/ogp_image.jpg" />
+
+<link rel="stylesheet" href="css/reset.css" />
+<link rel="stylesheet" href="css/base.css" />
+<link rel="stylesheet" href="css/top.css" />
+<link rel="stylesheet" href="css/colorbox.css" />
+
+</head>
+
+<body>
+<!-- <a class='youtube2' href="https://www.youtube.com/embed/bMIarTOSN7o?rel=0&amp;wmode=transparent&amp;autoplay=1"></a> -->
+<!-- <div id="loading">
+<img src="img/ajax-loader.gif" width="126" height="22" >
+</div> -->
+
+<div id="bg">
+
+<!--header-->
+<div id="header">
+<div id="headInner"><img src="img/t_head.png" width="277" height="14"></div>
+</div>
+
+
+
+<!--contents-->
+<div id="contents">
+<div id="global">
+<div id="gMenu1"><a href="news/index.php"><img src="img/b_global01_on.png" width="220" height="50"></a><div class="new"></div></div>
+<div id="gMenu2"><a href="onair/index.html"><img src="img/b_global02_on.png" width="220" height="50"></a></div>
+<div id="gMenu3"><a href="story/index.html"><img src="img/b_global03_on.png" width="220" height="50"></a></div>
+<div id="gMenu4"><a href="staff/index.html"><img src="img/b_global04_on.png" width="220" height="50"></a></div>
+<div id="gMenu5"><a href="character/index.html"><img src="img/b_global05_on.png" width="220" height="50"></a></div>
+<div id="gMenu6"><a href="glossary/index.html"><img src="img/b_global06_on.png" width="220" height="50"></a></div>
+<div id="gMenu7"><a href="item/index.html"><img src="img/b_global07_on.png" width="220" height="50"></a><div class="new"></div></div>
+<div id="gMenu8"><a href="special/index.html"><img src="img/b_global08_on.png" width="220" height="50"></a></div>
+</div>
+
+<div id="social_wrap"></div>
+
+
+<h1><img src="img/logo.png" alt="落第騎士の英雄譚（キャバルリィ）" width="448" height="185"></h1>
+<h2><img src="img/t_gabunko.png" alt="GA文庫10周年プロジェクト第3弾" width="312" height="23"></h2>
+<h3><img src="img/t_tokyomx.png" alt="2015年10月 TOKYO MX、AT-X ほか放送開始" width="565" height="28"></h3>
+
+<div id="copy"><img src="img/copy01.png" alt="僕の最弱を以て、君の最強を打ち破る――" width="46" height="428"></div>
+<div id="bdbana"><a href="item/index.html"><img src="img/bana_ikkimibd.png" width="330" height="100"></a></div>
+<div id="newsB">
+<div id="moreB"><a href="news/index.php"><img src="img/b_more.png" width="70" height="15"></a></div>
+<div id="newsIn">
+
+<p class="day">2023.09.15</p>
+<ul class="scoop">
+<li><a href="news/?p=356">「落第騎士の英雄譚」全話いっき見ブルーレイ　2023年12月22日（金）発売決定！</a></li>
+</ul>
+
+<br>
+
+<p class="day">2017.10.27</p>
+<ul class="scoop">
+<li><a href="item/index.html">関連グッズ</a>を更新！<br>
+<a href="item/index.html">落第騎士の英雄譚 Blu-ray BOX</a>発売決定しました。</li>
+</ul>
+
+<br>
+<p class="day">2016.04.15</p>
+<ul class="scoop">
+<li><a href="news/?p=287">4/17開催イベント「七星感謝祭」物販情報、特別抽選会情報</a></li>
+</ul>
+
+<br>
+
+<p class="day">2016.04.08</p>
+<ul class="scoop">
+<li><a href="news/?p=212">4/17開催イベント「七星感謝祭」物販情報</a></li>
+<li><a href="item/index.html">関連グッズ</a>を更新！<br>
+<a href="item/index.html">BD&amp;DVD情報</a>を更新しました。</li>
+</ul>
+
+<br>
+
+<p class="day">2016.03.24</p>
+<ul class="scoop">
+<li><a href="item/index.html">関連グッズ</a>を更新！<br>
+<a href="item/goods.html">GOODS情報</a>を更新しました。</li>
+</ul>
+
+<br>
+
+<p class="day">2016.03.16</p>
+<ul class="scoop">
+<li><a href="item/index.html">関連グッズ</a>を更新！<br>
+<a href="item/index.html">BD&amp;DVD情報</a>を更新しました。</li>
+</ul>
+
+<br>
+
+<p class="day">2016.03.14</p>
+<ul class="scoop">
+<li><a href="item/index.html">関連グッズ</a>を更新！<br>
+<a href="item/goods.html">GOODS情報</a>を更新しました。</li>
+</ul>
+
+<br>
+
+<p class="day">2016.03.09</p>
+<ul class="scoop">
+<li><a href="news/?p=182">マチ★アソビCAFE　「落第騎士の英雄譚」×「最弱無敗の神装機竜」コラボ開催！</a></li>
+</ul>
+
+<br>
+
+<p class="day">2016.03.04</p>
+<ul class="scoop">
+<li><a href="item/index.html">関連グッズ</a>を更新！<br>
+<a href="item/goods.html">GOODS情報</a>を公開しました。</li>
+</ul>
+
+<br>
+
+<p class="day">2016.02.16</p>
+<ul class="scoop">
+<li><a href="item/index.html">関連グッズ</a>を更新！<br>
+<a href="item/index.html">BD&amp;DVD情報</a>を更新しました。</li>
+</ul>
+
+<br>
+
+<p class="day">2016.02.10</p>
+<ul class="scoop">
+<li><a href="item/index.html">関連グッズ</a>を更新！<br>
+<a href="item/index.html">店舗特典情報</a>を更新しました。</li>
+</ul>
+
+<br>
+
+<p class="day">2016.02.02</p>
+<ul class="scoop">
+<li><a href="item/index.html">関連グッズ</a>を更新！<br>
+<a href="item/index.html">BD&amp;DVD情報</a>を更新しました。</li>
+</ul>
+
+<br>
+
+<p class="day">2016.01.18</p>
+<ul class="scoop">
+<li><a href="item/index.html">関連グッズ</a>を更新！<br>
+<a href="item/index.html">BD&amp;DVD情報</a>を更新しました。<br>
+<a href="item/index.html">店舗特典情報</a>を更新しました。</li>
+</ul>
+
+<br>
+
+<p class="day">2016.01.08</p>
+<ul class="scoop">
+<li><a href="item/index.html">関連グッズ</a>を更新！<br>
+<a href="item/index.html">店舗特典情報</a>を更新しました。</li>
+</ul>
+
+<br>
+
+<p class="day">2015.12.19</p>
+<ul class="scoop">
+<li><a href="https://ga.sbcr.jp/comike89/" target="_blank">コミックマーケット89特設ページ</a><br>
+を公開しました。</li>
+<li><a href="item/index.html">関連グッズ</a>を更新！<br>
+<a href="item/music.html">CD情報</a>を更新しました。</li>
+<li><a href="story/index.html">ストーリー</a>を更新！<br>
+第十一話『無冠の剣王 II』のあらすじを<br>
+公開しました。</li>
+<li><a href="glossary/index.html">用語集</a>を更新！</li>
+</ul>
+
+<br>
+
+<p class="day">2015.12.12</p>
+<ul class="scoop">
+<li><a href="story/index.html">ストーリー</a>を更新！<br>
+第十一話『無冠の剣王 I』のあらすじを<br>
+公開しました。</li>
+<li><a href="glossary/index.html">用語集</a>を更新！</li>
+</ul>
+
+<br>
+
+<p class="day">2015.12.05</p>
+<ul class="scoop">
+<li><a href="item/index.html">関連グッズ</a>を更新！<br>
+<a href="item/index.html">BD&amp;DVD情報</a>を更新しました。</li>
+<li><a href="story/index.html">ストーリー</a>を更新！<br>
+第十話『深海の魔女 VS 雷切』のあらすじを<br>
+公開しました。</li>
+<li><a href="glossary/index.html">用語集</a>を更新！</li>
+</ul>
+
+<br>
+
+<p class="day">2015.11.28</p>
+<ul class="scoop">
+<li><a href="character/index.html">キャラクター</a>を更新！</li>
+<li><a href="story/index.html">ストーリー</a>を更新！<br>
+第九話『皇女の休日』のあらすじを<br>
+公開しました。</li>
+<li><a href="glossary/index.html">用語集</a>を更新！</li>
+</ul>
+
+<br>
+
+<p class="day">2015.11.21</p>
+<ul class="scoop">
+<li><a href="story/index.html">ストーリー</a>を更新！<br>
+第八話『剣士殺し III』のあらすじを<br>
+公開しました。</li>
+<li><a href="glossary/index.html">用語集</a>を更新！</li>
+</ul>
+
+<br>
+
+<p class="day">2015.11.20</p>
+<ul class="scoop">
+<li><a href="news/?p=122">アニメイト情報誌「きゃらびぃ」（11/20号）配布中</a></li>
+</ul>
+
+<br>
+
+<p class="day">2015.11.17</p>
+<ul class="scoop">
+<li><a href="news/?p=118">振り返り上映会（第5話～第8話）</a></li>
+</ul>
+
+<br>
+
+<p class="day">2015.11.14</p>
+<ul class="scoop">
+<li><a href="story/index.html">ストーリー</a>を更新！<br>
+第七話『剣士殺し II』のあらすじを<br>
+公開しました。</li>
+<li><a href="glossary/index.html">用語集</a>を更新！</li>
+</ul>
+
+<br>
+
+<p class="day">2015.11.07</p>
+<ul class="scoop">
+<li><a href="character/index.html">キャラクター</a>を更新！</li>
+<li><a href="story/index.html">ストーリー</a>を更新！<br>
+第六話『剣士殺し I』のあらすじを<br>
+公開しました。</li>
+<li><a href="glossary/index.html">用語集</a>を更新！</li>
+</ul>
+
+<br>
+
+<p class="day">2015.11.02</p>
+<ul class="scoop">
+<li><a href="item/music.html#ost">「落第騎士の英雄譚O.S.T.」情報を掲載しました。</a></li>
+</ul>
+
+<br>
+
+<p class="day">2015.10.31</p>
+<ul class="scoop">
+<li><a href="story/index.html">ストーリー</a>を更新！<br>
+第五話『皇女の体験』のあらすじを<br>
+公開しました。</li>
+<li><a href="glossary/index.html">用語集</a>を更新！</li>
+<li><a href="news/?p=101">キャスト直筆サイン入り台本 プレゼントキャンペーン！</a></li>
+</ul>
+
+<br>
+
+<p class="day">2015.10.28</p>
+<ul class="scoop">
+<li><a href="news/?p=91">「落第騎士の英雄譚（キャバルリィ）」の第1話から第4話の振り返り上映会を行います。</a></li>
+</ul>
+
+<br>
+
+<p class="day">2015.10.24</p>
+<ul class="scoop">
+<li><a href="story/index.html">ストーリー</a>を更新！<br>
+第四話『落第騎士 IV』のあらすじを<br>
+公開しました。</li>
+<li><a href="glossary/index.html">用語集</a>を更新！</li>
+</ul>
+
+<br>
+
+<p class="day">2015.10.17</p>
+<ul class="scoop">
+<li><a href="character/index.html">キャラクター</a>を更新！</li>
+<li><a href="item/index.html">関連グッズ</a>を公開！<br>
+<a href="item/index.html">BD&amp;DVD情報</a>・<a href="item/music.html">主題歌情報</a>を公開しました。</li>
+<li><a href="story/index.html">ストーリー</a>を更新！<br>
+第三話『落第騎士 III』のあらすじを<br>
+公開しました。</li>
+<li><a href="glossary/index.html">用語集</a>を更新！</li>
+</ul>
+
+<br>
+
+<p class="day">2015.10.10</p>
+<ul class="scoop">
+<li><a href="story/index.html">ストーリー</a>を更新！<br>
+第二話『落第騎士 II』のあらすじを<br>
+公開しました。</li>
+<li><a href="glossary/index.html">用語集</a>を更新！</li>
+</ul>
+
+<br>
+
+<p class="day">2015.10.03</p>
+<ul class="scoop">
+<li><a href="story/index.html">ストーリー</a>を更新！<br>
+第一話『落第騎士 I』のあらすじを<br>
+公開しました。</li>
+<li><a href="glossary/index.html">用語集</a>を公開！</li>
+</ul>
+
+<br>
+<p class="day">2015.10.02</p>
+<ul class="scoop">
+<li><a href="news/?p=75">新刊発売＆アニメ放送スタート記念キャンペーン開催！</a></li>
+</ul>
+
+<br>
+<p class="day">2015.10.01</p>
+<ul class="scoop">
+<li><a href="news/?p=56">「石上静香と東山奈央の英雄譚ＲＡＤＩＯ」配信スタート！</a></li>
+</ul>
+
+<br>
+<p class="day">2015.09.30</p>
+<ul class="scoop">
+<li><a href="news/?p=51">マチ★アソビVol．15に参加決定！</a></li>
+</ul>
+
+<br>
+<p class="day">2015.09.21</p>
+<ul class="scoop">
+<li><a href="onair/index.html">オンエア</a>情報を更新！<br>
+配信情報を公開しました。</li>
+</ul>
+
+<br>
+<p class="day">2015.09.11</p>
+<ul class="scoop">
+<li><a href="news/?p=47">第1話“最速”先行上映会チケット　9/12（土）より一般発売開始！</a></li>
+</ul>
+
+<br>
+<p class="day">2015.09.01</p>
+<ul class="scoop">
+<li><a href="onair/index.html">オンエア</a>情報を公開！</li>
+<li><a href="story/index.html">ストーリー</a>を公開！</li>
+<li><a href="character/index.html">キャラクター</a>を公開！</li>
+</ul>
+
+<br>
+<p class="day">2015.08.28</p>
+<ul class="scoop">
+<li><a href="news/?p=39">第1話“最速”先行上映会 追加出演者発表</a></li>
+</ul>
+
+<br>
+<p class="day">2015.08.26</p>
+<ul class="scoop">
+<li><a href="news/index.php">ニュース</a>を公開！</li>
+</ul>
+
+<br>
+
+<p class="day">2015.08.13</p>
+<ul class="scoop">
+<li>公式サイト公開！</li>
+<li>プロモーションムービー公開！</li>
+</ul>
+
+
+</div>
+</div>
+
+<div id="twitterB">
+<div id="followB"><a href="https://twitter.com/ittoshura/" target="_blank"><img src="img/b_account.png" alt="Account" width="99" height="15"></a></div>
+
+<div id="tweetIn">
+<a class="twitter-timeline"
+href="https://twitter.com/ittoshura"
+data-widget-id="575148040475963392"
+data-screen-name="ittoshura"
+data-show-replies="false"
+data-chrome="nofooter noheader noscrollbar  transparent"
+data-theme="dark"
+data-link-color="#E55569"
+data-border-color="#FFF"
+data-tweet-limit="5"
+lang="ja" xml:lang="ja"
+target="_blank">
+@ittoshura のツイート</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></div>
+
+
+</div>
+
+<ul id="contentsBana">
+<!-- <li class="bana"><a href="https://www.onsen.ag/program/rakudai/" target="_blank"><img src="img/bana_radio02.png" width="280" height="160"></a></li>
+<li class="bana"><a href="news/?p=287"><img src="img/bana_kanshasai.png" width="280" height="160"></a></li> -->
+<li class="pv"><a class='youtube' href="https://www.youtube.com/embed/bMIarTOSN7o?rel=0&amp;wmode=transparent&amp;autoplay=1"><img src="img/bana_pv02.png" alt="Promotion Movie" width="280" height="160"></a></li>
+</ul>
+
+
+</div>
+
+
+<!--pagetop-->
+<a id="pageTop" href="#wrapper">ページトップへ</a>
+
+<!--footer-->
+<div id="footer">
+<ul id="footbana">
+<li><a href="https://ga.sbcr.jp/10th/index.html" target="_blank"><img src="img/bana_ga10th.jpg" alt="GA文庫10th Anniversary" width="260" height="72"></a></li>
+<li><a href="https://ga.sbcr.jp/sp/cavalry/index.html" target="_blank"><img src="img/bana_cava.jpg" alt="GA文庫「落第騎士の英雄譚（キャバルリィ）」特設ページ" width="260" height="72"></a></li>
+<li><a href="https://www.ganganonline.com/comic/cavalry/" target="_blank"><img src="img/bana_gangan.jpg" alt="落第騎士の英雄譚 ガンガンONLINE特設ページ" width="260" height="72"></a></li>
+</ul>
+<p>&copy;海空りく・SBクリエイティブ／落第騎士の英雄譚製作委員会</p>
+</div>
+</div>
+
+<!--JAVASCRIPT-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="js/vendor/modernizr-2.6.2.min.js"></script>
+<script src="js/vendor/wow.min.js"></script>
+<script src="js/main.js"></script>
+<script src="js/social.js"></script>
+<script src="js/jquery.colorbox-min.js"></script>
+
+<script>
+//loader
+jQuery(window).load(function(){
+	if (document.cookie.match(/first=true/g) === null) {
+	$(".youtube2").colorbox({iframe:true, innerWidth:722, innerHeight:407}).trigger("click");
+	document.cookie = "first=true; path=/";
+	}
+	$("#loading").fadeOut(1000);
+	$(".youtube").colorbox({iframe:true, innerWidth:722, innerHeight:407});
+});
+</script>
+
+<!--Google Analytics-->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-60586323-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+</body>
+</html>

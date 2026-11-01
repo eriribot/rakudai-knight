@@ -1,0 +1,110 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e3]: HAGUN / OS
+    - button "宿舍 ↔" [disabled] [ref=e4] [cursor=pointer]
+    - generic "终端 v未连接；读取当前回复的 MVU 记录，未获知的人物资料保持空白。" [ref=e5]: 本局档案
+    - generic [ref=e6]: 时间未确认
+    - generic "魔力炉心正常" [ref=e8]
+  - generic [ref=e11]:
+    - generic [ref=e12]:
+      - generic "宿舍全景，左右拖动查看" [ref=e13]
+      - generic [ref=e14]:
+        - generic [ref=e15] [cursor=pointer]:
+          - generic [ref=e16]:
+            - generic [ref=e17]: HAGUN / BLAZER ID
+            - generic [ref=e18]: 伐刀者证
+          - generic [ref=e19]:
+            - generic [ref=e20]: 测
+            - generic [ref=e24]:
+              - generic [ref=e25]: 测试 OC
+              - generic [ref=e26]: 所属未登记
+              - generic [ref=e27]: —级
+          - generic [ref=e28]:
+            - generic [ref=e29]: 灵装未登记
+            - generic [ref=e30]: 雷鸣一式、雷鸣二式
+          - generic [ref=e31]:
+            - generic [ref=e32]: 攻—
+            - generic [ref=e33]: 防—
+            - generic [ref=e34]: 魔—
+            - generic [ref=e35]: 控—
+            - generic [ref=e36]: 体—
+            - generic [ref=e37]: 运—
+        - generic [ref=e38]:
+          - generic [ref=e39]: 终端应用
+          - generic "应用导航布局" [ref=e40]:
+            - button "轮盘" [pressed] [ref=e41] [cursor=pointer]
+            - button "列表" [ref=e42] [cursor=pointer]
+        - generic [ref=e43]:
+          - menu "终端应用轮盘" [ref=e44]:
+            - menuitem "伐刀者档案" [ref=e45] [cursor=pointer]:
+              - generic: "01"
+              - generic: 档案
+            - menuitem "破军 LIME" [ref=e47] [cursor=pointer]:
+              - generic: "02"
+              - generic: 通讯
+            - menuitem "学园圈" [ref=e49] [cursor=pointer]:
+              - generic: "03"
+              - generic: 动态
+            - menuitem "破军 BBS" [ref=e51] [cursor=pointer]:
+              - generic: "04"
+              - generic: 论坛
+            - menuitem "选拔赛程" [ref=e53] [cursor=pointer]:
+              - generic: "05"
+              - generic: 赛程
+            - menuitem "灵装画廊" [ref=e55] [cursor=pointer]:
+              - generic: "06"
+              - generic: 画廊
+            - menuitem "学园校历" [ref=e57] [cursor=pointer]:
+              - generic: "07"
+              - generic: 校历
+            - menuitem "终端配置" [ref=e59] [cursor=pointer]:
+              - generic: "08"
+              - generic: 设置
+          - button "查看伐刀者档案" [ref=e61] [cursor=pointer]:
+            - generic [ref=e69]: 操作
+          - generic:
+            - generic: 选择应用
+            - generic: SELECT COMMAND
+        - generic [ref=e70]:
+          - generic [ref=e71]: 点击扇区进入 · 黑白反转选中
+          - generic [ref=e72]: HAGUN / 01
+    - generic [ref=e154]:
+      - generic [ref=e155]:
+        - button [ref=e156] [cursor=pointer]
+        - generic [ref=e158]: 伐刀者能力档案
+        - generic [ref=e159]: —级 伐刀者 // 所属未登记
+        - generic [ref=e160]: 第 356 楼 · 回复 2/2 · 已保存 MVU
+      - generic [ref=e161]:
+        - generic [ref=e162] [cursor=pointer]: 综合概况
+        - generic [ref=e163] [cursor=pointer]: 六维雷达
+        - generic [ref=e164] [cursor=pointer]: 灵装绝技
+        - generic [ref=e165] [cursor=pointer]: 同伴名册
+      - generic [ref=e237]:
+        - generic [ref=e238]: 固有灵装
+        - generic [ref=e239]: 灵装未登记
+        - generic [ref=e240]: 伐刀能力 · 系别未登记
+        - paragraph [ref=e241]: 将魔力集中成雷光。
+        - paragraph [ref=e242]: 共通限制：共通限制未登记
+        - button "编辑能力介绍" [ref=e244] [cursor=pointer]
+        - generic [ref=e245]:
+          - generic [ref=e246]: 雷鸣一式 · 已掌握
+          - generic [ref=e247]: 原先的基础招式，升级后可以删除。
+          - generic [ref=e248]: 条件与代价：少量魔力
+          - generic [ref=e249]:
+            - button "编辑" [ref=e250] [cursor=pointer]
+            - button "删除" [ref=e251] [cursor=pointer]
+        - generic [ref=e252]:
+          - generic [ref=e253]: 雷鸣二式 · 已掌握
+          - generic [ref=e254]: 升级后的招式。
+          - generic [ref=e255]: 条件与代价：较多魔力
+          - generic [ref=e256]:
+            - button "编辑" [ref=e257] [cursor=pointer]
+            - button "删除" [ref=e258] [cursor=pointer]
+        - button "新增伐刀绝技" [ref=e260] [cursor=pointer]
+        - generic [ref=e261]: 其他能力
+        - generic [ref=e262]: 尚未登记具体能力。
+        - button "新增其他能力" [ref=e264] [cursor=pointer]
+  - generic [ref=e73]:
+    - button "← 返回" [ref=e74] [cursor=pointer]
+    - button "终端首页" [ref=e75] [cursor=pointer]
+    - button "× 收起" [ref=e153] [cursor=pointer]

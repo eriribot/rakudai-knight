@@ -35,6 +35,18 @@ function nextStoryChapter(volume, key) {
   return following ? { volume: following.volume, chapter: following.chapters[0].key } : null;
 }
 
+// Route is a saved MVU fact. Only the two deliberate hand-off points override
+// the catalogue order; every other chapter keeps the ordinary adjacent flow.
+function nextStoryChapterForState(volume, key, state) {
+  if (volume === 10 && key === '第二章' && state?.场景?.路线 === 'B') {
+    return { volume: 16, chapter: '序章' };
+  }
+  if (volume === 16 && key === '终章Ⅱ') {
+    return { volume: 18, chapter: '第二章' };
+  }
+  return nextStoryChapter(volume, key);
+}
+
 const tournamentCalendar2013 = {"id":"S01","year":2013,"status":"日期裁定；尚未接入运行时","totalRounds":20,"openingDate":"2013-04-22","finalDate":"2013-07-08","clock":{"source":"stat_data.场景.时间","existingParser":"scripts/黑白ADV轮盘终端/terminal-app.js#parseSceneDate","calendarSelectionAdvancesTime":false,"dateOnlyRule":"赛程日小于剧情日期才算该排期已过去；当天标为本日待赛或待赛果，不能在零点直接判胜。","resultsRule":"日期只决定赛程进度，不单独证明胜负；本局实际比赛日期和赛果优先。"},"suspensions":[{"start":"2013-04-27","end":"2013-05-06","inclusive":true,"name":"破军学园黄金周停赛","basis":"用户确认的本卡学园安排；4月30日至5月2日并非日本法定假日。"}],"publicHolidaysDuringSeason":[{"date":"2013-04-29","name":"昭和之日"},{"date":"2013-05-03","name":"宪法纪念日"},{"date":"2013-05-04","name":"绿之日"},{"date":"2013-05-05","name":"儿童之日"},{"date":"2013-05-06","name":"补休日"}],"rounds":[{"round":1,"defaultDate":"2013-04-22","ikkiDate":"2013-04-23","note":"周一开幕；一辉对桐原在翌日周二。"},{"round":2,"defaultDate":"2013-04-25","ikkiDate":"2013-04-26","note":"首轮两组各隔三天；假期前最后一场。"},{"round":3,"defaultDate":"2013-05-07","ikkiDate":"2013-05-07","note":"黄金周后复赛；从此合并常规日期。"},{"round":4,"defaultDate":"2013-05-10","ikkiDate":"2013-05-10","note":"五月常规每周二、五排期。"},{"round":5,"defaultDate":"2013-05-14","ikkiDate":"2013-05-14","note":"五月常规排期。"},{"round":6,"defaultDate":"2013-05-17","ikkiDate":"2013-05-17","note":"五月常规排期。"},{"round":7,"defaultDate":"2013-05-21","ikkiDate":"2013-05-21","note":"五月常规排期。"},{"round":8,"defaultDate":"2013-05-24","ikkiDate":"2013-05-24","note":"第九战前的常规排期。"},{"round":9,"defaultDate":"2013-05-28","ikkiDate":"2013-05-28","note":"一辉对恋恋、史黛菈对碎城雷；均是个人第九战。"},{"round":10,"defaultDate":"2013-05-31","ikkiDate":"2013-05-31","note":"翌日六月一日泳池；满足昨天取得第十胜。"},{"round":11,"defaultDate":"2013-06-05","ikkiDate":"2013-06-05","note":"六月一日通知后，三天不见面的六月四日为赛前一天。"},{"round":12,"defaultDate":"2013-06-08","ikkiDate":"2013-06-08","note":"六月前中段按三天间隔排期；周末并非一律停赛。"},{"round":13,"defaultDate":"2013-06-11","ikkiDate":"2013-06-11","note":"常规排期。"},{"round":14,"defaultDate":"2013-06-14","ikkiDate":"2013-06-14","note":"珠雫对刀华按第二卷第十四场通知裁定；不采第三卷十五胜的冲突播报。"},{"round":15,"defaultDate":"2013-06-17","ikkiDate":"2013-06-17","note":"常规排期；日期不强制已退选者出赛。"},{"round":16,"defaultDate":"2013-06-20","ikkiDate":"2013-06-20","note":"六月二十三日奥多摩事件前，一辉完成十六场。"},{"round":17,"defaultDate":"2013-06-24","ikkiDate":"2013-06-29","note":"一辉采用拘押期间的个人延赛；六月三十日父亲探访提到昨日第十七胜。"},{"round":18,"defaultDate":"2013-06-27","ikkiDate":"2013-07-03","note":"一辉第十八场为六月二十三日被带走之后第十天。"},{"round":19,"defaultDate":"2013-06-30","ikkiDate":"2013-07-05","note":"一辉第十九场补白在第十八场与终战之间；两组在终战前均留恢复时间。"},{"round":20,"defaultDate":"2013-07-08","ikkiDate":"2013-07-08","note":"共同终战日，星期一；七月七日拘押已两周，翌日终战。"}],"storyAnchors":[{"date":"2013-04-21","event":"购物中心解放军事件；不计选拔赛场次。"},{"date":"2013-06-01","event":"泳池与餐厅事件，晚间收到第十一场对阵通知。"},{"date":"2013-06-04","event":"绚濑避不见面已三天；第十一场前夕。"},{"date":"2013-06-06","event":"对绚濑比赛翌日挑战藏人；非选拔赛，不占第十二场。"},{"date":"2013-06-13","event":"本卡安排第十四场通知；位于藏人决斗后的隔周。"},{"date":"2013-06-23","event":"隔周星期天奥多摩事件与一辉被捕。"},{"date":"2013-06-26","event":"一辉被拘禁三天；不把这一日误作第十七场。"},{"date":"2013-06-30","event":"拘押一周，父亲探访；一辉昨日取得第十七胜。"},{"date":"2013-07-07","event":"拘押两周；翌日最终选拔战。"}],"decisions":["2013年为本卡沿用年份，不声称原著明示了公历年。","表中具体月日均为本卡排程裁定；原文星期、季节、场次与相对间隔作为约束。","20为每名选手最多20场的日期槽，不是全校总共20场，不是要求退选者补满20场。","场馆今日第七场、第八场不等于选手个人第七战、第八战。","每三天左右为常规频率，不能用统一三日等差数列覆盖假期、剧情间隔与个人延赛。","默认表为普通选手及未特别改期的OC提供日期；一辉表仅用于黑铁一辉，不能套到全校或所有OC。","一辉拘押相关日期只在本局确实发生拘押时使用；未发生拘押则沿默认日期，不强制剧情。","新登记OC不把登记当天重新当第一轮；参与身份与入场基线另由运行时确定。","本轮仅裁定日历与轮次，不生成场外胜负、积分、排名，也不迁移旧存档。"],"evidence":{"holidays":"https://eco.mtk.nao.ac.jp/koyomi/yoko/2013/rekiyou131.html","firstVolume":"落第骑士英雄谭 第一卷 gbk.txt:5557-5559,5594-5596,6002","juneAndRound11":"第二卷-世界书整理/第二卷_第二章_逢魔时刻.txt:4,184,798,1304,1428-1430,1488","round14Notice":"第二卷-世界书整理/第二卷_终章_寒冰微笑.txt:316","round14Conflict":"第三卷-世界书整理/第三卷_序章_珠雫的挑战.txt:160","sunday":"第三卷-世界书整理/第三卷_第二章_奥多摩的怪物.txt:98","detention":"第三卷-世界书整理/第三卷_第三章_身陷逆境的落第骑士.txt:730,988-990,1298-1300,1404,1514","weekdayFinal":"第三卷-世界书整理/第三卷_第四章_一刀两断.txt:336,348,1340,1374"}};
 const nationalTournamentDates = {"name":"七星剑斗祭","startDate":"2013-08-07","endDate":"2013-08-12","source":"世界观/七星剑武祭考据/32强分区与赛制.md#轮次与日期","note":"本卡沿用2013年；日期按原文相对日序整理，实际排期以本局记录为准。","schedule":[{"date":"2013-08-07","time":"","round":"第一轮","note":"32进16"},{"date":"2013-08-08","time":"09:00","round":"第二轮","note":"16进8"},{"date":"2013-08-08","time":"18:00","round":"第三轮","note":"8进4，分区决赛"},{"date":"2013-08-09","time":"","round":"准决赛","note":"4进2，A–B、C–D"},{"date":"2013-08-10","time":"","round":"原定决赛","note":"原著后续改期；本局按实际通知登记"},{"date":"2013-08-11","time":"19:00","round":"延期决赛","note":"原著延期参考，不自动改写本局安排"},{"date":"2013-08-12","time":"","round":"颁奖闭幕","note":"原著决赛次日"}]};
 // S01：只读取剧情时钟和裁定日期，不写存档，也不从日期推断比赛胜负。
@@ -1330,7 +1342,7 @@ function createStateSchema(z, version, { normalizeRelationships = true } = {}) {
       当前章: version === 3 ? z.enum(CHAPTERS) : text.min(1),
       阶段: z.preprocess(normalizeStoryPhase, z.enum(['未开始', '进行中', '已结束'])),
       时间: text, 地点: text, 切入说明: text.default(''),
-      ...(version === 4 ? { 宿舍: z.boolean().optional() } : {}),
+      ...(version === 4 ? { 路线: z.enum(['A', 'B']).optional(), 宿舍: z.boolean().optional() } : {}),
       已发生事件: record(z.object({ ...(version === 4 ? { 卷号: volumeNumber } : {}), 章段: version === 3 ? z.enum(CHAPTERS.slice(1)) : text.min(1), 结果: text.min(1), 参与者: z.array(text.min(1)), 知情者: z.array(text.min(1)) }).strict()),
       // 可选字段兼容现有 v4 存档；未来约定不占用已发生事件。
       ...(version === 4 ? { 日程: record(schedule).optional(), 选拔赛: createTournamentSchema(z).optional(), 七星剑斗祭: createNationalTournamentSchema(z).optional() } : {}),
@@ -1501,9 +1513,8 @@ function validateStateOperation(value, scope, z) {
       时间: z.string(), 地点: z.string(),
     }).passthrough().superRefine((scene, ctx) => {
       if (!getStoryVolume(scene.当前卷)) ctx.addIssue({ code: 'custom', path: ['当前卷'], message: '当前卷不在剧情目录中。' });
-      else if (scene.当前章 !== '待选择' && !resolveStoryChapter(scene.当前卷, scene.当前章)) {
-        ctx.addIssue({ code: 'custom', path: ['当前章'], message: '当前卷与章节不匹配。' });
-      }
+      // 当前章可能是模型临时写入的未收录名称。保留它供手动兜底定位，
+      // 目标章仍在 applyTransition/jump 中严格校验。
     });
   } else if (scope === 'tournament') {
     fields.玩家 = z.object({ 姓名: z.string().trim().min(1), 所属: z.string() }).passthrough();
@@ -1512,6 +1523,12 @@ function validateStateOperation(value, scope, z) {
     fields.场景 = z.object({ 七星剑斗祭: createNationalTournamentSchema(z).optional() }).passthrough();
   } else if (scope === 'roster') {
     fields.人际 = z.record(z.string(), z.unknown());
+  } else if (scope === 'player-profile') {
+    // 只核对可编辑容器；旧技能允许先删掉，其他自定义资料不重写。
+    fields.玩家 = z.object({
+      伐刀能力: z.object({ 招式: z.record(z.string(), z.unknown()).optional() }).passthrough().optional(),
+      其他能力: z.record(z.string(), z.unknown()).optional(),
+    }).passthrough();
   } else if (scope === 'dorm' || scope === 'qualification') {
     fields.场景 = z.object({}).passthrough();
   } else throw new Error('未知的状态操作范围。');
@@ -1583,7 +1600,8 @@ function applyTransition(before, request) {
   const volume = getStoryVolume(scene.当前卷);
   if (!volume) throw new Error('当前卷不在已核对的剧情目录中。');
   const currentChapter = resolveStoryChapter(scene.当前卷, scene.当前章);
-  if (scene.当前章 !== '待选择' && !currentChapter) throw new Error('当前卷与章节不匹配，请核对存档。');
+  const unknownChapter = scene.当前章 !== '待选择' && !currentChapter;
+  if (unknownChapter && request.action !== 'jump') throw new Error('当前卷与章节不匹配，请核对存档。');
   if (currentChapter) scene.当前章 = currentChapter.key;
   function locateTarget(targetVolume, targetChapter) {
     const chapter = resolveStoryChapter(targetVolume, targetChapter);
@@ -1622,9 +1640,9 @@ function applyTransition(before, request) {
   } else if (request.action === 'jump') {
     const from = storyPosition(scene.当前卷, scene.当前章);
     const target = storyPosition(request.volume, request.chapter);
-    if (from < 0) throw new Error('请先确认当前章段，再选择向前切入的目标。');
+    if (from < 0 && !unknownChapter) throw new Error('请先确认当前章段，再选择向前切入的目标。');
     if (target < 0) throw new Error('目标卷与章节不是已核对的目录组合。');
-    if (target <= from) throw new Error('手动切入仅允许严格向前；回到已有剧情请使用聊天分支或已有回复页。');
+    if (from >= 0 && target <= from) throw new Error('手动切入仅允许严格向前；回到已有剧情请使用聊天分支或已有回复页。');
     locateTarget(request.volume, request.chapter);
   } else throw new Error('未知剧情操作。');
   return next;
@@ -1641,7 +1659,7 @@ function acceptAutomaticStoryProgress(before, after) {
   const current = resolveStoryChapter(old.当前卷, old.当前章);
   const proposed = resolveStoryChapter(scene.当前卷, scene.当前章);
   if (!current || !proposed) return false;
-  const target = nextStoryChapter(old.当前卷, current.key);
+  const target = nextStoryChapterForState(old.当前卷, current.key, after);
   const unchanged = scene.当前卷 === old.当前卷 && proposed.key === current.key;
   function advance() {
     scene.当前卷 = target.volume;
@@ -1915,11 +1933,55 @@ function enforceGrowthProgress(variables, previous, { replyKey = '', repairEvent
   return notices;
 }
 
+function editOcPlayerProfile(before, request) {
+  if (before.系统?.开局状态 !== '已建档' || before.系统?.主角模式 !== '自定义角色') throw new Error('只有已建档的自定义角色可以编辑个人资料。');
+  if (!request || typeof request !== 'object') throw new Error('个人资料操作无效。');
+  const state = cloneState(before), player = state.玩家;
+  const text = (value, label) => {
+    if (typeof value !== 'string') throw new Error(`${label}必须是文字。`);
+    return value;
+  };
+  if (request.action === 'bio') {
+    player.角色简介 = text(request.bio, '角色简介');
+  } else if (request.action === 'ability') {
+    player.伐刀能力 ||= {};
+    player.伐刀能力.能力本质 = text(request.mechanism, '能力介绍');
+    player.伐刀能力.共通限制 = text(request.cost, '共通限制');
+  } else if (['saveSkill', 'deleteSkill'].includes(request.action)) {
+    if (!['techniques', 'other'].includes(request.group)) throw new Error('技能类别无效。');
+    const current = request.group === 'techniques' ? player.伐刀能力?.招式 : player.其他能力;
+    const originalName = request.originalName;
+    if (originalName !== null && (typeof originalName !== 'string' || !Object.hasOwn(current || {}, originalName))) throw new Error('当前回复中已没有该技能，请刷新后重试。');
+    if (request.action === 'deleteSkill') {
+      if (originalName === null) throw new Error('请先选择要删除的技能。');
+      delete current[originalName];
+    } else {
+      const name = text(request.name, '技能名称').trim();
+      if (!name || /[~/]/.test(name) || ['__proto__', 'prototype', 'constructor'].includes(name)) throw new Error('技能名称不能为空，也不能包含 /、~ 或保留键。');
+      if (name !== originalName && Object.hasOwn(current || {}, name)) throw new Error('已有同名技能，请编辑已有记录或换个名称。');
+      if (!['待确认', '学习中', '已掌握'].includes(request.mastery)) throw new Error('请选择技能掌握状态。');
+      const previous = originalName === null ? null : current[originalName];
+      const skill = previous && typeof previous === 'object' && !Array.isArray(previous) ? { ...previous } : {};
+      skill.说明 = text(request.description, '技能说明');
+      skill.条件与代价 = text(request.cost, '条件与代价');
+      skill.掌握状态 = request.mastery;
+      let records = current;
+      if (!records) {
+        if (request.group === 'techniques') { player.伐刀能力 ||= {}; records = player.伐刀能力.招式 = {}; }
+        else records = player.其他能力 = {};
+      }
+      if (originalName !== null && originalName !== name) delete records[originalName];
+      records[name] = skill;
+    }
+  } else throw new Error('未知的个人资料操作。');
+  return state;
+}
+
 function createStateController(adapter) {
   const tokens = new WeakMap();
   async function capture(options = {}) {
     const scope = options.scope || 'full';
-    if (!['full', 'story', 'tournament', 'qualification', 'national', 'roster', 'dorm'].includes(scope)) throw new Error('未知的状态操作范围。');
+    if (!['full', 'story', 'tournament', 'qualification', 'national', 'roster', 'dorm', 'player-profile'].includes(scope)) throw new Error('未知的状态操作范围。');
     const snapshot = await adapter.capture(options);
     if (snapshot.data.stat_data?.系统?.结构版本 === 3) {
       const error = new Error('当前楼层是 v3 档案，请先查看迁移差异并确认升级为 v4。');
@@ -1946,7 +2008,7 @@ function createStateController(adapter) {
     const result = adapter.assertOpeningReplacement(snapshot);
     if (result && typeof result.then === 'function') throw new Error('开局替换需要同步宿主校验，尚未写入。');
   }
-  async function commit(token, build, kind = 'state', openingReplacement = false, operationScope = 'full') {
+  async function commit(token, build, kind = 'state', openingReplacement = false, operationScope = 'full', assertWritable) {
     const record = tokens.get(token);
     if (!record) throw new Error('操作凭据已失效，请重新读取当前分支。');
     if (record.kind !== kind) throw new Error('操作凭据用途不符；迁移必须通过明确的升级操作提交。');
@@ -1955,6 +2017,10 @@ function createStateController(adapter) {
     if (record.busy) throw new Error('正在写入，请勿重复操作。');
     record.busy = true;
     try {
+      const checkWritable = () => {
+        if (assertWritable && assertWritable()?.then) throw new Error('写入前检查必须同步完成。');
+      };
+      checkWritable();
       if (openingReplacement) assertReplacementScope(record.snapshot);
       const candidate = adapter.validate(build(cloneState(record.state)), scope);
       if (record.done) {
@@ -1975,6 +2041,7 @@ function createStateController(adapter) {
       }
       if (stateKey(current.data) !== stateKey(record.snapshot.data)) throw new Error('变量已被其他操作更新，请重新读取，草稿已保留。');
       if (openingReplacement) assertReplacementScope(record.snapshot);
+      checkWritable();
       await adapter.write(record.snapshot, current.data, candidate, { openingReplacement });
       const persisted = await adapter.current(record.snapshot);
       if (openingReplacement) assertReplacementScope(record.snapshot);
@@ -1988,7 +2055,7 @@ function createStateController(adapter) {
   }
   return Object.freeze({
     version: '4.0.0', get catalogue() { return cloneState(STORY_VOLUMES); }, capture, prepareMigration,
-    capabilities: Object.freeze({ scheduleAndRoster: true, rosterPermanentRemoval: true,
+    capabilities: Object.freeze({ scheduleAndRoster: true, rosterPermanentRemoval: true, ocPlayerEditing: true,
       tournament: 'T01', tournamentEngine: 'T02', nativeMvu: 'N01' }),
     get growthRules() { return cloneState(GROWTH_RULES); },
     tournamentView: state => deriveTournament(state),
@@ -2016,6 +2083,7 @@ function createStateController(adapter) {
     commitOpening: (token, payload) => commit(token, state => applyOpening(state, payload)),
     replaceOpening: (token, payload) => commit(token, state => applyOpeningReplacement(state, payload), 'state', true),
     transition: (token, request) => commit(token, state => applyTransition(state, request), 'state', false, 'story'),
+    editPlayerProfile: (token, request, assertWritable) => commit(token, state => editOcPlayerProfile(state, request), 'state', false, 'player-profile', assertWritable),
     setRosterHidden: (token, name, hidden) => commit(token, state => {
       if (typeof name !== 'string' || !name.trim() || /[~/]/.test(name) ||
           ['__proto__', 'prototype', 'constructor'].includes(name) || typeof hidden !== 'boolean') throw new Error('名册操作参数不合法。');

@@ -1761,6 +1761,105 @@
         "record": "research/20261015-vermilion-family/pages-verification-20261016.json",
         "note": "GitHub Pages部署完成后HTTPS GET 200；PNG尺寸及SHA-256与本地一致。沿用main根目录发布，原上传位置正确。"
       }
+    },
+    {
+      "id": "abraham-carter",
+      "name": "亚伯拉罕·卡特",
+      "aliases": [
+        "亞伯拉罕·卡特",
+        "亚伯拉罕",
+        "亞伯拉罕",
+        "卡特",
+        "亚拉伯罕",
+        "亚拉伯罕·卡特",
+        "Abraham Carter",
+        "超人",
+        "The Hero"
+      ],
+      "file": "research/20261101-carter-erlands/abraham-carter-vol15-original.jpg",
+      "sourceEpub": "39688/[台版]落第骑士英雄谭 15.epub",
+      "sourceMember": "OEBPS/Images/016.jpg",
+      "sourceUrl": "",
+      "sourcePage": "",
+      "hasShieldFrame": false,
+      "sourceStyle": "novel-monochrome-illustration",
+      "sourceStatus": "verified-local-epub-ai-colorized",
+      "width": 796,
+      "height": 1200,
+      "sha256": "d53b3ded648508e6245895bb8715a0cbb64db6f265a0107fd0561b8d52e4f01c",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/abraham-carter.png",
+      "identityEvidence": "research/20261101-carter-erlands/source-report.md",
+      "displayFile": "prepared/abraham-carter.png",
+      "preparation": {
+        "method": "built-in-imagegen-portrait-colorization-shield",
+        "sourceFile": "research/20261101-carter-erlands/abraham-carter-vol15-original.jpg",
+        "sourceSha256": "d53b3ded648508e6245895bb8715a0cbb64db6f265a0107fd0561b8d52e4f01c",
+        "templateFile": "prepared/kanata.png",
+        "outputWidth": 1085,
+        "outputHeight": 1450,
+        "sha256": "869e32d16d56a01ea4539afebdec3dc40e3a13e848d53a6d574d800be9189447",
+        "record": "research/20261101-carter-erlands/imagegen-record.json"
+      },
+      "derivation": {
+        "type": "ai-colorized-derivative",
+        "mode": "built-in",
+        "note": "从核验后的小说黑白插图提取单人、上色并制作透明曲边盾头像；属于 AI 编辑衍生图，非官方彩图。原图另存，配色依据与衍生选色见来源记录。"
+      },
+      "imageHostStatus": {
+        "status": "pending-user-git-upload",
+        "url": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/abraham-carter.png",
+        "preparedAt": "2026-11-01",
+        "note": "本地文件与 Pages 路径已准备；由用户自行 Git 上传，未声称远端已部署。"
+      }
+    },
+    {
+      "id": "karl-erlands",
+      "name": "卡尔·爱兰兹",
+      "aliases": [
+        "卡爾·愛蘭茲",
+        "卡尔·艾兰兹",
+        "愛蘭茲",
+        "爱兰兹",
+        "大教授",
+        "Karl Erlands",
+        "Carl Erlands",
+        "Grand Professor"
+      ],
+      "file": "research/20261101-carter-erlands/karl-erlands-vol18-original.jpg",
+      "sourceEpub": "39688/落第骑士英雄谭 - 18.epub",
+      "sourceMember": "OEBPS/Images/190221.jpg",
+      "sourceUrl": "",
+      "sourcePage": "",
+      "hasShieldFrame": false,
+      "sourceStyle": "novel-monochrome-illustration",
+      "sourceStatus": "verified-local-epub-ai-colorized",
+      "width": 1120,
+      "height": 1600,
+      "sha256": "0e59d79771636e9c141eb0c9701c14c1f2f6a0aae140677e7063a8444ba183f6",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/karl-erlands.png",
+      "identityEvidence": "research/20261101-carter-erlands/source-report.md",
+      "displayFile": "prepared/karl-erlands.png",
+      "preparation": {
+        "method": "built-in-imagegen-portrait-colorization-shield",
+        "sourceFile": "research/20261101-carter-erlands/karl-erlands-vol18-original.jpg",
+        "sourceSha256": "0e59d79771636e9c141eb0c9701c14c1f2f6a0aae140677e7063a8444ba183f6",
+        "templateFile": "prepared/kanata.png",
+        "outputWidth": 1085,
+        "outputHeight": 1450,
+        "sha256": "0212b7f3470c901ff2e0d3c97480341ffc51de169984a65483f0816fd8307a9d",
+        "record": "research/20261101-carter-erlands/imagegen-record.json"
+      },
+      "derivation": {
+        "type": "ai-colorized-derivative",
+        "mode": "built-in",
+        "note": "从核验后的小说黑白插图提取单人、上色并制作透明曲边盾头像；属于 AI 编辑衍生图，非官方彩图。原图另存，配色依据与衍生选色见来源记录。"
+      },
+      "imageHostStatus": {
+        "status": "pending-user-git-upload",
+        "url": "https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/karl-erlands.png",
+        "preparedAt": "2026-11-01",
+        "note": "本地文件与 Pages 路径已准备；由用户自行 Git 上传，未声称远端已部署。"
+      }
     }
   ],
   "missingPortraits": [

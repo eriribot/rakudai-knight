@@ -1,0 +1,56 @@
+{
+  "source_supplied_by_user": "https://www.twxgct.com/video/luodiqishiyingxiongtanriyu-haikonglu/7ai2iQZGHa.html",
+  "episode": 2,
+  "player_url_observed_by_parent": "https://pframe.xgcartoon.com/pframe/player.htm?vid=fea1d2b2-9f95-4729-a15d-3a04fa99df95",
+  "metadata_url": "https://xgct-video.bzcdn.net/fea1d2b2-9f95-4729-a15d-3a04fa99df95/video_info.json",
+  "master_playlist": "https://xgct-video.bzcdn.net/fea1d2b2-9f95-4729-a15d-3a04fa99df95/playlist.m3u8",
+  "selected_playlist": "https://xgct-video.bzcdn.net/fea1d2b2-9f95-4729-a15d-3a04fa99df95/640x360/video.m3u8",
+  "metadata_title": "02 落第骑士 Ⅱ",
+  "metadata_length_seconds": 1422,
+  "selected_resolution": [
+    640,
+    360
+  ],
+  "selected_playlist_read": true,
+  "selected_playlist_key_directives": [],
+  "sample_attempt": {
+    "requested_start_seconds": 920,
+    "requested_duration_seconds": 65,
+    "output_mode": "one reduced JPEG frame per 5 seconds; no episode video output",
+    "result": "HTTP 429 Too Many Requests on initial media segments 0, 1 and 2",
+    "action": "FFmpeg process stopped to prevent further automatic segment retries"
+  },
+  "sample_frames_saved": 0,
+  "usable_clips_saved": 3,
+  "limitation": "Public 640x360 quality; source thumbnails approximate. Final clips verified through sequential decoding after timestamp normalization.",
+  "access_boundary": "Only the 360p resolution confirmed playable without login by parent was selected. No higher-resolution login access was attempted.",
+  "current_status": "complete",
+  "network_resolution": "Use ordinary direct connection with player Referer+Origin; inherited local proxy caused misleading 429. Serial requests spaced 45 seconds; server Retry-After honored.",
+  "verified_clips": [
+    {
+      "file": "snow_child.mp4",
+      "source_start": 942.94,
+      "source_duration": 2.2,
+      "frames": 55,
+      "visual": "Child Ikki lowers his head then raises his eyes amid snow; no dialogue subtitle in selected frames"
+    },
+    {
+      "file": "snow_ryoma.mp4",
+      "source_start": 951.6,
+      "source_duration": 4.36,
+      "frames": 109,
+      "visual": "Camera moves from Ryoma torso to face amid falling snow; bottom source subtitles need crop"
+    },
+    {
+      "file": "ikki_reflection.mp4",
+      "source_start": 1016.016,
+      "source_duration": 2.24,
+      "output_duration": 3.0,
+      "frames": 75,
+      "speed": 0.7466666666666667,
+      "visual": "Ikki reflects on training alone at sunset; substitutes for unlocated solo practice action as approved by parent"
+    }
+  ],
+  "verification_file": "final_clips_verify.json",
+  "contact_sheet": "final_clips_contact.jpg"
+}

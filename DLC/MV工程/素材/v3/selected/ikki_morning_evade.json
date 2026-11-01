@@ -1,0 +1,26 @@
+{
+  "name": "ikki_morning_evade",
+  "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\selected\\ikki_morning_evade.mp4",
+  "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\ep03\\morning_sparring_raw.mp4",
+  "source_url": "https://xgct-video.bzcdn.net/7be25d42-7bad-40d3-b3cb-288fde6e9edb/640x360/video.m3u8",
+  "source_start": 1.72,
+  "source_end": 3.2,
+  "source_frames": [
+    43,
+    80
+  ],
+  "frames": 37,
+  "fps": 25,
+  "duration": 1.48,
+  "character": "Ikki",
+  "action": "sidesteps and swings his sword back",
+  "direction": "lateral / toward camera",
+  "note": "A flame blade crosses foreground, but no opponent face/body.",
+  "color_changes": "none",
+  "default_crop": [
+    32,
+    0,
+    576,
+    324
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "name": "stella_new_eyes",
+  "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\selected\\stella_new_eyes.mp4",
+  "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\ep06\\stella_heavy_guard_raw.mp4",
+  "source_url": "https://xgct-video.bzcdn.net/2d55fe0a-0b19-4af6-9d27-0b124aa37fd5/640x360/video.m3u8",
+  "source_start": 58.08,
+  "source_end": 60.56,
+  "source_frames": [
+    102,
+    164
+  ],
+  "frames": 62,
+  "fps": 25,
+  "duration": 2.48,
+  "character": "Stella",
+  "action": "confident eyes closed to open, clean portrait",
+  "direction": "frontal",
+  "note": "Portrait rather than an attack. Original opponent excluded.",
+  "color_changes": "none",
+  "default_crop": [
+    32,
+    0,
+    576,
+    324
+  ]
+}

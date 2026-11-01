@@ -19,8 +19,8 @@
   "artifacts": [
     {
       "file": "components/dialogue-bubbles.regex.json",
-      "sha256": "62315bc138c644575ad55a4e8349ecea9337786d19b8fa5bc77f06e42c9c4a7d",
-      "bytes": 181865
+      "sha256": "84b9e71d95e9849e586b14f20f5fca41a54045d4d4c7ed0dae0a0cd52be49505",
+      "bytes": 182299
     },
     {
       "file": "components/dialogue-player-candidates.regex.json",
@@ -29,8 +29,8 @@
     },
     {
       "file": "components/dialogue-bubble-style.regex.json",
-      "sha256": "3afca7b153c428c6d33fd67404c7d05e31e03bd8125bb2a267d216f5857703b1",
-      "bytes": 194653
+      "sha256": "427a65b4cd52ca0e9039f8ff9ff5b2ff8412ad4e99375c63886e602c8343c530",
+      "bytes": 195966
     }
   ],
   "realSillyTavern": "not run"

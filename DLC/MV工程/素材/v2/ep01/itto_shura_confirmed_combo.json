@@ -1,0 +1,25 @@
+{
+  "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep01\\itto_shura_confirmed_combo.mp4",
+  "duration": 4.8,
+  "fps": 25,
+  "frames": 120,
+  "grading": "none; original public 360p colors",
+  "technique_evidence": "First shot has visible source subtitle 一刀修羅. Assembly is declaration, raised eyes, then rush from the same ep1 sequence. No claim of a giant blue-flame explosion.",
+  "shots": [
+    {
+      "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep01\\itto_shura_call_raw.mp4",
+      "start_frame": 0,
+      "end_frame_exclusive": 32
+    },
+    {
+      "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep01\\itto_shura_release_raw.mp4",
+      "start_frame": 11,
+      "end_frame_exclusive": 79
+    },
+    {
+      "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep01\\ikki_dodge_raw.mp4",
+      "start_frame": 66,
+      "end_frame_exclusive": 86
+    }
+  ]
+}

@@ -448,6 +448,34 @@
     return editRoster(name, 'delete', undefined, expectedSource, expectedState);
   }
 
+  let playerEditBusy = false;
+  async function editPlayerProfile(request, expectedSource, expectedState) {
+    if (playerEditBusy) throw new Error('正在保存个人资料，请稍候。');
+    const controller = window.RakudaiStateController;
+    if (!controller?.capabilities?.ocPlayerEditing || typeof controller.editPlayerProfile !== 'function') throw new Error('请更新支持 OC 资料编辑的终端状态控制器。');
+    const revision = rosterEditRevision;
+    const edit = structuredClone(request);
+    function assertWritable() {
+      if (SS.destroyed || generationPending || limeNativeStarting || correctionMainBusy() || correctionJob || correctionAutoTurn) throw new Error('请等待当前回复与副校正保存完成，再编辑个人资料。');
+      const snapshot = readSnapshot();
+      if (revision !== rosterEditRevision || snapshot.pending || !expectedSource ||
+          JSON.stringify(snapshot.source) !== JSON.stringify(expectedSource) ||
+          rosterSnapshotKey(snapshot.state) !== expectedState) throw new Error('楼层、回复页或个人资料已变化，请重新读取后编辑。');
+      return snapshot;
+    }
+    const snapshot = assertWritable();
+    playerEditBusy = true;
+    try {
+      const captured = await controller.capture({ messageId: snapshot.source.messageId, scope: 'player-profile' });
+      assertWritable();
+      if (rosterSnapshotKey(captured.state) !== expectedState) throw new Error('个人资料已更新，请重新读取后编辑。');
+      // current() 的异步边界后再同步检查，生成刚开始时也不能落笔。
+      await controller.editPlayerProfile(captured.token, edit, assertWritable);
+      terminalStateReader?.clear();
+      emit({ type: 'player-profile-updated', reset: true, retainDisplay: true });
+    } finally { playerEditBusy = false; }
+  }
+
   /*__INJECT_CORRECTION__*/
 
   // 通知挂在酒馆宿主上，终端是否展开不影响状态；关闭通知也不会取消后台任务。
@@ -610,6 +638,7 @@
       worldbookCalendar: { read: readCalendarWorldbook },
       setRosterHidden,
       deleteRosterPerson,
+      editPlayerProfile,
       onUpdate: (cb) => {
         updateCbs.push(cb);
         return () => { const index = updateCbs.indexOf(cb); if (index !== -1) updateCbs.splice(index, 1); };

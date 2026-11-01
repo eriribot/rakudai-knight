@@ -1,0 +1,26 @@
+{
+  "name": "stella_morning_guard",
+  "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\selected\\stella_morning_guard.mp4",
+  "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\ep03\\morning_sparring_raw.mp4",
+  "source_url": "https://xgct-video.bzcdn.net/7be25d42-7bad-40d3-b3cb-288fde6e9edb/640x360/video.m3u8",
+  "source_start": 4.08,
+  "source_end": 5.44,
+  "source_frames": [
+    102,
+    136
+  ],
+  "frames": 34,
+  "fps": 25,
+  "duration": 1.36,
+  "character": "Stella",
+  "action": "raised sword blocks/counters",
+  "direction": "overhead",
+  "note": "Original opponent black sword remains in foreground; no opponent person. Optional if weapon continuity is acceptable.",
+  "color_changes": "none",
+  "default_crop": [
+    32,
+    0,
+    576,
+    324
+  ]
+}

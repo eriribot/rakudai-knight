@@ -1,0 +1,42 @@
+{
+  "file": "E:\\web\\落第\\DLC\\学战都市×落第骑士英雄谭_联合MV_V3_蓝光对位版.mp4",
+  "sha256": "d7d718788030b756e9a19d7089143dc754f646a359564c25a43cc4c90d2f2d90",
+  "video": {
+    "width": 1280,
+    "height": 720,
+    "r_frame_rate": "25/1",
+    "nb_frames": "5267",
+    "duration": "210.680000"
+  },
+  "audio": {
+    "codec_name": "aac",
+    "duration": "210.773167",
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  "format_duration": "210.773167",
+  "source_format_duration": "210.773167",
+  "audio_copy": {
+    "sha256": "9e45548a0ff32353c4be0419d1c145d357eccc54f66d9e92158d11f8a85a8583",
+    "bytes": 4215889
+  },
+  "original_audio": {
+    "sha256": "9e45548a0ff32353c4be0419d1c145d357eccc54f66d9e92158d11f8a85a8583",
+    "bytes": 4215889
+  },
+  "audio_identical": true,
+  "full_decode": {
+    "exit_code": 0,
+    "stderr": ""
+  },
+  "visual_status": "Roster and corrected attack passed; one late source-subtitle residual requires crop-only re-export, already fixed in plan and previewed. See global_source_audit.json.",
+  "contacts": [
+    "E:\\web\\落第\\DLC\\MV工程\\检查\\v3\\actual_blue_power.jpg",
+    "E:\\web\\落第\\DLC\\MV工程\\检查\\v3\\actual_exchange1_0.jpg",
+    "E:\\web\\落第\\DLC\\MV工程\\检查\\v3\\actual_exchange1_1.jpg",
+    "E:\\web\\落第\\DLC\\MV工程\\检查\\v3\\actual_mecha_fix_0.jpg",
+    "E:\\web\\落第\\DLC\\MV工程\\检查\\v3\\actual_mecha_fix_1.jpg",
+    "E:\\web\\落第\\DLC\\MV工程\\检查\\v3\\actual_roster_0.jpg",
+    "E:\\web\\落第\\DLC\\MV工程\\检查\\v3\\actual_roster_1.jpg"
+  ]
+}

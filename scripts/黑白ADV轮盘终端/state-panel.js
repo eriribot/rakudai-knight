@@ -73,7 +73,7 @@
     start.disabled = !ready || scene.当前章 !== '待选择';
     panelNode('[data-story-action="refresh"]').disabled = panelBusy;
     panelNode('[data-story-action="start"]').disabled = !ready || scene.阶段 !== '未开始' || !located || !book.chapters.some(chapter => chapter.key === selected);
-    panelNode('[data-story-action="end"]').disabled = !ready || scene.阶段 !== '进行中';
+    panelNode('[data-story-action="end"]').disabled = !ready || index < 0 || scene.阶段 !== '进行中';
     panelNode('[data-story-action="next"]').disabled = !ready || scene.阶段 !== '已结束' || index < 0 || index === book.chapters.length - 1;
     panelNode('[data-story-action="nextVolume"]').disabled = !ready || scene.阶段 !== '已结束' || index !== book.chapters.length - 1 || !panelVolume(scene.当前卷 + 1);
     const atVolumeEnd = !!book && index === book.chapters.length - 1;
@@ -90,7 +90,7 @@
     statePanel.setAttribute('aria-busy', String(panelBusy));
   }
   function renderStatePanel() {
-    const state = stateCapture?.state || panelMigration?.before || panelDisplayState, system = state?.系统 || {}, scene = state?.场景 || {}, book = panelVolume(scene.当前卷);
+    const state = stateCapture?.state || panelMigration?.before || panelDisplayState, system = state?.系统 || {}, scene = state?.场景 || {}, book = panelVolume(scene.当前卷), index = book ? book.chapters.findIndex(chapter => chapter.key === scene.当前章) : -1;
     panelText('[data-story-summary]', '剧情 · ' + sceneLabel(scene));
     panelText('[data-story-system]', '系统：' + (system.开局状态 || '未读取') + ' · ' + (system.主角模式 || '未选择'));
     panelText('[data-story-scene]', (book ? book.title + ' · ' : '') + sceneLabel(scene));
@@ -108,6 +108,7 @@
     if (panelMigration) hint = '当前为 v3 存档，先核对下方差异，再明确确认升级。预览不会修改聊天。';
     else if (system.开局状态 !== '已建档') hint = '请先完成开局建档。';
     else if (scene.当前卷 === 19 && scene.当前章 === book?.chapters.at(-1)?.key && scene.阶段 === '已结束') hint = '已到第 19 卷末。回看已有剧情请使用聊天分支或已有回复页。';
+    else if (book && index < 0) hint = '当前章名未在目录，已开放手动向前切入兜底；请选择目录中的目标章。';
     else if (!scene.时间 || !scene.地点) hint = '请先在本局确认时间和地点，再开始本章。';
     panelText('[data-story-hint]', hint);
     panelNode('[data-story-migration]').hidden = !panelMigration;
@@ -134,7 +135,7 @@
       const previous = status.lastInjection;
       const previousEntry = previous && typeof previous.worldbook === 'string' && typeof previous.entryName === 'string' && Number.isInteger(previous.entryOrder)
         ? ' · ' + previous.worldbook + ' / ' + previous.entryName + '（order ' + previous.entryOrder + '）' : '';
-      panelText('[data-story-last-injection]', previous ? '最近一次：第' + previous.volume + '卷 · ' + previous.chapter + ' · ' + previous.phase + ' · ' + sourceLabel(previous.source) + previousEntry : '本会话尚无注入记录。');
+      panelText('[data-story-last-injection]', previous ? '最近一次：第' + previous.volume + '卷 · ' + previous.chapter + ' · ' + previous.phase + ' · ' + sourceLabel(previous.source) + previousEntry : '本次加载后，当前聊天尚无注入确认；刷新页面会清空记录。');
       try {
         const preview = await service.preview();
         if (request !== injectionPreviewRequest || panel !== statePanel || epoch !== panelEpoch || SS.destroyed) return;

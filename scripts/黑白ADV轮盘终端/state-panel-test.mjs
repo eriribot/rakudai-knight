@@ -239,6 +239,20 @@ await check('当前卷章本身不合法仍显示具体问题，未写入其他�
   assert.equal(f.node('[data-story-action="end"]').disabled, true);
   assert.equal(f.writes, 0); assert.deepEqual(f.state, initial);
 });
+await check('当前章名未收录时开放手动切入兜底，普通结束按钮仍锁定', async () => {
+  const initial = saved(6, '海空陆之后的随意章', '进行中');
+  const f = fixture(initial); await settle();
+  assert.match(f.node('[data-story-hint]').textContent, /当前章名未在目录.*手动向前切入兜底/);
+  assert.equal(f.node('[data-story-action="end"]').disabled, true);
+  f.openJump();
+  const form = f.node('[data-story-form="jump"]');
+  assert.equal(form.elements.time.disabled, false); assert.equal(form.elements.location.disabled, false);
+  form.elements.volume.value = '16'; form.elements.volume.dispatch('change');
+  form.elements.chapter.value = '终章Ⅱ'; form.elements.chapter.dispatch('change'); fill(form);
+  form.dispatch('submit'); await settle();
+  assert.equal(f.writes, 1); assert.equal(f.state.场景.当前卷, 16); assert.equal(f.state.场景.当前章, '终章Ⅱ');
+  assert.equal(f.state.场景.阶段, '进行中');
+});
 await check('服务不可用保留只读资料并指出终端加载问题，不要求启用约束', async () => {
   const f = fixture(saved(1, '第一章', '进行中'), { serviceAvailable: false }); await settle();
   assert.match(f.node('[data-story-display-source]').textContent, /已读取状态.*第 2 楼.*服务暂不可用/);

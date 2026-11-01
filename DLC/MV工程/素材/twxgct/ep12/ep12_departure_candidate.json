@@ -1,0 +1,14 @@
+{
+  "source_url": "https://xgct-video.bzcdn.net/06217f85-7d2d-4018-b9d3-73ba42c1d7ce/640x360/video.m3u8",
+  "source_start": 500.6,
+  "duration_requested": 4.88,
+  "fps_output": 25,
+  "rendition": "public 640x360 only",
+  "segments": [
+    {
+      "start": 500.4999999999996,
+      "duration": 5.005,
+      "url": "https://xgct-video.bzcdn.net/06217f85-7d2d-4018-b9d3-73ba42c1d7ce/640x360/video125.ts"
+    }
+  ]
+}

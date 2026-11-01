@@ -1,0 +1,26 @@
+{
+  "name": "touka_lightning_hold",
+  "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\selected\\touka_lightning_hold.mp4",
+  "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\ep09\\touka_lightning_stance_raw.mp4",
+  "source_url": "https://xgct-video.bzcdn.net/06ea9755-6f6b-45b7-960d-6bc68d91bd22/640x360/video.m3u8",
+  "source_start": 1235.5,
+  "source_end": 1237.14,
+  "source_frames": [
+    0,
+    41
+  ],
+  "frames": 41,
+  "fps": 25,
+  "duration": 1.64,
+  "character": "Touka",
+  "action": "lightning trails dissipate around her",
+  "direction": "frontal",
+  "note": "Ends before golem is revealed.",
+  "color_changes": "none",
+  "default_crop": [
+    32,
+    0,
+    576,
+    324
+  ]
+}

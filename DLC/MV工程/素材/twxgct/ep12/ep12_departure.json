@@ -1,0 +1,28 @@
+{
+  "source_page": "https://pframe.xgcartoon.com/pframe/player.htm?vid=06217f85-7d2d-4018-b9d3-73ba42c1d7ce",
+  "source_rendition": "public 640x360 HLS only",
+  "source_segment": "video125.ts",
+  "source_segment_range_seconds": [
+    500.5,
+    505.505
+  ],
+  "candidate_source_start_seconds": 500.6,
+  "candidate_local_range_seconds": [
+    0,
+    4.56
+  ],
+  "nominal_source_range_seconds": [
+    500.6,
+    505.16
+  ],
+  "final_mv_range_seconds": [
+    201,
+    205.56
+  ],
+  "output": "ep12_departure.mp4",
+  "frames": 114,
+  "fps": 25,
+  "duration_seconds": 4.56,
+  "visual_verification": "Adult Ikki lifts hand amid red phosphor, then closeup of hand grasping bright red/gold light. Original scene cut retained near local 1.8 s. The brief face closeup at candidate end excluded to avoid a flash-frame cut. No burned-in source subtitles or channel watermarks visible in selected excerpt.",
+  "limitations": "360p source upscaling will not restore original 720p detail; source times nominal from HLS segment durations, not external episode/subtitle timecodes."
+}

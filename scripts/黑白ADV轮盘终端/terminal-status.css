@@ -415,6 +415,48 @@
   font-style: normal;
 }
 
+#blazer-body.gba-status .rk-player-edit-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+#blazer-body.gba-status .rk-player-edit-actions button {
+  min-height: 36px;
+  padding: 6px 12px;
+  border: 1px solid var(--gba-navy);
+  background: var(--gba-paper-shade);
+  color: var(--gba-ink);
+  font: 13px/1.4 var(--font-ui);
+  cursor: pointer;
+}
+#blazer-body.gba-status .rk-player-edit-actions button:hover:not(:disabled) {
+  background: var(--gba-navy);
+  color: var(--gba-paper);
+}
+#blazer-body.gba-status .rk-player-edit-actions button:focus-visible {
+  outline: 2px solid var(--gba-navy);
+  outline-offset: 2px;
+}
+#blazer-body.gba-status .rk-player-editor label { display: block; margin: 10px 0; font-weight: 700; }
+#blazer-body.gba-status .rk-player-editor input,
+#blazer-body.gba-status .rk-player-editor textarea,
+#blazer-body.gba-status .rk-player-editor select {
+  display: block;
+  width: 100%;
+  margin-top: 4px;
+  padding: 8px;
+  border: 1px solid var(--gba-ink);
+  border-radius: 0;
+  background: #fffaf0;
+  color: var(--gba-ink);
+  font: 13px/1.6 var(--font-ui);
+}
+#blazer-body.gba-status .rk-player-editor textarea { resize: vertical; min-height: 96px; }
+#blazer-body.gba-status .rk-player-editor :disabled { opacity: .6; cursor: not-allowed; }
+#blazer-body.gba-status .noble-art-desc { white-space: pre-wrap; }
+
 #blazer-body.gba-status .gba-romance-panel {
   border-top: 2px solid var(--gba-red);
   margin-top: 14px;

@@ -1,0 +1,912 @@
+{
+  "status": "captured_and_visually_reviewed",
+  "version": 2,
+  "raw_clip_count": 14,
+  "total_raw_duration_seconds": 96.04,
+  "access": "ordinary public guest low-quality player; observed 640x360 HLS only; sequential downloads of selected segments",
+  "ep10_discovery": {
+    "public_guest_api": "https://www.twxgct.com/user/amp/content_pframe_url?chapter_id=SHr7cMjM7X&level=low&expires=3600",
+    "guid": "cb4b9ee0-9b14-4ef4-a4ec-fb8b36e42825"
+  },
+  "processing": "selected TS spans normalized to zero PTS, filter-trimmed, H264/25fps/no audio; no full episode downloaded",
+  "confirmed_itto_shura_assembly": {
+    "total_duration": 4.8,
+    "shots": [
+      {
+        "file": "ep01/itto_shura_call_raw.mp4",
+        "local_start": 0,
+        "local_end": 1.28
+      },
+      {
+        "file": "ep01/itto_shura_release_raw.mp4",
+        "local_start": 0.44,
+        "local_end": 3.16
+      },
+      {
+        "file": "ep01/ikki_dodge_raw.mp4",
+        "local_start": 2.64,
+        "local_end": 3.44
+      }
+    ],
+    "evidence": "First clip visibly names 一刀修羅. It has pale energy trails rather than a strong blue explosion; any cooler grading must be described as grading."
+  },
+  "rejected_sources": [
+    {
+      "file": "ep04/rejected/perfect_vision_raw.mp4",
+      "reason": "Actual named technique is 完全掌握 / Perfect Vision, not Ittou Shura."
+    },
+    {
+      "file": "ep04/rejected/combat_launch_raw.mp4",
+      "reason": "No verified Ittou Shura declaration. Final strong blue flare is Kirihara's 驟雨烈閃 / Million Rain; must not be attributed to Ikki."
+    }
+  ],
+  "notes": [
+    "Total duration is raw material, not the amount used in the finished MV.",
+    "Suggested shots may overlap; do not sum their durations as unique footage.",
+    "Character identification takes precedence over filenames: shizuku_face_raw contains a Touka portrait, and touka_face_raw contains a Shizuku attack.",
+    "Crop bottom burned-in subtitles; stella_fire_raw also has top spell captions and needs the tighter crop.",
+    "Native public source is 360p. Fast-motion macroblocking is visible, especially stella_charge_raw local 1.96–2.60; avoid that interval.",
+    "Do not use original-opponent two-shots for the fake cross-series duel. Use isolated faces, strikes and reactions.",
+    "ikki_dodge_raw local7.44–7.68 still has Stella in foreground. Begin the clean overhead strike at exactly7.68, ending before9.04."
+  ],
+  "clips": [
+    {
+      "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep01\\ikki_counter_raw.mp4",
+      "contact_sheet": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep01\\ikki_counter_raw_contact.jpg",
+      "width": 640,
+      "height": 360,
+      "fps": 25.0,
+      "frames": 225,
+      "duration": 9.0,
+      "source_page": "https://www.twxgct.com/video/luodiqishiyingxiongtanriyu-haikonglu/7ai2iQZGHa.html",
+      "source": {
+        "source_url": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video.m3u8",
+        "source_start": 866.0,
+        "duration_requested": 9.0,
+        "fps_output": 25,
+        "rendition": "public 640x360 only",
+        "segments": [
+          {
+            "start": 865.8650000000013,
+            "duration": 2.5025,
+            "url": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video216.ts"
+          },
+          {
+            "start": 868.3675000000013,
+            "duration": 5.005,
+            "url": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video217.ts"
+          },
+          {
+            "start": 873.3725000000013,
+            "duration": 5.005,
+            "url": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video218.ts"
+          }
+        ]
+      },
+      "suggested_shots": [
+        {
+          "local_start": 0.32,
+          "local_end": 1.68,
+          "character": "Stella",
+          "action": "reels backward, only her face/body visible",
+          "motion_direction": "backward",
+          "frame_boundaries_verified": false
+        },
+        {
+          "local_start": 2.16,
+          "local_end": 2.48,
+          "character": "Ikki",
+          "action": "single-character counter-swing close-up",
+          "motion_direction": "downward",
+          "frame_boundaries_verified": false
+        },
+        {
+          "local_start": 4.8,
+          "local_end": 7.8,
+          "character": "Ikki",
+          "action": "multiple afterimages of Ikki, no opponent",
+          "motion_direction": "stance / speed afterimages",
+          "frame_boundaries_verified": false
+        },
+        {
+          "local_start": 8.04,
+          "local_end": 8.76,
+          "character": "Ikki",
+          "action": "post-strike profile",
+          "motion_direction": "face toward screen left",
+          "frame_boundaries_verified": false
+        }
+      ],
+      "crop_suggestion": {
+        "w": 576,
+        "h": 324,
+        "x": 32,
+        "y": 0
+      }
+    },
+    {
+      "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep01\\ikki_dodge_raw.mp4",
+      "contact_sheet": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep01\\ikki_dodge_raw_contact.jpg",
+      "width": 640,
+      "height": 360,
+      "fps": 25.0,
+      "frames": 250,
+      "duration": 10.0,
+      "source_page": "https://www.twxgct.com/video/luodiqishiyingxiongtanriyu-haikonglu/7ai2iQZGHa.html",
+      "source": {
+        "source_url": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video.m3u8",
+        "source_start": 943.5,
+        "duration_requested": 10.0,
+        "fps_output": 25,
+        "rendition": "public 640x360 only",
+        "segments": [
+          {
+            "start": 940.9400000000016,
+            "duration": 5.005,
+            "url": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video235.ts"
+          },
+          {
+            "start": 945.9450000000016,
+            "duration": 2.5025,
+            "url": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video236.ts"
+          },
+          {
+            "start": 948.4475000000017,
+            "duration": 5.005,
+            "url": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video237.ts"
+          },
+          {
+            "start": 953.4525000000017,
+            "duration": 5.005,
+            "url": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video238.ts"
+          }
+        ]
+      },
+      "suggested_shots": [
+        {
+          "local_start": 0,
+          "local_end": 0.72,
+          "character": "Stella",
+          "action": "solo flame-blade swing",
+          "motion_direction": "screen right",
+          "frame_boundaries_verified": false
+        },
+        {
+          "local_start": 0.84,
+          "local_end": 1,
+          "character": "Ikki",
+          "action": "four-frame face close-up",
+          "motion_direction": "toward camera",
+          "frame_boundaries_verified": true
+        },
+        {
+          "local_start": 1.24,
+          "local_end": 3.44,
+          "character": "Ikki",
+          "action": "single-character rush from distant view toward camera",
+          "motion_direction": "toward camera",
+          "frame_boundaries_verified": true
+        },
+        {
+          "local_start": 4.8,
+          "local_end": 6.08,
+          "character": "Ikki",
+          "action": "crosses fire column with sword",
+          "motion_direction": "horizontal",
+          "frame_boundaries_verified": false
+        },
+        {
+          "local_start": 7.68,
+          "local_end": 9.04,
+          "character": "Ikki",
+          "action": "blue-lit overhead sword strike, face visible; last .20s blade crosses camera",
+          "motion_direction": "downward / toward camera",
+          "frame_boundaries_verified": true
+        }
+      ],
+      "crop_suggestion": {
+        "w": 576,
+        "h": 324,
+        "x": 32,
+        "y": 0
+      }
+    },
+    {
+      "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep01\\itto_shura_build_raw.mp4",
+      "contact_sheet": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep01\\itto_shura_build_raw_contact.jpg",
+      "width": 640,
+      "height": 360,
+      "fps": 25.0,
+      "frames": 250,
+      "duration": 10.0,
+      "source_page": "https://www.twxgct.com/video/luodiqishiyingxiongtanriyu-haikonglu/7ai2iQZGHa.html",
+      "source": {
+        "source_url": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video.m3u8",
+        "source_start": 927.5,
+        "duration_requested": 10.0,
+        "fps_output": 25,
+        "rendition": "public 640x360 only",
+        "segments": [
+          {
+            "start": 925.9250000000015,
+            "duration": 2.5025,
+            "url": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video231.ts"
+          },
+          {
+            "start": 928.4275000000016,
+            "duration": 5.005,
+            "url": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video232.ts"
+          },
+          {
+            "start": 933.4325000000016,
+            "duration": 5.005,
+            "url": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video233.ts"
+          }
+        ]
+      },
+      "suggested_shots": [
+        {
+          "local_start": 0,
+          "local_end": 0.6,
+          "character": "Ikki",
+          "action": "verified Ittou Shura declaration; burned-in subtitle explicitly names 一刀修羅",
+          "motion_direction": "",
+          "frame_boundaries_verified": true
+        }
+      ],
+      "crop_suggestion": {
+        "w": 576,
+        "h": 324,
+        "x": 32,
+        "y": 0
+      }
+    },
+    {
+      "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep01\\itto_shura_call_raw.mp4",
+      "contact_sheet": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep01\\itto_shura_call_raw_contact.jpg",
+      "width": 640,
+      "height": 360,
+      "fps": 25.0,
+      "frames": 60,
+      "duration": 2.4,
+      "source_page": "https://www.twxgct.com/video/luodiqishiyingxiongtanriyu-haikonglu/7ai2iQZGHa.html",
+      "source": {
+        "source_url": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video.m3u8",
+        "source_start": 926.8,
+        "duration_requested": 2.4,
+        "fps_output": 25,
+        "rendition": "public 640x360 only",
+        "segments": [
+          {
+            "start": 925.9250000000015,
+            "duration": 2.5025,
+            "url": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video231.ts"
+          },
+          {
+            "start": 928.4275000000016,
+            "duration": 5.005,
+            "url": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video232.ts"
+          }
+        ]
+      },
+      "suggested_shots": [
+        {
+          "local_start": 0,
+          "local_end": 1.28,
+          "character": "Ikki",
+          "action": "verified Ittou Shura stance/declaration; pale energy trails, not a large blue explosion",
+          "motion_direction": "",
+          "frame_boundaries_verified": true
+        }
+      ],
+      "crop_suggestion": {
+        "w": 576,
+        "h": 324,
+        "x": 32,
+        "y": 0
+      }
+    },
+    {
+      "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep01\\itto_shura_release_raw.mp4",
+      "contact_sheet": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep01\\itto_shura_release_raw_contact.jpg",
+      "width": 640,
+      "height": 360,
+      "fps": 25.0,
+      "frames": 150,
+      "duration": 6.0,
+      "source_page": "https://www.twxgct.com/video/luodiqishiyingxiongtanriyu-haikonglu/7ai2iQZGHa.html",
+      "source": {
+        "source_url": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video.m3u8",
+        "source_start": 937.5,
+        "duration_requested": 6.0,
+        "fps_output": 25,
+        "rendition": "public 640x360 only",
+        "segments": [
+          {
+            "start": 933.4325000000016,
+            "duration": 5.005,
+            "url": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video233.ts"
+          },
+          {
+            "start": 938.4375000000016,
+            "duration": 2.5025,
+            "url": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video234.ts"
+          },
+          {
+            "start": 940.9400000000016,
+            "duration": 5.005,
+            "url": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video235.ts"
+          }
+        ]
+      },
+      "suggested_shots": [
+        {
+          "local_start": 0.44,
+          "local_end": 3.16,
+          "character": "Ikki",
+          "action": "lowers head and raises eyes in the same activated Ittou Shura sequence; do not claim a blue-flame explosion",
+          "motion_direction": "",
+          "frame_boundaries_verified": true
+        }
+      ],
+      "crop_suggestion": {
+        "w": 576,
+        "h": 324,
+        "x": 32,
+        "y": 0
+      }
+    },
+    {
+      "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep01\\stella_block_raw.mp4",
+      "contact_sheet": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep01\\stella_block_raw_contact.jpg",
+      "width": 640,
+      "height": 360,
+      "fps": 25.0,
+      "frames": 26,
+      "duration": 1.04,
+      "source_page": "https://www.twxgct.com/video/luodiqishiyingxiongtanriyu-haikonglu/7ai2iQZGHa.html",
+      "source": {
+        "source_url": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video.m3u8",
+        "source_start": 860.87,
+        "duration_requested": 1.04,
+        "fps_output": 25,
+        "rendition": "public 640x360 only",
+        "segments": [
+          {
+            "start": 860.8600000000013,
+            "duration": 5.005,
+            "url": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video215.ts"
+          }
+        ]
+      },
+      "suggested_shots": [
+        {
+          "local_start": 0,
+          "local_end": 0.88,
+          "character": "Stella",
+          "action": "face with gold sword guarding",
+          "motion_direction": "guard across upper right",
+          "frame_boundaries_verified": false
+        }
+      ],
+      "crop_suggestion": {
+        "w": 576,
+        "h": 324,
+        "x": 32,
+        "y": 0
+      }
+    },
+    {
+      "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep01\\stella_charge_raw.mp4",
+      "contact_sheet": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep01\\stella_charge_raw_contact.jpg",
+      "width": 640,
+      "height": 360,
+      "fps": 25.0,
+      "frames": 120,
+      "duration": 4.8,
+      "source_page": "https://www.twxgct.com/video/luodiqishiyingxiongtanriyu-haikonglu/7ai2iQZGHa.html",
+      "source": {
+        "source_url": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video.m3u8",
+        "source_start": 849.5,
+        "duration_requested": 4.8,
+        "fps_output": 25,
+        "rendition": "public 640x360 only",
+        "segments": [
+          {
+            "start": 848.3475000000012,
+            "duration": 5.005,
+            "url": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video212.ts"
+          },
+          {
+            "start": 853.3525000000012,
+            "duration": 5.005,
+            "url": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video213.ts"
+          }
+        ]
+      },
+      "suggested_shots": [
+        {
+          "local_start": 0,
+          "local_end": 0.88,
+          "character": "Ikki",
+          "action": "eyes close-up",
+          "motion_direction": "",
+          "frame_boundaries_verified": true
+        },
+        {
+          "local_start": 0.88,
+          "local_end": 1.76,
+          "character": "Stella",
+          "action": "clean profile / preparing to charge",
+          "motion_direction": "screen right",
+          "frame_boundaries_verified": true
+        },
+        {
+          "local_start": 2.64,
+          "local_end": 3.44,
+          "character": "Stella",
+          "action": "single-character forward charge",
+          "motion_direction": "screen right / toward camera",
+          "frame_boundaries_verified": true
+        },
+        {
+          "local_start": 3.44,
+          "local_end": 4.12,
+          "character": "Ikki",
+          "action": "raises sword to counter",
+          "motion_direction": "toward camera",
+          "frame_boundaries_verified": true
+        },
+        {
+          "local_start": 4.12,
+          "local_end": 4.52,
+          "character": "Stella",
+          "action": "frontal overhead sword swing",
+          "motion_direction": "downward",
+          "frame_boundaries_verified": true
+        }
+      ],
+      "crop_suggestion": {
+        "w": 576,
+        "h": 324,
+        "x": 32,
+        "y": 0
+      }
+    },
+    {
+      "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep01\\stella_fire_raw.mp4",
+      "contact_sheet": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep01\\stella_fire_raw_contact.jpg",
+      "width": 640,
+      "height": 360,
+      "fps": 25.0,
+      "frames": 238,
+      "duration": 9.52,
+      "source_page": "https://www.twxgct.com/video/luodiqishiyingxiongtanriyu-haikonglu/7ai2iQZGHa.html",
+      "source": {
+        "source_url": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video.m3u8",
+        "source_start": 917.5,
+        "duration_requested": 9.5,
+        "fps_output": 25,
+        "rendition": "public 640x360 only",
+        "segments": [
+          {
+            "start": 913.4125000000015,
+            "duration": 5.005,
+            "url": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video228.ts"
+          },
+          {
+            "start": 918.4175000000015,
+            "duration": 2.5025,
+            "url": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video229.ts"
+          },
+          {
+            "start": 920.9200000000016,
+            "duration": 5.005,
+            "url": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video230.ts"
+          },
+          {
+            "start": 925.9250000000015,
+            "duration": 2.5025,
+            "url": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video231.ts"
+          }
+        ]
+      },
+      "suggested_shots": [
+        {
+          "local_start": 0.6,
+          "local_end": 5.6,
+          "character": "Stella",
+          "action": "solo fire pillar / power-up",
+          "motion_direction": "vertical fire",
+          "frame_boundaries_verified": false
+        },
+        {
+          "local_start": 5.6,
+          "local_end": 7.7,
+          "character": "Stella",
+          "action": "face close-up into huge flaming blade attack",
+          "motion_direction": "toward screen left; mirror to match Julis",
+          "frame_boundaries_verified": false
+        }
+      ],
+      "crop_suggestion": {
+        "w": 512,
+        "h": 288,
+        "x": 64,
+        "y": 32
+      }
+    },
+    {
+      "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep02\\academy_establishing_raw.mp4",
+      "contact_sheet": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep02\\academy_establishing_raw_contact.jpg",
+      "width": 640,
+      "height": 360,
+      "fps": 25.0,
+      "frames": 250,
+      "duration": 10.0,
+      "source_page": "https://www.twxgct.com/video/luodiqishiyingxiongtanriyu-haikonglu/rQGfo6rZSk.html",
+      "source": {
+        "source_url": "https://xgct-video.bzcdn.net/fea1d2b2-9f95-4729-a15d-3a04fa99df95/640x360/video.m3u8",
+        "source_start": 12.5,
+        "duration_requested": 10.0,
+        "fps_output": 25,
+        "rendition": "public 640x360 only",
+        "segments": [
+          {
+            "start": 10.01,
+            "duration": 2.5025,
+            "url": "https://xgct-video.bzcdn.net/fea1d2b2-9f95-4729-a15d-3a04fa99df95/640x360/video2.ts"
+          },
+          {
+            "start": 12.5125,
+            "duration": 5.005,
+            "url": "https://xgct-video.bzcdn.net/fea1d2b2-9f95-4729-a15d-3a04fa99df95/640x360/video3.ts"
+          },
+          {
+            "start": 17.5175,
+            "duration": 2.5025,
+            "url": "https://xgct-video.bzcdn.net/fea1d2b2-9f95-4729-a15d-3a04fa99df95/640x360/video4.ts"
+          },
+          {
+            "start": 20.02,
+            "duration": 5.005,
+            "url": "https://xgct-video.bzcdn.net/fea1d2b2-9f95-4729-a15d-3a04fa99df95/640x360/video5.ts"
+          }
+        ]
+      },
+      "suggested_shots": [
+        {
+          "local_start": 1.12,
+          "local_end": 3.76,
+          "character": "Hagun Academy",
+          "action": "school entrance/campus with cherry blossoms, no credits overlay",
+          "motion_direction": "",
+          "frame_boundaries_verified": true
+        },
+        {
+          "local_start": 6.76,
+          "local_end": 10,
+          "character": "Hagun Academy",
+          "action": "uninterrupted campus establishing pan, 3.24 seconds",
+          "motion_direction": "",
+          "frame_boundaries_verified": true
+        }
+      ],
+      "crop_suggestion": {
+        "w": 576,
+        "h": 324,
+        "x": 32,
+        "y": 0
+      }
+    },
+    {
+      "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep10\\shizuku_face_raw.mp4",
+      "contact_sheet": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep10\\shizuku_face_raw_contact.jpg",
+      "width": 640,
+      "height": 360,
+      "fps": 25.0,
+      "frames": 118,
+      "duration": 4.72,
+      "source_page": "https://www.twxgct.com/video/luodiqishiyingxiongtanriyu-haikonglu/SHr7cMjM7X.html",
+      "source": {
+        "source_url": "https://xgct-video.bzcdn.net/cb4b9ee0-9b14-4ef4-a4ec-fb8b36e42825/640x360/video.m3u8",
+        "source_start": 1036.2,
+        "duration_requested": 4.7,
+        "fps_output": 25,
+        "rendition": "public 640x360 only",
+        "segments": [
+          {
+            "start": 1036.0350000000024,
+            "duration": 5.005,
+            "url": "https://xgct-video.bzcdn.net/cb4b9ee0-9b14-4ef4-a4ec-fb8b36e42825/640x360/video259.ts"
+          }
+        ]
+      },
+      "suggested_shots": [
+        {
+          "local_start": 0,
+          "local_end": 1.44,
+          "character": "Shizuku",
+          "action": "single-character full-body front view",
+          "motion_direction": "",
+          "frame_boundaries_verified": true
+        },
+        {
+          "local_start": 1.44,
+          "local_end": 2.68,
+          "character": "Touka",
+          "action": "clear brown-haired / amber-eyed front portrait; despite source filename",
+          "motion_direction": "",
+          "frame_boundaries_verified": true
+        },
+        {
+          "local_start": 2.68,
+          "local_end": 4.72,
+          "character": "Shizuku",
+          "action": "clear white-blue-haired / green-eyed face into short-sword stance",
+          "motion_direction": "",
+          "frame_boundaries_verified": true
+        }
+      ],
+      "crop_suggestion": {
+        "w": 576,
+        "h": 324,
+        "x": 32,
+        "y": 0
+      }
+    },
+    {
+      "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep10\\shizuku_water_raw.mp4",
+      "contact_sheet": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep10\\shizuku_water_raw_contact.jpg",
+      "width": 640,
+      "height": 360,
+      "fps": 25.0,
+      "frames": 250,
+      "duration": 10.0,
+      "source_page": "https://www.twxgct.com/video/luodiqishiyingxiongtanriyu-haikonglu/SHr7cMjM7X.html",
+      "source": {
+        "source_url": "https://xgct-video.bzcdn.net/cb4b9ee0-9b14-4ef4-a4ec-fb8b36e42825/640x360/video.m3u8",
+        "source_start": 1026.0,
+        "duration_requested": 10.0,
+        "fps_output": 25,
+        "rendition": "public 640x360 only",
+        "segments": [
+          {
+            "start": 1021.020000000002,
+            "duration": 5.005,
+            "url": "https://xgct-video.bzcdn.net/cb4b9ee0-9b14-4ef4-a4ec-fb8b36e42825/640x360/video255.ts"
+          },
+          {
+            "start": 1026.0250000000021,
+            "duration": 2.5025,
+            "url": "https://xgct-video.bzcdn.net/cb4b9ee0-9b14-4ef4-a4ec-fb8b36e42825/640x360/video256.ts"
+          },
+          {
+            "start": 1028.5275000000022,
+            "duration": 5.005,
+            "url": "https://xgct-video.bzcdn.net/cb4b9ee0-9b14-4ef4-a4ec-fb8b36e42825/640x360/video257.ts"
+          },
+          {
+            "start": 1033.5325000000023,
+            "duration": 2.5025,
+            "url": "https://xgct-video.bzcdn.net/cb4b9ee0-9b14-4ef4-a4ec-fb8b36e42825/640x360/video258.ts"
+          }
+        ]
+      },
+      "suggested_shots": [
+        {
+          "local_start": 1.2,
+          "local_end": 4.4,
+          "character": "Shizuku",
+          "action": "solo water swirl from rear",
+          "motion_direction": "water rotating around her",
+          "frame_boundaries_verified": true
+        },
+        {
+          "local_start": 3,
+          "local_end": 6.2,
+          "character": "Shizuku",
+          "action": "alternative water-swirl interval; overlaps previous",
+          "motion_direction": "water rotating around her",
+          "frame_boundaries_verified": true
+        }
+      ],
+      "crop_suggestion": {
+        "w": 576,
+        "h": 324,
+        "x": 32,
+        "y": 0
+      }
+    },
+    {
+      "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep10\\touka_face_raw.mp4",
+      "contact_sheet": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep10\\touka_face_raw_contact.jpg",
+      "width": 640,
+      "height": 360,
+      "fps": 25.0,
+      "frames": 100,
+      "duration": 4.0,
+      "source_page": "https://www.twxgct.com/video/luodiqishiyingxiongtanriyu-haikonglu/SHr7cMjM7X.html",
+      "source": {
+        "source_url": "https://xgct-video.bzcdn.net/cb4b9ee0-9b14-4ef4-a4ec-fb8b36e42825/640x360/video.m3u8",
+        "source_start": 1124.8,
+        "duration_requested": 4.0,
+        "fps_output": 25,
+        "rendition": "public 640x360 only",
+        "segments": [
+          {
+            "start": 1121.1200000000042,
+            "duration": 5.005,
+            "url": "https://xgct-video.bzcdn.net/cb4b9ee0-9b14-4ef4-a4ec-fb8b36e42825/640x360/video280.ts"
+          },
+          {
+            "start": 1126.1250000000043,
+            "duration": 2.5025,
+            "url": "https://xgct-video.bzcdn.net/cb4b9ee0-9b14-4ef4-a4ec-fb8b36e42825/640x360/video281.ts"
+          },
+          {
+            "start": 1128.6275000000044,
+            "duration": 5.005,
+            "url": "https://xgct-video.bzcdn.net/cb4b9ee0-9b14-4ef4-a4ec-fb8b36e42825/640x360/video282.ts"
+          }
+        ]
+      },
+      "suggested_shots": [
+        {
+          "local_start": 0.72,
+          "local_end": 1.44,
+          "character": "Shizuku",
+          "action": "short-sword forward rush, not Touka",
+          "motion_direction": "forward",
+          "frame_boundaries_verified": true
+        },
+        {
+          "local_start": 1.44,
+          "local_end": 2.4,
+          "character": "Touka",
+          "action": "single-character sword close-up amid purple lightning and water ring",
+          "motion_direction": "",
+          "frame_boundaries_verified": true
+        }
+      ],
+      "crop_suggestion": {
+        "w": 576,
+        "h": 324,
+        "x": 32,
+        "y": 0
+      }
+    },
+    {
+      "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep10\\touka_raikiri_raw.mp4",
+      "contact_sheet": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep10\\touka_raikiri_raw_contact.jpg",
+      "width": 640,
+      "height": 360,
+      "fps": 25.0,
+      "frames": 214,
+      "duration": 8.56,
+      "source_page": "https://www.twxgct.com/video/luodiqishiyingxiongtanriyu-haikonglu/SHr7cMjM7X.html",
+      "source": {
+        "source_url": "https://xgct-video.bzcdn.net/cb4b9ee0-9b14-4ef4-a4ec-fb8b36e42825/640x360/video.m3u8",
+        "source_start": 1069.44,
+        "duration_requested": 8.56,
+        "fps_output": 25,
+        "rendition": "public 640x360 only",
+        "segments": [
+          {
+            "start": 1068.567500000003,
+            "duration": 5.005,
+            "url": "https://xgct-video.bzcdn.net/cb4b9ee0-9b14-4ef4-a4ec-fb8b36e42825/640x360/video267.ts"
+          },
+          {
+            "start": 1073.5725000000032,
+            "duration": 2.5025,
+            "url": "https://xgct-video.bzcdn.net/cb4b9ee0-9b14-4ef4-a4ec-fb8b36e42825/640x360/video268.ts"
+          },
+          {
+            "start": 1076.0750000000032,
+            "duration": 5.005,
+            "url": "https://xgct-video.bzcdn.net/cb4b9ee0-9b14-4ef4-a4ec-fb8b36e42825/640x360/video269.ts"
+          }
+        ]
+      },
+      "suggested_shots": [
+        {
+          "local_start": 0.56,
+          "local_end": 1.12,
+          "character": "Shizuku",
+          "action": "reaction, not Touka",
+          "motion_direction": "",
+          "frame_boundaries_verified": true
+        },
+        {
+          "local_start": 2.8,
+          "local_end": 7.36,
+          "character": "Touka",
+          "action": "Raikiri draw and lightning attack; face visible only 2.80–2.96",
+          "motion_direction": "frontal then lightning",
+          "frame_boundaries_verified": true
+        },
+        {
+          "local_start": 7.36,
+          "local_end": 8,
+          "character": "Shizuku",
+          "action": "reaction, not Touka",
+          "motion_direction": "",
+          "frame_boundaries_verified": true
+        }
+      ],
+      "crop_suggestion": {
+        "w": 576,
+        "h": 324,
+        "x": 32,
+        "y": 0
+      }
+    },
+    {
+      "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep12\\ikki_exhausted_raw.mp4",
+      "contact_sheet": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep12\\ikki_exhausted_raw_contact.jpg",
+      "width": 640,
+      "height": 360,
+      "fps": 25.0,
+      "frames": 150,
+      "duration": 6.0,
+      "source_page": "https://www.twxgct.com/video/luodiqishiyingxiongtanriyu-haikonglu/xlNMvxdzGB.html",
+      "source": {
+        "source_url": "https://xgct-video.bzcdn.net/06217f85-7d2d-4018-b9d3-73ba42c1d7ce/640x360/video.m3u8",
+        "source_start": 417.2,
+        "duration_requested": 6.0,
+        "fps_output": 25,
+        "rendition": "public 640x360 only",
+        "segments": [
+          {
+            "start": 412.9124999999997,
+            "duration": 5.005,
+            "url": "https://xgct-video.bzcdn.net/06217f85-7d2d-4018-b9d3-73ba42c1d7ce/640x360/video103.ts"
+          },
+          {
+            "start": 417.9174999999997,
+            "duration": 2.5025,
+            "url": "https://xgct-video.bzcdn.net/06217f85-7d2d-4018-b9d3-73ba42c1d7ce/640x360/video104.ts"
+          },
+          {
+            "start": 420.4199999999997,
+            "duration": 5.005,
+            "url": "https://xgct-video.bzcdn.net/06217f85-7d2d-4018-b9d3-73ba42c1d7ce/640x360/video105.ts"
+          }
+        ]
+      },
+      "suggested_shots": [
+        {
+          "local_start": 0.08,
+          "local_end": 2.72,
+          "character": "Ikki",
+          "action": "alone, exhausted and staggering across a bridge; monochrome",
+          "motion_direction": "",
+          "frame_boundaries_verified": true
+        },
+        {
+          "local_start": 2.72,
+          "local_end": 6,
+          "character": "Ikki",
+          "action": "head bowed and body bruised in bleak monochrome; continues without other character",
+          "motion_direction": "",
+          "frame_boundaries_verified": true
+        },
+        {
+          "local_start": 2,
+          "local_end": 6,
+          "character": "Ikki",
+          "action": "recommended four-second lyric response: bridge into exhausted face/body; overlaps previous intervals",
+          "motion_direction": "",
+          "frame_boundaries_verified": true
+        }
+      ],
+      "crop_suggestion": {
+        "w": 576,
+        "h": 324,
+        "x": 32,
+        "y": 0
+      }
+    }
+  ]
+}

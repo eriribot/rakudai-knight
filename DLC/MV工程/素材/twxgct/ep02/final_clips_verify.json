@@ -1,0 +1,26 @@
+[
+  {
+    "file": "ep01/stella_attack.mp4",
+    "frames": 50,
+    "fps": 25.0,
+    "duration": 2.0
+  },
+  {
+    "file": "ep02/snow_child.mp4",
+    "frames": 55,
+    "fps": 25.0,
+    "duration": 2.2
+  },
+  {
+    "file": "ep02/snow_ryoma.mp4",
+    "frames": 109,
+    "fps": 25.0,
+    "duration": 4.36
+  },
+  {
+    "file": "ep02/ikki_reflection.mp4",
+    "frames": 75,
+    "fps": 25.0,
+    "duration": 3.0
+  }
+]

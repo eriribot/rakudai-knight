@@ -1,0 +1,145 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*ââââââââââââââ
+â åºæ¬è¨­å®
+âââââââââââââââ*/
+
+body {
+	font-family: "ã¡ã¤ãªãª", "Meiryo", "ãã©ã®ãè§ã´ Pro W3", "Hiragino Kaku Gothic Pro", "ï¼­ï¼³ ã´ã·ãã¯", "MS Gothic", monospace;
+	min-width: 980px;
+	height: 100%;
+	background-color: #FFF;
+	background-repeat: no-repeat;
+	background-position: center top;
+	background-size: cover;
+	background-attachment: fixed;
+}
+
+html,
+body,
+#wrap {height:100%;}
+
+#bg {
+	min-width: 100%;
+	min-height: 100%;
+	height: auto !important;
+	overflow: hidden;
+	background-image: url(../img/dot.png);
+	background-repeat: repeat;
+	position: relative;
+}
+
+
+
+a {
+	color: #E55569;
+	transition: color 0.2s linear;
+	text-decoration:none;
+}
+a:hover {
+	color: #990000;
+	text-decoration:underline;
+}
+
+.clear {
+	clear: both;
+}
+
+/*ãã¼ã¸ããã*/
+
+#pageTop{
+	border-radius:5px;
+	position:fixed;
+	bottom:20px;
+	right:20px;
+	z-index: 5;
+	background-image: url(../img/pagetop.png);
+	background-repeat: no-repeat;
+	height: 45px;
+	width: 45px;
+	transition: opacity 0.3s linear;
+	text-indent: -9999px;
+	}
+#pageTop:hover{
+	opacity: 0.5;
+}
+
+
+/*ââââââââââââââ
+â ã­ã¼ãã£ã³ã°è¨­å®
+âââââââââââââââ*/
+
+#loading {
+	width: 100%; /* gifç»åã®å¹ */
+	height: 100%; /* gifç»åãç»é¢ä¸­å¤®ã« */
+	padding: 20px; /* gifç»åã®èæ¯è² */
+	position: fixed; /* gifç»åãã¹ã¯ã­ã¼ã«ãããªã */
+	background-color: #FFF;
+	z-index: 100;
+	text-align: center;
+	vertical-align: middle;
+}
+#loading img {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+
+/*ââââââââââââââ
+â ãã¼ã¸è¨­å®
+âââââââââââââââ*/
+
+#header {
+	height: 60px;
+	width: 100%;
+	background-image: url(../img/bg_head.png);
+	background-repeat: repeat-x;
+}
+#headInner {
+	width: 980px;
+	margin-right: auto;
+	margin-left: auto;
+	text-align: right;
+	padding-top: 5px;
+}
+
+
+
+/*ââââââââââââââ
+â ããã¿ã¼è¨­å®
+âââââââââââââââ*/
+
+#footer {
+	font-size: 12px;
+	line-height: 150%;
+	text-align: center;
+	width: 100%;
+	padding-top: 50px;
+	padding-bottom: 10px;
+	background-image: url(../img/bg_footer.png);
+	background-repeat: repeat-x;
+	position: absolute;
+	bottom: 0;
+	clear:both;
+	
+}
+#footbana {
+	display: block;
+	width: 810px;
+	margin-right: auto;
+	margin-left: auto;
+}
+#footbana li {
+	float: left;
+	width: 260px;
+	height: 72px;
+	margin-right: 5px;
+	margin-left: 5px;
+	box-shadow: 0 0 6px #CCC;
+}
+#footer p {
+	clear: both;
+	padding-top: 10px;
+}

@@ -1,0 +1,20 @@
+{
+  "fps": 25,
+  "frame_indexing": "zero-based presentation order",
+  "method": "OpenCV source decode and adjacent-frame visual comparison",
+  "switches": [
+    {
+      "new_line_first_frame": 705,
+      "new_line_timestamp_seconds": 28.2,
+      "old_line_last_frame": 704,
+      "old_line_last_timestamp_seconds": 28.16
+    },
+    {
+      "new_line_first_frame": 4691,
+      "new_line_timestamp_seconds": 187.64,
+      "old_line_last_frame": 4690,
+      "old_line_last_timestamp_seconds": 187.6
+    }
+  ],
+  "evidence": "lyric_exact_switches.jpg"
+}

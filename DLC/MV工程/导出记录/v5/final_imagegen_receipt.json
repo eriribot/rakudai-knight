@@ -1,0 +1,10 @@
+{
+  "output": "E:\\web\\落第\\DLC\\学战都市×落第骑士英雄谭_联合MV_V5_AI超分720p_ImageGen版.mp4",
+  "frames": 5267,
+  "roster_frames": 47,
+  "neural_base": "E:\\web\\落第\\DLC\\学战都市×落第骑士英雄谭_联合MV_V5_AI超分720p.mp4",
+  "imagegen_assets": "素材/v5/imagegen",
+  "imagegen_tool": "Built-in image_gen.imagegen, four identity-preserving background-extraction edits",
+  "elapsed_seconds": 32.5,
+  "qa": "No inspection/QA suite, as requested"
+}

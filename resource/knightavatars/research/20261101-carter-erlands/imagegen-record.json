@@ -1,0 +1,22 @@
+{
+  "date": "2026-11-01",
+  "tool": "built-in image_gen",
+  "method": "single-person-colorization-shield",
+  "assets": [
+    {
+      "id": "abraham-carter",
+      "source": "research/20261101-carter-erlands/abraham-carter-vol15-original.jpg",
+      "template": "prepared/kanata.png",
+      "output": "prepared/abraham-carter.png",
+      "prompt": "Use the first reference image as the EDIT TARGET: the central adult man Abraham Carter from a black-and-white light-novel illustration. Colorize and extract that exact character into a single head-and-upper-chest portrait. Preserve his original sharp face, serious expression, spiky upright hair with long central fringe, opaque wraparound military goggles covering eyes, open oversized white collar, charcoal-black pinstriped coat. Hair must be golden blond (textual canon). Pale warm skin, smoked black goggles with subtle silver highlights; muted deep charcoal suit with pale pinstripes, crisp white shirt collar. These accessory hues are restrained derivative choices. Keep the original clean anime linework and proportions, add elegant understated cel shading, do not redesign him. Remove the soldiers and all background text, no extra person. The SECOND reference is ONLY a framing template: reproduce its exact curved heraldic shield silhouette and canvas placement, with shoulders filling the lower shield, face centered, top hair fully inside the shield aperture. Output a portrait canvas 1085 x 1450 pixels if supported, maintaining that ratio and template margins. Outer area genuinely transparent alpha. Inside the shield use softly muted light warm-gray background. No lettering, no caption, no name, no watermark, no decorative frame or new insignia. The asset should align under an existing black shield frame. This is a colorization derivative of the supplied character, not a different new character."
+    },
+    {
+      "id": "karl-erlands",
+      "source": "research/20261101-carter-erlands/karl-erlands-vol18-original.jpg",
+      "template": "prepared/kanata.png",
+      "output": "prepared/karl-erlands.png",
+      "prompt": "Use the first reference image as the EDIT TARGET: only the seated fat bald elderly white man in the foreground, Karl Erlands, the Grand Professor. Colorize and extract that exact elderly man into a single head-and-upper-chest portrait. Preserve original face identity, jovial yet unsettling grin, huge round cheeks, small white chin beard, round reflective laboratory goggles, bald scalp, broad body, white lab coat, shirt and tie, and the bent tobacco pipe at his mouth. Preserve the original fine anime linework; use pale warm aged skin with slight pink cheeks, white beard, ivory-white lab coat with cool gray shadows, charcoal tie, silver-metal goggles reflecting pale gray, dark brown wooden pipe. Color choices other than the white coat / elderly white-man appearance are tasteful derivative coloring, not official palette. Do NOT change him into a young or thin man. Remove the tall standing younger man entirely and remove the room. SECOND reference is ONLY a framing template: reproduce that exact curved heraldic shield silhouette and canvas placement, head centered and shoulders filling lower shield, pipe kept inside aperture. Portrait canvas 1085 x 1450 pixels if supported, maintaining template ratio and margins. Outer area genuinely transparent alpha; muted light warm-gray background inside shield. No lettering, captions, name, watermark, decorative border or new insignia. The asset must align under an existing black shield frame."
+    }
+  ],
+  "note": "原始黑白插图保留；上色及独立盾形头像为 AI 编辑衍生图，非官方彩图。图床地址已按仓库 Pages 路径预置，等待用户 Git 上传。"
+}

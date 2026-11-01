@@ -1,0 +1,11 @@
+{
+  "output": "学战都市×落第骑士英雄谭_联合MV.mp4",
+  "inserts": [
+    {"label": "一辉蓝色登场", "file": "素材/twxgct/ep01/ikki_intro.mp4", "start": 27, "end": 29, "blue_tint": true},
+    {"label": "史黛菈火焰接力", "file": "素材/twxgct/ep01/stella_attack.mp4", "start": 51, "end": 53},
+    {"label": "一辉回忆独自练习", "file": "素材/twxgct/ep02/ikki_reflection.mp4", "start": 94, "end": 97},
+    {"label": "雪中幼年一辉", "file": "素材/twxgct/ep02/snow_child.mp4", "start": 183.4, "end": 185.6},
+    {"label": "龙马现身", "file": "素材/twxgct/ep02/snow_ryoma.mp4", "start": 185.6, "end": 189.96},
+    {"label": "赤色磷光", "file": "素材/twxgct/ep12/ep12_departure.mp4", "start": 201, "end": 205.56}
+  ]
+}

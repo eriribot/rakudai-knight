@@ -1,0 +1,128 @@
+[
+  {
+    "label": "新镜头：刀华回身拔刀",
+    "mv_range": [
+      48.44,
+      50.28
+    ],
+    "file": "素材/v3/selected/touka_guard_turn.mp4",
+    "source_total": 114,
+    "source_first": 6,
+    "source_last": 67,
+    "frame_count": 46,
+    "first_source_time": 0.24,
+    "last_source_time": 2.68
+  },
+  {
+    "label": "新镜头：一辉收刀",
+    "mv_range": [
+      72.56,
+      76
+    ],
+    "file": "素材/v3/selected/ikki_lower_sword.mp4",
+    "source_total": 122,
+    "source_first": 36,
+    "source_last": 121,
+    "frame_count": 86,
+    "first_source_time": 1.44,
+    "last_source_time": 4.84
+  },
+  {
+    "label": "一辉闭眼转睁眼",
+    "mv_range": [
+      131.16,
+      132.48
+    ],
+    "file": "素材/v3/selected/ikki_eye_open.mp4",
+    "source_total": 60,
+    "source_first": 0,
+    "source_last": 45,
+    "frame_count": 33,
+    "first_source_time": 0.0,
+    "last_source_time": 1.8
+  },
+  {
+    "label": "一辉竖刀起势",
+    "mv_range": [
+      133.12,
+      134
+    ],
+    "file": "素材/v3/selected/itto_shura_start.mp4",
+    "source_total": 141,
+    "source_first": 0,
+    "source_last": 25,
+    "frame_count": 22,
+    "first_source_time": 0.0,
+    "last_source_time": 1.0
+  },
+  {
+    "label": "一刀修罗真实爆气",
+    "mv_range": [
+      134.44,
+      136
+    ],
+    "file": "素材/v3/selected/itto_shura_start.mp4",
+    "source_total": 141,
+    "source_first": 92,
+    "source_last": 138,
+    "frame_count": 39,
+    "first_source_time": 3.68,
+    "last_source_time": 5.52
+  },
+  {
+    "label": "新镜头：史黛菈睁眼迎战",
+    "mv_range": [
+      148.48,
+      150.16
+    ],
+    "file": "素材/v3/selected/stella_new_eyes.mp4",
+    "source_total": 62,
+    "source_first": 8,
+    "source_last": 55,
+    "frame_count": 42,
+    "first_source_time": 0.32,
+    "last_source_time": 2.2
+  },
+  {
+    "label": "新镜头：史黛菈迎面挥剑",
+    "mv_range": [
+      151.68,
+      152.88
+    ],
+    "file": "素材/v3/selected/stella_morning_slash.mp4",
+    "source_total": 43,
+    "source_first": 1,
+    "source_last": 40,
+    "frame_count": 30,
+    "first_source_time": 0.04,
+    "last_source_time": 1.6
+  },
+  {
+    "label": "新镜头：史黛菈回身举剑",
+    "mv_range": [
+      153.72,
+      154.44
+    ],
+    "file": "素材/v3/selected/stella_morning_turn.mp4",
+    "source_total": 22,
+    "source_first": 1,
+    "source_last": 20,
+    "frame_count": 18,
+    "first_source_time": 0.04,
+    "last_source_time": 0.8
+  },
+  {
+    "label": "新镜头：史黛菈下劈",
+    "mv_range": [
+      154.44,
+      155.2
+    ],
+    "file": "素材/v3/selected/stella_morning_downstrike.mp4",
+    "source_total": 16,
+    "source_first": 0,
+    "source_last": 14,
+    "frame_count": 19,
+    "first_source_time": 0.0,
+    "last_source_time": 0.56
+  }
+]

@@ -1,0 +1,26 @@
+{
+  "name": "ikki_lower_sword",
+  "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\selected\\ikki_lower_sword.mp4",
+  "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\ep06\\ikki_parry_finish_raw.mp4",
+  "source_url": "https://xgct-video.bzcdn.net/2d55fe0a-0b19-4af6-9d27-0b124aa37fd5/640x360/video.m3u8",
+  "source_start": 67.32,
+  "source_end": 72.2,
+  "source_frames": [
+    78,
+    200
+  ],
+  "frames": 122,
+  "fps": 25,
+  "duration": 4.88,
+  "character": "Ikki",
+  "action": "lowers blade after victory, camera rises to face",
+  "direction": "frontal / low angle",
+  "note": "First part of raw file is Tomaru; excluded here.",
+  "color_changes": "none",
+  "default_crop": [
+    32,
+    0,
+    576,
+    324
+  ]
+}

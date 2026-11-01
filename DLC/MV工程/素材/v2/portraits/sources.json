@@ -1,0 +1,50 @@
+[
+  {
+    "id": "ikki",
+    "character": "黑铁一辉",
+    "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\portraits\\ikki_anime_official.jpg",
+    "width": 960,
+    "height": 700,
+    "mode": "RGB",
+    "transparent": false,
+    "source_page": "https://ittoshura.com/character/",
+    "source_url": "https://ittoshura.com/character/chara_ikki.jpg",
+    "origin": "TV anime official character design sheet; downloaded original JPG without editing"
+  },
+  {
+    "id": "stella",
+    "character": "史黛菈",
+    "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\portraits\\stella_anime_official.jpg",
+    "width": 960,
+    "height": 700,
+    "mode": "RGB",
+    "transparent": false,
+    "source_page": "https://ittoshura.com/character/",
+    "source_url": "https://ittoshura.com/character/chara_stella.jpg",
+    "origin": "TV anime official character design sheet; downloaded original JPG without editing"
+  },
+  {
+    "id": "toka",
+    "character": "东堂刀华",
+    "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\portraits\\toka_anime_official.jpg",
+    "width": 960,
+    "height": 700,
+    "mode": "RGB",
+    "transparent": false,
+    "source_page": "https://ittoshura.com/character/",
+    "source_url": "https://ittoshura.com/character/chara_toka.jpg",
+    "origin": "TV anime official character design sheet; downloaded original JPG without editing"
+  },
+  {
+    "id": "shizuku",
+    "character": "黑铁珠雫",
+    "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\portraits\\shizuku_anime_official.jpg",
+    "width": 960,
+    "height": 700,
+    "mode": "RGB",
+    "transparent": false,
+    "source_page": "https://ittoshura.com/character/",
+    "source_url": "https://ittoshura.com/character/chara_shizuku.jpg",
+    "origin": "TV anime official character design sheet; downloaded original JPG without editing"
+  }
+]

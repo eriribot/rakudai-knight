@@ -1,0 +1,52 @@
+{
+  "deliveryMode": "component",
+  "date": "2026-10-29",
+  "runtimeVerified": false,
+  "artifacts": [
+    {
+      "path": "世界书规则/MVU/落第骑士-卷章剧情注入器-v3.0.0.json",
+      "id": "6edbbb80-8e4a-4213-8334-91e76a2ad74b",
+      "sha256": "631e5d8a79177d3437fefeba14c524ea165c6b7269e998ec13900983a256d874",
+      "bytes": 44770
+    },
+    {
+      "path": "世界书规则/MVU/落第骑士-小手机-v1.3.29-B1-头像更新.json",
+      "id": "3d8c6c23-f78e-46e5-8e89-4a90bab6fb85",
+      "sha256": "b2bd61cf14ae1d5350b4ab546cba102ead84cfad725da132ca444868cec15040",
+      "bytes": 2420319
+    }
+  ],
+  "sources": [
+    {
+      "path": "scripts/rakudai-plot-runtime.js",
+      "sha256": "b1ff2c97b3127881f663fc1bb88395b9d97ad437df02aad603252adddbb629cb"
+    },
+    {
+      "path": "scripts/check-plot-bootstrap.mjs",
+      "sha256": "e5b6a90ac00a24a8318934d670c60e52cd805c70c45fb0ec596cd698612109cc"
+    },
+    {
+      "path": "scripts/黑白ADV轮盘终端/state-panel.js",
+      "sha256": "37d2e7c66f8a07e532973038b57dfc270cab9934fdd52565abc38a4f66014edd"
+    }
+  ],
+  "checks": {
+    "sourceInjection": "23/23",
+    "builtInjection": "23/23",
+    "statePanel": "22/22",
+    "terminalPackaging": "9/9",
+    "metadataPreserved": true,
+    "componentFormat": "pass",
+    "floorMatrix": {
+      "sourceFloors": [
+        0,
+        2,
+        354,
+        356,
+        358
+      ],
+      "result": "all confirmed, one block per request"
+    }
+  },
+  "revision": "20261029.2"
+}

@@ -1,0 +1,26 @@
+{
+  "name": "ikki_morning_guard",
+  "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\selected\\ikki_morning_guard.mp4",
+  "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\ep03\\ikki_morning_block_raw.mp4",
+  "source_url": "https://xgct-video.bzcdn.net/7be25d42-7bad-40d3-b3cb-288fde6e9edb/640x360/video.m3u8",
+  "source_start": 9.52,
+  "source_end": 12.4,
+  "source_frames": [
+    8,
+    80
+  ],
+  "frames": 72,
+  "fps": 25,
+  "duration": 2.88,
+  "character": "Ikki",
+  "action": "frontal sword block then lowers sword",
+  "direction": "frontal",
+  "note": "Original opponent gold/fire blade in foreground, no opponent person.",
+  "color_changes": "none",
+  "default_crop": [
+    32,
+    0,
+    576,
+    324
+  ]
+}

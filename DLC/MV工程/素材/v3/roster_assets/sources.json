@@ -1,0 +1,89 @@
+[
+  {
+    "character": "ikki",
+    "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\portraits\\ikki_anime_official.jpg",
+    "source_page": "https://ittoshura.com/character/",
+    "source_url": "https://ittoshura.com/character/chara_ikki.jpg",
+    "output": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\roster_assets\\ikki_anime_matte.png",
+    "method": "manual silhouette alpha matte; original RGB pixels unchanged; lower official print fade masked",
+    "crop": [
+      409,
+      152,
+      737,
+      535
+    ],
+    "size": [
+      328,
+      383
+    ]
+  },
+  {
+    "character": "stella",
+    "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\portraits\\stella_anime_official.jpg",
+    "source_page": "https://ittoshura.com/character/",
+    "source_url": "https://ittoshura.com/character/chara_stella.jpg",
+    "output": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\roster_assets\\stella_anime_matte.png",
+    "method": "manual silhouette alpha matte; original RGB pixels unchanged; lower official print fade masked",
+    "crop": [
+      372,
+      188,
+      649,
+      540
+    ],
+    "size": [
+      277,
+      352
+    ]
+  },
+  {
+    "character": "toka",
+    "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\portraits\\toka_anime_official.jpg",
+    "source_page": "https://ittoshura.com/character/",
+    "source_url": "https://ittoshura.com/character/chara_toka.jpg",
+    "output": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\roster_assets\\toka_anime_matte.png",
+    "method": "manual silhouette alpha matte; original RGB pixels unchanged; lower official print fade masked",
+    "crop": [
+      333,
+      126,
+      651,
+      545
+    ],
+    "size": [
+      318,
+      419
+    ]
+  },
+  {
+    "character": "shizuku",
+    "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\portraits\\shizuku_anime_official.jpg",
+    "source_page": "https://ittoshura.com/character/",
+    "source_url": "https://ittoshura.com/character/chara_shizuku.jpg",
+    "output": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\roster_assets\\shizuku_anime_matte.png",
+    "method": "manual silhouette alpha matte; original RGB pixels unchanged; lower official print fade masked",
+    "crop": [
+      393,
+      126,
+      655,
+      546
+    ],
+    "size": [
+      262,
+      420
+    ]
+  },
+  {
+    "asset": "Hagun Academy official school emblem",
+    "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\roster_sources\\hagun_school_emblem_bellfine_original.jpg",
+    "source_url": "https://bellfine.co.jp/wp-content/uploads/g724405_0.jpg",
+    "source_page": "https://bellfine.co.jp/products/characters-goods/strap-key-chain/g724405/",
+    "identity_evidence": "Manufacturer product explicitly named 破軍学園校章キーホルダー, JAN 4573347244056, copyright 落第騎士の英雄譚製作委員会. Not the anime website red dragon graphic.",
+    "output": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\roster_assets\\hagun_crest_gold.png",
+    "method": "extract original gold/yellow ink pixels from licensed product image; no invented/retraced design",
+    "crop_xyxy": [
+      258,
+      430,
+      609,
+      817
+    ]
+  }
+]

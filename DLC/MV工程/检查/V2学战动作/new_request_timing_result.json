@@ -1,0 +1,36 @@
+{
+  "source": "E:/web/落第/DLC/MV工程/学战都市_去水印母版.mp4",
+  "fps": 25,
+  "interval_convention": "start inclusive, end exclusive; zero-based frame indices",
+  "ayato_blue_release": {
+    "start": 171.96, "end": 174.16, "start_frame": 4299, "end_frame": 4354,
+    "description": "Ayato stands amid strong blue/cyan aura and purple circles; frontally visible body and sword. Cleanest match to Ikki Ittou Shura activation.",
+    "preservation_suggestion": "Keep a meaningful part of this original strong shot, then match cut to Ikki release. Do not describe all this shot as expendable filler.",
+    "contact": "school_blue_exact.jpg"
+  },
+  "earlier_blue_light_56_58": {
+    "description": "RM-C fires blue energy spheres; Kirin evades. This is not Ayato's blue release.",
+    "contact": "request_dense_56_60.jpg"
+  },
+  "school_intro_cycle": {
+    "start": 21.24, "end": 34.76,
+    "segments": [
+      {"visual": "White school gate with passing students", "start": 21.24, "end": 24.16, "first_frame":531, "next_frame":604, "notes":"Last detailed gate frame24.08, white flash24.12, next red setting becomes visible24.16"},
+      {"visual": "Red school exterior / characters", "start":24.16,"end":26.96,"first_frame":604,"next_frame":674},
+      {"visual": "Blue school exterior / characters", "start":26.96,"end":29.12,"first_frame":674,"next_frame":728,"notes":"Existing V1 Ikki introduction already occupies27–29"},
+      {"visual": "Green school exterior / characters", "start":29.12,"end":31.32,"first_frame":728,"next_frame":783},
+      {"visual": "Purple school exterior, group, seated leader", "start":31.32,"end":34.76,"first_frame":783,"next_frame":869,"notes":"Gray flashback begins crossfade on34.76, fully changed34.80"}
+    ],
+    "contacts": ["request_school_full_cycle.jpg","school_cycle_cut_frames.jpg","school_last_cut_frames.jpg"]
+  },
+  "entrance_dual_screens": [
+    {"characters":"Julis / Ayato","start":10.00,"end":10.80,"start_frame":250,"end_frame":270,"suggestion":"Preserve original lead pair"},
+    {"characters":"Doroteo / Elliott","start":11.16,"end":11.80,"start_frame":279,"end_frame":295,"suggestion":"Candidate for Ikki / Stella extra pair"},
+    {"characters":"AR-D / RM-C","start":12.08,"end":12.80,"start_frame":302,"end_frame":320,"suggestion":"Candidate for Touka / Shizuku extra pair"},
+    {"characters":"Sasamiya Saya / Kirin Toudou","start":13.04,"end":13.76,"start_frame":326,"end_frame":344,"notes":"Exact screenshot match. Names clear from about13.36. Physical screen is six-sided, not rectangular."},
+    {"characters":"Li Shenyun / Li Shenhua","start":14.24,"end":14.80,"start_frame":356,"end_frame":370,"suggestion":"Additional alternative slot"}
+  ],
+  "screen_geometry_file":"screen_compositor_anchors.json",
+  "screen_geometry_evidence":"screen_compositor_anchors_contact.jpg",
+  "limitations":"Time cuts were checked directly on local master. Portrait replacement quads are editorial compositor anchors with motion estimated from visible portrait features, not calibrated physical screen corners. Real panels are hexagons with cropped upper vertices. Initial scan reveal and mirrored edge ghosts must be rebuilt or masked to prevent old-character remnants. No network requests made and no renderer changes made."
+}

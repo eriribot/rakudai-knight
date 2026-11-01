@@ -1,0 +1,355 @@
+{
+  "output": "学战都市×落第骑士英雄谭_联合MV_V3_蓝光对位版.mp4",
+  "title": "The Asterisk War x Rakudai - Cross Duel V3",
+  "check_directory": "检查/v3",
+  "base": "V1; all frames from 181.48 seconds remain intact",
+  "edits": [
+    {
+      "start": 11.16,
+      "end": 12.08,
+      "kind": "roster",
+      "characters": [
+        "ikki",
+        "stella"
+      ],
+      "label": "原舞台：一辉／史黛菈与破军校徽"
+    },
+    {
+      "start": 12.08,
+      "end": 13.04,
+      "kind": "roster",
+      "characters": [
+        "toka",
+        "shizuku"
+      ],
+      "label": "原舞台：刀华／珠雫与破军校徽"
+    },
+    {
+      "start": 22.32,
+      "end": 24.16,
+      "file": "素材/v2/ep02/academy_establishing_raw.mp4",
+      "clip_start": 1.12,
+      "label": "破军学院入场"
+    },
+    {
+      "start": 25,
+      "end": 26.96,
+      "file": "素材/v2/ep01/stella_charge_raw.mp4",
+      "clip_start": 0.88,
+      "label": "史黛菈红色登场",
+      "speed": 0.44,
+      "tint": "red"
+    },
+    {
+      "start": 29.12,
+      "end": 31.32,
+      "file": "素材/v2/ep10/shizuku_face_raw.mp4",
+      "clip_start": 1.44,
+      "label": "刀华绿色登场",
+      "speed": 0.55,
+      "tint": "green"
+    },
+    {
+      "start": 31.32,
+      "end": 33.92,
+      "file": "素材/v2/ep10/shizuku_face_raw.mp4",
+      "clip_start": 2.68,
+      "label": "珠雫紫色登场",
+      "speed": 0.76,
+      "tint": "violet"
+    },
+    {
+      "start": 37,
+      "end": 41,
+      "file": "素材/v2/ep12/ikki_exhausted_raw.mp4",
+      "clip_start": 2,
+      "label": "一辉伤痕与踉跄"
+    },
+    {
+      "start": 45.12,
+      "end": 48.44,
+      "file": "素材/v2/ep01/stella_fire_raw.mp4",
+      "clip_start": 0.56,
+      "label": "史黛菈蓄焰",
+      "speed": 0.83,
+      "crop": [
+        64,
+        32,
+        512,
+        288
+      ],
+      "arena_blue": true
+    },
+    {
+      "start": 48.44,
+      "end": 50.28,
+      "file": "素材/v3/selected/touka_guard_turn.mp4",
+      "clip_start": 0.24,
+      "label": "新镜头：刀华回身拔刀",
+      "speed": 1.35
+    },
+    {
+      "start": 50.28,
+      "end": 54.84,
+      "file": "素材/v2/ep10/touka_raikiri_raw.mp4",
+      "clip_start": 2.8,
+      "label": "刀华雷切"
+    },
+    {
+      "start": 54.84,
+      "end": 58.04,
+      "file": "素材/v2/ep10/shizuku_water_raw.mp4",
+      "clip_start": 3,
+      "label": "珠雫展开水流"
+    },
+    {
+      "start": 58.04,
+      "end": 60.16,
+      "file": "素材/v2/ep10/shizuku_water_raw.mp4",
+      "clip_start": 6.2,
+      "label": "珠雫手中水流聚拢"
+    },
+    {
+      "start": 63.12,
+      "end": 64.64,
+      "file": "素材/v2/ep01/stella_charge_raw.mp4",
+      "clip_start": 3.44,
+      "label": "一辉架刀",
+      "speed": 0.44,
+      "arena_blue": true
+    },
+    {
+      "start": 64.64,
+      "end": 66.24,
+      "file": "素材/v2/ep01/ikki_counter_raw.mp4",
+      "clip_start": 4.64,
+      "label": "一辉残像：全片仅一次",
+      "arena_blue": true
+    },
+    {
+      "start": 66.24,
+      "end": 66.96,
+      "file": "素材/v2/ep01/ikki_counter_raw.mp4",
+      "clip_start": 8.24,
+      "label": "一辉锁定",
+      "speed": 0.72,
+      "arena_blue": true
+    },
+    {
+      "start": 66.96,
+      "end": 67.68,
+      "file": "clean",
+      "clip_start": 67.36,
+      "label": "绫斗举剑",
+      "crop": [
+        0,
+        0,
+        1080,
+        608
+      ]
+    },
+    {
+      "start": 67.68,
+      "end": 68.72,
+      "file": "素材/v2/ep01/ikki_dodge_raw.mp4",
+      "clip_start": 2.2,
+      "label": "一辉冲近",
+      "arena_blue": true
+    },
+    {
+      "start": 68.72,
+      "end": 69.6,
+      "file": "clean",
+      "clip_start": 68.08,
+      "label": "绫斗迎面突进",
+      "flip": true
+    },
+    {
+      "start": 69.6,
+      "end": 70.92,
+      "file": "素材/v2/ep01/ikki_dodge_raw.mp4",
+      "clip_start": 7.68,
+      "label": "一辉迎面下劈",
+      "crop": [
+        48,
+        0,
+        544,
+        306
+      ],
+      "arena_blue": true
+    },
+    {
+      "start": 70.92,
+      "end": 71.8,
+      "file": "clean",
+      "clip_start": 70.68,
+      "label": "绫斗挥剑反斩前半",
+      "speed": 0.77,
+      "flip": true
+    },
+    {
+      "start": 71.8,
+      "end": 72.56,
+      "file": "clean",
+      "clip_start": 71.72,
+      "label": "绫斗反斩后半：跳过原机甲对手特写",
+      "speed": 0.78,
+      "flip": true
+    },
+    {
+      "start": 72.56,
+      "end": 76,
+      "file": "素材/v3/selected/ikki_lower_sword.mp4",
+      "clip_start": 1.44,
+      "label": "新镜头：一辉收刀"
+    },
+    {
+      "start": 130.2,
+      "end": 131.16,
+      "file": "clean",
+      "clip_start": 130.2,
+      "label": "02:11：天雾闭眼蓝光"
+    },
+    {
+      "start": 131.16,
+      "end": 132.48,
+      "file": "素材/v3/selected/ikki_eye_open.mp4",
+      "clip_start": 0,
+      "label": "一辉闭眼转睁眼",
+      "speed": 1.4
+    },
+    {
+      "start": 132.48,
+      "end": 133.12,
+      "file": "clean",
+      "clip_start": 131.16,
+      "label": "蓝光呼应"
+    },
+    {
+      "start": 133.12,
+      "end": 134,
+      "file": "素材/v3/selected/itto_shura_start.mp4",
+      "clip_start": 0,
+      "label": "一辉竖刀起势",
+      "speed": 1.2
+    },
+    {
+      "start": 134,
+      "end": 134.44,
+      "file": "clean",
+      "clip_start": 131.8,
+      "label": "天雾光芒推进"
+    },
+    {
+      "start": 134.44,
+      "end": 136,
+      "file": "素材/v3/selected/itto_shura_start.mp4",
+      "clip_start": 3.68,
+      "label": "一刀修罗真实爆气",
+      "speed": 1.2
+    },
+    {
+      "start": 136,
+      "end": 139.24,
+      "file": "素材/v2/ep10/touka_face_raw.mp4",
+      "clip_start": 0.4,
+      "label": "刀华与珠雫水雾雷光"
+    },
+    {
+      "start": 148.48,
+      "end": 150.16,
+      "file": "素材/v3/selected/stella_new_eyes.mp4",
+      "clip_start": 0.32,
+      "label": "新镜头：史黛菈睁眼迎战",
+      "speed": 1.15,
+      "arena_blue": true
+    },
+    {
+      "start": 150.16,
+      "end": 151.68,
+      "file": "clean",
+      "clip_start": 150.16,
+      "label": "尤莉丝向左举剑"
+    },
+    {
+      "start": 151.68,
+      "end": 152.88,
+      "file": "素材/v3/selected/stella_morning_slash.mp4",
+      "clip_start": 0.04,
+      "label": "新镜头：史黛菈迎面挥剑",
+      "speed": 1.35
+    },
+    {
+      "start": 152.88,
+      "end": 153.72,
+      "file": "clean",
+      "clip_start": 151.68,
+      "label": "尤莉丝横向火焰斩"
+    },
+    {
+      "start": 153.72,
+      "end": 154.44,
+      "file": "素材/v3/selected/stella_morning_turn.mp4",
+      "clip_start": 0.24,
+      "label": "新镜头：史黛菈回身举剑",
+      "speed": 0.8
+    },
+    {
+      "start": 154.44,
+      "end": 155.2,
+      "file": "素材/v3/selected/stella_morning_downstrike.mp4",
+      "clip_start": 0,
+      "label": "新镜头：史黛菈下劈",
+      "speed": 0.8
+    },
+    {
+      "start": 155.2,
+      "end": 156.44,
+      "file": "素材/v2/ep01/stella_block_raw.mp4",
+      "clip_start": 0,
+      "label": "史黛菈横剑回防",
+      "speed": 0.62,
+      "arena_blue": true
+    },
+    {
+      "start": 156.44,
+      "end": 157.84,
+      "file": "素材/v2/ep01/stella_fire_raw.mp4",
+      "clip_start": 6.16,
+      "label": "史黛菈火焰剑反攻",
+      "crop": [
+        80,
+        40,
+        480,
+        270
+      ],
+      "flip": true,
+      "arena_blue": true
+    },
+    {
+      "start": 157.84,
+      "end": 158.76,
+      "file": "clean",
+      "clip_start": 50.92,
+      "label": "尤莉丝火焰回应：原50秒已由刀华替换"
+    },
+    {
+      "start": 158.76,
+      "end": 159.28,
+      "file": "素材/v2/ep01/ikki_counter_raw.mp4",
+      "clip_start": 0.48,
+      "label": "史黛菈收势",
+      "arena_blue": true
+    }
+  ],
+  "impacts": [
+    69.6,
+    70.92,
+    151.68,
+    154.44,
+    157.84
+  ],
+  "roster_art": "Official TV anime pixels; BellFine licensed Hagun crest; original arena geometry retained",
+  "power_pair": "Ayato exact 130.20–133.28 shot vs verified episode 4 Itto Shura",
+  "sources": "素材/v3/research_plan.md and 素材/v3/ready_manifest.json"
+}

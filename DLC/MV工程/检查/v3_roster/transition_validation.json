@@ -1,0 +1,90 @@
+{
+  "supported_interval": [
+    11.16,
+    13.04
+  ],
+  "frame_interval_inclusive": [
+    279,
+    325
+  ],
+  "checks": [
+    {
+      "frame": 295,
+      "time": 11.8,
+      "visible_medallions": 1,
+      "outside_inner_seals_max_change": 0
+    },
+    {
+      "frame": 296,
+      "time": 11.84,
+      "visible_medallions": 1,
+      "outside_inner_seals_max_change": 0
+    },
+    {
+      "frame": 297,
+      "time": 11.88,
+      "visible_medallions": 2,
+      "outside_inner_seals_max_change": 0
+    },
+    {
+      "frame": 298,
+      "time": 11.92,
+      "visible_medallions": 2,
+      "outside_inner_seals_max_change": 0
+    },
+    {
+      "frame": 299,
+      "time": 11.96,
+      "visible_medallions": 2,
+      "outside_inner_seals_max_change": 0
+    },
+    {
+      "frame": 300,
+      "time": 12.0,
+      "visible_medallions": 2,
+      "outside_inner_seals_max_change": 0
+    },
+    {
+      "frame": 301,
+      "time": 12.04,
+      "visible_medallions": 2,
+      "outside_inner_seals_max_change": 0
+    },
+    {
+      "frame": 320,
+      "time": 12.8,
+      "visible_medallions": 2,
+      "outside_inner_seals_max_change": 0
+    },
+    {
+      "frame": 321,
+      "time": 12.84,
+      "visible_medallions": 2,
+      "outside_inner_seals_max_change": 0
+    },
+    {
+      "frame": 322,
+      "time": 12.88,
+      "visible_medallions": 1,
+      "outside_inner_seals_max_change": 0
+    },
+    {
+      "frame": 323,
+      "time": 12.92,
+      "visible_medallions": 1,
+      "outside_inner_seals_max_change": 0
+    },
+    {
+      "frame": 324,
+      "time": 12.96,
+      "visible_medallions": 1,
+      "outside_inner_seals_max_change": 0
+    },
+    {
+      "frame": 325,
+      "time": 13.0,
+      "visible_medallions": 1,
+      "outside_inner_seals_max_change": 0
+    }
+  ]
+}

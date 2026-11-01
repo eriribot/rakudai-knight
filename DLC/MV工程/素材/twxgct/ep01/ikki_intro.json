@@ -1,0 +1,13 @@
+{
+  "source_page": "https://www.twxgct.com/video/luodiqishiyingxiongtanriyu-haikonglu/7ai2iQZGHa.html",
+  "source_segment_url": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video215.ts",
+  "local_source": "probe_video215.ts",
+  "selection_after_pts_reset_seconds": [1.12, 3.32],
+  "output": "ikki_intro.mp4",
+  "output_duration_seconds": 2.20,
+  "output_fps": 25,
+  "mv_range_seconds": [27, 29],
+  "visual_content": "Ikki holding his sword in a close-up during the duel; not a rear view",
+  "source_rendition": "Public 640x360 HLS",
+  "processing": "Normalize source timestamps, trim, reset timestamps, fps25; final renderer crops source subtitles and applies blue tint"
+}

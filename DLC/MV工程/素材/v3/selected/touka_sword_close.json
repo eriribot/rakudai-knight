@@ -1,0 +1,26 @@
+{
+  "name": "touka_sword_close",
+  "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\selected\\touka_sword_close.mp4",
+  "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\ep09\\touka_new_draw_raw.mp4",
+  "source_url": "https://xgct-video.bzcdn.net/06ea9755-6f6b-45b7-960d-6bc68d91bd22/640x360/video.m3u8",
+  "source_start": 1226.94,
+  "source_end": 1227.58,
+  "source_frames": [
+    36,
+    52
+  ],
+  "frames": 16,
+  "fps": 25,
+  "duration": 0.64,
+  "character": "Touka",
+  "action": "sword/side-face close-up",
+  "direction": "profile",
+  "note": "Original shot has cinematic black bars.",
+  "color_changes": "none",
+  "default_crop": [
+    32,
+    0,
+    576,
+    324
+  ]
+}

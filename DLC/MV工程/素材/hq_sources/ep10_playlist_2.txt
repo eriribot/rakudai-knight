@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>404</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: #111;
+        color: #fff;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        text-align: center;
+    }
+    h1 {
+        font-size: 120px;
+        margin: 0;
+        letter-spacing: 10px;
+    }
+    p {
+        font-size: 20px;
+        margin-top: 20px;
+        color: #ccc;
+    }
+    .vn {
+        margin-top: 10px;
+        font-size: 18px;
+        color: #ff5555;
+    }
+</style>
+</head>
+<body>
+
+<div>
+    <h1>404</h1>
+    <p>Page Not Found</p>
+    <div class="vn">
+        请使用国内网络访问此页面。
+    </div>
+<div>DEBUG: IP 154.53.73.244  country  166  name:美国</div>
+</div>
+
+</body>
+</html>

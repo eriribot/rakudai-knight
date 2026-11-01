@@ -1,0 +1,31 @@
+{
+  "episode": 12,
+  "downloaded_playable_clips": 0,
+  "checks": [
+    {
+      "name": "580267",
+      "url": "https://play.jisuzyv.com/play/9av6m45a/index.m3u8",
+      "final_url": "https://play.jisuzyv.com/play/9av6m45a/index.m3u8",
+      "status": 200,
+      "type": "application/vnd.apple.mpegurl",
+      "media_result": "FFprobe could read playlist/key but all attempted media segments on p.jisuts.com:999 returned TLS EOF; probe stopped."
+    },
+    {
+      "name": "370772",
+      "url": "https://vip.lz-cdn8.com/20221111/29905_473d30bb/index.m3u8",
+      "final_url": "https://vip.lz-cdn8.com/20221111/29905_473d30bb/index.m3u8",
+      "status": 404,
+      "type": "text/html; charset=utf-8",
+      "media_result": "404 page explicitly states mainland network required; no workaround attempted."
+    },
+    {
+      "name": "580255",
+      "url": "https://play.xluuss.com/play/mepW95Vd/index.m3u8",
+      "final_url": "https://play.xluuss.com/play/mepW95Vd/index.m3u8",
+      "status": 200,
+      "type": "application/vnd.apple.mpegurl",
+      "media_result": "First media segment on g.xlzyd.com:9999 returned TLS UNEXPECTED_EOF_WHILE_READING."
+    }
+  ],
+  "result": "All observed alternative media hosts unavailable through normal requests."
+}

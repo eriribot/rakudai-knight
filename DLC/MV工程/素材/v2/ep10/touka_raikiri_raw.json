@@ -1,0 +1,24 @@
+{
+  "source_url": "https://xgct-video.bzcdn.net/cb4b9ee0-9b14-4ef4-a4ec-fb8b36e42825/640x360/video.m3u8",
+  "source_start": 1069.44,
+  "duration_requested": 8.56,
+  "fps_output": 25,
+  "rendition": "public 640x360 only",
+  "segments": [
+    {
+      "start": 1068.567500000003,
+      "duration": 5.005,
+      "url": "https://xgct-video.bzcdn.net/cb4b9ee0-9b14-4ef4-a4ec-fb8b36e42825/640x360/video267.ts"
+    },
+    {
+      "start": 1073.5725000000032,
+      "duration": 2.5025,
+      "url": "https://xgct-video.bzcdn.net/cb4b9ee0-9b14-4ef4-a4ec-fb8b36e42825/640x360/video268.ts"
+    },
+    {
+      "start": 1076.0750000000032,
+      "duration": 5.005,
+      "url": "https://xgct-video.bzcdn.net/cb4b9ee0-9b14-4ef4-a4ec-fb8b36e42825/640x360/video269.ts"
+    }
+  ]
+}

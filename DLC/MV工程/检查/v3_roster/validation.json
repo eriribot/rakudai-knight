@@ -1,0 +1,42 @@
+{
+  "frames": 47,
+  "fps": 25.0,
+  "checks": [
+    {
+      "frame": 279,
+      "time": 11.16,
+      "central_beam_identical": true,
+      "bottom_bar_outer_border_identical": true
+    },
+    {
+      "frame": 289,
+      "time": 11.56,
+      "central_beam_identical": true,
+      "bottom_bar_outer_border_identical": true
+    },
+    {
+      "frame": 294,
+      "time": 11.76,
+      "central_beam_identical": true,
+      "bottom_bar_outer_border_identical": true
+    },
+    {
+      "frame": 302,
+      "time": 12.08,
+      "central_beam_identical": true,
+      "bottom_bar_outer_border_identical": true
+    },
+    {
+      "frame": 313,
+      "time": 12.52,
+      "central_beam_identical": true,
+      "bottom_bar_outer_border_identical": true
+    },
+    {
+      "frame": 319,
+      "time": 12.76,
+      "central_beam_identical": true,
+      "bottom_bar_outer_border_identical": true
+    }
+  ]
+}

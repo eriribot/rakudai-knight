@@ -1,0 +1,26 @@
+{
+  "name": "itto_shura_start",
+  "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\selected\\itto_shura_start.mp4",
+  "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\ep04\\itto_shura_true_activation_raw.mp4",
+  "source_url": "https://xgct-video.bzcdn.net/56394ddf-9e04-48a8-8db9-09949825e977/640x360/video.m3u8",
+  "source_start": 963.44,
+  "source_end": 969.08,
+  "source_frames": [
+    11,
+    152
+  ],
+  "frames": 141,
+  "fps": 25,
+  "duration": 5.64,
+  "character": "Ikki",
+  "action": "verified Ittou Shura: vertical sword, full-body energy release",
+  "direction": "frontal",
+  "note": "Source subtitle names 一刀修羅; original pale/white-blue energy, no synthetic recoloring.",
+  "color_changes": "none",
+  "default_crop": [
+    32,
+    0,
+    576,
+    324
+  ]
+}

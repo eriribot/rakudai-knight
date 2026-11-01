@@ -1,0 +1,100 @@
+{
+  "checked_on": "2026-10-31",
+  "purpose": "Find official Rakudai Kishi no Cavalry source clips for the requested crossover MV",
+  "source_video_files_downloaded": 0,
+  "sources": [
+    {
+      "title": "TV anime Rakudai Kishi no Cavalry PV 2",
+      "url": "https://www.youtube.com/watch?v=bMIarTOSN7o",
+      "publisher": "FRONTIERWORKS",
+      "official_provenance": "https://www.ittoshura.com/ directly embeds this exact YouTube video",
+      "metadata_check": "YouTube oEmbed successfully returned title and official channel",
+      "download_status": "blocked",
+      "download_error": "YouTube: Sign in to confirm you're not a bot",
+      "content_inspection": "not performed: no video bytes downloaded"
+    },
+    {
+      "title": "TV anime Rakudai Kishi no Cavalry PV 1",
+      "url": "https://www.youtube.com/watch?v=ovVmkllFYVk",
+      "publisher": "GA Bunko Channel",
+      "metadata_check": "YouTube oEmbed successfully returned title and official channel",
+      "download_status": "blocked",
+      "download_error": "YouTube: Sign in to confirm you're not a bot",
+      "content_inspection": "not performed: no video bytes downloaded"
+    },
+    {
+      "title": "Chivalry of a Failed Knight Official Trailer",
+      "url": "https://www.youtube.com/watch?v=wBftJWJIYaQ",
+      "publisher": "Sentai",
+      "metadata_check": "YouTube oEmbed successfully returned title and official channel; search identifies verified Sentai channel",
+      "download_status": "blocked",
+      "download_error": "YouTube: Sign in to confirm you're not a bot",
+      "content_inspection": "not performed: no video bytes downloaded"
+    },
+    {
+      "title": "Chivalry of a Failed Knight Dual Cast Reveal: Ikki and Stella",
+      "url": "https://www.youtube.com/watch?v=tJeWJ94i7oc",
+      "publisher": "Sentai",
+      "metadata_check": "YouTube oEmbed successfully returned title and official channel",
+      "download_status": "not attempted",
+      "content_inspection": "not performed"
+    },
+    {
+      "title": "Rakudai Kishi no Cavalry licensed series listing",
+      "url": "https://www.bilibili.com/bangumi/media/md2743/",
+      "publisher": "bilibili",
+      "download_status": "not attempted",
+      "observed_limitation": "Official series page lists 12 episodes; episodes from 2 onward marked membership required"
+    },
+    {
+      "title": "Chivalry of a Failed Knight licensed episode 12 listing",
+      "url": "https://www.bilibili.tv/en/play/34916/345102",
+      "publisher": "BiliBili",
+      "download_status": "failed",
+      "observed_limitation": "Page labels series Premium; yt-dlp ordinary extraction returned video formats API error, followed by NoneType object is not subscriptable",
+      "content_inspection": "not performed: no video bytes downloaded"
+    },
+    {
+      "title": "一辉原来是名门的少爷 自己的意志被束缚没办法",
+      "url": "https://www.iqiyi.com/v_19rrcwt7ws.html",
+      "publisher": "必看番机动队 (per parent research)",
+      "download_status": "failed",
+      "download_error": "HTTPS SSL UNEXPECTED_EOF_WHILE_READING; normal HTTP fallback returned 502 Bad Gateway; PowerShell HTTPS client also failed TLS",
+      "content_inspection": "not performed: no video bytes downloaded"
+    },
+    {
+      "title": "Chivalry of a Failed Knight E2 - Failed Knight II",
+      "url": "https://www.bilibili.tv/en/play/34916/345092",
+      "publisher": "BiliBili",
+      "url_provenance": "Episode 2 link from official episode 12 page",
+      "download_status": "failed",
+      "observed_limitation": "Series marked Premium",
+      "download_error": "BiliIntl video formats API returned 标签已经绑定过其他活动, followed by NoneType object is not subscriptable",
+      "content_inspection": "not performed: no video bytes downloaded"
+    },
+    {
+      "title": "Rakudai Kishi no Cavalry official episode 1",
+      "url": "https://www.bilibili.com/bangumi/play/ep70867",
+      "publisher": "bilibili",
+      "download_status": "failed",
+      "download_error": "HTTPS SSL UNEXPECTED_EOF_WHILE_READING; HTTP fallback returned 502 Bad Gateway",
+      "content_inspection": "not performed: no video bytes downloaded"
+    }
+  ],
+  "limitations": [
+    "No officially published unrestricted full episode 1, 2, or 12 download was verified.",
+    "No cookies, authenticated sessions, paywall bypass, DRM bypass, or anti-bot bypass were used.",
+    "The required snowy childhood/Ryoma, training, episode 12 red-aura arena walk, and Stella duel shot timings remain unverified."
+  ],
+  "public_clip_candidates": [
+    {
+      "title": "Rakudai Kishi no Cavalry - Ikki vs Todo - Final Fight",
+      "url": "https://www.youtube.com/watch?v=VoIpHIMTBHY",
+      "publisher": "Kirin (user-uploaded clip; official rights-holder status not verified)",
+      "duration_seconds": 215,
+      "description": "Last Episode (12)",
+      "content_inspection": "not inspected; could contain arena entrance but not verified",
+      "download_status": "not attempted"
+    }
+  ]
+}

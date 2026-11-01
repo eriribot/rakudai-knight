@@ -1,0 +1,26 @@
+{
+  "name": "ikki_eye_open",
+  "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\selected\\ikki_eye_open.mp4",
+  "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\ep04\\ikki_closed_eye_guard_raw.mp4",
+  "source_url": "https://xgct-video.bzcdn.net/56394ddf-9e04-48a8-8db9-09949825e977/640x360/video.m3u8",
+  "source_start": 954.1,
+  "source_end": 956.5,
+  "source_frames": [
+    65,
+    125
+  ],
+  "frames": 60,
+  "fps": 25,
+  "duration": 2.4,
+  "character": "Ikki",
+  "action": "closed eyes to open eyes, raises vertical sword",
+  "direction": "frontal",
+  "note": "",
+  "color_changes": "none",
+  "default_crop": [
+    32,
+    0,
+    576,
+    324
+  ]
+}

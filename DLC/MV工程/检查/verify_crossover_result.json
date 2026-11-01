@@ -1,0 +1,105 @@
+{
+  "source": {
+    "metadata": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "width": 1280,
+          "height": 720,
+          "r_frame_rate": "25/1",
+          "avg_frame_rate": "25/1",
+          "duration": "210.680000",
+          "nb_frames": "5267",
+          "nb_read_frames": "5267"
+        },
+        {
+          "codec_name": "aac",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0",
+          "duration": "210.773167",
+          "nb_frames": "9880",
+          "nb_read_frames": "9880"
+        }
+      ],
+      "format": {
+        "duration": "210.773167",
+        "size": "49234585"
+      }
+    },
+    "audio_adts_sha256": "9e45548a0ff32353c4be0419d1c145d357eccc54f66d9e92158d11f8a85a8583",
+    "audio_demux_bytes": 4215889,
+    "decode_exit_code": 0,
+    "decode_errors": ""
+  },
+  "crossover": {
+    "metadata": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "width": 1280,
+          "height": 720,
+          "r_frame_rate": "25/1",
+          "avg_frame_rate": "25/1",
+          "duration": "210.680000",
+          "nb_frames": "5267",
+          "nb_read_frames": "5267"
+        },
+        {
+          "codec_name": "aac",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0",
+          "duration": "210.773167",
+          "nb_frames": "9880",
+          "nb_read_frames": "9880"
+        }
+      ],
+      "format": {
+        "duration": "210.773167",
+        "size": "98606490"
+      }
+    },
+    "audio_adts_sha256": "9e45548a0ff32353c4be0419d1c145d357eccc54f66d9e92158d11f8a85a8583",
+    "audio_demux_bytes": 4215889,
+    "decode_exit_code": 0,
+    "decode_errors": ""
+  },
+  "audio_unchanged": true,
+  "container_duration_unchanged": true,
+  "expected_video_geometry_and_frames": true,
+  "sampled_visual_times": [
+    19.8,
+    27.4,
+    51.5,
+    95,
+    184.5,
+    187.5,
+    203,
+    205.6,
+    207.5,
+    210
+  ],
+  "visual_review": {
+    "passed": true,
+    "title": "Both Asterisk and Rakudai logos visible at 19.8s; music credits retained.",
+    "inserted_scenes": "27.4s blue Ikki sword closeup;51.5s Stella sword attack;95s Ikki sunset reflection;184.5s child Ikki in snow;187.5s Ryoma;203s hand grasping red/gold light.",
+    "source_caption_residue": "None visible in the sampled final frames.",
+    "face_crop_or_subtitle_overflow": "None visible in sampled final frames.",
+    "ending": "205.6s returns to original Asterisk action;207.5s white flower and petals;210s dark blue final background intact.",
+    "limitations": [
+      "Imported footage is 360p enlarged to 720p; softness and compression artifacts remain, especially the snow shots.",
+      "94–97s is sunset reflection rather than a literal solo sword-practice shot.",
+      "201–205.56s is Ikki reaching into red light rather than literal walking into the arena.",
+      "Visual inspection covers listed sample times; full-stream decoding independently confirms every frame can be read."
+    ]
+  },
+  "passed": true,
+  "output_sha256": "a727d56d0eac791d88a900dfb788595e54f99d9330743897d1d0cac6cf5b9cf1"
+}

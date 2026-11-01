@@ -1,0 +1,43 @@
+{
+  "date": "2026-11-01",
+  "scope": "OC 技能和介绍编辑删除；卡特与大教授上色头像",
+  "validation": {
+    "playerProfile": "16/16 (core + VM fixtures)",
+    "stateController": "24/24",
+    "statePanel": "22/22",
+    "avatar": "18/18",
+    "packaging": "9/9",
+    "importableComponents": "passed",
+    "dialogueArtifactParity": "passed",
+    "browser": "Playwright Chromium 桌面/390px 手机编辑页、原位删除确认；离线 fixture，不写真实酒馆",
+    "realSillyTavern": "not run",
+    "remoteImageHosting": "pending user Git upload"
+  },
+  "files": [
+    {
+      "file": "世界书规则/MVU/落第骑士-小手机-v1.3.29-B1-头像更新.json",
+      "bytes": 2458110,
+      "sha256": "70e9e44da6d3ccbe42637451bf9ce7fb79bd439d952851e5587c205b8c51836e"
+    },
+    {
+      "file": "scripts/正文气泡/发布/components/dialogue-bubbles.regex.json",
+      "bytes": 182299,
+      "sha256": "84b9e71d95e9849e586b14f20f5fca41a54045d4d4c7ed0dae0a0cd52be49505"
+    },
+    {
+      "file": "scripts/正文气泡/发布/components/dialogue-bubble-style.regex.json",
+      "bytes": 195966,
+      "sha256": "427a65b4cd52ca0e9039f8ff9ff5b2ff8412ad4e99375c63886e602c8343c530"
+    },
+    {
+      "file": "resource/knightavatars/prepared/abraham-carter.png",
+      "bytes": 1875687,
+      "sha256": "869e32d16d56a01ea4539afebdec3dc40e3a13e848d53a6d574d800be9189447"
+    },
+    {
+      "file": "resource/knightavatars/prepared/karl-erlands.png",
+      "bytes": 1685228,
+      "sha256": "0212b7f3470c901ff2e0d3c97480341ffc51de169984a65483f0816fd8307a9d"
+    }
+  ]
+}

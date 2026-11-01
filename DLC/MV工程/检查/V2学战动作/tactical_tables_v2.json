@@ -1,0 +1,55 @@
+{
+  "purpose": "Local-only shot review; editorial suggestions, not renderer edits",
+  "source": "E:/web/落第/DLC/MV工程/学战都市_去水印母版.mp4",
+  "fps": 25,
+  "interval_convention": "Half-open [start,end), seconds. Source times use cleaned master. Rakudai source times remain pending media selection.",
+  "boundary_verification": {
+    "ayato_original_opponent_first_frame": {"seconds": 63.12, "frame": 1578, "description": "Giant armored opponent, previous 63.08 is audience girl"},
+    "ayato_safe_bridge": {"start": 76.00, "end": 76.60, "description": "Explosion and smoke only, then unrelated scene at 76.60"},
+    "julis_original_opponent_interval": {"start": 148.48, "end": 150.16, "description": "Julis with blue-haired dual-dagger opponent; cover entire interval"},
+    "julis_safe_bridge": {"start": 159.28, "end": 159.48, "description": "Fire and smoke only; purple-clothed male begins another match at 159.48"},
+    "ending_locked_from": 181.48,
+    "contact": "boundary_true_cut_frames.jpg"
+  },
+  "ikki_ayato": {
+    "cover_start": 63.12,
+    "suggested_prelude": "63.12–67.00: Ikki/Ayato paired closeups, preparation, opposing eyelines. This covers the original giant opponent before the main exchange.",
+    "main_start": 67.00,
+    "main_end": 76.00,
+    "axis": "Ikki left facing/moving right. Ayato right facing/moving left. Use frontal closeup as neutral axis reset if required.",
+    "shots": [
+      {"target": [67.00,67.72], "character": "Ikki", "action": "Left-side guard/lock gaze", "source": "pending"},
+      {"target": [67.72,68.44], "character": "Ayato", "source": [67.36,68.08], "action": "Sword reveal, stance, eyes lock"},
+      {"target": [68.44,69.48], "character": "Ikki", "action": "Advance toward screen right", "source": "pending"},
+      {"target": [69.48,70.52], "character": "Ayato", "source": [117.68,118.72], "action": "Leap and begin overhead attack toward left/foreground"},
+      {"target": [70.52,71.52], "character": "Ikki", "action": "Receive/parry, facing screen right", "source": "pending"},
+      {"target": [71.52,72.20], "character": "Ayato", "source": [118.72,119.40], "action": "Blade swing ending with two white impact frames; strict out before Irene"},
+      {"target": [72.20,73.56], "character": "Ikki", "action": "Riposte toward screen right", "source": "pending"},
+      {"target": [73.56,74.44], "character": "Ayato", "source": [127.16,128.04], "action": "Frontal concentration behind vertical blade; reaction, not literal injury"},
+      {"target": [74.44,76.00], "character": "Ikki", "action": "Followthrough and settle", "source": "pending"}
+    ],
+    "out": "Either preserve original explosion 76.00–76.60 as bridge, or continue new footage to 76.60 before returning to original.",
+    "do_not_mix": "Ayato 70.68–72.32 moves left-to-right, opposite the above axis. Do not insert into same exchange without a neutral reset/reverse-angle explanation."
+  },
+  "stella_julis": {
+    "cover_start": 148.48,
+    "suggested_prelude": "148.48–149.64: Stella/Julis opposing faces or Stella preparing blade; original blue-haired opponent must be covered.",
+    "main_start": 149.64,
+    "main_end": 159.28,
+    "axis": "Stella left facing/moving right. Julis right facing/attacking left. Julis frontal flame shot can neutralize the axis at the end.",
+    "shots": [
+      {"target": [149.64,150.16], "character": "Stella", "action": "Guard/glance to screen right", "source": "pending"},
+      {"target": [150.16,151.68], "character": "Julis", "source": [150.16,151.68], "action": "Solo horizontal rapier poised toward screen left"},
+      {"target": [151.68,152.88], "character": "Stella", "action": "Deflect/parry facing right", "source": "pending"},
+      {"target": [152.88,153.72], "character": "Julis", "source": [151.68,152.52], "action": "Fire streaks sweep right-to-left"},
+      {"target": [153.72,155.20], "character": "Stella", "action": "Charge and counter toward screen right", "source": "pending"},
+      {"target": [155.20,156.44], "character": "Julis", "source": [125.92,127.16], "action": "Midair evasion/recovery; strict out before Ayato"},
+      {"target": [156.44,157.84], "character": "Stella", "action": "Followthrough", "source": "pending"},
+      {"target": [157.84,158.76], "character": "Julis", "source": [50.92,51.84], "action": "Frontal flame summon/flare; neutral direction"},
+      {"target": [158.76,159.28], "character": "Stella", "action": "Face or settle", "source": "pending"}
+    ],
+    "out": "Preserve original 159.28–159.48 flame/smoke as a 5-frame bridge, or extend final new shot through 159.48 and cut directly to the next match.",
+    "warning": "112–117 seconds is Irene with a large black/red scythe, not Julis. Excluded."
+  },
+  "verification_limits": "Exact source actions and cuts were visually checked on local master. Rakudai placeholders require actual downloaded motion/direction review; these tables do not certify a rendered V2. Source captions must be cropped and restored at target music time, as parent renderer now does."
+}

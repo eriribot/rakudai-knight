@@ -150,6 +150,15 @@ node scripts/build-knight-avatar-delivery.mjs
 
 [EPUB 扫描说明](./research/epub/README.md) 记录22本书的图片索引与第5–19卷彩色参考图；[公开来源记录](./research/fandom/sources.json) 包含 Fandom 身份交叉参考、海空陆作者采访的具名黑甲图，以及尚待卷次核对的社区扫描候选。社区候选没有进入终端头像清单。
 
+## 2026-11-01：卡特与大教授上色头像
+
+新增亚伯拉罕·卡特与卡尔·爱兰兹（大教授），清单共 42 人。沿用已核验的第 15、18 卷黑白插图，分别提取单人并使用内置 imagegen 上色；大教授采用白袍肥胖老者形态。两图均为 1085 × 1450 透明 PNG，属于 AI 衍生上色，原图保留。
+
+- 本地及 GitHub Pages 上传文件：[abraham-carter.png](./prepared/abraham-carter.png)、[karl-erlands.png](./prepared/karl-erlands.png)。
+- 图床目标路径沿用 `https://eriribot.github.io/rakudai-knight/resource/knightavatars/prepared/`，等待用户自行 Git 上传；此处不代表远端已部署。
+- 清单补齐全名、简称、繁体、英文与“大教授”等别名，终端及正文气泡共用；“亚拉伯罕”兼容指向卡特，不改写剧情姓名。
+- [原图与配色依据](./research/20261101-carter-erlands/source-report.md)、[完整生成提示词](./research/20261101-carter-erlands/imagegen-record.json)。
+
 ## 透明盾框
 
 - [shield-frame.png](./shield-frame.png)：1085 × 1450，透明内外，仅盾边和卷草花饰。由内置 imagegen 根据用户提供的参考图提取，是衍生素材，不是官网原始空框。

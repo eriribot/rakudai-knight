@@ -1,0 +1,26 @@
+{
+  "name": "touka_thunder_burst",
+  "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\selected\\touka_thunder_burst.mp4",
+  "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\ep09\\touka_new_draw_raw.mp4",
+  "source_url": "https://xgct-video.bzcdn.net/06ea9755-6f6b-45b7-960d-6bc68d91bd22/640x360/video.m3u8",
+  "source_start": 1229.74,
+  "source_end": 1231.26,
+  "source_frames": [
+    106,
+    144
+  ],
+  "frames": 38,
+  "fps": 25,
+  "duration": 1.52,
+  "character": "Touka",
+  "action": "lightning discharge and flash",
+  "direction": "outward",
+  "note": "Strong original strobe/white flash; use briefly.",
+  "color_changes": "none",
+  "default_crop": [
+    32,
+    0,
+    576,
+    324
+  ]
+}

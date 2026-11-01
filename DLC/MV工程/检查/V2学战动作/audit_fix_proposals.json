@@ -1,0 +1,56 @@
+{
+  "parameter_patches": {
+    "19": {
+      "file": "素材/v2/ep01/stella_charge_raw.mp4",
+      "clip_start": 4.56,
+      "speed": 0.16,
+      "crop": [
+        32,
+        0,
+        576,
+        324
+      ]
+    },
+    "28": {
+      "speed": 0.66
+    },
+    "33": {
+      "crop": [
+        80,
+        40,
+        480,
+        270
+      ]
+    },
+    "15": {
+      "clip_start": 8.24
+    },
+    "16": {
+      "crop": [
+        0,
+        0,
+        1080,
+        608
+      ]
+    }
+  },
+  "pair_item_25": {
+    "start": 148.48,
+    "end": 149.64,
+    "kind": "pair",
+    "left": {
+      "file": "素材/v2/ep01/stella_charge_raw.mp4",
+      "clip_start": 0.92,
+      "speed": 0.28,
+      "arena_blue": true,
+      "focus_x": 330
+    },
+    "right": {
+      "file": "clean",
+      "clip_start": 110.0,
+      "speed": 0.28,
+      "focus_x": 950
+    },
+    "label": "史黛菈／尤莉丝对峙"
+  }
+}

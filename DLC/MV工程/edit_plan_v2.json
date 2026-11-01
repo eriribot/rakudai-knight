@@ -1,0 +1,370 @@
+{
+  "output": "学战都市×落第骑士英雄谭_联合MV_V2_交锋版.mp4",
+  "base": "V1; ending from181.48s preserved",
+  "edits": [
+    {
+      "start": 11.16,
+      "end": 12.08,
+      "kind": "roster",
+      "characters": [
+        "ikki",
+        "stella"
+      ],
+      "label": "破军参战：一辉／史黛菈（官方动画图）"
+    },
+    {
+      "start": 12.08,
+      "end": 13.04,
+      "kind": "roster",
+      "characters": [
+        "toka",
+        "shizuku"
+      ],
+      "label": "破军参战：刀华／珠雫（官方动画图）"
+    },
+    {
+      "start": 22.32,
+      "end": 24.16,
+      "file": "素材/v2/ep02/academy_establishing_raw.mp4",
+      "clip_start": 1.12,
+      "label": "破军校园加入学院入场"
+    },
+    {
+      "start": 25.0,
+      "end": 26.96,
+      "file": "素材/v2/ep01/stella_charge_raw.mp4",
+      "clip_start": 0.88,
+      "label": "红色：史黛菈登场",
+      "speed": 0.44,
+      "tint": "red"
+    },
+    {
+      "start": 29.12,
+      "end": 31.32,
+      "file": "素材/v2/ep10/shizuku_face_raw.mp4",
+      "clip_start": 1.44,
+      "label": "绿色：刀华登场",
+      "speed": 0.55,
+      "tint": "green"
+    },
+    {
+      "start": 31.32,
+      "end": 33.92,
+      "file": "素材/v2/ep10/shizuku_face_raw.mp4",
+      "clip_start": 2.68,
+      "label": "紫色：珠雫登场",
+      "speed": 0.76,
+      "tint": "violet"
+    },
+    {
+      "start": 37.0,
+      "end": 41.0,
+      "file": "素材/v2/ep12/ikki_exhausted_raw.mp4",
+      "clip_start": 2.0,
+      "label": "一辉伤痕与踉跄，对应悲伤歌词"
+    },
+    {
+      "start": 45.12,
+      "end": 48.44,
+      "file": "素材/v2/ep01/stella_fire_raw.mp4",
+      "clip_start": 0.56,
+      "label": "史黛菈蓄焰",
+      "speed": 0.83,
+      "crop": [
+        64,
+        32,
+        512,
+        288
+      ],
+      "arena_blue": true
+    },
+    {
+      "start": 48.44,
+      "end": 50.28,
+      "file": "素材/v2/ep10/shizuku_face_raw.mp4",
+      "clip_start": 1.44,
+      "label": "刀华定神",
+      "speed": 0.65
+    },
+    {
+      "start": 50.28,
+      "end": 54.84,
+      "file": "素材/v2/ep10/touka_raikiri_raw.mp4",
+      "clip_start": 2.8,
+      "label": "刀华雷切"
+    },
+    {
+      "start": 54.84,
+      "end": 58.04,
+      "file": "素材/v2/ep10/shizuku_water_raw.mp4",
+      "clip_start": 3.0,
+      "label": "珠雫展开水流"
+    },
+    {
+      "start": 58.04,
+      "end": 60.16,
+      "file": "素材/v2/ep10/shizuku_face_raw.mp4",
+      "clip_start": 2.68,
+      "label": "珠雫正面持剑",
+      "speed": 0.9
+    },
+    {
+      "start": 63.12,
+      "end": 64.64,
+      "file": "素材/v2/ep01/stella_charge_raw.mp4",
+      "clip_start": 3.44,
+      "label": "一辉架刀",
+      "speed": 0.44,
+      "arena_blue": true
+    },
+    {
+      "start": 64.64,
+      "end": 66.24,
+      "file": "素材/v2/ep01/ikki_counter_raw.mp4",
+      "clip_start": 4.64,
+      "label": "一辉残像准备",
+      "arena_blue": true
+    },
+    {
+      "start": 66.24,
+      "end": 67.0,
+      "kind": "pair",
+      "left": {
+        "file": "素材/v2/ep01/ikki_counter_raw.mp4",
+        "clip_start": 8.24,
+        "speed": 0.8,
+        "arena_blue": true,
+        "focus_x": 670
+      },
+      "right": {
+        "file": "clean",
+        "clip_start": 127.16,
+        "speed": 0.8,
+        "flip": true,
+        "focus_x": 700
+      },
+      "label": "一辉／绫斗对峙"
+    },
+    {
+      "start": 67.0,
+      "end": 67.72,
+      "file": "素材/v2/ep01/ikki_counter_raw.mp4",
+      "clip_start": 8.24,
+      "label": "一辉锁定对手",
+      "speed": 0.8,
+      "arena_blue": true
+    },
+    {
+      "start": 67.72,
+      "end": 68.44,
+      "file": "clean",
+      "clip_start": 67.36,
+      "label": "绫斗出剑迎战",
+      "crop": [
+        0,
+        0,
+        1080,
+        608
+      ]
+    },
+    {
+      "start": 68.44,
+      "end": 69.48,
+      "file": "素材/v2/ep01/ikki_dodge_raw.mp4",
+      "clip_start": 2.2,
+      "label": "一辉冲近",
+      "arena_blue": true
+    },
+    {
+      "start": 69.48,
+      "end": 70.52,
+      "file": "clean",
+      "clip_start": 117.68,
+      "label": "绫斗跃起反攻"
+    },
+    {
+      "start": 70.52,
+      "end": 71.52,
+      "file": "素材/v2/ep01/stella_charge_raw.mp4",
+      "clip_start": 4.56,
+      "label": "一辉横剑接招（短镜慢放）",
+      "speed": 0.16,
+      "arena_blue": true
+    },
+    {
+      "start": 71.52,
+      "end": 72.2,
+      "file": "clean",
+      "clip_start": 118.72,
+      "label": "绫斗斩落与刀光碰撞"
+    },
+    {
+      "start": 72.2,
+      "end": 73.56,
+      "file": "素材/v2/ep01/ikki_dodge_raw.mp4",
+      "clip_start": 7.68,
+      "label": "一辉迎面下劈",
+      "arena_blue": true
+    },
+    {
+      "start": 73.56,
+      "end": 74.44,
+      "file": "clean",
+      "clip_start": 127.16,
+      "label": "绫斗竖剑接住",
+      "flip": true
+    },
+    {
+      "start": 74.44,
+      "end": 76.0,
+      "file": "素材/v2/ep01/ikki_counter_raw.mp4",
+      "clip_start": 5.04,
+      "label": "一辉收势与残像",
+      "arena_blue": true
+    },
+    {
+      "start": 136.0,
+      "end": 139.24,
+      "file": "素材/v2/ep10/touka_face_raw.mp4",
+      "clip_start": 0.4,
+      "label": "刀华与珠雫：水雾雷光交锋"
+    },
+    {
+      "start": 148.48,
+      "end": 149.64,
+      "kind": "pair",
+      "left": {
+        "file": "素材/v2/ep01/stella_charge_raw.mp4",
+        "clip_start": 0.92,
+        "speed": 0.28,
+        "arena_blue": true,
+        "focus_x": 330
+      },
+      "right": {
+        "file": "clean",
+        "clip_start": 110.0,
+        "speed": 0.28,
+        "focus_x": 950
+      },
+      "label": "史黛菈／尤莉丝对峙"
+    },
+    {
+      "start": 149.64,
+      "end": 150.16,
+      "file": "素材/v2/ep01/stella_charge_raw.mp4",
+      "clip_start": 1.0,
+      "label": "史黛菈望向右侧",
+      "arena_blue": true
+    },
+    {
+      "start": 150.16,
+      "end": 151.68,
+      "file": "clean",
+      "clip_start": 150.16,
+      "label": "尤莉丝举细剑向左"
+    },
+    {
+      "start": 151.68,
+      "end": 152.88,
+      "file": "素材/v2/ep01/stella_block_raw.mp4",
+      "clip_start": 0,
+      "label": "史黛菈横剑接招",
+      "speed": 0.66,
+      "arena_blue": true
+    },
+    {
+      "start": 152.88,
+      "end": 153.72,
+      "file": "clean",
+      "clip_start": 151.68,
+      "label": "尤莉丝火焰横扫"
+    },
+    {
+      "start": 153.72,
+      "end": 154.44,
+      "file": "素材/v2/ep01/stella_charge_raw.mp4",
+      "clip_start": 2.68,
+      "label": "史黛菈俯冲反击",
+      "arena_blue": true
+    },
+    {
+      "start": 154.44,
+      "end": 155.2,
+      "file": "素材/twxgct/ep01/stella_attack_candidate.mp4",
+      "clip_start": 2.6,
+      "label": "史黛菈向右挥斩",
+      "arena_blue": true
+    },
+    {
+      "start": 155.2,
+      "end": 156.44,
+      "file": "clean",
+      "clip_start": 125.92,
+      "label": "尤莉丝被逼退后稳住"
+    },
+    {
+      "start": 156.44,
+      "end": 157.84,
+      "file": "素材/v2/ep01/stella_fire_raw.mp4",
+      "clip_start": 6.16,
+      "label": "史黛菈火焰剑反攻",
+      "crop": [
+        80,
+        40,
+        480,
+        270
+      ],
+      "flip": true,
+      "arena_blue": true
+    },
+    {
+      "start": 157.84,
+      "end": 158.76,
+      "file": "clean",
+      "clip_start": 50.92,
+      "label": "尤莉丝正面火焰回应"
+    },
+    {
+      "start": 158.76,
+      "end": 159.28,
+      "file": "素材/v2/ep01/ikki_counter_raw.mp4",
+      "clip_start": 0.48,
+      "label": "史黛菈收势",
+      "arena_blue": true
+    },
+    {
+      "start": 173.4,
+      "end": 174.68,
+      "file": "素材/v2/ep01/itto_shura_call_raw.mp4",
+      "clip_start": 0,
+      "label": "一刀修罗宣言",
+      "arena_blue": true,
+      "caption": "一刀修羅"
+    },
+    {
+      "start": 174.68,
+      "end": 175.44,
+      "file": "clean",
+      "clip_start": 173.4,
+      "label": "绫斗蓝光爆发后半"
+    },
+    {
+      "start": 175.44,
+      "end": 178.16,
+      "file": "素材/v2/ep01/itto_shura_release_raw.mp4",
+      "clip_start": 0.44,
+      "label": "一刀修罗抬眼与气流",
+      "arena_blue": true
+    }
+  ],
+  "impacts": [
+    70.52,
+    72.2,
+    73.56,
+    151.68,
+    155.2,
+    157.84
+  ],
+  "roster_art": "Official TV anime character sheets, not novel portraits",
+  "power_pair": "Real Ayato blue release171.96–174.16 preserved by intercut; ep1 Itto Shura verified from source skill caption"
+}

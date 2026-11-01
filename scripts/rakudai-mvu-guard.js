@@ -70,7 +70,7 @@ function installRakudaiMvuGuard(schema) {
       if (replyKey) rememberStory(source, source.storyCorrection ? source.storyBefore : previous.stat_data?.场景, variables.stat_data?.场景);
     } catch (_) { rollback(); changed = ['/stat_data']; }
     if (changed.length) {
-      const message = '已恢复越权或非法修改：' + changed.join('、') + '。自动切章只允许按当前世界书完成标识前进相邻章；其他切入请使用终端。';
+      const message = '已恢复越权或非法修改：' + changed.join('、') + '。自动切章只允许按当前世界书完成标识或既定路线交接；其他切入请使用终端。';
       console.warn('[落第 MVU v4] ' + message);
       if (typeof toastr !== 'undefined') toastr.warning(message, '写入责任检查');
     }

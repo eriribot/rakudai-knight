@@ -1,0 +1,9 @@
+{
+  "kind": "offline-node-console-formatting",
+  "nodeVersion": "v25.6.0",
+  "defaultMaxArrayLength": 100,
+  "actualMessageCount": 102,
+  "serializedRequestContainsPlot": true,
+  "consoleObjectPrintContainsPlot": false,
+  "consolePrintTail": "    { role: 'assistant', content: '离线测试消息 96' },\n    { role: 'user', content: '离线测试消息 97' },\n    { role: 'assistant', content: '离线测试消息 98' },\n    { role: 'user', content: '离线测试消息 99' },\n    ... 2 more items\n  ]\n}"
+}

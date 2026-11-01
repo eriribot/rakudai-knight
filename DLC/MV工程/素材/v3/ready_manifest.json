@@ -1,0 +1,459 @@
+{
+  "status": "complete",
+  "workflow": "web research first, then new public 360p excerpts; no prior footage reused",
+  "research_plan": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\research_plan.md",
+  "mv_alignment_anchor_seconds": 131,
+  "selected_clips": 17,
+  "selected_total_seconds": 36.2,
+  "native_resolution": [
+    640,
+    360
+  ],
+  "fps": 25,
+  "audio": "none",
+  "verification": "every selected output decoded completely with exact expected frame count; no interval overlaps V1/V2 source ranges (V1 episodes1/2/12, V3 episodes3/4/6/9)",
+  "clips": [
+    {
+      "name": "ikki_eye_open",
+      "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\selected\\ikki_eye_open.mp4",
+      "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\ep04\\ikki_closed_eye_guard_raw.mp4",
+      "source_url": "https://xgct-video.bzcdn.net/56394ddf-9e04-48a8-8db9-09949825e977/640x360/video.m3u8",
+      "source_start": 954.1,
+      "source_end": 956.5,
+      "source_frames": [
+        65,
+        125
+      ],
+      "frames": 60,
+      "fps": 25,
+      "duration": 2.4,
+      "character": "Ikki",
+      "action": "closed eyes to open eyes, raises vertical sword",
+      "direction": "frontal",
+      "note": "",
+      "color_changes": "none",
+      "default_crop": [
+        32,
+        0,
+        576,
+        324
+      ]
+    },
+    {
+      "name": "itto_shura_start",
+      "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\selected\\itto_shura_start.mp4",
+      "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\ep04\\itto_shura_true_activation_raw.mp4",
+      "source_url": "https://xgct-video.bzcdn.net/56394ddf-9e04-48a8-8db9-09949825e977/640x360/video.m3u8",
+      "source_start": 963.44,
+      "source_end": 969.08,
+      "source_frames": [
+        11,
+        152
+      ],
+      "frames": 141,
+      "fps": 25,
+      "duration": 5.64,
+      "character": "Ikki",
+      "action": "verified Ittou Shura: vertical sword, full-body energy release",
+      "direction": "frontal",
+      "note": "Source subtitle names 一刀修羅; original pale/white-blue energy, no synthetic recoloring.",
+      "color_changes": "none",
+      "default_crop": [
+        32,
+        0,
+        576,
+        324
+      ]
+    },
+    {
+      "name": "touka_horizontal_slash",
+      "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\selected\\touka_horizontal_slash.mp4",
+      "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\ep09\\touka_new_draw_raw.mp4",
+      "source_url": "https://xgct-video.bzcdn.net/06ea9755-6f6b-45b7-960d-6bc68d91bd22/640x360/video.m3u8",
+      "source_start": 1225.5,
+      "source_end": 1226.1,
+      "source_frames": [
+        0,
+        15
+      ],
+      "frames": 15,
+      "fps": 25,
+      "duration": 0.6,
+      "character": "Touka",
+      "action": "sword drawn horizontally across face",
+      "direction": "horizontal",
+      "note": "",
+      "color_changes": "none",
+      "default_crop": [
+        32,
+        0,
+        576,
+        324
+      ]
+    },
+    {
+      "name": "touka_sword_close",
+      "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\selected\\touka_sword_close.mp4",
+      "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\ep09\\touka_new_draw_raw.mp4",
+      "source_url": "https://xgct-video.bzcdn.net/06ea9755-6f6b-45b7-960d-6bc68d91bd22/640x360/video.m3u8",
+      "source_start": 1226.94,
+      "source_end": 1227.58,
+      "source_frames": [
+        36,
+        52
+      ],
+      "frames": 16,
+      "fps": 25,
+      "duration": 0.64,
+      "character": "Touka",
+      "action": "sword/side-face close-up",
+      "direction": "profile",
+      "note": "Original shot has cinematic black bars.",
+      "color_changes": "none",
+      "default_crop": [
+        32,
+        0,
+        576,
+        324
+      ]
+    },
+    {
+      "name": "touka_eye",
+      "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\selected\\touka_eye.mp4",
+      "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\ep09\\touka_new_draw_raw.mp4",
+      "source_url": "https://xgct-video.bzcdn.net/06ea9755-6f6b-45b7-960d-6bc68d91bd22/640x360/video.m3u8",
+      "source_start": 1228.38,
+      "source_end": 1229.46,
+      "source_frames": [
+        72,
+        99
+      ],
+      "frames": 27,
+      "fps": 25,
+      "duration": 1.08,
+      "character": "Touka",
+      "action": "amber eye and glasses close-up",
+      "direction": "frontal",
+      "note": "Original shot has cinematic black bars.",
+      "color_changes": "none",
+      "default_crop": [
+        32,
+        0,
+        576,
+        324
+      ]
+    },
+    {
+      "name": "touka_thunder_burst",
+      "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\selected\\touka_thunder_burst.mp4",
+      "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\ep09\\touka_new_draw_raw.mp4",
+      "source_url": "https://xgct-video.bzcdn.net/06ea9755-6f6b-45b7-960d-6bc68d91bd22/640x360/video.m3u8",
+      "source_start": 1229.74,
+      "source_end": 1231.26,
+      "source_frames": [
+        106,
+        144
+      ],
+      "frames": 38,
+      "fps": 25,
+      "duration": 1.52,
+      "character": "Touka",
+      "action": "lightning discharge and flash",
+      "direction": "outward",
+      "note": "Strong original strobe/white flash; use briefly.",
+      "color_changes": "none",
+      "default_crop": [
+        32,
+        0,
+        576,
+        324
+      ]
+    },
+    {
+      "name": "touka_lightning_entry",
+      "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\selected\\touka_lightning_entry.mp4",
+      "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\ep09\\touka_new_draw_raw.mp4",
+      "source_url": "https://xgct-video.bzcdn.net/06ea9755-6f6b-45b7-960d-6bc68d91bd22/640x360/video.m3u8",
+      "source_start": 1233.7,
+      "source_end": 1235.5,
+      "source_frames": [
+        205,
+        250
+      ],
+      "frames": 45,
+      "fps": 25,
+      "duration": 1.8,
+      "character": "Touka",
+      "action": "solo full-body lightning stance",
+      "direction": "frontal",
+      "note": "",
+      "color_changes": "none",
+      "default_crop": [
+        32,
+        0,
+        576,
+        324
+      ]
+    },
+    {
+      "name": "touka_lightning_hold",
+      "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\selected\\touka_lightning_hold.mp4",
+      "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\ep09\\touka_lightning_stance_raw.mp4",
+      "source_url": "https://xgct-video.bzcdn.net/06ea9755-6f6b-45b7-960d-6bc68d91bd22/640x360/video.m3u8",
+      "source_start": 1235.5,
+      "source_end": 1237.14,
+      "source_frames": [
+        0,
+        41
+      ],
+      "frames": 41,
+      "fps": 25,
+      "duration": 1.64,
+      "character": "Touka",
+      "action": "lightning trails dissipate around her",
+      "direction": "frontal",
+      "note": "Ends before golem is revealed.",
+      "color_changes": "none",
+      "default_crop": [
+        32,
+        0,
+        576,
+        324
+      ]
+    },
+    {
+      "name": "touka_guard_turn",
+      "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\selected\\touka_guard_turn.mp4",
+      "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\ep09\\touka_lightning_stance_raw.mp4",
+      "source_url": "https://xgct-video.bzcdn.net/06ea9755-6f6b-45b7-960d-6bc68d91bd22/640x360/video.m3u8",
+      "source_start": 1240.3,
+      "source_end": 1244.86,
+      "source_frames": [
+        120,
+        234
+      ],
+      "frames": 114,
+      "fps": 25,
+      "duration": 4.56,
+      "character": "Touka",
+      "action": "turns into new sword-draw stance, then glasses profile",
+      "direction": "left-facing to screen right",
+      "note": "No golem in this selected interval.",
+      "color_changes": "none",
+      "default_crop": [
+        32,
+        0,
+        576,
+        324
+      ]
+    },
+    {
+      "name": "ikki_lower_sword",
+      "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\selected\\ikki_lower_sword.mp4",
+      "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\ep06\\ikki_parry_finish_raw.mp4",
+      "source_url": "https://xgct-video.bzcdn.net/2d55fe0a-0b19-4af6-9d27-0b124aa37fd5/640x360/video.m3u8",
+      "source_start": 67.32,
+      "source_end": 72.2,
+      "source_frames": [
+        78,
+        200
+      ],
+      "frames": 122,
+      "fps": 25,
+      "duration": 4.88,
+      "character": "Ikki",
+      "action": "lowers blade after victory, camera rises to face",
+      "direction": "frontal / low angle",
+      "note": "First part of raw file is Tomaru; excluded here.",
+      "color_changes": "none",
+      "default_crop": [
+        32,
+        0,
+        576,
+        324
+      ]
+    },
+    {
+      "name": "stella_new_eyes",
+      "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\selected\\stella_new_eyes.mp4",
+      "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\ep06\\stella_heavy_guard_raw.mp4",
+      "source_url": "https://xgct-video.bzcdn.net/2d55fe0a-0b19-4af6-9d27-0b124aa37fd5/640x360/video.m3u8",
+      "source_start": 58.08,
+      "source_end": 60.56,
+      "source_frames": [
+        102,
+        164
+      ],
+      "frames": 62,
+      "fps": 25,
+      "duration": 2.48,
+      "character": "Stella",
+      "action": "confident eyes closed to open, clean portrait",
+      "direction": "frontal",
+      "note": "Portrait rather than an attack. Original opponent excluded.",
+      "color_changes": "none",
+      "default_crop": [
+        32,
+        0,
+        576,
+        324
+      ]
+    },
+    {
+      "name": "stella_morning_slash",
+      "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\selected\\stella_morning_slash.mp4",
+      "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\ep03\\morning_sparring_raw.mp4",
+      "source_url": "https://xgct-video.bzcdn.net/7be25d42-7bad-40d3-b3cb-288fde6e9edb/640x360/video.m3u8",
+      "source_start": 0.0,
+      "source_end": 1.72,
+      "source_frames": [
+        0,
+        43
+      ],
+      "frames": 43,
+      "fps": 25,
+      "duration": 1.72,
+      "character": "Stella",
+      "action": "eye/face into flaming side slash",
+      "direction": "toward camera / diagonal",
+      "note": "Very fast source action contains native 360p compression artifacts.",
+      "color_changes": "none",
+      "default_crop": [
+        32,
+        0,
+        576,
+        324
+      ]
+    },
+    {
+      "name": "ikki_morning_evade",
+      "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\selected\\ikki_morning_evade.mp4",
+      "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\ep03\\morning_sparring_raw.mp4",
+      "source_url": "https://xgct-video.bzcdn.net/7be25d42-7bad-40d3-b3cb-288fde6e9edb/640x360/video.m3u8",
+      "source_start": 1.72,
+      "source_end": 3.2,
+      "source_frames": [
+        43,
+        80
+      ],
+      "frames": 37,
+      "fps": 25,
+      "duration": 1.48,
+      "character": "Ikki",
+      "action": "sidesteps and swings his sword back",
+      "direction": "lateral / toward camera",
+      "note": "A flame blade crosses foreground, but no opponent face/body.",
+      "color_changes": "none",
+      "default_crop": [
+        32,
+        0,
+        576,
+        324
+      ]
+    },
+    {
+      "name": "stella_morning_turn",
+      "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\selected\\stella_morning_turn.mp4",
+      "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\ep03\\morning_sparring_raw.mp4",
+      "source_url": "https://xgct-video.bzcdn.net/7be25d42-7bad-40d3-b3cb-288fde6e9edb/640x360/video.m3u8",
+      "source_start": 3.2,
+      "source_end": 4.08,
+      "source_frames": [
+        80,
+        102
+      ],
+      "frames": 22,
+      "fps": 25,
+      "duration": 0.88,
+      "character": "Stella",
+      "action": "turns and readies her flaming sword",
+      "direction": "toward camera",
+      "note": "",
+      "color_changes": "none",
+      "default_crop": [
+        32,
+        0,
+        576,
+        324
+      ]
+    },
+    {
+      "name": "stella_morning_guard",
+      "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\selected\\stella_morning_guard.mp4",
+      "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\ep03\\morning_sparring_raw.mp4",
+      "source_url": "https://xgct-video.bzcdn.net/7be25d42-7bad-40d3-b3cb-288fde6e9edb/640x360/video.m3u8",
+      "source_start": 4.08,
+      "source_end": 5.44,
+      "source_frames": [
+        102,
+        136
+      ],
+      "frames": 34,
+      "fps": 25,
+      "duration": 1.36,
+      "character": "Stella",
+      "action": "raised sword blocks/counters",
+      "direction": "overhead",
+      "note": "Original opponent black sword remains in foreground; no opponent person. Optional if weapon continuity is acceptable.",
+      "color_changes": "none",
+      "default_crop": [
+        32,
+        0,
+        576,
+        324
+      ]
+    },
+    {
+      "name": "stella_morning_downstrike",
+      "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\selected\\stella_morning_downstrike.mp4",
+      "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\ep03\\morning_sparring_raw.mp4",
+      "source_url": "https://xgct-video.bzcdn.net/7be25d42-7bad-40d3-b3cb-288fde6e9edb/640x360/video.m3u8",
+      "source_start": 8.44,
+      "source_end": 9.08,
+      "source_frames": [
+        211,
+        227
+      ],
+      "frames": 16,
+      "fps": 25,
+      "duration": 0.64,
+      "character": "Stella",
+      "action": "close overhead descending strike",
+      "direction": "down toward camera",
+      "note": "",
+      "color_changes": "none",
+      "default_crop": [
+        32,
+        0,
+        576,
+        324
+      ]
+    },
+    {
+      "name": "ikki_morning_guard",
+      "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\selected\\ikki_morning_guard.mp4",
+      "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\ep03\\ikki_morning_block_raw.mp4",
+      "source_url": "https://xgct-video.bzcdn.net/7be25d42-7bad-40d3-b3cb-288fde6e9edb/640x360/video.m3u8",
+      "source_start": 9.52,
+      "source_end": 12.4,
+      "source_frames": [
+        8,
+        80
+      ],
+      "frames": 72,
+      "fps": 25,
+      "duration": 2.88,
+      "character": "Ikki",
+      "action": "frontal sword block then lowers sword",
+      "direction": "frontal",
+      "note": "Original opponent gold/fire blade in foreground, no opponent person.",
+      "color_changes": "none",
+      "default_crop": [
+        32,
+        0,
+        576,
+        324
+      ]
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 import { deriveTournament, prepareTournamentAction, suggestTournamentOpponents, createTournamentParticipant } from './rakudai-tournament.mjs';
 import { isHagunAffiliation, shouldInjectTournament } from './rakudai-tournament-calendar.mjs';
 import { createNationalTournamentSchema, deriveNationalTournament, shouldInjectNationalTournament } from './rakudai-national-tournament.mjs';
-import { STORY_VOLUMES, getStoryVolume, resolveStoryChapter, storyPosition, nextStoryChapter, firstStoryChapter } from './rakudai-story-catalog.mjs';
+import { STORY_VOLUMES, getStoryVolume, resolveStoryChapter, storyPosition, nextStoryChapter, nextStoryChapterForState, firstStoryChapter } from './rakudai-story-catalog.mjs';
 import { GROWTH_RULES, GROWTH_AXES, ATTRIBUTE_GRADES, normalizeSkillEntry, normalizeGrowthRequests, normalizeStoryPhase, normalizeStoryVolume } from '../世界书规则/MVU/schema.mjs';
 import { repairRakudaiMvuStructure } from './rakudai-mvu-structure.mjs';
 
@@ -28,9 +28,8 @@ export function validateStateOperation(value, scope, z) {
       时间: z.string(), 地点: z.string(),
     }).passthrough().superRefine((scene, ctx) => {
       if (!getStoryVolume(scene.当前卷)) ctx.addIssue({ code: 'custom', path: ['当前卷'], message: '当前卷不在剧情目录中。' });
-      else if (scene.当前章 !== '待选择' && !resolveStoryChapter(scene.当前卷, scene.当前章)) {
-        ctx.addIssue({ code: 'custom', path: ['当前章'], message: '当前卷与章节不匹配。' });
-      }
+      // 当前章可能是模型临时写入的未收录名称。保留它供手动兜底定位，
+      // 目标章仍在 applyTransition/jump 中严格校验。
     });
   } else if (scope === 'tournament') {
     fields.玩家 = z.object({ 姓名: z.string().trim().min(1), 所属: z.string() }).passthrough();
@@ -39,6 +38,12 @@ export function validateStateOperation(value, scope, z) {
     fields.场景 = z.object({ 七星剑斗祭: createNationalTournamentSchema(z).optional() }).passthrough();
   } else if (scope === 'roster') {
     fields.人际 = z.record(z.string(), z.unknown());
+  } else if (scope === 'player-profile') {
+    // 只核对可编辑容器；旧技能允许先删掉，其他自定义资料不重写。
+    fields.玩家 = z.object({
+      伐刀能力: z.object({ 招式: z.record(z.string(), z.unknown()).optional() }).passthrough().optional(),
+      其他能力: z.record(z.string(), z.unknown()).optional(),
+    }).passthrough();
   } else if (scope === 'dorm' || scope === 'qualification') {
     fields.场景 = z.object({}).passthrough();
   } else throw new Error('未知的状态操作范围。');
@@ -110,7 +115,8 @@ export function applyTransition(before, request) {
   const volume = getStoryVolume(scene.当前卷);
   if (!volume) throw new Error('当前卷不在已核对的剧情目录中。');
   const currentChapter = resolveStoryChapter(scene.当前卷, scene.当前章);
-  if (scene.当前章 !== '待选择' && !currentChapter) throw new Error('当前卷与章节不匹配，请核对存档。');
+  const unknownChapter = scene.当前章 !== '待选择' && !currentChapter;
+  if (unknownChapter && request.action !== 'jump') throw new Error('当前卷与章节不匹配，请核对存档。');
   if (currentChapter) scene.当前章 = currentChapter.key;
   function locateTarget(targetVolume, targetChapter) {
     const chapter = resolveStoryChapter(targetVolume, targetChapter);
@@ -149,9 +155,9 @@ export function applyTransition(before, request) {
   } else if (request.action === 'jump') {
     const from = storyPosition(scene.当前卷, scene.当前章);
     const target = storyPosition(request.volume, request.chapter);
-    if (from < 0) throw new Error('请先确认当前章段，再选择向前切入的目标。');
+    if (from < 0 && !unknownChapter) throw new Error('请先确认当前章段，再选择向前切入的目标。');
     if (target < 0) throw new Error('目标卷与章节不是已核对的目录组合。');
-    if (target <= from) throw new Error('手动切入仅允许严格向前；回到已有剧情请使用聊天分支或已有回复页。');
+    if (from >= 0 && target <= from) throw new Error('手动切入仅允许严格向前；回到已有剧情请使用聊天分支或已有回复页。');
     locateTarget(request.volume, request.chapter);
   } else throw new Error('未知剧情操作。');
   return next;
@@ -168,7 +174,7 @@ export function acceptAutomaticStoryProgress(before, after) {
   const current = resolveStoryChapter(old.当前卷, old.当前章);
   const proposed = resolveStoryChapter(scene.当前卷, scene.当前章);
   if (!current || !proposed) return false;
-  const target = nextStoryChapter(old.当前卷, current.key);
+  const target = nextStoryChapterForState(old.当前卷, current.key, after);
   const unchanged = scene.当前卷 === old.当前卷 && proposed.key === current.key;
   function advance() {
     scene.当前卷 = target.volume;
@@ -442,11 +448,55 @@ export function enforceGrowthProgress(variables, previous, { replyKey = '', repa
   return notices;
 }
 
+export function editOcPlayerProfile(before, request) {
+  if (before.系统?.开局状态 !== '已建档' || before.系统?.主角模式 !== '自定义角色') throw new Error('只有已建档的自定义角色可以编辑个人资料。');
+  if (!request || typeof request !== 'object') throw new Error('个人资料操作无效。');
+  const state = cloneState(before), player = state.玩家;
+  const text = (value, label) => {
+    if (typeof value !== 'string') throw new Error(`${label}必须是文字。`);
+    return value;
+  };
+  if (request.action === 'bio') {
+    player.角色简介 = text(request.bio, '角色简介');
+  } else if (request.action === 'ability') {
+    player.伐刀能力 ||= {};
+    player.伐刀能力.能力本质 = text(request.mechanism, '能力介绍');
+    player.伐刀能力.共通限制 = text(request.cost, '共通限制');
+  } else if (['saveSkill', 'deleteSkill'].includes(request.action)) {
+    if (!['techniques', 'other'].includes(request.group)) throw new Error('技能类别无效。');
+    const current = request.group === 'techniques' ? player.伐刀能力?.招式 : player.其他能力;
+    const originalName = request.originalName;
+    if (originalName !== null && (typeof originalName !== 'string' || !Object.hasOwn(current || {}, originalName))) throw new Error('当前回复中已没有该技能，请刷新后重试。');
+    if (request.action === 'deleteSkill') {
+      if (originalName === null) throw new Error('请先选择要删除的技能。');
+      delete current[originalName];
+    } else {
+      const name = text(request.name, '技能名称').trim();
+      if (!name || /[~/]/.test(name) || ['__proto__', 'prototype', 'constructor'].includes(name)) throw new Error('技能名称不能为空，也不能包含 /、~ 或保留键。');
+      if (name !== originalName && Object.hasOwn(current || {}, name)) throw new Error('已有同名技能，请编辑已有记录或换个名称。');
+      if (!['待确认', '学习中', '已掌握'].includes(request.mastery)) throw new Error('请选择技能掌握状态。');
+      const previous = originalName === null ? null : current[originalName];
+      const skill = previous && typeof previous === 'object' && !Array.isArray(previous) ? { ...previous } : {};
+      skill.说明 = text(request.description, '技能说明');
+      skill.条件与代价 = text(request.cost, '条件与代价');
+      skill.掌握状态 = request.mastery;
+      let records = current;
+      if (!records) {
+        if (request.group === 'techniques') { player.伐刀能力 ||= {}; records = player.伐刀能力.招式 = {}; }
+        else records = player.其他能力 = {};
+      }
+      if (originalName !== null && originalName !== name) delete records[originalName];
+      records[name] = skill;
+    }
+  } else throw new Error('未知的个人资料操作。');
+  return state;
+}
+
 export function createStateController(adapter) {
   const tokens = new WeakMap();
   async function capture(options = {}) {
     const scope = options.scope || 'full';
-    if (!['full', 'story', 'tournament', 'qualification', 'national', 'roster', 'dorm'].includes(scope)) throw new Error('未知的状态操作范围。');
+    if (!['full', 'story', 'tournament', 'qualification', 'national', 'roster', 'dorm', 'player-profile'].includes(scope)) throw new Error('未知的状态操作范围。');
     const snapshot = await adapter.capture(options);
     if (snapshot.data.stat_data?.系统?.结构版本 === 3) {
       const error = new Error('当前楼层是 v3 档案，请先查看迁移差异并确认升级为 v4。');
@@ -473,7 +523,7 @@ export function createStateController(adapter) {
     const result = adapter.assertOpeningReplacement(snapshot);
     if (result && typeof result.then === 'function') throw new Error('开局替换需要同步宿主校验，尚未写入。');
   }
-  async function commit(token, build, kind = 'state', openingReplacement = false, operationScope = 'full') {
+  async function commit(token, build, kind = 'state', openingReplacement = false, operationScope = 'full', assertWritable) {
     const record = tokens.get(token);
     if (!record) throw new Error('操作凭据已失效，请重新读取当前分支。');
     if (record.kind !== kind) throw new Error('操作凭据用途不符；迁移必须通过明确的升级操作提交。');
@@ -482,6 +532,10 @@ export function createStateController(adapter) {
     if (record.busy) throw new Error('正在写入，请勿重复操作。');
     record.busy = true;
     try {
+      const checkWritable = () => {
+        if (assertWritable && assertWritable()?.then) throw new Error('写入前检查必须同步完成。');
+      };
+      checkWritable();
       if (openingReplacement) assertReplacementScope(record.snapshot);
       const candidate = adapter.validate(build(cloneState(record.state)), scope);
       if (record.done) {
@@ -502,6 +556,7 @@ export function createStateController(adapter) {
       }
       if (stateKey(current.data) !== stateKey(record.snapshot.data)) throw new Error('变量已被其他操作更新，请重新读取，草稿已保留。');
       if (openingReplacement) assertReplacementScope(record.snapshot);
+      checkWritable();
       await adapter.write(record.snapshot, current.data, candidate, { openingReplacement });
       const persisted = await adapter.current(record.snapshot);
       if (openingReplacement) assertReplacementScope(record.snapshot);
@@ -515,7 +570,7 @@ export function createStateController(adapter) {
   }
   return Object.freeze({
     version: '4.0.0', get catalogue() { return cloneState(STORY_VOLUMES); }, capture, prepareMigration,
-    capabilities: Object.freeze({ scheduleAndRoster: true, rosterPermanentRemoval: true,
+    capabilities: Object.freeze({ scheduleAndRoster: true, rosterPermanentRemoval: true, ocPlayerEditing: true,
       tournament: 'T01', tournamentEngine: 'T02', nativeMvu: 'N01' }),
     get growthRules() { return cloneState(GROWTH_RULES); },
     tournamentView: state => deriveTournament(state),
@@ -543,6 +598,7 @@ export function createStateController(adapter) {
     commitOpening: (token, payload) => commit(token, state => applyOpening(state, payload)),
     replaceOpening: (token, payload) => commit(token, state => applyOpeningReplacement(state, payload), 'state', true),
     transition: (token, request) => commit(token, state => applyTransition(state, request), 'state', false, 'story'),
+    editPlayerProfile: (token, request, assertWritable) => commit(token, state => editOcPlayerProfile(state, request), 'state', false, 'player-profile', assertWritable),
     setRosterHidden: (token, name, hidden) => commit(token, state => {
       if (typeof name !== 'string' || !name.trim() || /[~/]/.test(name) ||
           ['__proto__', 'prototype', 'constructor'].includes(name) || typeof hidden !== 'boolean') throw new Error('名册操作参数不合法。');

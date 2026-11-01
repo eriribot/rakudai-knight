@@ -1,0 +1,7 @@
+{
+  "request_url": "https://www.twxgct.com/user/amp/content_pframe_url?chapter_id=Y4cp7k9pZG&level=low&expires=3600",
+  "response": {
+    "data": "https://pframe.xgcartoon.com/pframe/player.htm?vid=2d55fe0a-0b19-4af6-9d27-0b124aa37fd5&reportUrl=https://stats.xgcartoon.com/api/xgcts/video_playback_report&heatmapUrl=https://stats.xgcartoon.com/api/xgcts/video_heatmap",
+    "result": true
+  }
+}

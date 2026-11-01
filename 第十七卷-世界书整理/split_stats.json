@@ -9,8 +9,8 @@
       "start_line": 3,
       "end_line": 195,
       "line_count": 193,
-      "char_count": 2300,
-      "md5": "076c57879b2454585b796ce3dda8c5ad"
+      "char_count": 2289,
+      "md5": "f99caedacf9e9bd151be06f497c98205"
     },
     {
       "file": "第十七卷_第四章_恩宠的力量.txt",
@@ -18,8 +18,8 @@
       "start_line": 196,
       "end_line": 1696,
       "line_count": 1501,
-      "char_count": 17232,
-      "md5": "c1bff028331389e4c140ca76be0b5e4e"
+      "char_count": 17225,
+      "md5": "7a5e1e00cce5e8f5aba707b719851c71"
     },
     {
       "file": "第十七卷_第五章_命运锁链.txt",
@@ -27,8 +27,8 @@
       "start_line": 1697,
       "end_line": 2861,
       "line_count": 1165,
-      "char_count": 13176,
-      "md5": "4519a38c83e5aef0f88a01e35f476d78"
+      "char_count": 13171,
+      "md5": "b7cf474977baeb6fd3936cf95971a689"
     },
     {
       "file": "第十七卷_第六章_两场大战·首都保卫战.txt",
@@ -36,17 +36,26 @@
       "start_line": 2862,
       "end_line": 5200,
       "line_count": 2339,
-      "char_count": 25828,
-      "md5": "2136cbbf8cee2b6576d6e175b7a30be4"
+      "char_count": 25815,
+      "md5": "c3ec5ed09c477ccf431e2cb661249d94"
     },
     {
       "file": "第十七卷_第七章_两场大战·〈大炎〉讨伐战.txt",
       "title": "第七章 两场大战·〈大炎〉讨伐战",
       "start_line": 5201,
+      "end_line": 7423,
+      "line_count": 2223,
+      "char_count": 22321,
+      "md5": "b484647b70a42aa1ff6341e96e2baac7"
+    },
+    {
+      "file": "第十七卷_尾声_急转直下.txt",
+      "title": "尾声 急转直下",
+      "start_line": 7424,
       "end_line": 7664,
-      "line_count": 2464,
-      "char_count": 25020,
-      "md5": "ee51d93fdcaef98921d9a4ef47144e3f"
+      "line_count": 241,
+      "char_count": 2693,
+      "md5": "415e60210a4b5d65bb76bd0fedd57da6"
     },
     {
       "file": "第十七卷_后记.txt",
@@ -54,8 +63,8 @@
       "start_line": 7665,
       "end_line": 7704,
       "line_count": 40,
-      "char_count": 734,
-      "md5": "a41f3bcc348932f51ea28c61e0fc9eff"
+      "char_count": 731,
+      "md5": "f851e5906d2a94352535f3bac5d475b7"
     }
   ]
 }

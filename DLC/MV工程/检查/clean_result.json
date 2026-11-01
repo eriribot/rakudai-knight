@@ -1,0 +1,21 @@
+{
+  "source": "E:\\web\\落第\\学战都市第二季OP《The Asterisk War》 - The Asterisk War.mp4",
+  "output": "E:\\web\\落第\\DLC\\学战都市_去水印母版.mp4",
+  "frames": 5267,
+  "fps": 25.0,
+  "size": [
+    1280,
+    720
+  ],
+  "audio": "stream copy, not re-encoded or truncated",
+  "watermark_roi": {
+    "x": 1010,
+    "y": 10,
+    "width": 265,
+    "height": 75
+  },
+  "changed_pixels_in_roi": 4427,
+  "method": "lettering-mask OpenCV Telea inpaint radius 3; original composition and lyrics retained",
+  "limitation": "covered detail is synthesized locally; slight softness can remain on complex backgrounds",
+  "seconds_elapsed": 30.38
+}

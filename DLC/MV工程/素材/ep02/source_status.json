@@ -1,0 +1,58 @@
+{
+  "checked_on": "2026-10-31",
+  "source_supplied_by_user": "https://anime1.in/2015-luo-di-qi-shi-ying-xiong-tan/",
+  "player_page_observed_by_parent": "https://anime1.in/_player_y_/566794",
+  "playlist_observed_by_parent": "https://hd.ijycnd.com/play/ZdPq6D4e/index.m3u8",
+  "download_status": "no_usable_media_after_four_observed_alternatives",
+  "ordinary_attempts": [
+    {
+      "client": "PowerShell Invoke-WebRequest",
+      "result": "Received an unexpected EOF or 0 bytes from the transport stream"
+    },
+    {
+      "client": "FFmpeg 7.1 GnuTLS",
+      "result": "TLS Error in the pull function; IO error: End of file"
+    }
+  ],
+  "intended_scene_search_windows_unverified": [
+    {
+      "start": "00:15:20",
+      "end": "00:16:22",
+      "description": "Snow, child Ikki and Ryoma"
+    },
+    {
+      "start": "00:16:54",
+      "end": "00:17:10",
+      "description": "Independent training"
+    }
+  ],
+  "video_bytes_downloaded": 0,
+  "frames_inspected": 0,
+  "usable_clips_saved": 0,
+  "notes": "Only ordinary publicly linked HLS playback was attempted. No login, paywall or DRM bypass. No whole episode was saved. Search windows are still unverified.",
+  "alternate_page": "https://anime1.in/2015-luo-di-qi-shi-ying-xiong-tan-10002000",
+  "alternate_sources": [
+    {
+      "player": "https://anime1.in/_player_x_/580277",
+      "playlist": "https://play.jisuzyv.com/play/PdRv8GEd/index.m3u8",
+      "playlist_status": 200,
+      "sample_result": "FFmpeg unable to read p.jisuts.com:999 media segments: TLS EOF; no frame saved"
+    },
+    {
+      "player": "https://anime1.in/_player_x_/580298",
+      "playlist": "https://hd.ijycnd.com/play/ZdPq6D4e/index.m3u8",
+      "playlist_result": "TLS EOF"
+    },
+    {
+      "player": "https://anime1.in/_player_x_/370782",
+      "playlist": "https://vip.lz-cdn8.com/20221111/29896_9375fbd1/index.m3u8",
+      "playlist_status": 404
+    },
+    {
+      "player": "https://anime1.in/_player_x_/580265",
+      "playlist": "https://play.xluuss.com/play/YaOpJBrb/index.m3u8",
+      "playlist_status": 200,
+      "sample_result": "FFmpeg first segment on g.xlzyd.com:9999: Invalid data found when processing input; no frame saved"
+    }
+  ]
+}

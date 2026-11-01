@@ -1,0 +1,311 @@
+{
+  "purpose": "ImageGen input selection only; no timeline or final-video changes.",
+  "plan": "E:\\web\\落第\\DLC\\MV工程\\edit_plan_v4.json",
+  "plan_sha256": "96e918f6762e253bd4aab479b42b984cc1efe7bcce4ebe836867aba0fa108580",
+  "count": 9,
+  "processing": "Original source decoded through unmodified render_crossover_v2.Clips only: V4 plan crop / mirror / arena color matching / Lanczos resize to720p. No lyrics, impact flashes, V4 enhancement hooks, V5 super-resolution, or extra sharpening.",
+  "contact": "E:\\web\\落第\\DLC\\MV工程\\素材\\v6\\imagegen_inputs\\selected_contact.jpg",
+  "frame_selection": "Avoided pure-white flash and unreadable smear extremes. Low native resolution and compression are deliberately preserved for ImageGen to correct.",
+  "items": [
+    {
+      "id": 1,
+      "character": "touka",
+      "action": "profile_turn",
+      "input_png": "E:\\web\\落第\\DLC\\MV工程\\素材\\v6\\imagegen_inputs\\01_touka_profile_turn_t048.88.png",
+      "width": 1280,
+      "height": 720,
+      "target_seconds": 48.88,
+      "target_frame_index_0based": 1222,
+      "plan_item_index_0based": 8,
+      "plan_item_range": [
+        48.44,
+        50.28
+      ],
+      "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\selected\\touka_guard_turn.mp4",
+      "source_fps": 25.0,
+      "source_frame_index_0based": 21,
+      "source_local_seconds_requested": 0.834,
+      "source_local_seconds_actual": 0.84,
+      "nominal_episode_source_seconds": 1241.14,
+      "source_provenance": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\selected\\touka_guard_turn.json",
+      "transforms": {},
+      "default_crop_if_unspecified": [
+        32,
+        0,
+        576,
+        324
+      ],
+      "selection_reason": "Side-profile identity, braid, glasses region and uniform remain legible.",
+      "png_sha256": "86d058e986bcb9f59cc6590916e029646f2b8920aaa1f7c68f4d54b64977ceab"
+    },
+    {
+      "id": 2,
+      "character": "touka",
+      "action": "raikiri_guard",
+      "input_png": "E:\\web\\落第\\DLC\\MV工程\\素材\\v6\\imagegen_inputs\\02_touka_raikiri_guard_t050.44.png",
+      "width": 1280,
+      "height": 720,
+      "target_seconds": 50.44,
+      "target_frame_index_0based": 1261,
+      "plan_item_index_0based": 9,
+      "plan_item_range": [
+        50.28,
+        54.84
+      ],
+      "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep10\\touka_raikiri_raw.mp4",
+      "source_fps": 25.0,
+      "source_frame_index_0based": 74,
+      "source_local_seconds_requested": 2.96,
+      "source_local_seconds_actual": 2.96,
+      "nominal_episode_source_seconds": 1072.4,
+      "source_provenance": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep10\\touka_raikiri_raw.json",
+      "transforms": {},
+      "default_crop_if_unspecified": [
+        32,
+        0,
+        576,
+        324
+      ],
+      "selection_reason": "Sword across face with lightning; preserves eyes, hands and blade composition.",
+      "png_sha256": "ee73f2dd128b6903b1a732dbdb2ac08cda958c71d3f837a6864826a8169655d2"
+    },
+    {
+      "id": 3,
+      "character": "touka",
+      "action": "raikiri_body",
+      "input_png": "E:\\web\\落第\\DLC\\MV工程\\素材\\v6\\imagegen_inputs\\03_touka_raikiri_body_t051.64.png",
+      "width": 1280,
+      "height": 720,
+      "target_seconds": 51.64,
+      "target_frame_index_0based": 1291,
+      "plan_item_index_0based": 9,
+      "plan_item_range": [
+        50.28,
+        54.84
+      ],
+      "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep10\\touka_raikiri_raw.mp4",
+      "source_fps": 25.0,
+      "source_frame_index_0based": 104,
+      "source_local_seconds_requested": 4.16,
+      "source_local_seconds_actual": 4.16,
+      "nominal_episode_source_seconds": 1073.6,
+      "source_provenance": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep10\\touka_raikiri_raw.json",
+      "transforms": {},
+      "default_crop_if_unspecified": [
+        32,
+        0,
+        576,
+        324
+      ],
+      "selection_reason": "Recognizable full-body Raikiri pose with yellow lightning; no pure-white flash.",
+      "png_sha256": "359d32d02513659580bf1e70353cdf1eac5a6615c50f049bcb0a629819cf15ca"
+    },
+    {
+      "id": 4,
+      "character": "ikki",
+      "action": "sword_guard",
+      "input_png": "E:\\web\\落第\\DLC\\MV工程\\素材\\v6\\imagegen_inputs\\04_ikki_sword_guard_t064.12.png",
+      "width": 1280,
+      "height": 720,
+      "target_seconds": 64.12,
+      "target_frame_index_0based": 1603,
+      "plan_item_index_0based": 12,
+      "plan_item_range": [
+        63.12,
+        64.64
+      ],
+      "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep01\\stella_charge_raw.mp4",
+      "source_fps": 25.0,
+      "source_frame_index_0based": 97,
+      "source_local_seconds_requested": 3.88,
+      "source_local_seconds_actual": 3.88,
+      "nominal_episode_source_seconds": 853.38,
+      "source_provenance": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep01\\stella_charge_raw.json",
+      "transforms": {
+        "arena_blue": true
+      },
+      "default_crop_if_unspecified": [
+        32,
+        0,
+        576,
+        324
+      ],
+      "selection_reason": "Frontal horizontal sword guard with both arms and torso visible.",
+      "png_sha256": "ff554222939f94cfcb7fd4200e5be886ef1e625bc0497aad61c4a1aadcce32fc"
+    },
+    {
+      "id": 5,
+      "character": "ikki",
+      "action": "aerial_rush",
+      "input_png": "E:\\web\\落第\\DLC\\MV工程\\素材\\v6\\imagegen_inputs\\05_ikki_aerial_rush_t068.52.png",
+      "width": 1280,
+      "height": 720,
+      "target_seconds": 68.52,
+      "target_frame_index_0based": 1713,
+      "plan_item_index_0based": 16,
+      "plan_item_range": [
+        67.68,
+        68.72
+      ],
+      "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep01\\ikki_dodge_raw.mp4",
+      "source_fps": 25.0,
+      "source_frame_index_0based": 76,
+      "source_local_seconds_requested": 3.04,
+      "source_local_seconds_actual": 3.04,
+      "nominal_episode_source_seconds": 946.54,
+      "source_provenance": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep01\\ikki_dodge_raw.json",
+      "transforms": {
+        "arena_blue": true
+      },
+      "default_crop_if_unspecified": [
+        32,
+        0,
+        576,
+        324
+      ],
+      "selection_reason": "Overhead forward rush: body, face direction and extended dark sword visible.",
+      "png_sha256": "fc7480b9d67eff7d58c70aa190326f2b4ebe9cc55d2298d0ef9bfc88763aa2b4"
+    },
+    {
+      "id": 6,
+      "character": "ikki",
+      "action": "downstroke",
+      "input_png": "E:\\web\\落第\\DLC\\MV工程\\素材\\v6\\imagegen_inputs\\06_ikki_downstroke_t069.60.png",
+      "width": 1280,
+      "height": 720,
+      "target_seconds": 69.6,
+      "target_frame_index_0based": 1740,
+      "plan_item_index_0based": 18,
+      "plan_item_range": [
+        69.6,
+        70.92
+      ],
+      "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep01\\ikki_dodge_raw.mp4",
+      "source_fps": 25.0,
+      "source_frame_index_0based": 192,
+      "source_local_seconds_requested": 7.68,
+      "source_local_seconds_actual": 7.68,
+      "nominal_episode_source_seconds": 951.18,
+      "source_provenance": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep01\\ikki_dodge_raw.json",
+      "transforms": {
+        "crop": [
+          48,
+          0,
+          544,
+          306
+        ],
+        "arena_blue": true
+      },
+      "default_crop_if_unspecified": [
+        32,
+        0,
+        576,
+        324
+      ],
+      "selection_reason": "Low-angle overhead slash before the very blurred foreshortened close-up.",
+      "png_sha256": "6eb493a394e8b7467a18cd4d87fcf03e47e0861f61b5c1794e9ac161ccb5213b"
+    },
+    {
+      "id": 7,
+      "character": "stella",
+      "action": "morning_turn",
+      "input_png": "E:\\web\\落第\\DLC\\MV工程\\素材\\v6\\imagegen_inputs\\07_stella_morning_turn_t154.12.png",
+      "width": 1280,
+      "height": 720,
+      "target_seconds": 154.12,
+      "target_frame_index_0based": 3853,
+      "plan_item_index_0based": 33,
+      "plan_item_range": [
+        153.72,
+        154.44
+      ],
+      "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\selected\\stella_morning_turn.mp4",
+      "source_fps": 25.0,
+      "source_frame_index_0based": 14,
+      "source_local_seconds_requested": 0.56,
+      "source_local_seconds_actual": 0.56,
+      "nominal_episode_source_seconds": 3.76,
+      "source_provenance": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\selected\\stella_morning_turn.json",
+      "transforms": {},
+      "default_crop_if_unspecified": [
+        32,
+        0,
+        576,
+        324
+      ],
+      "selection_reason": "Forest turn with face, crown-like ornaments, torso and upright flame blade visible.",
+      "png_sha256": "bafc2a132abc55b0b4862ca8044b131fd9467140583f74870be1e357ac3ae189"
+    },
+    {
+      "id": 8,
+      "character": "stella",
+      "action": "morning_downstrike",
+      "input_png": "E:\\web\\落第\\DLC\\MV工程\\素材\\v6\\imagegen_inputs\\08_stella_morning_downstrike_t154.64.png",
+      "width": 1280,
+      "height": 720,
+      "target_seconds": 154.64,
+      "target_frame_index_0based": 3866,
+      "plan_item_index_0based": 34,
+      "plan_item_range": [
+        154.44,
+        155.2
+      ],
+      "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\selected\\stella_morning_downstrike.mp4",
+      "source_fps": 25.0,
+      "source_frame_index_0based": 4,
+      "source_local_seconds_requested": 0.16,
+      "source_local_seconds_actual": 0.16,
+      "nominal_episode_source_seconds": 8.6,
+      "source_provenance": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\selected\\stella_morning_downstrike.json",
+      "transforms": {},
+      "default_crop_if_unspecified": [
+        32,
+        0,
+        576,
+        324
+      ],
+      "selection_reason": "Beginning of descending strike, before heavy face/block smear at154.80.",
+      "png_sha256": "10d3d23646a52160f96dbaf4fb6680cfb170ad22a7f310a4f07231e6b485dc14"
+    },
+    {
+      "id": 9,
+      "character": "stella",
+      "action": "fire_counter",
+      "input_png": "E:\\web\\落第\\DLC\\MV工程\\素材\\v6\\imagegen_inputs\\09_stella_fire_counter_t157.32.png",
+      "width": 1280,
+      "height": 720,
+      "target_seconds": 157.32,
+      "target_frame_index_0based": 3933,
+      "plan_item_index_0based": 36,
+      "plan_item_range": [
+        156.44,
+        157.84
+      ],
+      "source_file": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep01\\stella_fire_raw.mp4",
+      "source_fps": 25.0,
+      "source_frame_index_0based": 176,
+      "source_local_seconds_requested": 7.04,
+      "source_local_seconds_actual": 7.04,
+      "nominal_episode_source_seconds": 924.54,
+      "source_provenance": "E:\\web\\落第\\DLC\\MV工程\\素材\\v2\\ep01\\stella_fire_raw.json",
+      "transforms": {
+        "crop": [
+          80,
+          40,
+          480,
+          270
+        ],
+        "flip": true,
+        "arena_blue": true
+      },
+      "default_crop_if_unspecified": [
+        32,
+        0,
+        576,
+        324
+      ],
+      "selection_reason": "Raised-sword fire-counter pose, torso and face recognizable; current blue arena matching retained.",
+      "png_sha256": "88075d709244acf3ca4f559010df87bb104612c4327c0363579c25f2105c6323"
+    }
+  ]
+}

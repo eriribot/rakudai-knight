@@ -15,6 +15,8 @@ var expandedPeople = new Set();
 var hiddenPeopleOpen = false;
 var rosterWriting = false;
 var rosterDeleteDraft = null;
+var playerEditDraft = null;
+var playerEditing = false;
 
 function sourceKey(source) {
   return source ? JSON.stringify([source.characterId ?? null, source.groupId ?? null, source.chatId, source.messageId, source.swipeId]) : '';
@@ -207,7 +209,7 @@ function resolvePlayer() {
     rank: p.登记等级 || '—',
     device: p.固有灵装 || '灵装未登记',
     arts: Object.keys(techniques).join('、') || '尚无命名招式',
-    bio: p.角色简介 || '完成开局建档后，这里显示本局角色档案。',
+    bio: p.角色简介 || (stat.系统 && stat.系统.开局状态 === '已建档' ? '尚未填写角色介绍。' : '完成开局建档后，这里显示本局角色档案。'),
     mechanism: ability.能力本质 || '能力本质未登记',
     category: ability.能力系别 || '系别未登记',
     cost: ability.共通限制 || '共通限制未登记',
@@ -393,6 +395,93 @@ function renderGrowthProgress(pl) {
     (history ? '<details open><summary>历史成长记录（最多 3 条）</summary>' + history + '</details>' : '') + '</div>';
 }
 
+function canEditOcPlayer() {
+  return !!(stat && stat.系统 && stat.系统.主角模式 === '自定义角色' && stat.系统.开局状态 === '已建档');
+}
+function playerEditLocked() {
+  return playerEditing || !canEditOcPlayer() || dataStatus !== 'ready' || !stateSource || !bridge || typeof bridge.editPlayerProfile !== 'function';
+}
+function playerEditButton(label, action, group, name) {
+  if (!canEditOcPlayer()) return '';
+  return '<button type="button" class="gba-btn-sm" data-source="' + esc(sourceKey(stateSource)) + '"' +
+    (group ? ' data-skill-group="' + esc(group) + '"' : '') + (name !== undefined ? ' data-skill-name="' + esc(name) + '"' : '') +
+    (playerEditLocked() ? ' disabled' : '') + ' onclick="beginPlayerEdit(this,\'' + action + '\')">' + label + '</button>';
+}
+function beginPlayerEdit(button, action) {
+  if (playerEditLocked() || button.getAttribute('data-source') !== sourceKey(stateSource)) return;
+  var player = stat.玩家 || {}, ability = player.伐刀能力 || {};
+  var group = button.getAttribute('data-skill-group'), name = button.getAttribute('data-skill-name');
+  var values = { action: action };
+  if (action === 'bio') values.bio = player.角色简介 || '';
+  else if (action === 'ability') { values.mechanism = ability.能力本质 || ''; values.cost = ability.共通限制 || ''; }
+  else if (action === 'saveSkill' || action === 'deleteSkill') {
+    var records = group === 'techniques' ? ability.招式 || {} : player.其他能力 || {};
+    if (!['techniques', 'other'].includes(group) || (name !== null && !Object.prototype.hasOwnProperty.call(records, name))) return;
+    var skill = name === null ? {} : records[name] || {};
+    values.group = group; values.originalName = name; values.name = name || '';
+    values.description = typeof skill === 'string' ? skill : skill.说明 || '';
+    values.cost = skill.条件与代价 || '';
+    values.mastery = ['待确认', '学习中', '已掌握'].includes(skill.掌握状态) ? skill.掌握状态 : '待确认';
+  } else return;
+  playerEditDraft = { source: JSON.parse(JSON.stringify(stateSource)), state: JSON.stringify(stat), values: values };
+  renderBlazer();
+  var editor = document.querySelector('#blazer-body .rk-player-editor');
+  if (editor) {
+    editor.scrollIntoView({ block: 'start' });
+    var input = editor.querySelector('input, textarea, select, button');
+    if (input) input.focus({ preventScroll: true });
+  }
+}
+function updatePlayerDraft(input) {
+  if (!playerEditDraft || playerEditing) return;
+  var field = input.getAttribute('data-player-field');
+  if (['bio', 'mechanism', 'cost', 'name', 'description', 'mastery'].includes(field)) playerEditDraft.values[field] = input.value;
+}
+function cancelPlayerEdit() {
+  if (playerEditing) return;
+  playerEditDraft = null; renderBlazer();
+}
+function renderPlayerEditor() {
+  var draft = playerEditDraft;
+  if (!draft) return '';
+  var values = draft.values;
+  var stale = sourceKey(draft.source) !== sourceKey(stateSource) || draft.state !== JSON.stringify(stat);
+  var locked = playerEditLocked() || stale;
+  var disabled = locked ? ' disabled' : '';
+  function field(label, key, multiline) {
+    var attrs = ' data-player-field="' + key + '" oninput="updatePlayerDraft(this)"' + disabled;
+    return '<label>' + label + (multiline ? '<textarea rows="4"' + attrs + '>' + esc(values[key]) + '</textarea>' :
+      '<input type="text" value="' + esc(values[key]) + '"' + attrs + '>') + '</label>';
+  }
+  var content = values.action === 'bio' ? field('角色介绍', 'bio', true) : values.action === 'ability' ?
+    field('能力介绍', 'mechanism', true) + field('共通限制', 'cost', true) : values.action === 'deleteSkill' ?
+    '<p>确认从当前回复的技能列表中删除「' + esc(values.originalName) + '」？</p>' :
+    field('技能名称', 'name', false) + field('技能说明', 'description', true) + field('条件与代价', 'cost', true) +
+    '<label>掌握状态<select data-player-field="mastery" onchange="updatePlayerDraft(this)"' + disabled + '>' +
+      ['待确认', '学习中', '已掌握'].map(function(value) { return '<option' + (values.mastery === value ? ' selected' : '') + '>' + value + '</option>'; }).join('') + '</select></label>';
+  return '<section class="card1 rk-player-editor" aria-label="编辑 OC 资料"><div class="ct">' +
+    (values.action === 'deleteSkill' ? '删除旧技能' : '编辑 OC 资料') + '</div>' + content +
+    '<p class="gba-note" role="status">' + (stale ? '资料已更新，请取消后重新打开编辑。' : dataStatus !== 'ready' ? '等待当前回复变量保存完成。' :
+      '保存到第 ' + draft.source.messageId + ' 楼 · 回复 ' + (draft.source.swipeId + 1) + '；其他历史回复保留原资料。') + '</p>' +
+    '<div class="rk-player-edit-actions"><button type="button" class="gba-btn-sm"' + disabled + ' onclick="savePlayerEdit()">' +
+    (playerEditing ? '保存中…' : values.action === 'deleteSkill' ? '确认删除' : '保存') + '</button>' +
+    '<button type="button" class="gba-btn-sm"' + (playerEditing ? ' disabled' : '') + ' onclick="cancelPlayerEdit()">取消</button></div></section>';
+}
+async function savePlayerEdit() {
+  var draft = playerEditDraft, currentBridge = bridge;
+  if (!draft || playerEditLocked()) return;
+  if (sourceKey(draft.source) !== sourceKey(stateSource) || draft.state !== JSON.stringify(stat)) return toast('资料已更新，请取消后重新打开编辑。');
+  playerEditing = true; renderBlazer();
+  try {
+    await currentBridge.editPlayerProfile(JSON.parse(JSON.stringify(draft.values)), draft.source, draft.state);
+    if (bridge !== currentBridge) return;
+    if (playerEditDraft === draft) playerEditDraft = null;
+    toast(draft.values.action === 'deleteSkill' ? '旧技能已从当前回复移除。' : '个人资料已保存。');
+    await refreshTerminalState({ type: 'player-profile-saved', retainDisplay: true });
+  } catch (error) { if (bridge === currentBridge) toast(error && error.message || '个人资料未保存，请重试。'); }
+  finally { playerEditing = false; if (bridge === currentBridge) renderBlazer(); }
+}
+
 function renderBlazer() {
   var body = document.getElementById('blazer-body');
   if (!body) return;
@@ -406,7 +495,7 @@ function renderBlazer() {
   if (headSource) headSource.textContent = sourceLabel(stateSource);
 
   if (blazerSubTab === 'overview') {
-    body.innerHTML = 
+    body.innerHTML = renderPlayerEditor() +
       '<div class="card1">' +
         '<div class="ct">本局角色档案</div>' +
         '<div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">' +
@@ -418,9 +507,10 @@ function renderBlazer() {
           '</div>' +
         '</div>' +
         renderAwakeningStatus(pl) +
-        '<div style="font-size:12.5px;color:var(--ink2);line-height:1.6;background:var(--card2);padding:10px 12px;border-radius:10px;">' +
+        '<div style="font-size:12.5px;color:var(--ink2);line-height:1.6;background:var(--card2);padding:10px 12px;border-radius:10px;white-space:pre-wrap;">' +
           esc(pl.bio) +
         '</div>' +
+        '<div class="rk-player-edit-actions">' + playerEditButton('编辑介绍', 'bio') + '</div>' +
       '</div>' +
 
       '<div class="card1">' +
@@ -494,20 +584,23 @@ function renderBlazer() {
         '</div>' +
       '</div>' + renderGrowthProgress(pl);
   } else if (blazerSubTab === 'device') {
-    function listSkills(records) {
+    function listSkills(records, group) {
       var names = Object.keys(records);
       if (!names.length) return '<div class="noble-art-desc">尚未登记具体能力。</div>';
       return names.map(function(name) {
         var skill = records[name] || {};
         return '<div class="noble-art-block"><div class="noble-art-title">' + esc(name) + ' · ' + esc(skill.掌握状态 || '待确认') + '</div>' +
-          '<div class="noble-art-desc">' + esc(skill.说明 || '说明未登记') + '</div>' +
-          '<div class="noble-art-desc">条件与代价：' + esc(skill.条件与代价 || '未登记') + '</div></div>';
+          '<div class="noble-art-desc">' + esc(typeof skill === 'string' ? skill : skill.说明 || '说明未登记') + '</div>' +
+          '<div class="noble-art-desc">条件与代价：' + esc(skill.条件与代价 || '未登记') + '</div>' +
+          '<div class="rk-player-edit-actions">' + playerEditButton('编辑', 'saveSkill', group, name) + playerEditButton('删除', 'deleteSkill', group, name) + '</div></div>';
       }).join('');
     }
-    body.innerHTML = '<div class="card1"><div class="ct">固有灵装</div><div class="noble-art-title">' + esc(pl.device) + '</div>' +
+    body.innerHTML = renderPlayerEditor() + '<div class="card1"><div class="ct">固有灵装</div><div class="noble-art-title">' + esc(pl.device) + '</div>' +
       '<div class="ct" style="margin-top:14px;">伐刀能力 · ' + esc(pl.category) + '</div><p>' + esc(pl.mechanism) + '</p>' +
-      '<p>共通限制：' + esc(pl.cost) + '</p>' + listSkills(pl.techniques) +
-      '<div class="ct" style="margin-top:14px;">其他能力</div>' + listSkills(pl.otherAbilities) + '</div>';
+      '<p>共通限制：' + esc(pl.cost) + '</p><div class="rk-player-edit-actions">' + playerEditButton('编辑能力介绍', 'ability') + '</div>' + listSkills(pl.techniques, 'techniques') +
+      '<div class="rk-player-edit-actions">' + playerEditButton('新增伐刀绝技', 'saveSkill', 'techniques') + '</div>' +
+      '<div class="ct" style="margin-top:14px;">其他能力</div>' + listSkills(pl.otherAbilities, 'other') +
+      '<div class="rk-player-edit-actions">' + playerEditButton('新增其他能力', 'saveSkill', 'other') + '</div></div>';
   } else if (blazerSubTab === 'roster') {
     var rosterSource = dataStatus === 'pending' ? stateTargetSource || stateSource : stateSource;
     var rosterSourceLabel = rosterSource ? '第 ' + rosterSource.messageId + ' 楼 · 回复 ' + (rosterSource.swipeId + 1) : '当前助手回复页';
@@ -1523,6 +1616,7 @@ function refreshTerminalState(event) {
     expandedPeople.clear();
     hiddenPeopleOpen = false;
     rosterDeleteDraft = null;
+    playerEditDraft = null;
     if (tournamentModule) tournamentModule.reset();
     calendarState._initialized = false;
     stateSignature = '';
@@ -1556,6 +1650,7 @@ function refreshTerminalState(event) {
       hiddenPeopleOpen = false;
       if (stateSource && typeof resetLimeSession === 'function' && (limeScope(stateSource) !== limeScope(snapshot.source) || (snapshot.source && stateSource.messageId > snapshot.source.messageId))) resetLimeSession();
       rosterDeleteDraft = null;
+      playerEditDraft = null;
       if (tournamentModule) tournamentModule.reset();
       calendarState._initialized = false;
     }
@@ -1580,6 +1675,7 @@ function refreshTerminalState(event) {
     hiddenPeopleOpen = false;
     activeChat = null;
     rosterDeleteDraft = null;
+    playerEditDraft = null;
     if (tournamentModule) tournamentModule.reset();
     calendarState._initialized = false;
     stateSignature = '';

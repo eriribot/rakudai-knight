@@ -1,0 +1,64 @@
+{
+  "output": "E:\\web\\落第\\DLC\\学战都市×落第骑士英雄谭_联合MV_V3_蓝光对位版.mp4",
+  "reference_v1": "E:\\web\\落第\\DLC\\学战都市×落第骑士英雄谭_联合MV.mp4",
+  "original_audio": "E:\\web\\落第\\学战都市第二季OP《The Asterisk War》 - The Asterisk War.mp4",
+  "checks": {
+    "metadata": true,
+    "complete_decode": true,
+    "aac_bit_exact": true,
+    "ending_count": true,
+    "ending_reencoding_similarity": true
+  },
+  "screenshots": [
+    "E:\\web\\落第\\DLC\\MV工程\\检查\\v3\\final\\frame_011.56.jpg",
+    "E:\\web\\落第\\DLC\\MV工程\\检查\\v3\\final\\frame_012.52.jpg",
+    "E:\\web\\落第\\DLC\\MV工程\\检查\\v3\\final\\frame_131.00.jpg",
+    "E:\\web\\落第\\DLC\\MV工程\\检查\\v3\\final\\frame_131.60.jpg",
+    "E:\\web\\落第\\DLC\\MV工程\\检查\\v3\\final\\frame_135.60.jpg",
+    "E:\\web\\落第\\DLC\\MV工程\\检查\\v3\\final\\frame_154.00.jpg"
+  ],
+  "metadata": {
+    "video_codec": "h264",
+    "width": 1280,
+    "height": 720,
+    "fps": "25/1",
+    "frames": 5267,
+    "video_duration": 210.68,
+    "audio_codec": "aac",
+    "audio_duration": 210.773167,
+    "sample_rate": 48000,
+    "channels": 2,
+    "container_duration": 210.773167,
+    "bytes": 93533593
+  },
+  "audio_adts": {
+    "original": {
+      "sha256": "9e45548a0ff32353c4be0419d1c145d357eccc54f66d9e92158d11f8a85a8583",
+      "bytes": 4215889
+    },
+    "v3": {
+      "sha256": "9e45548a0ff32353c4be0419d1c145d357eccc54f66d9e92158d11f8a85a8583",
+      "bytes": 4215889
+    }
+  },
+  "ending_comparison": {
+    "from_seconds": 181.48,
+    "first_frame": 4537,
+    "last_frame": 5266,
+    "frames_compared": 730,
+    "min_rgb_psnr_db": 39.17418363995661,
+    "median_rgb_psnr_db": 41.47702942882988,
+    "aggregate_rgb_psnr_db": 41.393550673715716,
+    "frames_below_30db": 0,
+    "frames_below_35db": 0,
+    "worst_frame": 4957,
+    "extra_frames_after_expected": [
+      false,
+      false
+    ],
+    "method": "Corresponding decoded BGR frames, full resolution. RGB PSNR permits lossy re-encoding; visual review of worst six pairs required."
+  },
+  "objective_pass": true,
+  "visual_review": "pending agent inspection of ending_worst_pairs.jpg and requested_screenshots.jpg",
+  "elapsed_seconds": 3.23
+}

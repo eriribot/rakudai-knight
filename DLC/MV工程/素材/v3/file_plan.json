@@ -1,0 +1,9 @@
+[
+ {"url":"https://xgct-video.bzcdn.net/56394ddf-9e04-48a8-8db9-09949825e977/seek/_13.jpg","output":"ep04/sprite_13.jpg"},
+ {"url":"https://xgct-video.bzcdn.net/2d55fe0a-0b19-4af6-9d27-0b124aa37fd5/seek/_0.jpg","output":"ep06/sprite_0.jpg"},
+ {"url":"https://xgct-video.bzcdn.net/06ea9755-6f6b-45b7-960d-6bc68d91bd22/seek/_16.jpg","output":"ep09/sprite_16.jpg"},
+ {"url":"https://xgct-video.bzcdn.net/2d55fe0a-0b19-4af6-9d27-0b124aa37fd5/video_info.json","output":"ep06/video_info.json"},
+ {"url":"https://xgct-video.bzcdn.net/2d55fe0a-0b19-4af6-9d27-0b124aa37fd5/playlist.m3u8","output":"ep06/playlist.m3u8"},
+ {"url":"https://xgct-video.bzcdn.net/06ea9755-6f6b-45b7-960d-6bc68d91bd22/video_info.json","output":"ep09/video_info.json"},
+ {"url":"https://xgct-video.bzcdn.net/06ea9755-6f6b-45b7-960d-6bc68d91bd22/playlist.m3u8","output":"ep09/playlist.m3u8"}
+]

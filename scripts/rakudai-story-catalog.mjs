@@ -34,3 +34,15 @@ export function nextStoryChapter(volume, key) {
   const following = STORY_VOLUMES[STORY_VOLUMES.indexOf(book) + 1];
   return following ? { volume: following.volume, chapter: following.chapters[0].key } : null;
 }
+
+// Route is a saved MVU fact. Only the two deliberate hand-off points override
+// the catalogue order; every other chapter keeps the ordinary adjacent flow.
+export function nextStoryChapterForState(volume, key, state) {
+  if (volume === 10 && key === '第二章' && state?.场景?.路线 === 'B') {
+    return { volume: 16, chapter: '序章' };
+  }
+  if (volume === 16 && key === '终章Ⅱ') {
+    return { volume: 18, chapter: '第二章' };
+  }
+  return nextStoryChapter(volume, key);
+}

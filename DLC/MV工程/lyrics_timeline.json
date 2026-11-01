@@ -1,0 +1,205 @@
+{
+  "source": "学战都市第二季OP《The Asterisk War》 - The Asterisk War.mp4",
+  "fps": 25,
+  "frame_convention": "zero-based; start inclusive, end exclusive",
+  "method": "Manual transcription from original burned-in subtitles; white-glyph matching for boundaries, every boundary reviewed at the immediately preceding/following frame. No network lyrics used.",
+  "notes": [
+    "Chinese subtitles intentionally retain mixed simplified/traditional forms and awkward wording seen in source.",
+    "No lyric overlays outside listed intervals. In particular 109.92–110.32 seconds is an intentional blank subtitle gap.",
+    "Opening song credits are excluded; preserve original picture in that interval."
+  ],
+  "segments": [
+    {
+      "start": 21.28,
+      "end": 28.2,
+      "start_frame": 532,
+      "end_frame": 705,
+      "jp": "戦場の太陽は高く揺れて 感情に棲み着く陰を落とす",
+      "zh": "戰場的太陽在高空搖曳 拂落寄宿于感情中的陰影"
+    },
+    {
+      "start": 28.2,
+      "end": 34.8,
+      "start_frame": 705,
+      "end_frame": 870,
+      "jp": "知らないまま 痛みに変わること悟るように",
+      "zh": "為了點醒我 它將在不知不覺中轉變為痛處"
+    },
+    {
+      "start": 34.8,
+      "end": 41.2,
+      "start_frame": 870,
+      "end_frame": 1030,
+      "jp": "悲しみから生まれた夢も 世界と君が許してくれる",
+      "zh": "就連誕生自悲傷中的夢 也会得到的世界的原諒"
+    },
+    {
+      "start": 41.2,
+      "end": 48.44,
+      "start_frame": 1030,
+      "end_frame": 1211,
+      "jp": "そう 瞼の裏で繰り返す この空が呼ぶ声に",
+      "zh": "沒錯 縈繞在我腦海中的 這片天空的呼喚"
+    },
+    {
+      "start": 48.44,
+      "end": 53.28,
+      "start_frame": 1211,
+      "end_frame": 1332,
+      "jp": "響いて ただ駆け抜けた 胸に眩い衝動",
+      "zh": "响徹嘹亮 一心向前奮力趕超 心中深藏的耀眼沖動"
+    },
+    {
+      "start": 53.28,
+      "end": 56.68,
+      "start_frame": 1332,
+      "end_frame": 1417,
+      "jp": "弾けた想いに My star will shine forever",
+      "zh": "化為迸裂的意志 My star will shine forever"
+    },
+    {
+      "start": 56.68,
+      "end": 63.36,
+      "start_frame": 1417,
+      "end_frame": 1584,
+      "jp": "あの日抱えた全て 強く生きて行け 僕の中で今",
+      "zh": "那一天心懷的一切 一定要繼續堅強地活下去 此刻在我心中"
+    },
+    {
+      "start": 63.36,
+      "end": 70.4,
+      "start_frame": 1584,
+      "end_frame": 1760,
+      "jp": "蘇る 時間 この場所で 僕ら絶対譲れない願いを",
+      "zh": "復蘇的時間 將我們決不退讓的愿望 銘刻在這个地方"
+    },
+    {
+      "start": 70.4,
+      "end": 76.6,
+      "start_frame": 1760,
+      "end_frame": 1915,
+      "jp": "ただ一つ この声で 強く刻んで行け This is The Asterisk War",
+      "zh": "用這道唯一的呐喊 留下深深的烙印 This is The Asterisk War"
+    },
+    {
+      "start": 83.16,
+      "end": 90.16,
+      "start_frame": 2079,
+      "end_frame": 2254,
+      "jp": "愛情が交差して 淡くなっていく 同情はいらない 情けないだろう？",
+      "zh": "交叉于其中的淡淡的情感 就不該被怜憫和同情嗎？"
+    },
+    {
+      "start": 90.16,
+      "end": 97.2,
+      "start_frame": 2254,
+      "end_frame": 2430,
+      "jp": "失敗から 間違いない自分を作り出して",
+      "zh": "从失敗中不斷創造出自己"
+    },
+    {
+      "start": 97.2,
+      "end": 103.48,
+      "start_frame": 2430,
+      "end_frame": 2587,
+      "jp": "君が歌う 希望の歌が 道を塞ぐ棘を溶かした",
+      "zh": "你所吟唱的希望之歌將路途上的荊棘融化"
+    },
+    {
+      "start": 103.48,
+      "end": 109.92,
+      "start_frame": 2587,
+      "end_frame": 2748,
+      "jp": "そう いつか来る笑顔の時を 二人の瞳で捉えて",
+      "zh": "沒錯 總有一天我們的眼睛会再次綻放曾經的微笑"
+    },
+    {
+      "start": 110.32,
+      "end": 115.12,
+      "start_frame": 2758,
+      "end_frame": 2878,
+      "jp": "叫んで 鳴らすのは鼓動 分かち合いたい衝動",
+      "zh": "一鳴惊人 那跳動的心跳 是內心想要分享的沖動"
+    },
+    {
+      "start": 115.12,
+      "end": 118.72,
+      "start_frame": 2878,
+      "end_frame": 2968,
+      "jp": "今わかったんだ My star will shine forever",
+      "zh": "如今我已明白 My star will shine forever"
+    },
+    {
+      "start": 118.72,
+      "end": 125.44,
+      "start_frame": 2968,
+      "end_frame": 3136,
+      "jp": "終わりのない道を 強く歩いていけ そして蘇る",
+      "zh": "沒有終点的前方 要更加堅強的向前走 然后覺醒"
+    },
+    {
+      "start": 125.44,
+      "end": 132.24,
+      "start_frame": 3136,
+      "end_frame": 3306,
+      "jp": "ぬくもりと 守るべき約束を その願いに かけがえのない希望を",
+      "zh": "溫暖和守護的約定既是我們的愿望 也是我們不可替代的希望"
+    },
+    {
+      "start": 132.24,
+      "end": 139.24,
+      "start_frame": 3306,
+      "end_frame": 3481,
+      "jp": "絶対に忘れないで 強く描いて行け This is The Asterisk War",
+      "zh": "我們絕不能忘 堅定的向前走 This is The Asterisk War"
+    },
+    {
+      "start": 143.96,
+      "end": 146.56,
+      "start_frame": 3599,
+      "end_frame": 3664,
+      "jp": "This is The Asterisk War",
+      "zh": "This is The Asterisk War"
+    },
+    {
+      "start": 165.72,
+      "end": 170.72,
+      "start_frame": 4143,
+      "end_frame": 4268,
+      "jp": "響いて この手の中で 確信になる衝動",
+      "zh": "响徹嘹亮 這份手里緊握着 肯定的沖動"
+    },
+    {
+      "start": 170.72,
+      "end": 174.16,
+      "start_frame": 4268,
+      "end_frame": 4354,
+      "jp": "涙乗り越えて My star will shine forever",
+      "zh": "抑制泪水 My star will shine forever"
+    },
+    {
+      "start": 174.16,
+      "end": 180.96,
+      "start_frame": 4354,
+      "end_frame": 4524,
+      "jp": "運命が出した答えを 強く壊して行け 夢のために今",
+      "zh": "給命运以強烈的回應 為了現在的夢"
+    },
+    {
+      "start": 180.96,
+      "end": 187.64,
+      "start_frame": 4524,
+      "end_frame": 4691,
+      "jp": "蘇る 時間 この場所で 僕ら絶対譲れない願いを",
+      "zh": "復蘇的時間 將我們絕不退讓的愿望 銘刻在這个地方"
+    },
+    {
+      "start": 187.64,
+      "end": 194.24,
+      "start_frame": 4691,
+      "end_frame": 4856,
+      "jp": "ただ一つ この声で 強く刻んで行け This is The Asterisk War",
+      "zh": "用這道唯一的呐喊 留下深深的烙印 This is The Asterisk War"
+    }
+  ]
+}

@@ -35,6 +35,18 @@ function nextStoryChapter(volume, key) {
   return following ? { volume: following.volume, chapter: following.chapters[0].key } : null;
 }
 
+// Route is a saved MVU fact. Only the two deliberate hand-off points override
+// the catalogue order; every other chapter keeps the ordinary adjacent flow.
+function nextStoryChapterForState(volume, key, state) {
+  if (volume === 10 && key === '第二章' && state?.场景?.路线 === 'B') {
+    return { volume: 16, chapter: '序章' };
+  }
+  if (volume === 16 && key === '终章Ⅱ') {
+    return { volume: 18, chapter: '第二章' };
+  }
+  return nextStoryChapter(volume, key);
+}
+
 // 内联使用的只读工厂；章节索引由外层 storyPosition 提供。
 // 只读取当前角色 primary 世界书，不缓存正文、不修改条目、不回退到其他材料。
 function createRakudaiWorldbookReader({ getCharWorldbookNames, getWorldbook } = {}) {
@@ -121,7 +133,9 @@ function createRakudaiWorldbookReader({ getCharWorldbookNames, getWorldbook } = 
 // 剧情正文读取当前绑定世界书；目录只用于卷章键及条目顺序定位。
 function createRakudaiPlotRuntime(deps) {
   const BEGIN = '【RK剧情注入:BEGIN】', END = '【RK剧情注入:END】';
+  const REVISION = '20261029.2';
   const handled = new WeakSet();
+  const standaloneMessages = new WeakSet();
   let ticket = null, pending = null, busy = false, disposed = false, lastInjection = null, cancelPending = null;
   let reason = '等待主聊天生成', statusIdentity = null;
   const copy = value => structuredClone(value);
@@ -135,10 +149,23 @@ function createRakudaiPlotRuntime(deps) {
     return !!a && !!b && a.chatId === b.chatId && a.characterId === b.characterId && a.groupId === b.groupId && a.chat === b.chat;
   }
   function chatStamp() { return JSON.stringify(identity().chat.map(message => [message.is_user, message.is_system, message.mes, message.swipe_id])); }
+  function assistantFloorNumber(snapshot) {
+    const messages = snapshot.identity.chat, end = Math.min(snapshot.source.messageId, messages.length - 1);
+    let count = 0;
+    for (let index = 0; index <= end; index++) {
+      const message = messages[index];
+      if (message && message.is_user !== true && message.is_system !== true && message.extra?.type !== 'narrator') count++;
+    }
+    return Math.max(1, count);
+  }
+  function injectionPlacement(snapshot) {
+    return assistantFloorNumber(snapshot) % 2 === 1 ? 'append-user' : 'standalone-user';
+  }
   function cancel() {
     ticket = null; cancelPending?.();
     if (pending) {
       const revoked = pending; pending = null; revoked.cancel?.();
+      stripOwned(revoked.requestMessages, revoked.text);
       stripOwned(revoked.messages, revoked.text);
     }
   }
@@ -185,7 +212,7 @@ function createRakudaiPlotRuntime(deps) {
   }
   function render(snapshot, material) {
     const { state, volume, chapter, phase } = snapshot, scene = state.场景;
-    const next = nextStoryChapter(volume, chapter);
+    const next = nextStoryChapterForState(volume, chapter, state);
     const lines = [BEGIN, `当前剧情节点：第${volume}卷 · ${chapter}`, `正式阶段：${phase}`, `本局时间：${scene.时间 || '未确认'}；地点：${scene.地点 || '未确认'}`, `切入说明：${scene.切入说明 || '沿用本局已确认情境'}`,
       `世界书来源：${material.worldbook} / ${material.name}（UID ${material.uid}，order ${material.order}）`,
       '剧情内容及完成标识以本条世界书原文为准，不用原作目录或章节摘要重新定义结束位置。'];
@@ -214,7 +241,7 @@ function createRakudaiPlotRuntime(deps) {
     syncIdentity();
     const snapshot = readState(), material = await readMaterial(snapshot), latest = readState();
     if (!same(snapshot.identity, latest.identity) || snapshot.fingerprint !== latest.fingerprint) throw new Error('读取预览期间聊天或回复页已变化，请重新读取');
-    return { text: render(snapshot, material), source: snapshot.source, worldbook: material.worldbook, entryUid: material.uid, entryName: material.name, entryOrder: material.order, volume: snapshot.volume, chapter: snapshot.chapter, phase: snapshot.phase };
+    return { text: render(snapshot, material), source: snapshot.source, worldbook: material.worldbook, entryUid: material.uid, entryName: material.name, entryOrder: material.order, volume: snapshot.volume, chapter: snapshot.chapter, phase: snapshot.phase, placement: injectionPlacement(snapshot) };
   }
   function clean(text, strict = true) {
     if (typeof text !== 'string') return text;
@@ -245,9 +272,22 @@ function createRakudaiPlotRuntime(deps) {
     // orphan markers and their prose intact, and inspect every remaining message.
     const strip = value => clean(typeof knownText === 'string' && knownText
       ? value.split(knownText).join('') : value, false);
-    for (const message of messages) {
-      if (typeof message?.content === 'string') message.content = strip(message.content);
+    for (let index = messages.length - 1; index >= 0; index--) {
+      const message = messages[index];
+      // A standalone user may have acquired another listener's text. Only
+      // remove the whole message when all of its content is our complete block.
+      // ST's shallow array copy retains these owned message objects, even after
+      // cancellation clears pending. Never remove a pre-existing empty user.
+      if (typeof message?.content === 'string') {
+        const cleaned = strip(message.content);
+        if (standaloneMessages.has(message) && message.role === 'user' && message.content.includes(BEGIN) && !cleaned.trim()) { messages.splice(index, 1); continue; }
+        message.content = cleaned;
+      }
       else if (Array.isArray(message?.content)) {
+        const onlyOwnedText = standaloneMessages.has(message) && message.role === 'user'
+          && message.content.some(part => part?.type === 'text' && typeof part.text === 'string' && part.text.includes(BEGIN))
+          && message.content.every(part => part?.type === 'text' && typeof part.text === 'string' && !strip(part.text).trim());
+        if (onlyOwnedText) { messages.splice(index, 1); continue; }
         for (const part of message.content) if (part?.type === 'text' && typeof part.text === 'string') part.text = strip(part.text);
       }
     }
@@ -266,17 +306,24 @@ function createRakudaiPlotRuntime(deps) {
     return Array.isArray(messages) && messages.length === expected.length && messages.every((message, i) => message === expected[i]);
   }
   function getStatus() {
-    try { syncIdentity(); return { enabled: deps.readSettings() !== false, lastInjection: copy(lastInjection), reason }; }
-    catch (error) { return { enabled: false, lastInjection: null, reason: error.message }; }
+    // Keep the revision inside reason so existing player terminals also show
+    // which runtime is active after another script iframe replaces the singleton.
+    try { syncIdentity(); return { enabled: deps.readSettings() !== false, revision: REVISION, lastInjection: copy(lastInjection), reason: `注入器修订 ${REVISION}。${reason}` }; }
+    catch (error) { return { enabled: false, revision: REVISION, lastInjection: null, reason: `注入器修订 ${REVISION}。${error.message}` }; }
   }
   function setEnabled(enabled) {
     syncIdentity(); deps.writeSettings(Boolean(enabled)); cancel();
     reason = enabled ? '剧情注入已开启，等待下一次主生成' : '当前聊天已关闭剧情注入';
   }
+  const generationType = type => type == null || type === '' ? 'normal' : type;
   function onGeneration(type, options = {}, dryRun = false) {
+    // ST also emits this event for prompt/token previews. They do not own the
+    // live request: never revoke its candidate or overwrite its diagnostic.
+    if (disposed || dryRun || options?.dryRun) return;
     try {
       const id = syncIdentity(); cancel();
-      if (disposed || dryRun || options?.dryRun || ![undefined, null, '', 'normal', 'continue', 'regenerate', 'swipe'].includes(type)) return fail('预览、后台或非剧情生成：跳过注入');
+      type = generationType(type);
+      if (!['normal', 'continue', 'regenerate', 'swipe'].includes(type)) return fail('后台或非剧情生成：跳过注入');
       if (deps.getMvu()?.isDuringExtraAnalysis?.()) return fail('MVU 额外解析中：跳过注入');
       let excludedId = null;
       if (type === 'swipe') {
@@ -284,7 +331,7 @@ function createRakudaiPlotRuntime(deps) {
         excludedId = messages.at(-1)?.message_id;
         if (!Number.isInteger(excludedId)) return fail('无法确定被重新生成的回复楼层');
       }
-      ticket = { identity: id, type: type || 'normal', excludedId, at: deps.now?.() ?? Date.now() };
+      ticket = { identity: id, type, excludedId, at: deps.now?.() ?? Date.now() };
       reason = '已记录主生成，等待组装 user 消息中的章节内容';
     } catch (error) { ticket = null; fail(error.message); }
   }
@@ -312,17 +359,24 @@ function createRakudaiPlotRuntime(deps) {
         if (typeof message.content === 'string') message.content = clean(message.content);
         else if (Array.isArray(message.content)) for (const part of message.content) if (part.type === 'text') part.text = clean(part.text);
       }
-      const target = [...prepared].reverse().find(message => message.role === 'user');
-      if (!target || !(typeof target.content === 'string' || Array.isArray(target.content))) return fail('主请求没有可注入的用户消息');
-      // 只组装本次模型请求的 user 消息；不把注入内容保存到聊天楼层或输入框。
-      if (typeof target.content === 'string') target.content += '\n\n' + text;
-      else target.content.push({ type: 'text', text });
+      const placement = injectionPlacement(snapshot);
+      if (placement === 'append-user') {
+        const target = [...prepared].reverse().find(message => message.role === 'user');
+        if (!target || !(typeof target.content === 'string' || Array.isArray(target.content))) return fail('主请求没有可注入的用户消息');
+        // 奇数助手楼层：追加到最终请求的最后一条 user 消息。
+        if (typeof target.content === 'string') target.content += '\n\n' + text;
+        else target.content.push({ type: 'text', text });
+      } else {
+        // 偶数助手楼层：用独立 user 尾消息模拟 depth=0；真正提交时再用原对象追加。
+        prepared.push({ role: 'user', content: text });
+      }
       if (!(await Promise.race([deps.measureBudget(prepared, text), cancelled]))) return fail('生成已取消、无法确认上下文余量或预算不足：跳过剧情注入');
       const checkedMaterial = await readMaterial(snapshot, cancelled);
       const latest = readState(active.excludedId);
       if (checkedMaterial.signature !== material.signature || ticket !== active || disposed || deps.readSettings() === false || deps.getMvu()?.isDuringExtraAnalysis?.() || !same(snapshot.identity, latest.identity) || snapshot.fingerprint !== latest.fingerprint || savedChatStamp !== chatStamp() || initialPrompt !== JSON.stringify(payload.chat)) return fail('核对期间世界书、聊天、回复页或请求已变化：取消过期注入');
       // Preserve the request array, message objects, and original multimodal part objects.
-      for (let i = 0; i < prepared.length; i++) {
+      // Both placements must commit the old-block cleanup before adding a new block.
+      for (let i = 0; i < payload.chat.length; i++) {
         const before = payload.chat[i].content, after = prepared[i].content;
         if (typeof before === 'string') payload.chat[i].content = after;
         else if (Array.isArray(before)) {
@@ -330,9 +384,14 @@ function createRakudaiPlotRuntime(deps) {
           before.push(...after.slice(before.length));
         }
       }
+      if (placement === 'standalone-user') {
+        const message = { role: 'user', content: text };
+        standaloneMessages.add(message);
+        payload.chat.push(message);
+      }
       handled.add(payload.chat); ticket = null;
-      pending = { active, snapshot, material, text, savedChatStamp, messages: [...payload.chat], settling: false };
-      reason = `已组装第${snapshot.volume}卷·${snapshot.chapter}到 user 消息，等待发送前复核`;
+      pending = { active, snapshot, material, text, savedChatStamp, placement, requestMessages: payload.chat, messages: [...payload.chat], settling: false };
+      reason = `已组装第${snapshot.volume}卷·${snapshot.chapter}到 ${placement === 'append-user' ? '最后一条 user' : '独立 user 尾消息'}，等待发送前复核`;
     } catch (error) { ticket = null; fail(error.message); }
     finally { if (ticket === active) ticket = null; cancelPending = null; busy = false; }
   }
@@ -349,7 +408,7 @@ function createRakudaiPlotRuntime(deps) {
     candidate.settling = true;
     try {
       syncIdentity();
-      if (disposed || pending !== candidate || data.type !== candidate.active.type || !same(candidate.active.identity, identity()) || deps.readSettings() === false || deps.getMvu()?.isDuringExtraAnalysis?.()) throw new Error('发送前归属失效，已撤回剧情注入');
+      if (disposed || pending !== candidate || generationType(data.type) !== candidate.active.type || !same(candidate.active.identity, identity()) || deps.readSettings() === false || deps.getMvu()?.isDuringExtraAnalysis?.()) throw new Error('发送前归属失效，已撤回剧情注入');
       // ST-Prompt-Template 1.15.15.2 expands EJS in this event before our callback.
       // It retains message identities. Allow that content change, but require our exact single block.
       if (!matchesOwned(messages, candidate.text) || candidate.savedChatStamp !== chatStamp()) throw new Error('候选剧情块或当前聊天已变化，已撤回剧情注入');
@@ -361,12 +420,13 @@ function createRakudaiPlotRuntime(deps) {
       if (material.signature !== candidate.material.signature || disposed || pending !== candidate || deps.readSettings() === false || deps.getMvu()?.isDuringExtraAnalysis?.() || !same(candidate.snapshot.identity, latest.identity) || candidate.snapshot.fingerprint !== latest.fingerprint || candidate.savedChatStamp !== chatStamp() || !sameMessages(messages, candidate.messages) || settingsStamp !== JSON.stringify(data)) throw new Error('发送前世界书、状态、回复页或请求已变化，已撤回过期剧情块');
       const { snapshot, text } = candidate;
       pending = null;
-      lastInjection = { text, source: snapshot.source, worldbook: material.worldbook, entryUid: material.uid, entryName: material.name, entryOrder: material.order, volume: snapshot.volume, chapter: snapshot.chapter, phase: snapshot.phase, at: deps.now?.() ?? Date.now() };
-      reason = `发送前已确认第${snapshot.volume}卷·${snapshot.chapter}，来源 #${snapshot.source.messageId} / 回复页 ${snapshot.source.swipeId}`;
+      lastInjection = { text, source: snapshot.source, worldbook: material.worldbook, entryUid: material.uid, entryName: material.name, entryOrder: material.order, volume: snapshot.volume, chapter: snapshot.chapter, phase: snapshot.phase, placement: candidate.placement, at: deps.now?.() ?? Date.now() };
+      reason = `发送前已确认第${snapshot.volume}卷·${snapshot.chapter}，${candidate.placement === 'append-user' ? '追加最后一条 user' : '新增独立 user 尾消息'}，来源 #${snapshot.source.messageId} / 回复页 ${snapshot.source.swipeId}`;
       deps.report?.(reason);
     } catch (error) {
       if (pending === candidate) pending = null;
-      stripOwned(messages, candidate.text); fail(error.message);
+      stripOwned(messages, candidate.text);
+      stripOwned(candidate.requestMessages, candidate.text); fail(error.message);
     } finally { candidate.cancel = null; }
   }
   return { version: '3.0.0', preview, getStatus, setEnabled, onGeneration, onPromptReady, onSettingsReady,

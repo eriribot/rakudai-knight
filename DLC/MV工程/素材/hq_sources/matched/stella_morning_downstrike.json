@@ -1,0 +1,42 @@
+{
+  "name": "stella_morning_downstrike",
+  "file": "E:\\web\\落第\\DLC\\MV工程\\素材\\hq_sources\\matched\\stella_morning_downstrike.mp4",
+  "replaces": "E:\\web\\落第\\DLC\\MV工程\\素材\\v3\\selected\\stella_morning_downstrike.mp4",
+  "original_frames": 16,
+  "frames": 16,
+  "fps": 25,
+  "duration": 0.64,
+  "width": 854,
+  "height": 480,
+  "native_source": "E:\\web\\落第\\DLC\\MV工程\\素材\\hq_sources\\ep3_0.00_16.00.mp4",
+  "source_page": "https://www.cda.pl/video/57920030a",
+  "source_start": 13.72,
+  "source_end": 14.36,
+  "source_frame_mapping": [
+    343,
+    344,
+    345,
+    346,
+    347,
+    348,
+    349,
+    350,
+    351,
+    352,
+    353,
+    354,
+    355,
+    356,
+    357,
+    358
+  ],
+  "mean_matching_correlation": 0.9808098524808884,
+  "color_changes": "none",
+  "suggested_crop": [
+    43,
+    24,
+    768,
+    432
+  ],
+  "note": "Same animation frames matched to old duration; native public 480p/720p source, not AI enlargement. Tiny top corner source marks and bottom Polish subtitles are outside suggested crop. Morning action has no dialogue subtitle; wider crop preserves composition."
+}

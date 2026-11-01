@@ -1,0 +1,251 @@
+{
+  "source": "DLC/学战都市_去水印母版.mp4",
+  "fps": 25,
+  "time_ranges": "start inclusive, end exclusive; zero-based frame indexes",
+  "shots": [
+    {
+      "id": "A1",
+      "character": "绫斗",
+      "start": 117.68,
+      "end": 119.4,
+      "action": "俯视跃起持剑→脸部推进→剑刃横扫→两帧碰撞白闪",
+      "direction": "主体由右上朝左下/镜头逼近；刀尖朝左。匹配一辉左侧朝右迎击。",
+      "opponent_visible": false,
+      "note": "119.32–119.40只有白闪，可藏碰撞；119.40起依蕾奈实体入镜，必须切掉。",
+      "start_frame": 2942,
+      "end_frame_exclusive": 2985,
+      "duration": 1.72
+    },
+    {
+      "id": "A2",
+      "character": "绫斗",
+      "start": 127.16,
+      "end": 128.04,
+      "action": "受压后的定神/闭眼架剑正面反应",
+      "direction": "正面中轴，适合承接反击后回看；不是明确受伤倒退。",
+      "opponent_visible": false,
+      "note": "可放宽至128.20前；128.20起尤莉丝从底部入镜。",
+      "start_frame": 3179,
+      "end_frame_exclusive": 3201,
+      "duration": 0.88
+    },
+    {
+      "id": "A3",
+      "character": "绫斗",
+      "start": 70.68,
+      "end": 72.32,
+      "action": "腾空举刃→眼部特写→向右突进斩击",
+      "direction": "明确左向右；适配一辉右侧朝左接招。",
+      "opponent_visible": false,
+      "note": "与A1轴线相反，不建议无过渡混在同一来回；72.32起已切绮凛。",
+      "start_frame": 1767,
+      "end_frame_exclusive": 1808,
+      "duration": 1.64
+    },
+    {
+      "id": "A4",
+      "character": "绫斗",
+      "start": 67.36,
+      "end": 68.08,
+      "action": "剑身揭示到持刃站定、视线锁定",
+      "direction": "剑伸向左、人物居右；可作交锋前半秒对峙。",
+      "opponent_visible": false,
+      "note": "避开66秒巨型机体；68.08后是高速位移动作。",
+      "start_frame": 1684,
+      "end_frame_exclusive": 1702,
+      "duration": 0.72
+    },
+    {
+      "id": "J1",
+      "character": "尤莉丝",
+      "start": 109.92,
+      "end": 111.68,
+      "action": "举细剑召出火轮，挥手发射",
+      "direction": "正面偏右，发射落点在镜头左前方；配史黛菈朝右挡。",
+      "opponent_visible": false,
+      "note": "111.68起已切棕发镰刀手依蕾奈，后续格挡不是尤莉丝。",
+      "start_frame": 2748,
+      "end_frame_exclusive": 2792,
+      "duration": 1.76
+    },
+    {
+      "id": "J2",
+      "character": "尤莉丝",
+      "start": 150.16,
+      "end": 152.8,
+      "action": "收剑定势→剑指左方→火球成串向左扫出",
+      "direction": "人物居右，攻击明确右向左；史黛菈应在左侧面向右。",
+      "opponent_visible": false,
+      "note": "150.12仍有原双刀对手头发；必须从150.16起。本段无原歌词，最干净。",
+      "start_frame": 3754,
+      "end_frame_exclusive": 3820,
+      "duration": 2.64
+    },
+    {
+      "id": "J3",
+      "character": "尤莉丝",
+      "start": 125.92,
+      "end": 127.16,
+      "action": "空中避让/翻身收势、止住后退",
+      "direction": "由右向左下避让后稳定；宜当反击后的躲闪，不要标成严重受伤。",
+      "opponent_visible": false,
+      "note": "125.80是干净新镜头但人物尚在画外右缘；125.92起更易读；127.16切绫斗。",
+      "start_frame": 3148,
+      "end_frame_exclusive": 3179,
+      "duration": 1.24
+    },
+    {
+      "id": "J4",
+      "character": "尤莉丝",
+      "start": 50.92,
+      "end": 51.84,
+      "action": "正面火焰召唤→强光铺满画幅",
+      "direction": "迎镜头的爆发，无稳定水平轴，适合藏接刀/火焰转场。",
+      "opponent_visible": false,
+      "note": "51.84后切其他战场。47–50.92混有歌姬/绫斗，不能整段当尤莉丝。",
+      "start_frame": 1273,
+      "end_frame_exclusive": 1296,
+      "duration": 0.92
+    }
+  ],
+  "proposed_sequences": [
+    {
+      "name": "一辉 vs 绫斗",
+      "duration": 6.56,
+      "suggested_target_start": 117.68,
+      "parts": [
+        {
+          "offset": [
+            0,
+            1.04
+          ],
+          "source": "A1",
+          "source_range": [
+            117.68,
+            118.72
+          ]
+        },
+        {
+          "offset": [
+            1.04,
+            2.24
+          ],
+          "source": "Rakudai pending",
+          "action": "一辉向右迎击/架刀"
+        },
+        {
+          "offset": [
+            2.24,
+            2.92
+          ],
+          "source": "A1",
+          "source_range": [
+            118.72,
+            119.4
+          ]
+        },
+        {
+          "offset": [
+            2.92,
+            4.32
+          ],
+          "source": "Rakudai pending",
+          "action": "一辉格开后反斩"
+        },
+        {
+          "offset": [
+            4.32,
+            5.2
+          ],
+          "source": "A2",
+          "source_range": [
+            127.16,
+            128.04
+          ]
+        },
+        {
+          "offset": [
+            5.2,
+            6.56
+          ],
+          "source": "Rakudai pending",
+          "action": "一辉追刀或收势"
+        }
+      ],
+      "transition_note": "在124.24结束后接第三组角色；不要立刻露出124秒原敌人。A3另作第二轮方向相反的交锋，或先以正面近景重置轴线。"
+    },
+    {
+      "name": "史黛菈 vs 尤莉丝",
+      "duration": 8.0,
+      "suggested_target_start": 150.16,
+      "parts": [
+        {
+          "offset": [
+            0,
+            1.56
+          ],
+          "source": "J2",
+          "source_range": [
+            150.16,
+            151.72
+          ]
+        },
+        {
+          "offset": [
+            1.56,
+            2.76
+          ],
+          "source": "Rakudai pending",
+          "action": "史黛菈向右架剑接火/挥开火焰"
+        },
+        {
+          "offset": [
+            2.76,
+            3.56
+          ],
+          "source": "J2",
+          "source_range": [
+            151.72,
+            152.52
+          ]
+        },
+        {
+          "offset": [
+            3.56,
+            4.76
+          ],
+          "source": "Rakudai pending",
+          "action": "史黛菈冲右反击"
+        },
+        {
+          "offset": [
+            4.76,
+            6.0
+          ],
+          "source": "J3",
+          "source_range": [
+            125.92,
+            127.16
+          ]
+        },
+        {
+          "offset": [
+            6.0,
+            8.0
+          ],
+          "source": "Rakudai pending",
+          "action": "史黛菈追刀→脸/剑收势"
+        }
+      ],
+      "transition_note": "J3是避让，不强行宣称受伤。需要先移除源125秒歌词；150秒原无歌词。8秒后可顺接刀华/珠雫组。"
+    }
+  ],
+  "preserve": "不动V1 178秒后的雪景/龙马/赤色光芒/白花结尾。",
+  "warnings": [
+    "112–117秒棕发巨大镰刀手为依蕾奈，不能当尤莉丝。",
+    "119.40–121.1原双人实碰镜头会明确暴露依蕾奈，不能用于一辉vs绫斗。",
+    "148.48–150.12尤莉丝与蓝发双刀敌人同框，不能原样当史黛菈对砍。",
+    "移动带歌词的母版镜头必须先去除/裁掉源字幕，再以目标音乐时间补歌词；不要连着歌词一起水平翻转。",
+    "两条是已核准学战镜头的剪辑骨架；落第反打仍需按媒体agent实际镜头方向匹配后验收。"
+  ]
+}

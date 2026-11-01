@@ -1,0 +1,67 @@
+{
+  "source": {
+    "metadata": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "width": 1280,
+          "height": 720,
+          "r_frame_rate": "25/1",
+          "duration": "210.680000",
+          "nb_frames": "5267"
+        },
+        {
+          "codec_name": "aac",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "duration": "210.773167",
+          "nb_frames": "9880"
+        }
+      ],
+      "format": {
+        "duration": "210.773167",
+        "size": "49234585"
+      }
+    },
+    "audio_adts_sha256": "9e45548a0ff32353c4be0419d1c145d357eccc54f66d9e92158d11f8a85a8583",
+    "audio_demux_bytes": 4215889,
+    "decode_exit_code": 0,
+    "decode_errors": ""
+  },
+  "clean": {
+    "metadata": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "width": 1280,
+          "height": 720,
+          "r_frame_rate": "25/1",
+          "duration": "210.680000",
+          "nb_frames": "5267"
+        },
+        {
+          "codec_name": "aac",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "duration": "210.773167",
+          "nb_frames": "9880"
+        }
+      ],
+      "format": {
+        "duration": "210.773167",
+        "size": "101332039"
+      }
+    },
+    "audio_adts_sha256": "9e45548a0ff32353c4be0419d1c145d357eccc54f66d9e92158d11f8a85a8583",
+    "audio_demux_bytes": 4215889,
+    "decode_exit_code": 0,
+    "decode_errors": ""
+  },
+  "audio_unchanged": true
+}

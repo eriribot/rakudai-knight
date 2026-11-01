@@ -1,0 +1,1098 @@
+{
+  "rows": [
+    {
+      "tag": "V1_original_base",
+      "file": "clean",
+      "target": [
+        0,
+        11.16
+      ],
+      "source": [
+        0,
+        11.16
+      ],
+      "speed": 1,
+      "key": "asterisk_original"
+    },
+    {
+      "tag": "V1_original_base",
+      "file": "clean",
+      "target": [
+        13.04,
+        22.32
+      ],
+      "source": [
+        13.04,
+        22.32
+      ],
+      "speed": 1,
+      "key": "asterisk_original"
+    },
+    {
+      "tag": "V2#2",
+      "file": "素材/v2/ep02/academy_establishing_raw.mp4",
+      "target": [
+        22.32,
+        24.16
+      ],
+      "source": [
+        13.62,
+        15.46
+      ],
+      "speed": 1,
+      "key": "https://xgct-video.bzcdn.net/fea1d2b2-9f95-4729-a15d-3a04fa99df95/640x360/video.m3u8"
+    },
+    {
+      "tag": "V1_original_base",
+      "file": "clean",
+      "target": [
+        24.16,
+        25.0
+      ],
+      "source": [
+        24.16,
+        25.0
+      ],
+      "speed": 1,
+      "key": "asterisk_original"
+    },
+    {
+      "tag": "V2#3",
+      "file": "素材/v2/ep01/stella_charge_raw.mp4",
+      "target": [
+        25.0,
+        26.96
+      ],
+      "source": [
+        850.38,
+        851.2424
+      ],
+      "speed": 0.44,
+      "key": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video.m3u8"
+    },
+    {
+      "tag": "V1_original_base",
+      "file": "clean",
+      "target": [
+        26.96,
+        27
+      ],
+      "source": [
+        26.96,
+        27.0
+      ],
+      "speed": 1,
+      "key": "asterisk_original"
+    },
+    {
+      "tag": "V1#0",
+      "file": "素材/twxgct/ep01/ikki_intro.mp4",
+      "target": [
+        27,
+        29
+      ],
+      "source": [
+        0,
+        2
+      ],
+      "speed": 1,
+      "key": "素材/twxgct/ep01/ikki_intro.mp4"
+    },
+    {
+      "tag": "V1_original_base",
+      "file": "clean",
+      "target": [
+        29,
+        29.12
+      ],
+      "source": [
+        29,
+        29.12
+      ],
+      "speed": 1,
+      "key": "asterisk_original"
+    },
+    {
+      "tag": "V2#4",
+      "file": "素材/v2/ep10/shizuku_face_raw.mp4",
+      "target": [
+        29.12,
+        31.32
+      ],
+      "source": [
+        1037.64,
+        1038.85
+      ],
+      "speed": 0.55,
+      "key": "https://xgct-video.bzcdn.net/cb4b9ee0-9b14-4ef4-a4ec-fb8b36e42825/640x360/video.m3u8"
+    },
+    {
+      "tag": "V2#5",
+      "file": "素材/v2/ep10/shizuku_face_raw.mp4",
+      "target": [
+        31.32,
+        33.92
+      ],
+      "source": [
+        1038.88,
+        1040.856
+      ],
+      "speed": 0.76,
+      "key": "https://xgct-video.bzcdn.net/cb4b9ee0-9b14-4ef4-a4ec-fb8b36e42825/640x360/video.m3u8"
+    },
+    {
+      "tag": "V1_original_base",
+      "file": "clean",
+      "target": [
+        33.92,
+        37.0
+      ],
+      "source": [
+        33.92,
+        37.0
+      ],
+      "speed": 1,
+      "key": "asterisk_original"
+    },
+    {
+      "tag": "V2#6",
+      "file": "素材/v2/ep12/ikki_exhausted_raw.mp4",
+      "target": [
+        37.0,
+        41.0
+      ],
+      "source": [
+        419.2,
+        423.2
+      ],
+      "speed": 1,
+      "key": "https://xgct-video.bzcdn.net/06217f85-7d2d-4018-b9d3-73ba42c1d7ce/640x360/video.m3u8"
+    },
+    {
+      "tag": "V1_original_base",
+      "file": "clean",
+      "target": [
+        41.0,
+        45.12
+      ],
+      "source": [
+        41.0,
+        45.12
+      ],
+      "speed": 1,
+      "key": "asterisk_original"
+    },
+    {
+      "tag": "V2#7",
+      "file": "素材/v2/ep01/stella_fire_raw.mp4",
+      "target": [
+        45.12,
+        48.44
+      ],
+      "source": [
+        918.06,
+        920.8156
+      ],
+      "speed": 0.83,
+      "key": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video.m3u8"
+    },
+    {
+      "tag": "V2#8",
+      "file": "素材/v2/ep10/shizuku_face_raw.mp4",
+      "target": [
+        48.44,
+        50.28
+      ],
+      "source": [
+        1037.64,
+        1038.836
+      ],
+      "speed": 0.65,
+      "key": "https://xgct-video.bzcdn.net/cb4b9ee0-9b14-4ef4-a4ec-fb8b36e42825/640x360/video.m3u8"
+    },
+    {
+      "tag": "V2#9",
+      "file": "素材/v2/ep10/touka_raikiri_raw.mp4",
+      "target": [
+        50.28,
+        51
+      ],
+      "source": [
+        1072.24,
+        1072.96
+      ],
+      "speed": 1,
+      "key": "https://xgct-video.bzcdn.net/cb4b9ee0-9b14-4ef4-a4ec-fb8b36e42825/640x360/video.m3u8"
+    },
+    {
+      "tag": "V2#9",
+      "file": "素材/v2/ep10/touka_raikiri_raw.mp4",
+      "target": [
+        51,
+        53
+      ],
+      "source": [
+        1072.96,
+        1074.96
+      ],
+      "speed": 1,
+      "key": "https://xgct-video.bzcdn.net/cb4b9ee0-9b14-4ef4-a4ec-fb8b36e42825/640x360/video.m3u8"
+    },
+    {
+      "tag": "V2#9",
+      "file": "素材/v2/ep10/touka_raikiri_raw.mp4",
+      "target": [
+        53,
+        54.84
+      ],
+      "source": [
+        1074.96,
+        1076.8
+      ],
+      "speed": 1,
+      "key": "https://xgct-video.bzcdn.net/cb4b9ee0-9b14-4ef4-a4ec-fb8b36e42825/640x360/video.m3u8"
+    },
+    {
+      "tag": "V2#10",
+      "file": "素材/v2/ep10/shizuku_water_raw.mp4",
+      "target": [
+        54.84,
+        58.04
+      ],
+      "source": [
+        1029.0,
+        1032.2
+      ],
+      "speed": 1,
+      "key": "https://xgct-video.bzcdn.net/cb4b9ee0-9b14-4ef4-a4ec-fb8b36e42825/640x360/video.m3u8"
+    },
+    {
+      "tag": "V2#11",
+      "file": "素材/v2/ep10/shizuku_face_raw.mp4",
+      "target": [
+        58.04,
+        60.16
+      ],
+      "source": [
+        1038.88,
+        1040.788
+      ],
+      "speed": 0.9,
+      "key": "https://xgct-video.bzcdn.net/cb4b9ee0-9b14-4ef4-a4ec-fb8b36e42825/640x360/video.m3u8"
+    },
+    {
+      "tag": "V1_original_base",
+      "file": "clean",
+      "target": [
+        60.16,
+        63.12
+      ],
+      "source": [
+        60.16,
+        63.12
+      ],
+      "speed": 1,
+      "key": "asterisk_original"
+    },
+    {
+      "tag": "V2#12",
+      "file": "素材/v2/ep01/stella_charge_raw.mp4",
+      "target": [
+        63.12,
+        64.64
+      ],
+      "source": [
+        852.94,
+        853.6088
+      ],
+      "speed": 0.44,
+      "key": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video.m3u8"
+    },
+    {
+      "tag": "V2#13",
+      "file": "素材/v2/ep01/ikki_counter_raw.mp4",
+      "target": [
+        64.64,
+        66.24
+      ],
+      "source": [
+        870.64,
+        872.24
+      ],
+      "speed": 1,
+      "key": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video.m3u8"
+    },
+    {
+      "tag": "V2#14:left",
+      "file": "素材/v2/ep01/ikki_counter_raw.mp4",
+      "target": [
+        66.24,
+        67.0
+      ],
+      "source": [
+        874.24,
+        874.848
+      ],
+      "speed": 0.8,
+      "key": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video.m3u8"
+    },
+    {
+      "tag": "V2#14:right",
+      "file": "clean",
+      "target": [
+        66.24,
+        67.0
+      ],
+      "source": [
+        127.16,
+        127.768
+      ],
+      "speed": 0.8,
+      "key": "asterisk_original"
+    },
+    {
+      "tag": "V2#15",
+      "file": "素材/v2/ep01/ikki_counter_raw.mp4",
+      "target": [
+        67.0,
+        67.72
+      ],
+      "source": [
+        874.24,
+        874.816
+      ],
+      "speed": 0.8,
+      "key": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video.m3u8"
+    },
+    {
+      "tag": "V2#16",
+      "file": "clean",
+      "target": [
+        67.72,
+        68.44
+      ],
+      "source": [
+        67.36,
+        68.08
+      ],
+      "speed": 1,
+      "key": "asterisk_original"
+    },
+    {
+      "tag": "V2#17",
+      "file": "素材/v2/ep01/ikki_dodge_raw.mp4",
+      "target": [
+        68.44,
+        69.48
+      ],
+      "source": [
+        945.7,
+        946.74
+      ],
+      "speed": 1,
+      "key": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video.m3u8"
+    },
+    {
+      "tag": "V2#18",
+      "file": "clean",
+      "target": [
+        69.48,
+        70.52
+      ],
+      "source": [
+        117.68,
+        118.72
+      ],
+      "speed": 1,
+      "key": "asterisk_original"
+    },
+    {
+      "tag": "V2#19",
+      "file": "素材/v2/ep01/stella_charge_raw.mp4",
+      "target": [
+        70.52,
+        71.52
+      ],
+      "source": [
+        854.06,
+        854.22
+      ],
+      "speed": 0.16,
+      "key": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video.m3u8"
+    },
+    {
+      "tag": "V2#20",
+      "file": "clean",
+      "target": [
+        71.52,
+        72.2
+      ],
+      "source": [
+        118.72,
+        119.4
+      ],
+      "speed": 1,
+      "key": "asterisk_original"
+    },
+    {
+      "tag": "V2#21",
+      "file": "素材/v2/ep01/ikki_dodge_raw.mp4",
+      "target": [
+        72.2,
+        73.56
+      ],
+      "source": [
+        951.18,
+        952.54
+      ],
+      "speed": 1,
+      "key": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video.m3u8"
+    },
+    {
+      "tag": "V2#22",
+      "file": "clean",
+      "target": [
+        73.56,
+        74.44
+      ],
+      "source": [
+        127.16,
+        128.04
+      ],
+      "speed": 1,
+      "key": "asterisk_original"
+    },
+    {
+      "tag": "V2#23",
+      "file": "素材/v2/ep01/ikki_counter_raw.mp4",
+      "target": [
+        74.44,
+        76.0
+      ],
+      "source": [
+        871.04,
+        872.6
+      ],
+      "speed": 1,
+      "key": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video.m3u8"
+    },
+    {
+      "tag": "V1_original_base",
+      "file": "clean",
+      "target": [
+        76.0,
+        94
+      ],
+      "source": [
+        76.0,
+        94.0
+      ],
+      "speed": 1,
+      "key": "asterisk_original"
+    },
+    {
+      "tag": "V1#2",
+      "file": "素材/twxgct/ep02/ikki_reflection.mp4",
+      "target": [
+        94,
+        97
+      ],
+      "source": [
+        1016.016,
+        1019.016
+      ],
+      "speed": 1,
+      "key": "https://xgct-video.bzcdn.net/fea1d2b2-9f95-4729-a15d-3a04fa99df95/640x360/video.m3u8"
+    },
+    {
+      "tag": "V1_original_base",
+      "file": "clean",
+      "target": [
+        97,
+        136.0
+      ],
+      "source": [
+        97,
+        136.0
+      ],
+      "speed": 1,
+      "key": "asterisk_original"
+    },
+    {
+      "tag": "V2#24",
+      "file": "素材/v2/ep10/touka_face_raw.mp4",
+      "target": [
+        136.0,
+        139.24
+      ],
+      "source": [
+        1125.2,
+        1128.44
+      ],
+      "speed": 1,
+      "key": "https://xgct-video.bzcdn.net/cb4b9ee0-9b14-4ef4-a4ec-fb8b36e42825/640x360/video.m3u8"
+    },
+    {
+      "tag": "V1_original_base",
+      "file": "clean",
+      "target": [
+        139.24,
+        148.48
+      ],
+      "source": [
+        139.24,
+        148.48
+      ],
+      "speed": 1,
+      "key": "asterisk_original"
+    },
+    {
+      "tag": "V2#25:left",
+      "file": "素材/v2/ep01/stella_charge_raw.mp4",
+      "target": [
+        148.48,
+        149.64
+      ],
+      "source": [
+        850.42,
+        850.7448
+      ],
+      "speed": 0.28,
+      "key": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video.m3u8"
+    },
+    {
+      "tag": "V2#25:right",
+      "file": "clean",
+      "target": [
+        148.48,
+        149.64
+      ],
+      "source": [
+        110.0,
+        110.3248
+      ],
+      "speed": 0.28,
+      "key": "asterisk_original"
+    },
+    {
+      "tag": "V2#26",
+      "file": "素材/v2/ep01/stella_charge_raw.mp4",
+      "target": [
+        149.64,
+        150.16
+      ],
+      "source": [
+        850.5,
+        851.02
+      ],
+      "speed": 1,
+      "key": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video.m3u8"
+    },
+    {
+      "tag": "V2#27",
+      "file": "clean",
+      "target": [
+        150.16,
+        151.68
+      ],
+      "source": [
+        150.16,
+        151.68
+      ],
+      "speed": 1,
+      "key": "asterisk_original"
+    },
+    {
+      "tag": "V2#28",
+      "file": "素材/v2/ep01/stella_block_raw.mp4",
+      "target": [
+        151.68,
+        152.88
+      ],
+      "source": [
+        860.87,
+        861.662
+      ],
+      "speed": 0.66,
+      "key": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video.m3u8"
+    },
+    {
+      "tag": "V2#29",
+      "file": "clean",
+      "target": [
+        152.88,
+        153.72
+      ],
+      "source": [
+        151.68,
+        152.52
+      ],
+      "speed": 1,
+      "key": "asterisk_original"
+    },
+    {
+      "tag": "V2#30",
+      "file": "素材/v2/ep01/stella_charge_raw.mp4",
+      "target": [
+        153.72,
+        154.44
+      ],
+      "source": [
+        852.18,
+        852.9
+      ],
+      "speed": 1,
+      "key": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video.m3u8"
+    },
+    {
+      "tag": "V2#31",
+      "file": "素材/twxgct/ep01/stella_attack_candidate.mp4",
+      "target": [
+        154.44,
+        155.2
+      ],
+      "source": [
+        856.05,
+        856.81
+      ],
+      "speed": 1,
+      "key": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video.m3u8"
+    },
+    {
+      "tag": "V2#32",
+      "file": "clean",
+      "target": [
+        155.2,
+        156.44
+      ],
+      "source": [
+        125.92,
+        127.16
+      ],
+      "speed": 1,
+      "key": "asterisk_original"
+    },
+    {
+      "tag": "V2#33",
+      "file": "素材/v2/ep01/stella_fire_raw.mp4",
+      "target": [
+        156.44,
+        157.84
+      ],
+      "source": [
+        923.66,
+        925.06
+      ],
+      "speed": 1,
+      "key": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video.m3u8"
+    },
+    {
+      "tag": "V2#34",
+      "file": "clean",
+      "target": [
+        157.84,
+        158.76
+      ],
+      "source": [
+        50.92,
+        51.84
+      ],
+      "speed": 1,
+      "key": "asterisk_original"
+    },
+    {
+      "tag": "V2#35",
+      "file": "素材/v2/ep01/ikki_counter_raw.mp4",
+      "target": [
+        158.76,
+        159.28
+      ],
+      "source": [
+        866.48,
+        867.0
+      ],
+      "speed": 1,
+      "key": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video.m3u8"
+    },
+    {
+      "tag": "V1_original_base",
+      "file": "clean",
+      "target": [
+        159.28,
+        173.4
+      ],
+      "source": [
+        159.28,
+        173.4
+      ],
+      "speed": 1,
+      "key": "asterisk_original"
+    },
+    {
+      "tag": "V2#36",
+      "file": "素材/v2/ep01/itto_shura_call_raw.mp4",
+      "target": [
+        173.4,
+        174.68
+      ],
+      "source": [
+        926.8,
+        928.08
+      ],
+      "speed": 1,
+      "key": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video.m3u8"
+    },
+    {
+      "tag": "V2#37",
+      "file": "clean",
+      "target": [
+        174.68,
+        175.44
+      ],
+      "source": [
+        173.4,
+        174.16
+      ],
+      "speed": 1,
+      "key": "asterisk_original"
+    },
+    {
+      "tag": "V2#38",
+      "file": "素材/v2/ep01/itto_shura_release_raw.mp4",
+      "target": [
+        175.44,
+        178.16
+      ],
+      "source": [
+        937.94,
+        940.66
+      ],
+      "speed": 1,
+      "key": "https://xgct-video.bzcdn.net/6708ec9d-3704-4353-8efd-6667d189485e/640x360/video.m3u8"
+    },
+    {
+      "tag": "V1_original_base",
+      "file": "clean",
+      "target": [
+        178.16,
+        183.4
+      ],
+      "source": [
+        178.16,
+        183.4
+      ],
+      "speed": 1,
+      "key": "asterisk_original"
+    },
+    {
+      "tag": "V1#3",
+      "file": "素材/twxgct/ep02/snow_child.mp4",
+      "target": [
+        183.4,
+        185.6
+      ],
+      "source": [
+        942.94,
+        945.14
+      ],
+      "speed": 1,
+      "key": "https://xgct-video.bzcdn.net/fea1d2b2-9f95-4729-a15d-3a04fa99df95/640x360/video.m3u8"
+    },
+    {
+      "tag": "V1#4",
+      "file": "素材/twxgct/ep02/snow_ryoma.mp4",
+      "target": [
+        185.6,
+        189.96
+      ],
+      "source": [
+        951.6,
+        955.96
+      ],
+      "speed": 1,
+      "key": "https://xgct-video.bzcdn.net/fea1d2b2-9f95-4729-a15d-3a04fa99df95/640x360/video.m3u8"
+    },
+    {
+      "tag": "V1_original_base",
+      "file": "clean",
+      "target": [
+        189.96,
+        201
+      ],
+      "source": [
+        189.96,
+        201.0
+      ],
+      "speed": 1,
+      "key": "asterisk_original"
+    },
+    {
+      "tag": "V1#5",
+      "file": "素材/twxgct/ep12/ep12_departure.mp4",
+      "target": [
+        201,
+        205.56
+      ],
+      "source": [
+        0,
+        4.56
+      ],
+      "speed": 1,
+      "key": "素材/twxgct/ep12/ep12_departure.mp4"
+    },
+    {
+      "tag": "V1_original_base",
+      "file": "clean",
+      "target": [
+        205.56,
+        210.68
+      ],
+      "source": [
+        205.56,
+        210.68
+      ],
+      "speed": 1,
+      "key": "asterisk_original"
+    }
+  ],
+  "overlaps": [
+    {
+      "a": "V2#3",
+      "b": "V2#25:left",
+      "a_target_overlap": [
+        25.091,
+        25.829
+      ],
+      "b_target_overlap": [
+        148.48,
+        149.64
+      ],
+      "common_source": [
+        850.42,
+        850.7448
+      ],
+      "source_file": "素材/v2/ep01/stella_charge_raw.mp4"
+    },
+    {
+      "a": "V2#3",
+      "b": "V2#26",
+      "a_target_overlap": [
+        25.273,
+        26.455
+      ],
+      "b_target_overlap": [
+        149.64,
+        150.16
+      ],
+      "common_source": [
+        850.5,
+        851.02
+      ],
+      "source_file": "素材/v2/ep01/stella_charge_raw.mp4"
+    },
+    {
+      "a": "V2#4",
+      "b": "V2#8",
+      "a_target_overlap": [
+        29.12,
+        31.295
+      ],
+      "b_target_overlap": [
+        48.44,
+        50.28
+      ],
+      "common_source": [
+        1037.64,
+        1038.836
+      ],
+      "source_file": "素材/v2/ep10/shizuku_face_raw.mp4"
+    },
+    {
+      "a": "V2#5",
+      "b": "V2#11",
+      "a_target_overlap": [
+        31.32,
+        33.831
+      ],
+      "b_target_overlap": [
+        58.04,
+        60.16
+      ],
+      "common_source": [
+        1038.88,
+        1040.788
+      ],
+      "source_file": "素材/v2/ep10/shizuku_face_raw.mp4"
+    },
+    {
+      "a": "V2#13",
+      "b": "V2#23",
+      "a_target_overlap": [
+        65.04,
+        66.24
+      ],
+      "b_target_overlap": [
+        74.44,
+        75.64
+      ],
+      "common_source": [
+        871.04,
+        872.24
+      ],
+      "source_file": "素材/v2/ep01/ikki_counter_raw.mp4"
+    },
+    {
+      "a": "V2#14:left",
+      "b": "V2#15",
+      "a_target_overlap": [
+        66.24,
+        66.96
+      ],
+      "b_target_overlap": [
+        67.0,
+        67.72
+      ],
+      "common_source": [
+        874.24,
+        874.816
+      ],
+      "source_file": "素材/v2/ep01/ikki_counter_raw.mp4"
+    },
+    {
+      "a": "V2#14:right",
+      "b": "V2#22",
+      "a_target_overlap": [
+        66.24,
+        67.0
+      ],
+      "b_target_overlap": [
+        73.56,
+        74.168
+      ],
+      "common_source": [
+        127.16,
+        127.768
+      ],
+      "source_file": "clean"
+    },
+    {
+      "a": "V2#14:right",
+      "b": "V1_original_base",
+      "a_target_overlap": [
+        66.24,
+        67.0
+      ],
+      "b_target_overlap": [
+        127.16,
+        127.768
+      ],
+      "common_source": [
+        127.16,
+        127.768
+      ],
+      "source_file": "clean"
+    },
+    {
+      "a": "V2#18",
+      "b": "V1_original_base",
+      "a_target_overlap": [
+        69.48,
+        70.52
+      ],
+      "b_target_overlap": [
+        117.68,
+        118.72
+      ],
+      "common_source": [
+        117.68,
+        118.72
+      ],
+      "source_file": "clean"
+    },
+    {
+      "a": "V2#20",
+      "b": "V1_original_base",
+      "a_target_overlap": [
+        71.52,
+        72.2
+      ],
+      "b_target_overlap": [
+        118.72,
+        119.4
+      ],
+      "common_source": [
+        118.72,
+        119.4
+      ],
+      "source_file": "clean"
+    },
+    {
+      "a": "V2#22",
+      "b": "V1_original_base",
+      "a_target_overlap": [
+        73.56,
+        74.44
+      ],
+      "b_target_overlap": [
+        127.16,
+        128.04
+      ],
+      "common_source": [
+        127.16,
+        128.04
+      ],
+      "source_file": "clean"
+    },
+    {
+      "a": "V1_original_base",
+      "b": "V2#25:right",
+      "a_target_overlap": [
+        110.0,
+        110.325
+      ],
+      "b_target_overlap": [
+        148.48,
+        149.64
+      ],
+      "common_source": [
+        110.0,
+        110.3248
+      ],
+      "source_file": "clean"
+    },
+    {
+      "a": "V1_original_base",
+      "b": "V2#32",
+      "a_target_overlap": [
+        125.92,
+        127.16
+      ],
+      "b_target_overlap": [
+        155.2,
+        156.44
+      ],
+      "common_source": [
+        125.92,
+        127.16
+      ],
+      "source_file": "clean"
+    },
+    {
+      "a": "V2#25:left",
+      "b": "V2#26",
+      "a_target_overlap": [
+        148.766,
+        149.64
+      ],
+      "b_target_overlap": [
+        149.64,
+        149.885
+      ],
+      "common_source": [
+        850.5,
+        850.7448
+      ],
+      "source_file": "素材/v2/ep01/stella_charge_raw.mp4"
+    }
+  ]
+}

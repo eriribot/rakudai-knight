@@ -1,0 +1,10 @@
+{
+  "rakudai_visible_frames": 1718,
+  "rakudai_fullscreen_equivalent_frames": 1694.0,
+  "visible_seconds": 68.72,
+  "fullscreen_equivalent_seconds": 67.76,
+  "previous_visible_seconds": 18.120000000000005,
+  "pair_seconds": 1.92,
+  "roster_seconds": 1.88,
+  "method": "Frame timeline; any Rakudai pixels count for visible time; 50% for paired faceoffs in area-equivalent time; dual title excluded"
+}

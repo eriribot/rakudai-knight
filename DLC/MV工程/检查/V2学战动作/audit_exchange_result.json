@@ -1,0 +1,22 @@
+{
+  "reviewed_plan_snapshot": "audit_plan_snapshot.json",
+  "reviewed_windows": [[63.12,76.0],[148.48,159.28]],
+  "sampled_edits":23,
+  "method":"Render actual selected source at each edit first/middle/last target frame with renderer crop, flip, tint, arena tint and target lyrics. Then inspect dense raw frames at suspected wrong-character cuts. No network and no modifications to main renderer or plan.",
+  "status":"changes_required_in_reviewed_snapshot",
+  "hard_findings":[
+    {"item_index":19,"target":[70.52,71.52],"issue":"ikki_counter_raw changes to Stella at local2.48; current speed0.66 exposes original opponent. Earlier frames additionally show Stella red hair/gold crown in foreground.","minimum_fix":{"speed":0.4},"minimum_fix_limit":"Removes Stella full-body/face cut but leaves recognizable foreground crown.","clean_alternative":{"file":"素材/v2/ep01/stella_charge_raw.mp4","clip_start":4.56,"speed":0.16,"crop":[32,0,576,324]},"alternative_limit":"Only6 unique source frames held over1second; slower movement, but no original opponent/crown. Final frame stays4.72; source4.76 is next hand closeup."},
+    {"item_index":28,"target":[151.68,152.88],"issue":"stella_block_raw changes to Ikki at local0.84. Current speed0.74 exposes opponent near end.","fix":{"speed":0.66},"verified":"First/middle/last candidates retain Stella parrying. Existing crop removes bottom dialogue."},
+    {"item_index":33,"target":[156.44,157.84],"issue":"Top Japanese/Chinese skill caption remains as red/white fragments with crop[64,32,512,288].","fix":{"crop":[80,40,480,270]},"verified":"Both source caption rows removed, eyes and sword/flame action retained. Merely increasing y to40 while retaining512x288 introduces bottom subtitle fragments."},
+    {"item_index":25,"target":[148.48,149.64],"issue":"Both moving characters leave intended half near end; Julis face is cut by right frame edge; Stella becomes shoulder/hair.","fix":{"left":{"speed":0.28,"focus_x":330},"right":{"speed":0.28,"focus_x":950}},"verified":"Both faces visible at first/middle/last candidate frames."}
+  ],
+  "additional_improvements":[
+    {"item_index":14,"target":[66.24,67.0],"fix":{"left":{"clip_start":8.24}},"reason":"Remove brief wide afterimage shot at start of intended face-to-face split. Keeps Ikki closeup throughout."},
+    {"item_index":15,"target":[67.0,67.72],"fix":{"clip_start":8.24},"reason":"Same brief wide-to-close jump, validated closeup-only with8.24."},
+    {"item_index":16,"target":[67.72,68.44],"fix":{"crop":[0,0,1080,608]},"reason":"Retains left eye/face at last rapid movement frame; default x100 crops it. Sword and earlier stance remain visible."}
+  ],
+  "direction_assessment":"Main exchanges retain acceptable opposing motion. Ayato overhead approach and Ikki frontal guard/riposte provide neutral frontal views around axis changes. Stella is predominantly left side facing right, Julis right side firing left; flipped Stella flame shot travels right. No additional original opponent faces found in other reviewed source intervals.",
+  "text_assessment":"Target lyric overlays fit canvas. No other source dialogue remnants found in sampled exchange frames; item33 is the concrete residual-caption issue.",
+  "artifacts":["audit_exchange_contact_0.jpg","audit_exchange_contact_1.jpg","audit_exchange_contact_2.jpg","audit_exchange_contact_3.jpg","audit_counter_cut.jpg","audit_stella_block_cut.jpg","audit_stella_fire_raw_top.jpg","audit_fix_candidates.jpg","audit_fix_proposals.json"],
+  "limits":"This is pre-render shot review. Final encoded video, complete audio identity and lock of V1 ending still require final-file verification. The360p Rakudai sources remain visibly softer than720p Asterisk footage."
+}
