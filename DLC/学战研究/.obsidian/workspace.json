@@ -1,0 +1,238 @@
+{
+  "main": {
+    "id": "e46d31f56cff1cda",
+    "type": "split",
+    "children": [
+      {
+        "id": "fde9d8a3f42bb8ed",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "cb93974bbeb0002a",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "第一卷-世界书整理/第一卷_01_第一章_华焰魔女.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "第一卷_01_第一章_华焰魔女"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "38417f0309581a6c",
+    "type": "split",
+    "children": [
+      {
+        "id": "042f16e738b2624f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "eb59c112f2c033f0",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
+            }
+          },
+          {
+            "id": "15a7e5b2d1eada80",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
+            }
+          },
+          {
+            "id": "c51aafc51bdce935",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-bookmark",
+              "title": "书签"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "47779fd27dd8c465",
+    "type": "split",
+    "children": [
+      {
+        "id": "2c9e2a6756149282",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "d080176f60aaad28",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "第一卷-世界书整理/第一卷_01_第一章_华焰魔女.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "反向链接"
+            }
+          },
+          {
+            "id": "24a7ee410c83a43e",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "第一卷-世界书整理/第一卷_01_第一章_华焰魔女.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "出链"
+            }
+          },
+          {
+            "id": "9a3e4749486861d1",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          },
+          {
+            "id": "bd6db7e9576a3fdf",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "添加笔记属性"
+            }
+          },
+          {
+            "id": "d68981b333c58502",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "第一卷-世界书整理/第一卷_01_第一章_华焰魔女.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "大纲"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "command-palette:打开命令面板": false,
+      "bases:新建数据库": false
+    }
+  },
+  "active": "cb93974bbeb0002a",
+  "lastOpenFiles": [
+    "第一卷-世界书整理/第一卷_00_序幕_倏然疾风.md",
+    "第一卷-世界书整理/第一卷_01_第一章_华焰魔女.md",
+    "第一卷-世界书整理/00_第一卷_彩页插图与卷首设定.md",
+    "第一卷-世界书整理/00_第一卷_正文精读与评注导航.md",
+    "06_落第×学战交叉研究/伐刀者与星脉世代能力对照表.md",
+    "06_落第×学战交叉研究/七星剑武祭与星武祭赛事合并构想.md",
+    "05_插图OCR全量台账/插图OCR识别总台账.md",
+    "05_插图OCR全量台账/各卷OCR原始数据/学战都市Asterisk 02 银绮觉醒_OCR原始记录.md",
+    "05_插图OCR全量台账/各卷OCR原始数据/学战都市Asterisk 01 姬焰邂逅_OCR原始记录.md",
+    "04_登场人物档案库/普莉熙拉·乌儿塞斯.md",
+    "04_登场人物档案库/奥菲莉亚·兰朵露芬.md",
+    "04_登场人物档案库/席尔薇雅·琉奈海姆.md",
+    "04_登场人物档案库/范星露.md",
+    "第一卷-世界书整理/词条与设定条目/学战都市Asterisk_宏观世界观总纲.md",
+    "04_登场人物档案库/依蕾奈·乌儿塞斯.md",
+    "04_登场人物档案库/沙沙宫纱夜.md",
+    "第一卷-世界书整理/AIRP/CH-01/CH-01-预制分支与OC截胡路由.yaml",
+    "第一卷-世界书整理/AIRP/CH-01/CH-01-原作事件图.yaml",
+    "第一卷-世界书整理/AIRP/CH-01/CH-01-事实锚.yaml",
+    "第一卷-世界书整理/AIRP/CH-01",
+    "第一卷-世界书整理/AIRP",
+    "第一卷-世界书整理/词条与设定条目/星武祭与跨界空间转移黑幕_大教授与大博士.md",
+    "第一卷-世界书整理/词条与设定条目/煌式武装与流星斗技_花冠旋剑与天雾辰明流.md",
+    "04_登场人物档案库/克劳蒂雅·恩菲尔德.md",
+    "04_登场人物档案库/全人物检索索引.md",
+    "04_登场人物档案库/天雾绫斗.md",
+    "第一卷-世界书整理/词条与设定条目/星导馆学园与赤莲校徽决斗规则.md",
+    "04_登场人物档案库/尤莉丝·爱雷克西亚·冯·里斯妃特.md",
+    "第一卷-世界书整理/词条与设定条目/星脉世代与魔女魔术师_伐刀者同源考.md",
+    "第一卷-世界书整理/词条与设定条目",
+    "04_登场人物档案库/刀藤绮凛.md",
+    "02_六大水上学园/圣嘉莱多瓦思学园(St. Galahadworth).md",
+    "第一卷-世界书整理/人物条目",
+    "插图/BG_02_1.png",
+    "第一卷-世界书整理/_原始txt与AI初评草稿归档/分章正文txt/第一卷_第四章_回忆与重逢.txt",
+    "第一卷-世界书整理/_原始txt与AI初评草稿归档/分章正文txt/第一卷_终章_并肩之誓.txt",
+    "第一卷-世界书整理/_原始txt与AI初评草稿归档/分章正文txt/第一卷_第二章_学战都市.txt",
+    "插图/六大学园校徽/葵恩薇儿_黑白校徽.png",
+    "插图/六大学园校徽/雷渥夫黑_黑白校徽.png",
+    "插图/六大学园校徽/阿勒坎特_黑白校徽.png",
+    "插图/六大学园校徽/界龙第七_黑白校徽.png",
+    "插图/六大学园校徽/圣嘉莱多瓦思_黑白校徽.png",
+    "插图/六大学园校徽/星导馆_黑白校徽.png",
+    "插图/六大学园校徽/雷渥夫黑学园_双剑校徽.png",
+    "插图/六大学园校徽/葵恩薇儿女学园_偶像校徽.png",
+    "插图/六大学园校徽/阿勒坎特学园_昏枭校徽.png"
+  ]
+}

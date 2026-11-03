@@ -1,0 +1,61 @@
+<div id="world-mode-bar" class="aw-worldbar">
+  <div class="aw-brand"><span>OPENING ARCHIVE</span><strong>开局档案</strong></div>
+  <div class="aw-world-options" role="group" aria-label="选择开局世界">
+    <button type="button" data-world-choice="rakudai" aria-label="切换到落第" aria-pressed="true" onclick="RakudaiOpening.chooseWorld('rakudai')"><img class="aw-world-logo" data-world-logo="rakudai" alt="落第骑士英雄谭动画 Logo" /><span class="aw-world-label">落第</span></button>
+    <button type="button" data-world-choice="asterisk" aria-label="切换到学战" aria-pressed="false" onclick="RakudaiOpening.chooseWorld('asterisk')"><img class="aw-world-logo" data-world-logo="asterisk" alt="学战都市动画 Logo" /><span class="aw-world-label">学战</span></button>
+  </div>
+  <span class="aw-version">MALE EDITION / 男性版</span>
+</div>
+<!-- AW_SPLIT -->
+<div class="aw-wordmark" aria-label="学战都市 The Asterisk War">
+  <img class="aw-main-logo" data-world-logo="asterisk" width="350" height="174" alt="学战都市 Asterisk 动画 Logo" />
+  <span class="aw-wordmark-sub">六花 · 新生登记终端</span>
+</div>
+<!-- AW_SPLIT -->
+<section id="asterisk-campus-stage" class="aw-campus" aria-labelledby="aw-campus-title" hidden>
+  <div class="aw-campus-top">
+    <div><p class="aw-eyebrow">R I K K A / ACADEMY ENTRY</p><h1 id="aw-campus-title" class="aw-campus-title">选择你的所属学园</h1><p class="aw-campus-lead">五所可选学园，各有校风与修行方向。选择你在六花的起点。</p></div>
+    <div class="aw-edition"><strong>05</strong><span>可选学园</span></div>
+  </div>
+  <div class="aw-campus-layout">
+    <div id="aw-school-grid" class="aw-school-grid" role="group" aria-label="选择所属学园，五所可选"></div>
+    <article class="aw-school-detail" aria-labelledby="aw-selected-school">
+      <div class="aw-detail-top"><span id="aw-detail-code" class="aw-detail-code">ACADEMY 01</span><img id="aw-detail-badge" class="aw-detail-badge" alt="星导馆学园校徽" /></div>
+      <p class="aw-eyebrow" id="aw-selected-school-en">SEIDOUKAN ACADEMY</p>
+      <h2 id="aw-selected-school">星导馆学园</h2>
+      <p id="aw-school-description"></p>
+      <div class="aw-detail-tags" id="aw-school-tags"></div>
+      <dl class="aw-school-facts"><div><dt>舞台</dt><dd>水上学园都市 · 六花</dd></div><div><dt>登记身份</dt><dd>男性 · 自定义学生</dd></div><div><dt>初始序列</dt><dd>未上榜，可在档案中设定</dd></div></dl>
+      <button type="button" class="aw-enter-button" onclick="RakudaiOpening.enterAcademy()">以此学园开始登记 <span aria-hidden="true">→</span></button>
+      <button type="button" class="aw-archive-entry" onclick="RakudaiOpening.openStartMenu()">读取已有档案</button>
+    </article>
+  </div>
+</section>
+<!-- AW_SPLIT -->
+<div id="aw-enrollment-strip" class="aw-enrollment-strip" hidden><div><span>ACADEMY REGISTRATION</span><strong id="aw-enrollment-school">星导馆学园</strong></div><button type="button" onclick="RakudaiOpening.switchScene(1)">变更学园 ↗</button></div>
+<!-- AW_SPLIT -->
+<section id="aw-rank-panel" class="aw-rank-panel" hidden aria-labelledby="aw-rank-title">
+  <h3 id="aw-rank-title">星脉档案与校内序列</h3>
+  <p class="identity-help">每所学园各有 72 个在名序列名额。第 1–12 名记载在名单第一页，称为「始页十二人」。</p>
+  <div class="aw-rank-guide" aria-label="校内序列分段"><span><strong>01–12</strong>始页十二人</span><span><strong>13–72</strong>其余在名序列</span><span><strong>未上榜</strong>未进入本校前 72 名</span></div>
+  <div class="form-grid-2">
+    <div class="form-field"><label class="field-label" for="aw-rank-status">校内序列</label><select id="aw-rank-status" class="field-select" onchange="RakudaiOpening.editAsteriskFields()"><option value="unranked">未上榜</option><option value="ranked">自定序列（开局设定）</option><option value="unknown">尚未确定</option></select></div>
+    <div class="form-field" id="aw-rank-number-field" hidden><label class="field-label" for="aw-rank-number">序列名次 · 1–72</label><input id="aw-rank-number" class="field-input" type="number" min="1" max="72" step="1" placeholder="填写具体名次" oninput="RakudaiOpening.editAsteriskFields()" /><p id="aw-rank-description" class="identity-help"></p></div>
+  </div>
+  <div class="form-field"><label class="field-label" for="aw-prana">星辰力与运用</label><textarea id="aw-prana" class="field-textarea" maxlength="1200" placeholder="以文字说明储量、控制、持续时间与负担；未测定可以如实填写，不必编造数值" oninput="RakudaiOpening.handleProfileEdit()"></textarea></div>
+  <div class="form-grid-2">
+    <div class="form-field"><label class="field-label" for="aw-weapon-type">武装类别</label><select id="aw-weapon-type" class="field-select" onchange="RakudaiOpening.editAsteriskFields()"><option value="undecided">尚未确定</option><option value="conventional">常规武器</option><option value="lux">煌式武装</option><option value="orga">纯星煌式武装</option><option value="research">研究装备</option><option value="none">不使用武装</option></select></div>
+    <div class="form-field"><label class="field-label" for="aw-weapon-notes">武装适合与使用条件</label><textarea id="aw-weapon-notes" class="field-textarea" maxlength="1200" placeholder="纯星武装请说明适合情况、借用资格及可能的代价；未知可保留未知" oninput="RakudaiOpening.handleProfileEdit()"></textarea></div>
+  </div>
+  <p class="identity-help aw-rank-source">原作依据：第 1 卷第 1 章「华焰魔女」。本校榜单最低为第 72 名；序列表示校内排名，不是跨学园通用的战力等级。</p>
+  <p class="identity-help">所填序列是本局设定，不自动生成战绩、NPC 退位或武装授予。</p>
+</section>
+<!-- AW_SPLIT -->
+<aside id="aw-live-record" class="aw-live-record" hidden aria-label="学生档案实时摘要">
+  <span class="aw-eyebrow">STUDENT FILE / DRAFT</span><div class="aw-record-school" id="aw-record-school">星导馆学园</div><h2 id="aw-record-name">等待你的名字</h2><p id="aw-record-personality">性格与处事风格由你定义。</p>
+  <dl><div><dt>能力身份</dt><dd id="aw-record-type">尚未确定</dd></div><div><dt>校内序列</dt><dd id="aw-record-rank">未上榜</dd></div><div><dt>武装</dt><dd id="aw-record-weapon">尚未登记</dd></div></dl>
+  <p class="aw-record-rule">星辰力、武装与技艺共同构成你的战斗方式。排名之外，仍有属于你的可能性。</p>
+  <button type="button" class="btn-action-copy" onclick="RakudaiOpening.openFinalRecord()">查看学生档案 ↗</button>
+</aside>
+<!-- AW_SPLIT -->
+<details id="aw-prompt-preview" class="aw-prompts"><summary>查看本模式的内置提示词</summary><p class="identity-help">随世界、学园与当前草稿更新。这里可离线查看；AI 补全需要酒馆当前模型。</p><details><summary>人物档案补全</summary><textarea id="aw-profile-prompt" class="field-textarea" readonly aria-label="当前人物补全提示词"></textarea></details><details><summary>开场白生成</summary><textarea id="aw-greeting-prompt" class="field-textarea" readonly aria-label="当前开场白提示词"></textarea></details></details>

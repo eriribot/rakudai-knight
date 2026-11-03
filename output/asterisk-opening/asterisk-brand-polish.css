@@ -1,0 +1,247 @@
+/* Final brand layer: original work logos and real-color academy crests. */
+/* Load after the existing Asterisk and novel-flow styles. */
+
+#world-mode-bar.aw-worldbar {
+  display: grid;
+  grid-template-columns: minmax(120px, 1fr) auto auto auto;
+  align-items: center;
+  gap: 16px;
+}
+#world-mode-bar .aw-brand { grid-column: 1; grid-row: 1; min-width: 0; }
+#world-mode-bar .aw-world-options {
+  grid-column: 2;
+  grid-row: 1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  min-width: 0;
+  order: 0;
+}
+#world-mode-bar .aw-world-options button {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 174px;
+  min-height: 88px;
+  padding: 9px 16px 8px;
+  border: 2px solid #c9d2d6;
+  border-radius: 3px;
+  background: #f9fbfc;
+  color: #354955;
+  box-shadow: none;
+  overflow: visible;
+  white-space: normal;
+  transition: border-color .16s ease, box-shadow .16s ease, background-color .16s ease;
+}
+#world-mode-bar .aw-world-options button .aw-world-logo {
+  display: block;
+  flex: 0 0 auto;
+  width: 140px;
+  max-width: 100%;
+  height: 50px;
+  object-fit: contain;
+  object-position: center;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  opacity: 1;
+  filter: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+#world-mode-bar .aw-world-options button .aw-world-label {
+  display: block;
+  color: #465d68;
+  opacity: 1;
+  font: 600 12px/1.4 var(--font-sans);
+  letter-spacing: .06em;
+  overflow-wrap: anywhere;
+}
+#world-mode-bar .aw-world-options button:hover {
+  background: #fff;
+  color: #223d4b;
+  border-color: #779aa9;
+  transform: none;
+}
+#world-mode-bar .aw-world-options button[aria-pressed="true"] {
+  background: #fff;
+  color: var(--lk-red);
+  border-color: var(--lk-red);
+  box-shadow: inset 0 -3px 0 var(--lk-red), 0 3px 10px rgba(18, 43, 57, .09);
+}
+#world-mode-bar .aw-world-options button[aria-pressed="true"] .aw-world-label { color: var(--lk-red); font-weight: 750; }
+#world-mode-bar .aw-world-options button[aria-pressed="true"]::after {
+  content: "";
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  width: 9px;
+  height: 5px;
+  border-left: 2px solid var(--lk-red);
+  border-bottom: 2px solid var(--lk-red);
+  transform: rotate(-45deg);
+  pointer-events: none;
+}
+#world-mode-bar .aw-world-options button:focus-visible { outline: 3px solid #1784a0; outline-offset: 4px; }
+#world-mode-bar .aw-replay-op {
+  grid-column: 3;
+  grid-row: 1;
+  min-height: 44px;
+  min-width: 92px;
+  margin: 0;
+  padding: 10px 13px;
+  border-radius: 2px;
+  font-size: 12px;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+#world-mode-bar .aw-version { grid-column: 4; grid-row: 1; margin-left: 0; }
+body[data-world="asterisk"] #world-mode-bar .aw-replay-op { border-color: #8ba8b8; color: #e5f4fb; }
+body[data-world="asterisk"] #world-mode-bar .aw-replay-op:hover { background: #294653; border-color: #c5e4ef; }
+
+/* Five academies: the final option spans the two-column grid intentionally. */
+body[data-world="asterisk"] #scene-register .aw-school-grid > .aw-school {
+  grid-template-columns: 62px minmax(0, 1fr);
+  column-gap: 13px;
+}
+body[data-world="asterisk"] #scene-register .aw-school-grid > .aw-school:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  align-content: center;
+  justify-content: start;
+  min-height: 128px;
+  text-align: left;
+}
+body[data-world="asterisk"] #scene-register .aw-school img.aw-crest {
+  display: block;
+  grid-column: 1;
+  grid-row: 1 / 4;
+  align-self: center;
+  justify-self: center;
+  width: 58px;
+  height: 66px;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  clip-path: none;
+  mask: none;
+  -webkit-mask: none;
+  object-fit: contain;
+  object-position: center;
+  filter: none;
+  opacity: 1;
+  box-shadow: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  transition: transform .16s ease;
+}
+body[data-world="asterisk"] #scene-register .aw-school[aria-pressed="true"] img.aw-crest { transform: translateY(-2px); }
+body[data-world="asterisk"] #scene-register .aw-school-status { color: #607681; font-size: 11px; line-height: 1.5; }
+body[data-world="asterisk"] #scene-register .aw-school[aria-pressed="true"] .aw-school-status { color: var(--ast-accent); font-weight: 750; }
+body[data-world="asterisk"] #scene-register .aw-school[aria-pressed="true"]:hover { background: var(--ast-soft); }
+body[data-world="asterisk"] #scene-register .aw-detail-top { min-height: 88px; align-items: center; gap: 18px; }
+body[data-world="asterisk"] img#aw-detail-badge {
+  display: block;
+  flex: 0 0 auto;
+  width: 96px;
+  height: 96px;
+  max-width: 34%;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  object-fit: contain;
+  object-position: center;
+  background: transparent;
+  clip-path: none;
+  mask: none;
+  -webkit-mask: none;
+  filter: drop-shadow(0 3px 7px rgba(0, 12, 25, .24));
+  opacity: 1;
+}
+
+@media (max-width: 1100px) {
+  #world-mode-bar.aw-worldbar { grid-template-columns: minmax(120px, 1fr) auto auto; gap: 12px; }
+  #world-mode-bar .aw-version { display: none; }
+}
+@media (max-width: 800px) {
+  #world-mode-bar.aw-worldbar { grid-template-columns: minmax(0, 1fr) auto; gap: 12px; }
+  #world-mode-bar .aw-brand { grid-column: 1; grid-row: 1; }
+  #world-mode-bar .aw-replay-op { grid-column: 2; grid-row: 1; }
+  #world-mode-bar .aw-world-options { grid-column: 1 / -1; grid-row: 2; width: 100%; }
+  #world-mode-bar .aw-world-options button { min-width: 0; width: 100%; }
+}
+@media (max-width: 600px) {
+  #world-mode-bar .aw-world-options { gap: 8px; }
+  #world-mode-bar .aw-world-options button { min-height: 84px; padding: 10px 9px 9px; }
+  #world-mode-bar .aw-world-options button .aw-world-logo { height: 46px; }
+  #world-mode-bar .aw-world-options button .aw-world-label { font-size: 12px; }
+  #world-mode-bar .aw-replay-op { min-width: 88px; padding: 9px 11px; }
+  body[data-world="asterisk"] #scene-register .aw-school-grid > .aw-school { min-height: 180px; }
+  body[data-world="asterisk"] #scene-register .aw-school img.aw-crest { align-self: flex-start; width: 52px; height: 58px; margin: 2px 0 7px; }
+  body[data-world="asterisk"] #scene-register .aw-school-grid > .aw-school:last-child:nth-child(odd) { min-height: 136px; grid-template-columns: 72px minmax(0, 1fr); }
+  body[data-world="asterisk"] #scene-register .aw-school:last-child:nth-child(odd) img.aw-crest { align-self: center; width: 62px; height: 70px; margin: 0; }
+  body[data-world="asterisk"] img#aw-detail-badge { width: 82px; height: 82px; }
+}
+@media (max-width: 380px) {
+  body[data-world="asterisk"] #scene-register .aw-school-grid { grid-template-columns: minmax(0, 1fr); }
+  body[data-world="asterisk"] #scene-register .aw-school-grid > .aw-school,
+  body[data-world="asterisk"] #scene-register .aw-school-grid > .aw-school:last-child:nth-child(odd) {
+    display: grid;
+    grid-template-columns: 62px minmax(0, 1fr);
+    grid-column: 1;
+    align-content: center;
+    min-height: 132px;
+    text-align: left;
+  }
+  body[data-world="asterisk"] #scene-register .aw-school img.aw-crest,
+  body[data-world="asterisk"] #scene-register .aw-school:last-child:nth-child(odd) img.aw-crest { width: 54px; height: 62px; align-self: center; margin: 0; }
+}
+@container lk-guide (max-width: 1000px) {
+  #world-mode-bar.aw-worldbar { grid-template-columns: minmax(0, 1fr) auto; gap: 12px; }
+  #world-mode-bar .aw-brand { grid-column: 1; grid-row: 1; }
+  #world-mode-bar .aw-replay-op { grid-column: 2; grid-row: 1; }
+  #world-mode-bar .aw-world-options { grid-column: 1 / -1; grid-row: 2; width: 100%; }
+  #world-mode-bar .aw-world-options button { min-width: 0; }
+  #world-mode-bar .aw-version { display: none; }
+}
+@container lk-guide (max-width: 380px) {
+  #world-mode-bar .aw-world-options { gap: 8px; }
+  #world-mode-bar .aw-world-options button { min-height: 84px; padding: 10px 8px 9px; }
+  #world-mode-bar .aw-world-options button .aw-world-logo { height: 46px; }
+  body[data-world="asterisk"] #scene-register .aw-school-grid { grid-template-columns: minmax(0, 1fr); }
+  body[data-world="asterisk"] #scene-register .aw-school-grid > .aw-school,
+  body[data-world="asterisk"] #scene-register .aw-school-grid > .aw-school:last-child:nth-child(odd) {
+    display: grid;
+    grid-template-columns: 62px minmax(0, 1fr);
+    grid-column: 1;
+    align-content: center;
+    min-height: 132px;
+    text-align: left;
+  }
+  body[data-world="asterisk"] #scene-register .aw-school img.aw-crest,
+  body[data-world="asterisk"] #scene-register .aw-school:last-child:nth-child(odd) img.aw-crest { width: 54px; height: 62px; align-self: center; margin: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #world-mode-bar .aw-world-options button,
+  body[data-world="asterisk"] #scene-register .aw-school img.aw-crest { transition: none; }
+  body[data-world="asterisk"] #scene-register .aw-school[aria-pressed="true"] img.aw-crest { transform: none; }
+}
+/* The first page is a subset of each academy's 72-place roster. */
+body[data-world="asterisk"] .aw-rank-guide { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 16px 0 22px; padding: 14px 0; border-top: 1px solid var(--ast-line); border-bottom: 1px solid var(--ast-line); }
+body[data-world="asterisk"] .aw-rank-guide > span { min-width: 0; color: var(--ast-muted); font-size: 12px; line-height: 1.7; }
+body[data-world="asterisk"] .aw-rank-guide strong { display: block; color: var(--ast-dark); font-size: 18px; letter-spacing: .04em; }
+body[data-world="asterisk"] .aw-rank-source { padding-top: 14px; border-top: 1px solid var(--ast-line); }
+@media (max-width: 420px) {
+  body[data-world="asterisk"] .aw-rank-guide { gap: 8px; }
+  body[data-world="asterisk"] .aw-rank-guide strong { font-size: 16px; }
+  body[data-world="asterisk"] .aw-rank-guide > span { font-size: 11px; }
+}

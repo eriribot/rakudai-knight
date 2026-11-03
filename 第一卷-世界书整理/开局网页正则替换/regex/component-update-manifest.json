@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "deliveryMode": "component",
+  "kind": "regex",
+  "artifacts": [
+    {
+      "artifactName": "opening-rakudai-asterisk-preview",
+      "id": "4f9bda79-82bd-4d2f-9a66-2497349df26e",
+      "kind": "regex",
+      "relativePath": "opening-rakudai-asterisk-preview.regex.json",
+      "sha256": "af3c603936d999075d5e5ecf93128653304239ebd0808d079c5a94f83857048b"
+    }
+  ]
+}

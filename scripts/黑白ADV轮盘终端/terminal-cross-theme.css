@@ -1,0 +1,125 @@
+/* Presentation only. These selectors never choose the MVU world or hide fields.
+ * Loaded after each application's normal stylesheet; switching the root
+ * attribute is sufficient and leaves app DOM, inputs and scroll intact. */
+
+/* Rakudai application, Asterisk appearance. */
+:root[data-terminal-appearance="asterisk"] {
+  color-scheme: dark;
+  --surface: #071c2a; --screen: #061521; --card: #102a3c; --card2: #19394d;
+  --ink: #dbf7ff; --ink2: #bddce8; --muted: #91b2c3; --hair: #3d6a7e;
+  --ring: #7eeaff; --crimson: #83e7f7; --crimson-glow: transparent;
+  --hagun-gold: #a4efff; --lime: #a4efff; --sky: #a4efff;
+  --shadow: none; --press: #244d62;
+  --font-title: "Microsoft YaHei UI", "Noto Sans CJK SC", "PingFang SC", sans-serif;
+}
+:root[data-terminal-appearance="asterisk"] :is(#sys,.apphead,#homebar) {
+  background: linear-gradient(105deg,#103348,#081e2c);
+  border-color: #4b93ac; border-width: 1px;
+}
+:root[data-terminal-appearance="asterisk"] .apphead .t { font-weight: 500; letter-spacing: 2px; }
+:root[data-terminal-appearance="asterisk"] :is(.scr,.body) { scrollbar-color: #558ba2 #071c2a; }
+:root[data-terminal-appearance="asterisk"] .home-wallpaper {
+  background: radial-gradient(ellipse at 100% 0,#1d4b6066,transparent 65%),#071c2a;
+  background-size: auto;
+}
+:root[data-terminal-appearance="asterisk"] :is(.mono-section-heading,.mono-home-note) { color: var(--ink2); border-color: var(--hair); }
+:root[data-terminal-appearance="asterisk"] :is(.blazer-license-card,.mono-core,#toast) {
+  border-image: none; border: 1px solid #70c9df; box-shadow: 0 0 16px #5ddcf51a;
+  background: linear-gradient(135deg,#153b51,#0a2132); color: var(--ink);
+}
+:root[data-terminal-appearance="asterisk"] .blazer-license-card { padding: 16px; }
+:root[data-terminal-appearance="asterisk"] .blazer-license-card:hover { border-color: #a3f1ff; }
+:root[data-terminal-appearance="asterisk"] :is(.mono-card-overline,.card-device-row,.axis-pill) { border-color: #46778b; }
+:root[data-terminal-appearance="asterisk"] .mono-card-overline { color: var(--muted); }
+:root[data-terminal-appearance="asterisk"] :is(.card-class,.blazer-license-card .card-noble-art) { color: #a3c5d5; }
+:root[data-terminal-appearance="asterisk"] .blazer-license-card .card-name { font-family: var(--font-title); font-weight: 500; }
+:root[data-terminal-appearance="asterisk"] .blazer-license-card .card-avatar { background: #1c4b61; color: #b6f2ff; border: 1px solid #79d5e6; }
+:root[data-terminal-appearance="asterisk"] .blazer-license-card .card-rank-badge { background: #143b50; border: 1px solid #90e5f3; color: #d6fbff; }
+:root[data-terminal-appearance="asterisk"] .axis-pill { background: #0b2333; color: #a7c8d8; }
+:root[data-terminal-appearance="asterisk"] :is(.mono-layout-toggle,.app-btn) { border: 1px solid #477f94; background: #102c3e; color: var(--ink); box-shadow: none; }
+:root[data-terminal-appearance="asterisk"] .mono-layout-toggle button { color: var(--muted); }
+:root[data-terminal-appearance="asterisk"] .mono-layout-toggle button[aria-pressed="true"] { background: #9deafa; color: #092432; }
+:root[data-terminal-appearance="asterisk"] .app-btn:hover { background: #235267; color: white; border-color: #a4efff; }
+:root[data-terminal-appearance="asterisk"] .mono-sector { --sector-ink: #b9f2ff; --sector-bg: #0b293d; }
+:root[data-terminal-appearance="asterisk"] .mono-sector-shape { stroke: #78bfd2; stroke-width: 1; }
+:root[data-terminal-appearance="asterisk"] .mono-sector-label { font-family: var(--font-title); font-weight: 500; }
+:root[data-terminal-appearance="asterisk"] .mono-sector:is(:hover,:focus-visible) { --sector-ink: #efffff; --sector-bg: #24536b; }
+:root[data-terminal-appearance="asterisk"] .mono-sector:is(:hover,:focus-visible) .mono-sector-shape { stroke: #b7f5ff; stroke-width: 2; }
+:root[data-terminal-appearance="asterisk"] .mono-core { clip-path: polygon(50% 0,98% 25%,98% 75%,50% 100%,2% 75%,2% 25%); }
+:root[data-terminal-appearance="asterisk"] .mono-core:is(:hover,:focus-visible) { filter: brightness(1.3); }
+:root[data-terminal-appearance="asterisk"] .mono-wheel-caption { color: #d4f5ff; font-family: var(--font-title); }
+:root[data-terminal-appearance="asterisk"] :is(.card1,.gba-cal-panel,.rk-arena-entry) { box-shadow: none; border: 1px solid var(--hair); background: linear-gradient(125deg,#132f44,#0c2435); }
+:root[data-terminal-appearance="asterisk"] .ct { border-bottom: 1px solid var(--hair); color: #a7edfc; font-weight: 500; }
+:root[data-terminal-appearance="asterisk"] .subtab.on { background: #b5edf5; color: #0b2a3b; border-color: #b5edf5; }
+:root[data-terminal-appearance="asterisk"] :is(.chat-bubble-row.in .chat-bubble,.chat-bubble-row.out .chat-bubble) { border: 1px solid #5c91a7; outline: 0; }
+:root[data-terminal-appearance="asterisk"] .chat-bubble-row.in .chat-bubble { background: #16364b; }
+:root[data-terminal-appearance="asterisk"] .chat-bubble-row.out .chat-bubble { background: #a7e1ec; color: #0b2b3b; }
+:root[data-terminal-appearance="asterisk"] #scr-lime {
+  --rk-lime-incoming: #15364a; --rk-lime-outgoing: #a7e1ec;
+  --rk-lime-on-outgoing: #0b2939; --rk-lime-accent: #a7edfc;
+  --rk-lime-on-accent: #092432; --rk-lime-focus: #8deaff;
+}
+:root[data-terminal-appearance="asterisk"] #scr-lime :is(.rk-lime-bubble,.rk-lime-search input,.rk-lime-profile .card1,.rk-lime-composer textarea,.rk-lime-send) { border-radius: 2px; }
+:root[data-terminal-appearance="asterisk"] #scr-lime .rk-lime-bubble { border: 1px solid #456f84; box-shadow: none; }
+:root[data-terminal-appearance="asterisk"] #settings-body button { border-color: #5d94a9!important; background: #173a4e!important; color: #d8f4ff!important; }
+:root[data-terminal-appearance="asterisk"] #settings-body button:hover { background: #a7e1ec!important; color: #0b2939!important; }
+:root[data-terminal-appearance="asterisk"] :is(.rk-correction input,.rk-correction select,.rk-correction textarea) { border-color: #4d8098; }
+:root[data-terminal-appearance="asterisk"] .rk-calendar-story-header { border-bottom-color: #4d8098; }
+/* The dossier has its own GBA palette; route that palette as well. */
+:root[data-terminal-appearance="asterisk"] #blazer-body.gba-status {
+  color-scheme: dark; background: #071c2a; color: #d7f2fc;
+  --gba-ink: #d7f2fc; --gba-navy: #15394f; --gba-navy-light: #265971;
+  --gba-paper: #102b3e; --gba-paper-shade: #1a3d51; --gba-muted: #9bbdcd;
+  --gba-gold: #8de3f2; --gba-teal: #5aaeb8; --gba-teal-light: #a1e4e8;
+  --gba-red: #e8adb1; --ink2: #bddce8; --hair: #4b7b91; --sky: #9adcec;
+  scrollbar-color: #558ba2 #071c2a;
+}
+:root[data-terminal-appearance="asterisk"] #blazer-body.gba-status .card1 { border: 1px solid #4b7b91; box-shadow: none; }
+:root[data-terminal-appearance="asterisk"] #blazer-body.gba-status .ct { color: #d4f7ff; background: #15394f; border-bottom: 1px solid #74c9de; font-weight: 500; }
+:root[data-terminal-appearance="asterisk"] #blazer-body.gba-status :is(.card-avatar,.card-rank-badge,.roster-ava,.rk-avatar-initial) { background: #163e53; color: #bdf2fd; border-color: #6cbace; }
+:root[data-terminal-appearance="asterisk"] #blazer-body.gba-status .roster-ava.rk-knight-avatar { background: transparent; border: 0; }
+:root[data-terminal-appearance="asterisk"] #blazer-body.gba-status details.roster-card { border: 1px solid #4b7b91; box-shadow: none; }
+:root[data-terminal-appearance="asterisk"] #blazer-body.gba-status :is(.gba-contact-summary,.gba-support-track li[data-achieved="true"],.rk-player-edit-actions button:hover:not(:disabled)) { color: #d7f2fc; }
+:root[data-terminal-appearance="asterisk"] #blazer-body.gba-status .gba-support-track li { color: #a0c3d4; border-color: #416a80; }
+:root[data-terminal-appearance="asterisk"] #blazer-body.gba-status .gba-meter { background: #061521; border: 1px solid #56869c; }
+:root[data-terminal-appearance="asterisk"] #blazer-body.gba-status .gba-meter[data-kind="support"]>span { background: #7daabd; border-top-color: #badfe9; }
+:root[data-terminal-appearance="asterisk"] #blazer-body.gba-status .rk-player-editor :is(input,textarea,select) { background: #092235; color: #d7f2fc; border-color: #56869c; }
+
+/* Asterisk application, Rakudai MONO appearance. No image filters: original
+ * character art and school emblems keep their original pixels and colours. */
+:root[data-terminal-appearance="rakudai"] {
+  --ax-bg: #080808; --ax-text: #f7f7f7; --ax-muted: #b9b9b9;
+  --ax-line: #666; --ax-cyan: #fff; --ax-accent: #fff!important;
+  --ax-school: 255,255,255!important;
+}
+:root[data-terminal-appearance="rakudai"] .ax-shell { background: #080808; }
+:root[data-terminal-appearance="rakudai"] :is(.ax-system,.ax-appbar,.ax-dock) { background: #080808; color: #ddd; border-color: #ddd; }
+:root[data-terminal-appearance="rakudai"] :is(.ax-appbar,.ax-dock) { border-width: 3px; border-style: double; border-inline: 0; }
+:root[data-terminal-appearance="rakudai"] .ax-appbar { border-top: 0; }
+:root[data-terminal-appearance="rakudai"] .ax-dock { border-bottom: 0; }
+:root[data-terminal-appearance="rakudai"] :is(.ax-appbar-title h1,.ax-panel h2,.ax-hero-copy h2,.ax-section-heading h2,.ax-empty h2,.ax-gallery-body h2,.ax-dialog-heading h2) { font-family: "Noto Serif CJK SC","Songti SC","SimSun",serif; font-weight: 600; }
+:root[data-terminal-appearance="rakudai"] :is(.ax-appbar-title>span,.ax-system-brand,.ax-system-brand i,.ax-overline,.ax-hero-copy>p,.ax-home-stat small,.ax-app>small,.ax-note,.ax-small,.ax-detail-list dt,.ax-detail-list dd.is-empty,.ax-empty p,.ax-home-foot,.ax-home-foot strong,.ax-section-heading>span,.ax-contact summary small,.ax-contact-body>p,.ax-gallery-body p,.ax-setting-control small,.ax-readonly-row p,.ax-profile-field span,.ax-profile-field p,.ax-profile-field p.is-empty) { color: #b9b9b9; }
+:root[data-terminal-appearance="rakudai"] .ax-viewport { background-image: none; scrollbar-color: #d5d5d5 #080808; }
+:root[data-terminal-appearance="rakudai"] :is(.ax-panel,.ax-home-hero,.ax-contact,.ax-gallery-card,.ax-dialog) { background: #101010; border: 3px double #eee; clip-path: none; box-shadow: 3px 3px 0 #000; }
+:root[data-terminal-appearance="rakudai"] .ax-panel::before { display: none; }
+:root[data-terminal-appearance="rakudai"] :is(.ax-icon-button,.ax-button,.ax-gallery-tabs button,.ax-setting-control,.ax-dock button) { background: #101010; color: #eee; border: 1px solid #999; box-shadow: none; }
+:root[data-terminal-appearance="rakudai"] .ax-dock button { border: 0; }
+:root[data-terminal-appearance="rakudai"] :is(.ax-icon-button:hover,.ax-button:hover,.ax-button-primary,.ax-gallery-tabs button[aria-pressed="true"],.ax-dock button[aria-current="page"],.ax-dock button:hover) { background: #eee; color: #090909; border-color: #eee; }
+:root[data-terminal-appearance="rakudai"] :is(.ax-tag,.ax-preview-banner,.ax-data-message,.ax-toast) { background: #181818; color: #d8d8d8; border-color: #aaa; }
+:root[data-terminal-appearance="rakudai"] :is(.ax-setting-control em,.ax-empty>.ax-icon,.ax-readonly-row>.ax-icon,.ax-contact summary>.ax-icon,.ax-count,.ax-app,.ax-app:hover) { color: #eee; }
+:root[data-terminal-appearance="rakudai"] .ax-app-hex { background: #111; clip-path: none; border: 3px double #ddd; }
+:root[data-terminal-appearance="rakudai"] .ax-app-hex::before { display: none; }
+:root[data-terminal-appearance="rakudai"] .ax-app:hover .ax-app-hex { background: #eee; color: #080808; }
+:root[data-terminal-appearance="rakudai"] .ax-profile-hex { background: #222; border: 1px solid #ddd; clip-path: none; }
+:root[data-terminal-appearance="rakudai"] .ax-profile-hex .ax-icon { color: #eee; }
+:root[data-terminal-appearance="rakudai"] .ax-holo-lines { color: #ddd; filter: none; }
+:root[data-terminal-appearance="rakudai"] .ax-holo-emblem { filter: none; }
+:root[data-terminal-appearance="rakudai"] :is(.ax-holo-base,.ax-holo-scan) { display: none; }
+:root[data-terminal-appearance="rakudai"] .ax-portrait { background: #181818; }
+:root[data-terminal-appearance="rakudai"] .ax-portrait::after { background: linear-gradient(transparent,#101010); }
+:root[data-terminal-appearance="rakudai"] .ax-dialogue-avatar { border: 3px double #eee; background: #222; clip-path: none; }
+:root[data-terminal-appearance="rakudai"] .ax-dialogue-bubble { background: #151515; color: #eee; border: 3px double #eee; clip-path: none; }
+:root[data-terminal-appearance="rakudai"] .ax-dialogue-bubble strong { color: #fff; }
+:root[data-terminal-appearance="rakudai"] .ax-dialog p { color: #ccc; }
+:root[data-terminal-appearance="rakudai"] .ax-dialog::backdrop { background: #000d; }
+:root[data-terminal-appearance="rakudai"] .ax-missing-media { color: #aaa; background: #222; }

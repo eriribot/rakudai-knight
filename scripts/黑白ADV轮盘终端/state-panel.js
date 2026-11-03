@@ -120,6 +120,7 @@
     return '第 ' + source.messageId + ' 楼' + (Number.isInteger(source.swipeId) ? ' · 回复 ' + (source.swipeId + 1) : '');
   }
   function injectionService() {
+    if (!terminalBusinessIsRakudai()) throw new Error('当前作品未启用落第剧情操作；外观切换不改变剧情。');
     const service = HW.__RK_PLOT_V3__;
     if (!service || service.version !== '3.0.0' || typeof service.preview !== 'function' || typeof service.getStatus !== 'function' || typeof service.setEnabled !== 'function') throw new Error('请导入并启用新版章节注入器（3.0.0）。');
     return service;
@@ -169,10 +170,12 @@
         panelText('[data-story-status]', snapshot?.message || '等待当前回复 MVU，暂时保留已保存状态。');
         return;
       }
+      if (!terminalBusinessIsRakudai(snapshot?.state)) throw new Error('当前作品未启用落第剧情操作；外观切换不改变剧情。');
       let captured, migration;
       try { captured = await service.capture({ scope: 'story' }); }
       catch (error) { if (error.code !== 'MIGRATION_REQUIRED') throw error; migration = await service.prepareMigration(); }
       if (request !== panelRequest || SS.destroyed || !statePanel) return;
+      if (!terminalBusinessIsRakudai()) throw new Error('当前作品已变化，未启用落第剧情操作。');
       if (captured && (!captured.state || !captured.token)) throw new Error('未取得可用的剧情状态。');
       if (generationPending) throw new Error('正在生成，等待当前回复 MVU。');
       stateCapture = captured || null; panelMigration = migration || null; panelReadOnly = false; panelReadReason = '';
@@ -229,6 +232,7 @@
     updatePanelActions(); form.elements.time.focus({ preventScroll: true });
   }
   async function runPanelWrite(operation, success) {
+    if (!terminalBusinessIsRakudai()) { await refreshStatePanel(); return; }
     if (panelBusy || panelReading || generationPending || panelReadOnly || SS.destroyed) return;
     const epoch = panelEpoch; panelBusy = true; updatePanelActions(); panelText('[data-story-status]', '正在保存并核对当前楼层…');
     let failure = '';
@@ -264,6 +268,7 @@
     if (action === 'preview') return refreshInjectionPreview();
     if (action === 'backup') return downloadMigrationBackup();
     if (action === 'cancel-route') { closeRouteForms(); updatePanelActions(); return; }
+    if (!terminalBusinessIsRakudai()) { refreshStatePanel(); return; }
     if (generationPending || panelReadOnly || panelReading) return;
     if (action === 'migrate') {
       const migration = panelMigration; if (!migration) return;

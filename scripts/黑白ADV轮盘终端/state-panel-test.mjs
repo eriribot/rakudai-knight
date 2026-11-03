@@ -62,7 +62,7 @@ function saved(volume = 1, chapter = '终章', phase = '已结束') {
   state.场景 = { ...state.场景, 当前卷: volume, 当前章: chapter, 阶段: phase, 时间: '当前已确认时间', 地点: '当前已确认地点' };
   return state;
 }
-function fixture(initial = saved(), { serviceAvailable = true, snapshot } = {}) {
+function fixture(initial = saved(), { serviceAvailable = true, snapshot, businessAllowed = () => true } = {}) {
   let data = { stat_data: clone(initial), extra: { retained: true } }, scope = 0, writes = 0, captures = 0, snapshotOverride = snapshot;
   const adapter = {
     capture: () => { captures++; return { data: clone(data), scope }; }, current: snapshot => { if (snapshot.scope !== scope) throw new Error('当前分支已变化'); return { data: clone(data) }; },
@@ -76,6 +76,7 @@ function fixture(initial = saved(), { serviceAvailable = true, snapshot } = {}) 
   const emit = event => [...updates].forEach(callback => callback(event));
   const realm = vm.createContext({ window: { RakudaiStateController: serviceAvailable ? service : undefined }, HD, HW, SS, updateCbs: updates, emit, structuredClone, Blob, console,
     generationPending: false, correctionMainBusy: () => false,
+    terminalBusinessIsRakudai: state => businessAllowed(state === undefined ? data.stat_data : state),
     readSnapshot: () => snapshotOverride === undefined
       ? { state: clone(data.stat_data), source: { messageId: 2, swipeId: 0 }, pending: false }
       : typeof snapshotOverride === 'function' ? snapshotOverride() : clone(snapshotOverride) });
@@ -89,6 +90,41 @@ function fixture(initial = saved(), { serviceAvailable = true, snapshot } = {}) 
 }
 function edit(control, value) { control.value = value; control.dispatch('input'); }
 function fill(form) { edit(form.elements.time, '目标时间'); edit(form.elements.location, '目标地点'); edit(form.elements.entryNote, '从本局已确认情境继续'); }
+
+await check('非落第业务不取剧情凭据、不读注入预览、不接受旧面板写入', async () => {
+  let allowed = true, previews = 0, toggles = 0;
+  const f = fixture(saved(1, '第一章', '进行中'), { businessAllowed: () => allowed });
+  await settle(); const before = clone(f.state), captures = f.captures;
+  f.HW.__RK_PLOT_V3__ = { version: '3.0.0', getStatus: () => ({ enabled: true }),
+    preview: async () => { previews++; return {}; }, setEnabled: () => { toggles++; } };
+  f.openJump(); fill(f.node('[data-story-form="jump"]'));
+  allowed = false;
+  f.node('[data-story-form="jump"]').dispatch('submit');
+  f.node('[data-story-injection-enabled]').dispatch('change');
+  await settle();
+  assert.equal(f.writes, 0); assert.equal(f.captures, captures); assert.deepEqual(f.state, before);
+  assert.equal(previews, 0); assert.equal(toggles, 0);
+  assert.equal(f.node('[data-story-action="end"]').disabled, true);
+  assert.match(f.node('[data-story-status]').textContent, /当前作品未启用落第剧情操作/);
+});
+
+await check('非落第初始状态不准备迁移或剧情捕获', async () => {
+  const f = fixture(saved(), { businessAllowed: () => false }); await settle();
+  assert.equal(f.captures, 0); assert.equal(f.writes, 0);
+  assert.equal(f.node('[data-story-injection-enabled]').disabled, true);
+  assert.equal(f.node('[data-story-action="nextVolume"]').disabled, true);
+});
+
+await check('剧情凭据读取期间业务变化时弃用迟到凭据', async () => {
+  let allowed = true, resolve;
+  const f = fixture(saved(1, '第一章', '进行中'), { businessAllowed: () => allowed }); await settle();
+  const captured = await f.service.capture({ scope: 'story' });
+  f.service.capture = () => new Promise(done => { resolve = done; });
+  const pending = f.realm.panel.refreshStatePanel(); await settle();
+  allowed = false; resolve(captured); await pending;
+  assert.equal(f.writes, 0); assert.equal(f.node('[data-story-action="end"]').disabled, true);
+  assert.match(f.node('[data-story-status]').textContent, /当前作品已变化/);
+});
 
 await check('目录公开副本不能改写控制器的真实目录', () => {
   const f = fixture(), first = f.api.catalogue; first[0].chapters[0].key = '伪造章节'; assert.equal(f.api.catalogue[0].chapters[0].key, '序章'); f.realm.panel.disposeStatePanel();

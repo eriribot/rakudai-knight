@@ -1,0 +1,175 @@
+format: airp-fact-anchors
+version: 1
+workId: asterisk-war
+chapterId: CH-01
+graphId: AST1-CH01
+sourceSnapshot:
+  materialId: MAT-AST-V01
+  sourcePath: "第一卷_01_第一章_华焰魔女.md"
+  encoding: UTF-8
+  lineBasis: "markdown line numbers"
+  scope:
+    start: 14
+    end: 741
+  visualAssets:
+    - "插图/BG_02_1.png"
+    - "插图/学战都市Asterisk 01 姬焰邂逅/001.jpg"
+    - "插图/六大学园校徽/星导馆学园_校徽_彩色.png"
+  excludedSources:
+    - "第二章及后续卷关于天雾遥封印详情、孤儿院全名、夜吹影士郎特工任务等不在第一章公开揭露"
+relativeCalendar:
+  phaseId: T01
+  label: "初夏清晨：转学首日与学生会长约定会面前"
+  dateKnown: false
+  temporalPrecision: relative
+  resolverRule: "不得由本文件虚构具体公历月日"
+
+facts:
+  - id: FA-AST-CH01-001
+    type: item_anchor
+    subject: item.julis_handkerchief
+    predicate: has_physical_and_emotional_traits
+    value: "纯白手工手帕，带有可爱却笨拙的刺绣花样及多处仔细修补过的痕迹，为尤莉丝极度珍视之物"
+    temporalScope: {chapterId: CH-01, phase: T01}
+    status: extracted
+    immutable: true
+    overridePolicy: preserve
+    source: ["第一卷_01_第一章_华焰魔女.md#L16-L20", "第一卷_01_第一章_华焰魔女.md#L174-L186", "CLM-CH01-001"]
+    notes: "对应读者批注1：动画经典手帕事件；归还手帕必然触发尤莉丝真诚道谢。"
+
+  - id: FA-AST-CH01-002
+    type: location_and_physique
+    subject: location.seidoukan_girls_dorm_fence
+    predicate: requires_genestella_leap
+    value: "散步道与四层古典高等部女生宿舍间有约两公尺高黑铁栅栏与绿树（对应PSV原画BG_02_1.png）；星脉世代无需助跑即可翻越栅栏并借树枝跳上四楼窗台"
+    temporalScope: {chapterId: CH-01, phase: T01}
+    status: extracted
+    immutable: true
+    overridePolicy: preserve
+    source: ["第一卷_01_第一章_华焰魔女.md#L38-L80", "CLM-CH01-002"]
+    notes: "对应读者批注2：超越普通人类极限的动作，展现星脉世代基础身体机能。"
+
+  - id: FA-AST-CH01-003
+    type: appearance
+    subject: char-julis-alexia
+    predicate: has_canonical_appearance
+    value:
+      age: "约16-17岁"
+      eyes: "如新叶般淡淡碧蓝的瞳眸"
+      skin: "如初雪般白皙的肌肤"
+      hair: "及腰华丽秀发，原作形容为介于绯色与鲜艳桃色间的玫瑰色（动画视觉为明艳粉红色）"
+      figure: "胸围称不上丰满（贫乳/微乳），但身体曲线富有女人味，柳腰纤细宛如吹拂即折，双腿修长富有弹性"
+    temporalScope: {chapterId: CH-01, phase: T01}
+    status: extracted
+    immutable: true
+    overridePolicy: preserve
+    source: ["第一卷_01_第一章_华焰魔女.md#L94-L110", "CLM-CH01-003"]
+    notes: "对应读者批注3：严禁AI幻觉将尤莉丝写成巨乳，必须严格锚定纤细贫乳皇女特征与玫瑰色/粉红色长发。"
+
+  - id: FA-AST-CH01-004
+    type: world_rule
+    subject: world.genestella_and_strega
+    predicate: rarity_and_blazer_equivalence
+    value: "星脉世代因与万应素契合而具备超常体能；其中能赋予万应素方向性、扭曲世界法则唤起现象的『魔女/魔术师』在星脉世代中也仅占几个百分比；在《落第×学战》融合世界观下，星脉世代更易觉醒为伐刀者，而魔女/魔术师本质等同于先天高阶自然/概念干涉系伐刀者"
+    temporalScope: {chapterId: CH-01, phase: T01}
+    status: extracted_and_crossover
+    immutable: true
+    overridePolicy: preserve
+    source: ["第一卷_01_第一章_华焰魔女.md#L208-L237", "CLM-CH01-004"]
+    notes: "对应读者批注4。"
+
+  - id: FA-AST-CH01-005
+    type: world_rule
+    subject: world.prana_defense_baseline
+    predicate: equals_blazer_magic_defense
+    value: "星脉世代身体组织强韧，集中『星辰力（Prana）』时肉身防御力足以抵挡子弹，其防御下限与《落第》伐刀者的魔力防御膜完全处于同一量级；但魔女/魔术师因需将星辰力分配给异能，近身防御比例会下降"
+    temporalScope: {chapterId: CH-01, phase: T01}
+    status: extracted_and_crossover
+    immutable: true
+    overridePolicy: preserve
+    source: ["第一卷_01_第一章_华焰魔女.md#L306-L309", "第一卷_01_第一章_华焰魔女.md#L606-L612", "CLM-CH01-005"]
+    notes: "对应读者批注5。"
+
+  - id: FA-AST-CH01-006
+    type: world_rule
+    subject: item.seidoukan_emblem_red_lotus
+    predicate: governs_duel_authentication_and_victory
+    value: "星导馆学园校徽名为『赤莲』，正六边形外框内嵌赤色莲花，象征不屈之证；内置硬化防护与资讯处理芯片，触摸宣誓可触发红光申请/接受决斗并上传数据至主机；决斗与星武祭均以『破坏对手校徽』为胜负判定准则"
+    temporalScope: {chapterId: CH-01, phase: T01}
+    status: extracted
+    immutable: true
+    overridePolicy: preserve
+    source: ["第一卷_01_第一章_华焰魔女.md#L366-L378", "第一卷_01_第一章_华焰魔女.md#L494-L501", "第一卷_01_第一章_华焰魔女.md#L522-L538", "CLM-CH01-006"]
+    notes: "对应读者批注6 & 11。"
+
+  - id: FA-AST-CH01-007
+    type: crossover_master_plot
+    subject: world.asterisk_closed_research_sample
+    predicate: driven_by_grand_professor_and_dr_hilda
+    value: "《落第》〈大教授〉卡尔·爱兰兹与《学战》阿勒坎特〈大博士〉希朵林狼狈为奸，将六花岛整体空间转移至日本北关东·栃木县日光隐蔽多重撞击坑湖域（既完全重合学战原著『北关东多重撞击坑湖面』坐标，又紧贴《落第》第19卷大教授在日本的秘密老巢『日光废矿地下五层实验室』）；借大教授的美联储主席/美军技术顾问霸权与六大统合企业财团统治享双重治外法权，使六花岛最高归属权完全属于大教授，作为其封闭研究样本。六花岛知道外界之事但处于闭关状态、平时不与外界走动；全岛学生为了大教授画下的大饼（按排名每月向异界原世界的家人/孤儿院发放物资与资金补贴 ＋ 每月极其有限的返乡名额与星武祭许愿权），依然老老实实围绕校徽决斗、在名祭祀书排名与星武祭走原著剧情"
+    temporalScope: {chapterId: CH-01, phase: T01}
+    status: crossover_canon
+    immutable: true
+    overridePolicy: preserve
+    source: ["第一卷_01_第一章_华焰魔女.md#L388-L393", "第一卷_01_第一章_华焰魔女.md#L516-L528", "CLM-CH01-007"]
+    notes: "对应读者批注7及补充定稿：北关东日光大教授老巢归属权＋知情闭关不走动＋每月异界家人物资与有限返乡画饼，完美支撑全员老老实实走原著剧情。"
+
+  - id: FA-AST-CH01-008
+    type: world_rule
+    subject: organization.seidoukan_ranking_system
+    predicate: defines_named_chart_and_page_one
+    value: "各学园实力排行榜称为『在名祭祀书』，定额收录前72名学生；记载于第一页的前12名强者俗称『始页十二人』；尤莉丝位列星导馆序列第5，称号『华焰魔女』"
+    temporalScope: {chapterId: CH-01, phase: T01}
+    status: extracted
+    immutable: true
+    overridePolicy: preserve
+    source: ["第一卷_01_第一章_华焰魔女.md#L364", "第一卷_01_第一章_华焰魔女.md#L402-L441", "CLM-CH01-008"]
+    notes: "对应读者批注8 & 9。"
+
+  - id: FA-AST-CH01-009
+    type: foreshadow
+    subject: char-eishiro-yabuki
+    predicate: lends_sword_from_crowd
+    value: "围观人群中抛给绫斗普通单手剑型煌式武装（镶绿色万应矿）的男学生，正是第二章登场的室友兼新闻社员夜吹英士郎（真名：夜吹影士郎，银河财团谍报机关〈影星〉特工）"
+    temporalScope: {chapterId: CH-01, phase: T01}
+    status: foreshadow
+    immutable: false
+    overridePolicy: can_adapt_if_player_lends_weapon
+    source: ["第一卷_01_第一章_华焰魔女.md#L464-L473", "CLM-CH01-009"]
+    notes: "对应读者批注10：第一章仅保留人群抛剑声音，不提前揭露姓名与〈影星〉身份。"
+
+  - id: FA-AST-CH01-010
+    type: combat_ability
+    subject: item.lux_blumenblatt_and_amagiri_style
+    predicate: clash_in_chapter_one
+    value: "尤莉丝使用细剑型煌式武装『花冠旋剑』施展『六瓣爆焰花』『九轮舞焰花』『锐枪白炎花』；绫斗使用未调校普通煌式武装发动流星斗技（过剩万应现象），施展古流剑术『天雾辰明流剑术初段──贰蛟龙』十字切开火焰，并伴随体内封印松动的薄光火花高速突进"
+    temporalScope: {chapterId: CH-01, phase: T01}
+    status: extracted
+    immutable: false
+    overridePolicy: adapt_to_player_combat
+    source: ["第一卷_01_第一章_华焰魔女.md#L484-L490", "第一卷_01_第一章_华焰魔女.md#L540-L571", "第一卷_01_第一章_华焰魔女.md#L642-L665", "CLM-CH01-011", "CLM-CH01-012"]
+    notes: "对应读者批注12 & 13。"
+
+  - id: FA-AST-CH01-011
+    type: chapter_completion_trigger
+    subject: event.ch01_duel_termination
+    predicate: marks_end_of_chapter_one
+    value: "暗处射出煌式武装光箭偷袭尤莉丝被化解后，星导馆学生会长克劳蒂雅·恩菲尔德拍掌出声（『好了好了，两位请到此为止吧』）强制中止决斗；或在分支中决斗被中断/有一方校徽破碎胜出，作为第一章正式完成标识"
+    temporalScope: {chapterId: CH-01, phase: T01}
+    status: extracted
+    immutable: false
+    overridePolicy: preserve_completion_gate
+    source: ["第一卷_01_第一章_华焰魔女.md#L680-L741", "CLM-CH01-013"]
+    notes: "对应读者批注14：第一章核心状态机收束锚点。"
+
+  - id: FA-AST-CH01-012
+    type: character_psychology_rule
+    subject: char-julis-alexia
+    predicate: tsundere_dynamic_balance_rule
+    value: "尤莉丝比《落第》史黛菈还傲娇，塑造时严禁『纯傲』（冷血刻薄、高高在上、不知感恩）也严禁『纯娇』（倒贴粘人、丧失皇女威严与独立主见）；必须遵循第一卷第六、七章正典（便服抚平翘发、犯错低头道歉、快餐店吃汉堡反差萌、植物园闺房笨拙补衣、星夜屋顶膝枕拍额头掩饰），始终保持『嘴硬还人情（傲）⇄ 行动极体贴（娇）』的动态咬合"
+    temporalScope: {chapterId: CH-01, phase: T01}
+    status: extracted
+    immutable: true
+    overridePolicy: preserve
+    source: ["第一卷_06_第六章_两人的假日.md#L22-L955", "第一卷_07_第七章_解放者.md#L1276-L1418"]
+    notes: "对应读者补充批注：第六章和第七章比史黛菈还傲娇，不能纯傲也不能纯娇。"

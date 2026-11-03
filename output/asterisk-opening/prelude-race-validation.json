@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "sourceSha256": "d250533f2da01e46fac4eefd3ccf43a9c4ede4f30b5c62497d0b2f70c013e97c",
+  "checks": [
+    "immediate audible play; policy fallback starts muted; sound toggle preserves playback",
+    "old audible denial cannot remute a newer user request",
+    "AbortError does not retry or show blocking gate",
+    "skip invalidates pending muted fallback; replay ignores stale hide and play callbacks",
+    "silent-playing screen remains skippable without enabling sound",
+    "both worlds use identical OP; local error retries original URL exactly once",
+    "remote fallback remains selected across world changes",
+    "hosted entry keeps original OP URL; skipIntro releases initial locks",
+    "localhost:8000 and 127.0.0.1:8000 SillyTavern roots use original remote OP",
+    "original pair requires both image loads in either order; switching/replay preserves both files",
+    "Rakudai failure uses single remote cover; stale callbacks cannot restore pair; final failure stops",
+    "Asterisk image failure remains single cover and ignores later stale success",
+    "failed title logos hide safely without reviving on cover load",
+    "hosted and local ST use original title only; no competing remote preload"
+  ],
+  "scope": "Actual assembled prelude JavaScript in deterministic event/media mocks; browser policy and decoding require browser acceptance."
+}

@@ -43,8 +43,9 @@
     originalUpdate();
     var badge = document.getElementById('mono-source');
     if (badge) {
-      badge.textContent = dataStatus === 'ready' ? '本局档案' : dataStatus === 'error' ? '读取未就绪' : '读取中';
-      badge.title = '终端 v' + (bridge && bridge.version || '未连接') + '；' + (dataStatus === 'error' ? dataError : '读取当前回复的 MVU 记录，未获知的人物资料保持空白。');
+      var waitingOpening = bridge && bridge.world === null;
+      badge.textContent = waitingOpening ? '等待开局' : dataStatus === 'ready' ? '本局档案' : dataStatus === 'error' ? '读取未就绪' : '读取中';
+      badge.title = '终端 v' + (bridge && bridge.version || '未连接') + '；' + (waitingOpening ? '作品与角色尚未确定，终端设置仍可使用。' : dataStatus === 'error' ? dataError : '读取当前回复的 MVU 记录，未获知的人物资料保持空白。');
     }
   };
   updateHomeScreen();

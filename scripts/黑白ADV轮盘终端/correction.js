@@ -176,6 +176,7 @@ function captureCorrection(checkingSettlement = false, requireParser = true, cop
   const options = { type: 'message', message_id: reply.messageId };
   const data = mvu.getMvuData(options);
   if (!data?.stat_data || typeof data.then === 'function') throw new Error('当前 MVU 不是可确认的同步楼层接口。');
+  if (!terminalBusinessIsRakudai(data.stat_data)) throw new Error('当前作品未启用落第业务校正；外观切换不改变业务规则。');
   if (data.stat_data.系统?.结构版本 !== 4 || data.stat_data.系统?.开局状态 !== '已建档' ||
       !['系统', '场景', '玩家', '人际'].every(key => data.stat_data[key] && typeof data.stat_data[key] === 'object' && !Array.isArray(data.stat_data[key])))
     throw new Error('当前回复还没有完整的 v4 档案，请先完成本轮 MVU 保存。');
@@ -279,6 +280,7 @@ function correctionInput(saved) {
 function getCorrectionInput() { return correctionInput(captureCorrection()); }
 // ponytail: 只恢复不适用的破军账本，复用终端 MVU 接线，不依赖可选 Zod 约束。
 function filterTournamentUpdate(variables, previous) {
+  if (!terminalBusinessIsRakudai(variables?.stat_data)) return;
   const scene = variables?.stat_data?.场景;
   if (!scene || window.RakudaiStateController.isHagunAffiliation(variables.stat_data)) return;
   const old = previous?.stat_data?.场景?.选拔赛;
@@ -750,6 +752,7 @@ function correctionHostReset(type) {
   }
 }
 function startAutomaticCorrection() {
+  if (!terminalBusinessIsRakudai()) return;
   const config = getCorrectionStatus();
   if (SS.destroyed) return;
   const ctx = correctionContext();
@@ -864,6 +867,17 @@ async function checkAutomaticCorrection() {
   const turn = ['ready', 'retrying'].includes(correctionAutoTurn?.phase) ? correctionAutoTurn : correctionMainTurn;
   if (!turn || !['waiting', 'ready', 'retrying'].includes(turn.phase) || turn.waitFailed || SS.destroyed) return;
   try {
+    // 已认领的主轮可等待暂缺 MVU 的新回复；有真实状态时再核定作品，不能借旧显示副本启动异作校正。
+    let currentState;
+    try {
+      const reply = correctionReply();
+      currentState = reply && (window.Mvu || HW.Mvu)?.getMvuData?.({ type: 'message', message_id: reply.messageId })?.stat_data;
+    } catch (_) { /* 新回复的 MVU 尚不可读时，沿用本轮既有等待和超时流程。 */ }
+    if (currentState && !terminalBusinessIsRakudai(currentState)) {
+      correctionMainTurn = null;
+      cancelCorrection('当前作品已变化，落第业务校正已取消。');
+      return;
+    }
     if (turn.phase === 'retrying') {
       ensureCorrectionCurrent(correctionRetry.saved);
       if (Date.now() < turn.retryAt) { scheduleAutomaticCorrection(); return; }
@@ -915,12 +929,14 @@ function wireAutomaticCorrection(safeOn, TE) {
   let bound = false;
   function stampReceipt(candidate) {
     const variables = candidate.variables;
+    if (!terminalBusinessIsRakudai(variables?.stat_data)) return;
     if (!variables.delta_data || typeof variables.delta_data !== 'object' || Array.isArray(variables.delta_data)) variables.delta_data = {};
     const delta = variables.delta_data;
     if (!delta.$internal || typeof delta.$internal !== 'object' || Array.isArray(delta.$internal)) delta.$internal = {};
     delta.$internal.__rk_main_save = { id: candidate.receiptId };
   }
   const receiptTail = variables => {
+    if (!terminalBusinessIsRakudai(variables?.stat_data)) return;
     const turn = correctionMainTurn, candidate = turn?.candidate;
     if (turn?.phase !== 'waiting' || !candidate?.ended || candidate.variables !== variables) return;
     try {
@@ -939,6 +955,7 @@ function wireAutomaticCorrection(safeOn, TE) {
     safeOn(tailEvent, filterTournamentUpdate);
     SS.disposers.push(() => fn('eventRemoveListener')?.(tailEvent, receiptTail));
     safeOn(events.COMMAND_PARSED, (variables, commands, content) => {
+      if (!terminalBusinessIsRakudai(variables?.stat_data)) return;
       const turn = correctionMainTurn;
       // 上一轮已取消的慢请求仍持有网络锁，也要接住新主回复的结算；发请求时再等待锁释放。
       if (!turn || turn.phase !== 'waiting') return;
@@ -953,6 +970,7 @@ function wireAutomaticCorrection(safeOn, TE) {
       } catch (_) { /* 无法唯一绑定当前回复时不开放自动写入。 */ }
     });
     safeOn(events.VARIABLE_UPDATE_ENDED, (variables, previous) => {
+      if (!terminalBusinessIsRakudai(variables?.stat_data)) return;
       const turn = correctionMainTurn;
       if (turn?.phase !== 'waiting' || turn.candidate?.variables !== variables) return;
       try {

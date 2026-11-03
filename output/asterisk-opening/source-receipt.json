@@ -1,0 +1,19 @@
+{
+  "source": "../开局页面/index.html",
+  "source_sha256": "5f5672658041039ff1911cf8965b97211e965e0beda98187e36d0f9585c420fc",
+  "output_sha256": "d250533f2da01e46fac4eefd3ccf43a9c4ede4f30b5c62497d0b2f70c013e97c",
+  "delivery_mode": "component",
+  "worlds": [
+    "rakudai",
+    "asterisk"
+  ],
+  "male_academies": [
+    "seidoukan",
+    "gallardworth",
+    "jielong",
+    "rewolf",
+    "arlequint"
+  ],
+  "disabled_academy": "queenvail",
+  "live_sillytavern_verified": false
+}

@@ -1,0 +1,86 @@
+format: airp-story-graph
+version: 1
+workId: asterisk-war
+chapterId: CH-01
+graphId: AST1-CH01
+origin: canon
+sourceSnapshot:
+  materialId: MAT-AST-V01
+  sourcePath: "第一卷_01_第一章_华焰魔女.md"
+  encoding: UTF-8
+  lineBasis: "markdown line numbers"
+  scope: {start: 14, end: 741}
+relativeCalendar:
+  phaseId: T01
+  label: "初夏清晨：转学首日散步道闲晃至女生宿舍前决斗"
+  dateKnown: false
+  temporalPrecision: relative
+roots:
+  - {id: root-canon, name: 原作主干, origin: canon}
+  - {id: root-authored, name: 预制分支与OC截胡路由, origin: authored}
+locations:
+  - {id: ast-seidoukan-promenade, name: 星导馆学园散步道与两米铁栅栏外围, scope: chapter_local, visual: "插图/BG_02_1.png", source: ["第一卷_01_第一章_华焰魔女.md#L28-L75"]}
+  - {id: ast-girls-dorm-4f-julis, name: 高等部女生宿舍四楼尤莉丝房间, scope: chapter_local, source: ["第一卷_01_第一章_华焰魔女.md#L76-L227"]}
+  - {id: ast-girls-dorm-courtyard, name: 女生宿舍前石板空地（第一训练场外围）, scope: chapter_local, visual: "插图/学战都市Asterisk 01 姬焰邂逅/001.jpg", source: ["第一卷_01_第一章_华焰魔女.md#L228-L741"]}
+participants:
+  - {id: char-ayato-amagiri, label: 天雾绫斗, kind: character, source: "人物条目/天雾绫斗.md"}
+  - {id: char-julis-alexia, label: 尤莉丝·爱雷克西亚·冯·里斯妃特, kind: character, source: "人物条目/尤莉丝·爱雷克西亚·冯·里斯妃特.md"}
+  - {id: char-claudia-enfield, label: 克劳蒂雅·恩菲尔德, kind: character, source: "人物条目/克劳蒂雅·恩菲尔德.md"}
+  - {id: char-eishiro-yabuki, label: 夜吹英士郎（人群借剑者）, kind: character_foreshadow, source: "人物条目/夜吹英士郎.md"}
+  - {id: role-unseen-sniper, label: 暗箭狙击者（未露面）, kind: antagonist_foreshadow}
+  - {id: group-spectators, label: 围观学生与实况转播社团, kind: group}
+  - {id: player, label: 玩家（主角或自创OC）, kind: runtime_optional}
+sceneIndex:
+  - {sceneId: CH-01-S01, name: "散步道拾帕与飞跃铁栅栏", range: "第一卷_01_第一章_华焰魔女.md#L14-L80"}
+  - {sceneId: CH-01-S02, name: "四楼更衣室闯入、归还手帕与六瓣爆焰花", range: "第一卷_01_第一章_华焰魔女.md#L81-L227"}
+  - {sceneId: CH-01-S03, name: "九轮舞焰花试探、赤莲宣誓与人群借剑", range: "第一卷_01_第一章_华焰魔女.md#L228-L503"}
+  - {sceneId: CH-01-S04, name: "锐枪白炎花压制与天雾辰明流贰蛟龙破局", range: "第一卷_01_第一章_华焰魔女.md#L519-L665"}
+  - {sceneId: CH-01-S05, name: "暗箭偷袭、扑倒救美与克劳蒂雅拍掌中断决斗", range: "第一卷_01_第一章_华焰魔女.md#L666-L741"}
+terminalNodes: ["chapter-boundary/CH-02"]
+
+events:
+  - id: AST1-CH01-E01
+    sceneId: CH-01-S01
+    title: "散步道拾获修补过的手工刺绣手帕"
+    summary: "清晨散步道上，一条带有笨拙刺绣与修补痕迹的纯白手帕随风飘落被接住；同时听到两米铁栅栏后方四楼敞开窗口传来尤莉丝焦急寻找手帕的声音。"
+    source: "第一卷_01_第一章_华焰魔女.md#L14-L66"
+    next: [AST1-CH01-E02]
+    branchHooks: [AST1-CH01-B01]
+
+  - id: AST1-CH01-E02
+    sceneId: CH-01-S01
+    title: "翻越两米铁栅栏跃上四楼窗台误闯更衣室"
+    summary: "不知建筑为高等部女生宿舍，直接翻越铁栅栏借树枝跳上四楼窗台，撞见半裸换衣的玫瑰色长发少女尤莉丝；听令背身等待她穿好制服。"
+    source: "第一卷_01_第一章_华焰魔女.md#L68-L158"
+    next: [AST1-CH01-E03]
+
+  - id: AST1-CH01-E03
+    sceneId: CH-01-S02
+    title: "归还手帕获真诚道谢与『六瓣爆焰花』翻脸轰击"
+    summary: "将手帕归还尤莉丝，尤莉丝紧抱胸口深深低头道谢；旋即以道谢与偷窥是两码事为由，发动魔女能力『六瓣爆焰花』将闯入者轰出四楼窗外。"
+    source: "第一卷_01_第一章_华焰魔女.md#L160-L227"
+    next: [AST1-CH01-E04]
+
+  - id: AST1-CH01-E04
+    sceneId: CH-01-S03
+    title: "『九轮舞焰花』追击、始页十二人科普与『赤莲』决斗成立"
+    summary: "尤莉丝跃下四楼施展『九轮舞焰花』试探身手，自报序列第五名号并触摸『赤莲』校徽发起决斗；围观学生科普《在名祭祀书》(72人)与《始页十二人》(12人)；夜吹英士郎从人群抛借普通剑型煌式武装，尤莉丝拔出『花冠旋剑』，决斗正式成立。"
+    source: "第一卷_01_第一章_华焰魔女.md#L228-L503"
+    next: [AST1-CH01-E05]
+    branchHooks: [AST1-CH01-B02]
+
+  - id: AST1-CH01-E05
+    sceneId: CH-01-S04
+    title: "『锐枪白炎花』远程封杀与『天雾辰明流·贰蛟龙』切裂爆炎"
+    summary: "尤莉丝拉开距离以『锐枪白炎花』及强化版『六瓣爆焰花』贴脸引爆；绫斗发动流星斗技（过剩万应现象）配合『天雾辰明流剑术初段──贰蛟龙』将火焰十字切开，伴随体内封印松动的薄光火花高速冲入尤莉丝怀中。"
+    source: "第一卷_01_第一章_华焰魔女.md#L519-L665"
+    next: [AST1-CH01-E06]
+
+  - id: AST1-CH01-E06
+    sceneId: CH-01-S05
+    title: "暗箭偷袭、舍身护美与学生会长克劳蒂雅拍掌叫停【章节完成标识】"
+    summary: "察觉暗处射向尤莉丝的煌式武装光箭，高喊『快趴下』将其扑倒救下（原著中意外按住胸口引发尤莉丝羞愤喷火）；此时学生会长克劳蒂雅拍掌登场宣布决斗中止，达成第一章完成标识。"
+    source: "第一卷_01_第一章_华焰魔女.md#L666-L741"
+    next: ["chapter-boundary/CH-02"]
+    branchHooks: [AST1-CH01-B03]
+    completionMarker: true

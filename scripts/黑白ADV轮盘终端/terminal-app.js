@@ -131,6 +131,7 @@ async function toggleDorm(button) {
   catch (error) { toast(error && error.message || '宿舍状态未保存，请刷新后重试。'); refreshTerminalView(); }
 }
 function openApp(appId) {
+  if (bridge && bridge.world === null && appId !== 'settings') return toast('请先完成开局；当前可以使用终端设置。');
   var scrMap = {
     'blazer': 'scr-blazer',
     'lime': 'scr-lime',
@@ -236,6 +237,32 @@ function resolveScene() {
 
 // 刷新首页学生证
 function updateHomeScreen() {
+  var waitingOpening = bridge && bridge.world === null;
+  var home = document.getElementById('scr-home');
+  var standby = document.getElementById('rk-opening-standby');
+  if (waitingOpening && home && !standby) {
+    standby = document.createElement('section');
+    standby.id = 'rk-opening-standby';
+    standby.className = 'card1';
+    standby.style.cssText = 'margin:20px;padding:22px;line-height:1.8;';
+    standby.innerHTML = '<div class="ct">等待开局</div><p>当前尚未确定作品与角色档案。你可以先设置外观、头像与副 API，开局后再读取对应记录。</p>' +
+      '<button type="button" class="gba-btn-sm" onclick="openApp(\'settings\')" style="min-height:44px;">打开终端设置</button>';
+    home.appendChild(standby);
+  }
+  document.querySelectorAll('#scr-home > .home-content, #scr-home > .home-wallpaper, #scr-home > .dorm-actions').forEach(function(node) {
+    node.style.display = waitingOpening ? 'none' : '';
+  });
+  if (standby) standby.style.display = waitingOpening ? 'block' : 'none';
+  var dormButton = document.getElementById('dorm-toggle');
+  if (dormButton) dormButton.style.display = waitingOpening ? 'none' : '';
+  var brand = document.querySelector('.sys-brand');
+  if (brand) brand.textContent = waitingOpening ? 'TERMINAL / OS' : 'HAGUN / OS';
+  if (waitingOpening) {
+    var clock = document.getElementById('sys-clk');
+    if (clock) clock.textContent = '等待开局';
+    if (['scr-home', 'scr-settings'].indexOf(currentStack[currentStack.length - 1]) === -1) goHome();
+    return;
+  }
   var pl = resolvePlayer();
   var sc = resolveScene();
 
@@ -1534,10 +1561,16 @@ function reloadPlayerPortraitSettings() {
 function renderSettings() {
   var body = document.getElementById('settings-body');
   if (!body) return;
+  var appearance = bridge && bridge.appearance;
+  var appearanceValue = appearance && typeof appearance.get === 'function' ? appearance.get() : 'auto';
 
   body.innerHTML = '<section class="card1 rk-player-portrait-settings" id="rk-player-portrait-settings" aria-label="玩家头像与称呼"></section>' +
     '<div class="card1">' +
       '<div class="ct">视觉与个性化</div>' +
+      '<label style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:8px 0;border-bottom:1px solid var(--hair);"><span>终端外观</span>' +
+        '<select data-terminal-appearance onchange="bridge.appearance.set(this.value)"' + (appearance && typeof appearance.set === 'function' ? '' : ' disabled') + ' style="min-height:44px;max-width:100%;padding:8px;font:inherit;background:var(--card2);color:var(--ink);border:1px solid var(--hair);">' +
+          [['auto', '跟随作品'], ['rakudai', '落第 · 黑白'], ['asterisk', '学战 · 六花']].map(function(option) { return '<option value="' + option[0] + '"' + (appearanceValue === option[0] ? ' selected' : '') + '>' + option[1] + '</option>'; }).join('') +
+        '</select></label>' +
       '<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--hair);">' +
         '<span>色彩主题风格</span>' +
         '<button onclick="toggleTheme()" style="padding:4px 10px;background:var(--card2);border-radius:6px;font-size:12px;color:var(--ink);">' +
@@ -1554,7 +1587,7 @@ function renderSettings() {
     '<div class="card1">' +
       '<div class="ct">系统版本信息</div>' +
       '<div style="font-size:12px;color:var(--muted);line-height:1.6;">' +
-        '<div>破军学园伐刀者便携智能终端 OS</div>' +
+        '<div>' + (bridge && bridge.world === null ? '角色卡便携终端 OS' : '破军学园伐刀者便携智能终端 OS') + '</div>' +
         '<div>版本：' + (bridge && bridge.version ? 'v' + esc(bridge.version) : '尚未连接') + ' MONO ADV · 黑白轮盘版</div>' +
         '<div>内核驱动：TavernHelper / MVU Data Bridge</div>' +
       '</div>' +

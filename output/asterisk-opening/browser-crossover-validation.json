@@ -1,0 +1,15 @@
+{
+  "sourceSha256": "561a243d9d7e50cbbaf92574b0fe9bb90a31f96bfe7fbb4a5eac56345d15142f",
+  "sourceBytes": 657953,
+  "evidenceSource": "Parent agent's real browser acceptance reported in this task; not executed by the packaging sub-agent.",
+  "initialOp": { "autoplay": true, "observedCurrentTimeSeconds": 6.5 },
+  "crossoverCover": { "naturalWidth": 1672, "naturalHeight": 941, "titleLayout": "crossover" },
+  "titleLogoNaturalWidths": [735, 350],
+  "mobile": { "viewportWidth": 360, "scrollWidth": 345, "allEightCharactersVisible": true, "objectFit": "contain", "continueButtonHeight": 44 },
+  "worldSwitch": { "titleLayoutPreserved": true, "coverSourceUnchanged": true, "preludeHidden": true, "opPaused": true },
+  "independentReplay": { "opReplayed": true, "sameCoverAfterSkip": true },
+  "consoleErrors": 0,
+  "screenshots": ["预览-落第学战共用封面.jpg", "预览-共用封面手机.jpg"],
+  "liveSillyTavernVerified": false,
+  "liveAiVerified": false
+}

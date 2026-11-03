@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "sourceMetadataCopiedExactly": true,
+  "promptCopiedExactly": true,
+  "inputHashesMatch": true,
+  "generatedCoverSha256": "2fd44f86a91e75c17a977ef1c497a715904663e27228ee0eb5fb32fedc2fb045",
+  "generatedCoverBytes": 2509692,
+  "width": 1672,
+  "height": 941,
+  "promptSha256": "acf617a4854ef00ef5525f75eaa2ba00956d7e6ed278bee60ffb60fcc34f41d3",
+  "provenanceType": "AI-assisted compositing",
+  "officialNativeCrossover": false
+}

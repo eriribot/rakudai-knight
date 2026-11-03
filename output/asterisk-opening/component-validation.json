@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "target": "E:\\web\\落第\\第一卷-世界书整理\\开局网页正则替换\\regex",
+  "deliveryMode": "component",
+  "errors": [],
+  "files": [
+    {
+      "file": "E:\\web\\落第\\第一卷-世界书整理\\开局网页正则替换\\regex\\opening-rakudai-asterisk-preview.regex.json",
+      "kind": "regex",
+      "errors": []
+    }
+  ]
+}

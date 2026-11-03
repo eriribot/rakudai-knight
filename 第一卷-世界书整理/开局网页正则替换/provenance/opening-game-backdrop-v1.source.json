@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "title": "无人物游戏标题背景",
+  "provenanceType": "AI-generated scenery only",
+  "generator": "built-in image_gen",
+  "inputImages": [],
+  "output": {
+    "file": "opening-game-backdrop-v1.png",
+    "width": 1672,
+    "height": 941,
+    "bytes": 1844001,
+    "sha256": "224347858ab6f52a3a64f55a86d3325a0a84d9bebaa4df94d7087b159ab49c22"
+  },
+  "promptFile": "opening-game-backdrop-v1.prompt.txt",
+  "composition": "The generated file is an independent background layer. The two character illustrations and official logos are separate original files rendered by HTML/CSS. No character image was supplied to the generator or redrawn.",
+  "constraints": ["no people", "no faces or hands", "no text or logos", "original character files unchanged", "equal 16:9 artwork frames with contain fit"],
+  "originalIllustrationsReceipt": "opening-original-pair.source.json"
+}

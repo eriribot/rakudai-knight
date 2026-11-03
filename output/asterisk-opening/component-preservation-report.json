@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "deliveryMode": "component",
+  "stableId": "4f9bda79-82bd-4d2f-9a66-2497349df26e",
+  "changedFields": [
+    "replaceString",
+    "scriptName"
+  ],
+  "untouchedFieldsPreserved": true,
+  "fullHtmlParity": true,
+  "replacementTextParity": true,
+  "regexCompileAndFixtures": true,
+  "originalPageUnchanged": true,
+  "originalFixtureUnchanged": true,
+  "sourceSha256": "d250533f2da01e46fac4eefd3ccf43a9c4ede4f30b5c62497d0b2f70c013e97c",
+  "artifactSha256": "af3c603936d999075d5e5ecf93128653304239ebd0808d079c5a94f83857048b",
+  "artifact": "第一卷-世界书整理/开局网页正则替换/regex/opening-rakudai-asterisk-preview.regex.json",
+  "liveSillyTavernVerified": false,
+  "liveAiVerified": false
+}

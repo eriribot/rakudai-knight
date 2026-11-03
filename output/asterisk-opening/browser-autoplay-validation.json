@@ -1,0 +1,29 @@
+{
+  "sourceSha256": "3674d179f099a87a37dfd12c1a07de64b73fe9e96921f3032cecd0b5ecbf09b7",
+  "finalLocalPreviewRecheck": {
+    "sourceSha256": "e8129adf6c60054a7abbc3b9e44d25945011c64f4fd7623d58073dc01d05dc66",
+    "withoutUserClick": true,
+    "playing": true,
+    "muted": true,
+    "observedCurrentTimeSeconds": 0.305,
+    "videoWidth": 1280
+  },
+  "evidenceSource": "Parent agent's real browser acceptance, reported in this task; not executed by the packaging sub-agent.",
+  "sharedEditedOpSha256": "65098ec436edbc21af5c6c7bec18bc2750274eecca9e335bcc3d8431506e38aa",
+  "withoutUserClick": {
+    "paused": false,
+    "muted": true,
+    "observedCurrentTimeSeconds": [0.3055, 69.93],
+    "backgroundAudioPaused": true,
+    "soundButtonNonBlocking": true
+  },
+  "afterSoundButtonClick": {
+    "paused": false,
+    "muted": false,
+    "soundButtonHidden": true,
+    "restartedFromBeginning": false
+  },
+  "liveSillyTavernVerified": false,
+  "liveAiVerified": false,
+  "scope": "Local browser playback evidence. Audible autoplay depends on environment permission; muted fallback does not require an initial click."
+}

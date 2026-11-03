@@ -1,0 +1,330 @@
+{
+  "schemaVersion": 1,
+  "sourceRoot": "DLC/插图",
+  "researchImageLink": {
+    "path": "DLC/学战研究/插图",
+    "kind": "Junction",
+    "target": "DLC/插图"
+  },
+  "expectedVolumeCount": 17,
+  "availableVolumeCount": 16,
+  "missingVolumes": [
+    14
+  ],
+  "volumes": [
+    {
+      "number": 1,
+      "title": "姬焰邂逅",
+      "coverPath": "DLC/插图/学战都市Asterisk 01 姬焰邂逅/cover.jpg",
+      "bytes": 472630,
+      "width": 1000,
+      "height": 1575
+    },
+    {
+      "number": 2,
+      "title": "银绮觉醒",
+      "coverPath": "DLC/插图/学战都市Asterisk 02 银绮觉醒/cover.jpg",
+      "bytes": 443957,
+      "width": 1000,
+      "height": 1575
+    },
+    {
+      "number": 3,
+      "title": "凤凰乱武",
+      "coverPath": "DLC/插图/学战都市Asterisk 03 凤凰乱武/cover.jpg",
+      "bytes": 442586,
+      "width": 1000,
+      "height": 1575
+    },
+    {
+      "number": 4,
+      "title": "追忆斗破",
+      "coverPath": "DLC/插图/学战都市Asterisk 04 追忆斗破/cover.jpg",
+      "bytes": 519174,
+      "width": 1000,
+      "height": 1575
+    },
+    {
+      "number": 5,
+      "title": "霸凰决战",
+      "coverPath": "DLC/插图/学战都市Asterisk 05 霸凰决战/cover.jpg",
+      "bytes": 463157,
+      "width": 1000,
+      "height": 1575
+    },
+    {
+      "number": 6,
+      "title": "怀国凯战",
+      "coverPath": "DLC/插图/学战都市Asterisk 06 怀国凯战/cover.jpg",
+      "bytes": 486921,
+      "width": 1000,
+      "height": 1575
+    },
+    {
+      "number": 7,
+      "title": "祭华缭乱",
+      "coverPath": "DLC/插图/学战都市Asterisk 07 祭华缭乱/cover.jpg",
+      "bytes": 442625,
+      "width": 1000,
+      "height": 1575
+    },
+    {
+      "number": 8,
+      "title": "偶像峻烈",
+      "coverPath": "DLC/插图/学战都市Asterisk 08 偶像峻烈/cover.jpg",
+      "bytes": 545234,
+      "width": 1000,
+      "height": 1575
+    },
+    {
+      "number": 9,
+      "title": "悠日战啾",
+      "coverPath": "DLC/插图/学战都市Asterisk 09 悠日战啾/cover.jpg",
+      "bytes": 595217,
+      "width": 1000,
+      "height": 1514
+    },
+    {
+      "number": 10,
+      "title": "龙激圣霸",
+      "coverPath": "DLC/插图/学战都市Asterisk 10 龙激圣霸/cover.jpg",
+      "bytes": 510455,
+      "width": 1000,
+      "height": 1511
+    },
+    {
+      "number": 11,
+      "title": "刃心切磋",
+      "coverPath": "DLC/插图/学战都市Asterisk 11 刃心切磋/cover.jpg",
+      "bytes": 537848,
+      "width": 1000,
+      "height": 1514
+    },
+    {
+      "number": 12,
+      "title": "刹鬼再应",
+      "coverPath": "DLC/插图/学战都市Asterisk 12 刹鬼再应/cover.jpg",
+      "bytes": 519555,
+      "width": 1000,
+      "height": 1497
+    },
+    {
+      "number": 13,
+      "title": "群雄云霞",
+      "coverPath": "DLC/插图/学战都市Asterisk 13 群雄云霞/cover.jpg",
+      "bytes": 468481,
+      "width": 1000,
+      "height": 1462
+    },
+    {
+      "number": 15,
+      "title": "剑云炎华",
+      "coverPath": "DLC/插图/学战都市Asterisk 15 剑云炎华/cover.jpg",
+      "bytes": 618895,
+      "width": 1055,
+      "height": 1600
+    },
+    {
+      "number": 16,
+      "title": "金枝争滥",
+      "coverPath": "DLC/插图/学战都市Asterisk 16 金枝争滥/cover.jpg",
+      "bytes": 645071,
+      "width": 1061,
+      "height": 1600
+    },
+    {
+      "number": 17,
+      "title": "六花团圆",
+      "coverPath": "DLC/插图/学战都市Asterisk 17 六花团圆/cover.jpg",
+      "bytes": 705319,
+      "width": 1061,
+      "height": 1600
+    }
+  ],
+  "titleArtPath": "DLC/插图/学战都市Asterisk 13 群雄云霞/co2.jpg",
+  "titleArtBytes": 795059,
+  "titleArtDisplay": {
+    "targetAspectRatio": "16:9",
+    "sourceWidth": 1729,
+    "sourceHeight": 1200,
+    "objectFit": "cover",
+    "objectPosition": "50% 0%",
+    "note": "原图不是16:9，顶部对齐显示可保留上排人物；本次未裁切或处理原图。"
+  },
+  "gallery": [
+    {
+      "path": "DLC/插图/学战都市Asterisk 01 姬焰邂逅/co3.jpg",
+      "volume": 1,
+      "title": "纱夜与煌式重装武器",
+      "bytes": 474165,
+      "width": 1673,
+      "height": 1200,
+      "visuallyVerified": true,
+      "note": "横向战斗彩插，机械黑灰与青色能源对照品红光束"
+    },
+    {
+      "path": "DLC/插图/学战都市Asterisk 02 银绮觉醒/co5.jpg",
+      "volume": 2,
+      "title": "绮凛与绫斗交锋",
+      "bytes": 550868,
+      "width": 1673,
+      "height": 1200,
+      "visuallyVerified": true,
+      "note": "横向战斗彩插，人物与武器动作清楚"
+    },
+    {
+      "path": "DLC/插图/学战都市Asterisk 03 凤凰乱武/co4.jpg",
+      "volume": 3,
+      "title": "尤莉丝展开火焰招式",
+      "bytes": 597803,
+      "width": 1673,
+      "height": 1200,
+      "visuallyVerified": true,
+      "note": "横向战斗彩插，品红与绯红角色点色"
+    },
+    {
+      "path": "DLC/插图/学战都市Asterisk 05 霸凰决战/co3.jpg",
+      "volume": 5,
+      "title": "席尔薇雅的歌声",
+      "bytes": 480440,
+      "width": 1673,
+      "height": 1200,
+      "visuallyVerified": true,
+      "note": "横向人物场景彩插，暮色与发光效果"
+    },
+    {
+      "path": "DLC/插图/学战都市Asterisk 09 悠日战啾/co2.jpg",
+      "volume": 9,
+      "title": "克劳蒂雅的赛场交锋",
+      "bytes": 516797,
+      "width": 1729,
+      "height": 1200,
+      "visuallyVerified": true,
+      "note": "横向战斗彩插，青色竞技场与金色光效"
+    },
+    {
+      "path": "DLC/插图/学战都市Asterisk 10 龙激圣霸/co3.jpg",
+      "volume": 10,
+      "title": "绮凛与青蓝机械光环",
+      "bytes": 415223,
+      "width": 1000,
+      "height": 1511,
+      "visuallyVerified": true,
+      "note": "竖向无文字人物彩插，适合原漂浮插画位"
+    },
+    {
+      "path": "DLC/插图/学战都市Asterisk 11 刃心切磋/co3.jpg",
+      "volume": 11,
+      "title": "奥菲莉亚与六角背景",
+      "bytes": 336911,
+      "width": 1000,
+      "height": 1514,
+      "visuallyVerified": true,
+      "note": "竖向无文字人物彩插，适合原漂浮插画位"
+    },
+    {
+      "path": "DLC/插图/学战都市Asterisk 13 群雄云霞/co2.jpg",
+      "volume": 13,
+      "title": "王龙星武祭群像",
+      "bytes": 795059,
+      "width": 1729,
+      "height": 1200,
+      "visuallyVerified": true,
+      "note": "横向群像彩插，适合标题背景；保留顶部人脸"
+    }
+  ],
+  "audioVideoCandidates": [
+    {
+      "path": "学战都市第二季OP《The Asterisk War》 - The Asterisk War.mp4",
+      "title": "学战都市第二季OP歌曲MV",
+      "kind": "asterisk-song-mv",
+      "bytes": 49234585,
+      "durationSeconds": 210.77,
+      "width": 1280,
+      "height": 720,
+      "fps": 25,
+      "videoCodec": "h264",
+      "audioCodec": "aac",
+      "audioSampleRate": 48000,
+      "metadataVerified": true,
+      "recommendedForOpening": true,
+      "note": "用户已提供的学战原MV；文件名含OP，实际时长为完整歌曲MV而非90秒电视片头。"
+    },
+    {
+      "path": "DLC/MV工程/学战都市_去水印母版.mp4",
+      "title": "学战都市修补母版",
+      "kind": "asterisk-repaired-mv",
+      "bytes": 101332039,
+      "durationSeconds": 210.77,
+      "width": 1280,
+      "height": 720,
+      "fps": 25,
+      "videoCodec": "h264",
+      "audioCodec": "aac",
+      "audioSampleRate": 48000,
+      "metadataVerified": true,
+      "recommendedForOpening": false,
+      "note": "已有工程对右上角水印作局部修补，非恢复原始无水印画面；体积约为原MV两倍。"
+    },
+    {
+      "path": "DLC/学战都市×落第骑士英雄谭_联合MV_V6_动作帧修复720p.mp4",
+      "title": "学战×落第联合MV V6",
+      "kind": "crossover-mv",
+      "bytes": 116002353,
+      "durationSeconds": 210.77,
+      "width": 1280,
+      "height": 720,
+      "fps": 25,
+      "videoCodec": "h264",
+      "audioCodec": "aac",
+      "audioSampleRate": 48000,
+      "metadataVerified": true,
+      "recommendedForOpening": false,
+      "note": "含落第人物和跨界剪辑，不适合作为纯学战模式的默认OP。"
+    },
+    {
+      "path": "op.mp4",
+      "title": "现有根目录OP（联合MV副本）",
+      "kind": "crossover-mv-alias",
+      "bytes": 116002353,
+      "durationSeconds": 210.77,
+      "width": 1280,
+      "height": 720,
+      "fps": 25,
+      "videoCodec": "h264",
+      "audioCodec": "aac",
+      "audioSampleRate": 48000,
+      "metadataVerified": true,
+      "recommendedForOpening": false,
+      "note": "现有通用op.mp4属于联合MV；纯学战模式应改用上方学战原MV。",
+      "sameContentAs": "DLC/学战都市×落第骑士英雄谭_联合MV_V6_动作帧修复720p.mp4"
+    }
+  ],
+  "byteTotals": {
+    "allSourceImagesCount": 319,
+    "allSourceImagesBytes": 107039817,
+    "availableCoversBytes": 8417125,
+    "selectedGalleryBytes": 4167266,
+    "selectedImageBytesUnique": 12584391,
+    "recommendedVideoBytes": 49234585,
+    "selectedImagesAndVideoBytes": 61818976
+  },
+  "review": {
+    "galleryMethod": "逐张通过view_image核验，均为人物/战斗彩插，不含目录页或大段设定说明页。",
+    "coverSpotChecks": [
+      1,
+      7,
+      17
+    ],
+    "sourceList": "DLC/插图/插图清单.md",
+    "mediaProvenance": "DLC/MV工程/剪辑说明.md",
+    "mediaMetadataMethod": "ffmpeg -hide_banner -i，仅读取容器元数据，未转码、截帧或改写原文件。"
+  },
+  "notes": [
+    "第14卷封面及EPUB未在当前学战资源目录发现；volumes仅列16个实际存在的封面，不用他卷替代或伪造17卷齐全。",
+    "gallery固定8项，可直接对应原页面8个preset槽位；titleArtPath与其中一项复用，不需重复复制图片。",
+    "所有路径相对workspace，使用实际DLC/插图路径而非研究目录链接；部署时复制原文件即可。",
+    "未找到已明确标注为学战的独立音频文件；推荐视频已包含AAC音乐音轨。根目录bgm.mp3元数据为Fantasy Theme，不能称作学战原声。",
+    "原始插图清单的彩插/黑白分类数量前后不一致；本manifest的图片总数与字节数以磁盘实际文件统计为准。"
+  ]
+}

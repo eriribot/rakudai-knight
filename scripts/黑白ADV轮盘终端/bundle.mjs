@@ -6,6 +6,7 @@ import { parse } from 'parse5';
 import sourceMap from 'source-map-js';
 import { buildKnightAvatarCatalog } from './knight-avatars.mjs';
 import { buildTournamentPanel } from './build-tournament-panel.mjs';
+import { buildAsteriskApp } from './build-asterisk-app.mjs';
 import { tournamentSnapshotKey } from './terminal-tournament.js';
 import { GROWTH_RULES, RELATIONSHIP_SCORING, supportStage, romanceStage } from '../../世界书规则/MVU/schema.mjs';
 
@@ -79,7 +80,7 @@ function buildApp(version) {
   const knightAvatars = buildKnightAvatarCatalog();
   const tournamentPanel = buildTournamentPanel(knightAvatars);
   const appModules = ['terminal-app.js', 'terminal-controls.js'];
-  const cssModules = ['terminal-app.css', 'terminal-theme.css', 'terminal-status.css', 'terminal-lime.css'];
+  const cssModules = ['terminal-app.css', 'terminal-theme.css', 'terminal-status.css', 'terminal-lime.css', 'terminal-cross-theme.css'];
   const seen = new Set();
   html = html.replace(/<link rel="stylesheet" href="\.\/([^"<>]+)"([^>]*)>/g, (tag, file, attrs) => {
     if (!cssModules.includes(file) || seen.has(file)) throw new Error('未知或重复的样式模块：' + file);
@@ -114,11 +115,13 @@ function buildApp(version) {
   return html;
 }
 
-export function buildTerminal() {
+export function buildTerminal({ asteriskPreview = false } = {}) {
   const version = JSON.parse(read('package.json')).version;
   const html = buildApp(version);
   const jsModules = { STATE_CONTROLLER: '../rakudai-state-controller.js', STATE_READER: 'state-reader.js', LIME_PROTOCOL: 'lime-chat.mjs', LIME_HOST: 'lime-host.js', LIME_WORLDBOOK: 'lime-worldbook.js', LIME_STORY: 'lime-story.js', CALENDAR_WORLDBOOK: 'calendar-worldbook.js', PLAYER_DISPLAY_STORE: 'player-display-store.js', PLAYER_PORTRAIT: 'player-portrait.js', LAYOUT: 'layout.js', WHEEL: 'wheel.js', STATE_PANEL: 'state-panel.js', CORRECTION: 'correction.js' };
   const portraitManifest = JSON.parse(read('../../resource/knightavatars/manifest.json'));
+  jsModules.ASTERISK_PRESENTATION = 'asterisk-presentation.js';
+  jsModules.TERMINAL_WORLD = 'terminal-world.mjs';
   const portraitReservedNames = [...portraitManifest.characters, ...(portraitManifest.missingPortraits || [])]
     .flatMap(person => [person.name, ...(person.aliases || [])])
     .concat((portraitManifest.ambiguousAliases || []).flatMap(item => item.aliases));
@@ -130,6 +133,9 @@ export function buildTerminal() {
     // 函数源码保留原文件换行；与文件模块一样归一化，避免 HTML 解析把 CRLF 改成 LF 后误报。
     RELATIONSHIP_SCORING: jsString(RELATIONSHIP_SCORING), SUPPORT_STAGE: supportStage.toString().replace(/\r\n?/g, '\n'), ROMANCE_STAGE: romanceStage.toString().replace(/\r\n?/g, '\n') };
   const main = read('main.js'), builder = mappedSource('terminal.js', version), seen = new Set();
+  literals.ASTERISK_PREVIEW = jsString(asteriskPreview === true);
+  literals.ASTERISK_APP_HTML = jsString(buildAsteriskApp());
+  literals.STYLES = jsString(read('styles.css') + '\n' + read('asterisk-shell.css'));
   let previous = 0;
   for (const match of main.matchAll(/\/\*__INJECT_([A-Z_]+)__\*\//g)) {
     const name = match[1];

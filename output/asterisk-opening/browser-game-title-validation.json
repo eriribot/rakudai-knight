@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "passed": true,
+  "sourceBytes": 668035,
+  "sourceSha256": "d250533f2da01e46fac4eefd3ccf43a9c4ede4f30b5c62497d0b2f70c013e97c",
+  "evidenceProvidedBy": "root agent through actual CUA browser interactions and read-only DOM inspection",
+  "desktop": {"viewport": [1351, 1244], "frameSizeApprox": [626.77, 352.55], "frameYApprox": 455.72, "sameRowAndEqualFrames": true, "screenshot": "预览-游戏标题封面.jpg"},
+  "narrow": {"viewport": [771, 859], "frameSizes": [[497.1771, 279.65625], [497.1771, 279.65625]], "frameX": 129.406, "frameY": [109.01, 472.67], "screenScrollHeight": 859, "screenClientHeight": 859, "documentScrollWidth": 756, "promptBottom": 817.32, "screenshot": "预览-游戏标题窄屏.jpg"},
+  "mobile": {"viewport": [360, 800], "frameSizes": [[312.6667, 175.875], [312.6667, 175.875]], "frameX": 16, "frameY": [187.125, 435], "screenScrollHeight": 800, "screenClientHeight": 800, "documentScrollWidth": 345, "promptHeight": 55.1875, "promptBottom": 675.47, "screenshot": "预览-游戏标题手机.jpg"},
+  "originalArtwork": {"naturalDimensions": [[7680, 4320], [1200, 624]], "objectFit": "contain", "filter": "none", "clipPath": "none", "fileByteParity": "verified by assembled-static-validation.json"},
+  "motion": {"promptAnimation": "opening-prompt-breathe", "opacitySamples": [0.61351, 0.829558, 0.930822], "animationDuringOp": "none", "reducedMotion": "CSS source reviewed; system preference not simulated in browser"},
+  "interactions": {"initialOpPaused": false, "initialOpTime": 10.3886, "enterToContinue": true, "replayThenSkipReentersTitle": true},
+  "consoleErrors": [],
+  "viewportReset": true,
+  "deliverableTabKept": true,
+  "scope": "Independent local browser preview only; not live SillyTavern or live-AI acceptance."
+}

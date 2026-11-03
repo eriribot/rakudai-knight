@@ -9,6 +9,8 @@
 (async function () {
   'use strict';
   const BUILD_VERSION = /*__INJECT_VERSION__*/;
+  const ASTERISK_PREVIEW = /*__INJECT_ASTERISK_PREVIEW__*/;
+  const ASTERISK_APP_HTML = /*__INJECT_ASTERISK_APP_HTML__*/;
   const RELATIONSHIP_SCORING = /*__INJECT_RELATIONSHIP_SCORING__*/;
   const CORRECTION_RULES = /*__INJECT_CORRECTION_RULES__*/;
   const CORRECTION_FORMAT = /*__INJECT_CORRECTION_FORMAT__*/;
@@ -32,7 +34,7 @@
     mode: 'floating', visible: false,
     host: null, iframe: null, blobUrl: null, orb: null, style: null,
     rect: null, orbPos: {x: 0, y: 0},
-    disposers: [], booted: false, mounting: null, cancelMount: null, destroyed: false, badge: 0,
+    disposers: [], appCallbacks: [], booted: false, mounting: null, cancelMount: null, destroyed: false, badge: 0,
     wheel: null, wheelBackdrop: null, wheelOpen: false, focusBeforeWheel: null
   };
 
@@ -58,6 +60,9 @@
   /*__INJECT_PLAYER_PORTRAIT__*/
 
   const ORB_W = 68, ORB_H = 68;
+
+  /*__INJECT_TERMINAL_WORLD__*/
+  /*__INJECT_ASTERISK_PRESENTATION__*/
 
   /*__INJECT_LAYOUT__*/
 
@@ -98,9 +103,11 @@
         <button data-a="min" title="收起">—</button>
         <button data-a="x" title="关闭">×</button>
       </div>
+      <div class="terminal-appearance"><label>外观 <select data-terminal-appearance aria-label="终端外观"><option value="auto">跟随本局</option><option value="rakudai">落第 · 黑白 ADV</option><option value="asterisk">学战 · 六花科技</option></select></label><span data-terminal-world></span></div>
       <div class="rsz" aria-hidden="true"></div>
     `;
     HD.body.appendChild(SS.host);
+    SS.host.querySelector('[data-terminal-appearance]').addEventListener('change', event => setTerminalAppearance(event.target.value));
     buildWheel();
   }
 
@@ -196,13 +203,14 @@
 
   async function show() {
     if (SS.destroyed) return;
+    syncTerminalPresentation();
     closeWheel(false);
     clearOrbTip();
     setMode(preferDrawer() ? 'drawer' : 'floating');
     SS.host.classList.add('on');
     SS.visible = true;
     SS.orb.style.visibility = 'hidden';
-    refreshStatePanel();
+    if (!ASTERISK_PREVIEW) refreshStatePanel();
     if (!SS.booted) await mountPhone();
     if (!SS.destroyed && SS.visible) {
       emit({ type: 'show', reset: true, retainDisplay: true });
@@ -222,12 +230,14 @@
   }
 
   /* 内嵌 HTML 解码与沙箱加载 */
-  function embeddedPhoneHtml() { return /*__INJECT_APP_HTML__*/; }
+  function embeddedPhoneHtml() {
+    return SS.businessWorld === 'asterisk' ? ASTERISK_APP_HTML : /*__INJECT_APP_HTML__*/;
+  }
 
   async function mountVia(html, mode) {
     if (SS.destroyed) throw new Error('终端已销毁，已取消挂载');
     const f = HD.createElement('iframe');
-    f.setAttribute('title', '破军战术终端');
+    f.setAttribute('title', SS.businessWorld === 'asterisk' ? '学战终端' : SS.businessWorld === 'rakudai' ? '落第终端' : '终端 · 等待开局');
     SS.host.appendChild(f);
     SS.iframe = f;
     try {
@@ -260,7 +270,8 @@
       if (SS.destroyed || SS.iframe !== f) throw new Error('终端已销毁或挂载已失效');
       const boot = f.contentWindow && f.contentWindow.RKBoot;
       if (typeof boot !== 'function') throw new Error('RKBoot 缺失（' + mode + '）');
-      boot(makeBridge());
+      applyIframeAppearance();
+      await boot(makeBridge());
     } catch(e) {
       try { f.remove(); } catch(_) {}
       if (SS.iframe === f) SS.iframe = null;
@@ -288,6 +299,14 @@
   }
 
   /* 桥接对象 (Bridge) */
+  function subscribeAppUpdate(callback) {
+    updateCbs.push(callback);
+    SS.appCallbacks.push(callback);
+    return () => {
+      const index = updateCbs.indexOf(callback);
+      if (index >= 0) updateCbs.splice(index, 1);
+    };
+  }
   let terminalStateReader = null;
   let generationPending = false;
   let limeNativeStarting = false;
@@ -404,11 +423,16 @@
   let rosterEditRevision = 0;
   let rosterEditBusy = false;
   function emit(ev) {
+    syncTerminalPresentation();
+    if (ASTERISK_PREVIEW) {
+      updateCbs.slice().forEach(cb => cb(ev));
+      return;
+    }
     if (ev?.reset && !['show', 'correction-applied'].includes(ev.type)) { rosterEditRevision++; correctionHostReset(ev.type); }
     const redraw = ['CHAT_CHANGED', 'MESSAGE_RECEIVED', 'MESSAGE_UPDATED', 'MESSAGE_EDITED',
       'MESSAGE_SWIPED', 'MESSAGE_SWIPE_DELETED', 'MESSAGE_DELETED',
       'CHARACTER_FIRST_MESSAGE_SELECTED', 'story-turn'].includes(ev?.type);
-    playerBubbleBinder?.refresh(redraw);
+    if (terminalBusinessIsRakudai()) playerBubbleBinder?.refresh(redraw);
     updateCbs.forEach(cb => { try { cb(ev); } catch(_) {} });
   }
 
@@ -605,11 +629,35 @@
   }
 
   function makeBridge() {
+    const appearance = { get: () => appearancePreference, set: setTerminalAppearance };
+    // ponytail: 设置沿用同一份本机配置，业务操作仍检查当前 MVU。
+    const settings = ASTERISK_PREVIEW ? {} : {
+      playerPortrait: portraitBridge,
+      correction: { getConfig: getCorrectionConfig, saveConfig: saveCorrectionConfig,
+        getStatus: getCorrectionStatus, getContext: getCorrectionInput, fetchModels: fetchCorrectionModels,
+        request: businessAction(() => requestCorrection()), retry: businessAction(retryCorrection),
+        apply: businessAction(applyCorrection), cancel: cancelCorrection }
+    };
+    if (ASTERISK_PREVIEW || !terminalBusinessIsRakudai()) return {
+      appearance, world: SS.businessWorld, ...settings,
+      version: BUILD_VERSION + (ASTERISK_PREVIEW ? ' · 外观预览' : ''),
+      getSnapshot: async () => readSnapshot(), getStat: async () => readSnapshot().state,
+      relationshipRules: RELATIONSHIP_SCORING, supportStage, romanceStage,
+      growthRules: window.RakudaiStateController?.growthRules,
+      onUpdate: subscribeAppUpdate,
+      ui: { close: hide, openWheel() { hide(); toggleWheel(true); }, recenter,
+        openStoryControls() { showOrbTip('外观预览', '剧情与正式 MVU 接入尚未启用。'); } },
+      notify() {}, setOrbBadge() {},
+      worldbookCalendar: { read: async () => ({ entries: [], chapters: [], message: '预览不读取正式剧情' }) }
+    };
     return {
+      appearance, world: SS.businessWorld, ...settings,
       version: BUILD_VERSION,
       dorm: async (active, source) => {
+        assertRakudaiBusiness();
         if (SS.destroyed || generationPending || correctionMainBusy() || readSnapshot().pending) throw new Error('请等待当前回复保存后再切换宿舍。');
         const saved = await stateService().capture({ messageId: source?.messageId, scope: 'dorm' });
+        assertRakudaiBusiness();
         if (!source || SS.destroyed || generationPending || correctionMainBusy() || readSnapshot().pending || JSON.stringify(readSnapshot().source) !== JSON.stringify(source)) throw new Error('聊天或回复页已变化，请刷新后重试。');
         await stateService().setDorm(saved.token, active);
         terminalStateReader?.clear(); emit({ type: 'dorm' });
@@ -622,27 +670,20 @@
         snapshotKey: tournamentSnapshotKey,
         view: state => stateService().tournamentView(state),
         nationalView: state => stateService().nationalTournamentView(state),
-        action: writeTournament,
+        action: businessAction(writeTournament),
         opponents: (state, options) => stateService().tournamentOpponents(state, options),
         participant: (state, options) => stateService().tournamentParticipant(state, options)
       },
       supportStage,
       romanceStage,
-      correction: { getConfig: getCorrectionConfig, saveConfig: saveCorrectionConfig,
-        getStatus: getCorrectionStatus, getContext: getCorrectionInput, fetchModels: fetchCorrectionModels,
-        request: () => requestCorrection(), retry: retryCorrection, apply: applyCorrection, cancel: cancelCorrection },
       getSnapshot: async () => readSnapshot(),
       getStat: async () => readSnapshot().state,
-      lime: { read: () => limeHost.read(), send: request => limeHost.send(request) },
-      playerPortrait: portraitBridge,
+      lime: { read: businessAction(() => limeHost.read()), send: businessAction(request => limeHost.send(request)) },
       worldbookCalendar: { read: readCalendarWorldbook },
-      setRosterHidden,
-      deleteRosterPerson,
-      editPlayerProfile,
-      onUpdate: (cb) => {
-        updateCbs.push(cb);
-        return () => { const index = updateCbs.indexOf(cb); if (index !== -1) updateCbs.splice(index, 1); };
-      },
+      setRosterHidden: businessAction(setRosterHidden),
+      deleteRosterPerson: businessAction(deleteRosterPerson),
+      editPlayerProfile: businessAction(editPlayerProfile),
+      onUpdate: subscribeAppUpdate,
       setOrbBadge: (n) => {
         const b = SS.orb && SS.orb.querySelector('.b');
         if (!b) return;
@@ -681,6 +722,7 @@
         const snapshot = readSnapshot(), source = snapshot.source, target = snapshot.targetSource;
         if (source && target && source.messageId === target.messageId && source.swipeId === target.swipeId) state = snapshot.state;
       } catch (_) { /* 日期无法确认时关闭程序号池提示。 */ }
+      if (!terminalBusinessIsRakudai(state)) return;
       filterTournamentPoolPrompt(request?.messages, state);
       // Only paired native story generation receives persisted side communications.
       // Auxiliary LIME / opening / correction requests keep their own prompt contract.
@@ -696,11 +738,14 @@
 
     wireAutomaticCorrection(safeOn, TE);
     // 纯显示重绘只修补头像，不使 MVU 来源或终端编辑草稿失效。
-    if (TE.CHARACTER_MESSAGE_RENDERED) safeOn(TE.CHARACTER_MESSAGE_RENDERED, () => playerBubbleBinder?.refresh(true));
+    if (TE.CHARACTER_MESSAGE_RENDERED) safeOn(TE.CHARACTER_MESSAGE_RENDERED, () => {
+      if (terminalBusinessIsRakudai()) playerBubbleBinder?.refresh(true);
+    });
 
     // ST 8172dcd 的 START/AFTER 参数键值一致；Helper 380be3c 只发 AFTER('normal', {}, false)。
     // 先记录原生开始，不取消正在保存的主轮；助手请求不能消费这份原生开始记录。
     if (TE.GENERATION_STARTED) safeOn(TE.GENERATION_STARTED, async (type, options = {}, dryRun = false) => {
+      if (!terminalBusinessIsRakudai()) return;
       armPool();
       if (dryRun || options?.dryRun || ![undefined, null, '', 'normal', 'continue', 'regenerate', 'swipe'].includes(type)) return;
       const ctx = correctionContext();
@@ -721,6 +766,7 @@
     });
     // 仅配对成功的原生主生成进入保存门禁；新回复的 MVU 仍由框架独立结算。
     if (TE.GENERATION_AFTER_COMMANDS) safeOn(TE.GENERATION_AFTER_COMMANDS, (type, options = {}, dryRun = false) => {
+      if (!terminalBusinessIsRakudai()) return;
       armPool();
       if (dryRun || options?.dryRun || ![undefined, null, '', 'normal', 'continue', 'regenerate', 'swipe'].includes(type)) return;
       if (!nativeStart || nativeStart.type !== type || nativeStart.chat !== correctionContext()?.chat || nativeStart.chatKey !== correctionChatKey() ||
@@ -739,7 +785,7 @@
       if (TE[name]) safeOn(TE[name], async () => {
         limeHost.cancel();
         limeStory.cancel();
-        if (name === 'MESSAGE_DELETED' || name === 'MESSAGE_SWIPE_DELETED') {
+        if (terminalBusinessIsRakudai() && (name === 'MESSAGE_DELETED' || name === 'MESSAGE_SWIPE_DELETED')) {
           try { await limeHost.rebindOwners(); }
           catch (error) { console.warn('[LIME] 附属记录归属未修复：', error.message); }
         }
@@ -749,7 +795,7 @@
         // 重 roll 的删除/切页事件不提前解除生成写锁。
         if (name === 'CHAT_CHANGED' || name === 'CHARACTER_FIRST_MESSAGE_SELECTED') { generationPending = false; limeNativeStarting = false; nativeStart = null; }
         // Witness existing attachment owners even when the phone is closed.
-        if (name === 'CHAT_CHANGED' || name === 'CHARACTER_FIRST_MESSAGE_SELECTED') {
+        if (terminalBusinessIsRakudai() && (name === 'CHAT_CHANGED' || name === 'CHARACTER_FIRST_MESSAGE_SELECTED')) {
           try { limeHost.read(); } catch (_) { /* MVU may not be ready until the next source update. */ }
         }
         emit({ type: name, reset: true, retainDisplay: !clearDisplay });
@@ -763,7 +809,7 @@
         limeStory.cancel();
         limeNativeStarting = false;
         generationPending = false;
-        endAutomaticCorrection(name === 'GENERATION_STOPPED', messageCount);
+        if (terminalBusinessIsRakudai()) endAutomaticCorrection(name === 'GENERATION_STOPPED', messageCount);
         emit({ type: 'story-turn', retainDisplay: true });
       });
     }
@@ -803,13 +849,15 @@
   /*__INJECT_STATE_PANEL__*/
 
   buildDom();
-  installHostCorrectionNotice();
-  buildStatePanel();
+  syncTerminalPresentation();
+  if (!ASTERISK_PREVIEW) { installHostCorrectionNotice(); buildStatePanel(); }
   bindDrag();
-  wireEvents();
-  try { limeHost.read(); } catch (_) { /* First-message MVU may still be initializing. */ }
-  playerBubbleBinder = createPlayerBubbleBinder({ host: HW, document: HD, service: playerPortrait,
-    css: /*__INJECT_PLAYER_BUBBLE_CSS__*/ });
+  if (!ASTERISK_PREVIEW) {
+    wireEvents();
+    try { limeHost.read(); } catch (_) { /* First-message MVU may still be initializing. */ }
+    playerBubbleBinder = createPlayerBubbleBinder({ host: HW, document: HD, service: playerPortrait,
+      css: /*__INJECT_PLAYER_BUBBLE_CSS__*/ });
+  }
   function portraitStorageChanged(event) {
     if (typeof event.key === 'string' && event.key.startsWith('rk:oc:portrait:v1:')) emit({ type: 'player-portrait' });
   }
@@ -818,7 +866,7 @@
   const portraitChanged = () => emit({ type: 'player-portrait' });
   HW.addEventListener('rk:player-portrait-changed', portraitChanged);
   SS.disposers.push(() => HW.removeEventListener('rk:player-portrait-changed', portraitChanged));
-  window.RakudaiMvuNative.install(window).then(marker => {
+  if (!ASTERISK_PREVIEW) window.RakudaiMvuNative.install(window, { acceptState: state => terminalBusinessIsRakudai(state) }).then(marker => {
     if (SS.destroyed) marker.destroy?.();
     else if (marker.state === 'failed') console.warn('[落第 MVU 原生兼容] ' + marker.message);
   });

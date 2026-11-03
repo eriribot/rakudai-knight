@@ -25,6 +25,7 @@ const shellFunctions = between(main, '  function toggle()', '  /*__INJECT_STATE_
   .replace('/*__INJECT_CORRECTION__*/', read('correction.js'));
 const lifecycleWiring = between(main, "  HW.addEventListener('resize', onResize);", "  console.info('[Hagun-Blazer-Terminal] initialized');");
 const pageRefresh = between(read('terminal-app.js'), 'function refreshTerminalState(event)', 'window.RKBoot = function(b)');
+const businessGuards = between(read('asterisk-presentation.js'), '  function assertRakudaiBusiness()', '  function applyIframeAppearance()');
 const results = [];
 async function check(name, run) {
   try { await run(); results.push({ name, passed: true }); }
@@ -94,6 +95,9 @@ function fixture(options = {}) {
   const realm = vm.createContext({
     RELATIONSHIP_SCORING, supportStage, romanceStage, structuredClone, AbortController,
     CORRECTION_RULES: '', CORRECTION_FORMAT: '',
+    ASTERISK_PREVIEW: options.preview === true, ASTERISK_APP_HTML: '',
+    appearancePreference: 'auto', setTerminalAppearance() {}, applyIframeAppearance() {},
+    terminalBusinessIsRakudai: options.businessAllowed || (() => true),
     LS: { get: (key, fallback) => storage.has(key) ? storage.get(key) : fallback, set: (key, value) => storage.set(key, value) },
     window: W, HW, HD: {
       createElement(tag) {
@@ -175,11 +179,12 @@ function fixture(options = {}) {
       },
     })[name] || null,
     closeWheel() {}, clearOrbTip() {}, setMode() {}, preferDrawer: () => false,
+    syncTerminalPresentation() {},
     refreshStatePanel() {}, disposeStatePanel() {}, statePanel: null,
     showOrbTip: (...args) => tips.push(args), recenter() {}, toggleWheel() {}, openPhoneApp() {},
   });
   vm.runInContext("const SLOT = '__RK_PHONE_SHELL__';\n" + versionDeclaration + '\n' + stateDeclaration + '\n' + read('state-reader.js') + '\n' + read('player-display-store.js') + '\n' + read('player-portrait.js') + '\n' +
-    read('lime-chat.mjs').replace(/^export /gm, '') + '\n' + read('lime-host.js') + '\n' + read('lime-worldbook.js') + '\n' + read('lime-story.js') + '\n' + shellFunctions + '\n' +
+    read('lime-chat.mjs').replace(/^export /gm, '') + '\n' + read('lime-host.js') + '\n' + read('lime-worldbook.js') + '\n' + read('lime-story.js') + '\n' + businessGuards + '\n' + shellFunctions + '\n' +
     'globalThis.shell = { SS, show, hide, destroy, makeBridge, wireEvents, emit, getCorrectionStatus, ' +
     'generation: () => ({ pending: generationPending, turn: correctionMainTurn }), setBubbleBinder(value) { playerBubbleBinder = value; } };', realm);
   realm.shell.SS.host = node();
@@ -543,6 +548,69 @@ function seedLimeContext(f) {
     name: '史黛菈', swipe_id: 0, swipes: [incoming, otherSwipe],
     variables: pages, swipes_data: pages });
 }
+
+await check('非落第保留本机设置但拒绝校正业务，离线预览不暴露 API 设置', async () => {
+  const f = fixture({ businessAllowed: () => false }); seedLimeContext(f);
+  f.api.SS.businessWorld = 'asterisk';
+  const bridge = f.api.makeBridge(), before = JSON.stringify(f.context.chat);
+  for (const key of ['lime', 'tournament', 'dorm', 'setRosterHidden', 'deleteRosterPerson', 'editPlayerProfile']) {
+    assert.equal(Object.hasOwn(bridge, key), false, key);
+  }
+  assert.equal(bridge.world, 'asterisk'); assert.equal(bridge.appearance.get(), 'auto');
+  for (const name of ['getConfig', 'saveConfig', 'fetchModels']) assert.equal(typeof bridge.correction[name], 'function', name);
+  for (const name of ['request', 'retry', 'apply']) assert.throws(() => bridge.correction[name](), /当前作品未启用落第操作/, name);
+  const config = bridge.correction.getConfig();
+  bridge.correction.saveConfig({ ...config, model: 'settings-preserved', autoApply: false });
+  const portrait = bridge.playerPortrait, saved = portrait.saveAliases(portrait.get(), { aliases: ['朝阳'] });
+  f.api.SS.asterisk = true;
+  assert.equal(f.api.makeBridge().correction.getConfig().model, 'settings-preserved');
+  assert.equal(f.api.makeBridge().playerPortrait.get().aliases[0], saved.aliases[0]);
+  assert.equal(typeof bridge.getSnapshot, 'function'); assert.equal(typeof bridge.getStat, 'function');
+  await bridge.getSnapshot(); await bridge.getStat(); await bridge.worldbookCalendar.read();
+  assert.equal(JSON.stringify(f.context.chat), before);
+  assert.equal(f.loreReads.length, 0); assert.equal(f.messageWrites.length, 0); assertUntracked(f);
+  f.api.destroy();
+  const preview = fixture({ preview: true, businessAllowed: () => false }), previewBridge = preview.api.makeBridge();
+  assert.equal(Object.hasOwn(previewBridge, 'correction'), false);
+  assert.equal(Object.hasOwn(previewBridge, 'playerPortrait'), false); assertUntracked(preview);
+  preview.api.destroy();
+});
+
+await check('非落第 START、AFTER、提示过滤与已见证附件删楼事件不请求或改写', async () => {
+  let allowed = true;
+  const f = fixture({ businessAllowed: () => allowed }); seedLimeContext(f);
+  await f.event('CHAT_CHANGED'); // 先建立真实归属见证，确认后续删除确实有可修复的旧附件。
+  allowed = false;
+  for (const page of f.context.chat[1].variables) page.stat_data.系统.作品 = 'asterisk';
+  f.context.chat.splice(0, 1);
+  const beforeChat = JSON.stringify(f.context.chat), options = nativeOptions();
+  const request = { messages: [{ role: 'system', content: '<rk-selection-rules>选拔规则</rk-selection-rules>\n<rk-national-rules>七星规则</rk-national-rules>\n<rk-tournament-calendar>旧日历</rk-tournament-calendar>' }] };
+  const beforeRequest = JSON.stringify(request);
+  await f.event('GENERATION_STARTED', 'normal', options, false);
+  await f.event('GENERATION_AFTER_COMMANDS', 'normal', { ...options }, false);
+  await f.event('CHAT_COMPLETION_SETTINGS_READY', request);
+  for (const name of ['MESSAGE_DELETED', 'MESSAGE_SWIPE_DELETED', 'CHAT_CHANGED', 'GENERATION_ENDED', 'GENERATION_STOPPED']) await f.event(name);
+  assert.equal(JSON.stringify(request), beforeRequest); assert.equal(JSON.stringify(f.context.chat), beforeChat);
+  assert.equal(f.messageWrites.length, 0); assert.equal(f.auxiliaryCalls.length, 0); assert.equal(f.nativeSends.length, 0);
+  assert.equal(f.injectedPrompts.length, 0); assert.equal(f.loreReads.length, 0); assertUntracked(f);
+  f.api.destroy();
+});
+
+await check('学战外观配落第业务仍保留完整桥接、原生主轮与通讯提示', async () => {
+  const f = fixture(); seedLimeContext(f); f.api.SS.asterisk = true;
+  const bridge = f.api.makeBridge(), options = nativeOptions();
+  assert.equal(typeof bridge.lime.send, 'function'); assert.equal(typeof bridge.correction.request, 'function');
+  assert.equal(typeof bridge.dorm, 'function'); assert.equal(typeof bridge.tournament.action, 'function');
+  await f.event('GENERATION_STARTED', 'normal', options, false);
+  await f.event('GENERATION_AFTER_COMMANDS', 'normal', { ...options }, false);
+  assert.equal(f.api.generation().pending, true); assert.ok(f.api.generation().turn);
+  assert.equal(f.api.getCorrectionStatus().mainSave, 'waiting'); assert.equal(f.injectedPrompts.length, 1);
+  const request = { messages: [{ role: 'user', content: '继续训练。' }] };
+  await f.event('CHAT_COMPLETION_SETTINGS_READY', request);
+  assert.ok(request.messages.some(message => message.content.startsWith('[rk-lime:attached-context:v1]')));
+  assert.equal(f.requests.length, 0); assert.equal(f.writes.length, 0); assert.equal(f.messageWrites.length, 0);
+  f.api.destroy();
+});
 
 await check('主壳 LIME 桥接读取真实当前楼层与活动页，读取不改写上下文', () => {
   const f = fixture(); seedLimeContext(f);

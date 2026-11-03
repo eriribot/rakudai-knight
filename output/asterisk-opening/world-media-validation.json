@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "sourceSha256": "877e5f6441874661f9fdbe4065511e523400a02b7bc0667ac34d1c6a3f7c9fec",
+  "checks": [
+    "paused remains paused",
+    "playing resumes after source switch",
+    "no OP replay",
+    "OP guards BGM playback",
+    "same-world updates preserve current audio",
+    "stale BGM errors ignored",
+    "current playback rejection shows feedback",
+    "AbortError ignored",
+    "both navigation logos and main Asterisk logo bind to official image assets"
+  ],
+  "scope": "Actual integrated novel media functions with deterministic DOM/audio mocks; real audio decoding is browser acceptance."
+}

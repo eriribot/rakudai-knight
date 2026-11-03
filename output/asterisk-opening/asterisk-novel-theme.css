@@ -1,0 +1,263 @@
+/* Asterisk novel mode. Apply after asterisk-theme.css. */
+/* Retains the original opening, cover carousel, floating gallery and three-step layout. */
+
+/* Original novel stage: keep its dimensions and placement, change only its material. */
+@media (max-width:600px) {
+  .aw-worldbar { display:grid; grid-template-columns:minmax(0,1fr) auto; }
+  .aw-worldbar .aw-brand { grid-column:1; grid-row:1; }
+  .aw-worldbar .aw-replay-op { grid-column:2; grid-row:1; }
+  .aw-worldbar .aw-world-options { grid-column:1 / -1; grid-row:2; }
+  .aw-worldbar .aw-version { display:none; }
+}
+body.prelude-active #cardScene .illustration-card, body.prelude-active #cardScene .sakura-petal { animation-play-state:paused; }
+.aw-replay-op { min-height:44px; padding:8px 14px; color:inherit; border:1px solid currentColor; background:transparent; font:600 12px/1.5 var(--font-sans); cursor:pointer; }
+.lk-op-sound-gate.is-sound-toggle { top:auto; bottom:20px; left:20px; transform:none; width:auto; min-width:0; max-width:60%; padding:10px 14px; font-size:14px; letter-spacing:.05em; text-align:left; }
+.lk-op-sound-gate.is-sound-toggle small { font-size:11px; }
+body[data-world="asterisk"] #bgm-widget-container { position:relative; inset:auto; width:max-content; max-width:100%; margin:0 0 12px auto; }
+body[data-world="asterisk"] .bgm-label-shield { display:none; }
+body[data-world="asterisk"] .bgm-disc-label::after { content:'✳'; color:var(--ast-accent); font-size:24px; }
+body[data-world="asterisk"] #aw-academy-picker > summary > span { margin-left:12px; font-size:12px; font-weight:400; }
+body[data-world="asterisk"] .book-showcase-panel {
+  border: 1px solid rgba(91, 151, 174, .62) !important;
+  border-top: 3px solid var(--ast-accent) !important;
+  border-radius: 2px;
+  outline: 1px solid rgba(255, 255, 255, .84);
+  outline-offset: 2px;
+  background: linear-gradient(120deg, rgba(251, 254, 255, .90), rgba(234, 246, 250, .78)) !important;
+  box-shadow: inset 0 1px 0 #fff, 0 14px 36px rgba(24, 62, 78, .10) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+body[data-world="asterisk"] .showcase-header,
+body[data-world="asterisk"] .showcase-header.guardian-header {
+  border-bottom: 1px solid var(--ast-line);
+}
+body[data-world="asterisk"] .showcase-tag {
+  color: var(--ast-accent);
+  font-family: "Segoe UI", sans-serif;
+  font-size: 11px;
+  letter-spacing: .18em;
+}
+body[data-world="asterisk"] .showcase-subtitle { color: var(--ast-dark); font-weight: 700; }
+body[data-world="asterisk"] .showcase-story-copy .narrative-title,
+body[data-world="asterisk"] .narrative-title { color: var(--ast-dark); text-shadow: none; }
+body[data-world="asterisk"] .showcase-story-copy .narrative-quote,
+body[data-world="asterisk"] .narrative-quote { color: #294451; text-shadow: none; }
+body[data-world="asterisk"] .showcase-story-copy .narrative-quote.highlight,
+body[data-world="asterisk"] .narrative-quote.highlight { color: var(--ast-accent); }
+body[data-world="asterisk"] .narrative-card {
+  border: 1px solid var(--ast-line);
+  border-radius: 2px;
+  background: rgba(249, 253, 254, .95);
+  box-shadow: 0 12px 32px rgba(24, 62, 78, .08);
+}
+body[data-world="asterisk"] .showcase-story-copy .narrative-box,
+body[data-world="asterisk"] .narrative-box {
+  background: rgba(240, 248, 250, .8) !important;
+  border: 1px solid var(--ast-line);
+  border-left: 3px solid var(--ast-accent);
+  border-radius: 0;
+  box-shadow: none;
+}
+body[data-world="asterisk"] .narrative-box-title { color: var(--ast-accent); }
+body[data-world="asterisk"] .narrative-box-p { color: #38535f; }
+body[data-world="asterisk"] .narrative-title::after { height: 1px; background: var(--ast-accent); opacity: .5; }
+body[data-world="asterisk"] .archive-side-entry {
+  background: #f5fafc;
+  border: 1px solid var(--ast-line);
+  border-radius: 2px;
+  color: var(--ast-dark);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+body[data-world="asterisk"] .btn-narrative-start {
+  background: var(--ast-dark);
+  color: #fff;
+  border: 1px solid var(--ast-dark);
+  border-radius: 1px;
+  box-shadow: 0 3px 0 rgba(10, 46, 60, .1);
+  letter-spacing: .06em;
+}
+body[data-world="asterisk"] .btn-narrative-start:hover { background: var(--ast-accent); border-color: var(--ast-accent); box-shadow: 0 4px 14px rgba(14, 99, 119, .16); }
+body[data-world="asterisk"] .btn-narrative-skip {
+  background: #f8fcfd;
+  color: var(--ast-accent);
+  border: 1px solid var(--ast-accent);
+  border-radius: 1px;
+  box-shadow: none;
+  letter-spacing: .03em;
+}
+body[data-world="asterisk"] .btn-narrative-skip:hover { background: var(--ast-soft); color: var(--ast-dark); border-color: var(--ast-accent); box-shadow: none; }
+
+/* Retain original cover size, ratio, ordering and artwork area. */
+body[data-world="asterisk"] .book-frame {
+  border: 1px solid rgba(78, 147, 172, .8);
+  border-radius: 1px;
+  background: #16313e;
+  box-shadow: -5px 0 12px rgba(13, 49, 65, .16), 0 12px 22px rgba(13, 49, 65, .2), 0 0 0 3px rgba(246, 253, 255, .85);
+}
+body[data-world="asterisk"] .book-frame:hover { box-shadow: -4px 0 10px rgba(13, 49, 65, .12), 0 16px 28px rgba(13, 49, 65, .24), 0 0 0 3px rgba(246, 253, 255, .95); }
+body[data-world="asterisk"] .book-spine-glow { width: 8px; background: linear-gradient(90deg, rgba(187, 239, 250, .40), rgba(232, 252, 255, .04) 50%, rgba(9, 41, 54, .14)); }
+body[data-world="asterisk"] .carousel-slide img { background: #f3f9fb; }
+body[data-world="asterisk"] .carousel-btn {
+  background: rgba(20, 53, 67, .94);
+  border: 1px solid rgba(186, 225, 239, .7);
+  border-radius: 2px;
+  width: 38px;
+  height: 44px;
+  box-shadow: 0 4px 12px rgba(15, 46, 62, .18);
+}
+body[data-world="asterisk"] .carousel-btn:hover { background: var(--ast-accent); }
+body[data-world="asterisk"] .carousel-container:focus-visible { outline: 3px solid var(--ast-accent); outline-offset: 5px; border-radius: 0; }
+body[data-world="asterisk"] .dot { background: #afc6d1; border-radius: 1px; }
+body[data-world="asterisk"] .dot.active { background: var(--ast-accent); }
+body[data-world="asterisk"] .dot:hover { background: var(--ast-dark); }
+body[data-world="asterisk"] .dot:focus-visible { outline: 2px solid var(--ast-accent); outline-offset: 4px; }
+body[data-world="asterisk"] .volume-meta-card {
+  background: rgba(246, 251, 253, .85) !important;
+  border: 1px solid var(--ast-line);
+  border-radius: 1px;
+}
+body[data-world="asterisk"] .volume-title { color: var(--ast-dark); }
+body[data-world="asterisk"] .volume-desc { color: var(--ast-muted); }
+body[data-world="asterisk"] .volume-index { color: var(--ast-accent); font-family: "Consolas", monospace; }
+body[data-world="asterisk"] .compact-story-details summary { color: var(--ast-accent); min-height: 44px; line-height: 1.6; padding: 10px 0; }
+
+/* Floating gallery: preserve motion and image window, replace the ornate gold surround. */
+body[data-world="asterisk"] .illustration-card {
+  padding: 7px;
+  border: 1px solid rgba(87, 175, 196, .9);
+  border-radius: 1px;
+  background: linear-gradient(145deg, #f8feff, #d5ecf2 58%, #e9f8fb);
+  box-shadow: 0 10px 26px rgba(14, 49, 66, .22), 0 0 0 2px rgba(232, 250, 255, .9), inset 0 0 0 1px rgba(87, 175, 196, .3);
+}
+body[data-world="asterisk"] .illustration-card::before {
+  inset: 2px;
+  border: 1px solid rgba(23, 109, 131, .38);
+  border-radius: 0;
+  box-shadow: none;
+}
+body[data-world="asterisk"] .illustration-card::after {
+  inset: 0;
+  background:
+    linear-gradient(135deg, var(--ast-accent) 0 40%, transparent 42%) top left / 8px 8px no-repeat,
+    linear-gradient(225deg, var(--ast-accent) 0 40%, transparent 42%) top right / 8px 8px no-repeat,
+    linear-gradient(45deg, var(--ast-accent) 0 40%, transparent 42%) bottom left / 8px 8px no-repeat,
+    linear-gradient(315deg, var(--ast-accent) 0 40%, transparent 42%) bottom right / 8px 8px no-repeat,
+    repeating-linear-gradient(90deg, rgba(38, 132, 154, .3) 0 1px, transparent 1px 6px) bottom center / 50% 3px no-repeat;
+}
+body[data-world="asterisk"] .card-img-wrap { border: 1px solid #a8cdd9; border-radius: 0; outline: none; background: #e8f4f7; box-shadow: 0 2px 6px rgba(17, 55, 72, .12); }
+body[data-world="asterisk"] .card-img-wrap::after { border: 0; box-shadow: none; background: none; }
+body[data-world="asterisk"] .illustration-card:hover {
+  border-color: var(--ast-accent);
+  box-shadow: 0 16px 34px rgba(14, 49, 66, .3), 0 0 20px rgba(71, 186, 208, .25), 0 0 0 2px #effcff;
+}
+body[data-world="asterisk"] .sakura-branch-decor { opacity: .22; filter: grayscale(1) sepia(.3) hue-rotate(130deg) drop-shadow(0 3px 7px rgba(24, 97, 123, .12)); }
+body[data-world="asterisk"] .sakura-petal { border-radius: 0; clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); background: linear-gradient(135deg, #e7fcff, #87dae9 60%, #399eb5); filter: drop-shadow(0 0 4px rgba(65, 176, 200, .28)); }
+body[data-world="asterisk"] .scene-ambient-toggle { min-height: 44px; color: var(--ast-dark); background: #f7fcfd; border: 1px solid var(--ast-line); border-radius: 2px; box-shadow: none; }
+body[data-world="asterisk"] .scene-ambient-toggle:hover { color: var(--ast-accent); border-color: var(--ast-accent); box-shadow: 0 3px 9px rgba(20, 75, 94, .1); }
+body[data-world="asterisk"] .scene-ambient-toggle.paused { color: #586e79; background: #e8f0f4; border-color: #b9cdd7; }
+
+/* Original enlarged-art viewer remains the same viewer with a technical frame. */
+body[data-world="asterisk"] .card-cinema-overlay { background: rgba(7, 24, 34, .82); }
+body[data-world="asterisk"] .cinema-dialog {
+  border: 1px solid rgba(98, 178, 204, .9);
+  border-top: 3px solid var(--ast-accent);
+  border-radius: 2px;
+  background: #eff8fb;
+  box-shadow: 0 24px 64px rgba(2, 16, 24, .6), 0 0 0 1px rgba(193, 237, 249, .32);
+}
+body[data-world="asterisk"] .cinema-frame { border: 1px solid #4f8399; border-radius: 1px; background: #0d202c; box-shadow: none; }
+body[data-world="asterisk"] .cinema-corner { width: 15px; height: 15px; border-color: #a7ebfa; }
+body[data-world="asterisk"] .cinema-close-btn,
+body[data-world="asterisk"] .cinema-nav-btn {
+  min-width: 44px;
+  min-height: 44px;
+  border: 1px solid #72b5ca;
+  border-radius: 2px;
+  color: #e8f9ff;
+  background: rgba(16, 49, 66, .96);
+  box-shadow: 0 4px 12px rgba(5, 27, 39, .22);
+}
+body[data-world="asterisk"] .cinema-close-btn:hover,
+body[data-world="asterisk"] .cinema-nav-btn:hover { background: var(--ast-accent); border-color: #bcebf6; color: #fff; }
+
+/* Both worlds retain the original Rakudai title standby after the shared OP. */
+.lk-title-screen::before { background-image: linear-gradient(rgba(30, 17, 12, .2), rgba(8, 5, 4, .34)), var(--opening-title-art, url("https://eriribot.github.io/rakudai-knight/title-screen-8k.png")); }
+body[data-world="asterisk"] .lk-opening-screen { background-color: #081b28; }
+body[data-world="asterisk"] .lk-opening-screen::before { background: radial-gradient(circle at center, rgba(17, 52, 70, .02), rgba(0, 15, 27, .3) 82%); }
+body[data-world="asterisk"] .lk-op-sound-gate { color: #effcff; background: rgba(4, 28, 43, .86); border-color: #78cedf; font-family: var(--font-sans); box-shadow: 0 12px 38px rgba(0, 17, 30, .44), inset 0 0 0 1px rgba(220, 251, 255, .1); }
+body[data-world="asterisk"] .lk-op-skip { color: #e4f8ff; font-family: "Consolas", monospace; min-height: 44px; font-size: clamp(11px, 1.1cqw, 14px); letter-spacing: .12em; }
+body[data-world="asterisk"] .lk-opening-stage > img,
+body[data-world="asterisk"] .aw-opening-still { width: 100%; height: 100%; display: block; object-fit: contain; background: #071d2a; }
+
+/* Academy selection is a compact registration section, never the opening landing. */
+body[data-world="asterisk"] #aw-academy-picker { margin: 0 0 24px; padding: 0; border: 1px solid var(--ast-line); border-left: 3px solid var(--ast-accent); background: #f4f9fb; }
+body[data-world="asterisk"] #aw-academy-picker > summary {
+  min-height: 52px;
+  padding: 14px 18px;
+  color: var(--ast-dark);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.7;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+body[data-world="asterisk"] #aw-academy-picker[open] > summary { border-bottom: 1px solid var(--ast-line); }
+body[data-world="asterisk"] #scene-register #asterisk-campus-stage { width: 100%; max-width: none; margin: 0; padding: 18px; }
+body[data-world="asterisk"] #scene-register .aw-campus-top { display: block; padding: 0 0 16px; }
+body[data-world="asterisk"] #scene-register .aw-eyebrow { font-size: 11px; }
+body[data-world="asterisk"] #scene-register .aw-campus-title { font-size: 24px; }
+body[data-world="asterisk"] #scene-register .aw-campus-lead { margin-top: 7px; font-size: 13px; }
+body[data-world="asterisk"] #scene-register .aw-edition { display: none; }
+body[data-world="asterisk"] #scene-register .aw-campus-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
+body[data-world="asterisk"] #scene-register .aw-school-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+body[data-world="asterisk"] #scene-register .aw-school { min-height: 138px; }
+body[data-world="asterisk"] #scene-register .aw-school-detail { display: block; padding: 20px; box-shadow: none; }
+body[data-world="asterisk"] #scene-register .aw-detail-top { margin-bottom: 12px; }
+body[data-world="asterisk"] #scene-register .aw-school-detail h2 { font-size: 23px; }
+body[data-world="asterisk"] #scene-register #aw-school-description { margin: 10px 0 14px; font-size: 13px; }
+body[data-world="asterisk"] #scene-register .aw-school-facts { margin-bottom: 14px; }
+body[data-world="asterisk"] #scene-register .aw-enter-button { margin-top: 14px; min-height: 46px; }
+body[data-world="asterisk"] #scene-register .aw-campus-foot { margin-top: 12px; padding-bottom: 0; font-size: 11px; }
+
+@media (max-width: 850px) {
+  body[data-world="asterisk"] .book-showcase-panel { padding: 16px 12px; }
+  body[data-world="asterisk"] .guardian-header button { font-size: clamp(11px, 2.6vw, 13px) !important; letter-spacing: 0; min-height: 44px !important; }
+  body[data-world="asterisk"] .compact-story-details { color: #294451; }
+  body[data-world="asterisk"] .compact-story-details .narrative-title { font-size: 20px; }
+  body[data-world="asterisk"] .compact-story-details .narrative-quote { font-size: 14px; }
+}
+@media (max-width: 600px) {
+  body[data-world="asterisk"] .illustration-card { padding: 6px; }
+  body[data-world="asterisk"] .cinema-dialog { width: 94vw; padding: 16px 16px 14px; }
+  body[data-world="asterisk"] .cinema-close-btn { top: 6px; right: 6px; }
+  body[data-world="asterisk"] .cinema-prev-btn { left: -8px; }
+  body[data-world="asterisk"] .cinema-next-btn { right: -8px; }
+  body[data-world="asterisk"] .cinema-nav-btn { width: 44px; height: 44px; font-size: 23px; }
+  body[data-world="asterisk"] #scene-register #asterisk-campus-stage { padding: 12px; }
+  body[data-world="asterisk"] #scene-register .aw-campus-title { font-size: 22px; }
+  body[data-world="asterisk"] #scene-register .aw-school { min-height: 172px; padding-left: 10px; padding-right: 10px; }
+  body[data-world="asterisk"] #scene-register .aw-school[aria-pressed="true"] { padding-left: 9px; padding-right: 9px; }
+  body[data-world="asterisk"] #scene-register .aw-school-name { font-size: 13px; }
+  body[data-world="asterisk"] #scene-register .aw-school-number { left: 10px; }
+  body[data-world="asterisk"] #scene-register .aw-school-status { font-size: 10px; right: 8px; }
+  body[data-world="asterisk"] #scene-register .aw-school-detail { padding: 17px; }
+  body[data-world="asterisk"] #aw-academy-picker > summary { padding: 12px 14px; }
+}
+@container lk-guide (max-width: 600px) {
+  body[data-world="asterisk"] #scene-register #asterisk-campus-stage { padding: 12px; }
+  body[data-world="asterisk"] #scene-register .aw-campus-layout { grid-template-columns: minmax(0, 1fr); }
+  body[data-world="asterisk"] #scene-register .aw-school-detail { padding: 17px; }
+  body[data-world="asterisk"] .guardian-header button { min-height: 44px !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body[data-world="asterisk"] .illustration-card,
+  body[data-world="asterisk"] .sakura-petal,
+  body[data-world="asterisk"] .lk-continue-prompt { animation: none !important; }
+  body[data-world="asterisk"] .book-frame,
+  body[data-world="asterisk"] .carousel-slide,
+  body[data-world="asterisk"] .cinema-dialog,
+  body[data-world="asterisk"] .card-cinema-overlay { transition: none !important; }
+}

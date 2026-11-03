@@ -1,0 +1,25 @@
+{
+  "sourcePage": "https://asterisk-war.com/",
+  "sourceUrl": "https://asterisk-war.com/assets/img/common/sidelogo.png",
+  "resolvedUrl": "https://asterisk-war.com/assets/img/common/sidelogo.png",
+  "sourceEvidence": "首页 h1 > a > img，alt=\"学戦都市アスタリスク THE ASTERISK WAR\"",
+  "downloadedAt": "2026-11-02",
+  "sha256": "ee6993e1a685005b2ec77557787f6a0bad18d9ebc0ffc012e459ee26914c7235",
+  "bytes": 20094,
+  "contentType": "image/png",
+  "width": 350,
+  "height": 174,
+  "mode": "RGBA",
+  "alphaExtrema": [
+    0,
+    255
+  ],
+  "fullyTransparentPixels": 49274,
+  "contentBounds": [
+    0,
+    0,
+    350,
+    174
+  ],
+  "modified": false
+}

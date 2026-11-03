@@ -1,0 +1,13 @@
+{
+  "sourceSha256": "96b373eb19e7db7060724c4c9c344adc894b8de863f386d22986ca792f423906",
+  "sourceBytes": 649673,
+  "evidenceSource": "Parent agent's real browser acceptance reported in this task; not executed by the packaging sub-agent.",
+  "originalCover": { "loadedFromLocalCopy": true, "complete": true, "naturalWidth": 7680 },
+  "originalTitleLogoNaturalWidth": 735,
+  "officialMainAsteriskLogoNaturalWidth": 350,
+  "mobile": { "viewportWidth": 360, "scrollWidth": 345, "rankGuideOverflow": false },
+  "consoleErrors": 0,
+  "screenshots": ["预览-落第默认封面.jpg", "预览-学战官方主Logo.jpg", "预览-校内序列说明.jpg"],
+  "liveSillyTavernVerified": false,
+  "liveAiVerified": false
+}

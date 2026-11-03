@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "sourceBytes": 659585,
+  "sourceSha256": "877e5f6441874661f9fdbe4065511e523400a02b7bc0667ac34d1c6a3f7c9fec",
+  "evidenceOwner": "/root",
+  "evidenceMethod": "Actual in-app browser operations and read-only DOM inspection, reported by the parent agent; packaging agent did not operate the browser.",
+  "titleLayout": "original-pair",
+  "images": [
+    {"world":"rakudai","naturalWidth":7680,"naturalHeight":4320,"objectFit":"contain","filter":"none","clipPath":"none"},
+    {"world":"asterisk","naturalWidth":1200,"naturalHeight":624,"objectFit":"contain","filter":"none","clipPath":"none"}
+  ],
+  "desktopScreenshot": "第一卷-世界书整理/开局网页正则替换/预览-原图拼接封面.jpg",
+  "mobileScreenshot": "第一卷-世界书整理/开局网页正则替换/预览-原图拼接手机.jpg",
+  "mobile": {"viewportWidth":360,"viewportHeight":800,"documentScrollWidth":345,"continueButtonHeight":44,"allEightCharactersVisible":true,"horizontalOverflow":false},
+  "initialOp": {"paused":false,"observedCurrentTimeSeconds":15.372193},
+  "continueToHome": true,
+  "switchToRakudai": {"bodyWorld":"rakudai","titleLayout":"original-pair","preludeHidden":true,"opPaused":true},
+  "replayAfterSwitchToAsterisk": {"paused":false,"observedCurrentTimeSeconds":3.740548,"source":"assets/asterisk/op.mp4","skipReturnsToOriginalPair":true},
+  "consoleErrors": [],
+  "liveSillyTavernVerified": false,
+  "liveAiVerified": false
+}

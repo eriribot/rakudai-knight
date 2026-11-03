@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-11-02T13:49:26.500904+00:00",
+  "title": "落第与学战原图并置封面来源记录",
+  "provenanceType": "unmodified original image pair with HTML/CSS presentation",
+  "renderingMethod": {
+    "imageProcessing": "none",
+    "desktopLayout": "HTML/CSS 并排显示两张完整原图",
+    "mobileLayout": "HTML/CSS 纵向堆叠显示两张完整原图",
+    "background": "背景由网页 CSS 单独呈现，不写入或重绘两张人物原图。"
+  },
+  "inputs": [
+    {
+      "world": "rakudai",
+      "role": "落第四女原始本地图片",
+      "path": "E:\\web\\落第\\title-screen-8k.png",
+      "relativeWorkspacePath": "title-screen-8k.png",
+      "width": 7680,
+      "height": 4320,
+      "format": "PNG",
+      "actualMime": "image/png",
+      "mode": "RGB",
+      "bytes": 17526583,
+      "sha256": "165b15285c81879567831a257488341b90a72501159386d831472f498d929c31",
+      "matchesPreviouslyRecordedOriginalSha256": true,
+      "modifiedByThisMetadataTask": false,
+      "provenance": {
+        "type": "existing user workspace asset",
+        "sourcePath": "E:\\web\\落第\\title-screen-8k.png",
+        "description": "用户指定直接使用的工作区落第四女原图；本记录不将其声明为已核验的官方原生视觉。",
+        "externalOriginalSource": null
+      }
+    },
+    {
+      "world": "asterisk",
+      "role": "官方学战四女商品宣传图",
+      "path": "E:\\web\\落第\\output\\asterisk-opening\\source-assets\\asterisk-four-heroines-official.jpg",
+      "relativeWorkspacePath": "output/asterisk-opening/source-assets/asterisk-four-heroines-official.jpg",
+      "width": 1200,
+      "height": 624,
+      "format": "JPEG",
+      "actualMime": "image/jpeg",
+      "mode": "RGB",
+      "bytes": 214265,
+      "sha256": "ad356b0f05390ae1791037cef9f342c25884a68784a36a80af27c2025a9d5345",
+      "matchesPreviouslyRecordedOriginalSha256": true,
+      "modifiedByThisMetadataTask": false,
+      "provenance": {
+        "type": "official anime merchandise promotional image",
+        "sourcePage": "https://asterisk-war.com/goods/?item_id=386",
+        "sourceUrl": "https://asterisk-war.com/goods/SYS/CONTENTS/goods_386_main",
+        "sourceReceipt": "asterisk-four-heroines-official.source.json",
+        "description": "官方等身大タペストリー商品组图，四位女性角色；不是官方联动视觉或两作品合照。"
+      }
+    }
+  ],
+  "constraints": {
+    "sourceImageBytesMustRemainUnchanged": true,
+    "generatedOrRedrawnCharactersAllowed": false,
+    "characterCroppingAllowed": false,
+    "rasterCompositingAllowed": false,
+    "imageReencodingAllowed": false,
+    "preserveWholeImageAndAspectRatio": true,
+    "cssLayoutAndBackgroundOnly": true,
+    "description": "人物原图文件字节不变。仅用 HTML/CSS 排列、等比缩放与独立背景；完整保留两张图片及全部人物，不生成、不重绘、不裁切人物。"
+  },
+  "historicalGeneratedAsset": {
+    "path": "opening-crossover-v1.png",
+    "sourceReceipt": "opening-crossover-v1.source.json",
+    "status": "superseded; retained as source-assets history only",
+    "mustNotBeReferencedByProduct": true,
+    "description": "用户已拒绝该 AI 人物重绘方案；生成图仅保留历史，不属于本次原图并置方案。"
+  },
+  "verification": {
+    "originalInputChecksumsMatchPriorReceipts": true,
+    "imageFilesModifiedByThisTask": false,
+    "productCodeModifiedByThisTask": false,
+    "layoutAndProductReferenceCompliance": "需由交付审计核验；本任务仅记录来源及约束，不以元数据宣称页面实现已通过。"
+  }
+}

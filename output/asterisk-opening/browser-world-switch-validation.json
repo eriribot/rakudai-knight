@@ -1,0 +1,19 @@
+{
+  "sourceSha256": "a6e514b1225383047dbe1273ef1ce5acb6d563c37e38a4a3008490c39f6bea8b",
+  "sourceBytes": 650524,
+  "evidenceSource": "Parent agent's real browser acceptance reported in this task; not executed by the packaging sub-agent.",
+  "worldLogoNaturalWidths": [735, 350],
+  "schoolEmblemCount": 5,
+  "schoolEmblemNaturalWidth": 112,
+  "worldSwitch": {
+    "opHidden": true,
+    "opCurrentTimeUnchanged": true,
+    "playingBgmContinues": true,
+    "pausedBgmRemainsPaused": true,
+    "schoolDetailEmblemAndColorsUpdate": true
+  },
+  "mobile": { "viewportWidth": 360, "scrollWidth": 345 },
+  "consoleErrors": 0,
+  "liveSillyTavernVerified": false,
+  "liveAiVerified": false
+}

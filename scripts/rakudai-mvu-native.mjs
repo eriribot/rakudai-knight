@@ -62,11 +62,25 @@ export function prepareRakudaiNativeMvu(data, scopes = [], { repairStructure = t
   return data;
 }
 
-export async function installRakudaiNativeMvu(W) {
+export async function installRakudaiNativeMvu(W, options = {}) {
   const slot = '__RK_MVU_NATIVE_N01__';
-  if (W[slot]?.version === 'N04' && W[slot].dorm === 'D01' && W[slot].state !== 'failed') return W[slot];
+  const configured = options.acceptState;
+  if (configured !== undefined && typeof configured !== 'function') throw new TypeError('acceptState 必须是同步状态判定函数。');
+  const existing = W[slot];
+  if (existing?.version === 'N04' && existing.dorm === 'D01' && existing.state !== 'failed' &&
+      (configured === undefined || typeof existing.setAcceptState === 'function')) {
+    if (configured !== undefined) existing.setAcceptState(configured);
+    return existing;
+  }
   W[slot]?.destroy?.();
   const marker = { version: 'N04', dorm: 'D01', state: 'loading', destroy: null };
+  let acceptState = configured || (() => true);
+  // 重复安装可以收紧/更新本监听的门禁；未传选项的旧调用不会清掉已配置门禁。
+  marker.setAcceptState = predicate => {
+    if (typeof predicate !== 'function') throw new TypeError('acceptState 必须是同步状态判定函数。');
+    acceptState = predicate;
+  };
+  const accepted = state => acceptState(state) === true;
   W[slot] = marker;
   let disposed = false, listener = null, commandListener = null;
   function destroy() {
@@ -98,11 +112,11 @@ export async function installRakudaiNativeMvu(W) {
       return current.characterId === owner.characterId && (current.groupId ?? null) === owner.groupId;
     };
     listener = helper('eventOn')(mvu.events.VARIABLE_UPDATE_STARTED, variables => {
-      if (!owned()) return;
+      if (!owned() || !accepted(variables?.stat_data)) return;
       prepareRakudaiNativeMvu(variables, scopes);
     });
     if (mvu.events.COMMAND_PARSED) commandListener = helper('eventOn')(mvu.events.COMMAND_PARSED, (variables, commands, content) => {
-      if (!owned() || !isRakudaiMvuState(variables?.stat_data)) return;
+      if (!owned() || !accepted(variables?.stat_data) || !isRakudaiMvuState(variables?.stat_data)) return;
       const chat = H.SillyTavern.getContext().chat || [], replies = chat.flatMap((message, index) => !message.is_user && message.mes === content ? [index] : []);
       const resting = /^(?:宿舍)?休息[。！!\s]*$/.test(chat.slice(0, replies.length === 1 ? replies[0] : chat.length).findLast(message => message.is_user)?.mes?.trim() || ''), inDorm = variables.stat_data.场景?.宿舍 === true;
       const normalized = normalizeRakudaiMvuCommands(commands.filter(command => {

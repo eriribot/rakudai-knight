@@ -1,0 +1,165 @@
+format: airp-authored-branches
+version: 1
+workId: asterisk-war
+chapterId: CH-01
+graphId: AST1-CH01
+origin: authored
+sourceSnapshot:
+  materialId: MAT-AST-V01
+  sourcePath: "第一卷_01_第一章_华焰魔女.md"
+  encoding: UTF-8
+  lineBasis: "markdown line numbers"
+  scope: {start: 14, end: 741}
+  sourceBoundary: "分支专为第一章设计，完整支持天雾绫斗原著模式与自创OC（或黑铁一辉跨界）三大截胡切入点，并以『克劳蒂雅拍掌中断决斗』或『一方校徽破碎胜出』作为统一章节完成标识"
+branchRules:
+  choiceMustBeReal: true
+  bodyMustStopAtChoiceBoundary: true
+  maxImmediateEvents: 1
+  maxDelayedSeeds: 2
+  defaultDisposition: "保留尤莉丝手帕珍视、始页十二人决斗机制与暗箭偷袭黑幕；允许玩家OC通过优雅还帕、替战切磋、挥剑斩箭/护美完美截胡高光与初始好感"
+  deviationLevels: [D0, D1, D2, D3]
+  chapterCompletionRule:
+    id: GATE-CH01-END
+    description: "第一章完成的唯一判定标准为：(1) 学生会长克劳蒂雅拍掌登场宣布决斗中止；或 (2) 决斗双方有一方胸前『赤莲』校徽被击碎/认输决出胜负。"
+
+branches:
+  - id: AST1-CH01-B01
+    title: "【截胡节点A】散步道拾获手帕：翻窗硬闯 vs 树下/远程优雅归还（免除变态误会截胡）"
+    status: staged_template
+    affectsCanonEvents: [AST1-CH01-E01, AST1-CH01-E02, AST1-CH01-E03]
+    causedBy:
+      events: [AST1-CH01-E01]
+      facts: [FA-AST-CH01-001, FA-AST-CH01-002]
+      playerActions: ["玩家在散步道拾起飘落的手工刺绣手帕并听到四楼尤莉丝焦急声音后选择归还方式"]
+    choiceBoundary:
+      location: ast-seidoukan-promenade
+      source: "第一卷_01_第一章_华焰魔女.md#L58-L77"
+      stopBefore: "玩家决定是否直接翻越两米铁栅栏跳上四楼窗台"
+      playerRequired: true
+    options:
+      - id: B01-O01
+        label: "【原著/莽夫流】直接翻越铁栅栏借树枝跳上四楼窗台归还"
+        deviationLevel: D0
+        effects:
+          facts:
+            - {path: facts.dorm_window_intrusion, op: set, value: true}
+            - {path: facts.julis_half_naked_seen, op: set, value: true}
+          relationships:
+            - {path: relationship.player_julis.impression, op: set, value: skilled_pervert_gratitude_mixed}
+        immediateConsequence: "触发四楼更衣室半裸对视名场面；尤莉丝穿好衣服抱紧手帕真诚道谢后，翻脸轰出『六瓣爆焰花』要求决斗算账"
+        mergePoint: AST1-CH01-E04
+        canonDisposition: {action: preserve, reason: "完全复现原著第一章经典误会与决斗开局"}
+
+      - id: B01-O02
+        label: "【OC优雅绅士流截胡】在铁栅栏外礼貌出声提醒，以风压/剑气/轻功将手帕平稳送达窗台并主动背身避嫌"
+        deviationLevel: D2
+        effects:
+          facts:
+            - {path: facts.dorm_window_intrusion, op: set, value: false}
+            - {path: facts.handkerchief_returned_gracefully, op: set, value: true}
+          relationships:
+            - {path: relationship.player_julis.affection_delta, op: add, value: 25}
+            - {path: relationship.player_julis.impression, op: set, value: chivalrous_expert}
+        immediateConsequence: "免除『偷窥变态』负面标签！尤莉丝穿戴整齐后亲自从四楼跃下向玩家郑重道谢，并对玩家精准控制星辰力/魔力送帕的身手产生强烈好奇，主动以『始页十二人』身份邀请玩家进行一场正规切磋决斗"
+        delayedSeeds:
+          - id: seed-julis-favorable-first-impression
+            maturity: "决斗收束及后续食堂/假日互动"
+            possibleOutcomes: [early_partner_invitation, skip_hostile_bickering]
+        mergePoint: AST1-CH01-E04
+        canonDisposition: {action: adapt, reason: "截胡手帕归还高光，将敌对算账决斗转化为皇女欣赏强者的正规切磋"}
+
+  - id: AST1-CH01-B02
+    title: "【截胡节点B】『赤莲』决斗与人群借剑：亲自应战 / 替绫斗接下战帖 / 抛剑相助"
+    status: staged_template
+    affectsCanonEvents: [AST1-CH01-E04, AST1-CH01-E05]
+    causedBy:
+      events: [AST1-CH01-E04]
+      facts: [FA-AST-CH01-006, FA-AST-CH01-008, FA-AST-CH01-009]
+      playerActions: ["尤莉丝抚摸赤莲校徽发起决斗时，玩家的介入或迎战方式"]
+    choiceBoundary:
+      location: ast-girls-dorm-courtyard
+      source: "第一卷_01_第一章_华焰魔女.md#L366-L498"
+      stopBefore: "『赤莲』校徽红光亮起正式锁定决斗对手"
+      playerRequired: true
+    options:
+      - id: B02-O01
+        label: "【玩家亲自迎战】触摸『赤莲』校徽接受尤莉丝决斗（可使用自身灵装/武装或接过夜吹英士郎抛来的剑）"
+        deviationLevel: D1
+        effects:
+          facts:
+            - {path: facts.ch01_duel_combatant, op: set, value: player}
+            - {path: facts.red_lotus_duel_active, op: set, value: true}
+        immediateConsequence: "玩家正面对决序列第五『华焰魔女』尤莉丝的『锐枪白炎花』与『六瓣爆焰花』，以自身剑技/异能破局突进"
+        mergePoint: AST1-CH01-E06
+        canonDisposition: {action: adapt, reason: "玩家直接接管或替战第一章核心战斗高光"}
+
+      - id: B02-O02
+        label: "【OC替战截胡】当绫斗手无寸铁骑虎难下时，OC主动上前借剑或代为接下尤莉丝的决斗挑战"
+        deviationLevel: D2
+        effects:
+          facts:
+            - {path: facts.ch01_duel_combatant, op: set, value: player_intervened}
+          relationships:
+            - {path: relationship.player_ayato.trust, op: add, value: 20}
+            - {path: relationship.player_julis.interest, op: add, value: 15}
+        immediateConsequence: "绫斗对玩家的仗义解围深感感激；尤莉丝见玩家气度不凡，欣然将决斗对象转为玩家"
+        mergePoint: AST1-CH01-E06
+        canonDisposition: {action: adapt, reason: "同时收获男主友谊与女主战意关注"}
+
+  - id: AST1-CH01-B03
+    title: "【截胡节点C·章节收束】爆炎盲区暗箭偷袭：挥剑斩箭完美救美 vs 原著扑倒误触 vs 决斗提前分出胜负"
+    status: staged_template
+    affectsCanonEvents: [AST1-CH01-E06]
+    causedBy:
+      events: [AST1-CH01-E05]
+      facts: [FA-AST-CH01-010, FA-AST-CH01-011]
+      playerActions: ["在『六瓣爆焰花』被切开的烟尘中，面对暗处射向尤莉丝的煌式武装光箭，玩家的救援与收束行动"]
+    choiceBoundary:
+      location: ast-girls-dorm-courtyard
+      source: "第一卷_01_第一章_华焰魔女.md#L642-L741"
+      stopBefore: "光箭命中或克劳蒂雅拍掌叫停决斗"
+      playerRequired: true
+    options:
+      - id: B03-O01
+        label: "【OC完美救美截胡】在爆炎烟尘中一剑凌空斩碎偷袭光箭（或揽住尤莉丝纤腰护在怀中稳稳落地，免除袭胸尴尬）"
+        deviationLevel: D2
+        effects:
+          facts:
+            - {path: facts.sniper_arrow_deflected_cleanly, op: set, value: true}
+            - {path: facts.accidental_grope_occurred, op: set, value: false}
+            - {path: facts.ch01_completed_by_claudia_clap, op: set, value: true}
+          relationships:
+            - {path: relationship.player_julis.affection_delta, op: add, value: 35}
+            - {path: relationship.player_julis.stage, op: set, value: life_debt_and_heart_flutter}
+            - {path: relationship.player_claudia.evaluation, op: set, value: top_tier_prospect}
+        immediateConsequence: "尤莉丝看着近在咫尺挡在自己身前斩碎冷箭的玩家，心脏剧烈狂跳、满脸通红却无需因袭胸而恼羞成怒；紧接着学生会长克劳蒂雅拍掌登场（『好了好了，两位请到此为止吧』）中止决斗【达成第一章完成标识】，尤莉丝暗下决心要向玩家报答救命之恩"
+        delayedSeeds:
+          - id: seed-julis-active-invitation
+            maturity: "第三章至第六章"
+            possibleOutcomes: [julis_proposes_phoenix_pair_early, holiday_date_affection_boost]
+        mergePoint: "chapter-boundary/CH-02"
+        canonDisposition: {action: adapt, reason: "完美截胡第一章救美高光，消除原著袭胸掉好感副作用，直接触发克劳蒂雅拍掌完成标识"}
+
+      - id: B03-O02
+        label: "【原著经典路线】高喊『快趴下』将尤莉丝扑倒护在身下，慌乱中手掌意外按住其胸口引发羞愤喷火"
+        deviationLevel: D0
+        effects:
+          facts:
+            - {path: facts.accidental_grope_occurred, op: set, value: true}
+            - {path: facts.ch01_completed_by_claudia_clap, op: set, value: true}
+        immediateConsequence: "尤莉丝羞愤交加导致星辰力失控喷火；学生会长克劳蒂雅适时拍掌登场宣布决斗中止【达成第一章完成标识】"
+        mergePoint: "chapter-boundary/CH-02"
+        canonDisposition: {action: preserve, reason: "与第一卷第一章原文结局完全一致"}
+
+      - id: B03-O03
+        label: "【硬核实力碾压收束】在暗箭射出前以压倒性剑速击碎对手『赤莲』校徽（或斩箭后顺势剑指咽喉令尤莉丝心服口服认输）"
+        deviationLevel: D2
+        effects:
+          facts:
+            - {path: facts.ch01_duel_winner, op: set, value: player}
+            - {path: facts.ch01_completed_by_duel_victory, op: set, value: true}
+          relationships:
+            - {path: relationship.player_julis.respect, op: add, value: 40}
+        immediateConsequence: "『赤莲』校徽判定胜负已分（或克劳蒂雅随之拍掌赞叹登场确认结果）【达成第一章完成标识】；尤莉丝按决斗赌约愿赌服输，对玩家的实力彻底折服"
+        mergePoint: "chapter-boundary/CH-02"
+        canonDisposition: {action: adapt, reason: "满足『决斗被中断或有一方胜出』的双重完成标识规则"}

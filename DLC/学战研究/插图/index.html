@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>《学战都市Asterisk》小说插图画廊</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-hover: #0ea5e9;
+      --badge-cover: #ef4444;
+      --badge-color: #8b5cf6;
+      --badge-bw: #64748b;
+      --badge-other: #475569;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+    /* Sidebar */
+    aside {
+      width: 320px;
+      min-width: 320px;
+      background: #111827;
+      border-right: 1px solid var(--card-border);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .sidebar-header {
+      padding: 20px 16px;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .sidebar-header h1 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+    .sidebar-header p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+    .vol-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 8px;
+    }
+    .vol-btn {
+      width: 100%;
+      text-align: left;
+      padding: 10px 12px;
+      margin-bottom: 4px;
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      color: var(--text);
+      cursor: pointer;
+      font-size: 0.88rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s ease;
+    }
+    .vol-btn:hover {
+      background: var(--card-bg);
+      border-color: var(--card-border);
+    }
+    .vol-btn.active {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: var(--accent);
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .vol-badge {
+      font-size: 0.75rem;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: var(--card-border);
+      color: var(--text-muted);
+    }
+    /* Main Content */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow: hidden;
+    }
+    .topbar {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(8px);
+    }
+    .topbar-info h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+    .filter-tabs {
+      display: flex;
+      gap: 8px;
+    }
+    .tab-btn {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 0.84rem;
+      border: 1px solid var(--card-border);
+      background: var(--card-bg);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tab-btn:hover {
+      color: var(--text);
+      border-color: var(--accent);
+    }
+    .tab-btn.active {
+      background: var(--accent);
+      color: #000;
+      border-color: var(--accent);
+      font-weight: 600;
+    }
+    /* Grid */
+    .gallery-container {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+      border-color: var(--accent);
+    }
+    .img-wrap {
+      width: 100%;
+      height: 280px;
+      background: #020617;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .img-wrap img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      transition: transform 0.3s;
+    }
+    .card:hover .img-wrap img {
+      transform: scale(1.05);
+    }
+    .card-info {
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .card-title {
+      font-size: 0.88rem;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .cat-badge {
+      font-size: 0.7rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+    .cat-封面, .cat-封底 { background: var(--badge-cover); color: #fff; }
+    .cat-彩插 { background: var(--badge-color); color: #fff; }
+    .cat-黑白插图 { background: var(--badge-bw); color: #fff; }
+    .cat-图标装饰 { background: var(--badge-other); color: #cbd5e1; }
+    .card-meta {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+    }
+    /* Lightbox Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .modal.active {
+      display: flex;
+    }
+    .modal-content {
+      max-width: 90vw;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+    .modal-img {
+      max-width: 90vw;
+      max-height: 82vh;
+      object-fit: contain;
+      border-radius: 6px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+    }
+    .modal-caption {
+      margin-top: 12px;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      text-align: center;
+    }
+    .modal-close {
+      position: absolute;
+      top: -36px;
+      right: 0;
+      font-size: 28px;
+      color: #cbd5e1;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .modal-close:hover {
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <aside>
+    <div class="sidebar-header">
+      <h1>学战都市Asterisk</h1>
+      <p>1-17 卷小说插图全集（共 319 张）<br><span style="color:#f59e0b">※ 注：目录内未含第 14 卷</span></p>
+    </div>
+    <div class="vol-list" id="volList"></div>
+  </aside>
+
+  <main>
+    <div class="topbar">
+      <div class="topbar-info">
+        <h2 id="currentVolTitle">全部卷总览</h2>
+      </div>
+      <div class="filter-tabs">
+        <button class="tab-btn active" data-cat="all">全部 (<span id="countAll">0</span>)</button>
+        <button class="tab-btn" data-cat="封面/封底">封面/封底 (<span id="countCover">0</span>)</button>
+        <button class="tab-btn" data-cat="彩插">彩插 (<span id="countColor">0</span>)</button>
+        <button class="tab-btn" data-cat="黑白插图">黑白插图 (<span id="countBw">0</span>)</button>
+      </div>
+    </div>
+    <div class="gallery-container">
+      <div class="gallery-grid" id="galleryGrid"></div>
+    </div>
+  </main>
+
+  <div class="modal" id="imageModal" onclick="closeModal(event)">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeModalDirect()">&times;</span>
+      <img id="modalImg" class="modal-img" src="" alt="">
+      <div class="modal-caption" id="modalCaption"></div>
+    </div>
+  </div>
+
+  <script>
+    const data = [{"volume": "学战都市Asterisk 01 姬焰邂逅", "size_str": "7.26 MB", "images": [{"filename": "001.jpg", "rel_path": "学战都市Asterisk 01 姬焰邂逅/001.jpg", "category": "黑白插图", "width": 1000, "height": 1388, "size": 312226}, {"filename": "002.jpg", "rel_path": "学战都市Asterisk 01 姬焰邂逅/002.jpg", "category": "黑白插图", "width": 1000, "height": 1388, "size": 384253}, {"filename": "003.jpg", "rel_path": "学战都市Asterisk 01 姬焰邂逅/003.jpg", "category": "黑白插图", "width": 1000, "height": 1388, "size": 240403}, {"filename": "004.jpg", "rel_path": "学战都市Asterisk 01 姬焰邂逅/004.jpg", "category": "黑白插图", "width": 1000, "height": 1388, "size": 335430}, {"filename": "005.jpg", "rel_path": "学战都市Asterisk 01 姬焰邂逅/005.jpg", "category": "黑白插图", "width": 1000, "height": 1388, "size": 277576}, {"filename": "006.jpg", "rel_path": "学战都市Asterisk 01 姬焰邂逅/006.jpg", "category": "黑白插图", "width": 1000, "height": 1388, "size": 455930}, {"filename": "007.jpg", "rel_path": "学战都市Asterisk 01 姬焰邂逅/007.jpg", "category": "黑白插图", "width": 1000, "height": 1388, "size": 239314}, {"filename": "008.jpg", "rel_path": "学战都市Asterisk 01 姬焰邂逅/008.jpg", "category": "黑白插图", "width": 1000, "height": 1388, "size": 234080}, {"filename": "009.jpg", "rel_path": "学战都市Asterisk 01 姬焰邂逅/009.jpg", "category": "黑白插图", "width": 1000, "height": 1388, "size": 480337}, {"filename": "010.jpg", "rel_path": "学战都市Asterisk 01 姬焰邂逅/010.jpg", "category": "黑白插图", "width": 1000, "height": 1388, "size": 374668}, {"filename": "011.jpg", "rel_path": "学战都市Asterisk 01 姬焰邂逅/011.jpg", "category": "黑白插图", "width": 1000, "height": 1388, "size": 230392}, {"filename": "012.jpg", "rel_path": "学战都市Asterisk 01 姬焰邂逅/012.jpg", "category": "黑白插图", "width": 1586, "height": 1200, "size": 475064}, {"filename": "bc.jpg", "rel_path": "学战都市Asterisk 01 姬焰邂逅/bc.jpg", "category": "封底", "width": 1000, "height": 1388, "size": 158090}, {"filename": "co1.jpg", "rel_path": "学战都市Asterisk 01 姬焰邂逅/co1.jpg", "category": "彩插", "width": 1000, "height": 1575, "size": 381563}, {"filename": "co2.jpg", "rel_path": "学战都市Asterisk 01 姬焰邂逅/co2.jpg", "category": "彩插", "width": 1673, "height": 1200, "size": 456476}, {"filename": "co3.jpg", "rel_path": "学战都市Asterisk 01 姬焰邂逅/co3.jpg", "category": "彩插", "width": 1673, "height": 1200, "size": 474165}, {"filename": "co4.jpg", "rel_path": "学战都市Asterisk 01 姬焰邂逅/co4.jpg", "category": "彩插", "width": 1673, "height": 1200, "size": 696127}, {"filename": "co5.jpg", "rel_path": "学战都市Asterisk 01 姬焰邂逅/co5.jpg", "category": "彩插", "width": 1000, "height": 1575, "size": 279134}, {"filename": "co6.jpg", "rel_path": "学战都市Asterisk 01 姬焰邂逅/co6.jpg", "category": "彩插", "width": 1673, "height": 1200, "size": 590415}, {"filename": "cover.jpg", "rel_path": "学战都市Asterisk 01 姬焰邂逅/cover.jpg", "category": "封面", "width": 1000, "height": 1575, "size": 472630}, {"filename": "note.png", "rel_path": "学战都市Asterisk 01 姬焰邂逅/note.png", "category": "图标装饰", "width": 20, "height": 20, "size": 20217}, {"filename": "t1.png", "rel_path": "学战都市Asterisk 01 姬焰邂逅/t1.png", "category": "图标装饰", "width": 533, "height": 176, "size": 39784}]}, {"volume": "学战都市Asterisk 02 银绮觉醒", "size_str": "6.32 MB", "images": [{"filename": "001.jpg", "rel_path": "学战都市Asterisk 02 银绮觉醒/001.jpg", "category": "黑白插图", "width": 1000, "height": 1519, "size": 269639}, {"filename": "002.jpg", "rel_path": "学战都市Asterisk 02 银绮觉醒/002.jpg", "category": "黑白插图", "width": 1000, "height": 1519, "size": 266634}, {"filename": "003.jpg", "rel_path": "学战都市Asterisk 02 银绮觉醒/003.jpg", "category": "黑白插图", "width": 1000, "height": 1519, "size": 330476}, {"filename": "004.jpg", "rel_path": "学战都市Asterisk 02 银绮觉醒/004.jpg", "category": "黑白插图", "width": 1000, "height": 1519, "size": 300787}, {"filename": "005.jpg", "rel_path": "学战都市Asterisk 02 银绮觉醒/005.jpg", "category": "黑白插图", "width": 1000, "height": 1519, "size": 299053}, {"filename": "006.jpg", "rel_path": "学战都市Asterisk 02 银绮觉醒/006.jpg", "category": "黑白插图", "width": 1000, "height": 1519, "size": 280459}, {"filename": "007.jpg", "rel_path": "学战都市Asterisk 02 银绮觉醒/007.jpg", "category": "黑白插图", "width": 1000, "height": 1519, "size": 355152}, {"filename": "008.jpg", "rel_path": "学战都市Asterisk 02 银绮觉醒/008.jpg", "category": "黑白插图", "width": 1000, "height": 1519, "size": 263261}, {"filename": "009.jpg", "rel_path": "学战都市Asterisk 02 银绮觉醒/009.jpg", "category": "黑白插图", "width": 1000, "height": 1519, "size": 250160}, {"filename": "010.jpg", "rel_path": "学战都市Asterisk 02 银绮觉醒/010.jpg", "category": "黑白插图", "width": 1000, "height": 1519, "size": 365894}, {"filename": "bc.jpg", "rel_path": "学战都市Asterisk 02 银绮觉醒/bc.jpg", "category": "封底", "width": 1000, "height": 1575, "size": 111464}, {"filename": "co1.jpg", "rel_path": "学战都市Asterisk 02 银绮觉醒/co1.jpg", "category": "彩插", "width": 1000, "height": 1575, "size": 392626}, {"filename": "co2.jpg", "rel_path": "学战都市Asterisk 02 银绮觉醒/co2.jpg", "category": "彩插", "width": 1000, "height": 1575, "size": 321763}, {"filename": "co3.jpg", "rel_path": "学战都市Asterisk 02 银绮觉醒/co3.jpg", "category": "彩插", "width": 1000, "height": 1575, "size": 435300}, {"filename": "co4.jpg", "rel_path": "学战都市Asterisk 02 银绮觉醒/co4.jpg", "category": "彩插", "width": 1673, "height": 1200, "size": 467878}, {"filename": "co5.jpg", "rel_path": "学战都市Asterisk 02 银绮觉醒/co5.jpg", "category": "彩插", "width": 1673, "height": 1200, "size": 550868}, {"filename": "co6.jpg", "rel_path": "学战都市Asterisk 02 银绮觉醒/co6.jpg", "category": "彩插", "width": 1000, "height": 1575, "size": 288746}, {"filename": "co7.jpg", "rel_path": "学战都市Asterisk 02 银绮觉醒/co7.jpg", "category": "彩插", "width": 1673, "height": 1200, "size": 590879}, {"filename": "cover.jpg", "rel_path": "学战都市Asterisk 02 银绮觉醒/cover.jpg", "category": "封面", "width": 1000, "height": 1575, "size": 443957}, {"filename": "note.png", "rel_path": "学战都市Asterisk 02 银绮觉醒/note.png", "category": "图标装饰", "width": 20, "height": 20, "size": 20217}, {"filename": "t1.png", "rel_path": "学战都市Asterisk 02 银绮觉醒/t1.png", "category": "图标装饰", "width": 533, "height": 176, "size": 24902}]}, {"volume": "学战都市Asterisk 03 凤凰乱武", "size_str": "6.21 MB", "images": [{"filename": "001.jpg", "rel_path": "学战都市Asterisk 03 凤凰乱武/001.jpg", "category": "黑白插图", "width": 1000, "height": 1423, "size": 263902}, {"filename": "002.jpg", "rel_path": "学战都市Asterisk 03 凤凰乱武/002.jpg", "category": "黑白插图", "width": 1000, "height": 1423, "size": 402879}, {"filename": "003.jpg", "rel_path": "学战都市Asterisk 03 凤凰乱武/003.jpg", "category": "黑白插图", "width": 1000, "height": 1423, "size": 279662}, {"filename": "004.jpg", "rel_path": "学战都市Asterisk 03 凤凰乱武/004.jpg", "category": "黑白插图", "width": 1000, "height": 1423, "size": 416906}, {"filename": "005.jpg", "rel_path": "学战都市Asterisk 03 凤凰乱武/005.jpg", "category": "黑白插图", "width": 1000, "height": 1423, "size": 379152}, {"filename": "006.jpg", "rel_path": "学战都市Asterisk 03 凤凰乱武/006.jpg", "category": "黑白插图", "width": 1000, "height": 1423, "size": 286080}, {"filename": "007.jpg", "rel_path": "学战都市Asterisk 03 凤凰乱武/007.jpg", "category": "黑白插图", "width": 1000, "height": 1423, "size": 260970}, {"filename": "008.jpg", "rel_path": "学战都市Asterisk 03 凤凰乱武/008.jpg", "category": "黑白插图", "width": 1000, "height": 1423, "size": 397132}, {"filename": "009.jpg", "rel_path": "学战都市Asterisk 03 凤凰乱武/009.jpg", "category": "黑白插图", "width": 1000, "height": 1423, "size": 265397}, {"filename": "010.jpg", "rel_path": "学战都市Asterisk 03 凤凰乱武/010.jpg", "category": "黑白插图", "width": 1000, "height": 1423, "size": 269312}, {"filename": "bc.jpg", "rel_path": "学战都市Asterisk 03 凤凰乱武/bc.jpg", "category": "封底", "width": 1000, "height": 1575, "size": 109308}, {"filename": "co1.jpg", "rel_path": "学战都市Asterisk 03 凤凰乱武/co1.jpg", "category": "彩插", "width": 1000, "height": 1575, "size": 304903}, {"filename": "co2.jpg", "rel_path": "学战都市Asterisk 03 凤凰乱武/co2.jpg", "category": "彩插", "width": 1673, "height": 1200, "size": 513788}, {"filename": "co3.jpg", "rel_path": "学战都市Asterisk 03 凤凰乱武/co3.jpg", "category": "彩插", "width": 1673, "height": 1200, "size": 425324}, {"filename": "co4.jpg", "rel_path": "学战都市Asterisk 03 凤凰乱武/co4.jpg", "category": "彩插", "width": 1673, "height": 1200, "size": 597803}, {"filename": "co5.jpg", "rel_path": "学战都市Asterisk 03 凤凰乱武/co5.jpg", "category": "彩插", "width": 1000, "height": 1575, "size": 261960}, {"filename": "co6.jpg", "rel_path": "学战都市Asterisk 03 凤凰乱武/co6.jpg", "category": "彩插", "width": 1673, "height": 1200, "size": 592692}, {"filename": "cover.jpg", "rel_path": "学战都市Asterisk 03 凤凰乱武/cover.jpg", "category": "封面", "width": 1000, "height": 1575, "size": 442586}, {"filename": "note.png", "rel_path": "学战都市Asterisk 03 凤凰乱武/note.png", "category": "图标装饰", "width": 20, "height": 20, "size": 20217}, {"filename": "t1.png", "rel_path": "学战都市Asterisk 03 凤凰乱武/t1.png", "category": "图标装饰", "width": 533, "height": 176, "size": 24793}]}, {"volume": "学战都市Asterisk 04 追忆斗破", "size_str": "6.92 MB", "images": [{"filename": "001.jpg", "rel_path": "学战都市Asterisk 04 追忆斗破/001.jpg", "category": "黑白插图", "width": 1000, "height": 1422, "size": 254194}, {"filename": "002.jpg", "rel_path": "学战都市Asterisk 04 追忆斗破/002.jpg", "category": "黑白插图", "width": 1000, "height": 1422, "size": 339573}, {"filename": "003.jpg", "rel_path": "学战都市Asterisk 04 追忆斗破/003.jpg", "category": "黑白插图", "width": 1000, "height": 1422, "size": 229761}, {"filename": "004.jpg", "rel_path": "学战都市Asterisk 04 追忆斗破/004.jpg", "category": "黑白插图", "width": 1000, "height": 1422, "size": 298636}, {"filename": "005.jpg", "rel_path": "学战都市Asterisk 04 追忆斗破/005.jpg", "category": "黑白插图", "width": 1000, "height": 1381, "size": 214181}, {"filename": "006.jpg", "rel_path": "学战都市Asterisk 04 追忆斗破/006.jpg", "category": "黑白插图", "width": 1000, "height": 1422, "size": 233231}, {"filename": "007.jpg", "rel_path": "学战都市Asterisk 04 追忆斗破/007.jpg", "category": "黑白插图", "width": 1000, "height": 1422, "size": 427182}, {"filename": "008.jpg", "rel_path": "学战都市Asterisk 04 追忆斗破/008.jpg", "category": "黑白插图", "width": 1000, "height": 1422, "size": 302893}, {"filename": "009.jpg", "rel_path": "学战都市Asterisk 04 追忆斗破/009.jpg", "category": "黑白插图", "width": 1000, "height": 1422, "size": 371878}, {"filename": "010.jpg", "rel_path": "学战都市Asterisk 04 追忆斗破/010.jpg", "category": "黑白插图", "width": 1000, "height": 1422, "size": 336465}, {"filename": "bc.jpg", "rel_path": "学战都市Asterisk 04 追忆斗破/bc.jpg", "category": "封底", "width": 1000, "height": 1575, "size": 112576}, {"filename": "co1.jpg", "rel_path": "学战都市Asterisk 04 追忆斗破/co1.jpg", "category": "彩插", "width": 1000, "height": 1575, "size": 387258}, {"filename": "co2.jpg", "rel_path": "学战都市Asterisk 04 追忆斗破/co2.jpg", "category": "彩插", "width": 1673, "height": 1200, "size": 489183}, {"filename": "co3.jpg", "rel_path": "学战都市Asterisk 04 追忆斗破/co3.jpg", "category": "彩插", "width": 1673, "height": 1200, "size": 520975}, {"filename": "co4.jpg", "rel_path": "学战都市Asterisk 04 追忆斗破/co4.jpg", "category": "彩插", "width": 1673, "height": 1200, "size": 478332}, {"filename": "co5.jpg", "rel_path": "学战都市Asterisk 04 追忆斗破/co5.jpg", "category": "彩插", "width": 1000, "height": 1575, "size": 300879}, {"filename": "co6.jpg", "rel_path": "学战都市Asterisk 04 追忆斗破/co6.jpg", "category": "彩插", "width": 1673, "height": 1200, "size": 592669}, {"filename": "co7.jpg", "rel_path": "学战都市Asterisk 04 追忆斗破/co7.jpg", "category": "彩插", "width": 1000, "height": 1575, "size": 398424}, {"filename": "co8.jpg", "rel_path": "学战都市Asterisk 04 追忆斗破/co8.jpg", "category": "彩插", "width": 1673, "height": 1200, "size": 406581}, {"filename": "cover.jpg", "rel_path": "学战都市Asterisk 04 追忆斗破/cover.jpg", "category": "封面", "width": 1000, "height": 1575, "size": 519174}, {"filename": "note.png", "rel_path": "学战都市Asterisk 04 追忆斗破/note.png", "category": "图标装饰", "width": 20, "height": 20, "size": 20217}, {"filename": "t1.png", "rel_path": "学战都市Asterisk 04 追忆斗破/t1.png", "category": "图标装饰", "width": 533, "height": 176, "size": 25349}]}, {"volume": "学战都市Asterisk 05 霸凰决战", "size_str": "6.27 MB", "images": [{"filename": "001.jpg", "rel_path": "学战都市Asterisk 05 霸凰决战/001.jpg", "category": "黑白插图", "width": 1000, "height": 1388, "size": 279628}, {"filename": "002.jpg", "rel_path": "学战都市Asterisk 05 霸凰决战/002.jpg", "category": "黑白插图", "width": 1000, "height": 1388, "size": 262266}, {"filename": "003.jpg", "rel_path": "学战都市Asterisk 05 霸凰决战/003.jpg", "category": "黑白插图", "width": 1000, "height": 1388, "size": 347869}, {"filename": "004.jpg", "rel_path": "学战都市Asterisk 05 霸凰决战/004.jpg", "category": "黑白插图", "width": 1000, "height": 1388, "size": 293142}, {"filename": "005.jpg", "rel_path": "学战都市Asterisk 05 霸凰决战/005.jpg", "category": "黑白插图", "width": 1000, "height": 1388, "size": 214837}, {"filename": "006.jpg", "rel_path": "学战都市Asterisk 05 霸凰决战/006.jpg", "category": "黑白插图", "width": 1000, "height": 1388, "size": 292099}, {"filename": "007.jpg", "rel_path": "学战都市Asterisk 05 霸凰决战/007.jpg", "category": "黑白插图", "width": 1000, "height": 1388, "size": 243269}, {"filename": "008.jpg", "rel_path": "学战都市Asterisk 05 霸凰决战/008.jpg", "category": "黑白插图", "width": 1000, "height": 1388, "size": 370596}, {"filename": "bc.jpg", "rel_path": "学战都市Asterisk 05 霸凰决战/bc.jpg", "category": "封底", "width": 1000, "height": 1575, "size": 112362}, {"filename": "co1.jpg", "rel_path": "学战都市Asterisk 05 霸凰决战/co1.jpg", "category": "彩插", "width": 1000, "height": 1575, "size": 390998}, {"filename": "co2.jpg", "rel_path": "学战都市Asterisk 05 霸凰决战/co2.jpg", "category": "彩插", "width": 1673, "height": 1200, "size": 686065}, {"filename": "co3.jpg", "rel_path": "学战都市Asterisk 05 霸凰决战/co3.jpg", "category": "彩插", "width": 1673, "height": 1200, "size": 480440}, {"filename": "co4.jpg", "rel_path": "学战都市Asterisk 05 霸凰决战/co4.jpg", "category": "彩插", "width": 1673, "height": 1200, "size": 375618}, {"filename": "co5.jpg", "rel_path": "学战都市Asterisk 05 霸凰决战/co5.jpg", "category": "彩插", "width": 1000, "height": 1575, "size": 285799}, {"filename": "co6.jpg", "rel_path": "学战都市Asterisk 05 霸凰决战/co6.jpg", "category": "彩插", "width": 1673, "height": 1200, "size": 592866}, {"filename": "co7.jpg", "rel_path": "学战都市Asterisk 05 霸凰决战/co7.jpg", "category": "彩插", "width": 1000, "height": 1575, "size": 393200}, {"filename": "co8.jpg", "rel_path": "学战都市Asterisk 05 霸凰决战/co8.jpg", "category": "彩插", "width": 1673, "height": 1200, "size": 440684}, {"filename": "cover.jpg", "rel_path": "学战都市Asterisk 05 霸凰决战/cover.jpg", "category": "封面", "width": 1000, "height": 1575, "size": 463157}, {"filename": "note.png", "rel_path": "学战都市Asterisk 05 霸凰决战/note.png", "category": "图标装饰", "width": 20, "height": 20, "size": 20217}, {"filename": "t1.png", "rel_path": "学战都市Asterisk 05 霸凰决战/t1.png", "category": "图标装饰", "width": 533, "height": 176, "size": 27593}]}, {"volume": "学战都市Asterisk 06 怀国凯战", "size_str": "4.23 MB", "images": [{"filename": "001.jpg", "rel_path": "学战都市Asterisk 06 怀国凯战/001.jpg", "category": "黑白插图", "width": 1000, "height": 1388, "size": 244004}, {"filename": "002.jpg", "rel_path": "学战都市Asterisk 06 怀国凯战/002.jpg", "category": "黑白插图", "width": 1000, "height": 1388, "size": 321120}, {"filename": "003.jpg", "rel_path": "学战都市Asterisk 06 怀国凯战/003.jpg", "category": "黑白插图", "width": 1000, "height": 1388, "size": 302213}, {"filename": "004.jpg", "rel_path": "学战都市Asterisk 06 怀国凯战/004.jpg", "category": "黑白插图", "width": 1000, "height": 1388, "size": 252402}, {"filename": "bc.jpg", "rel_path": "学战都市Asterisk 06 怀国凯战/bc.jpg", "category": "封底", "width": 1000, "height": 1575, "size": 116177}, {"filename": "co1.jpg", "rel_path": "学战都市Asterisk 06 怀国凯战/co1.jpg", "category": "彩插", "width": 1000, "height": 1575, "size": 319063}, {"filename": "co2.jpg", "rel_path": "学战都市Asterisk 06 怀国凯战/co2.jpg", "category": "彩插", "width": 1673, "height": 1200, "size": 318763}, {"filename": "co3.jpg", "rel_path": "学战都市Asterisk 06 怀国凯战/co3.jpg", "category": "彩插", "width": 1000, "height": 1575, "size": 337572}, {"filename": "co4.jpg", "rel_path": "学战都市Asterisk 06 怀国凯战/co4.jpg", "category": "彩插", "width": 1000, "height": 1575, "size": 222424}, {"filename": "co5.jpg", "rel_path": "学战都市Asterisk 06 怀国凯战/co5.jpg", "category": "彩插", "width": 1000, "height": 1575, "size": 416642}, {"filename": "co6.jpg", "rel_path": "学战都市Asterisk 06 怀国凯战/co6.jpg", "category": "彩插", "width": 1673, "height": 1200, "size": 450166}, {"filename": "co7.jpg", "rel_path": "学战都市Asterisk 06 怀国凯战/co7.jpg", "category": "彩插", "width": 1673, "height": 1200, "size": 599088}, {"filename": "cover.jpg", "rel_path": "学战都市Asterisk 06 怀国凯战/cover.jpg", "category": "封面", "width": 1000, "height": 1575, "size": 486921}, {"filename": "note.png", "rel_path": "学战都市Asterisk 06 怀国凯战/note.png", "category": "图标装饰", "width": 20, "height": 20, "size": 20217}, {"filename": "t1.png", "rel_path": "学战都市Asterisk 06 怀国凯战/t1.png", "category": "图标装饰", "width": 533, "height": 176, "size": 25732}]}, {"volume": "学战都市Asterisk 07 祭华缭乱", "size_str": "6.96 MB", "images": [{"filename": "001.jpg", "rel_path": "学战都市Asterisk 07 祭华缭乱/001.jpg", "category": "黑白插图", "width": 1000, "height": 1368, "size": 335868}, {"filename": "002.jpg", "rel_path": "学战都市Asterisk 07 祭华缭乱/002.jpg", "category": "黑白插图", "width": 1000, "height": 1358, "size": 310817}, {"filename": "003.jpg", "rel_path": "学战都市Asterisk 07 祭华缭乱/003.jpg", "category": "黑白插图", "width": 1000, "height": 1362, "size": 243806}, {"filename": "004.jpg", "rel_path": "学战都市Asterisk 07 祭华缭乱/004.jpg", "category": "黑白插图", "width": 1000, "height": 1368, "size": 242549}, {"filename": "005.jpg", "rel_path": "学战都市Asterisk 07 祭华缭乱/005.jpg", "category": "黑白插图", "width": 1000, "height": 1368, "size": 265657}, {"filename": "006.jpg", "rel_path": "学战都市Asterisk 07 祭华缭乱/006.jpg", "category": "黑白插图", "width": 1000, "height": 1368, "size": 279513}, {"filename": "007.jpg", "rel_path": "学战都市Asterisk 07 祭华缭乱/007.jpg", "category": "黑白插图", "width": 1000, "height": 1368, "size": 306135}, {"filename": "008.jpg", "rel_path": "学战都市Asterisk 07 祭华缭乱/008.jpg", "category": "黑白插图", "width": 1000, "height": 1368, "size": 233935}, {"filename": "009.jpg", "rel_path": "学战都市Asterisk 07 祭华缭乱/009.jpg", "category": "黑白插图", "width": 1000, "height": 1368, "size": 393919}, {"filename": "010.jpg", "rel_path": "学战都市Asterisk 07 祭华缭乱/010.jpg", "category": "黑白插图", "width": 1000, "height": 1368, "size": 356238}, {"filename": "bc.jpg", "rel_path": "学战都市Asterisk 07 祭华缭乱/bc.jpg", "category": "封底", "width": 1000, "height": 1575, "size": 111919}, {"filename": "co1.jpg", "rel_path": "学战都市Asterisk 07 祭华缭乱/co1.jpg", "category": "彩插", "width": 1000, "height": 1575, "size": 312240}, {"filename": "co2.jpg", "rel_path": "学战都市Asterisk 07 祭华缭乱/co2.jpg", "category": "彩插", "width": 1673, "height": 1200, "size": 554128}, {"filename": "co3.jpg", "rel_path": "学战都市Asterisk 07 祭华缭乱/co3.jpg", "category": "彩插", "width": 1673, "height": 1200, "size": 576434}, {"filename": "co4.jpg", "rel_path": "学战都市Asterisk 07 祭华缭乱/co4.jpg", "category": "彩插", "width": 1673, "height": 1200, "size": 310444}, {"filename": "co5.jpg", "rel_path": "学战都市Asterisk 07 祭华缭乱/co5.jpg", "category": "彩插", "width": 1000, "height": 1575, "size": 247396}, {"filename": "co6.jpg", "rel_path": "学战都市Asterisk 07 祭华缭乱/co6.jpg", "category": "彩插", "width": 1000, "height": 1575, "size": 235322}, {"filename": "co7.jpg", "rel_path": "学战都市Asterisk 07 祭华缭乱/co7.jpg", "category": "彩插", "width": 1000, "height": 1575, "size": 435710}, {"filename": "co8.jpg", "rel_path": "学战都市Asterisk 07 祭华缭乱/co8.jpg", "category": "彩插", "width": 1673, "height": 1200, "size": 459710}, {"filename": "co9.jpg", "rel_path": "学战都市Asterisk 07 祭华缭乱/co9.jpg", "category": "彩插", "width": 1673, "height": 1200, "size": 602196}, {"filename": "cover.jpg", "rel_path": "学战都市Asterisk 07 祭华缭乱/cover.jpg", "category": "封面", "width": 1000, "height": 1575, "size": 442625}, {"filename": "note.png", "rel_path": "学战都市Asterisk 07 祭华缭乱/note.png", "category": "图标装饰", "width": 20, "height": 20, "size": 20217}, {"filename": "t1.png", "rel_path": "学战都市Asterisk 07 祭华缭乱/t1.png", "category": "图标装饰", "width": 533, "height": 176, "size": 25732}]}, {"volume": "学战都市Asterisk 08 偶像峻烈", "size_str": "6.64 MB", "images": [{"filename": "001.jpg", "rel_path": "学战都市Asterisk 08 偶像峻烈/001.jpg", "category": "黑白插图", "width": 1000, "height": 1410, "size": 195645}, {"filename": "002.jpg", "rel_path": "学战都市Asterisk 08 偶像峻烈/002.jpg", "category": "黑白插图", "width": 1000, "height": 1410, "size": 201886}, {"filename": "003.jpg", "rel_path": "学战都市Asterisk 08 偶像峻烈/003.jpg", "category": "黑白插图", "width": 1000, "height": 1410, "size": 237195}, {"filename": "004.jpg", "rel_path": "学战都市Asterisk 08 偶像峻烈/004.jpg", "category": "黑白插图", "width": 1000, "height": 1410, "size": 261157}, {"filename": "005.jpg", "rel_path": "学战都市Asterisk 08 偶像峻烈/005.jpg", "category": "黑白插图", "width": 1000, "height": 1410, "size": 170299}, {"filename": "006.jpg", "rel_path": "学战都市Asterisk 08 偶像峻烈/006.jpg", "category": "黑白插图", "width": 1000, "height": 1410, "size": 257628}, {"filename": "007.jpg", "rel_path": "学战都市Asterisk 08 偶像峻烈/007.jpg", "category": "黑白插图", "width": 1000, "height": 1410, "size": 204379}, {"filename": "bc.jpg", "rel_path": "学战都市Asterisk 08 偶像峻烈/bc.jpg", "category": "封底", "width": 1000, "height": 1575, "size": 110335}, {"filename": "co1.jpg", "rel_path": "学战都市Asterisk 08 偶像峻烈/co1.jpg", "category": "彩插", "width": 1000, "height": 1575, "size": 370715}, {"filename": "co10.jpg", "rel_path": "学战都市Asterisk 08 偶像峻烈/co10.jpg", "category": "彩插", "width": 1673, "height": 1200, "size": 594637}, {"filename": "co11.jpg", "rel_path": "学战都市Asterisk 08 偶像峻烈/co11.jpg", "category": "彩插", "width": 1673, "height": 1200, "size": 599054}, {"filename": "co2.jpg", "rel_path": "学战都市Asterisk 08 偶像峻烈/co2.jpg", "category": "彩插", "width": 1673, "height": 1200, "size": 530350}, {"filename": "co3.jpg", "rel_path": "学战都市Asterisk 08 偶像峻烈/co3.jpg", "category": "彩插", "width": 1673, "height": 1200, "size": 405781}, {"filename": "co4.jpg", "rel_path": "学战都市Asterisk 08 偶像峻烈/co4.jpg", "category": "彩插", "width": 1673, "height": 1200, "size": 439702}, {"filename": "co5.jpg", "rel_path": "学战都市Asterisk 08 偶像峻烈/co5.jpg", "category": "彩插", "width": 1000, "height": 1575, "size": 302915}, {"filename": "co6.jpg", "rel_path": "学战都市Asterisk 08 偶像峻烈/co6.jpg", "category": "彩插", "width": 1000, "height": 1575, "size": 234356}, {"filename": "co7.jpg", "rel_path": "学战都市Asterisk 08 偶像峻烈/co7.jpg", "category": "彩插", "width": 1000, "height": 1575, "size": 404220}, {"filename": "co8.jpg", "rel_path": "学战都市Asterisk 08 偶像峻烈/co8.jpg", "category": "彩插", "width": 1673, "height": 1200, "size": 413442}, {"filename": "co9.jpg", "rel_path": "学战都市Asterisk 08 偶像峻烈/co9.jpg", "category": "彩插", "width": 1673, "height": 1200, "size": 437029}, {"filename": "cover.jpg", "rel_path": "学战都市Asterisk 08 偶像峻烈/cover.jpg", "category": "封面", "width": 1000, "height": 1575, "size": 545234}, {"filename": "note.png", "rel_path": "学战都市Asterisk 08 偶像峻烈/note.png", "category": "图标装饰", "width": 20, "height": 20, "size": 20217}, {"filename": "t1.png", "rel_path": "学战都市Asterisk 08 偶像峻烈/t1.png", "category": "图标装饰", "width": 533, "height": 176, "size": 25940}]}, {"volume": "学战都市Asterisk 09 悠日战啾", "size_str": "8.08 MB", "images": [{"filename": "001.jpg", "rel_path": "学战都市Asterisk 09 悠日战啾/001.jpg", "category": "黑白插图", "width": 1000, "height": 1421, "size": 210163}, {"filename": "002.jpg", "rel_path": "学战都市Asterisk 09 悠日战啾/002.jpg", "category": "黑白插图", "width": 1000, "height": 1421, "size": 220974}, {"filename": "003.jpg", "rel_path": "学战都市Asterisk 09 悠日战啾/003.jpg", "category": "黑白插图", "width": 1000, "height": 1421, "size": 476557}, {"filename": "004.jpg", "rel_path": "学战都市Asterisk 09 悠日战啾/004.jpg", "category": "黑白插图", "width": 1000, "height": 1421, "size": 266274}, {"filename": "005.jpg", "rel_path": "学战都市Asterisk 09 悠日战啾/005.jpg", "category": "黑白插图", "width": 1000, "height": 1421, "size": 314878}, {"filename": "006.jpg", "rel_path": "学战都市Asterisk 09 悠日战啾/006.jpg", "category": "黑白插图", "width": 1000, "height": 1421, "size": 332721}, {"filename": "007.jpg", "rel_path": "学战都市Asterisk 09 悠日战啾/007.jpg", "category": "黑白插图", "width": 1000, "height": 1421, "size": 311179}, {"filename": "008.jpg", "rel_path": "学战都市Asterisk 09 悠日战啾/008.jpg", "category": "黑白插图", "width": 1000, "height": 1421, "size": 267670}, {"filename": "009.jpg", "rel_path": "学战都市Asterisk 09 悠日战啾/009.jpg", "category": "黑白插图", "width": 1000, "height": 1421, "size": 273469}, {"filename": "010.jpg", "rel_path": "学战都市Asterisk 09 悠日战啾/010.jpg", "category": "黑白插图", "width": 1000, "height": 1421, "size": 252510}, {"filename": "bc.jpg", "rel_path": "学战都市Asterisk 09 悠日战啾/bc.jpg", "category": "封底", "width": 1000, "height": 1355, "size": 152250}, {"filename": "co1.jpg", "rel_path": "学战都市Asterisk 09 悠日战啾/co1.jpg", "category": "彩插", "width": 1000, "height": 1514, "size": 373006}, {"filename": "co10.jpg", "rel_path": "学战都市Asterisk 09 悠日战啾/co10.jpg", "category": "彩插", "width": 1585, "height": 1200, "size": 560763}, {"filename": "co2.jpg", "rel_path": "学战都市Asterisk 09 悠日战啾/co2.jpg", "category": "彩插", "width": 1729, "height": 1200, "size": 516797}, {"filename": "co3.jpg", "rel_path": "学战都市Asterisk 09 悠日战啾/co3.jpg", "category": "彩插", "width": 1729, "height": 1200, "size": 611808}, {"filename": "co4.jpg", "rel_path": "学战都市Asterisk 09 悠日战啾/co4.jpg", "category": "彩插", "width": 1729, "height": 1200, "size": 465280}, {"filename": "co5.jpg", "rel_path": "学战都市Asterisk 09 悠日战啾/co5.jpg", "category": "彩插", "width": 1000, "height": 1514, "size": 386814}, {"filename": "co6.jpg", "rel_path": "学战都市Asterisk 09 悠日战啾/co6.jpg", "category": "彩插", "width": 1000, "height": 1514, "size": 374100}, {"filename": "co7.jpg", "rel_path": "学战都市Asterisk 09 悠日战啾/co7.jpg", "category": "彩插", "width": 1585, "height": 1200, "size": 407610}, {"filename": "co8.jpg", "rel_path": "学战都市Asterisk 09 悠日战啾/co8.jpg", "category": "彩插", "width": 1585, "height": 1200, "size": 435178}, {"filename": "co9.jpg", "rel_path": "学战都市Asterisk 09 悠日战啾/co9.jpg", "category": "彩插", "width": 1585, "height": 1200, "size": 624060}, {"filename": "cover.jpg", "rel_path": "学战都市Asterisk 09 悠日战啾/cover.jpg", "category": "封面", "width": 1000, "height": 1514, "size": 595217}, {"filename": "note.png", "rel_path": "学战都市Asterisk 09 悠日战啾/note.png", "category": "图标装饰", "width": 20, "height": 20, "size": 20217}, {"filename": "t1.png", "rel_path": "学战都市Asterisk 09 悠日战啾/t1.png", "category": "图标装饰", "width": 533, "height": 176, "size": 26332}]}, {"volume": "学战都市Asterisk 10 龙激圣霸", "size_str": "6.78 MB", "images": [{"filename": "001.jpg", "rel_path": "学战都市Asterisk 10 龙激圣霸/001.jpg", "category": "黑白插图", "width": 1000, "height": 1388, "size": 255405}, {"filename": "002.jpg", "rel_path": "学战都市Asterisk 10 龙激圣霸/002.jpg", "category": "黑白插图", "width": 1000, "height": 1388, "size": 245323}, {"filename": "003.jpg", "rel_path": "学战都市Asterisk 10 龙激圣霸/003.jpg", "category": "黑白插图", "width": 1000, "height": 1388, "size": 262254}, {"filename": "004.jpg", "rel_path": "学战都市Asterisk 10 龙激圣霸/004.jpg", "category": "黑白插图", "width": 1000, "height": 1388, "size": 327288}, {"filename": "005.jpg", "rel_path": "学战都市Asterisk 10 龙激圣霸/005.jpg", "category": "黑白插图", "width": 1000, "height": 1388, "size": 270195}, {"filename": "006.jpg", "rel_path": "学战都市Asterisk 10 龙激圣霸/006.jpg", "category": "黑白插图", "width": 1000, "height": 1388, "size": 369977}, {"filename": "007.jpg", "rel_path": "学战都市Asterisk 10 龙激圣霸/007.jpg", "category": "黑白插图", "width": 1000, "height": 1388, "size": 227135}, {"filename": "008.jpg", "rel_path": "学战都市Asterisk 10 龙激圣霸/008.jpg", "category": "黑白插图", "width": 1000, "height": 1388, "size": 163890}, {"filename": "009.jpg", "rel_path": "学战都市Asterisk 10 龙激圣霸/009.jpg", "category": "黑白插图", "width": 1000, "height": 1388, "size": 275240}, {"filename": "010.jpg", "rel_path": "学战都市Asterisk 10 龙激圣霸/010.jpg", "category": "黑白插图", "width": 1000, "height": 1388, "size": 332514}, {"filename": "bc.jpg", "rel_path": "学战都市Asterisk 10 龙激圣霸/bc.jpg", "category": "封底", "width": 1000, "height": 1366, "size": 164772}, {"filename": "co1.jpg", "rel_path": "学战都市Asterisk 10 龙激圣霸/co1.jpg", "category": "彩插", "width": 1000, "height": 1511, "size": 289988}, {"filename": "co2.jpg", "rel_path": "学战都市Asterisk 10 龙激圣霸/co2.jpg", "category": "彩插", "width": 1729, "height": 1200, "size": 553551}, {"filename": "co3.jpg", "rel_path": "学战都市Asterisk 10 龙激圣霸/co3.jpg", "category": "彩插", "width": 1000, "height": 1511, "size": 415223}, {"filename": "co4.jpg", "rel_path": "学战都市Asterisk 10 龙激圣霸/co4.jpg", "category": "彩插", "width": 1000, "height": 1511, "size": 376101}, {"filename": "co5.jpg", "rel_path": "学战都市Asterisk 10 龙激圣霸/co5.jpg", "category": "彩插", "width": 1585, "height": 1200, "size": 407610}, {"filename": "co6.jpg", "rel_path": "学战都市Asterisk 10 龙激圣霸/co6.jpg", "category": "彩插", "width": 1585, "height": 1200, "size": 435178}, {"filename": "co7.jpg", "rel_path": "学战都市Asterisk 10 龙激圣霸/co7.jpg", "category": "彩插", "width": 1585, "height": 1200, "size": 624060}, {"filename": "co8.jpg", "rel_path": "学战都市Asterisk 10 龙激圣霸/co8.jpg", "category": "彩插", "width": 1585, "height": 1200, "size": 560761}, {"filename": "cover.jpg", "rel_path": "学战都市Asterisk 10 龙激圣霸/cover.jpg", "category": "封面", "width": 1000, "height": 1511, "size": 510455}, {"filename": "note.png", "rel_path": "学战都市Asterisk 10 龙激圣霸/note.png", "category": "图标装饰", "width": 20, "height": 20, "size": 20217}, {"filename": "t1.png", "rel_path": "学战都市Asterisk 10 龙激圣霸/t1.png", "category": "图标装饰", "width": 533, "height": 176, "size": 26263}]}, {"volume": "学战都市Asterisk 11 刃心切磋", "size_str": "6.43 MB", "images": [{"filename": "001.jpg", "rel_path": "学战都市Asterisk 11 刃心切磋/001.jpg", "category": "黑白插图", "width": 1000, "height": 1387, "size": 200432}, {"filename": "002.jpg", "rel_path": "学战都市Asterisk 11 刃心切磋/002.jpg", "category": "黑白插图", "width": 1000, "height": 1386, "size": 245256}, {"filename": "003.jpg", "rel_path": "学战都市Asterisk 11 刃心切磋/003.jpg", "category": "黑白插图", "width": 1000, "height": 1390, "size": 301747}, {"filename": "004.jpg", "rel_path": "学战都市Asterisk 11 刃心切磋/004.jpg", "category": "黑白插图", "width": 1000, "height": 1387, "size": 350336}, {"filename": "005.jpg", "rel_path": "学战都市Asterisk 11 刃心切磋/005.jpg", "category": "黑白插图", "width": 1000, "height": 1388, "size": 361293}, {"filename": "006.jpg", "rel_path": "学战都市Asterisk 11 刃心切磋/006.jpg", "category": "黑白插图", "width": 1000, "height": 1387, "size": 258310}, {"filename": "007.jpg", "rel_path": "学战都市Asterisk 11 刃心切磋/007.jpg", "category": "黑白插图", "width": 1730, "height": 1200, "size": 488485}, {"filename": "008.jpg", "rel_path": "学战都市Asterisk 11 刃心切磋/008.jpg", "category": "黑白插图", "width": 1731, "height": 1200, "size": 292844}, {"filename": "bc.jpg", "rel_path": "学战都市Asterisk 11 刃心切磋/bc.jpg", "category": "封底", "width": 1000, "height": 1505, "size": 116335}, {"filename": "co1.jpg", "rel_path": "学战都市Asterisk 11 刃心切磋/co1.jpg", "category": "彩插", "width": 1000, "height": 1514, "size": 392059}, {"filename": "co2.jpg", "rel_path": "学战都市Asterisk 11 刃心切磋/co2.jpg", "category": "彩插", "width": 1729, "height": 1200, "size": 391156}, {"filename": "co3.jpg", "rel_path": "学战都市Asterisk 11 刃心切磋/co3.jpg", "category": "彩插", "width": 1000, "height": 1514, "size": 336911}, {"filename": "co4.jpg", "rel_path": "学战都市Asterisk 11 刃心切磋/co4.jpg", "category": "彩插", "width": 1000, "height": 1514, "size": 381372}, {"filename": "co5.jpg", "rel_path": "学战都市Asterisk 11 刃心切磋/co5.jpg", "category": "彩插", "width": 1580, "height": 1200, "size": 295505}, {"filename": "co6.jpg", "rel_path": "学战都市Asterisk 11 刃心切磋/co6.jpg", "category": "彩插", "width": 1580, "height": 1200, "size": 299598}, {"filename": "co7.jpg", "rel_path": "学战都市Asterisk 11 刃心切磋/co7.jpg", "category": "彩插", "width": 1580, "height": 1200, "size": 265199}, {"filename": "co8.jpg", "rel_path": "学战都市Asterisk 11 刃心切磋/co8.jpg", "category": "彩插", "width": 1585, "height": 1200, "size": 624060}, {"filename": "co9.jpg", "rel_path": "学战都市Asterisk 11 刃心切磋/co9.jpg", "category": "彩插", "width": 1585, "height": 1200, "size": 560761}, {"filename": "cover.jpg", "rel_path": "学战都市Asterisk 11 刃心切磋/cover.jpg", "category": "封面", "width": 1000, "height": 1514, "size": 537848}, {"filename": "note.png", "rel_path": "学战都市Asterisk 11 刃心切磋/note.png", "category": "图标装饰", "width": 20, "height": 20, "size": 20217}, {"filename": "t1.png", "rel_path": "学战都市Asterisk 11 刃心切磋/t1.png", "category": "图标装饰", "width": 533, "height": 176, "size": 25681}]}, {"volume": "学战都市Asterisk 12 刹鬼再应", "size_str": "7.78 MB", "images": [{"filename": "001.jpg", "rel_path": "学战都市Asterisk 12 刹鬼再应/001.jpg", "category": "黑白插图", "width": 1000, "height": 1407, "size": 227601}, {"filename": "002.jpg", "rel_path": "学战都市Asterisk 12 刹鬼再应/002.jpg", "category": "黑白插图", "width": 1000, "height": 1418, "size": 229877}, {"filename": "003.jpg", "rel_path": "学战都市Asterisk 12 刹鬼再应/003.jpg", "category": "黑白插图", "width": 1000, "height": 1416, "size": 243860}, {"filename": "004.jpg", "rel_path": "学战都市Asterisk 12 刹鬼再应/004.jpg", "category": "黑白插图", "width": 1000, "height": 1405, "size": 303631}, {"filename": "005.jpg", "rel_path": "学战都市Asterisk 12 刹鬼再应/005.jpg", "category": "黑白插图", "width": 1000, "height": 1400, "size": 196719}, {"filename": "006.jpg", "rel_path": "学战都市Asterisk 12 刹鬼再应/006.jpg", "category": "黑白插图", "width": 1000, "height": 1416, "size": 324901}, {"filename": "007.jpg", "rel_path": "学战都市Asterisk 12 刹鬼再应/007.jpg", "category": "黑白插图", "width": 1000, "height": 1409, "size": 234347}, {"filename": "008.jpg", "rel_path": "学战都市Asterisk 12 刹鬼再应/008.jpg", "category": "黑白插图", "width": 1000, "height": 1405, "size": 274225}, {"filename": "009.jpg", "rel_path": "学战都市Asterisk 12 刹鬼再应/009.jpg", "category": "黑白插图", "width": 1000, "height": 1421, "size": 290451}, {"filename": "010.jpg", "rel_path": "学战都市Asterisk 12 刹鬼再应/010.jpg", "category": "黑白插图", "width": 1000, "height": 1421, "size": 221521}, {"filename": "bc.jpg", "rel_path": "学战都市Asterisk 12 刹鬼再应/bc.jpg", "category": "封底", "width": 1000, "height": 1387, "size": 146124}, {"filename": "co1.jpg", "rel_path": "学战都市Asterisk 12 刹鬼再应/co1.jpg", "category": "彩插", "width": 1000, "height": 1497, "size": 453059}, {"filename": "co10.jpg", "rel_path": "学战都市Asterisk 12 刹鬼再应/co10.jpg", "category": "彩插", "width": 1585, "height": 1200, "size": 624062}, {"filename": "co11.jpg", "rel_path": "学战都市Asterisk 12 刹鬼再应/co11.jpg", "category": "彩插", "width": 1585, "height": 1200, "size": 560763}, {"filename": "co2.jpg", "rel_path": "学战都市Asterisk 12 刹鬼再应/co2.jpg", "category": "彩插", "width": 1729, "height": 1200, "size": 483117}, {"filename": "co3.jpg", "rel_path": "学战都市Asterisk 12 刹鬼再应/co3.jpg", "category": "彩插", "width": 1729, "height": 1200, "size": 517575}, {"filename": "co4.jpg", "rel_path": "学战都市Asterisk 12 刹鬼再应/co4.jpg", "category": "彩插", "width": 1729, "height": 1200, "size": 590497}, {"filename": "co5.jpg", "rel_path": "学战都市Asterisk 12 刹鬼再应/co5.jpg", "category": "彩插", "width": 1000, "height": 1497, "size": 216857}, {"filename": "co6.jpg", "rel_path": "学战都市Asterisk 12 刹鬼再应/co6.jpg", "category": "彩插", "width": 1000, "height": 1497, "size": 386002}, {"filename": "co7.jpg", "rel_path": "学战都市Asterisk 12 刹鬼再应/co7.jpg", "category": "彩插", "width": 1603, "height": 1200, "size": 348837}, {"filename": "co8.jpg", "rel_path": "学战都市Asterisk 12 刹鬼再应/co8.jpg", "category": "彩插", "width": 1603, "height": 1200, "size": 364201}, {"filename": "co9.jpg", "rel_path": "学战都市Asterisk 12 刹鬼再应/co9.jpg", "category": "彩插", "width": 1603, "height": 1200, "size": 358718}, {"filename": "cover.jpg", "rel_path": "学战都市Asterisk 12 刹鬼再应/cover.jpg", "category": "封面", "width": 1000, "height": 1497, "size": 519555}, {"filename": "note.png", "rel_path": "学战都市Asterisk 12 刹鬼再应/note.png", "category": "图标装饰", "width": 20, "height": 20, "size": 20217}, {"filename": "t1.png", "rel_path": "学战都市Asterisk 12 刹鬼再应/t1.png", "category": "图标装饰", "width": 533, "height": 176, "size": 25692}]}, {"volume": "学战都市Asterisk 13 群雄云霞", "size_str": "5.31 MB", "images": [{"filename": "001.jpg", "rel_path": "学战都市Asterisk 13 群雄云霞/001.jpg", "category": "黑白插图", "width": 1000, "height": 1421, "size": 233558}, {"filename": "002.jpg", "rel_path": "学战都市Asterisk 13 群雄云霞/002.jpg", "category": "黑白插图", "width": 1000, "height": 1413, "size": 235929}, {"filename": "003.jpg", "rel_path": "学战都市Asterisk 13 群雄云霞/003.jpg", "category": "黑白插图", "width": 1000, "height": 1416, "size": 274688}, {"filename": "004.jpg", "rel_path": "学战都市Asterisk 13 群雄云霞/004.jpg", "category": "黑白插图", "width": 1000, "height": 1414, "size": 352272}, {"filename": "005.jpg", "rel_path": "学战都市Asterisk 13 群雄云霞/005.jpg", "category": "黑白插图", "width": 1703, "height": 1200, "size": 377158}, {"filename": "006.jpg", "rel_path": "学战都市Asterisk 13 群雄云霞/006.jpg", "category": "黑白插图", "width": 1000, "height": 1419, "size": 249718}, {"filename": "007.jpg", "rel_path": "学战都市Asterisk 13 群雄云霞/007.jpg", "category": "黑白插图", "width": 1000, "height": 1462, "size": 258164}, {"filename": "bc.jpg", "rel_path": "学战都市Asterisk 13 群雄云霞/bc.jpg", "category": "封底", "width": 1000, "height": 1446, "size": 185651}, {"filename": "co1.jpg", "rel_path": "学战都市Asterisk 13 群雄云霞/co1.jpg", "category": "彩插", "width": 1000, "height": 1462, "size": 407776}, {"filename": "co2.jpg", "rel_path": "学战都市Asterisk 13 群雄云霞/co2.jpg", "category": "彩插", "width": 1729, "height": 1200, "size": 795059}, {"filename": "co3.jpg", "rel_path": "学战都市Asterisk 13 群雄云霞/co3.jpg", "category": "彩插", "width": 1729, "height": 1200, "size": 526456}, {"filename": "co4.jpg", "rel_path": "学战都市Asterisk 13 群雄云霞/co4.jpg", "category": "彩插", "width": 1622, "height": 1200, "size": 548171}, {"filename": "co5.jpg", "rel_path": "学战都市Asterisk 13 群雄云霞/co5.jpg", "category": "彩插", "width": 1000, "height": 1462, "size": 222498}, {"filename": "co6.jpg", "rel_path": "学战都市Asterisk 13 群雄云霞/co6.jpg", "category": "彩插", "width": 1000, "height": 1462, "size": 390286}, {"filename": "cover.jpg", "rel_path": "学战都市Asterisk 13 群雄云霞/cover.jpg", "category": "封面", "width": 1000, "height": 1462, "size": 468481}, {"filename": "note.png", "rel_path": "学战都市Asterisk 13 群雄云霞/note.png", "category": "图标装饰", "width": 20, "height": 20, "size": 20217}, {"filename": "t1.png", "rel_path": "学战都市Asterisk 13 群雄云霞/t1.png", "category": "图标装饰", "width": 533, "height": 176, "size": 25803}]}, {"volume": "学战都市Asterisk 15 剑云炎华", "size_str": "6.70 MB", "images": [{"filename": "001.jpg", "rel_path": "学战都市Asterisk 15 剑云炎华/001.jpg", "category": "黑白插图", "width": 1153, "height": 1600, "size": 344017}, {"filename": "002.jpg", "rel_path": "学战都市Asterisk 15 剑云炎华/002.jpg", "category": "黑白插图", "width": 1153, "height": 1600, "size": 656953}, {"filename": "003.jpg", "rel_path": "学战都市Asterisk 15 剑云炎华/003.jpg", "category": "黑白插图", "width": 1153, "height": 1600, "size": 370544}, {"filename": "004.jpg", "rel_path": "学战都市Asterisk 15 剑云炎华/004.jpg", "category": "黑白插图", "width": 1153, "height": 1600, "size": 411965}, {"filename": "005.jpg", "rel_path": "学战都市Asterisk 15 剑云炎华/005.jpg", "category": "黑白插图", "width": 1153, "height": 1600, "size": 416354}, {"filename": "006.jpg", "rel_path": "学战都市Asterisk 15 剑云炎华/006.jpg", "category": "黑白插图", "width": 1153, "height": 1600, "size": 331208}, {"filename": "007.jpg", "rel_path": "学战都市Asterisk 15 剑云炎华/007.jpg", "category": "黑白插图", "width": 1153, "height": 1600, "size": 349542}, {"filename": "008.jpg", "rel_path": "学战都市Asterisk 15 剑云炎华/008.jpg", "category": "黑白插图", "width": 1153, "height": 1600, "size": 272059}, {"filename": "009.jpg", "rel_path": "学战都市Asterisk 15 剑云炎华/009.jpg", "category": "黑白插图", "width": 1153, "height": 1600, "size": 401743}, {"filename": "010.jpg", "rel_path": "学战都市Asterisk 15 剑云炎华/010.jpg", "category": "黑白插图", "width": 1153, "height": 1600, "size": 364758}, {"filename": "bc.jpg", "rel_path": "学战都市Asterisk 15 剑云炎华/bc.jpg", "category": "封底", "width": 1055, "height": 1600, "size": 141969}, {"filename": "co1.jpg", "rel_path": "学战都市Asterisk 15 剑云炎华/co1.jpg", "category": "彩插", "width": 1055, "height": 1600, "size": 456687}, {"filename": "co2.jpg", "rel_path": "学战都市Asterisk 15 剑云炎华/co2.jpg", "category": "彩插", "width": 2234, "height": 1600, "size": 1025331}, {"filename": "co3.jpg", "rel_path": "学战都市Asterisk 15 剑云炎华/co3.jpg", "category": "彩插", "width": 1055, "height": 1600, "size": 302966}, {"filename": "co4.jpg", "rel_path": "学战都市Asterisk 15 剑云炎华/co4.jpg", "category": "彩插", "width": 1078, "height": 1600, "size": 511153}, {"filename": "cover.jpg", "rel_path": "学战都市Asterisk 15 剑云炎华/cover.jpg", "category": "封面", "width": 1055, "height": 1600, "size": 618895}, {"filename": "note.png", "rel_path": "学战都市Asterisk 15 剑云炎华/note.png", "category": "图标装饰", "width": 20, "height": 20, "size": 20217}, {"filename": "t1.png", "rel_path": "学战都市Asterisk 15 剑云炎华/t1.png", "category": "图标装饰", "width": 533, "height": 176, "size": 25728}]}, {"volume": "学战都市Asterisk 16 金枝争滥", "size_str": "2.63 MB", "images": [{"filename": "bc.jpg", "rel_path": "学战都市Asterisk 16 金枝争滥/bc.jpg", "category": "封底", "width": 1061, "height": 1600, "size": 132985}, {"filename": "co1.jpg", "rel_path": "学战都市Asterisk 16 金枝争滥/co1.jpg", "category": "彩插", "width": 1061, "height": 1600, "size": 621932}, {"filename": "co2.jpg", "rel_path": "学战都市Asterisk 16 金枝争滥/co2.jpg", "category": "彩插", "width": 2136, "height": 1600, "size": 933207}, {"filename": "co3.jpg", "rel_path": "学战都市Asterisk 16 金枝争滥/co3.jpg", "category": "彩插", "width": 1061, "height": 1600, "size": 380500}, {"filename": "cover.jpg", "rel_path": "学战都市Asterisk 16 金枝争滥/cover.jpg", "category": "封面", "width": 1061, "height": 1600, "size": 645071}, {"filename": "note.png", "rel_path": "学战都市Asterisk 16 金枝争滥/note.png", "category": "图标装饰", "width": 20, "height": 20, "size": 20217}, {"filename": "t1.png", "rel_path": "学战都市Asterisk 16 金枝争滥/t1.png", "category": "图标装饰", "width": 533, "height": 176, "size": 25730}]}, {"volume": "学战都市Asterisk 17 六花团圆", "size_str": "7.54 MB", "images": [{"filename": "001.jpg", "rel_path": "学战都市Asterisk 17 六花团圆/001.jpg", "category": "黑白插图", "width": 1127, "height": 1600, "size": 302670}, {"filename": "002.jpg", "rel_path": "学战都市Asterisk 17 六花团圆/002.jpg", "category": "黑白插图", "width": 1127, "height": 1600, "size": 238137}, {"filename": "003.jpg", "rel_path": "学战都市Asterisk 17 六花团圆/003.jpg", "category": "黑白插图", "width": 1127, "height": 1600, "size": 416636}, {"filename": "004.jpg", "rel_path": "学战都市Asterisk 17 六花团圆/004.jpg", "category": "黑白插图", "width": 1127, "height": 1600, "size": 400126}, {"filename": "005.jpg", "rel_path": "学战都市Asterisk 17 六花团圆/005.jpg", "category": "黑白插图", "width": 1127, "height": 1600, "size": 246499}, {"filename": "006.jpg", "rel_path": "学战都市Asterisk 17 六花团圆/006.jpg", "category": "黑白插图", "width": 1127, "height": 1600, "size": 227766}, {"filename": "007.jpg", "rel_path": "学战都市Asterisk 17 六花团圆/007.jpg", "category": "黑白插图", "width": 1127, "height": 1600, "size": 218682}, {"filename": "008.jpg", "rel_path": "学战都市Asterisk 17 六花团圆/008.jpg", "category": "黑白插图", "width": 1127, "height": 1600, "size": 372436}, {"filename": "009.jpg", "rel_path": "学战都市Asterisk 17 六花团圆/009.jpg", "category": "黑白插图", "width": 1127, "height": 1600, "size": 327773}, {"filename": "010.jpg", "rel_path": "学战都市Asterisk 17 六花团圆/010.jpg", "category": "黑白插图", "width": 1127, "height": 1600, "size": 362484}, {"filename": "011.jpg", "rel_path": "学战都市Asterisk 17 六花团圆/011.jpg", "category": "黑白插图", "width": 1061, "height": 1600, "size": 278054}, {"filename": "bc.jpg", "rel_path": "学战都市Asterisk 17 六花团圆/bc.jpg", "category": "封底", "width": 1061, "height": 1600, "size": 125626}, {"filename": "co1.jpg", "rel_path": "学战都市Asterisk 17 六花团圆/co1.jpg", "category": "彩插", "width": 1061, "height": 1600, "size": 611080}, {"filename": "co2.jpg", "rel_path": "学战都市Asterisk 17 六花团圆/co2.jpg", "category": "彩插", "width": 2074, "height": 1600, "size": 823161}, {"filename": "co3.jpg", "rel_path": "学战都市Asterisk 17 六花团圆/co3.jpg", "category": "彩插", "width": 2074, "height": 1600, "size": 1030924}, {"filename": "co4.jpg", "rel_path": "学战都市Asterisk 17 六花团圆/co4.jpg", "category": "彩插", "width": 2074, "height": 1600, "size": 798387}, {"filename": "co5.jpg", "rel_path": "学战都市Asterisk 17 六花团圆/co5.jpg", "category": "彩插", "width": 1061, "height": 1600, "size": 368095}, {"filename": "cover.jpg", "rel_path": "学战都市Asterisk 17 六花团圆/cover.jpg", "category": "封面", "width": 1061, "height": 1600, "size": 705319}, {"filename": "note.png", "rel_path": "学战都市Asterisk 17 六花团圆/note.png", "category": "图标装饰", "width": 20, "height": 20, "size": 20200}, {"filename": "t1.png", "rel_path": "学战都市Asterisk 17 六花团圆/t1.png", "category": "图标装饰", "width": 533, "height": 176, "size": 32504}]}];
+    let currentVolIndex = -1; // -1 means all
+    let currentCategory = 'all';
+
+    const volList = document.getElementById('volList');
+    const galleryGrid = document.getElementById('galleryGrid');
+    const currentVolTitle = document.getElementById('currentVolTitle');
+
+    // Build sidebar
+    function renderSidebar() {
+      const allBtn = document.createElement('button');
+      allBtn.className = 'vol-btn active';
+      allBtn.innerHTML = `<span>全部卷插图</span><span class="vol-badge">${data.reduce((acc, v) => acc + v.images.length, 0)}</span>`;
+      allBtn.onclick = () => selectVolume(-1, allBtn);
+      volList.appendChild(allBtn);
+
+      data.forEach((v, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'vol-btn';
+        btn.innerHTML = `<span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-right:6px;" title="${v.volume}">${v.volume}</span><span class="vol-badge">${v.images.length}</span>`;
+        btn.onclick = () => selectVolume(idx, btn);
+        volList.appendChild(btn);
+      });
+    }
+
+    function selectVolume(idx, btnElement) {
+      currentVolIndex = idx;
+      document.querySelectorAll('.vol-btn').forEach(b => b.classList.remove('active'));
+      btnElement.classList.add('active');
+
+      if (idx === -1) {
+        currentVolTitle.textContent = '全部卷总览 (16 卷合计)';
+      } else {
+        currentVolTitle.textContent = data[idx].volume + ` (${data[idx].size_str})`;
+      }
+      renderGallery();
+    }
+
+    // Filter tabs
+    document.querySelectorAll('.tab-btn').forEach(tab => {
+      tab.onclick = () => {
+        document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentCategory = tab.dataset.cat;
+        renderGallery();
+      };
+    });
+
+    function getFilteredImages() {
+      let imgs = [];
+      if (currentVolIndex === -1) {
+        data.forEach(v => imgs.push(...v.images));
+      } else {
+        imgs = [...data[currentVolIndex].images];
+      }
+
+      // Update counters
+      const allCount = imgs.length;
+      const coverCount = imgs.filter(i => i.category === '封面' || i.category === '封底').length;
+      const colorCount = imgs.filter(i => i.category === '彩插').length;
+      const bwCount = imgs.filter(i => i.category === '黑白插图').length;
+
+      document.getElementById('countAll').textContent = allCount;
+      document.getElementById('countCover').textContent = coverCount;
+      document.getElementById('countColor').textContent = colorCount;
+      document.getElementById('countBw').textContent = bwCount;
+
+      if (currentCategory === 'all') return imgs;
+      if (currentCategory === '封面/封底') {
+        return imgs.filter(i => i.category === '封面' || i.category === '封底');
+      }
+      return imgs.filter(i => i.category === currentCategory);
+    }
+
+    function renderGallery() {
+      const imgs = getFilteredImages();
+      galleryGrid.innerHTML = '';
+
+      imgs.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.onclick = () => openModal(item);
+
+        const kb = (item.size / 1024).toFixed(1) + ' KB';
+        card.innerHTML = `
+          <div class="img-wrap">
+            <img src="${encodeURI(item.rel_path)}" loading="lazy" alt="${item.filename}">
+          </div>
+          <div class="card-info">
+            <div class="card-top">
+              <span class="card-title" title="${item.rel_path}">${item.filename}</span>
+              <span class="cat-badge cat-${item.category}">${item.category}</span>
+            </div>
+            <div class="card-meta">
+              <span>${item.width} × ${item.height}</span>
+              <span>${kb}</span>
+            </div>
+          </div>
+        `;
+        galleryGrid.appendChild(card);
+      });
+    }
+
+    function openModal(item) {
+      const modal = document.getElementById('imageModal');
+      const img = document.getElementById('modalImg');
+      const caption = document.getElementById('modalCaption');
+      img.src = encodeURI(item.rel_path);
+      caption.innerHTML = `<strong>${item.rel_path}</strong> · [${item.category}] ${item.width}×${item.height} · ${(item.size/1024).toFixed(1)} KB`;
+      modal.classList.add('active');
+    }
+
+    function closeModal(e) {
+      if (e.target.id === 'imageModal') {
+        document.getElementById('imageModal').classList.remove('active');
+      }
+    }
+    function closeModalDirect() {
+      document.getElementById('imageModal').classList.remove('active');
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModalDirect();
+    });
+
+    renderSidebar();
+    renderGallery();
+  </script>
+</body>
+</html>

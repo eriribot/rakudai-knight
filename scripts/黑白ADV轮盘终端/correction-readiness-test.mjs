@@ -27,7 +27,7 @@ const bootKey = '__RK_MVU_GUARD_BOOT_V4__';
 const block = '<UpdateVariable><JSONPatch>[]</JSONPatch></UpdateVariable>';
 const flush = () => new Promise(resolve => setImmediate(resolve));
 
-function fixture({ autoApply = true, connected = true, hostRenderEvent = true, tailEvents = true, respond,
+function fixture({ autoApply = true, connected = true, hostRenderEvent = true, tailEvents = true, respond, businessAllowed = () => true,
   patch = [{ op: 'replace', path: '/场景/地点', value: '演武场' }] } = {}) {
   let now = 1000000, timerId = 0;
   const timers = new Map(), listeners = new Map(), requests = [], writes = [], parses = [], tournamentInputs = [];
@@ -133,6 +133,7 @@ function fixture({ autoApply = true, connected = true, hostRenderEvent = true, t
     LS: { get: (key, fallback) => storage.has(key) ? storage.get(key) : fallback,
       set: (key, value) => storage.set(key, value) },
     generationPending: false, terminalStateReader: { clear() {} },
+    terminalBusinessIsRakudai: state => businessAllowed(state === undefined ? persisted.stat_data : state),
     fn: name => helper[name], emit() {},
     stateService: () => ({ tournamentView: state => { tournamentInputs.push(clone(state)); return deriveTournament(state); },
       nationalTournamentView: deriveNationalTournament,
@@ -209,6 +210,56 @@ function fixture({ autoApply = true, connected = true, hostRenderEvent = true, t
     now: () => now, state: () => clone(persisted), save: value => { persisted = clone(value); },
   };
 }
+
+// 作品解析本身由主壳测试；这些新增用例注入该边界，旧夹具继续测试原 RK 生命周期。
+const businessAllowedForTest = state => state?.系统?.开局状态 === '已建档' &&
+  (!Object.hasOwn(state.系统, '作品') || state.系统.作品 === 'rakudai');
+
+await check('学战、未知作品与未建档不启动自动或手动落第校正', async () => {
+  for (const system of [{ 作品: 'asterisk' }, { 作品: 'unknown' }, { 开局状态: '待建档' }]) {
+    const f = fixture({ businessAllowed: businessAllowedForTest });
+    const saved = f.state(); Object.assign(saved.stat_data.系统, system); f.save(saved);
+    f.context.chat[0].mes += block;
+    await assert.rejects(f.api.requestCorrection(), /当前作品未启用落第业务校正/);
+    const candidate = f.startTurn(); await f.advance(3000);
+    assert.equal(candidate.delta_data?.$internal?.__rk_main_save, undefined);
+    f.assertNoWork(); f.dispose();
+  }
+});
+
+await check('已认领RK回合遇到学战MVU事件不盖收据、不删赛事并停止后续校正', async () => {
+  const f = fixture({ businessAllowed: businessAllowedForTest });
+  const previous = f.state(), candidate = f.startTurn({ parsed: false, end: false, save: false, render: false });
+  candidate.stat_data.系统.作品 = 'asterisk';
+  candidate.stat_data.玩家.所属 = '星导馆学园';
+  candidate.stat_data.场景.选拔赛 = { 原样保留: '本轮值' };
+  candidate.display_data = { 场景: { 选拔赛: { 展示: '原样保留' } } };
+  candidate.delta_data = { 场景: { 选拔赛: { 增量: '原样保留' } } };
+  const before = clone(candidate);
+  f.event(f.mvu.events.COMMAND_PARSED, candidate, [], f.context.chat.at(-1).mes);
+  f.event(f.mvu.events.VARIABLE_UPDATE_ENDED, candidate, previous);
+  f.event(f.mvu.events.VARIABLE_UPDATE_ENDED + '_for_zod', candidate, previous);
+  assert.deepEqual(candidate, before);
+  f.save(candidate); await f.advance(3000);
+  f.assertNoWork(); assert.equal(f.api.getCorrectionStatus().state, 'cancelled'); f.dispose();
+});
+
+await check('校正预览完成后业务切换阻止旧补丁解析和保存', async () => {
+  const f = fixture({ businessAllowed: businessAllowedForTest });
+  f.context.chat[0].mes += block;
+  await f.api.requestCorrection();
+  const saved = f.state(); saved.stat_data.系统.作品 = 'asterisk'; f.save(saved);
+  await assert.rejects(f.api.applyCorrection(), /当前作品未启用落第业务校正/);
+  assert.equal(f.requests.length, 1); assert.equal(f.parses.length, 0); assert.equal(f.writes.length, 0); f.dispose();
+});
+
+await check('RK已认领回合暂缺MVU读取时保持等待，不因作品检查提前失败', async () => {
+  const f = fixture({ businessAllowed: businessAllowedForTest });
+  f.startTurn({ end: false, save: false, render: false });
+  f.mvu.getMvuData = () => { throw new Error('新回复尚未建立变量槽'); };
+  await f.advance(1000);
+  assert.equal(f.api.getCorrectionStatus().state, 'waiting'); f.assertNoWork(); f.dispose();
+});
 
 await check('既有完整能力 marker 没有 boot 标记仍可请求并保存', async () => {
   const f = fixture();

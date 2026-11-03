@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#071326">
+  <title>六花终端 · ASTERISK</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <svg class="at-symbols" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="at-i-home" viewBox="0 0 24 24"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z"/><path d="m12 8 3.5 2v4L12 16l-3.5-2v-4L12 8Z"/></symbol>
+    <symbol id="at-i-profile" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/><path d="M5 21v-3a7 7 0 0 1 14 0v3M4 3H2v5m18-5h2v5"/></symbol>
+    <symbol id="at-i-weapon" viewBox="0 0 24 24"><path d="m5 19 5-5m-4-4 8 8M8 12 18 2l4 0v4L12 16M2 22l4-4"/></symbol>
+    <symbol id="at-i-relations" viewBox="0 0 24 24"><circle cx="12" cy="5" r="3"/><circle cx="5" cy="18" r="3"/><circle cx="19" cy="18" r="3"/><path d="m10 8-3.5 7M14 8l3.5 7M8 18h8"/></symbol>
+    <symbol id="at-i-events" viewBox="0 0 24 24"><path d="M5 4h14v17H5zM8 2v4m8-4v4M8 10h8m-8 4h8m-8 4h5"/></symbol>
+    <symbol id="at-i-arrow" viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></symbol>
+    <symbol id="at-i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+    <symbol id="at-i-switch" viewBox="0 0 24 24"><path d="M4 7h15l-4-4M20 17H5l4 4M20 7l-4 4M4 17l4-4"/></symbol>
+    <symbol id="at-i-spark" viewBox="0 0 24 24"><path d="m12 2 2.5 7.5L22 12l-7.5 2.5L12 22l-2.5-7.5L2 12l7.5-2.5L12 2Z"/></symbol>
+    <symbol id="at-i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v1"/></symbol>
+  </svg>
+
+  <div class="at-preview-note"><span class="at-preview-dot"></span> 视觉原型 · 演示数据 · 尚未连接游戏存档</div>
+
+  <div class="at-terminal">
+    <header class="at-header">
+      <a class="at-brand" href="#home" aria-label="六花终端首页">
+        <span class="at-brand-mark" aria-hidden="true"><svg><use href="#at-i-home"/></svg></span>
+        <span><strong>ASTERISK<span class="at-brand-star">＊</span></strong><small>六花终端 <i>/</i> PERSONAL INTERFACE</small></span>
+      </a>
+      <div class="at-header-actions">
+        <span class="at-mode"><span></span> PREVIEW MODE</span>
+        <button class="at-school-trigger" type="button" data-action="school" aria-haspopup="dialog">
+          <img data-school-emblem src="../../第一卷-世界书整理/开局网页正则替换/assets/asterisk/emblem-arlequint.png" alt="" width="32" height="36">
+          <span><small>所属学园 · 演示</small><strong data-school-short>阿勒坎特</strong></span>
+          <svg class="at-icon"><use href="#at-i-switch"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="at-workspace">
+      <nav class="at-navigation" aria-label="终端导航">
+        <button class="at-nav-button is-active" data-page="home" aria-current="page"><span class="at-nav-hex"><svg class="at-icon"><use href="#at-i-home"/></svg></span><span>总览</span><small>OVERVIEW</small></button>
+        <button class="at-nav-button" data-page="profile"><span class="at-nav-hex"><svg class="at-icon"><use href="#at-i-profile"/></svg></span><span>学生档案</span><small>PROFILE</small></button>
+        <button class="at-nav-button" data-page="weapons"><span class="at-nav-hex"><svg class="at-icon"><use href="#at-i-weapon"/></svg></span><span>武装</span><small>LUX</small></button>
+        <button class="at-nav-button" data-page="relations"><span class="at-nav-hex"><svg class="at-icon"><use href="#at-i-relations"/></svg></span><span>人际</span><small>RELATIONS</small></button>
+        <button class="at-nav-button" data-page="events"><span class="at-nav-hex"><svg class="at-icon"><use href="#at-i-events"/></svg></span><span>事件</span><small>ARCHIVE</small></button>
+        <span class="at-rail-code" aria-hidden="true">六花 / 06</span>
+      </nav>
+
+      <main class="at-main" id="at-main" tabindex="-1">
+        <div class="at-page-heading"><span><span class="at-cross">+</span> ASTERISK NETWORK <span class="at-slash">/</span> <span id="at-section-name">OVERVIEW</span></span><span class="at-view-index" id="at-view-index">01 — 05</span></div>
+        <div id="at-page-content"></div>
+        <footer class="at-footer"><span>ASTERISK PERSONAL TERMINAL</span><span>六花之下，一切尚待开始。<b>◇</b></span></footer>
+      </main>
+    </div>
+  </div>
+
+  <dialog class="at-dialog" id="at-dialog" aria-labelledby="at-dialog-title">
+    <div class="at-dialog-header"><div><span class="at-eyebrow" id="at-dialog-kicker">TERMINAL PREVIEW</span><h2 id="at-dialog-title">终端预览</h2></div><button class="at-icon-button" data-action="close-dialog" aria-label="关闭窗口"><svg class="at-icon"><use href="#at-i-close"/></svg></button></div>
+    <div class="at-dialog-content" id="at-dialog-content"></div>
+  </dialog>
+  <div class="at-toast" id="at-toast" role="status" aria-live="polite"></div>
+</body>
+</html>
