@@ -4,6 +4,7 @@
   "sha256": "65098ec436edbc21af5c6c7bec18bc2750274eecca9e335bcc3d8431506e38aa",
   "exclude_prefixes": [
     "DLC/MV工程/",
+    "DLC/学战研究/",
     "scratch/",
     "39688/",
     "output/playwright/",

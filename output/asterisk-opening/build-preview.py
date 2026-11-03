@@ -160,6 +160,12 @@ replace('            startBgmAfterPrelude,\n            { once: true },', '     
 replace('          document.addEventListener(\n            "lk:title-visible",\n            startBgmAfterPrelude,\n          );', '')
 replace('        // OP 停止进入标题页后启动 BGM；继续按钮手势也会重试。', '        document.addEventListener("lk:title-visible",startBgmAfterPrelude);\n        // OP 停止进入标题页后启动 BGM；继续按钮手势也会重试。')
 
+# Keep remote covers remote when embedded in a Tavern Helper iframe.
+# The author's original page is unchanged; its relative fallback is not portable.
+s, local_cover_fallbacks = re.subn(r"^[ \t]*this\.src = '\.\./resource/no\d+\.jpg';\n", '', s, flags=re.M)
+if local_cover_fallbacks != 19:
+    raise RuntimeError(f'Expected 19 original cover fallbacks, got {local_cover_fallbacks}')
+
 extension='\n'.join((work/name).read_text(encoding='utf-8') for name in ['asterisk-mode.js','asterisk-prompts.js','asterisk-image-export.js','asterisk-novel.js'])
 replace('      // 内联事件使用显式接口；宿主以模块执行脚本时也不依赖隐式全局函数。','\n// ASTERISK_MODE_BEGIN\n'+extension+'\n// ASTERISK_MODE_END\n      // 内联事件使用显式接口；宿主以模块执行脚本时也不依赖隐式全局函数。')
 replace('      window.RakudaiOpening = {','      window.RakudaiOpening = {\n        openCinemaMode: openCinemaMode,\n        replayOpening: replayOpening,\n        openAcademyPicker: openAcademyPicker,\n        chooseWorld: chooseOpeningWorld,\n        selectAcademy: selectAcademy,\n        enterAcademy: enterAcademy,\n        editAsteriskFields: editAsteriskFields,')

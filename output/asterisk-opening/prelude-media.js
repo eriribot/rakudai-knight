@@ -1,7 +1,10 @@
 // These media bindings are initialized before the original prelude controller.
 var openingIsLocalPreview = location.protocol==='file:' || (/^(127\.0\.0\.1|localhost)$/.test(location.hostname) && decodeURIComponent(location.pathname).includes('/开局网页正则替换/'));
-var openingLocalMediaBase = new URL('assets/asterisk/', openingIsLocalPreview ? location.href : 'http://127.0.0.1:18737/第一卷-世界书整理/开局网页正则替换/index.html').href;
-function openingMediaUrl(file) { return new URL(file,openingLocalMediaBase).href; }
+var openingMediaBase = openingIsLocalPreview ? new URL('assets/asterisk/', location.href).href : 'https://eriribot.github.io/rakudai-knight/第一卷-世界书整理/开局网页正则替换/assets/asterisk/';
+function openingMediaUrl(file) {
+  if(!openingIsLocalPreview && file===OPENING_ASTERISK_MEDIA.op)return 'https://eriribot.github.io/rakudai-knight/op.mp4';
+  return new URL(file,openingMediaBase).href;
+}
 var originalPreludeMedia = null;
 var openingTitleInitialized = false;
 function initializeOpeningTitleMedia() {
@@ -10,15 +13,15 @@ function initializeOpeningTitleMedia() {
   var root=document.getElementById('lkPrelude'),art=document.querySelector('.lk-title-art');
   var logo=document.querySelector('.lk-title-logo'),astLogo=document.querySelector('.aw-title-logo');
   var astArt=document.querySelector('.aw-title-original-art');
-  if(openingIsLocalPreview && OPENING_ASTERISK_MEDIA.titleBackdrop){
+  if(OPENING_ASTERISK_MEDIA.titleBackdrop){
     // The generated asset contains scenery only; original character files stay separate.
     document.documentElement.style.setProperty('--opening-title-backdrop','url("'+openingMediaUrl(OPENING_ASTERISK_MEDIA.titleBackdrop)+'")');
   }
   var decorations=document.querySelectorAll('.aw-title-divider,.aw-title-cross');
-  var sources=openingIsLocalPreview?[
+  var sources=[
     {src:openingMediaUrl(OPENING_ASTERISK_MEDIA.entryCover),pair:true},
     {src:originalPreludeMedia.art,pair:false}
-  ]:[{src:originalPreludeMedia.art,pair:false}];
+  ];
   var request=0, failedLogo=false, rakudaiReady=false, asteriskReady=false, asteriskFailed=false;
   function applyLayout() {
     var paired=rakudaiReady&&asteriskReady;
@@ -33,18 +36,16 @@ function initializeOpeningTitleMedia() {
     if(logo.getAttribute('src')!==originalLogoSrc)logo.src=originalLogoSrc;
     else logo.hidden=true;
   };
-  if(openingIsLocalPreview)logo.src=openingMediaUrl(OPENING_ASTERISK_MEDIA.logos.rakudai);
+  logo.src=openingMediaUrl(OPENING_ASTERISK_MEDIA.logos.rakudai);
   astLogo.onerror=function(){failedLogo=true;astLogo.hidden=true;};
-  if(openingIsLocalPreview)astLogo.src=openingMediaUrl(OPENING_ASTERISK_MEDIA.logos.asterisk);
+  astLogo.src=openingMediaUrl(OPENING_ASTERISK_MEDIA.logos.asterisk);
   // Render the two source files directly. Character pixels are never regenerated.
-  if(openingIsLocalPreview){
-    astArt.onload=function(){if(asteriskFailed)return;asteriskReady=true;applyLayout();};
-    astArt.onerror=function(){
-      asteriskFailed=true;asteriskReady=false;astArt.onload=null;astArt.onerror=null;applyLayout();
-    };
-    astArt.src=openingMediaUrl(OPENING_ASTERISK_MEDIA.asteriskEntryCover);
-    if(astArt.complete&&astArt.naturalWidth>0)astArt.onload();
-  }
+  astArt.onload=function(){if(asteriskFailed)return;asteriskReady=true;applyLayout();};
+  astArt.onerror=function(){
+    asteriskFailed=true;asteriskReady=false;astArt.onload=null;astArt.onerror=null;applyLayout();
+  };
+  astArt.src=openingMediaUrl(OPENING_ASTERISK_MEDIA.asteriskEntryCover);
+  if(astArt.complete&&astArt.naturalWidth>0)astArt.onload();
   function loadCover(index) {
     var item=sources[index],revision=++request;
     rakudaiReady=false;applyLayout();

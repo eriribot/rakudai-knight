@@ -7392,8 +7392,11 @@ window.RakudaiMvuNative = { version: "N04", runtime: rakudaiMvuRuntime, prepare:
 var OPENING_ASTERISK_MEDIA={"volumes": [{"number": 1, "title": "姬焰邂逅", "file": "cover-01.jpg"}, {"number": 2, "title": "银绮觉醒", "file": "cover-02.jpg"}, {"number": 3, "title": "凤凰乱武", "file": "cover-03.jpg"}, {"number": 4, "title": "追忆斗破", "file": "cover-04.jpg"}, {"number": 5, "title": "霸凰决战", "file": "cover-05.jpg"}, {"number": 6, "title": "怀国凯战", "file": "cover-06.jpg"}, {"number": 7, "title": "祭华缭乱", "file": "cover-07.jpg"}, {"number": 8, "title": "偶像峻烈", "file": "cover-08.jpg"}, {"number": 9, "title": "悠日战啾", "file": "cover-09.jpg"}, {"number": 10, "title": "龙激圣霸", "file": "cover-10.jpg"}, {"number": 11, "title": "刃心切磋", "file": "cover-11.jpg"}, {"number": 12, "title": "刹鬼再应", "file": "cover-12.jpg"}, {"number": 13, "title": "群雄云霞", "file": "cover-13.jpg"}, {"number": 15, "title": "剑云炎华", "file": "cover-15.jpg"}, {"number": 16, "title": "金枝争滥", "file": "cover-16.jpg"}, {"number": 17, "title": "六花团圆", "file": "cover-17.jpg"}], "gallery": [{"volume": 1, "file": "gallery-01.jpg", "title": "纱夜与煌式重装武器"}, {"volume": 2, "file": "gallery-02.jpg", "title": "绮凛与绫斗交锋"}, {"volume": 3, "file": "gallery-03.jpg", "title": "尤莉丝展开火焰招式"}, {"volume": 5, "file": "gallery-04.jpg", "title": "席尔薇雅的歌声"}, {"volume": 9, "file": "gallery-05.jpg", "title": "克劳蒂雅的赛场交锋"}, {"volume": 10, "file": "gallery-06.jpg", "title": "绮凛与青蓝机械光环"}, {"volume": 11, "file": "gallery-07.jpg", "title": "奥菲莉亚与六角背景"}, {"volume": 13, "file": "gallery-08.jpg", "title": "王龙星武祭群像"}], "missingVolumes": [14], "titleArt": "gallery-08.jpg", "op": "op.mp4", "entryCover": "entry-cover-rakudai.png", "asteriskEntryCover": "entry-cover-asterisk-original.jpg", "titleBackdrop": "opening-game-backdrop-v1.png", "emblems": {"seidoukan": "emblem-seidoukan.png", "gallardworth": "emblem-gallardworth.png", "jielong": "emblem-jielong.png", "rewolf": "emblem-rewolf.png", "arlequint": "emblem-arlequint.png"}, "logos": {"rakudai": "logo-rakudai.png", "asterisk": "logo-asterisk.png"}};
 // These media bindings are initialized before the original prelude controller.
 var openingIsLocalPreview = location.protocol==='file:' || (/^(127\.0\.0\.1|localhost)$/.test(location.hostname) && decodeURIComponent(location.pathname).includes('/开局网页正则替换/'));
-var openingLocalMediaBase = new URL('assets/asterisk/', openingIsLocalPreview ? location.href : 'http://127.0.0.1:18737/第一卷-世界书整理/开局网页正则替换/index.html').href;
-function openingMediaUrl(file) { return new URL(file,openingLocalMediaBase).href; }
+var openingMediaBase = openingIsLocalPreview ? new URL('assets/asterisk/', location.href).href : 'https://eriribot.github.io/rakudai-knight/第一卷-世界书整理/开局网页正则替换/assets/asterisk/';
+function openingMediaUrl(file) {
+  if(!openingIsLocalPreview && file===OPENING_ASTERISK_MEDIA.op)return 'https://eriribot.github.io/rakudai-knight/op.mp4';
+  return new URL(file,openingMediaBase).href;
+}
 var originalPreludeMedia = null;
 var openingTitleInitialized = false;
 function initializeOpeningTitleMedia() {
@@ -7402,15 +7405,15 @@ function initializeOpeningTitleMedia() {
   var root=document.getElementById('lkPrelude'),art=document.querySelector('.lk-title-art');
   var logo=document.querySelector('.lk-title-logo'),astLogo=document.querySelector('.aw-title-logo');
   var astArt=document.querySelector('.aw-title-original-art');
-  if(openingIsLocalPreview && OPENING_ASTERISK_MEDIA.titleBackdrop){
+  if(OPENING_ASTERISK_MEDIA.titleBackdrop){
     // The generated asset contains scenery only; original character files stay separate.
     document.documentElement.style.setProperty('--opening-title-backdrop','url("'+openingMediaUrl(OPENING_ASTERISK_MEDIA.titleBackdrop)+'")');
   }
   var decorations=document.querySelectorAll('.aw-title-divider,.aw-title-cross');
-  var sources=openingIsLocalPreview?[
+  var sources=[
     {src:openingMediaUrl(OPENING_ASTERISK_MEDIA.entryCover),pair:true},
     {src:originalPreludeMedia.art,pair:false}
-  ]:[{src:originalPreludeMedia.art,pair:false}];
+  ];
   var request=0, failedLogo=false, rakudaiReady=false, asteriskReady=false, asteriskFailed=false;
   function applyLayout() {
     var paired=rakudaiReady&&asteriskReady;
@@ -7425,18 +7428,16 @@ function initializeOpeningTitleMedia() {
     if(logo.getAttribute('src')!==originalLogoSrc)logo.src=originalLogoSrc;
     else logo.hidden=true;
   };
-  if(openingIsLocalPreview)logo.src=openingMediaUrl(OPENING_ASTERISK_MEDIA.logos.rakudai);
+  logo.src=openingMediaUrl(OPENING_ASTERISK_MEDIA.logos.rakudai);
   astLogo.onerror=function(){failedLogo=true;astLogo.hidden=true;};
-  if(openingIsLocalPreview)astLogo.src=openingMediaUrl(OPENING_ASTERISK_MEDIA.logos.asterisk);
+  astLogo.src=openingMediaUrl(OPENING_ASTERISK_MEDIA.logos.asterisk);
   // Render the two source files directly. Character pixels are never regenerated.
-  if(openingIsLocalPreview){
-    astArt.onload=function(){if(asteriskFailed)return;asteriskReady=true;applyLayout();};
-    astArt.onerror=function(){
-      asteriskFailed=true;asteriskReady=false;astArt.onload=null;astArt.onerror=null;applyLayout();
-    };
-    astArt.src=openingMediaUrl(OPENING_ASTERISK_MEDIA.asteriskEntryCover);
-    if(astArt.complete&&astArt.naturalWidth>0)astArt.onload();
-  }
+  astArt.onload=function(){if(asteriskFailed)return;asteriskReady=true;applyLayout();};
+  astArt.onerror=function(){
+    asteriskFailed=true;asteriskReady=false;astArt.onload=null;astArt.onerror=null;applyLayout();
+  };
+  astArt.src=openingMediaUrl(OPENING_ASTERISK_MEDIA.asteriskEntryCover);
+  if(astArt.complete&&astArt.naturalWidth>0)astArt.onload();
   function loadCover(index) {
     var item=sources[index],revision=++request;
     rakudaiReady=false;applyLayout();
@@ -8149,7 +8150,6 @@ configureOpeningPreludeMedia(new URLSearchParams(location.search).get('world')==
                     fetchpriority="high"
                     onerror="
                       this.onerror = null;
-                      this.src = '../resource/no1.jpg';
                     "
                   />
                 </div>
@@ -8169,7 +8169,6 @@ configureOpeningPreludeMedia(new URLSearchParams(location.search).get('world')==
                     decoding="async"
                     onerror="
                       this.onerror = null;
-                      this.src = '../resource/no2.jpg';
                     "
                   />
                 </div>
@@ -8189,7 +8188,6 @@ configureOpeningPreludeMedia(new URLSearchParams(location.search).get('world')==
                     decoding="async"
                     onerror="
                       this.onerror = null;
-                      this.src = '../resource/no3.jpg';
                     "
                   />
                 </div>
@@ -8209,7 +8207,6 @@ configureOpeningPreludeMedia(new URLSearchParams(location.search).get('world')==
                     decoding="async"
                     onerror="
                       this.onerror = null;
-                      this.src = '../resource/no4.jpg';
                     "
                   />
                 </div>
@@ -8229,7 +8226,6 @@ configureOpeningPreludeMedia(new URLSearchParams(location.search).get('world')==
                     decoding="async"
                     onerror="
                       this.onerror = null;
-                      this.src = '../resource/no5.jpg';
                     "
                   />
                 </div>
@@ -8249,7 +8245,6 @@ configureOpeningPreludeMedia(new URLSearchParams(location.search).get('world')==
                     decoding="async"
                     onerror="
                       this.onerror = null;
-                      this.src = '../resource/no6.jpg';
                     "
                   />
                 </div>
@@ -8269,7 +8264,6 @@ configureOpeningPreludeMedia(new URLSearchParams(location.search).get('world')==
                     decoding="async"
                     onerror="
                       this.onerror = null;
-                      this.src = '../resource/no7.jpg';
                     "
                   />
                 </div>
@@ -8289,7 +8283,6 @@ configureOpeningPreludeMedia(new URLSearchParams(location.search).get('world')==
                     decoding="async"
                     onerror="
                       this.onerror = null;
-                      this.src = '../resource/no8.jpg';
                     "
                   />
                 </div>
@@ -8309,7 +8302,6 @@ configureOpeningPreludeMedia(new URLSearchParams(location.search).get('world')==
                     decoding="async"
                     onerror="
                       this.onerror = null;
-                      this.src = '../resource/no9.jpg';
                     "
                   />
                 </div>
@@ -8329,7 +8321,6 @@ configureOpeningPreludeMedia(new URLSearchParams(location.search).get('world')==
                     decoding="async"
                     onerror="
                       this.onerror = null;
-                      this.src = '../resource/no10.jpg';
                     "
                   />
                 </div>
@@ -8349,7 +8340,6 @@ configureOpeningPreludeMedia(new URLSearchParams(location.search).get('world')==
                     decoding="async"
                     onerror="
                       this.onerror = null;
-                      this.src = '../resource/no11.jpg';
                     "
                   />
                 </div>
@@ -8369,7 +8359,6 @@ configureOpeningPreludeMedia(new URLSearchParams(location.search).get('world')==
                     decoding="async"
                     onerror="
                       this.onerror = null;
-                      this.src = '../resource/no12.jpg';
                     "
                   />
                 </div>
@@ -8389,7 +8378,6 @@ configureOpeningPreludeMedia(new URLSearchParams(location.search).get('world')==
                     decoding="async"
                     onerror="
                       this.onerror = null;
-                      this.src = '../resource/no13.jpg';
                     "
                   />
                 </div>
@@ -8409,7 +8397,6 @@ configureOpeningPreludeMedia(new URLSearchParams(location.search).get('world')==
                     decoding="async"
                     onerror="
                       this.onerror = null;
-                      this.src = '../resource/no14.jpg';
                     "
                   />
                 </div>
@@ -8429,7 +8416,6 @@ configureOpeningPreludeMedia(new URLSearchParams(location.search).get('world')==
                     decoding="async"
                     onerror="
                       this.onerror = null;
-                      this.src = '../resource/no15.jpg';
                     "
                   />
                 </div>
@@ -8449,7 +8435,6 @@ configureOpeningPreludeMedia(new URLSearchParams(location.search).get('world')==
                     decoding="async"
                     onerror="
                       this.onerror = null;
-                      this.src = '../resource/no16.jpg';
                     "
                   />
                 </div>
@@ -8469,7 +8454,6 @@ configureOpeningPreludeMedia(new URLSearchParams(location.search).get('world')==
                     decoding="async"
                     onerror="
                       this.onerror = null;
-                      this.src = '../resource/no17.jpg';
                     "
                   />
                 </div>
@@ -8489,7 +8473,6 @@ configureOpeningPreludeMedia(new URLSearchParams(location.search).get('world')==
                     decoding="async"
                     onerror="
                       this.onerror = null;
-                      this.src = '../resource/no18.jpg';
                     "
                   />
                 </div>
@@ -8509,7 +8492,6 @@ configureOpeningPreludeMedia(new URLSearchParams(location.search).get('world')==
                     decoding="async"
                     onerror="
                       this.onerror = null;
-                      this.src = '../resource/no19.jpg';
                     "
                   />
                 </div>

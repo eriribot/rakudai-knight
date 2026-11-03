@@ -1,7 +1,7 @@
 {
   "source": "../开局页面/index.html",
   "source_sha256": "5f5672658041039ff1911cf8965b97211e965e0beda98187e36d0f9585c420fc",
-  "output_sha256": "d250533f2da01e46fac4eefd3ccf43a9c4ede4f30b5c62497d0b2f70c013e97c",
+  "output_sha256": "e9cc2d9808d823cacffd2b09385d61ce2c75b3a26f66e72f27294f45d14e8a78",
   "delivery_mode": "component",
   "worlds": [
     "rakudai",
