@@ -81,3 +81,15 @@ function createTerminalStateReader(readMessages, getContext) {
   readTerminalState.clear = clear;
   return readTerminalState;
 }
+
+// 气泡只沿所属楼层向前读活动回复；未来楼层和终端外观不能改写历史样式。
+function readMessageWorld(readMessages, messageId) {
+  if (typeof readMessages !== 'function' || !Number.isInteger(messageId) || messageId < 0) return null;
+  for (var id = messageId; id >= 0; id--) {
+    var message = readMessages(id, { role: 'assistant', include_swipes: true })[0];
+    if (!message || message.message_id !== id || !Number.isInteger(message.swipe_id) || message.swipe_id < 0) continue;
+    var world = message.swipes_data?.[message.swipe_id]?.stat_data?.系统?.作品;
+    if (world === 'rakudai' || world === 'asterisk') return world;
+  }
+  return null;
+}

@@ -1,0 +1,6 @@
+### Result
+{"browser":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36","viewport":{"width":430,"height":932},"helper":"4.12.0","feedback":"建档成功并已回读。终端与正文气泡已共用档案头像。第一幕请求已生成，请检查后手动复制发送。","system":{"结构版本":4,"作品":"rakudai","开局状态":"已建档","主角模式":"黑铁一辉"},"formalRequest":true}
+### Ran Playwright code
+```js
+await (async page => {await page.screenshot({path:"output/playwright/init-repro-20261107/copy-cancelled-after-mvu-ready.png"});await page.frameLocator("#TH-message--0--0").getByRole("button",{name:"⚔️ 确认人物并生成第一幕请求"}).click();return await page.evaluate(()=>{const f=document.getElementById("TH-message--0--0"),w=f.contentWindow,d=f.contentDocument;return {browser:navigator.userAgent,viewport:{width:innerWidth,height:innerHeight},helper:w.getTavernHelperVersion(),feedback:d.getElementById("archive-feedback").textContent,system:SillyTavern.getContext().chat[0].variables[0].stat_data.系统,formalRequest:d.getElementById("opening-message").value.includes("代码已将本次档案写入 MVU 并成功回读")}});})(page);
+```

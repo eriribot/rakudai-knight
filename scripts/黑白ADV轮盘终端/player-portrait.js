@@ -95,7 +95,7 @@ function createPlayerPortraitService({ storage, getContext, getSnapshot, reserve
 }
 
 // 只处理正则产出的安全候选；不读写聊天原文，不从任意正文猜说话人。
-function createPlayerBubbleBinder({ host, document: doc, service, css = '' }) {
+function createPlayerBubbleBinder({ host, document: doc, service, css = '', getMessageWorld = () => null }) {
   const originals = new Map(), decorated = new Map();
   let destroyed = false, queued = false, observer = null, style = null, lastIdentity = null;
   const selector = '#chat .mes[is_user="false"] .mes_text [data-rkd]';
@@ -111,6 +111,8 @@ function createPlayerBubbleBinder({ host, document: doc, service, css = '' }) {
     previous.avatar.querySelectorAll('[data-rkd-oc-image],[data-rkd-oc-initial]').forEach(child => child.remove());
     if (previous.runtimeAttribute === null) node.removeAttribute('data-rkd-runtime-player');
     else node.setAttribute('data-rkd-runtime-player', previous.runtimeAttribute);
+    if (previous.worldAttribute === null) node.removeAttribute('data-rkd-world');
+    else node.setAttribute('data-rkd-world', previous.worldAttribute);
     decorated.delete(node);
   }
   function restore(node) {
@@ -160,7 +162,8 @@ function createPlayerBubbleBinder({ host, document: doc, service, css = '' }) {
       avatar = element('span', 'data-rkd-avatar'); avatar.setAttribute('aria-hidden', 'true');
       node.prepend(avatar);
     }
-    const signature = snapshot.scope + '\n' + snapshot.revision + '\n' + snapshot.primaryName + '\n' + snapshot.personaName + '\n' + identity.src;
+    const world = getMessageWorld(node);
+    const signature = snapshot.scope + '\n' + snapshot.revision + '\n' + snapshot.primaryName + '\n' + snapshot.personaName + '\n' + identity.src + '\n' + world;
     const previous = decorated.get(node);
     if (previous?.signature === signature && decorationComplete(node, previous)) return;
     const imageFailed = previous?.signature === signature && previous.imageFailed;
@@ -170,8 +173,9 @@ function createPlayerBubbleBinder({ host, document: doc, service, css = '' }) {
     const initial = element('span', 'data-rkd-oc-initial', initialText);
     const record = { avatar, signature, name: node.getAttribute('data-rkd-name'), src: identity.src,
       initial, initialText, image: null, imageFailed: !!imageFailed, imageLoaded: false,
-      runtimeAttribute: node.getAttribute('data-rkd-runtime-player') };
+      runtimeAttribute: node.getAttribute('data-rkd-runtime-player'), worldAttribute: node.getAttribute('data-rkd-world') };
     decorated.set(node, record); node.setAttribute('data-rkd-runtime-player', 'true');
+    if (world === 'asterisk' || world === 'rakudai') node.setAttribute('data-rkd-world', world);
     avatar.append(initial);
     if (identity.src && !record.imageFailed) {
       const image = element('img', 'data-rkd-oc-image'); image.alt = ''; image.decoding = 'async';
@@ -201,6 +205,7 @@ function createPlayerBubbleBinder({ host, document: doc, service, css = '' }) {
     for (const node of nodes) {
       const kind = node.getAttribute('data-rkd');
       if (!['candidate', 'bubble'].includes(kind)) continue;
+      if (node.getAttribute('data-rkd-asterisk')) { removeDecoration(node); continue; }
       const name = node.getAttribute('data-rkd-name');
       const identity = snapshot ? service.resolve(name, snapshot) : null;
       if (!identity) { if (originals.has(node)) restore(node); else removeDecoration(node); continue; }

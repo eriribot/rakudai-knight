@@ -2,12 +2,16 @@ import { deriveTournament, prepareTournamentAction, suggestTournamentOpponents, 
 import { isHagunAffiliation, shouldInjectTournament } from './rakudai-tournament-calendar.mjs';
 import { createNationalTournamentSchema, deriveNationalTournament, shouldInjectNationalTournament } from './rakudai-national-tournament.mjs';
 import { STORY_VOLUMES, getStoryVolume, resolveStoryChapter, storyPosition, nextStoryChapter, nextStoryChapterForState, firstStoryChapter } from './rakudai-story-catalog.mjs';
-import { GROWTH_RULES, GROWTH_AXES, ATTRIBUTE_GRADES, normalizeSkillEntry, normalizeGrowthRequests, normalizeStoryPhase, normalizeStoryVolume } from '../世界书规则/MVU/schema.mjs';
-import { repairRakudaiMvuStructure } from './rakudai-mvu-structure.mjs';
+import { RAKUDAI_INITIAL_STATE, GROWTH_RULES, GROWTH_AXES, ATTRIBUTE_GRADES, normalizeSkillEntry, normalizeGrowthRequests, normalizeStoryPhase, normalizeStoryVolume } from '../世界书规则/MVU/schema.mjs';
+import { repairRakudaiMvuStructure, resolveMvuWorld, hasBlazerAbility, hasBlazerGrowth } from './rakudai-mvu-structure.mjs';
 
 // 状态规则与运行时适配分开：本模块不访问宿主、不发送消息、不生成剧情。
 export const STATE_CHAPTERS = ['待选择', ...getStoryVolume(1).chapters.map(chapter => chapter.key)];
 export const cloneState = value => structuredClone(value);
+function requireRakudaiState(state) {
+  if (resolveMvuWorld(state) !== 'rakudai') throw new Error('当前作品未启用落第剧情或赛事。');
+  return state;
+}
 export function stateKey(value) {
   if (Array.isArray(value)) return '[' + value.map(stateKey).join(',') + ']';
   if (value && typeof value === 'object') return '{' + Object.keys(value).sort().map(key => JSON.stringify(key) + ':' + stateKey(value[key])).join(',') + '}';
@@ -16,6 +20,7 @@ export function stateKey(value) {
 
 // 终端操作只核对自己使用的字段；历史记录和自定义资料原样保留。
 export function validateStateOperation(value, scope, z) {
+  if (['story', 'tournament', 'national', 'qualification', 'dorm'].includes(scope) && resolveMvuWorld(value) !== 'rakudai') throw new Error('当前作品未启用落第剧情、宿舍或赛事操作。');
   const system = z.object({
     结构版本: z.literal(4), 开局状态: z.enum(['待建档', '已建档']),
     主角模式: z.enum(['未选择', '黑铁一辉', '自定义角色']),
@@ -61,7 +66,11 @@ export function applyOpening(before, payload) {
   if (before.系统.结构版本 !== 4) throw new Error('请先预览并确认升级为 v4，不能通过建档自动迁移旧楼层。');
   if (before.系统.开局状态 !== '待建档') throw new Error('当前分支已建档，不能再次初始化。');
   if (!payload || payload.系统?.结构版本 !== 4 || !['黑铁一辉', '自定义角色'].includes(payload.系统.主角模式)) throw new Error('请选择身份模式并使用 v4 档案。');
-  if (before.场景.当前卷 !== 1 || (payload.场景?.当前卷 !== undefined && payload.场景.当前卷 !== 1)) throw new Error('开局页从第一卷建档，不能覆盖其他卷的剧情状态。');
+  const world = Object.hasOwn(payload.系统, '作品') ? payload.系统.作品 : 'rakudai';
+  if (!['rakudai', 'asterisk'].includes(world)) throw new Error('请先选择本局作品。');
+  if (before.系统.作品 != null && before.系统.作品 !== world) throw new Error('本局已选作品不能通过建档切换。');
+  if (world === 'asterisk' && payload.系统.主角模式 !== '自定义角色') throw new Error('学战开局只支持自定义角色。');
+  if (![null, 1].includes(before.场景.当前卷) || world === 'rakudai' && payload.场景?.当前卷 !== undefined && payload.场景.当前卷 !== 1 || world === 'asterisk' && payload.场景?.当前卷 !== null) throw new Error('开局卷号与所选作品不符，不能覆盖其他卷的剧情状态。');
   const next = cloneState(before);
   const scene = payload.场景 || {};
   for (const key of ['当前章', '时间', '地点', '切入说明']) {
@@ -72,16 +81,19 @@ export function applyOpening(before, payload) {
     if (established && incoming && incoming !== '待选择' && incoming !== existing) throw new Error(`场景${key}与已保存内容冲突，请先调整草稿：${existing}`);
     if (!established && incoming) next.场景[key] = incoming.trim();
   }
-  const chapter = resolveStoryChapter(1, next.场景.当前章);
+  const chapter = world === 'rakudai' ? resolveStoryChapter(1, next.场景.当前章) : next.场景.当前章.trim() && next.场景.当前章 !== '待选择' ? { key: next.场景.当前章 } : null;
   if (!chapter || !next.场景.时间.trim() || !next.场景.地点.trim()) throw new Error('请先确定切入章段、时间和地点；相对时间也可以。');
+  next.场景.当前卷 = world === 'rakudai' ? 1 : null;
   next.场景.当前章 = chapter.key;
-  next.玩家 = cloneState(payload.玩家);
+  next.玩家 = world === 'rakudai' ? { ...cloneState(RAKUDAI_INITIAL_STATE.玩家), ...cloneState(payload.玩家) } : cloneState(payload.玩家);
   if (!next.玩家 || !next.玩家.姓名?.trim()) throw new Error('档案缺少姓名。');
   if (next.玩家.性别 !== undefined && next.玩家.性别 !== '男性') throw new Error('当前版本仅支持男性玩家，不能提交其他玩家性别。');
   next.玩家.性别 = '男性';
-  next.玩家.魔人觉醒 ??= false;
-  next.玩家.登记等级 = payload.系统.主角模式 === '黑铁一辉' ? 'F' : null;
-  next.系统 = { 结构版本: 4, 主角模式: payload.系统.主角模式, 开局状态: '已建档' };
+  if (world === 'rakudai') {
+    next.玩家.魔人觉醒 ??= false;
+    next.玩家.登记等级 = payload.系统.主角模式 === '黑铁一辉' ? 'F' : null;
+  }
+  next.系统 = { ...next.系统, 作品: world, 主角模式: payload.系统.主角模式, 开局状态: '已建档' };
   next.场景.阶段 = '进行中';
   return repairRakudaiMvuStructure(next, { legacyRequests: false });
 }
@@ -89,11 +101,12 @@ export function applyOpening(before, payload) {
 // 仅修正尚未开演时选错的人物；不把读取草稿等同于重置整局。
 export function assertOpeningReplacementState(state) {
   if (state?.系统?.结构版本 !== 4 || state.系统.开局状态 !== '已建档') throw new Error('只有已建档的开局可以替换人物，请先读取当前聊天。');
-  if (state.场景?.当前卷 !== 1) throw new Error('剧情已进入其他卷，不能通过开局页替换人物。');
+  if (resolveMvuWorld(state) === 'rakudai' ? state.场景?.当前卷 !== 1 : resolveMvuWorld(state) !== 'asterisk' || state.场景?.当前卷 !== null) throw new Error('剧情已进入其他卷，不能通过开局页替换人物。');
   if (Object.keys(state.场景.已发生事件 || {}).length) throw new Error('本局已经记录剧情事件，不能替换开局人物；请在新聊天使用该档案。');
 }
 export function applyOpeningReplacement(before, payload) {
   assertOpeningReplacementState(before);
+  if ((payload?.系统?.作品 ?? 'rakudai') !== resolveMvuWorld(before)) throw new Error('已建档后不能通过替换人物切换作品。');
   const draftBase = cloneState(before);
   draftBase.系统.开局状态 = '待建档';
   // 场景来自这次明确选定的草稿，仍走原建档的卷章、字段和身份校验。
@@ -101,12 +114,14 @@ export function applyOpeningReplacement(before, payload) {
   const opening = applyOpening(draftBase, payload);
   const next = cloneState(before);
   next.玩家 = opening.玩家;
+  next.系统.作品 = opening.系统.作品;
   next.系统.主角模式 = opening.系统.主角模式;
   for (const key of ['当前章', '时间', '地点', '切入说明']) next.场景[key] = opening.场景[key];
   return next;
 }
 
 export function applyTransition(before, request) {
+  if (resolveMvuWorld(before) !== 'rakudai') throw new Error('当前作品未启用落第卷章推进。');
   if (before.系统.结构版本 !== 4) throw new Error('请先预览并确认升级为 v4，再操作剧情卷章。');
   if (before.系统.开局状态 !== '已建档') throw new Error('请先在开局页完成建档。');
   const next = cloneState(before);
@@ -166,6 +181,7 @@ export function applyTransition(before, request) {
 // 世界书完成标识由模型结合本局事实判断；这里只约束更新方向和阶段。
 // 一轮最多前进一个目录节点，不从正文关键词推断完成、不补写历史。
 export function acceptAutomaticStoryProgress(before, after) {
+  if (resolveMvuWorld(before) !== 'rakudai') return false;
   if (before?.系统?.结构版本 !== 4 || before.系统.开局状态 !== '已建档') return false;
   const old = before.场景, scene = after?.场景;
   if (!old || !scene || typeof scene !== 'object' || Array.isArray(scene)) return false;
@@ -201,6 +217,7 @@ export function acceptAutomaticStoryProgress(before, after) {
 
 // 副校正共享主回复的推进额度；主回复已经切章时，重复“已结束”不再结束下一章。
 function acceptRepairStoryProgress(before, after, storyBefore) {
+  if (resolveMvuWorld(before) !== 'rakudai') return false;
   const old = before.场景, scene = after.场景;
   scene.阶段 = normalizeStoryPhase(scene.阶段);
   const start = storyBefore && storyPosition(storyBefore.当前卷, storyBefore.当前章);
@@ -239,26 +256,28 @@ export function enforceStateOwnership(variables, previous, context = {}) {
     for (const key of ['系统', '场景', '玩家', '人际']) restore(after, key, before[key], '/' + key);
   } else {
     restore(after, '系统', before.系统, '/系统');
+    const rakudai = before.系统.结构版本 === 3 || resolveMvuWorld(before) === 'rakudai';
     if (!after.场景 || typeof after.场景 !== 'object' || Array.isArray(after.场景)) after.场景 = cloneState(before.场景);
     const repair = Boolean(context.replyKey && context.storyCorrection === true);
     const flexible = Boolean(context.replyKey);
     if (!repair) restore(after.场景, '切入说明', before.场景.切入说明 ?? '', '/场景/切入说明');
     const repairDescription = repair && after.场景.切入说明 !== before.场景.切入说明 ? after.场景.切入说明 : undefined;
-    const storyAccepted = repair ? acceptRepairStoryProgress(before, after, context.storyBefore) : acceptAutomaticStoryProgress(before, after);
+    const storyAccepted = rakudai ? repair ? acceptRepairStoryProgress(before, after, context.storyBefore) : acceptAutomaticStoryProgress(before, after) : true;
     // 自动切章会清空旧切入说明；副校正明确补写的新说明属于本次最终场景，继续保留。
     if (storyAccepted && repairDescription !== undefined) after.场景.切入说明 = repairDescription;
     if (!storyAccepted) {
       for (const key of ['当前卷', '当前章', '阶段']) restore(after.场景, key, before.场景[key], '/场景/' + key);
     }
     if (!after.玩家 || typeof after.玩家 !== 'object') after.玩家 = cloneState(before.玩家);
-    restore(after.玩家, '综合初评', before.玩家.综合初评, '/玩家/综合初评');
+    if (rakudai) restore(after.玩家, '综合初评', before.玩家.综合初评, '/玩家/综合初评');
     restore(after.玩家, '性别', '男性', '/玩家/性别');
     if (before.系统.结构版本 === 4) {
       // false→true 是明确本局觉醒的事实更新，由更新规则约束语义；代码不从战斗或旧境界猜测。
       // 普通主回复不能抹掉已确认觉醒；经绑定的副校正可用原生布尔值修正误记。
       const awakened = before.玩家.魔人觉醒 === true;
-      if (!flexible && awakened || typeof after.玩家.魔人觉醒 !== 'boolean') {
-        restore(after.玩家, '魔人觉醒', awakened, '/玩家/魔人觉醒');
+      if (!flexible && awakened || (Object.hasOwn(before.玩家, '魔人觉醒') || Object.hasOwn(after.玩家, '魔人觉醒')) && typeof after.玩家.魔人觉醒 !== 'boolean') {
+        if (Object.hasOwn(before.玩家, '魔人觉醒')) restore(after.玩家, '魔人觉醒', awakened, '/玩家/魔人觉醒');
+        else { delete after.玩家.魔人觉醒; changed.push('/玩家/魔人觉醒'); }
       }
       // 主副回复均可保存已确认的实际评级；未绑定来源时保留旧数值。
       if (!flexible) {
@@ -269,6 +288,7 @@ export function enforceStateOwnership(variables, previous, context = {}) {
       for (const [skills, originals] of [
         [after.玩家.其他能力, before.玩家.其他能力],
         [after.玩家.伐刀能力?.招式, before.玩家.伐刀能力?.招式],
+        [after.玩家.学战?.招式, before.玩家.学战?.招式],
       ]) {
         if (!skills || typeof skills !== 'object' || Array.isArray(skills)) continue;
         for (const [name, skill] of Object.entries(skills)) {
@@ -277,6 +297,12 @@ export function enforceStateOwnership(variables, previous, context = {}) {
           skills[name] = normalizeSkillEntry(skill, original);
         }
       }
+    }
+    if (!rakudai && resolveMvuWorld(before) === 'asterisk') {
+      // 学战主线不接落第卷章及赛事；能力与装备按人物实际档案保留。
+      restore(after.场景, '当前卷', null, '/场景/当前卷');
+      if (Object.hasOwn(after.玩家, '综合初评')) { delete after.玩家.综合初评; changed.push('/玩家/综合初评'); }
+      for (const key of ['路线', '选拔赛', '七星剑斗祭', '宿舍']) if (Object.hasOwn(after.场景, key)) { delete after.场景[key]; changed.push('/场景/' + key); }
     }
     // 名册显隐只由玩家在终端整理，AI 不能自行藏起人物。
     if (before.系统.结构版本 === 4 && after.人际 && typeof after.人际 === 'object' && !Array.isArray(after.人际)) {
@@ -344,10 +370,11 @@ function growthRequestValid(request) {
 // 默认保留独立 G04 的旧申请接口；字段约束显式使用 final，只校正终值与晋级。
 export function enforceGrowthProgress(variables, previous, { replyKey = '', repairEventKeys = [], growthFinalAxes = [], growthGradeAxes = [], mode = 'legacy' } = {}) {
   const before = previous?.stat_data, after = variables?.stat_data, notices = [];
-  if (before?.系统?.结构版本 !== 4 || before.系统.开局状态 !== '已建档' || !after?.玩家) return notices;
+  if (before?.系统?.结构版本 !== 4 || before.系统.开局状态 !== '已建档' || !hasBlazerGrowth(after)) return notices;
   const old = before.玩家.成长, incoming = after.玩家.成长;
   if (!old && incoming === undefined) return notices;
-  const finalOnly = mode === 'final';
+  // 学战不借落第章节核销旧申请；与字段约束共用终值和重放收据。
+  const finalOnly = mode === 'final' || resolveMvuWorld(before) !== 'rakudai';
   const growth = growthState(old, { legacyRequests: !finalOnly }), scoped = typeof replyKey === 'string' && !!replyKey;
   const explicitFinal = new Set(growthFinalAxes), explicitGrades = new Set(growthGradeAxes);
   const correctedExperience = {};
@@ -451,7 +478,9 @@ export function enforceGrowthProgress(variables, previous, { replyKey = '', repa
 export function editOcPlayerProfile(before, request) {
   if (before.系统?.开局状态 !== '已建档' || before.系统?.主角模式 !== '自定义角色') throw new Error('只有已建档的自定义角色可以编辑个人资料。');
   if (!request || typeof request !== 'object') throw new Error('个人资料操作无效。');
+  if (request.abilitySystem !== undefined && !['blazer', 'asterisk'].includes(request.abilitySystem)) throw new Error('能力体系无效。');
   const state = cloneState(before), player = state.玩家;
+  const abilityKey = (request.abilitySystem ?? (resolveMvuWorld(before) === 'asterisk' ? 'asterisk' : 'blazer')) === 'asterisk' ? '学战' : '伐刀能力';
   const text = (value, label) => {
     if (typeof value !== 'string') throw new Error(`${label}必须是文字。`);
     return value;
@@ -459,12 +488,19 @@ export function editOcPlayerProfile(before, request) {
   if (request.action === 'bio') {
     player.角色简介 = text(request.bio, '角色简介');
   } else if (request.action === 'ability') {
+    if (abilityKey === '学战') {
+      player.学战 ||= {};
+      player.学战.能力机制 = text(request.mechanism, '能力介绍');
+      player.学战.共通限制 = text(request.cost, '共通限制');
+      return state;
+    }
     player.伐刀能力 ||= {};
     player.伐刀能力.能力本质 = text(request.mechanism, '能力介绍');
     player.伐刀能力.共通限制 = text(request.cost, '共通限制');
   } else if (['saveSkill', 'deleteSkill'].includes(request.action)) {
     if (!['techniques', 'other'].includes(request.group)) throw new Error('技能类别无效。');
-    const current = request.group === 'techniques' ? player.伐刀能力?.招式 : player.其他能力;
+    const ability = player[abilityKey];
+    const current = request.group === 'techniques' ? ability?.招式 : player.其他能力;
     const originalName = request.originalName;
     if (originalName !== null && (typeof originalName !== 'string' || !Object.hasOwn(current || {}, originalName))) throw new Error('当前回复中已没有该技能，请刷新后重试。');
     if (request.action === 'deleteSkill') {
@@ -482,7 +518,7 @@ export function editOcPlayerProfile(before, request) {
       skill.掌握状态 = request.mastery;
       let records = current;
       if (!records) {
-        if (request.group === 'techniques') { player.伐刀能力 ||= {}; records = player.伐刀能力.招式 = {}; }
+        if (request.group === 'techniques') { player[abilityKey] ||= {}; records = player[abilityKey].招式 = {}; }
         else records = player.其他能力 = {};
       }
       if (originalName !== null && originalName !== name) delete records[originalName];
@@ -573,18 +609,20 @@ export function createStateController(adapter) {
     capabilities: Object.freeze({ scheduleAndRoster: true, rosterPermanentRemoval: true, ocPlayerEditing: true,
       tournament: 'T01', tournamentEngine: 'T02', nativeMvu: 'N01' }),
     get growthRules() { return cloneState(GROWTH_RULES); },
-    tournamentView: state => deriveTournament(state),
-    nationalTournamentView: state => deriveNationalTournament(state),
+    hasBlazerAbility, hasBlazerGrowth,
+    tournamentView: state => deriveTournament(requireRakudaiState(state)),
+    nationalTournamentView: state => deriveNationalTournament(requireRakudaiState(state)),
     isHagunAffiliation,
-    shouldInjectTournament,
-    shouldInjectNationalTournament,
+    shouldInjectTournament: state => resolveMvuWorld(state) === 'rakudai' && shouldInjectTournament(state),
+    shouldInjectNationalTournament: state => resolveMvuWorld(state) === 'rakudai' && shouldInjectNationalTournament(state),
     setDorm: (token, active) => commit(token, state => {
+      if (resolveMvuWorld(state) !== 'rakudai') throw new Error('当前作品未启用落第宿舍操作。');
       if (typeof active !== 'boolean' || state.系统.开局状态 !== '已建档') throw new Error('请先完成建档，再进入宿舍。');
       return { ...state, 场景: { ...state.场景, 宿舍: active } };
     }, 'state', false, 'dorm'),
-    tournamentAction: (token, request) => commit(token, state => prepareTournamentAction(state, request), 'state', false, request?.action === 'upsertQualification' ? 'qualification' : ['upsertNationalMatch', 'upsertNationalAdvancement', 'setNationalSchedule'].includes(request?.action) ? 'national' : 'tournament'),
-    tournamentOpponents: (state, options) => suggestTournamentOpponents(state, options),
-    tournamentParticipant: (state, options) => createTournamentParticipant(state, options),
+    tournamentAction: (token, request) => commit(token, state => { if (resolveMvuWorld(state) !== 'rakudai') throw new Error('当前作品未启用落第赛事操作。'); return prepareTournamentAction(state, request); }, 'state', false, request?.action === 'upsertQualification' ? 'qualification' : ['upsertNationalMatch', 'upsertNationalAdvancement', 'setNationalSchedule'].includes(request?.action) ? 'national' : 'tournament'),
+    tournamentOpponents: (state, options) => suggestTournamentOpponents(requireRakudaiState(state), options),
+    tournamentParticipant: (state, options) => createTournamentParticipant(requireRakudaiState(state), options),
     commitMigration: token => commit(token, state => state, 'migration'),
     verify: async token => {
       const record = tokens.get(token);

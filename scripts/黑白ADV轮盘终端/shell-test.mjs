@@ -98,6 +98,8 @@ function fixture(options = {}) {
     ASTERISK_PREVIEW: options.preview === true, ASTERISK_APP_HTML: '',
     appearancePreference: 'auto', setTerminalAppearance() {}, applyIframeAppearance() {},
     terminalBusinessIsRakudai: options.businessAllowed || (() => true),
+    terminalBusinessIsSelected: options.selectedAllowed || options.businessAllowed || (() => true),
+    resolveTerminalWorld: () => options.world || 'rakudai', readTerminalState: () => ({ 系统: { 作品: options.world || 'rakudai' } }),
     LS: { get: (key, fallback) => storage.has(key) ? storage.get(key) : fallback, set: (key, value) => storage.set(key, value) },
     window: W, HW, HD: {
       createElement(tag) {
@@ -549,7 +551,7 @@ function seedLimeContext(f) {
     variables: pages, swipes_data: pages });
 }
 
-await check('非落第保留本机设置但拒绝校正业务，离线预览不暴露 API 设置', async () => {
+await check('未建档保留本机设置但拒绝校正业务，离线预览不暴露 API 设置', async () => {
   const f = fixture({ businessAllowed: () => false }); seedLimeContext(f);
   f.api.SS.businessWorld = 'asterisk';
   const bridge = f.api.makeBridge(), before = JSON.stringify(f.context.chat);
@@ -558,7 +560,7 @@ await check('非落第保留本机设置但拒绝校正业务，离线预览不�
   }
   assert.equal(bridge.world, 'asterisk'); assert.equal(bridge.appearance.get(), 'auto');
   for (const name of ['getConfig', 'saveConfig', 'fetchModels']) assert.equal(typeof bridge.correction[name], 'function', name);
-  for (const name of ['request', 'retry', 'apply']) assert.throws(() => bridge.correction[name](), /当前作品未启用落第操作/, name);
+  for (const name of ['request', 'retry', 'apply']) assert.throws(() => bridge.correction[name](), /请先完成本局作品建档/, name);
   const config = bridge.correction.getConfig();
   bridge.correction.saveConfig({ ...config, model: 'settings-preserved', autoApply: false });
   const portrait = bridge.playerPortrait, saved = portrait.saveAliases(portrait.get(), { aliases: ['朝阳'] });
@@ -576,7 +578,7 @@ await check('非落第保留本机设置但拒绝校正业务，离线预览不�
   preview.api.destroy();
 });
 
-await check('非落第 START、AFTER、提示过滤与已见证附件删楼事件不请求或改写', async () => {
+await check('未启用业务的 START、AFTER、提示过滤与已见证附件删楼事件不请求或改写', async () => {
   let allowed = true;
   const f = fixture({ businessAllowed: () => allowed }); seedLimeContext(f);
   await f.event('CHAT_CHANGED'); // 先建立真实归属见证，确认后续删除确实有可修复的旧附件。
@@ -593,6 +595,22 @@ await check('非落第 START、AFTER、提示过滤与已见证附件删楼事�
   assert.equal(JSON.stringify(request), beforeRequest); assert.equal(JSON.stringify(f.context.chat), beforeChat);
   assert.equal(f.messageWrites.length, 0); assert.equal(f.auxiliaryCalls.length, 0); assert.equal(f.nativeSends.length, 0);
   assert.equal(f.injectedPrompts.length, 0); assert.equal(f.loreReads.length, 0); assertUntracked(f);
+  f.api.destroy();
+});
+
+await check('正式学战主轮跟踪 MVU 保存，校正可用且不开放落第操作', async () => {
+  const f = fixture({ businessAllowed: () => false, selectedAllowed: () => true, world: 'asterisk' });
+  seedLimeContext(f); f.api.SS.businessWorld = 'asterisk';
+  const bridge = f.api.makeBridge(), options = nativeOptions();
+  assert.equal(bridge.correction.getConfig().world, 'asterisk');
+  assert.match(bridge.correction.getConfig().prompt, /学战都市/);
+  for (const key of ['lime', 'tournament', 'dorm', 'setRosterHidden', 'deleteRosterPerson', 'editPlayerProfile', 'growthRules']) assert.equal(Object.hasOwn(bridge, key), false, key);
+  await f.event('GENERATION_STARTED', 'normal', options, false);
+  await f.event('GENERATION_AFTER_COMMANDS', 'normal', { ...options }, false);
+  assert.equal(f.api.generation().pending, true); assert.ok(f.api.generation().turn);
+  assert.equal(f.api.getCorrectionStatus().mainSave, 'waiting');
+  assert.equal(f.injectedPrompts.length, 0); assert.equal(f.loreReads.length, 0);
+  assert.equal(f.requests.length, 0); assert.equal(f.messageWrites.length, 0);
   f.api.destroy();
 });
 
@@ -824,6 +842,27 @@ await check('见证后的删楼和删回复页经主壳 await 修复保留附件
     assert.equal(f.nativeSends.length, 0); assert.equal(f.requests.length, 0); assert.equal(f.writes.length, 0);
     f.api.destroy();
   }
+});
+
+await check('学战复用当前剧情注入服务，外观切换不改变服务和保存范围', async () => {
+  let selected = true, enabled = true, previews = 0;
+  const f = fixture({ businessAllowed: () => false, selectedAllowed: () => selected, world: 'asterisk' });
+  f.api.SS.businessWorld = 'asterisk';
+  f.HW.__RK_PLOT_V3__ = { version: '3.0.0', getStatus: () => ({ enabled }),
+    setEnabled(value) { enabled = value; }, preview: async () => { previews++; return { entryName: '华焰魔女', entryOrder: 201 }; } };
+  const bridge = f.api.makeBridge();
+  assert.equal(bridge.plot.getStatus().enabled, true);
+  assert.equal((await bridge.plot.preview()).entryOrder, 201);
+  bridge.plot.setEnabled(false); assert.equal(enabled, false);
+  f.api.SS.asterisk = false;
+  assert.equal((await f.api.makeBridge().plot.preview()).entryName, '华焰魔女');
+  assert.equal(previews, 2); assert.equal(f.writes.length, 0); assert.equal(f.messageWrites.length, 0);
+  selected = false;
+  assert.throws(() => bridge.plot.preview(), /请先完成本局作品建档/);
+  assert.throws(() => bridge.plot.setEnabled(true), /请先完成本局作品建档/);
+  selected = true; delete f.HW.__RK_PLOT_V3__;
+  assert.throws(() => bridge.plot.getStatus(), /请导入并启用新版/);
+  f.api.destroy();
 });
 
 console.log(JSON.stringify({ total: results.length, passed: results.filter(result => result.passed).length,

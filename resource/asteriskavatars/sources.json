@@ -1,0 +1,137 @@
+{
+  "checkedOn": "2026-11-07",
+  "source": "TVアニメ「学戦都市アスタリスク」公式サイト",
+  "processing": "官网原图逐字节保存；单脸取景只用CSS，不改绘人物。",
+  "sharedHeroines": {
+    "file": "resource/asteriskavatars/heroines-official.jpg",
+    "originalFile": "第一卷-世界书整理/开局网页正则替换/assets/asterisk/entry-cover-asterisk-original.jpg",
+    "sourceRecord": "第一卷-世界书整理/开局网页正则替换/provenance/asterisk-four-heroines-official.source.json",
+    "sha256": "ad356b0f05390ae1791037cef9f342c25884a68784a36a80af27c2025a9d5345"
+  },
+  "characters": [
+    {
+      "id": "ayato",
+      "name": "天雾绫斗",
+      "file": "resource/asteriskavatars/ayato.jpg",
+      "sourcePage": "https://asterisk-war.com/character/",
+      "sourceUrl": "https://asterisk-war.com/assets/img/character/character_ph/ayato2.jpg",
+      "width": 600,
+      "height": 500,
+      "sha256": "05193d47c39c6ffe8de6f282a3e9ce0142bd97296dfa185efe8a078c27408382",
+      "kind": "官方动画人设／表情设定板",
+      "visualVerified": true
+    },
+    {
+      "id": "eishiro",
+      "name": "夜吹英士郎",
+      "file": "resource/asteriskavatars/eishiro.jpg",
+      "sourcePage": "https://asterisk-war.com/character/",
+      "sourceUrl": "https://asterisk-war.com/assets/img/character/character_ph/eishiro2.jpg",
+      "width": 600,
+      "height": 500,
+      "sha256": "31bbe290a334e593a9528fdebf7846006690fc525ff089bfd4a8f6c89b587188",
+      "kind": "官方动画人设／表情设定板",
+      "visualVerified": true
+    },
+    {
+      "id": "yatsuzaki",
+      "name": "谷津崎匡子",
+      "file": "resource/asteriskavatars/yatsuzaki.jpg",
+      "sourcePage": "https://asterisk-war.com/character/",
+      "sourceUrl": "https://asterisk-war.com/assets/img/character/character_ph/yatsuzaki2.jpg",
+      "width": 600,
+      "height": 500,
+      "sha256": "678d611e7228e8cb5b2453e4e77c9776753b088e4abdaff02b4d1ed9910754a4",
+      "kind": "官方动画人设／表情设定板",
+      "visualVerified": true
+    },
+    {
+      "id": "kirin",
+      "name": "刀藤绮凛",
+      "file": "resource/asteriskavatars/kirin.jpg",
+      "sourcePage": "https://asterisk-war.com/character/",
+      "sourceUrl": "https://asterisk-war.com/assets/img/character/character_ph/kirin2.jpg",
+      "width": 600,
+      "height": 500,
+      "sha256": "e1bb316262c71c9f5943a2e13aeaed8504f292eb68b786644d7f8d795f59c63a",
+      "kind": "官方动画人设／表情设定板",
+      "visualVerified": true
+    },
+    {
+      "id": "lester",
+      "name": "雷士达·马可菲尔",
+      "file": "resource/asteriskavatars/lester.jpg",
+      "sourcePage": "https://asterisk-war.com/staffcast/#lester",
+      "sourceUrl": "https://asterisk-war.com/assets/img/character/character_ph/lester2.jpg",
+      "width": 600,
+      "height": 500,
+      "sha256": "48646b0cef06c7893f80ac4b5f140e78b438669798c19e7fe07846de82a93679",
+      "kind": "官方动画人设／表情设定板",
+      "visualVerified": true
+    },
+    {
+      "id": "randy",
+      "name": "兰迪·虎克",
+      "file": "resource/asteriskavatars/randy.jpg",
+      "sourcePage": "https://asterisk-war.com/staffcast/#randy",
+      "sourceUrl": "https://asterisk-war.com/assets/img/character/character_ph/randy2.jpg",
+      "width": 600,
+      "height": 500,
+      "sha256": "830a66cb1fe084a81313687501892148e54d9c30d5d772f7e73dede3ed273dc1",
+      "kind": "官方动画人设／表情设定板",
+      "visualVerified": true
+    },
+    {
+      "id": "silas",
+      "name": "塞拉斯·诺曼",
+      "file": "resource/asteriskavatars/silas.jpg",
+      "sourcePage": "https://asterisk-war.com/staffcast/#silas",
+      "sourceUrl": "https://asterisk-war.com/assets/img/character/character_ph/silas2.jpg",
+      "width": 600,
+      "height": 500,
+      "sha256": "d799b75e3b32f9a2e162cbce0fa1b547b1cf09d61b9f3929b8d5bb72a44cb651",
+      "kind": "官方动画人设／表情设定板",
+      "visualVerified": true
+    },
+    {
+      "id": "ernest",
+      "name": "亚涅斯特·费尔克劳",
+      "file": "resource/asteriskavatars/ernest.jpg",
+      "sourcePage": "https://asterisk-war.com/staffcast/#ernest",
+      "sourceUrl": "https://asterisk-war.com/assets/img/character/character_ph/ernest2.jpg",
+      "width": 600,
+      "height": 500,
+      "sha256": "3d31a52f52e86d33e19fca2901e8b47067bd2715f5511c5ccc450d0e8d1e68b4",
+      "kind": "官方动画人设／表情设定板",
+      "visualVerified": true
+    },
+    {
+      "id": "dirk",
+      "name": "狄路克·艾贝尔范",
+      "file": "resource/asteriskavatars/dirk.jpg",
+      "sourcePage": "https://asterisk-war.com/staffcast/#dirk",
+      "sourceUrl": "https://asterisk-war.com/assets/img/character/character_ph/dirk2.jpg",
+      "width": 600,
+      "height": 500,
+      "sha256": "35e5f942151cd572d33772b3d738851a486485f7da15078224814d7e5c004975",
+      "kind": "官方动画人设／表情设定板",
+      "visualVerified": true
+    },
+    {
+      "id": "fan",
+      "name": "范星露",
+      "file": "resource/asteriskavatars/fan.jpg",
+      "sourcePage": "https://asterisk-war.com/staffcast/#fan",
+      "sourceUrl": "https://asterisk-war.com/assets/img/character/character_ph/fan2.jpg",
+      "width": 600,
+      "height": 500,
+      "sha256": "946b01c672edc5df8f308c69e01c3f76297d4b67137ee207d8a0686cf63a8be9",
+      "kind": "官方动画人设／表情设定板",
+      "visualVerified": true
+    }
+  ],
+  "identityNotes": [
+    "雷士达的两名跟班：兰迪·虎克、塞拉斯·诺曼，官网人物页与本地第一卷第五章相互核对。",
+    "刀藤绮凛为正式姓名；倒置写法仅作输入兼容。"
+  ]
+}

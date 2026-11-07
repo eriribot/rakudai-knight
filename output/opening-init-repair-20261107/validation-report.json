@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "deliveryMode": "component",
+  "artifactSha256": "b2e59e30774b69096fdfd3f8e9b8e86b6c1e3c4fe1dfafd59adbaa86828ca2f3",
+  "replacementSha256": "f5b3f8c3ab174d62e4a7d03abeed0f705829ced1c0596bea3da5186668959ae7",
+  "originalCardUnchanged": true,
+  "importedFinalArtifact": true,
+  "nonRepairSurfaceByteIdentical": true,
+  "globalTimeoutMs": 15001.199999999255,
+  "dataTimeoutMs": 15002.700000000186,
+  "noLateAutoCommit": true,
+  "delayedDataWithCopyStillCommits": true,
+  "bothWorldsReadBack": true,
+  "terminalSynced": true,
+  "filePersistence": true,
+  "desktopCapture": {
+    "samplesEach": 12,
+    "beforeMedianMs": 5.0499999998137355,
+    "afterMedianMs": 4.400000000372529,
+    "scope": "same desktop runtime, warmed capture; not a mobile benchmark"
+  },
+  "sourceChecks": {
+    "browserAdapter": "71/71",
+    "openingSchemaCoreCombinations": "30/30",
+    "sceneTime": "18/18",
+    "playerDisplay": "10/10",
+    "openingController": "38/38"
+  },
+  "staticChecks": {
+    "inlineScripts": 3,
+    "ejsPlainAndStrictIdentity": true,
+    "componentContract": true,
+    "independentReview": true
+  },
+  "runtime": {
+    "sillyTavern": "1.19.0",
+    "port": 18007,
+    "isolated": true,
+    "mobileViewport": {
+      "width": 430,
+      "height": 932
+    },
+    "realMobile": false
+  },
+  "helper": "4.12.0",
+  "browser": "156.0.8078.80",
+  "playerDeviceVerified": false
+}

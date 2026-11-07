@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
-import { createSchema, INITIAL_STATE } from '../世界书规则/MVU/schema.mjs';
+import { createSchema, RAKUDAI_INITIAL_STATE as INITIAL_STATE } from '../世界书规则/MVU/schema.mjs';
 
 const require = createRequire(new URL('../output/worldbook-calibration/dev/package.json', import.meta.url));
 const { z } = require('zod');
@@ -137,7 +137,7 @@ test('旧人际记录缺少已知资料仍原样通过，不补全人物信息',
 });
 
 test('已知资料允许空对象、单项记录与明确空串，不填充未获知字段', () => {
-  for (const profile of [{}, { 身份: '任教班级学生' }, { 灵装: '', 已知能力: '' }]) {
+  for (const profile of [{}, { 身份: '任教班级学生' }, { 灵装: '', 已知能力: '' }, { 所属: '星导馆学园', 武装: '本人展示的武装', 校内序列: '本人表示尚未上榜' }]) {
     assert.deepEqual(schema.parse(withKnownProfile(profile)).人际.测试人物.已知资料, profile);
   }
 });
@@ -153,7 +153,7 @@ test('已获知资料四项原样保留，等级允许有来源限定的传闻�
 });
 
 test('已知资料字段拒绝非文本，不把数组或对象隐式转成资料', () => {
-  for (const key of ['身份', '登记等级', '灵装', '已知能力']) {
+  for (const key of ['身份', '登记等级', '灵装', '已知能力', '所属', '武装', '校内序列']) {
     for (const value of [null, 1, true, [], {}]) {
       assert.equal(schema.safeParse(withKnownProfile({ [key]: value })).success, false, key + ':' + JSON.stringify(value));
     }
@@ -161,7 +161,7 @@ test('已知资料字段拒绝非文本，不把数组或对象隐式转成资�
   for (const profile of [null, [], '未知']) assert.equal(schema.safeParse(withKnownProfile(profile)).success, false);
 });
 
-test('已知资料严格限定四项且仍拒绝保留键，不扩展知情者数组', () => {
+test('已知资料只接受声明字段且仍拒绝保留键，不扩展知情者数组', () => {
   for (const profile of [{ 知情者: [] }, { 秘密身份: '未揭露' }, JSON.parse('{"constructor":"非法"}')]) {
     assert.equal(schema.safeParse(withKnownProfile(profile)).success, false);
   }
@@ -206,6 +206,18 @@ test('女性阶段派生保留本楼场景及框架快照，未知和男性不�
   for (const gender of ['男性', '未知']) assert.equal(Object.hasOwn(parsed.人际[gender], '恋爱阶段'), false);
   assert.deepEqual(parsed.场景, state.场景); assert.strictEqual(parsed.$internal, state.$internal);
   assert.deepEqual(state, original);
+});
+
+test('落第人物单独持有煌武，不补学籍、星辰力或改变原有能力', () => {
+  const state = runtimeState();
+  state.玩家.学战 = { 武装: { 类别: '煌式武装', 名称: '训练用煌武', 使用条件: '已确认适配' } };
+  const original = clone(state), parsed = schema.parse(state);
+  assert.deepEqual(parsed.玩家.学战, state.玩家.学战);
+  assert.deepEqual(parsed.玩家.伐刀能力, state.玩家.伐刀能力);
+  assert.deepEqual(parsed.场景, state.场景);
+  assert.deepEqual(state, original);
+  state.玩家.学战.武装.类别 = '随意编造';
+  assert.equal(schema.safeParse(state).success, false);
 });
 
 const failed = results.filter(item => !item.passed);

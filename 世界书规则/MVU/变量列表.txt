@@ -1,3 +1,4 @@
+<% { /* MVU_ENTRY_SCOPE */ %>
 <status_current_variable>
 <%
 // 只裁剪发给模型的副本；当前楼层的事件与结算历史原样保存。
@@ -9,7 +10,14 @@ if (rkPromptState) {
   // 收据、事件及赛期外赛事数据只从提示副本省略。
   if (rkObject(rkPromptState.系统)) delete rkPromptState.系统.关系计分;
   if (rkObject(rkPromptState.场景)) {
-    delete rkPromptState.场景.已发生事件;
+    // 只保留最近 4 条已发生事件，更早的留在存档；不新增字段，避免模型误写。
+    const events = rkPromptState.场景.已发生事件;
+    if (rkObject(events)) {
+      const keys = Object.keys(events), keep = keys.slice(-4), shown = {};
+      for (const key of keep) shown[key] = events[key];
+      if (keep.length) rkPromptState.场景.已发生事件 = shown;
+      else delete rkPromptState.场景.已发生事件;
+    }
   }
   if (rkObject(rkPromptState.玩家) && rkObject(rkPromptState.玩家.成长)) {
     const growth = rkPromptState.玩家.成长;
@@ -19,4 +27,5 @@ if (rkPromptState) {
 %>
 <%- JSON.stringify(rkPromptState) %>
 </status_current_variable>
-历史、收据及赛期外赛事账本留在存档，省略不代表未发生；保留原记录，按本轮事实提交变化。
+历史、收据及赛期外赛事账本留在存档，省略不代表未发生；已发生事件只列最近 4 条，更早的凭存档与正文召回，不改写旧条目；保留原记录，按本轮事实提交变化。
+<% } %>

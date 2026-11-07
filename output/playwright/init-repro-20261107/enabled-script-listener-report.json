@@ -1,0 +1,275 @@
+{
+  "generatedAt": "2026-11-07T07:28:43.788Z",
+  "mode": "isolated-vm-with-host-and-event-doubles",
+  "passed": true,
+  "cardPath": "F:/SillyTavern-Launcher/SillyTavern/data/default-user/characters/落第x学战v0.01.png",
+  "cardSha256": "45d46fad2318a75a656d3b81557e2d9d23db554cea62e7eaeb3c29ab32ab193f",
+  "nativeFunctionIdentical": false,
+  "installerDifferences": [
+    {
+      "relativeLine": 6,
+      "native": "  if (existing?.version === 'N04' && existing.dorm === 'D01' && existing.worlds === 'W02' && existing.state !== 'failed' &&",
+      "terminal": "  if (existing?.version === 'N04' && existing.dorm === 'D01' && existing.worlds === 'W02' && existing.capabilities === 'H01' && existing.state !== 'failed' &&"
+    },
+    {
+      "relativeLine": 12,
+      "native": "  const marker = { version: 'N04', dorm: 'D01', worlds: 'W02', state: 'loading', destroy: null };",
+      "terminal": "  const marker = { version: 'N04', dorm: 'D01', worlds: 'W02', capabilities: 'H01', state: 'loading', destroy: null };"
+    },
+    {
+      "relativeLine": 64,
+      "native": "        const locked = path => path === '' || path === '/' || path === '/系统' || path?.startsWith('/系统/') || world === 'asterisk' && (path === '/玩家' || /^\\/玩家\\/(魔人觉醒|固有灵装|伐刀能力|六维|综合初评|登记等级|成长)(\\/|$)/.test(path) || /^\\/场景\\/(路线|选拔赛|七星剑斗祭|宿舍)(\\/|$)/.test(path) || path === '/场景/当前卷' && patch.value !== null);",
+      "terminal": "        const locked = path => path === '' || path === '/' || path === '/系统' || path?.startsWith('/系统/') || world === 'asterisk' && (path === '/玩家' || /^\\/玩家\\/综合初评(\\/|$)/.test(path) || /^\\/场景\\/(路线|选拔赛|七星剑斗祭|宿舍)(\\/|$)/.test(path) || path === '/场景/当前卷' && patch.value !== null);"
+    }
+  ],
+  "probes": [
+    {
+      "scriptId": "485c4bcb-4090-4c72-bc09-6339ce5b27a6",
+      "beforeReady": {
+        "waitCalls": 1,
+        "listeners": 0,
+        "markerState": "loading"
+      },
+      "afterReady": {
+        "waitCalls": 1,
+        "listeners": [
+          "mag_variable_update_started",
+          "mag_command_parsed",
+          "mag_variable_update_ended"
+        ],
+        "markerState": "ready"
+      },
+      "callbackResults": [
+        {
+          "sampleName": "neutral",
+          "event": "mag_variable_update_started",
+          "returnedPromise": false,
+          "waitCallsAfterCallback": 1
+        },
+        {
+          "sampleName": "neutral",
+          "event": "mag_command_parsed",
+          "returnedPromise": false,
+          "waitCallsAfterCallback": 1
+        },
+        {
+          "sampleName": "neutral",
+          "event": "mag_variable_update_ended",
+          "returnedPromise": false,
+          "waitCallsAfterCallback": 1
+        },
+        {
+          "sampleName": "rakudai",
+          "event": "mag_variable_update_started",
+          "returnedPromise": false,
+          "waitCallsAfterCallback": 1
+        },
+        {
+          "sampleName": "rakudai",
+          "event": "mag_command_parsed",
+          "returnedPromise": false,
+          "waitCallsAfterCallback": 1
+        },
+        {
+          "sampleName": "rakudai",
+          "event": "mag_variable_update_ended",
+          "returnedPromise": false,
+          "waitCallsAfterCallback": 1
+        }
+      ]
+    },
+    {
+      "scriptId": "26d1c1d2-2531-4034-8a88-0f26a1c8fbc5",
+      "beforeReady": {
+        "waitCalls": 1,
+        "listeners": 0,
+        "markerState": "loading"
+      },
+      "afterReady": {
+        "waitCalls": 1,
+        "listeners": [
+          "mag_variable_update_started",
+          "mag_command_parsed",
+          "mag_variable_update_ended"
+        ],
+        "markerState": "ready"
+      },
+      "callbackResults": [
+        {
+          "sampleName": "neutral",
+          "event": "mag_variable_update_started",
+          "returnedPromise": false,
+          "waitCallsAfterCallback": 1
+        },
+        {
+          "sampleName": "neutral",
+          "event": "mag_command_parsed",
+          "returnedPromise": false,
+          "waitCallsAfterCallback": 1
+        },
+        {
+          "sampleName": "neutral",
+          "event": "mag_variable_update_ended",
+          "returnedPromise": false,
+          "waitCallsAfterCallback": 1
+        },
+        {
+          "sampleName": "rakudai",
+          "event": "mag_variable_update_started",
+          "returnedPromise": false,
+          "waitCallsAfterCallback": 1
+        },
+        {
+          "sampleName": "rakudai",
+          "event": "mag_command_parsed",
+          "returnedPromise": false,
+          "waitCallsAfterCallback": 1
+        },
+        {
+          "sampleName": "rakudai",
+          "event": "mag_variable_update_ended",
+          "returnedPromise": false,
+          "waitCallsAfterCallback": 1
+        }
+      ]
+    }
+  ],
+  "scripts": [
+    {
+      "id": "f5bb32b8-9a49-4e23-a0d5-ce6dd78d96dd",
+      "name": "MVU",
+      "enabled": true,
+      "sha256": "79a9a745fc6b4873e1de8865d5da87b0639eb030433f255a5f0447d433649b92",
+      "lines": []
+    },
+    {
+      "id": "485c4bcb-4090-4c72-bc09-6339ce5b27a6",
+      "name": "落第 × 学战·原生 MVU 写入兼容 [N04/W02]",
+      "enabled": true,
+      "sha256": "217e691e190f20373944ff0e09db7ef08b7a5f5564df7d68193ec57543e7fd2b",
+      "lines": [
+        {
+          "line": 239,
+          "text": "    await helper('waitGlobalInitialized')('Mvu');"
+        },
+        {
+          "line": 248,
+          "text": "    if (!mvu?.events?.VARIABLE_UPDATE_STARTED) throw new Error('MVU 缺少变量更新开始事件。');"
+        },
+        {
+          "line": 254,
+          "text": "    listener = helper('eventOn')(mvu.events.VARIABLE_UPDATE_STARTED, variables => {"
+        },
+        {
+          "line": 277,
+          "text": "    if (mvu.events.VARIABLE_UPDATE_ENDED) endListener = helper('eventOn')(mvu.events.VARIABLE_UPDATE_ENDED, (variables, previous) => {"
+        }
+      ]
+    },
+    {
+      "id": "c6b247ce-164f-4f1e-9952-02731a212df2",
+      "name": "落第骑士·卷章剧情注入器 v3.0.0（作品分流 20261104.1）",
+      "enabled": true,
+      "sha256": "e036986c6e672a3b3a4e4062acc96c333b0b12db9374aec013f90513e265e2bb",
+      "lines": [
+        {
+          "line": 580,
+          "text": "  helper('waitGlobalInitialized')('Mvu').catch(error => console.warn('[RK剧情 v3] MVU 接口尚未就绪', error));"
+        }
+      ]
+    },
+    {
+      "id": "ccebb634-335d-4659-8c3b-afae946d3d5c",
+      "name": "落第骑士·MVU v4 字段与卷章约束 [G04/T02/R01] · 双作品MVU",
+      "enabled": false,
+      "sha256": "3760476e759d9f1edec00af69909760317354723b2e2f0808ce2da29d8dce073",
+      "lines": [
+        {
+          "line": 2246,
+          "text": "  if (typeof eventOn !== 'function' || !Mvu.events?.VARIABLE_UPDATE_ENDED) throw new Error('MVU 缺少更新结束事件，写入责任保护未注册。');"
+        },
+        {
+          "line": 2279,
+          "text": "  const listener = eventOn(Mvu.events.VARIABLE_UPDATE_ENDED, (variables, previous) => {"
+        },
+        {
+          "line": 2403,
+          "text": "          if (zodReady() && typeof waitGlobalInitialized === 'function') { resolve(); return; }"
+        },
+        {
+          "line": 2412,
+          "text": "    await bounded(waitGlobalInitialized('Mvu'), '等待 MVU 超时，请确认变量框架已成功加载，再重新启用字段约束脚本。');"
+        }
+      ]
+    },
+    {
+      "id": "4cbe9a41-cd60-4edd-84fb-92611a957ec2",
+      "name": "双作品·世界书差异更新器 v1",
+      "enabled": true,
+      "sha256": "e1982df3f849c02a9f5baceee704badd5a175fdec78acb267064bbf71ed1de8b",
+      "lines": []
+    },
+    {
+      "id": "26d1c1d2-2531-4034-8a88-0f26a1c8fbc5",
+      "name": "落第骑士·黑白ADV轮盘终端 v1.3.29 B1（LIME状态精简） · 双作品接线 20261106",
+      "enabled": true,
+      "sha256": "5c6f1495f2da188e9c27eb6bef793f2c1041fb9add3fac634d200a5e4ebd90b1",
+      "lines": [
+        {
+          "line": 1144,
+          "text": "    await helper('waitGlobalInitialized')('Mvu');"
+        },
+        {
+          "line": 1153,
+          "text": "    if (!mvu?.events?.VARIABLE_UPDATE_STARTED) throw new Error('MVU 缺少变量更新开始事件。');"
+        },
+        {
+          "line": 1159,
+          "text": "    listener = helper('eventOn')(mvu.events.VARIABLE_UPDATE_STARTED, variables => {"
+        },
+        {
+          "line": 1182,
+          "text": "    if (mvu.events.VARIABLE_UPDATE_ENDED) endListener = helper('eventOn')(mvu.events.VARIABLE_UPDATE_ENDED, (variables, previous) => {"
+        },
+        {
+          "line": 2527,
+          "text": "      await helper('waitGlobalInitialized')('Mvu');"
+        },
+        {
+          "line": 5960,
+          "text": "    if (!events?.COMMAND_PARSED || !events.VARIABLE_UPDATE_ENDED) return false;"
+        },
+        {
+          "line": 5962,
+          "text": "    const tailEvent = events.VARIABLE_UPDATE_ENDED + '_for_zod';"
+        },
+        {
+          "line": 5981,
+          "text": "    safeOn(events.VARIABLE_UPDATE_ENDED, (variables, previous) => {"
+        },
+        {
+          "line": 6013,
+          "text": "  const waitMvu = fn('waitGlobalInitialized');"
+        },
+        {
+          "line": 6014,
+          "text": "  if (waitMvu) Promise.resolve(waitMvu('Mvu')).then(() => { if (!SS.destroyed) correctionBindMvu?.(); }).catch(() => { /* 下次主生成前再次核对就绪状态。 */ });"
+        }
+      ]
+    },
+    {
+      "id": "38bfac30-dcbe-4c08-b9d7-382f6162c6db",
+      "name": "MVU · EJS 重名修复 20261106",
+      "enabled": true,
+      "sha256": "f2f799b90a13fecd589d5620b2bfa707f71e046f5df84b8980deeb6d9bc51e3a",
+      "lines": []
+    }
+  ],
+  "conclusion": "The two actual native installers wait before registering listeners; their STARTED/COMMAND_PARSED/ENDED callbacks tested here return synchronously and do not call waitGlobalInitialized again.",
+  "limits": [
+    "Does not simulate the player device or establish its failure cause.",
+    "The standalone native script and actual terminal native installer are executed. Other enabled scripts are inventoried and reviewed statically.",
+    "The terminal native installer is executed using standalone native utilities; this is not full terminal execution.",
+    "No claim about globally installed scripts or extensions on the player device."
+  ]
+}

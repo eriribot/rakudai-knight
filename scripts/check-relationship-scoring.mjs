@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
-import { createSchema, INITIAL_STATE, RELATIONSHIP_SCORING, supportStage, romanceStage, enforceRelationshipScores } from '../世界书规则/MVU/schema.mjs';
+import { createSchema, RAKUDAI_INITIAL_STATE as INITIAL_STATE, RELATIONSHIP_SCORING, supportStage, romanceStage, enforceRelationshipScores } from '../世界书规则/MVU/schema.mjs';
 
 // 只做离线小快照：沿用已有脚本，不调用 API、不写报告，也不模拟整套酒馆。
 const require = createRequire(import.meta.url);

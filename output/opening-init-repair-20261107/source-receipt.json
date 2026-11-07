@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "deliveryMode": "component",
+  "stableId": "91353e85-24b5-4f7a-bdaa-166abb48f0bf",
+  "fixture": "output/opening-init-repair-20261107/installed-opening-before.regex.json",
+  "fixtureSha256": "aeb5d3f8b58680631aabc52a83b5a4e376a9d28adb205919de662c4944c20867",
+  "originalReplacementSha256": "405e6b96c41a5bc50c13b10118b7481fcdbd27d308402cdd509bd985a07f4a6f",
+  "source": "output/opening-init-repair-20261107/opening.component.html",
+  "sourceSha256": "1e73008745040f5eff46a08f8ec44fdac1a3fdb05b0933a635b7c97111cda693",
+  "replacementSha256": "f5b3f8c3ab174d62e4a7d03abeed0f705829ced1c0596bea3da5186668959ae7",
+  "assembly": "installed baseline + maintained adapter + assembled copy/submit UI functions + two copy-button markers",
+  "nonRepairSurfaceByteIdentical": true,
+  "sourceFiles": [
+    {
+      "file": "scripts/rakudai-state-browser.js",
+      "sha256": "7c78de3579ac00770814593a450af7442ca9d93919878778832fe2489e55157f"
+    },
+    {
+      "file": "scripts/rakudai-state-controller.js",
+      "sha256": "3dfecb1512d1eafdab11c390ed856dd72c0c50e72324ae97750506d948b8c9ce"
+    },
+    {
+      "file": "第一卷-世界书整理/开局页面/index.html",
+      "sha256": "e224a14b30e2570a460aac458f2d442acdbaaf02cb3644b9a2d65d778508bba7"
+    },
+    {
+      "file": "第一卷-世界书整理/开局网页正则替换/index.html",
+      "sha256": "e994694b88b875ada4d00791bb2b2329da9f3c21fc6932489d8f15310db31053"
+    }
+  ],
+  "changedFields": [
+    "replaceString",
+    "scriptName"
+  ],
+  "preservedOtherFields": true,
+  "ejsPlainAndStrictIdentity": true,
+  "originalReplacementBytes": 691395,
+  "replacementBytes": 694625,
+  "library": {
+    "snapshot": "2026-08-18",
+    "route": "sillytavern-component-update",
+    "loaded": [
+      "ST-A0",
+      "ST-A2",
+      "ST-A6",
+      "ST-B2"
+    ],
+    "adoptedCandidates": []
+  },
+  "acceptance": "dependency failure releases buttons; retry and both worlds commit/read back in isolated SillyTavern",
+  "runtimeEvidence": "output/playwright/init-repair-20261107",
+  "fullCardPackaged": false
+}

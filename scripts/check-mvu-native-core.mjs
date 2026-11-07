@@ -6,7 +6,8 @@ import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { createRequire, stripTypeScriptTypes } from 'node:module';
 import { fileURLToPath } from 'node:url';
-import { createSchema, INITIAL_STATE } from '../世界书规则/MVU/schema.mjs';
+import { createSchema, RAKUDAI_INITIAL_STATE as INITIAL_STATE, INITIAL_STATE as NEUTRAL_INITIAL_STATE } from '../世界书规则/MVU/schema.mjs';
+import { applyOpening } from './rakudai-state-core.mjs';
 import { installRakudaiNativeMvu } from './rakudai-mvu-native.mjs';
 import { repairRakudaiMvuStructure } from './rakudai-mvu-structure.mjs';
 import { createRakudaiNativeSchema } from './rakudai-mvu-native.mjs';
@@ -70,7 +71,7 @@ function loadTypeScript(key) {
 for (const key of ['variable-def', 'schema', 'util', 'common', 'update-variables']) loadTypeScript(key);
 const clone = value => JSON.parse(JSON.stringify(value));
 const sample = () => {
-  const data = { stat_data: repairRakudaiMvuStructure(structuredClone(INITIAL_STATE)), schema: '没有用别管这个',
+  const data = { stat_data: repairRakudaiMvuStructure({ ...structuredClone(INITIAL_STATE), 系统: { ...INITIAL_STATE.系统, 作品: 'rakudai' } }), schema: '没有用别管这个',
     external: { retained: ['wrapper'] }, initialized_lorebooks: { retained: true } };
   data.stat_data.人际.旧同伴 = { 关系: '同伴', 好感: 19, 未知字段: { 保留: true } };
   data.stat_data.玩家.自定义数组 = ['甲', '乙'];
@@ -123,6 +124,76 @@ W.Mvu.parseMessage = async (content, original) => {
 };
 const installation = await installRakudaiNativeMvu(W);
 assert.equal(installation.state, 'ready', installation.message);
+const asteriskSample = () => ({ stat_data: applyOpening(clone(NEUTRAL_INITIAL_STATE), {
+  系统: { 结构版本: 4, 作品: 'asterisk', 主角模式: '自定义角色' },
+  玩家: { ...clone(NEUTRAL_INITIAL_STATE.玩家), 姓名: '学战测试', 学战: {
+    学园ID: 'seidoukan', 能力身份: '星脉世代', 能力机制: '体术', 共通限制: '', 招式: {}, 星辰力: { 说明: '以文字描述' },
+    校内序列: { 状态: '未上榜', 名次: null }, 武装: { 类别: '不使用武装', 名称: '', 使用条件: '' },
+  } }, 场景: { 当前卷: null, 当前章: '入学报到', 时间: '早晨', 地点: '星导馆', 切入说明: '' },
+}), external: { retained: ['wrapper'] } });
+await check('AW actual parser rejects legacy commands and preserves unknown data during required-contract rollback', async () => {
+  const invalid = [
+    "<UpdateVariable>_.set('系统.作品', 'rakudai');</UpdateVariable>",
+    "<UpdateVariable>_.insert('玩家', '魔人觉醒', true);</UpdateVariable>",
+    patch([{ op: 'remove', path: '/玩家/学战' }]),
+    patch([{ op: 'replace', path: '/玩家/学战/校内序列/名次', value: 999 }]),
+    patch([{ op: 'replace', path: '/玩家/学战/学园ID', value: 'queenvail' }]),
+    patch([{ op: 'replace', path: '/玩家/学战/能力身份', value: '伐刀者' }]),
+    patch([{ op: 'replace', path: '/玩家/学战/武装/类别', value: '灵装' }]),
+    patch([{ op: 'add', path: '/人际/本轮新人', value: person }, { op: 'remove', path: '/玩家/学战' }]),
+    patch([{ op: 'delta', path: '/人际/旧同伴/好感', value: 5 }]),
+  ];
+  for (const input of invalid) {
+    const data = asteriskSample(); data.stat_data.玩家.自定义资料 = { 原文: '保留' }; data.stat_data.人际.旧同伴 = clone(person);
+    const before = clone(data.stat_data), wrapper = clone(data.external);
+    assert.equal(await context.updateVariables(input, data), false, input);
+    assert.deepEqual(clone(data.stat_data), before, input); assert.deepEqual(clone(data.external), wrapper);
+  }
+});
+await check('AW actual parser saves valid prana, ranking and common relationship patches without RK growth', async () => {
+  const data = asteriskSample(); data.stat_data.玩家.自定义资料 = { 原文: '保留' };
+  assert.equal(await context.updateVariables(patch([
+    { op: 'replace', path: '/玩家/学战/星辰力/说明', value: '已充分休息' },
+    { op: 'replace', path: '/玩家/学战/校内序列/状态', value: '已上榜' },
+    { op: 'replace', path: '/玩家/学战/校内序列/名次', value: 72 },
+    { op: 'add', path: '/人际/新同学', value: person },
+  ]), data), true);
+  assert.equal(data.stat_data.玩家.学战.星辰力.说明, '已充分休息');
+  assert.deepEqual(clone(data.stat_data.玩家.学战.校内序列), { 状态: '已上榜', 名次: 72 });
+  assert.deepEqual(clone(data.stat_data.人际.新同学), person); assert.deepEqual(clone(data.stat_data.玩家.自定义资料), { 原文: '保留' });
+  assert.equal(data.stat_data.玩家.成长, undefined);
+});
+await check('Actual parser saves hybrid abilities in both openings without changing mainline or inventing enrollment', async () => {
+  const weapon = { 类别: '煌式武装', 名称: '训练用煌武', 使用条件: '已取得且可使用' };
+  const aw = asteriskSample(), ability = clone(INITIAL_STATE.玩家.伐刀能力);
+  assert.equal(await context.updateVariables(patch([
+    { op: 'add', path: '/玩家/伐刀能力', value: ability },
+    { op: 'add', path: '/玩家/固有灵装', value: '已觉醒灵装' },
+    { op: 'add', path: '/玩家/登记等级', value: null },
+    { op: 'replace', path: '/玩家/学战/武装', value: weapon },
+    { op: 'replace', path: '/系统/作品', value: 'rakudai' },
+  ]), aw), true);
+  assert.deepEqual(clone(aw.stat_data.玩家.伐刀能力), ability); assert.equal(aw.stat_data.玩家.固有灵装, '已觉醒灵装');
+  assert.deepEqual(clone(aw.stat_data.玩家.学战.武装), weapon); assert.equal(aw.stat_data.系统.作品, 'asterisk');
+  assert.equal(Object.hasOwn(aw.stat_data.玩家, '魔人觉醒'), false); assert.equal(Object.hasOwn(aw.stat_data.玩家, '成长'), false);
+  const rk = sample(); rk.stat_data.系统.开局状态 = '已建档';
+  assert.equal(await context.updateVariables(patch([{ op: 'add', path: '/玩家/学战/武装', value: weapon }]), rk), true);
+  assert.deepEqual(clone(rk.stat_data.玩家.学战), { 武装: weapon }); assert.equal(rk.stat_data.系统.作品, 'rakudai');
+});
+await check('RK actual parser retains legacy business writes but cannot change explicit or legacy-inferred worlds', async () => {
+  for (const explicit of [true, false]) {
+    for (const target of ['leaf', 'parent', 'root']) {
+      const data = sample(); data.stat_data.系统.开局状态 = '已建档'; if (!explicit) delete data.stat_data.系统.作品;
+      const system = clone(data.stat_data.系统), changed = clone(data.stat_data);
+      changed.系统.作品 = 'asterisk'; changed.场景.地点 = '教室';
+      const command = target === 'leaf' ? "_.insert('系统', '作品', 'asterisk');" :
+        target === 'parent' ? "_.set('系统', " + JSON.stringify(changed.系统) + ');' : "_.set('', " + JSON.stringify(changed) + ');';
+      const content = "<UpdateVariable>_.set('场景.地点', '教室'); " + command + '</UpdateVariable>';
+      assert.equal(await context.updateVariables(content, data), true, target);
+      assert.equal(data.stat_data.场景.地点, '教室'); assert.deepEqual(clone(data.stat_data.系统), system, target);
+    }
+  }
+});
 await check('N04 actual upstream folds missing people and schedule parents before applying child fields', async () => {
   const data = sample(), before = clone(data.stat_data);
   const operations = Object.entries(person).map(([key, value]) => ({ op: 'replace', path: '/人际/新同学/' + key, value }));
@@ -360,7 +431,9 @@ const report = { evidence: 'Actual pinned upstream TypeScript bodies executed af
   nativeVersion: 'N04', nativeSha256: createHash('sha256').update(fs.readFileSync(new URL('./rakudai-mvu-native.mjs', import.meta.url))).digest('hex'),
   hashes, checks, passed: checks.every(value => value.passed),
   events: [...new Set(events)], uncovered: ['invalid JSON/YAML/math fallback', 'host floor/swipe persistence', 'real iframe lifecycle', 'Zod bridge listeners'] };
-fs.mkdirSync(new URL('./', reportFile), { recursive: true });
-fs.writeFileSync(reportFile, JSON.stringify(report, null, 2));
+if (!process.argv.includes('--no-write')) {
+  fs.mkdirSync(new URL('./', reportFile), { recursive: true });
+  fs.writeFileSync(reportFile, JSON.stringify(report, null, 2));
+}
 console.log(JSON.stringify({ passed: report.passed, checks, report: fileURLToPath(reportFile) }, null, 2));
 if (!report.passed) process.exitCode = 1;

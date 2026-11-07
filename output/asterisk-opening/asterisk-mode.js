@@ -1,9 +1,9 @@
-// 学战 DLC 预览：只扩展开局草稿，不把学战数据写入落第 MVU。
+// 学战开局沿用共享提交与回读流程，专用字段保持独立。
 var activeOpeningWorld = "rakudai";
 var activeAcademyId = "seidoukan";
 var openingWorldDrafts = {};
 var AST_CATEGORIES = ["星脉世代（无魔术师异能）", "魔术师", "自定义（见能力说明）"];
-var AST_CHAPTERS = ["待选择", "入学报到", "学园日常", "决斗准备", "星武祭前夕", "自定义场景"];
+var AST_CHAPTERS = ["待选择", "序章", "第一章", "第二章", "第三章", "第四章", "第五章", "第六章", "第七章", "终章", "原创开场"];
 var RAKUDAI_CHAPTERS = OPENING_CHAPTERS.slice();
 var AST_SCHOOLS = {
   seidoukan: {name:"星导馆学园",en:"SEIDOUKAN ACADEMY",glyph:"星",number:"01",description:"自由的校风容纳不同的愿望。以你的武装与伙伴，在六花的舞台上寻找属于自己的答案。",tags:["自由校风","多样战术","星脉人才"],accent:"#087F96",soft:"#E4F5F7",dark:"#122C37",secondary:"#D2447D"},
@@ -79,7 +79,7 @@ function applyWorldSkin() {
   ["aw-academy-picker","asterisk-campus-stage","aw-enrollment-strip","aw-rank-panel","aw-live-record","aw-record-extended"].forEach(function(id){document.getElementById(id).hidden=!ast;});
   document.querySelector("#scene-narrative > .opening-layout").hidden=false;
   document.querySelectorAll('[data-profile-key="kurogane"]').forEach(function(el){el.hidden=ast;el.disabled=ast;});
-  document.querySelectorAll('[onclick="RakudaiOpening.readConfirmedScene()"], #apply-player-avatar-button, .final-avatar-note').forEach(function(el){el.hidden=ast;});
+  document.querySelectorAll('[onclick="RakudaiOpening.readConfirmedScene()"], #apply-player-avatar-button, .final-avatar-note').forEach(function(el){el.hidden=false;});
   document.getElementById("bgm-widget-container").hidden=false;
   document.querySelectorAll(".card-parameter-section,.card-notes-section,.stamp-seal").forEach(function(el){el.hidden=ast;});
   worldText(".top-subtitle",school.name+" · 星脉世代入学登记 / ASTERISK ENTRY");
@@ -95,21 +95,21 @@ function applyWorldSkin() {
   worldPlaceholder("input-ability","分别说明星辰力运用、个人异能与武装功能；普通星脉世代无需虚构魔术师异能");
   worldPlaceholder("input-school",school.name);
   worldPlaceholder("input-limits","作用距离、发动条件、负担与已知弱点；不确定的事项如实标明");
-  worldText("#opening-greeting-panel .collapsible-body > p:first-child","选择所选学园的切入场景，再写登场动作。使用相对时间即可；具体赛事与原作进度由本局设定确认。");
+  worldText("#opening-greeting-panel .collapsible-body > p:first-child","星导馆可读取本局世界书的第一章日期与切入点；其他学园可选择原创开场。已填时间优先保留。");
   worldText('label[for="opening-chapter"]',"切入阶段");
   worldText("#opening-greeting-panel .preset-label","学园生活切入模板：");
-  worldPlaceholder("opening-time","如：入学报到日·上午；未确定的公历年份不必编造");
+  worldPlaceholder("opening-time","优先采用本局世界书的场景日期；未确定时可用相对时间");
   worldPlaceholder("opening-location",school.name+"·具体场所");
   worldText('[onclick="RakudaiOpening.applySceneTemplate(\'training\')"]',"训练场·初次练习");
-  worldText('[onclick="RakudaiOpening.applySceneTemplate(\'dorm\')"]',"宿舍·入学报到");
+  worldText('[onclick="RakudaiOpening.applySceneTemplate(\'dorm\')"]',"宿舍·转学首日");
   worldText('[onclick="RakudaiOpening.applySceneTemplate(\'director\')"]',"接待处·入学面谈");
-  worldText('[onclick="RakudaiOpening.applySceneTemplate(\'ceremony\')"]',"学园日常·初识六花");
+  worldText('[onclick="RakudaiOpening.applySceneTemplate(\'ceremony\')"]',activeAcademyId==="seidoukan"?"第一章·散步道（读取世界书）":"学园日常·原创开场");
   worldText("#opening-scene-feedback","场景仅属于本次学战草稿。请核对时间、地点与开场白的一致性。");
   worldText(".stage-header-title",school.name+" · 学生入学档案");
   worldText(".final-record-trigger-wrap button","查看序列与学生档案");worldText("#final-record-title","序列与学生档案");
-  worldText("#opening-commit-button","确认草稿并预览开局");
+  worldText("#opening-commit-button","确认人物并建立档案");
   worldText(".btn-to-confirm","下一步：确认学生档案 →");
-  worldText("#archive-room-panel .lk-archive-slots ~ .lk-archive-note","本机槽位只保存人物草稿。学战预览版可保存、导出与复制，不会把资料写进落第的聊天状态。");
+  worldText("#archive-room-panel .lk-archive-slots ~ .lk-archive-note","本机槽位只保存人物草稿。读取后请核对资料，再点击“确认人物并建立档案”；成功回读后才会同步到本局终端。");
   worldText("#start-archive-dialog > p","新建或读取人物草稿。读取会恢复世界、学园和人物设定，不会自动开始剧情。");
   worldText("#aw-enrollment-school",school.name);
   var category=document.getElementById("input-category"),current=category.value;
@@ -230,26 +230,82 @@ function syncAsteriskCard() {
   if(live)live.textContent="星辰力："+(draft.asterisk.prana||"尚未填写")+"\n武装类别："+asteriskWeaponLabel(draft.asterisk.weapon_type)+"\n使用条件："+(draft.asterisk.weapon_notes||"尚未填写");
   updateOpeningPreview(draft);updatePromptPreview();
 }
-function buildAsteriskOpeningMessage(draft) {
+function openingStateWorld(state) {
+  var system=state&&state.系统;
+  if(!system)return null;
+  if(Object.prototype.hasOwnProperty.call(system,"作品"))return system.作品;
+  return system.开局状态==="已建档"?"rakudai":null;
+}
+function assertOpeningWorld(draft,state) {
+  var world=openingStateWorld(state);
+  if(world&&world!==draft.world_id)throw new Error("当前聊天属于其他作品，请切回本局作品；跨作品人物请在新聊天建档。");
+}
+function buildAsteriskOpeningVariables(draft) {
+  draft=validateAsteriskArchive(draft);
   var p=draft.profile,a=draft.asterisk;
-  var lines=["【学战都市 Asterisk · 开局档案草稿】","本内容是待确认的人物与场景设定，尚未写入聊天或开始剧情。","玩家："+(p.name||"未命名"),"性别：男性","所属学园："+AST_SCHOOLS[draft.school_id].name,"校内序列（本局开局设定）："+asteriskRankLabel(a),"性格："+p.personality,"处事风格："+p.conduct,"能力身份："+p.category,"角色简介："+p.desc,"星辰力与运用："+(a.prana||"尚未确定"),"武装类别："+asteriskWeaponLabel(a.weapon_type),"武装名称："+p.device,"武装适合与使用条件："+(a.weapon_notes||"尚未确定"),"能力与武装机理："+p.ability,"共通限制："+p.limits,"战斗风格："+p.style,"能力／武装招式（名称｜说明｜条件与代价）：\n"+(p.nobleArt||"未登记"),"其他技艺：\n"+(p.otherAbilities||"未登记")];
+  var player={姓名:p.name,性别:"男性",性格关键词:p.personality,处事风格:p.conduct,所属:p.school,角色简介:p.desc,战斗风格:p.style,其他能力:parseAbilityLines(p.otherAbilities,"其他技艺")};
+  Object.keys(CONTEXT_FIELDS).forEach(function(key){if(draft.context[key])player[key]=draft.context[key];});
+  var identity={"星脉世代（无魔术师异能）":"星脉世代","魔术师":"魔术师","自定义（见能力说明）":"自定义"}[p.category];
+  if(!identity)throw new Error("请选择能力身份，再确认建档。");
+  player.学战={学园ID:draft.school_id,能力身份:identity,能力机制:p.ability,共通限制:p.limits,招式:parseAbilityLines(p.nobleArt,"能力／武装招式"),星辰力:{说明:a.prana},校内序列:{状态:{unknown:"未知",unranked:"未上榜",ranked:"已上榜"}[a.rank_status],名次:a.rank},武装:{类别:asteriskWeaponLabel(a.weapon_type),名称:p.device,使用条件:a.weapon_notes}};
+  return {系统:{结构版本:4,作品:"asterisk",主角模式:"自定义角色",开局状态:"待建档"},玩家:player,场景:Object.assign({当前卷:null,阶段:"进行中",已发生事件:{}},validateScene(draft.scene,true,"asterisk"))};
+}
+function buildAsteriskOpeningMessage(draft,committedState) {
+  var p=draft.profile,a=draft.asterisk;
+  var lines=[committedState?"【学战都市 Asterisk · 第一幕请求】":"【学战都市 Asterisk · 开局档案草稿】",committedState?"本次档案已写入 MVU 并成功回读，开局状态为已建档。":"本内容是待确认的人物与场景设定，尚未写入聊天或开始剧情。","玩家："+(p.name||"未命名"),"性别：男性","所属学园："+AST_SCHOOLS[draft.school_id].name,"校内序列（本局开局设定）："+asteriskRankLabel(a),"性格："+p.personality,"处事风格："+p.conduct,"能力身份："+p.category,"角色简介："+p.desc,"星辰力与运用："+(a.prana||"尚未确定"),"武装类别："+asteriskWeaponLabel(a.weapon_type),"武装名称："+p.device,"武装适合与使用条件："+(a.weapon_notes||"尚未确定"),"能力与武装机理："+p.ability,"共通限制："+p.limits,"战斗风格："+p.style,"能力／武装招式（名称｜说明｜条件与代价；所填项目均已掌握）：\n"+(p.nobleArt||"未登记"),"其他技艺（所填项目均已掌握）：\n"+(p.otherAbilities||"未登记")];
   Object.keys(CONTEXT_FIELDS).forEach(function(k){if(draft.context[k])lines.push(k+"："+draft.context[k]);});
-  lines.push("","【待确认的切入场景】");Object.keys(SCENE_FIELDS).forEach(function(k){lines.push((k==="当前章"?"切入阶段":k)+"："+(draft.scene[k]||"待填写"));});
+  var scene=committedState?committedState.场景:draft.scene;
+  lines.push("",committedState?"【本局已写入并回读的场景】":"【待确认的切入场景】");Object.keys(SCENE_FIELDS).forEach(function(k){lines.push((k==="当前章"?"切入阶段":k)+"："+(scene[k]||"待填写"));});
   if(draft.greeting)lines.push("","【玩家开场白】",draft.greeting);
-  lines.push("","【规则边界】","每所学园各有 72 个在名序列名额，第 1–12 名列于第一页，称始页十二人；第 13–72 名同样在榜。序列仅表示所选学园的排名，不等同于通用战力，不能自动赋予获胜记录。","个人异能、星辰力运用、武装功能和独立技艺分别理解；原有 NPC 的武装、经历与关系不自动转移给玩家。","跨世界机制只采用玩家明确写出的本局映射。上述资料是草稿，不是已写入的游戏状态；这份预览不执行变量初始化或剧情推进。");
+  lines.push("","【规则边界】","每所学园各有 72 个在名序列名额，第 1–12 名列于第一页，称始页十二人；第 13–72 名同样在榜。序列仅表示所选学园的排名，不等同于通用战力，不能自动赋予获胜记录。","个人异能、星辰力运用、武装功能和独立技艺分别理解；原有 NPC 的武装、经历与关系不自动转移给玩家。",CHARACTER_SCOPE_PROMPT);
+  lines.push(committedState?"请读取本局 MVU 的已建档状态与学战世界书，按已确认场景演绎第一幕；有玩家开场白时从末尾接续。不要重新初始化、添加落第评级或预写胜负与人际；只记录实际发生的剧情变化。":"上述资料是草稿，尚未写入游戏状态。请先在开局页面确认建档，不凭草稿初始化变量或推进剧情。");
   return lines.join("\n");
 }
-function previewAsteriskOpening() {
-  if(!requireCompleteProfile())return;
-  try {var draft=validateAsteriskArchive(readAsteriskDraft());validateScene(draft.scene,true,"asterisk");
-    if(draft.greeting&&!document.getElementById("opening-scene-confirmed").checked)throw new Error("请核对开场白的时间、地点，并勾选场景一致确认。");
-    var input=showOpeningPreview(draft);input.scrollIntoView({behavior:"smooth",block:"center"});archiveFeedback("学战开局草稿已整理，可复制或保存；当前仅预览，尚未写入聊天。");
-  }catch(error){archiveFeedback(error.message,true);}
+// 与剧情读取器使用相同目录：主世界书 [剧情] 条目，order = 200 + 章节位置。
+function asteriskScenePosition(entry) {
+  var order = entry.position && typeof entry.position === "object" ? entry.position.order : entry.order;
+  return typeof entry.name === "string" && entry.name.startsWith("[剧情]") && Number.isInteger(order) && order >= 200 && order <= 208 ? order - 200 : -1;
 }
-function applyAsteriskSceneTemplate(type) {
-  var school=selectedAcademy().name;
-  var choices={training:["决斗准备","入学报到后·上午","训练场","熟悉训练设施与安全规则","我来到"+school+"的训练场，在边缘停下脚步。确认场地使用规则后，我准备先做一轮基础练习，熟悉自己的状态与这里的训练节奏。"],dorm:["入学报到","入学报到日·上午","学生宿舍接待处","办理住宿登记","我带着行李来到"+school+"的学生宿舍接待处，取出入学资料，准备核对房间与接下来的安排。窗外是六花的水面，新生活还没有开始，我想先把眼前的报到手续办好。"],director:["入学报到","入学报到日·上午","入学接待处","提交资料并了解入学安排","我在"+school+"的入学接待处站定，整理好手中的材料。关于自己的经历、能力和来到六花的目的，我已经准备了简短的说明，现在等待负责接待的人与我核对。"],ceremony:["学园日常","入学后的第一个休息日·午后","校园入口","熟悉学园与六花的生活","午后的光线落在"+school+"的校园入口。我确认了一遍终端上的地图，打算先熟悉附近的道路和生活设施。比起立刻决定下一场战斗，我想先知道这里的人们怎样度过普通的一天。"]};
-  var v=choices[type]||choices.dorm;setSceneInputs({"当前章":v[0],"时间":v[1],"地点":school+"·"+v[2],"切入说明":v[3]});document.getElementById("opening-greeting").value=v[4];editScene();editGreeting();document.getElementById("opening-scene-confirmed").checked=true;document.getElementById("greeting-feedback").textContent="已填入所选学园的原创开场草稿，可继续修改。";
+function asteriskOpeningScene(entry) {
+  var position=asteriskScenePosition(entry), content=entry.content;
+  if(position<0 || typeof content!=="string" || /<[%]|<script\b|<UpdateVariable\b/i.test(content))return null;
+  var time=content.match(/(?:^|\n)\s*-?\s*时间\s*[:：]\s*([^\n]+)/);
+  return time ? {chapter:AST_CHAPTERS[position+1],time:time[1].trim(),entry:entry} : null;
+}
+async function readAsteriskFirstChapter() {
+  var loaded=await loadOpeningWorldbooks();
+  var primary=await openingHelper("getCharWorldbookNames")("current");
+  var book=loaded.books.find(function(item){return item.name===primary.primary;});
+  var matches=book?book.entries.filter(function(entry){return asteriskScenePosition(entry)===1;}):[];
+  if(matches.length!==1)throw new Error("主世界书应有唯一的顺序 201 [剧情] 第一章条目，请核对后重试。");
+  var scene=asteriskOpeningScene(matches[0]);
+  if(!scene)throw new Error("学战第一章缺少可读取的“时间：”行，请核对世界书。");
+  return {scene:scene,book:book.name};
+}
+async function applyAsteriskSceneTemplate(type) {
+  var school=selectedAcademy().name, current=readOpeningDraft();
+  if(type==="ceremony" && activeAcademyId==="seidoukan") {
+    var feedback=document.getElementById("greeting-feedback"), basis=JSON.stringify(current);
+    feedback.textContent="正在读取主世界书的学战第一章…";
+    try {
+      var material=await readAsteriskFirstChapter();
+      if(basis!==JSON.stringify(readOpeningDraft()))throw new Error("读取期间草稿已修改，未覆盖当前内容，请重试。");
+      var scene=material.scene, entry=scene.entry;
+      setSceneInputs({当前章:"第一章",时间:current.scene.时间||scene.time,地点:current.scene.地点||"星导馆学园·散步道",切入说明:current.scene.切入说明||"第一章清晨，女生宿舍外围的散步道；仅写玩家登场，不预演原作事件。"});
+      if(!current.greeting)document.getElementById("opening-greeting").value="清晨，我走上星导馆学园的散步道，在树荫与铁栅栏之间放慢脚步，留意附近的动静。";
+      var reference={worldbook:material.book,uid:entry.uid,name:entry.name,excerpted:false,content:entry.content.trim()};
+      openingReferenceChoices.greeting={names:openingBoundWorldbooks(),keys:[openingReferenceKey(reference)],references:[reference]};
+      editScene();editGreeting();document.getElementById("opening-scene-confirmed").checked=false;
+      showOpeningReferenceStatus("greeting",[reference],true,true);
+      feedback.textContent="已读取“"+entry.name+"”的第一章起点；已有时间与地点保留。请核对并确认场景。";
+    } catch(error) { feedback.textContent=error.message; }
+    return;
+  }
+  var choices={training:["入学报到后·上午","训练场","熟悉训练设施与安全规则","我来到"+school+"的训练场，在边缘停下脚步。确认场地使用规则后，我准备先做一轮基础练习，熟悉自己的状态与这里的训练节奏。"],dorm:["入学报到日·上午","学生宿舍接待处","办理住宿登记","我带着行李来到"+school+"的学生宿舍接待处，取出入学资料，准备核对房间与接下来的安排。"],director:["入学报到日·上午","入学接待处","提交资料并了解入学安排","我在"+school+"的入学接待处站定，整理好手中的材料，等待负责接待的人与我核对。"],ceremony:["入学后的第一个休息日·午后","校园入口","熟悉学园与六花的生活","午后的光线落在"+school+"的校园入口。我确认了一遍终端上的地图，打算先熟悉附近的道路和生活设施。"]};
+  var v=choices[type]||choices.dorm;
+  setSceneInputs({当前章:"原创开场",时间:current.scene.时间||v[0],地点:school+"·"+v[1],切入说明:v[2]});
+  document.getElementById("opening-greeting").value=v[3];editScene();editGreeting();document.getElementById("opening-scene-confirmed").checked=false;
+  document.getElementById("greeting-feedback").textContent="已填入所选学园的原创开场；不会自动注入原著章节，已有时间保留。请核对并确认场景。";
 }
 function applyAsteriskAssistanceData(data,draft) {
   var pending=[],notes=[],changed=0;

@@ -9,6 +9,7 @@ import { buildContextGuard } from './context-guard.mjs';
 // still require acceptance in the user's SillyTavern instance.
 const manifest = JSON.parse(fs.readFileSync(new URL('../../resource/knightavatars/manifest.json', import.meta.url), 'utf8'));
 const rules = buildRules();
+const asteriskPortraits = JSON.parse(fs.readFileSync(new URL('./asterisk-portraits.json', import.meta.url), 'utf8'));
 const results = [];
 const measurements = [];
 const owners = new Map();
@@ -48,6 +49,53 @@ function rendered(input, expectedBubbles = 1, context) {
   assert.equal(styleCount(output), expectedBubbles ? 1 : 0, '每消息样式至多一份');
   return output;
 }
+
+check('学战图床地址对应已保存原图，样式不再内嵌图片', () => {
+  const images = [{imageUrl: asteriskPortraits.imageUrl, file: asteriskPortraits.sourceImage}, ...asteriskPortraits.characters.filter(person => person.imageUrl)];
+  for (const image of images) {
+    assert.match(image.file, /^resource\/asteriskavatars\/[a-z0-9-]+\.(?:jpg|png|webp)$/);
+    assert.equal(image.imageUrl, 'https://eriribot.github.io/rakudai-knight/' + image.file);
+    assert.ok(fs.statSync(new URL('../../' + image.file, import.meta.url)).size > 0, image.file);
+    assert.ok(rules[2].replaceString.includes(image.imageUrl));
+  }
+  assert.ok(!rules[2].replaceString.includes('data:image/jpeg;base64,'));
+});
+check('动画设定板裁切保持原图比例，独立头像与合图分开', () => {
+  for (const person of asteriskPortraits.characters) {
+    const selector = '[data-rkd="bubble"][data-rkd-name="' + person.name + '" i]';
+    const style = rules[2].replaceString.slice(rules[2].replaceString.indexOf(selector, rules[2].replaceString.indexOf('[data-rkd-asterisk]:not'))).split('{')[1].split('}')[0];
+    if (person.imageUrl) {
+      const [x, y, width, height] = person.portraitCrop;
+      assert.ok([x, y, width, height, person.width, person.height].every(Number.isFinite));
+      assert.ok(x >= 0 && y >= 0 && width > 0 && height > 0 && x + width <= person.width && y + height <= person.height, person.id);
+      assert.ok(Math.abs(width / height - 50 / 58) < 0.005, person.id + ' 裁切框应贴合六边内框比例');
+      assert.ok(style.includes('--rkd-portrait-size:' + person.width / width * 100 + '% auto'));
+      assert.ok(style.includes('--rkd-portrait-left:2px;--rkd-portrait-top:2px'));
+      assert.ok(!style.includes('--rkd-person:'));
+    } else {
+      assert.ok(Number.isInteger(person.panel), person.id + ' 必须有独立头像或合图位置');
+      assert.ok(style.includes('--rkd-person:' + person.panel));
+    }
+  }
+});
+
+for (const person of asteriskPortraits.characters) {
+  for (const name of [person.name, ...person.aliases]) check('学战明确姓名保持六边作品标记：' + name, () => {
+    const output = rendered(name + ':「同一世界的对话。」');
+    assert.ok(bubbleOpenings(output)[0].includes('data-rkd-asterisk="' + name + '"'));
+    assert.ok(bubbleOpenings(output)[0].includes('data-rkd-player=""'));
+  });
+  for (const name of [person.name, ...person.aliases]) check('Persona 与学战明确姓名重名仍保留NPC框：' + name, () => {
+    const output = rendered(name + ':「姓名相同不改变人物身份。」', 1, { user: name });
+    assert.ok(bubbleOpenings(output)[0].includes('data-rkd-asterisk="' + name + '"'));
+    assert.ok(bubbleOpenings(output)[0].includes('data-rkd-player=""'));
+  });
+}
+check('落第与学战同场混排，不按整场作品覆盖NPC框', () => {
+  const openings = bubbleOpenings(rendered('史黛菈:「一起走吧。」\n尤莉丝:「我知道了。」\n天雾绫斗:「请多指教。」\n玩家:「出发。」', 4));
+  assert.deepEqual(openings.map(opening => /data-rkd-asterisk="([^"]*)"/.exec(opening)[1]), ['', '尤莉丝', '天雾绫斗', '']);
+  assert.ok(!openings.some(opening => opening.includes('data-rkd-world=')), '玩家作品由消息MVU决定，正则不写默认作品');
+});
 
 check('驱动原子显式启用，默认及Izumi excludedTags生成字节保持兼容', () => {
   for (const [options, expected] of [

@@ -1,10 +1,11 @@
 from pathlib import Path
-import hashlib, json, re, shutil
+import hashlib, json, re, shutil, sys
 
 root = Path(__file__).resolve().parents[2]
 work = Path(__file__).resolve().parent
 source = root / '第一卷-世界书整理/开局页面/index.html'
 target = root / '第一卷-世界书整理/开局网页正则替换'
+stdout_only = '--stdout' in sys.argv
 original_bytes = source.read_bytes()
 s = original_bytes.decode('utf-8').replace('\r\n', '\n')
 def replace(old, new, count=1):
@@ -105,10 +106,14 @@ replace('          card.addEventListener("click", function (e) {', '''          
 branch('      function setProfileHelp(route) {','if (isAsteriskMode()) { document.getElementById("identity-help").textContent = "男性自定义学生 · " + selectedAcademy().name + "。原作人物仍独立存在，其身份与人际关系不会转移给玩家。"; return; }')
 replace('        if (avatarInput) avatarInput.disabled = isLocked;\n        updateAvatarUploadUi();','        if (avatarInput) avatarInput.disabled = isLocked;\n        applyWorldFieldLocks();\n        updateAvatarUploadUi();')
 branch('      function loadPreset(key) {','if (isAsteriskMode()) { if (key !== "user") return; return loadAsteriskPreset(); }')
-branch('      async function readConfirmedScene() {','if (isAsteriskMode()) { document.getElementById("opening-scene-feedback").textContent = "学战模式使用独立场景草稿，不读取落第聊天场景。"; return; }')
+replace('          setSceneInputs(snapshot.state["场景"] || {});', '          assertOpeningWorld(readOpeningDraft(), snapshot.state);\n          setSceneInputs(snapshot.state["场景"] || {});')
 branch('      function applySceneTemplate(type) {','if (isAsteriskMode()) return applyAsteriskSceneTemplate(type);')
 branch('      function insertBlankTemplate() {','if (isAsteriskMode()) return applyAsteriskSceneTemplate("dorm");')
 branch('      function buildGreetingPrompts(draft) {','if (draft.world_id === "asterisk") return buildAsteriskGreetingPrompts(draft);')
+
+# 禁用的剧情由注入器管理；这里仅允许当前主世界书的学战目录作为手选参考。
+replace('if (entry.enabled !== true || entry.probability === 0 || typeof entry.content !== "string" || !entry.content.trim()) return;', 'var manualAsteriskScene = includeUnmatched && isAsteriskMode() && book.name === openingBoundWorldbooks()[0] && asteriskScenePosition(entry) >= 0;\n            if ((!manualAsteriskScene && entry.enabled !== true) || entry.probability === 0 || typeof entry.content !== "string" || !entry.content.trim()) return;')
+
 replace('        var data = { profile: draft.profile, context: draft.context };','        var data = { world: draft.world_id === "asterisk" ? "学战都市 Asterisk" : "落第骑士英雄谭", school: draft.school_id, profile: draft.profile, context: draft.context };')
 replace('return JSON.stringify({ profile_key: draft.profile_key, profile: draft.profile, context: draft.context });','return JSON.stringify({ world_id: draft.world_id, school_id: draft.school_id, asterisk: draft.asterisk, profile_key: draft.profile_key, profile: draft.profile, context: draft.context });')
 branch('      function buildAiAssistancePrompt(draft) {','if ((draft || readOpeningDraft()).world_id === "asterisk") return buildAsteriskAssistancePrompt(draft || readOpeningDraft());')
@@ -125,8 +130,9 @@ replace('var ARCHIVE_KEY = "rakudai-opening-profiles-v2-slot-";', 'var ARCHIVE_K
 replace('parseAbilityLines(input.value, key === "nobleArt" ? "伐刀招式" : "其他能力");','parseAbilityLines(input.value, key === "nobleArt" ? (isAsteriskMode() ? "能力／武装招式" : "伐刀招式") : "其他能力");')
 branch('      function readOpeningDraft() {','if (isAsteriskMode()) return readAsteriskDraft();')
 replace('format: ARCHIVE_FORMAT, schema_version: ARCHIVE_VERSION, profile_key: activeStartProfile,','format: ARCHIVE_FORMAT, schema_version: ARCHIVE_VERSION, world_id: "rakudai", school_id: null, profile_key: activeStartProfile,')
-branch('      function buildOpeningMessage(draft, committedState) {','if (draft.world_id === "asterisk") return buildAsteriskOpeningMessage(draft);')
-branch('      function buildOpeningVariables(draft) {','if (draft.world_id === "asterisk") throw new Error("学战预览档案不能提交到落第变量结构。");')
+branch('      function buildOpeningMessage(draft, committedState) {','if (draft.world_id === "asterisk") return buildAsteriskOpeningMessage(draft, committedState);')
+branch('      function buildOpeningVariables(draft) {','if (draft.world_id === "asterisk") return buildAsteriskOpeningVariables(draft);')
+replace('"系统": { "结构版本": 4, "开局状态": "待建档", "主角模式": canon ? "黑铁一辉" : "自定义角色" },', '"系统": { "结构版本": 4, "作品": "rakudai", "开局状态": "待建档", "主角模式": canon ? "黑铁一辉" : "自定义角色" },')
 branch('      function validateArchive(data) {','''if (data && data.world_id === "asterisk") return validateAsteriskArchive(data);
         if (data && data.world_id && data.world_id !== "rakudai") throw new Error("不支持此开局世界。");
         if (data && data.format === "rakudai-opening-profile" && [2,3,4,5].includes(data.schema_version)) data = Object.assign({}, data, {format: ARCHIVE_FORMAT});''')
@@ -135,17 +141,20 @@ replace('这不是受支持的落第开局档案（支持版本 2、3、4、5）
 replace('return { format: ARCHIVE_FORMAT, schema_version: ARCHIVE_VERSION, profile_key: data.profile_key, profile: p, avatar: avatar, greeting: greeting, scene: validateScene(data.scene), context: context };','return { format: ARCHIVE_FORMAT, schema_version: ARCHIVE_VERSION, world_id: "rakudai", school_id: null, profile_key: data.profile_key, profile: p, avatar: avatar, greeting: greeting, scene: validateScene(data.scene, false, "rakudai"), context: context };')
 replace('function validateScene(input, requireComplete) {','function validateScene(input, requireComplete, world) {')
 replace('if (!OPENING_CHAPTERS.includes(clean["当前章"])) throw new Error("请在第一卷范围内选择章段。");','var chapters = (world || activeOpeningWorld) === "asterisk" ? AST_CHAPTERS : RAKUDAI_CHAPTERS;\n        if (!chapters.includes(clean["当前章"])) throw new Error("请选择当前世界允许的切入阶段。");')
-branch('      function openingController() {','if (isAsteriskMode()) throw new Error("学战预览不连接落第建档控制器。");')
-branch('      function applyAvatarToCurrentChat() {','if (isAsteriskMode()) { archiveFeedback("学战预览的头像仅随草稿保存，不应用到落第聊天。"); return; }')
-branch('      function currentOpeningReceipt(draft) {','if (draft.world_id === "asterisk") return null;')
+replace('        if (existing["当前卷"] !== 1) throw new Error("当前聊天不在第一卷，不能从此页面覆盖剧情卷数。");', '''        var pending = state["系统"] && state["系统"]["开局状态"] === "待建档";
+        var expectedVolume = activeOpeningWorld === "asterisk" ? null : 1;
+        if (existing["当前卷"] !== expectedVolume && !(pending && [null, 1].includes(existing["当前卷"]))) throw new Error("当前场景不属于本次开局范围，不能覆盖已保存剧情。");''')
+replace('      function applyAvatarToCurrentChat() {', '      async function applyAvatarToCurrentChat() {')
+replace('          var api = openingPlayerDisplay(), captured = api.capture();', '''          var basis = openingDraftKey(draft), snapshot = await captureOpeningState();
+          if (basis !== openingDraftKey(readOpeningDraft())) throw new Error("读取期间草稿已修改，请重新应用头像。");
+          assertOpeningWorld(draft, snapshot.state);
+          var api = openingPlayerDisplay(), captured = api.capture();''')
 replace('return stableOpeningJson({ profile_key: draft.profile_key, profile: draft.profile, avatar: draft.avatar, greeting: draft.greeting, scene: draft.scene, context: draft.context });','return stableOpeningJson({ world_id: draft.world_id, school_id: draft.school_id, asterisk: draft.asterisk, profile_key: draft.profile_key, profile: draft.profile, avatar: draft.avatar, greeting: draft.greeting, scene: draft.scene, context: draft.context });')
-branch('      function updateOpeningPreview(draft) {','''if (draft.world_id === "asterisk") {
-          document.getElementById("opening-message").value = buildAsteriskOpeningMessage(draft);
-          document.getElementById("opening-preview-title").textContent = "学战 · 开局草稿预览";
-          document.getElementById("opening-preview-help").textContent = "可以复制、保存并继续调整；此版本尚未连接学战游戏状态，预览不会开始剧情。";
-          return;
-        }''')
-branch('      async function enterGame() {','if (isAsteriskMode()) return previewAsteriskOpening();')
+replace('          var replacing = snapshot.state["系统"] && snapshot.state["系统"]["开局状态"] === "已建档";', '          assertOpeningWorld(draft, snapshot.state);\n          var replacing = snapshot.state["系统"] && snapshot.state["系统"]["开局状态"] === "已建档";')
+replace('            if (stableOpeningJson(verified.state) !== stableOpeningJson(existingReceipt.state)) throw new Error("已建档状态已变化，请重新读取后核对。");', '''            if (basis !== openingDraftKey(readOpeningDraft()) || existingReceipt !== openingReceipt) throw new Error("复核期间草稿已修改，请按当前草稿重新确认。");
+            if (stableOpeningJson(verified.state) !== stableOpeningJson(existingReceipt.state)) throw new Error("已建档状态已变化，请重新读取后核对。");''')
+replace('            openingReceipt = { basis: basis, state: result.state, token: snapshot.token };', '''            if (result.state["系统"]["作品"] !== draft.world_id || result.state["玩家"]?.["姓名"] !== draft.profile.name || (draft.world_id === "asterisk" && !result.state["玩家"]["学战"])) throw new Error("回读作品或人物档案不一致，当前草稿已保留，请更新控制器后重试。");
+            openingReceipt = { basis: basis, state: result.state, token: snapshot.token };''')
 replace('      function applyOpeningDraft(draft) {','      function applyOpeningDraft(draft, restoreMemory) {')
 branch('      function applyOpeningDraft(draft, restoreMemory) {','if (draft.world_id === "asterisk") return applyAsteriskDraft(draft, restoreMemory);\n        prepareIncomingWorld("rakudai");')
 replace('return "落第骑士_" + (draft.profile.name', 'return (draft.world_id === "asterisk" ? "学战都市_" : "落第骑士_") + (draft.profile.name')
@@ -173,13 +182,14 @@ replace('        prepareFinalCard();\n        var params = new URLSearchParams(w
 
 media=json.loads((work/'asterisk-media-manifest.json').read_text(encoding='utf-8'))
 asset_dir=target/'assets'/'asterisk'
-asset_dir.mkdir(parents=True,exist_ok=True)
+if not stdout_only: asset_dir.mkdir(parents=True,exist_ok=True)
 assets=[]
 def copy_asset(source_path, filename, asset_id, kind='image', preload='lazy'):
     src=root/source_path
     dst=asset_dir/filename
-    if not dst.exists() or dst.stat().st_size != src.stat().st_size: shutil.copy2(src,dst)
-    assets.append({'id':asset_id,'kind':kind,'source':{'type':'local','path':filename},'bytes':dst.stat().st_size,'sha256':hashlib.sha256(dst.read_bytes()).hexdigest(),'preload':preload,'lifetime':'message','fallbackAssetId':None,'originalSource':source_path})
+    if not stdout_only and (not dst.exists() or dst.stat().st_size != src.stat().st_size): shutil.copy2(src,dst)
+    checked = src if stdout_only else dst
+    assets.append({'id':asset_id,'kind':kind,'source':{'type':'local','path':filename},'bytes':checked.stat().st_size,'sha256':hashlib.sha256(checked.read_bytes()).hexdigest(),'preload':preload,'lifetime':'message','fallbackAssetId':None,'originalSource':source_path})
     return filename
 bundle={'volumes':[],'gallery':[],'missingVolumes':media['missingVolumes']}
 for v in media['volumes']:
@@ -207,7 +217,7 @@ bundle['logos']={
     'rakudai':copy_asset('第一卷-世界书整理/开局页面/rakudai-logo.png','logo-rakudai.png','logo-rakudai','image','eager'),
     'asterisk':copy_asset('output/asterisk-opening/source-assets/asterisk-logo.png','logo-asterisk.png','logo-asterisk','image','eager')
 }
-(asset_dir/'media-manifest.json').write_text(json.dumps({'schemaVersion':1,'cardId':'rakudai-asterisk-opening-preview','assets':assets},ensure_ascii=False,indent=2),encoding='utf-8')
+if not stdout_only: (asset_dir/'media-manifest.json').write_text(json.dumps({'schemaVersion':1,'cardId':'rakudai-asterisk-opening-preview','assets':assets},ensure_ascii=False,indent=2),encoding='utf-8')
 media_script='var OPENING_ASTERISK_MEDIA='+json.dumps(bundle,ensure_ascii=False)+';\n'+(work/'prelude-media.js').read_text(encoding='utf-8')
 replace('<script>\n      (function () {\n        var root = document.getElementById("lkPrelude");','<script>\n'+media_script+'\n      (function () {\n        var root = document.getElementById("lkPrelude");')
 replace('src="https://eriribot.github.io/rakudai-knight/op.mp4"','data-src="https://eriribot.github.io/rakudai-knight/op.mp4"',2)
@@ -216,6 +226,10 @@ replace('          preload="auto"','          preload="metadata"',2)
 s=re.sub(r'    <link\s+rel="preload"\s+as="video".*?/>\s*','',s,count=1,flags=re.S)
 s, title_preloads_removed=re.subn(r'[ \t]*<link\s+rel="preload"\s+as="image"\s+href="https://eriribot.github.io/rakudai-knight/title-screen-8k.png".*?/>\s*','',s,count=1,flags=re.S)
 if title_preloads_removed!=1: raise RuntimeError('Expected exactly one original title-art preload')
+if stdout_only:
+    sys.stdout.buffer.write(s.encode('utf-8'))
+    raise SystemExit(0)
+
 target.mkdir(parents=True, exist_ok=True)
 (target/'index.html').write_text(s,encoding='utf-8',newline='\n')
 for name in ['covers','default-avatar.png','rakudai-logo.png','knight-shield.png','knight-shield.svg']:

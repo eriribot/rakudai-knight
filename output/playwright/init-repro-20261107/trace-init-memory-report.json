@@ -1,0 +1,316 @@
+{
+  "task": "Opening initialization diagnostic; no fix",
+  "generatedAt": "2026-11-07T06:57:38.686Z",
+  "node": "v25.6.0",
+  "mode": "isolated-node-vm",
+  "passed": true,
+  "actualCode": [
+    "embedded state controller including local schema and state transitions",
+    "captureOpeningState",
+    "copyCardSummary",
+    "enterGame"
+  ],
+  "simulatedBoundaries": [
+    "TavernHelper global registration and message storage",
+    "DOM nodes",
+    "clipboard",
+    "validated synthetic rakudai draft",
+    "preview and portrait presentation"
+  ],
+  "limits": [
+    "Does not reproduce a real phone/browser or network failure.",
+    "Does not establish which dependency or interaction failed on the player device.",
+    "The global remains pending for the recorded hold period; source inspection identifies the lack of a timeout.",
+    "No generated story or real chat is used."
+  ],
+  "criticalLogicIdentical": true,
+  "sources": [
+    {
+      "id": "workspace-opening",
+      "path": "E:\\web\\落第\\第一卷-世界书整理\\开局网页正则替换\\index.html",
+      "fileSha256": "e39bd2a6db80b3ae447b03949f9c26ba55d497ab40e4f57a44d947527d29f016",
+      "extractedOpeningSha256": "e39bd2a6db80b3ae447b03949f9c26ba55d497ab40e4f57a44d947527d29f016",
+      "controllerSha256": "63cef00aa87fe8fb9cac371a21a76f7015d0d5d58077c7234829435ee913db82",
+      "captureSha256": "5f84966dd8227d52c851333771c90e8448b286d48565ff03eb717ac1af90c476",
+      "submitAndCopySha256": "1e891c8ba9a9f227204cacc42673d5953fcab76f0b8911b2272371d10ea86371",
+      "enterGameSha256": "2a34163ef7fb04f691a138e2b62f63cb1a96d2bb5823320900fb59e7a40f5dc0",
+      "captureLine": 11397,
+      "copyLine": 11443,
+      "enterGameLine": 11469,
+      "cases": [
+        {
+          "id": "missing-global-then-late-ready",
+          "passed": true,
+          "heldMs": 1500,
+          "beforeReady": {
+            "feedback": [
+              [
+                "正在核对本局状态并提交档案…"
+              ]
+            ],
+            "busy": true,
+            "buttonDisabled": true,
+            "writes": 0,
+            "receiptPresent": false,
+            "copiedCount": 0,
+            "system": {
+              "结构版本": 4,
+              "开局状态": "待建档",
+              "主角模式": "未选择"
+            }
+          },
+          "afterReady": {
+            "feedback": [
+              [
+                "正在核对本局状态并提交档案…"
+              ],
+              [
+                "建档成功并已回读。终端与正文气泡已共用档案头像。第一幕请求已生成，请检查后手动复制发送。",
+                false
+              ]
+            ],
+            "busy": false,
+            "buttonDisabled": false,
+            "writes": 1,
+            "receiptPresent": true,
+            "copiedCount": 0,
+            "system": {
+              "结构版本": 4,
+              "开局状态": "已建档",
+              "主角模式": "自定义角色",
+              "作品": "rakudai"
+            }
+          }
+        },
+        {
+          "id": "missing-stat-data-explicit-error",
+          "passed": true,
+          "result": {
+            "feedback": [
+              [
+                "正在核对本局状态并提交档案…"
+              ],
+              [
+                "当前楼层没有 MVU 初始化数据，请先检查初始化通知。",
+                true
+              ]
+            ],
+            "busy": false,
+            "buttonDisabled": false,
+            "writes": 0,
+            "receiptPresent": false,
+            "copiedCount": 0,
+            "system": null
+          }
+        },
+        {
+          "id": "copy-during-wait-cancels-submit",
+          "passed": true,
+          "result": {
+            "feedback": [
+              [
+                "正在核对本局状态并提交档案…"
+              ],
+              [
+                "档案草稿已复制；尚未写入聊天，也不会凭此草稿开始第一幕。"
+              ]
+            ],
+            "busy": false,
+            "buttonDisabled": false,
+            "writes": 0,
+            "receiptPresent": false,
+            "copiedCount": 1,
+            "system": {
+              "结构版本": 4,
+              "开局状态": "待建档",
+              "主角模式": "未选择"
+            }
+          }
+        },
+        {
+          "id": "later-assistant-floor-protection",
+          "passed": true,
+          "result": {
+            "feedback": [
+              [
+                "正在核对本局状态并提交档案…"
+              ],
+              [
+                "该开局页已是历史楼层；请在当前分支最新助手楼层操作，不能覆盖旧状态。",
+                true
+              ]
+            ],
+            "busy": false,
+            "buttonDisabled": false,
+            "writes": 0,
+            "receiptPresent": false,
+            "copiedCount": 0,
+            "system": {
+              "结构版本": 4,
+              "开局状态": "待建档",
+              "主角模式": "未选择"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "installed-card-opening",
+      "path": "F:/SillyTavern-Launcher/SillyTavern/data/default-user/characters/落第x学战v0.01.png",
+      "fileSha256": "45d46fad2318a75a656d3b81557e2d9d23db554cea62e7eaeb3c29ab32ab193f",
+      "extractedOpeningSha256": "405e6b96c41a5bc50c13b10118b7481fcdbd27d308402cdd509bd985a07f4a6f",
+      "cardName": "落第x学战v0.01",
+      "regexName": "[开局] 落第 × 学战 双开局 · EJS 修复 20261106",
+      "payloads": [
+        {
+          "keyword": "chara",
+          "replaceStringSha256": "405e6b96c41a5bc50c13b10118b7481fcdbd27d308402cdd509bd985a07f4a6f"
+        },
+        {
+          "keyword": "ccv3",
+          "replaceStringSha256": "405e6b96c41a5bc50c13b10118b7481fcdbd27d308402cdd509bd985a07f4a6f"
+        }
+      ],
+      "controllerSha256": "63cef00aa87fe8fb9cac371a21a76f7015d0d5d58077c7234829435ee913db82",
+      "captureSha256": "5f84966dd8227d52c851333771c90e8448b286d48565ff03eb717ac1af90c476",
+      "submitAndCopySha256": "1e891c8ba9a9f227204cacc42673d5953fcab76f0b8911b2272371d10ea86371",
+      "enterGameSha256": "2a34163ef7fb04f691a138e2b62f63cb1a96d2bb5823320900fb59e7a40f5dc0",
+      "captureLine": 11398,
+      "copyLine": 11444,
+      "enterGameLine": 11470,
+      "cases": [
+        {
+          "id": "missing-global-then-late-ready",
+          "passed": true,
+          "heldMs": 1500,
+          "beforeReady": {
+            "feedback": [
+              [
+                "正在核对本局状态并提交档案…"
+              ]
+            ],
+            "busy": true,
+            "buttonDisabled": true,
+            "writes": 0,
+            "receiptPresent": false,
+            "copiedCount": 0,
+            "system": {
+              "结构版本": 4,
+              "开局状态": "待建档",
+              "主角模式": "未选择"
+            }
+          },
+          "afterReady": {
+            "feedback": [
+              [
+                "正在核对本局状态并提交档案…"
+              ],
+              [
+                "建档成功并已回读。终端与正文气泡已共用档案头像。第一幕请求已生成，请检查后手动复制发送。",
+                false
+              ]
+            ],
+            "busy": false,
+            "buttonDisabled": false,
+            "writes": 1,
+            "receiptPresent": true,
+            "copiedCount": 0,
+            "system": {
+              "结构版本": 4,
+              "开局状态": "已建档",
+              "主角模式": "自定义角色",
+              "作品": "rakudai"
+            }
+          }
+        },
+        {
+          "id": "missing-stat-data-explicit-error",
+          "passed": true,
+          "result": {
+            "feedback": [
+              [
+                "正在核对本局状态并提交档案…"
+              ],
+              [
+                "当前楼层没有 MVU 初始化数据，请先检查初始化通知。",
+                true
+              ]
+            ],
+            "busy": false,
+            "buttonDisabled": false,
+            "writes": 0,
+            "receiptPresent": false,
+            "copiedCount": 0,
+            "system": null
+          }
+        },
+        {
+          "id": "copy-during-wait-cancels-submit",
+          "passed": true,
+          "result": {
+            "feedback": [
+              [
+                "正在核对本局状态并提交档案…"
+              ],
+              [
+                "档案草稿已复制；尚未写入聊天，也不会凭此草稿开始第一幕。"
+              ]
+            ],
+            "busy": false,
+            "buttonDisabled": false,
+            "writes": 0,
+            "receiptPresent": false,
+            "copiedCount": 1,
+            "system": {
+              "结构版本": 4,
+              "开局状态": "待建档",
+              "主角模式": "未选择"
+            }
+          }
+        },
+        {
+          "id": "later-assistant-floor-protection",
+          "passed": true,
+          "result": {
+            "feedback": [
+              [
+                "正在核对本局状态并提交档案…"
+              ],
+              [
+                "该开局页已是历史楼层；请在当前分支最新助手楼层操作，不能覆盖旧状态。",
+                true
+              ]
+            ],
+            "busy": false,
+            "buttonDisabled": false,
+            "writes": 0,
+            "receiptPresent": false,
+            "copiedCount": 0,
+            "system": {
+              "结构版本": 4,
+              "开局状态": "待建档",
+              "主角模式": "未选择"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "unchangedInputs": [
+    {
+      "path": "E:\\web\\落第\\第一卷-世界书整理\\开局网页正则替换\\index.html",
+      "sha256": "e39bd2a6db80b3ae447b03949f9c26ba55d497ab40e4f57a44d947527d29f016",
+      "unchanged": true
+    },
+    {
+      "path": "F:/SillyTavern-Launcher/SillyTavern/data/default-user/characters/落第x学战v0.01.png",
+      "sha256": "45d46fad2318a75a656d3b81557e2d9d23db554cea62e7eaeb3c29ab32ab193f",
+      "unchanged": true
+    },
+    {
+      "path": "E:\\web\\落第\\世界书规则\\MVU\\schema.mjs",
+      "sha256": "9bbe1469b1640409931c3cd4f94985ca67b12a0ecb5fd6e310353ca8fcef7062",
+      "unchanged": true
+    }
+  ]
+}

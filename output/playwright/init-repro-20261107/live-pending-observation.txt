@@ -1,0 +1,6 @@
+### Result
+{"elapsedMs":70742,"failures":[{"url":"https://cdn.jsdelivr.net/gh/MagicalAstrogy/MagVarUpdate@61010dab47bc3a08a1b626320bf7fc8c9573eca4/artifact/bundle.js","error":"net::ERR_FAILED"}],"read":{"mvu":"undefined","feedback":"正在核对本局状态并提交档案…","buttons":[{"text":"📋 复制档案草稿","disabled":false},{"text":"⚔️ 确认人物并生成第一幕请求","disabled":true}],"system":{"结构版本":4,"作品":null,"开局状态":"待建档","主角模式":"未选择"}}}
+### Ran Playwright code
+```js
+await (async page => {await page.locator("#WIDrawerIcon").click();await page.screenshot({path:"output/playwright/init-repro-20261107/mvu-load-failed-mobile-width.png"});page.__pendingEvidence={elapsedMs:Date.now()-page.__diagClickTime,failures:page.__diagFailures,read:await page.evaluate(()=>{const f=document.getElementById("TH-message--0--0"),d=f.contentDocument;return {mvu:typeof f.contentWindow.Mvu,feedback:d.getElementById("archive-feedback").textContent,buttons:[...d.querySelectorAll("button")].filter(b=>b.innerText.includes("确认人物")||b.innerText.includes("复制档案")).map(b=>({text:b.innerText,disabled:b.disabled})),system:SillyTavern.getContext().chat[0].variables[0].stat_data.系统}})};return page.__pendingEvidence;})(page);
+```

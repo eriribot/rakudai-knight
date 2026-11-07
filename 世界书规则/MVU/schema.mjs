@@ -1,5 +1,6 @@
 import { createTournamentSchema, createNationalTournamentSchema } from '../../scripts/rakudai-tournament.mjs';
 import { getStoryVolume, resolveStoryChapter, storyPosition } from '../../scripts/rakudai-story-catalog.mjs';
+import { resolveMvuWorld, ASTERISK_CONTRACT } from '../../scripts/rakudai-mvu-structure.mjs';
 
 // 本卡 stat_data v4。纯 schema 工厂；不访问聊天、不自动迁移旧楼层。
 // CHAPTERS 仅为旧 v3 第一卷验证与开局兼容枚举；运行中卷章以共享目录为准。
@@ -178,7 +179,7 @@ export function enforceRelationshipContact(variables, previous, { replyKey = '',
   }
   return changed;
 }
-export const INITIAL_STATE = {
+export const RAKUDAI_INITIAL_STATE = {
   系统: { 结构版本: 4, 开局状态: '待建档', 主角模式: '未选择' },
   场景: { 当前卷: 1, 当前章: '待选择', 阶段: '未开始', 时间: '', 地点: '', 切入说明: '', 已发生事件: {} },
   玩家: {
@@ -192,6 +193,12 @@ export const INITIAL_STATE = {
     综合初评: { 规则版本: 'R05-第一版', 分数: null, 等级: null, 拟定登记等级: null, 评定状态: '待填写六维', 待填写项: AXES.slice(0, 4) },
     登记等级: null,
   },
+  人际: {},
+};
+export const INITIAL_STATE = {
+  系统: { 结构版本: 4, 作品: null, 开局状态: '待建档', 主角模式: '未选择' },
+  场景: { 当前卷: null, 当前章: '待选择', 阶段: '未开始', 时间: '', 地点: '', 切入说明: '', 已发生事件: {} },
+  玩家: { 性别: '男性', 姓名: '', 性格关键词: '', 处事风格: '', 所属: '', 角色简介: '', 战斗风格: '', 其他能力: {} },
   人际: {},
 };
 
@@ -240,7 +247,8 @@ function createStateSchema(z, version, { normalizeRelationships = true } = {}) {
   }).strict();
   const skillObject = z.object({ 说明: text, 条件与代价: text, 掌握状态: z.enum(['待确认', '学习中', '已掌握']) }).strict();
   const skill = version === 4 ? z.preprocess(value => normalizeSkillEntry(value), skillObject) : skillObject;
-  const knownProfile = z.object({ 身份: text.optional(), 登记等级: text.optional(), 灵装: text.optional(), 已知能力: text.optional() }).strict();
+  const knownProfile = z.object({ 身份: text.optional(), 登记等级: text.optional(), 灵装: text.optional(), 已知能力: text.optional(),
+    ...(version === 4 ? { 所属: text.optional(), 武装: text.optional(), 校内序列: text.optional() } : {}) }).strict();
   const scheduleDate = text.refine(value => {
     if (value === '') return true;
     if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
@@ -260,14 +268,34 @@ function createStateSchema(z, version, { normalizeRelationships = true } = {}) {
   const relationshipReceipt = z.object({
     回合: text.min(1), 人物: record(z.object({ 好感: scoreReceipt.optional(), 支援度: scoreReceipt.optional() }).strict()),
   }).strict();
-  const root = z.object({
+  const commonPlayer = {
+    性别: z.literal('男性').default('男性'), 姓名: text, 性格关键词: text, 处事风格: text, 所属: text, 角色简介: text, 战斗风格: text,
+    其他能力: record(skill), ...(version === 4 ? { 当前身体: text.optional(), 当前能力边界: text.optional(), 本局映射: text.optional() } : {}),
+  };
+  const bladeAbility = z.object({ 能力系别: z.enum(['', '体能强化系', '自然干涉系', '概念干涉系', '因果干涉系']), 能力本质: text, 共通限制: text, 招式: record(skill) }).strict();
+  const attributes = z.object(Object.fromEntries(AXES.map(axis => [axis, z.enum(['', ...(version === 4 ? ATTRIBUTE_GRADES : GRADES)])]))).strict();
+  // 复用原路径；落第人物可以只保存武装，不因此补出六花学籍或星辰力。
+  const asteriskProfile = z.object({
+    学园ID: z.enum(ASTERISK_CONTRACT.schools),
+    能力身份: z.enum(ASTERISK_CONTRACT.identities), 能力机制: text, 共通限制: text, 招式: record(skill),
+    星辰力: z.object({ 说明: text }).strict(),
+    校内序列: z.object({ 状态: z.enum(ASTERISK_CONTRACT.ranks), 名次: z.number().int().min(1).max(72).nullable() }).strict()
+      .refine(value => (value.状态 === '已上榜') === (value.名次 !== null), '已上榜必须有1—72名次，未知或未上榜名次必须为null'),
+    武装: z.object({ 类别: z.enum(ASTERISK_CONTRACT.weapons), 名称: text, 使用条件: text }).strict(),
+  }).strict();
+  const shared = {
     // MVU 更新过程临时注入的框架元数据；保留原值，不作为本卡业务结构校验。
     $internal: z.unknown().optional(),
     系统: z.object({
       结构版本: z.literal(version), 开局状态: z.enum(['待建档', '已建档']), 主角模式: z.enum(['未选择', '黑铁一辉', '自定义角色']),
+      ...(version === 4 ? { 作品: z.enum(['rakudai', 'asterisk']).nullable().optional() } : {}),
       // 随当前楼层和活动 swipe 保存；回退读取旧快照，不使用聊天级或本地存储黑名单。
       ...(version === 4 ? { 已删除人物: z.array(key).optional(), 关系计分: relationshipReceipt.optional() } : {}),
     }).strict(),
+    人际: record(z.object({ 关系: text, 态度印象: text, 性别: z.enum(['未知', '男性', '女性']).optional(), 已加联系方式: z.boolean().optional(), ...(version === 4 ? { 名册隐藏: z.boolean().optional(), 联系状态: z.enum(['仅识别', '已建立联系']).optional(), 联系依据: text.optional() } : {}), 好感: z.number().min(RELATIONSHIP_SCORING.affection.min).max(RELATIONSHIP_SCORING.affection.max).nullable(), 支援度: z.number().int().min(RELATIONSHIP_SCORING.support.min).max(RELATIONSHIP_SCORING.support.max).nullable().optional(), 羁绊阶段: z.enum(['未定', '未建立', 'C', 'B', 'A', 'S']), 恋爱阶段: z.enum(RELATIONSHIP_SCORING.romance.stages.map(item => item.stage)).optional(), 好感突破依据: text.optional(), 变化依据: text, 已知资料: knownProfile.optional() }).strict()),
+  };
+  const root = z.object({
+    ...shared,
     场景: z.object({
       当前卷: version === 3 ? z.literal(1) : volumeNumber,
       当前章: version === 3 ? z.enum(CHAPTERS) : text.min(1),
@@ -279,23 +307,22 @@ function createStateSchema(z, version, { normalizeRelationships = true } = {}) {
       ...(version === 4 ? { 日程: record(schedule).optional(), 选拔赛: createTournamentSchema(z).optional(), 七星剑斗祭: createNationalTournamentSchema(z).optional() } : {}),
     }).strict(),
     玩家: z.object({
-      性别: z.literal('男性').default('男性'),
+      ...commonPlayer,
       // 唯一觉醒开关；不接受字符串或 0/1。旧档未保存时按未觉醒读取，不推断旧境界。
       ...(version === 4 ? { 魔人觉醒: z.boolean().default(false) } : {}),
-      姓名: text, 性格关键词: text, 处事风格: text, 所属: text, 固有灵装: text, 角色简介: text, 战斗风格: text,
-      伐刀能力: z.object({ 能力系别: z.enum(['', '体能强化系', '自然干涉系', '概念干涉系', '因果干涉系']), 能力本质: text, 共通限制: text, 招式: record(skill) }).strict(),
-      其他能力: record(skill),
-      六维: z.object(Object.fromEntries(AXES.map(axis => [axis, z.enum(['', ...(version === 4 ? ATTRIBUTE_GRADES : GRADES)])]))).strict(),
+      固有灵装: text,
+      伐刀能力: bladeAbility,
+      六维: attributes,
       综合初评: z.object({
         规则版本: text, 分数: z.number().min(1).max(6).nullable(), 等级: z.enum(GRADES).nullable(), 拟定登记等级: z.enum(GRADES).nullable(),
         评定状态: z.enum(['待填写六维', '已计算', '原作档案']), 待填写项: z.array(z.enum(AXES.slice(0, 4))),
       }).strict(),
       登记等级: z.enum(GRADES).nullable(),
-      ...(version === 4 ? { 成长: growth.optional() } : {}),
+      ...(version === 4 ? { 成长: growth.optional(), 学战: asteriskProfile.partial().optional() } : {}),
     }).strict(),
-    人际: record(z.object({ 关系: text, 态度印象: text, 性别: z.enum(['未知', '男性', '女性']).optional(), 已加联系方式: z.boolean().optional(), ...(version === 4 ? { 名册隐藏: z.boolean().optional(), 联系状态: z.enum(['仅识别', '已建立联系']).optional(), 联系依据: text.optional() } : {}), 好感: z.number().min(RELATIONSHIP_SCORING.affection.min).max(RELATIONSHIP_SCORING.affection.max).nullable(), 支援度: z.number().int().min(RELATIONSHIP_SCORING.support.min).max(RELATIONSHIP_SCORING.support.max).nullable().optional(), 羁绊阶段: z.enum(['未定', '未建立', 'C', 'B', 'A', 'S']), 恋爱阶段: z.enum(RELATIONSHIP_SCORING.romance.stages.map(item => item.stage)).optional(), 好感突破依据: text.optional(), 变化依据: text, 已知资料: knownProfile.optional() }).strict()),
   }).strict().superRefine((state, ctx) => {
     const issue = (path, message) => ctx.addIssue({ code: 'custom', path, message });
+    if (version === 4 && (state.系统.作品 === 'asterisk' || state.系统.开局状态 === '已建档' && resolveMvuWorld(state) !== 'rakudai')) issue(['系统', '作品'], '落第档案需要落第作品标记');
     if (state.系统.开局状态 === '已建档' && (state.系统.主角模式 === '未选择' || !state.玩家.姓名.trim())) issue(['系统', '开局状态'], '已建档需要已选身份和非空姓名');
     if (state.场景.阶段 !== '未开始' && state.系统.开局状态 !== '已建档') issue(['场景', '阶段'], '先完成建档，再开始剧情');
     if (state.场景.当前章 === '待选择' && state.场景.阶段 !== '未开始') issue(['场景', '阶段'], '未选择章段时不能开始或结束剧情');
@@ -313,6 +340,41 @@ function createStateSchema(z, version, { normalizeRelationships = true } = {}) {
       if (relation.恋爱阶段 !== undefined && romanceStage(relation) === null) issue(['人际', name, '恋爱阶段'], '只有已确认女性且好感为有效数值时才能派生恋爱阶段；男性、性别未知或好感待核定时不能预写。');
     }
   });
+  const sharedScene = {
+    当前卷: z.null(), 当前章: text.min(1), 阶段: z.preprocess(normalizeStoryPhase, z.enum(['未开始', '进行中', '已结束'])),
+    时间: text, 地点: text, 切入说明: text.default(''),
+    已发生事件: record(z.object({ 卷号: z.null(), 章段: text.min(1), 结果: text.min(1), 参与者: z.array(text.min(1)), 知情者: z.array(text.min(1)) }).strict()),
+    日程: record(schedule).optional(),
+  };
+  const asterisk = z.object({
+    ...shared, 系统: shared.系统.extend({ 作品: z.literal('asterisk'), 主角模式: z.enum(['未选择', '自定义角色']) }),
+    场景: z.object(sharedScene).strict(),
+    玩家: z.object({ ...commonPlayer, 学战: asteriskProfile,
+      // 能力来自本局事实，主线不会自动授予能力、评级或觉醒。
+      伐刀能力: bladeAbility.optional(), 固有灵装: text.optional(), 登记等级: z.enum(GRADES).nullable().optional(),
+      魔人觉醒: z.boolean().optional(), 六维: attributes.optional(), 成长: growth.optional(),
+    }).strict(),
+  }).strict().superRefine((state, ctx) => {
+    const issue = (path, message) => ctx.addIssue({ code: 'custom', path, message });
+    if (state.系统.开局状态 === '已建档' && (state.系统.主角模式 === '未选择' || !state.玩家.姓名.trim())) issue(['系统', '开局状态'], '已建档需要已选身份和非空姓名');
+    if (state.场景.阶段 !== '未开始' && state.系统.开局状态 !== '已建档') issue(['场景', '阶段'], '先完成建档，再开始剧情');
+    if (state.场景.当前章 === '待选择' && state.场景.阶段 !== '未开始') issue(['场景', '阶段'], '未选择阶段时不能开始剧情');
+    for (const [name, relation] of Object.entries(state.人际)) if (relation.恋爱阶段 !== undefined && romanceStage(relation) === null) issue(['人际', name, '恋爱阶段'], '未确认女性或好感时不能预写恋爱阶段');
+  });
+  const unselected = z.object({ ...shared,
+    系统: shared.系统.extend({ 作品: z.null().optional(), 开局状态: z.literal('待建档'), 主角模式: z.literal('未选择') }),
+    场景: z.object({ ...sharedScene, 阶段: z.literal('未开始') }).strict(), 玩家: z.object(commonPlayer).strict(),
+  }).strict();
+  function validateSelectedBranch(value, ctx) {
+    if (version !== 4) return value;
+    const system = value?.系统;
+    const selected = system?.作品 === 'asterisk' ? asterisk : system?.作品 === 'rakudai' ||
+      !Object.hasOwn(system || {}, '作品') && (resolveMvuWorld(value) === 'rakudai' || value?.场景?.当前卷 != null) ? root : unselected;
+    const checked = selected.safeParse(value);
+    // 保留当前作品的叶字段错误，避免 union 的根级 Invalid input 遮住副校正修复路径。
+    if (!checked.success) for (const issue of checked.error.issues) ctx.addIssue(issue);
+    return value;
+  }
   // 上游桥接器对直接传入的 ZodObject 会改用 looseObject。
   // preprocess 保留本卡固定字段的 strict 校验；在 record 可能忽略保留键前明确拒绝。
   return z.preprocess((value, ctx) => {
@@ -326,7 +388,7 @@ function createStateSchema(z, version, { normalizeRelationships = true } = {}) {
     }
     inspect(value);
     // 只接收目录声明的精确别名，并在校验结果中归一成稳定章节键。
-    if (version === 4 && value?.场景 && typeof value.场景 === 'object' && !Array.isArray(value.场景)) {
+    if (version === 4 && value?.系统?.作品 !== 'asterisk' && value?.场景 && typeof value.场景 === 'object' && !Array.isArray(value.场景)) {
       const scene = { ...value.场景, 当前卷: normalizeStoryVolume(value.场景.当前卷) };
       const chapter = resolveStoryChapter(scene.当前卷, scene.当前章);
       const events = scene.已发生事件;
@@ -341,7 +403,7 @@ function createStateSchema(z, version, { normalizeRelationships = true } = {}) {
     }
     // 数值已经存在才派生阶段。旧记录缺支援度或为 null 时完全保留，绝不凭字母倒填分。
     // 只复制待归一化对象，schema.parse 不修改调用方或框架 $internal 快照。
-    if (!normalizeRelationships || !value?.人际 || typeof value.人际 !== 'object' || Array.isArray(value.人际)) return value;
+    if (!normalizeRelationships || !value?.人际 || typeof value.人际 !== 'object' || Array.isArray(value.人际)) return validateSelectedBranch(value, ctx);
     const relations = Object.fromEntries(Object.entries(value.人际).map(([name, relation]) => {
       const stage = supportStage(relation?.支援度);
       const romance = romanceStage(relation);
@@ -351,8 +413,8 @@ function createStateSchema(z, version, { normalizeRelationships = true } = {}) {
       else delete normalized.恋爱阶段;
       return [name, normalized];
     }));
-    return { ...value, 人际: relations };
-  }, root);
+    return validateSelectedBranch({ ...value, 人际: relations }, ctx);
+  }, version === 4 ? z.union([root, asterisk, unselected]) : root);
 }
 
 // 离线 v2 迁移：拒绝未识别数据，不覆盖聊天，不凭招式名猜测多招式分隔。

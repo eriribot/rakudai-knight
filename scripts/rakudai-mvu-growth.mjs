@@ -2,6 +2,7 @@ import { GROWTH_AXES, GROWTH_RULES, ATTRIBUTE_GRADES } from '../世界书规则/
 import { enforceGrowthProgress } from './rakudai-state-core.mjs';
 import { rakudaiMvuScopes, rakudaiMvuRuntime } from './rakudai-mvu-native.mjs';
 import { createRakudaiMvuReplySource } from './rakudai-mvu-reply-source.mjs';
+import { isSharedMvuState, hasBlazerGrowth } from './rakudai-mvu-structure.mjs';
 
 // 可选成长结算不注册 Zod、不请求模型；只接管原生模式的成长账本与晋级。
 export async function installRakudaiMvuGrowth(W) {
@@ -9,9 +10,9 @@ export async function installRakudaiMvuGrowth(W) {
   const existing = scopes.map(scope => { try { return scope[slot]; } catch (_) { return null; } })
     .find(value => value?.version === 'G04' && value.state !== 'failed');
   // 同 iframe 重复启动复用；新 iframe 必须接管，不能继承即将 pagehide 的旧 helper。
-  if (existing?.windowRef === W) return existing;
+  if (existing?.windowRef === W && existing.capabilities === 'H01') return existing;
   for (const scope of scopes) { try { scope[slot]?.destroy?.(); } catch (_) {} }
-  const marker = { version: 'G04', state: 'loading', growth: GROWTH_RULES.version,
+  const marker = { version: 'G04', capabilities: 'H01', state: 'loading', growth: GROWTH_RULES.version,
     growthSettlement: 'G04', repair: 'P02', repairSource: 'MVU01', parseRepair: null, destroy: null };
   Object.defineProperty(marker, 'windowRef', { value: W });
   for (const scope of scopes) { try { scope[slot] = marker; } catch (_) {} }
@@ -53,12 +54,12 @@ export async function installRakudaiMvuGrowth(W) {
     const sources = createRakudaiMvuReplySource(W, { mvu, assertRepairAvailable: requireNative });
     marker.parseRepair = sources.parseRepair;
     commandListener = helper('eventOn')(mvu.events.COMMAND_PARSED, (variables, commands, content) => {
-      if (nativeActive()) sources.capture(variables, content);
+      if (nativeActive() && isSharedMvuState(variables?.stat_data)) sources.capture(variables, content);
       else sources.take(variables);
     });
     endedListener = helper('eventOn')(mvu.events.VARIABLE_UPDATE_ENDED, (variables, previous) => {
       const { source, replyKey } = sources.take(variables);
-      if (!nativeActive()) return;
+      if (!nativeActive() || !hasBlazerGrowth(variables?.stat_data)) return;
       const object = value => value && typeof value === 'object' && !Array.isArray(value);
       const before = previous?.stat_data?.玩家, after = variables?.stat_data?.玩家;
       if (!object(before) || !object(after)) return;

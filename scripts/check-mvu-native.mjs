@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import { INITIAL_STATE } from '../世界书规则/MVU/schema.mjs';
+import { RAKUDAI_INITIAL_STATE as INITIAL_STATE, INITIAL_STATE as NEUTRAL_INITIAL_STATE } from '../世界书规则/MVU/schema.mjs';
 import { prepareRakudaiNativeMvu, rakudaiMvuRuntime, installRakudaiNativeMvu } from './rakudai-mvu-native.mjs';
 import { repairRakudaiMvuStructure } from './rakudai-mvu-structure.mjs';
 import { normalizeRakudaiMvuCommands } from './rakudai-mvu-patch.mjs';
@@ -10,9 +10,12 @@ async function check(name, run) {
   try { await run(); checks.push({ name, passed: true }); }
   catch (error) { checks.push({ name, passed: false, error: error.stack }); }
 }
-const sample = () => ({ stat_data: repairRakudaiMvuStructure(structuredClone(INITIAL_STATE)), schema: '没有用别管这个', external: { retained: true } });
+const sample = () => ({ stat_data: repairRakudaiMvuStructure({ ...structuredClone(INITIAL_STATE), 系统: { ...INITIAL_STATE.系统, 作品: 'rakudai' } }), schema: '没有用别管这个', external: { retained: true } });
 const legacy = () => { const data = sample(); delete data.stat_data.玩家.成长; return data; };
-await check('新初始化只有经验三轴零初值，不生成申请、收据或奖励', () => {
+await check('新初始化保持中性；明确落第后才补经验三轴零初值', () => {
+  assert.equal(NEUTRAL_INITIAL_STATE.系统.作品, null); assert.equal(NEUTRAL_INITIAL_STATE.场景.当前卷, null);
+  assert.equal(NEUTRAL_INITIAL_STATE.玩家.成长, undefined); assert.equal(NEUTRAL_INITIAL_STATE.玩家.六维, undefined);
+  assert.equal(repairRakudaiMvuStructure(NEUTRAL_INITIAL_STATE), NEUTRAL_INITIAL_STATE);
   assert.deepEqual(INITIAL_STATE.玩家.成长, { 经验: { 魔力控制: 0, 体能: 0, 魔力量: 0 } });
 });
 await check('纯结构修复补双缺容器，保留业务值、未知字段与调用方', () => {
@@ -148,16 +151,16 @@ await check('跨源top不可访问时仍识别同源parent的实际guard', () =>
   assert.equal(rakudaiMvuRuntime([W]).mode, 'zod');
 });
 function fixture({ commands = false } = {}) {
-  const handlers = new Set(), commandHandlers = new Set(), unload = new Set(); let ctx = { characterId: 7, groupId: null };
+  const handlers = new Set(), commandHandlers = new Set(), endHandlers = new Set(), unload = new Set(); let ctx = { characterId: 7, groupId: null };
   const W = {
     SillyTavern: { getContext: () => ctx },
-    Mvu: { events: { VARIABLE_UPDATE_STARTED: 'started', ...(commands ? { COMMAND_PARSED: 'parsed' } : {}) } },
+    Mvu: { events: { VARIABLE_UPDATE_STARTED: 'started', VARIABLE_UPDATE_ENDED: 'ended', ...(commands ? { COMMAND_PARSED: 'parsed' } : {}) } },
     waitGlobalInitialized: async () => {},
-    eventOn: (event, callback) => { assert.ok(['started', 'parsed'].includes(event)); const target = event === 'parsed' ? commandHandlers : handlers; target.add(callback); return { stop: () => target.delete(callback) }; },
+    eventOn: (event, callback) => { assert.ok(['started', 'parsed', 'ended'].includes(event)); const target = event === 'parsed' ? commandHandlers : event === 'ended' ? endHandlers : handlers; target.add(callback); return { stop: () => target.delete(callback) }; },
     addEventListener: (event, callback) => { if (event === 'pagehide') unload.add(callback); },
     removeEventListener: (event, callback) => unload.delete(callback),
   };
-  return { W, handlers, commandHandlers, emit: value => handlers.forEach(callback => callback(value)),
+  return { W, handlers, commandHandlers, endHandlers, emit: value => handlers.forEach(callback => callback(value)),
     parsed: (value, commands) => commandHandlers.forEach(callback => callback(value, commands, '本轮正文')),
     switchCard: () => { ctx = { characterId: 8, groupId: null }; }, unload: () => [...unload].forEach(callback => callback()) };
 }
@@ -213,7 +216,7 @@ await check('可选作品门禁拒绝学战事件时不补成长、不改schema�
   const f = fixture({ commands: true });
   await installRakudaiNativeMvu(f.W, { acceptState: state => state?.系统?.作品 === 'rakudai' });
   for (const world of ['asterisk', 'unknown', undefined]) {
-    const data = legacy(); if (world !== undefined) data.stat_data.系统.作品 = world;
+    const data = legacy(); if (world !== undefined) data.stat_data.系统.作品 = world; else delete data.stat_data.系统.作品;
     const commands = [nativeCommand('replace', '/人际/新人/关系', '同学'), nativeCommand('add', '/人际/新人/好感', 4)];
     const before = structuredClone({ data, commands });
     f.emit(data); f.parsed(data, commands); assert.deepEqual({ data, commands }, before);
@@ -222,7 +225,7 @@ await check('可选作品门禁拒绝学战事件时不补成长、不改schema�
   const commands = [nativeCommand('replace', '/人际/新人/关系', '同学'), nativeCommand('add', '/人际/新人/好感', 4)];
   f.emit(allowed); f.parsed(allowed, commands);
   assert.equal(allowed.schema.strictSet, true); assert.ok(allowed.stat_data.玩家.成长); assert.equal(commands.length, 1);
-  f.unload(); assert.equal(f.handlers.size, 0); assert.equal(f.commandHandlers.size, 0);
+  f.unload(); assert.equal(f.handlers.size, 0); assert.equal(f.commandHandlers.size, 0); assert.equal(f.endHandlers.size, 0);
 });
 await check('同版重复安装更新门禁且默认调用不清除已配置门禁', async () => {
   const f = fixture({ commands: true }), first = await installRakudaiNativeMvu(f.W);
@@ -238,7 +241,7 @@ await check('同版重复安装更新门禁且默认调用不清除已配置门�
 });
 await check('旧同版marker缺少门禁能力时仅在请求门禁后替换，非法谓词不破坏已有实例', async () => {
   const f = fixture(); let destroyed = 0;
-  const old = { version: 'N04', dorm: 'D01', state: 'ready', destroy: () => destroyed++ };
+  const old = { version: 'N04', dorm: 'D01', worlds: 'W02', capabilities: 'H01', state: 'ready', destroy: () => destroyed++ };
   f.W.__RK_MVU_NATIVE_N01__ = old;
   assert.equal(await installRakudaiNativeMvu(f.W), old); assert.equal(destroyed, 0);
   await assert.rejects(installRakudaiNativeMvu(f.W, { acceptState: true }), /同步状态判定函数/);
@@ -246,6 +249,20 @@ await check('旧同版marker缺少门禁能力时仅在请求门禁后替换，�
   const marker = await installRakudaiNativeMvu(f.W, { acceptState: () => false });
   assert.notEqual(marker, old); assert.equal(destroyed, 1); assert.equal(marker.state, 'ready');
   const data = legacy(), before = structuredClone(data); f.emit(data); assert.deepEqual(data, before); f.unload();
+});
+await check('旧N04没有作品隔离能力时必须替换，避免复用会补落第经验的旧回调', async () => {
+  const f = fixture(); let destroyed = 0;
+  const old = { version: 'N04', dorm: 'D01', worlds: 'W01', state: 'ready', destroy: () => destroyed++ };
+  f.W.__RK_MVU_NATIVE_N01__ = old;
+  const marker = await installRakudaiNativeMvu(f.W);
+  assert.notEqual(marker, old); assert.equal(destroyed, 1); assert.equal(marker.worlds, 'W02'); f.unload();
+});
+await check('旧N04能力互斥回调必须替换，保留同一作品标记版本', async () => {
+  const f = fixture(); let destroyed = 0;
+  const old = { version: 'N04', dorm: 'D01', worlds: 'W02', state: 'ready', destroy: () => destroyed++ };
+  f.W.__RK_MVU_NATIVE_N01__ = old;
+  const marker = await installRakudaiNativeMvu(f.W);
+  assert.notEqual(marker, old); assert.equal(destroyed, 1); assert.equal(marker.capabilities, 'H01'); f.unload();
 });
 await check('N04纯归一合并缺父记录并纠正replace缺字段，不修改输入', () => {
   const state = sample().stat_data;

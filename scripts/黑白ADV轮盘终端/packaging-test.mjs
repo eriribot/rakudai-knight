@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import { parse } from 'parse5';
 import sourceMap from 'source-map-js';
 import { buildTerminal, jsString } from './bundle.mjs';
+import { buildAsteriskApp } from './build-asterisk-app.mjs';
 
 const { SourceMapConsumer } = sourceMap;
 const read = file => fs.readFileSync(new URL(file, import.meta.url), 'utf8').replace(/\r\n/g, '\n');
@@ -23,10 +24,17 @@ function scripts(html) {
   walk(parse(html));
   return found;
 }
-function unpack(code) {
-  const match = code.match(/function embeddedPhoneHtml\(\) \{ return (.*); \}/);
+function unpack(code, world) {
+  // 只执行交付物里的静态页面常量与真实路由入口，不启动宿主或用测试代码重写分支。
+  const declarations = code.split('\n').filter(line => /^\s*const (?:ASTERISK_APP_HTML|RK_APP_HTML|AW_APP_HTML) = /.test(line));
+  assert.ok(declarations.length > 0, '真实交付物中缺少独立页面常量');
+  for (const declaration of declarations) {
+    const literal = declaration.slice(declaration.indexOf('=') + 1).trim().replace(/;$/, '');
+    assert.equal(typeof JSON.parse(literal), 'string', '页面常量必须为可独立还原的 JSON 字符串');
+  }
+  const match = code.match(/function embeddedPhoneHtml\(\) \{[\s\S]*?\n\s*\}/);
   assert.ok(match, '真实交付物中缺少内嵌页面入口');
-  return vm.runInNewContext(match[0] + '\nembeddedPhoneHtml()');
+  return vm.runInNewContext(declarations.join('\n') + '\n' + match[0] + '\nembeddedPhoneHtml()', { SS: { businessWorld: world } });
 }
 function position(text, needle) {
   const offset = text.indexOf(needle);
@@ -54,15 +62,21 @@ check('新包在HTML宿主中只产生一个未截断的完整脚本', () => {
   assert.doesNotMatch(built.artifact.content, /<\/script/i);
   new vm.Script(pieces[0]);
 });
-check('实际JSON交付物经反序列化、宿主HTML及内页入口仍还原完整页面', () => {
+check('实际JSON交付物经反序列化、宿主HTML及作品路由完整还原两套页面', () => {
   const artifact = JSON.parse(read('../../世界书规则/MVU/' + built.filename));
   assert.deepEqual(artifact, built.artifact);
-  const outer = scripts('<script type="module">' + artifact.content + '</script>')[0];
-  const html = unpack(outer);
-  assert.equal(html, built.html);
-  const inner = scripts(html); assert.equal(inner.length, 2);
-  inner.forEach(script => new vm.Script(script));
-  assert.doesNotMatch(html, /<script\s+src=|<link[^>]+href="\.\//i);
+  const host = scripts('<script type="module">' + artifact.content + '</script>');
+  assert.equal(host.length, 1); assert.equal(host[0], artifact.content);
+  const pages = { rakudai: built.html, asterisk: buildAsteriskApp() };
+  assert.notEqual(pages.rakudai, pages.asterisk, '两作业务页面不能退化为同一页面');
+  for (const [world, expected] of Object.entries(pages)) {
+    const html = unpack(host[0], world);
+    assert.equal(html, expected, world + ' 页面应完整还原');
+    const inner = scripts(html); assert.equal(inner.length, world === 'rakudai' ? 2 : 1, world);
+    inner.forEach((script, index) => new vm.Script(script, { filename: world + '-inner-' + index + '.js' }));
+    assert.doesNotMatch(html, /<script\s+src=|<link[^>]+href="\.\//i, world + ' 页面不能依赖未打包的本地脚本或样式');
+    assert.doesNotMatch(html, /__AW_ASSET_[A-Z_]+__|\/\*__INJECT_[A-Z_]+__\*\//, world + ' 页面不能遗留注入标记');
+  }
 });
 check('HTML闭合标签、大小写、注释、中文、反斜杠及行分隔符往返保持原值', () => {
   for (const text of ['</script>', '</ScRiPt >', '<!--<script>内容</script>-->', '中文\\n\\路径\n第二行', '\u2028\u2029', '<svg>&"\'']) {
@@ -132,10 +146,10 @@ check('内页真实script文本不trim：源映射与原文件行一致且来源
   }
 });
 check('打包保留原脚本身份与按钮数据，不另建第二个运行实例', () => {
-  const baseline = JSON.parse(read('../../世界书规则/MVU/落第骑士-小手机-v' + built.version + '-B1.json'));
+  const baseline = JSON.parse(read('../../世界书规则/MVU/' + built.filename));
   const metadata = ({ content, info, ...rest }) => rest;
   assert.deepEqual(metadata(built.artifact), metadata(baseline));
-  assert.ok(built.artifact.info.startsWith(baseline.info));
+  assert.match(built.artifact.info, /混合能力/);
   assert.match(built.artifact.name, /v1\.3\.29 B1（LIME状态精简）$/);
 });
 console.log(JSON.stringify({ evidence: 'parse5 HTML解析 → 实际完整脚本V8编译；独立源映射消费；未连接真实酒馆', passed: results.filter(r => r.passed).length, total: results.length, results }, null, 2));

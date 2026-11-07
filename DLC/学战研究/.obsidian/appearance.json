@@ -1,5 +1,8 @@
 {
   "theme": "moonstone",
   "accentColor": "#260080",
-  "cssTheme": "Ukiyo"
+  "cssTheme": "Ukiyo",
+  "enabledCssSnippets": [
+    "worldbook-highlights"
+  ]
 }

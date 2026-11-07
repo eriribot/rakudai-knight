@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 import { createRequire } from 'node:module';
 import { parseFragment } from 'parse5';
-import { INITIAL_STATE } from '../../世界书规则/MVU/schema.mjs';
+import { RAKUDAI_INITIAL_STATE as INITIAL_STATE } from '../../世界书规则/MVU/schema.mjs';
 import { createStateController, validateStateOperation, stateKey } from '../rakudai-state-core.mjs';
 
 const require = createRequire(import.meta.url);
@@ -186,8 +186,8 @@ function uiFixture() {
   realm.dataStatus = 'ready'; realm.blazerSubTab = 'device'; realm.currentStack = ['scr-home', 'scr-blazer'];
   realm.bridge = { editPlayerProfile: async () => {} };
   realm.refreshTerminalView = () => realm.renderBlazer();
-  function button(action, group, name) {
-    const attrs = { 'data-source': realm.sourceKey(realm.stateSource), 'data-skill-group': group, 'data-skill-name': name };
+  function button(action, group, name, abilitySystem = 'blazer') {
+    const attrs = { 'data-source': realm.sourceKey(realm.stateSource), 'data-skill-group': group, 'data-skill-name': name, 'data-ability-system': abilitySystem };
     realm.beginPlayerEdit({ getAttribute: key => attrs[key] ?? null }, action);
   }
   return { ui: realm, element, button, html: () => element('blazer-body').innerHTML };
@@ -206,6 +206,25 @@ await check('已有 OC 可看到编辑删除，介绍无 maxlength 且特殊内�
   assert.equal(nodes(f.html(), 'img').length, 0);
   assert.equal(nodes(f.html(), 'textarea').some(node => node.attrs.some(attr => attr.name === 'maxlength')), false);
   assert.ok(f.html().includes('长'.repeat(12000)));
+});
+await check('煌武无需六花学籍即可展示；混合能力编辑明确选择目标模块', async () => {
+  const f = uiFixture();
+  f.ui.stat.玩家.学战 = { 武装: { 类别: '煌式武装', 名称: '<测试煌武>', 使用条件: '本局适配条件' } };
+  f.ui.renderBlazer();
+  assert.match(f.html(), /&lt;测试煌武&gt;/); assert.match(f.html(), /本局适配条件/);
+  assert.doesNotMatch(f.html(), /新增学战招式|<测试煌武>/);
+  Object.assign(f.ui.stat.玩家.学战, { 能力机制: '星辰力机制', 共通限制: '学战限制', 招式: { 旧技能: { 说明: '同名学战招式', 条件与代价: '学战代价', 掌握状态: '学习中' } } });
+  f.ui.renderBlazer();
+  assert.match(f.html(), /data-ability-system="asterisk"/);
+  f.button('saveSkill', 'techniques', '旧技能', 'asterisk');
+  assert.equal(f.ui.playerEditDraft.values.description, '同名学战招式');
+  let saved;
+  f.ui.bridge.editPlayerProfile = async request => { saved = structuredClone(request); };
+  await f.ui.savePlayerEdit();
+  assert.equal(saved.abilitySystem, 'asterisk');
+  f.button('ability', null, null, 'blazer');
+  assert.equal(f.ui.playerEditDraft.values.mechanism, f.ui.stat.玩家.伐刀能力.能力本质);
+  assert.equal(f.ui.playerEditDraft.values.abilitySystem, 'blazer');
 });
 await check('UI 删除先确认；提交携带原楼层、swipe 和状态快照', async () => {
   const f = uiFixture(), original = JSON.stringify(f.ui.stat), source = clone(f.ui.stateSource);

@@ -1,0 +1,47 @@
+- generic:
+  - generic:
+    - generic:
+      - generic: 
+      - text:                                        + No items                            ☰ ☰ ☰ ☰ ☰ ☰ ☰ ☑ ☰ ☑ ☰ ☑ ☰ ☑ ☰ ☑ ☰ ☑ ☰ ☑ ☰ ☑ ☰ ☑ ☰                                  + No items      ☰ ☰ ☰ ☰ ☰ ☰ ☰  ☰ ☰ ☰ ☰ ☰ ☰ ☰ ☰ ☰  ☰ ☰ ☰ ☰ ☰ ☰ ☰ ☰ ☰ ☰ ☰ ☰ ☰ ☰ ☰ ☰ ☰ ☰ ☰ ☰ ☰  ☰ ☰ ☰ ☰ ☰ ☰ ☰ ☰ ☰ ☰ ☰ ☰ ☰ ☰                   +     No items 
+    - generic:
+      - generic: 
+      - text:                                                                 
+    - generic:
+      - generic: 
+      - text:                                               
+    - generic:
+      - generic: 
+      - text:                +     
+    - generic:
+      - generic: 
+      - text:                                   
+    - generic:
+      - generic: 
+      - text:       +    
+    - generic:
+      - generic: 
+      - text:  
+    - generic:
+      - generic: 
+      - text:                
+    - generic:
+      - generic: 
+      - text:                                            Group is empty.  No characters available         
+  - text:                      +                                                                                +    + +                                    
+  - generic:
+    - text: 
+    - generic:
+      - generic:
+        - text:  
+        - generic:
+          - generic: 
+          - textbox:
+            - /placeholder: Not connected to API!
+          - generic:       
+  - text:               
+  - dialog [active] [ref=e1]:
+    - generic [ref=e4]:
+      - img "SillyTavern Logo"
+      - generic [ref=e5]: 
+      - heading "Initializing…" [level=2] [ref=e6]
+    - text: 

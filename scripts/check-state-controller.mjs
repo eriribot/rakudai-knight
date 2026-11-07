@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { createRequire } from 'node:module';
-import { createSchema, INITIAL_STATE } from '../世界书规则/MVU/schema.mjs';
+import { createSchema, RAKUDAI_INITIAL_STATE as INITIAL_STATE } from '../世界书规则/MVU/schema.mjs';
 import { createStateController, applyOpening, applyOpeningReplacement, assertOpeningReplacementState, applyTransition, enforceStateOwnership } from './rakudai-state-core.mjs';
 const require = createRequire(import.meta.url);
 const { z } = require('../output/worldbook-calibration/dev/node_modules/zod');
@@ -79,6 +79,13 @@ await check('已有事件、其他卷或未建档状态不能替换，已有竞�
   const f = fixture(); f.change(d => { d.stat_data = applyOpening(clone(INITIAL_STATE), payload('黎恩')); });
   const { token } = await f.api.capture(); f.change(d => { d.unrelated.keep = 2; });
   await assert.rejects(f.api.replaceOpening(token, payload('有马风月')), /其他操作/); assert.equal(f.writes, 0);
+});
+await check('旧已建档RK替换人物后明确保存本作品，系统附加信息仍保留', () => {
+  const before = applyOpening(clone(INITIAL_STATE), payload('旧角色'));
+  delete before.系统.作品; before.系统.已删除人物 = ['旧名'];
+  const next = schema.parse(applyOpeningReplacement(before, payload('新角色')));
+  assert.equal(next.系统.作品, 'rakudai'); assert.equal(next.玩家.姓名, '新角色');
+  assert.deepEqual(next.系统.已删除人物, ['旧名']); assert.equal(before.系统.作品, undefined);
 });
 await check('替换必须具备同步宿主范围校验，觉醒仍仅接受布尔值', async () => {
   for (const invalid of ['true', 1]) {
@@ -280,7 +287,9 @@ await check('建档替换玩家对象后仍补齐成长容器，不修改导入�
 });
 const report = { passed: results.filter(r => r.passed).length, total: results.length, results };
 const reportDirectory = new URL('../世界书规则/MVU/验证记录/终值成长/', import.meta.url);
-fs.mkdirSync(reportDirectory, { recursive: true });
-fs.writeFileSync(new URL('状态控制验证.json', reportDirectory), JSON.stringify(report, null, 2) + '\n');
+if (!process.argv.includes('--no-write')) {
+  fs.mkdirSync(reportDirectory, { recursive: true });
+  fs.writeFileSync(new URL('状态控制验证.json', reportDirectory), JSON.stringify(report, null, 2) + '\n');
+}
 console.log(JSON.stringify(report, null, 2));
 if (report.passed !== report.total) process.exitCode = 1;

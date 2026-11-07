@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { INITIAL_STATE } from '../世界书规则/MVU/schema.mjs';
+import { RAKUDAI_INITIAL_STATE as INITIAL_STATE } from '../世界书规则/MVU/schema.mjs';
 import { installRakudaiMvuGrowth } from './rakudai-mvu-growth.mjs';
 import { replyMvuBlock, savedReplyEventKeys, submittedFinals } from './rakudai-mvu-reply-source.mjs';
 
@@ -79,6 +79,27 @@ test('native primary growth settles an array target and promotes with remainder 
   assert.equal(saved.stat_data.玩家.成长.记录.训练成果.获得, 40);
   assert.deepEqual(saved.stat_data.玩家.成长.申请, {});
   assert.equal(before.stat_data.玩家.成长.经验.魔力控制, 90);
+  f.marker.destroy();
+});
+test('native AW learns Blazer ability and settles explicit growth in the same reply without switching story', async () => {
+  const axes = structuredClone(INITIAL_STATE.玩家.六维); axes.魔力控制 = 'F';
+  const ops = [
+    { op: 'add', path: '/玩家/伐刀能力', value: structuredClone(INITIAL_STATE.玩家.伐刀能力) },
+    { op: 'add', path: '/玩家/六维', value: axes },
+    { op: 'add', path: '/玩家/成长', value: { 经验: { 魔力控制: 130, 体能: 0, 魔力量: 0 } } },
+  ];
+  const text = wrap(ops), f = await fixture([text]), before = f.state();
+  before.stat_data.系统.作品 = 'asterisk'; before.stat_data.场景.当前卷 = null;
+  for (const key of ['伐刀能力', '六维', '成长', '魔人觉醒', '综合初评', '固有灵装', '登记等级']) delete before.stat_data.玩家[key];
+  before.stat_data.玩家.学战 = { 学园ID: 'seidoukan', 能力身份: '星脉世代', 能力机制: '', 共通限制: '', 招式: {},
+    星辰力: { 说明: '本局已确认' }, 校内序列: { 状态: '未上榜', 名次: null }, 武装: { 类别: '煌式武装', 名称: '训练剑', 使用条件: '已确认' } };
+  const saved = await f.Mvu.parseMessage(text, before);
+  assert.equal(saved.stat_data.玩家.六维.魔力控制, 'F+'); assert.equal(saved.stat_data.玩家.成长.经验.魔力控制, 30);
+  assert.equal(saved.stat_data.玩家.成长.申请, undefined); assert.equal(saved.stat_data.玩家.成长.记录, undefined);
+  assert.equal(saved.stat_data.玩家.魔人觉醒, undefined); assert.equal(saved.stat_data.系统.作品, 'asterisk');
+  assert.deepEqual(saved.stat_data.玩家.学战, before.stat_data.玩家.学战);
+  const replay = await f.Mvu.parseMessage(text, saved);
+  assert.equal(replay.stat_data.玩家.六维.魔力控制, 'F+'); assert.equal(replay.stat_data.玩家.成长.经验.魔力控制, 30);
   f.marker.destroy();
 });
 

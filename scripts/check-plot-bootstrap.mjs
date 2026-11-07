@@ -1,14 +1,15 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
-import { inlineStoryCatalog } from './story-build.mjs';
+import { inlineStoryCatalog, stripModuleSyntax } from './story-build.mjs';
 import { INITIAL_STATE } from '../世界书规则/MVU/schema.mjs';
 
 const clone = structuredClone, plain = value => JSON.parse(JSON.stringify(value));
 const built = process.argv.includes('--built');
+const noWrite = process.argv.includes('--no-write');
 const artifactPath = '../世界书规则/MVU/落第骑士-卷章剧情注入器-v3.0.0.json';
 const source = built ? JSON.parse(fs.readFileSync(new URL(artifactPath, import.meta.url), 'utf8')).content
-  : `${inlineStoryCatalog({ summaries: true })}\n${fs.readFileSync(new URL('./rakudai-worldbook-reader.js', import.meta.url), 'utf8')}\n${fs.readFileSync(new URL('./rakudai-plot-runtime.js', import.meta.url), 'utf8')}\n${fs.readFileSync(new URL('./rakudai-plot-bootstrap.js', import.meta.url), 'utf8')}`;
+  : `${inlineStoryCatalog({ summaries: true })}\n${stripModuleSyntax(fs.readFileSync(new URL('./rakudai-mvu-structure.mjs', import.meta.url), 'utf8'))}\n${fs.readFileSync(new URL('./rakudai-worldbook-reader.js', import.meta.url), 'utf8')}\n${fs.readFileSync(new URL('./rakudai-plot-runtime.js', import.meta.url), 'utf8')}\n${fs.readFileSync(new URL('./rakudai-plot-bootstrap.js', import.meta.url), 'utf8')}`;
 const sourceLabel = built ? '玩家导入产物：世界书规则/MVU/落第骑士-卷章剧情注入器-v3.0.0.json' : '实际目录、runtime 和 bootstrap 源码';
 assert.equal(typeof source, 'string'); assert.ok(source.trim());
 // Event names from the fixed TH 4.9.5 / ST 1.18 predefine declarations used by this project.
@@ -32,7 +33,7 @@ function fixture({ delayedMvu = false, assistantFloors = 1 } = {}) {
     { is_user: true, is_system: false, mes: '玩家新行动', swipe_id: 0, swipes: ['玩家新行动'], variables: [{}] },
   ]).flat();
   const originalChat = clone(chat), chatVariables = { existing: '保留聊天配置' }, bus = new Map(), frames = [];
-  const calls = { wait: [], mvuReads: [], variableReads: [], variableWrites: [], tokenCounts: [], generation: 0, mvuWrites: 0, contextReads: 0 };
+  const calls = { wait: [], mvuReads: [], worldbookReads: [], variableReads: [], variableWrites: [], tokenCounts: [], generation: 0, mvuWrites: 0, contextReads: 0 };
   const forbiddenGeneration = () => { calls.generation++; throw new Error('测试期间不得主动触发生成'); };
   const context = {
     chat, chatId: 'real-host-chat', getCurrentChatId: () => 'real-host-chat', characterId: 7, groupId: null,
@@ -88,7 +89,10 @@ function fixture({ delayedMvu = false, assistantFloors = 1 } = {}) {
       },
       generate: forbiddenGeneration, generateRaw: forbiddenGeneration,
       getCharWorldbookNames: async () => ({ primary: '落第骑士英雄谭' }),
-      getWorldbook: async () => [{ uid: 13, name: '[剧情]第一卷.序章', order: 100, enabled: false, content: '正文' }, { uid: 15, name: '[剧情]第一卷.第一章', order: 101, enabled: false, content: '正文' }, { uid: 20, name: '[剧情]第二卷.序章', order: 106, enabled: false, content: '正文' }],
+      getWorldbook: async name => {
+        calls.worldbookReads.push(name);
+        return [{ uid: 13, name: '[剧情]第一卷.序章', order: 100, enabled: false, content: '正文' }, { uid: 15, name: '[剧情]第一卷.第一章', order: 101, enabled: false, content: '正文' }, { uid: 20, name: '[剧情]第二卷.序章', order: 106, enabled: false, content: '正文' }];
+      },
     };
     if (namespaced) W.TavernHelper = helpers; else Object.assign(W, helpers);
     const logs = [];
@@ -186,6 +190,98 @@ await check('MVU 等待尚未完成即卸载，迟到就绪不会重新安装监
 
 const marker = '【RK剧情注入:BEGIN】';
 const textOf = event => event.chat.map(message => message.content).join('\n');
+
+for (const [name, world] of [['学战', 'asterisk'], ['明确未选择', null], ['非法作品', 'unknown-world']]) {
+  await check(`${name}即使带有合法落第卷章，实际预览与生成均不读取或注入落第世界书`, async () => {
+    const f = fixture(), script = f.frame(`world-${String(world)}`);
+    f.chat[0].variables[0].stat_data.系统.作品 = world;
+    const before = clone(f.chat), event = f.prompt(), promptBefore = clone(event.chat);
+    script.install();
+    await assert.rejects(f.top.__RK_PLOT_V3__.preview(), /不是落第主线/);
+    await f.emit(nativeEvents.GENERATION_AFTER_COMMANDS, 'normal', {}, false);
+    await f.emit(nativeEvents.CHAT_COMPLETION_PROMPT_READY, event);
+    const request = { type: 'normal', messages: [...event.chat] };
+    await f.emit(nativeEvents.CHAT_COMPLETION_SETTINGS_READY, request);
+    assert.deepEqual(f.calls.worldbookReads, []);
+    assert.deepEqual(event.chat, promptBefore); assert.deepEqual(request.messages, promptBefore);
+    assert.equal(f.top.__RK_PLOT_V3__.getStatus().lastInjection, null);
+    assert.match(f.top.__RK_PLOT_V3__.getStatus().reason, /不是落第主线/);
+    assert.equal(f.calls.tokenCounts.length, 0); assert.equal(f.calls.generation, 0);
+    assert.equal(f.calls.mvuWrites, 0); assert.equal(f.calls.variableWrites.length, 0);
+    assert.deepEqual(f.chat, before); script.pagehide();
+  });
+}
+
+await check('新中性待建档与旧未标作品待建档均不读取落第世界书', async () => {
+  for (const legacy of [false, true]) {
+    const f = fixture(), script = f.frame(`unselected-${legacy}`);
+    f.chat[0].variables[0].stat_data = clone(INITIAL_STATE);
+    if (legacy) {
+      delete f.chat[0].variables[0].stat_data.系统.作品;
+      f.chat[0].variables[0].stat_data.场景.当前卷 = 1;
+    }
+    const before = clone(f.chat), event = f.prompt(), promptBefore = clone(event.chat);
+    script.install();
+    await assert.rejects(f.top.__RK_PLOT_V3__.preview(), /尚未建档/);
+    await f.emit(nativeEvents.GENERATION_AFTER_COMMANDS, 'normal', {}, false);
+    await f.emit(nativeEvents.CHAT_COMPLETION_PROMPT_READY, event);
+    await f.emit(nativeEvents.CHAT_COMPLETION_SETTINGS_READY, { type: 'normal', messages: [...event.chat] });
+    assert.deepEqual(f.calls.worldbookReads, []); assert.deepEqual(event.chat, promptBefore);
+    assert.equal(f.top.__RK_PLOT_V3__.getStatus().lastInjection, null);
+    assert.deepEqual(f.chat, before); script.pagehide();
+  }
+});
+
+await check('未标作品的已建档旧 v4 仍按落第读取当前世界书并完成发送确认', async () => {
+  const f = fixture(), script = f.frame('legacy-rakudai'); script.install();
+  assert.equal(Object.hasOwn(f.chat[0].variables[0].stat_data.系统, '作品'), false);
+  const event = f.prompt();
+  await f.emit(nativeEvents.GENERATION_AFTER_COMMANDS, 'normal', {}, false);
+  await f.emit(nativeEvents.CHAT_COMPLETION_PROMPT_READY, event);
+  await f.emit(nativeEvents.CHAT_COMPLETION_SETTINGS_READY, { type: 'normal', messages: [...event.chat] });
+  assert.ok(f.calls.worldbookReads.length > 0);
+  assert.ok(f.calls.worldbookReads.every(name => name === '落第骑士英雄谭'));
+  assert.equal(textOf(event).split(marker).length - 1, 1);
+  assert.equal(f.top.__RK_PLOT_V3__.getStatus().lastInjection?.volume, 2);
+  assert.deepEqual(f.chat, f.originalChat); script.pagehide();
+});
+
+for (const stage of ['before-prompt', 'candidate-ready']) {
+  await check(`生成后在 ${stage} 切为学战，两种奇偶位置均不发送落第剧情`, async () => {
+    const additionalWorldbookReads = [];
+    for (const assistantFloors of [1, 2]) {
+      const f = fixture({ assistantFloors }), script = f.frame(`world-switch-${stage}-${assistantFloors}`);
+      script.install();
+      const event = f.prompt(), originalMessages = [...event.chat], originalText = event.chat.map(message => message.content);
+      await f.emit(nativeEvents.GENERATION_AFTER_COMMANDS, 'normal', {}, false);
+      if (stage === 'candidate-ready') {
+        await f.emit(nativeEvents.CHAT_COMPLETION_PROMPT_READY, event);
+        assert.ok(textOf(event).includes(marker), '必须先产生真正的落第候选，再验证撤回');
+        assert.ok(f.calls.worldbookReads.length > 0);
+      }
+      // The active MVU slot changes without replacing the chat or message objects.
+      f.chat.at(-2).variables[0].stat_data.系统.作品 = 'asterisk';
+      const afterSwitch = clone(f.chat), readsBeforeSwitch = f.calls.worldbookReads.length;
+      if (stage === 'before-prompt') await f.emit(nativeEvents.CHAT_COMPLETION_PROMPT_READY, event);
+      const request = { type: 'normal', messages: [...event.chat] };
+      await f.emit(nativeEvents.CHAT_COMPLETION_SETTINGS_READY, request);
+      assert.equal(f.top.__RK_PLOT_V3__.getStatus().lastInjection, null);
+      for (const messages of [event.chat, request.messages]) {
+        assert.equal(messages.length, originalMessages.length, '撤回独立剧情消息不能遗留空 user');
+        originalMessages.forEach((message, index) => {
+          assert.equal(messages[index], message);
+          assert.equal(messages[index].content.trim(), originalText[index]);
+        });
+        assert.ok(!textOf({ chat: messages }).includes(marker));
+      }
+      assert.deepEqual(f.chat, afterSwitch);
+      additionalWorldbookReads.push(f.calls.worldbookReads.length - readsBeforeSwitch);
+      script.pagehide();
+    }
+    assert.deepEqual(additionalWorldbookReads, [0, 0], '切为学战后不应继续读取落第世界书（奇数／偶数助手楼层）');
+  });
+}
+
 async function dryPreview(f, { optionsFlag = false } = {}) {
   const preview = { ...f.prompt(), dryRun: true }, before = clone(preview.chat);
   await f.emit(nativeEvents.GENERATION_AFTER_COMMANDS, 'normal', optionsFlag ? { dryRun: true } : {}, !optionsFlag);
@@ -421,7 +517,7 @@ await check('独立 user 转为 text parts 后撤回，保留额外文字并删�
 await check('getStatus.reason 公开修订号，旧终端只读取 reason 也能核对实际实例', () => {
   const f = fixture(), script = f.frame('visible-revision'); script.install();
   const status = f.top.__RK_PLOT_V3__.getStatus();
-  assert.equal(status.revision, '20261029.2');
+  assert.equal(status.revision, '20261104.1');
   assert.ok(status.reason.startsWith('注入器修订 ' + status.revision + '。'));
   script.pagehide();
 });
@@ -432,7 +528,9 @@ const report = ['# 剧情注入器宿主适配离线验收', '', `结果：${pas
   '| 场景 | 结果 |', '|---|---|', ...results.map(result => `| ${result.name} | ${result.passed ? 'PASS' : 'FAIL'} |`), '',
   '仍须实机确认终端读取最外层 API、实际 MVU 初始化顺序及旧脚本停用后的监听清理。', '',
   ...failed.flatMap(result => [`## ${result.name}`, '', '```text', result.error, '```', ''])];
-fs.mkdirSync(new URL('../output/chapter-v4/', import.meta.url), { recursive: true });
-fs.writeFileSync(new URL(`../output/chapter-v4/bootstrap${built ? '-built' : ''}-test-review.md`, import.meta.url), report.join('\n') + '\n');
+if (!noWrite) {
+  fs.mkdirSync(new URL('../output/chapter-v4/', import.meta.url), { recursive: true });
+  fs.writeFileSync(new URL(`../output/chapter-v4/bootstrap${built ? '-built' : ''}-test-review.md`, import.meta.url), report.join('\n') + '\n');
+}
 console.log(JSON.stringify({ source: sourceLabel, passed, total: results.length, failures: failed }, null, 2));
 if (failed.length) process.exitCode = 1;

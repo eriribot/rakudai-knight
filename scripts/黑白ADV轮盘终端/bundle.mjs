@@ -120,9 +120,10 @@ export function buildTerminal({ asteriskPreview = false } = {}) {
   const html = buildApp(version);
   const jsModules = { STATE_CONTROLLER: '../rakudai-state-controller.js', STATE_READER: 'state-reader.js', LIME_PROTOCOL: 'lime-chat.mjs', LIME_HOST: 'lime-host.js', LIME_WORLDBOOK: 'lime-worldbook.js', LIME_STORY: 'lime-story.js', CALENDAR_WORLDBOOK: 'calendar-worldbook.js', PLAYER_DISPLAY_STORE: 'player-display-store.js', PLAYER_PORTRAIT: 'player-portrait.js', LAYOUT: 'layout.js', WHEEL: 'wheel.js', STATE_PANEL: 'state-panel.js', CORRECTION: 'correction.js' };
   const portraitManifest = JSON.parse(read('../../resource/knightavatars/manifest.json'));
+  const asteriskPortraits = JSON.parse(read('../正文气泡/asterisk-portraits.json'));
   jsModules.ASTERISK_PRESENTATION = 'asterisk-presentation.js';
   jsModules.TERMINAL_WORLD = 'terminal-world.mjs';
-  const portraitReservedNames = [...portraitManifest.characters, ...(portraitManifest.missingPortraits || [])]
+  const portraitReservedNames = [...portraitManifest.characters, ...(portraitManifest.missingPortraits || []), ...asteriskPortraits.characters]
     .flatMap(person => [person.name, ...(person.aliases || [])])
     .concat((portraitManifest.ambiguousAliases || []).flatMap(item => item.aliases));
   const literals = { VERSION: jsString(version), STYLES: jsString(read('styles.css')), APP_HTML: jsString(html),
@@ -135,6 +136,7 @@ export function buildTerminal({ asteriskPreview = false } = {}) {
   const main = read('main.js'), builder = mappedSource('terminal.js', version), seen = new Set();
   literals.ASTERISK_PREVIEW = jsString(asteriskPreview === true);
   literals.ASTERISK_APP_HTML = jsString(buildAsteriskApp());
+  literals.RIKKA_ICON_SRC = jsString('data:image/png;base64,' + fs.readFileSync(path.join(directory, 'assets/rikka-wiki-favicon.png')).toString('base64'));
   literals.STYLES = jsString(read('styles.css') + '\n' + read('asterisk-shell.css'));
   let previous = 0;
   for (const match of main.matchAll(/\/\*__INJECT_([A-Z_]+)__\*\//g)) {
@@ -155,15 +157,19 @@ export function buildTerminal({ asteriskPreview = false } = {}) {
   const hostScripts = extractScripts('<!doctype html><script type="module">\n' + built.code + '</script>');
   if (hostScripts.length !== 1 || hostScripts[0].content !== '\n' + built.code) throw new Error('宿主 HTML 解析改变了脚本内容，已阻止导出');
   new vm.Script(hostScripts[0].content, { filename: 'host-terminal.js' });
-  // B1 基线保留脚本身份与其他元数据，运行内容统一来自当前维护源码。
-  const baseline = JSON.parse(read('../../世界书规则/MVU/落第骑士-小手机-v' + version + '-B1.json'));
+  // 沿用现有交付物的脚本身份和设置，运行内容仍只从维护源码构建。
   const filename = '落第骑士-小手机-v' + version + '-B1-头像更新.json';
+  const baseline = JSON.parse(read('../../世界书规则/MVU/' + filename));
   const artifact = { ...baseline, content: built.code };
-  artifact.info += ' 同版号头像同步：共用清单现有40人，包含四名赛事角色与三名家人；终端、LIME及正文气泡共用。';
-  artifact.info += ' 同版号调整：已保存的选拔赛状态为已结束后正式开放赛事面板；此前保留主动预览入口与持续预览标识，不推进赛程或写入赛果。';
-  artifact.info += ' 同版号修复：支持补录截至某轮的累计战绩，保留已完成明细且不重复计分，后续比赛继续累加；已启用可选v4字段约束时需同步替换该组件。手动切卷预填当前时间、地点及可编辑切入说明，一次提交即开始目标章节。';
-  artifact.info += ' 手动操作按需校验：切卷、补录、名册与宿舍仅检查操作相关字段，其他已有资料原样保留；不开字段约束也可使用。切卷不改成长记录，切入提示已简化。';
-  artifact.info += ' 2026-10-23头像入口更新：终端设置可读取本机当前聊天头像、查看保存位置并中途上传照片，预览后应用；沿用开局共享存储，同步首页、档案与正文气泡，不改MVU。';
-  artifact.info += ' 同日裁切修订：移除头像区常驻说明和存储路径，上传后可拖动照片、缩放、重置或取消裁切，按选定方形区域应用到本局。';
+  const appendInfo = note => { if (!artifact.info.includes(note)) artifact.info += note; };
+  appendInfo(' 2026-11-04六花图示：采用用户指定Wiki原始彩色图标并内嵌；入口与轮盘24秒旋转，悬停暂停，保留全部原色。');
+  artifact.info = artifact.info.replace('不读取落第卷章、成长或赛事结算', '不读取落第卷章或赛事；能力与成长按实际档案判断');
+  appendInfo(' 2026-11-05混合能力：两作档案可同时保存伐刀能力与学战武装；所属主线与终端外观分别选择。');
+  appendInfo(' 同版号头像同步：共用清单现有40人，包含四名赛事角色与三名家人；终端、LIME及正文气泡共用。');
+  appendInfo(' 同版号调整：已保存的选拔赛状态为已结束后正式开放赛事面板；此前保留主动预览入口与持续预览标识，不推进赛程或写入赛果。');
+  appendInfo(' 同版号修复：支持补录截至某轮的累计战绩，保留已完成明细且不重复计分，后续比赛继续累加；已启用可选v4字段约束时需同步替换该组件。手动切卷预填当前时间、地点及可编辑切入说明，一次提交即开始目标章节。');
+  appendInfo(' 手动操作按需校验：切卷、补录、名册与宿舍仅检查操作相关字段，其他已有资料原样保留；不开字段约束也可使用。切卷不改成长记录，切入提示已简化。');
+  appendInfo(' 2026-10-23头像入口更新：终端设置可读取本机当前聊天头像、查看保存位置并中途上传照片，预览后应用；沿用开局共享存储，同步首页、档案与正文气泡，不改MVU。');
+  appendInfo(' 同日裁切修订：移除头像区常驻说明和存储路径，上传后可拖动照片、缩放、重置或取消裁切，按选定方形区域应用到本局。');
   return { artifact, html, map: built.map, version, filename };
 }

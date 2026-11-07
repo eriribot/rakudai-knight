@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "deliveryMode": "component",
+  "kind": "regex",
+  "artifacts": [
+    {
+      "artifactName": "opening-init-repair",
+      "id": "91353e85-24b5-4f7a-bdaa-166abb48f0bf",
+      "kind": "regex",
+      "relativePath": "opening-init-repair.regex.json",
+      "sha256": "b2e59e30774b69096fdfd3f8e9b8e86b6c1e3c4fe1dfafd59adbaa86828ca2f3"
+    }
+  ]
+}

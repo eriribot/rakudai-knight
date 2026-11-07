@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
-import { INITIAL_STATE, createSchema, createLegacyV3Schema, migrateV3, prepareStateMigration } from '../世界书规则/MVU/schema.mjs';
+import { RAKUDAI_INITIAL_STATE as INITIAL_STATE, createSchema, createLegacyV3Schema, migrateV3, prepareStateMigration } from '../世界书规则/MVU/schema.mjs';
 import { createStateController, applyTransition, enforceStateOwnership } from './rakudai-state-core.mjs';
 import { STORY_VOLUMES, firstStoryChapter, storyPosition } from './rakudai-story-catalog.mjs';
 

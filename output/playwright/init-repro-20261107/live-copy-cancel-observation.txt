@@ -1,0 +1,11 @@
+### Result
+{"mvu":"object","feedback":"档案草稿已复制；尚未写入聊天，也不会凭此草稿开始第一幕。","buttons":[{"text":"📋 复制档案草稿","disabled":false},{"text":"⚔️ 确认人物并生成第一幕请求","disabled":false}],"system":{"结构版本":4,"作品":null,"开局状态":"待建档","主角模式":"未选择"},"output":"确填写的本局映射使用，不按名称相似度换算境界、魔力量或登记等级；映射是本局创作设定，不声称是原作官方设定。\n\n本内容是可编辑档案草稿，尚未向 MVU 写入，不是已确认变量或开始剧情的指令。请先在开局页面确认场景并完成建档；不要仅凭此草稿初始化变量或推进第一幕。"}
+### Ran Playwright code
+```js
+await (async page => {return await page.evaluate(()=>{const f=document.getElementById("TH-message--0--0"),d=f.contentDocument;return {mvu:typeof f.contentWindow.Mvu,feedback:d.getElementById("archive-feedback").textContent,buttons:[...d.querySelectorAll("button")].filter(b=>b.innerText.includes("确认人物")||b.innerText.includes("复制档案")).map(b=>({text:b.innerText,disabled:b.disabled})),system:SillyTavern.getContext().chat[0].variables[0].stat_data.系统,output:d.getElementById("opening-message")?.value.slice(-130)}});})(page);
+```
+### Page
+- Page URL: http://127.0.0.1:18007/
+- Page Title: SillyTavern
+### Events
+- New console entries: .playwright-cli\console-2026-11-07T06-55-54-309Z.log#L236

@@ -216,6 +216,7 @@ function resolvePlayer() {
     cost: ability.共通限制 || '共通限制未登记',
     style: p.战斗风格 || '战斗风格未登记',
     techniques: techniques,
+    academy: p.学战 || null,
     otherAbilities: p.其他能力 || {},
     sixAxes: p.六维 || {},
     // 觉醒只认存档中的布尔 true；缺字段按普通状态展示，不给旧存档补写。
@@ -428,19 +429,22 @@ function canEditOcPlayer() {
 function playerEditLocked() {
   return playerEditing || !canEditOcPlayer() || dataStatus !== 'ready' || !stateSource || !bridge || typeof bridge.editPlayerProfile !== 'function';
 }
-function playerEditButton(label, action, group, name) {
+function playerEditButton(label, action, group, name, abilitySystem) {
   if (!canEditOcPlayer()) return '';
   return '<button type="button" class="gba-btn-sm" data-source="' + esc(sourceKey(stateSource)) + '"' +
+    ' data-ability-system="' + (abilitySystem === 'asterisk' ? 'asterisk' : 'blazer') + '"' +
     (group ? ' data-skill-group="' + esc(group) + '"' : '') + (name !== undefined ? ' data-skill-name="' + esc(name) + '"' : '') +
     (playerEditLocked() ? ' disabled' : '') + ' onclick="beginPlayerEdit(this,\'' + action + '\')">' + label + '</button>';
 }
 function beginPlayerEdit(button, action) {
   if (playerEditLocked() || button.getAttribute('data-source') !== sourceKey(stateSource)) return;
-  var player = stat.玩家 || {}, ability = player.伐刀能力 || {};
+  var player = stat.玩家 || {}, abilitySystem = button.getAttribute('data-ability-system') || 'blazer';
+  if (!['blazer', 'asterisk'].includes(abilitySystem)) return;
+  var ability = (abilitySystem === 'asterisk' ? player.学战 : player.伐刀能力) || {};
   var group = button.getAttribute('data-skill-group'), name = button.getAttribute('data-skill-name');
-  var values = { action: action };
+  var values = { action: action, abilitySystem: abilitySystem };
   if (action === 'bio') values.bio = player.角色简介 || '';
-  else if (action === 'ability') { values.mechanism = ability.能力本质 || ''; values.cost = ability.共通限制 || ''; }
+  else if (action === 'ability') { values.mechanism = ability[abilitySystem === 'asterisk' ? '能力机制' : '能力本质'] || ''; values.cost = ability.共通限制 || ''; }
   else if (action === 'saveSkill' || action === 'deleteSkill') {
     var records = group === 'techniques' ? ability.招式 || {} : player.其他能力 || {};
     if (!['techniques', 'other'].includes(group) || (name !== null && !Object.prototype.hasOwnProperty.call(records, name))) return;
@@ -611,7 +615,7 @@ function renderBlazer() {
         '</div>' +
       '</div>' + renderGrowthProgress(pl);
   } else if (blazerSubTab === 'device') {
-    function listSkills(records, group) {
+    function listSkills(records, group, abilitySystem) {
       var names = Object.keys(records);
       if (!names.length) return '<div class="noble-art-desc">尚未登记具体能力。</div>';
       return names.map(function(name) {
@@ -619,7 +623,7 @@ function renderBlazer() {
         return '<div class="noble-art-block"><div class="noble-art-title">' + esc(name) + ' · ' + esc(skill.掌握状态 || '待确认') + '</div>' +
           '<div class="noble-art-desc">' + esc(typeof skill === 'string' ? skill : skill.说明 || '说明未登记') + '</div>' +
           '<div class="noble-art-desc">条件与代价：' + esc(skill.条件与代价 || '未登记') + '</div>' +
-          '<div class="rk-player-edit-actions">' + playerEditButton('编辑', 'saveSkill', group, name) + playerEditButton('删除', 'deleteSkill', group, name) + '</div></div>';
+          '<div class="rk-player-edit-actions">' + playerEditButton('编辑', 'saveSkill', group, name, abilitySystem) + playerEditButton('删除', 'deleteSkill', group, name, abilitySystem) + '</div></div>';
       }).join('');
     }
     body.innerHTML = renderPlayerEditor() + '<div class="card1"><div class="ct">固有灵装</div><div class="noble-art-title">' + esc(pl.device) + '</div>' +
@@ -628,6 +632,15 @@ function renderBlazer() {
       '<div class="rk-player-edit-actions">' + playerEditButton('新增伐刀绝技', 'saveSkill', 'techniques') + '</div>' +
       '<div class="ct" style="margin-top:14px;">其他能力</div>' + listSkills(pl.otherAbilities, 'other') +
       '<div class="rk-player-edit-actions">' + playerEditButton('新增其他能力', 'saveSkill', 'other') + '</div></div>';
+    var academy = pl.academy;
+    if (academy) {
+      var weapon = academy.武装, prana = academy.星辰力;
+      if (weapon) body.innerHTML += '<div class="card1"><div class="ct">' + esc(weapon.类别) + '</div><div class="noble-art-title">' + esc(weapon.名称 || '名称未登记') + '</div><p>使用条件：' + esc(weapon.使用条件 || '未登记') + '</p></div>';
+      if (prana) body.innerHTML += '<div class="card1"><div class="ct">星辰力</div><p>' + esc(prana.说明) + '</p></div>';
+      if (academy.能力机制 !== undefined || academy.招式 !== undefined) body.innerHTML += '<div class="card1"><div class="ct">学战能力 · ' + esc(academy.能力身份 || '身份未登记') + '</div><p>' + esc(academy.能力机制 || '能力机制未登记') + '</p><p>共通限制：' + esc(academy.共通限制 || '未登记') + '</p>' +
+        '<div class="rk-player-edit-actions">' + playerEditButton('编辑能力介绍', 'ability', null, undefined, 'asterisk') + '</div>' + listSkills(academy.招式 || {}, 'techniques', 'asterisk') +
+        '<div class="rk-player-edit-actions">' + playerEditButton('新增学战招式', 'saveSkill', 'techniques', undefined, 'asterisk') + '</div></div>';
+    }
   } else if (blazerSubTab === 'roster') {
     var rosterSource = dataStatus === 'pending' ? stateTargetSource || stateSource : stateSource;
     var rosterSourceLabel = rosterSource ? '第 ' + rosterSource.messageId + ' 楼 · 回复 ' + (rosterSource.swipeId + 1) : '当前助手回复页';

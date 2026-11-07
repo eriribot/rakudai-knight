@@ -3,7 +3,7 @@
   "commit": "61010dab47bc3a08a1b626320bf7fc8c9573eca4",
   "runtime": "v25.6.0",
   "nativeVersion": "N04",
-  "nativeSha256": "d90b96922b87a8bd051a67e9e0e53a48b3de810837f56dc03072a5bc6eaf548f",
+  "nativeSha256": "ed90178c8452d988951f9b335633d6e7bc6e02123103d5a8202a85b1acf330e9",
   "hashes": {
     "variable-def": {
       "url": "https://raw.githubusercontent.com/MagicalAstrogy/MagVarUpdate/61010dab47bc3a08a1b626320bf7fc8c9573eca4/src/variable_def.ts",
@@ -45,6 +45,22 @@
     },
     {
       "name": "Without N03 the screenshot request fails even with an extensible schema",
+      "passed": true
+    },
+    {
+      "name": "AW actual parser rejects legacy commands and preserves unknown data during required-contract rollback",
+      "passed": true
+    },
+    {
+      "name": "AW actual parser saves valid prana, ranking and common relationship patches without RK growth",
+      "passed": true
+    },
+    {
+      "name": "Actual parser saves hybrid abilities in both openings without changing mainline or inventing enrollment",
+      "passed": true
+    },
+    {
+      "name": "RK actual parser retains legacy business writes but cannot change explicit or legacy-inferred worlds",
       "passed": true
     },
     {

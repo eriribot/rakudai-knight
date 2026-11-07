@@ -1,0 +1,32 @@
+{
+  "format": "tavern-opening-profile",
+  "schema_version": 6,
+  "world_id": "asterisk",
+  "school_id": "seidoukan",
+  "profile_key": "user",
+  "profile": {
+    "name": "初始化验收学生",
+    "personality": "谨慎，愿意核对事实",
+    "conduct": "先确认再行动",
+    "school": "星导馆学园",
+    "device": "训练用煌式武装",
+    "nobleArt": "基础斩击｜挥动训练剑｜需要站稳",
+    "otherAbilities": "观察｜留意附近环境｜没有超常感知",
+    "category": "星脉世代（无魔术师异能）",
+    "desc": "前来报到的男性转学生。",
+    "ability": "以星辰力辅助基础训练。",
+    "limits": "容易疲劳，需要休息。",
+    "style": "谨慎防守。"
+  },
+  "asterisk": {
+    "rank_status": "unranked",
+    "rank": null,
+    "prana": "尚未完成测定，控制能力处于初学水平。",
+    "weapon_type": "lux",
+    "weapon_notes": "只在允许的训练场使用。"
+  },
+  "context": {"当前身体": "健康的男性学生", "当前能力边界": "只有基础训练", "本局映射": "无跨世界能力映射"},
+  "scene": {"当前章": "原创开场", "时间": "入学报到日·上午", "地点": "星导馆学园·学生宿舍接待处", "切入说明": "办理住宿登记"},
+  "greeting": "我来到星导馆学园的学生宿舍接待处，准备办理住宿登记。",
+  "avatar": null
+}

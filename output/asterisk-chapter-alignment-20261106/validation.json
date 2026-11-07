@@ -1,0 +1,64 @@
+{
+  "date": "2026-11-06",
+  "mode": "component",
+  "card": "落第骑士英雄谭v0.29",
+  "worldbook": "落第骑士英雄谭v0.30",
+  "helperVersion": "4.12.0",
+  "exactComponentReadback": true,
+  "otherCardDataPreserved": true,
+  "originalComponentsDisabledForRollback": true,
+  "items": [
+    {
+      "file": "opening-dual.regex.json",
+      "importedId": "d23c3cf5-68b5-4a42-be33-d1e45892ec69",
+      "enabled": true,
+      "sha256": "e9e75f1695261d6dad2550b62960eec6e9a034a549669ae7c7d953412a4ad7ab"
+    },
+    {
+      "file": "dialogue-bubbles.regex.json",
+      "importedId": "b884e993-8b9e-4df8-b5de-21b6428e2458",
+      "enabled": true,
+      "sha256": "e177adb8c14e9e3b3a28bda033a108f0ca4f60aa35a34ee636afde291d967c29"
+    },
+    {
+      "file": "dialogue-player-candidates.regex.json",
+      "importedId": "bf16d853-e8da-441f-8abe-6dd0ddbaadbb",
+      "enabled": true,
+      "sha256": "14bc852b6f6dcac492ceeeab3f7663a6272342e92b87f986cdf76d125ab2409a"
+    },
+    {
+      "file": "dialogue-bubble-style.regex.json",
+      "importedId": "902f8a7f-270f-4cbb-94f0-b202c637a4ce",
+      "enabled": true,
+      "sha256": "8f39bf3e4ac43914958abff11b7a73bc6207372e6bb6898466eeb522ec0fce24"
+    },
+    {
+      "file": "terminal-dual.script.json",
+      "importedId": "26d1c1d2-2531-4034-8a88-0f26a1c8fbc5",
+      "enabled": true,
+      "sha256": "104c5d3d2eefc3fd56b2973738996dde7f076469caf0930c43838d4b7c75b286"
+    }
+  ],
+  "liveChecks": {
+    "worldbookFirstChapterDate": "西历 2013 年 6 月 12 日（星期三）清晨（早于与学生会长克劳蒂雅约定的会面时间）",
+    "manualTimePreserved": true,
+    "draftOnly": true,
+    "terminalMounted": true,
+    "currentChat": "尚未选择作品，等待开局",
+    "plotPostOpeningRuntime": "未建档，未发送模型请求；实机世界书读取与离线注入检查通过"
+  },
+  "staticChecks": {
+    "openingTime": 17,
+    "openingSchema": 30,
+    "bubbleRegex": 615,
+    "playerBinder": 33,
+    "shell": 42,
+    "messageWorld": "passed",
+    "plotPreview": "passed",
+    "independentReview": "passed"
+  },
+  "knownPending": [
+    "世界书order208是启用的空白终章占位，读取器拒绝；未改用户正文",
+    "目前6名学战人物有明确美化映射，4女主原图、2男角首字占位"
+  ]
+}

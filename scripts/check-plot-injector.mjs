@@ -5,6 +5,7 @@ import { createRequire } from 'node:module';
 import { inlineStoryCatalog } from './story-build.mjs';
 import { INITIAL_STATE } from '../世界书规则/MVU/schema.mjs';
 import { resolveStoryChapter } from './rakudai-story-catalog.mjs';
+import { resolveMvuWorld } from './rakudai-mvu-structure.mjs';
 
 const clone = structuredClone;
 const require = createRequire(import.meta.url), ejs = require('../output/worldbook-calibration/dev/node_modules/ejs');
@@ -12,7 +13,7 @@ const plain = value => JSON.parse(JSON.stringify(value));
 const runtimeSource = fs.readFileSync(new URL('./rakudai-plot-runtime.js', import.meta.url), 'utf8');
 const createRuntime = vm.runInNewContext(
   `${inlineStoryCatalog({ summaries: true })}\n${runtimeSource}\ncreateRakudaiPlotRuntime;`,
-  { console, structuredClone, AbortController },
+  { console, structuredClone, AbortController, resolveMvuWorld, setTimeout, clearTimeout, Promise },
   { filename: 'rakudai-plot-runtime.test-bundle.js' },
 );
 const results = [];
@@ -79,7 +80,9 @@ function fixture(initialMessages = [assistant(), user()]) {
     getContext: () => context,
     readMessages,
     getMvu: () => mvuAvailable ? mvu : undefined,
-    readSettings: () => settings.get(chatId) ?? true,
+    readStoryEntry: (world, volume, chapter) => ({ worldbook: '测试世界书', uid: 10,
+      name: '[剧情]' + world + '·' + volume + '·' + chapter, order: 100, content: '测试用剧情原文',
+      signature: '测试用剧情原文' }),
     writeSettings: enabled => { assert.equal(typeof enabled, 'boolean'); settings.set(chatId, enabled); writes.push({ chatId, enabled }); },
     report: message => reports.push(String(message)),
     now: () => clock,

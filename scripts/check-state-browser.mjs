@@ -2,14 +2,40 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
-import { INITIAL_STATE } from '../世界书规则/MVU/schema.mjs';
+import { RAKUDAI_INITIAL_STATE as INITIAL_STATE } from '../世界书规则/MVU/schema.mjs';
+import { inlineStoryCatalog, inlineTournamentSource, stripModuleSyntax } from './story-build.mjs';
 const require = createRequire(import.meta.url), { z } = require('../output/worldbook-calibration/dev/node_modules/zod');
-const source = fs.readFileSync(new URL('./rakudai-state-controller.js', import.meta.url), 'utf8');
+const read = path => fs.readFileSync(new URL(path, import.meta.url), 'utf8');
+const sourceCore = () => [inlineStoryCatalog(), inlineTournamentSource(), ...['./rakudai-mvu-structure.mjs', './rakudai-mvu-patch.mjs', './rakudai-mvu-native.mjs', '../世界书规则/MVU/schema.mjs', './rakudai-state-core.mjs'].map(file => stripModuleSyntax(read(file)))].join('\n');
+const source = process.argv.includes('--source') ? '(function(){\n' + sourceCore() + '\n' + read('./黑白ADV轮盘终端/player-display-store.js') + '\nwindow.RakudaiMvuNative = { version: "N04", runtime: rakudaiMvuRuntime, prepare: prepareRakudaiNativeMvu, install: installRakudaiNativeMvu };\n' + read('./rakudai-state-browser.js') + '\n})();' : read('./rakudai-state-controller.js');
 const clone = structuredClone, results = [];
 const payload = () => ({ 系统: { 结构版本: 4, 主角模式: '自定义角色' }, 玩家: { ...clone(INITIAL_STATE.玩家), 姓名: '通用测试角色' }, 场景: { 当前章: '第一章', 时间: '春假早晨', 地点: '理事长室', 切入说明: '' } });
+function virtualClock() {
+  let now = 0, serial = 0;
+  const timers = new Map(), flush = async () => { for (let i = 0; i < 8; i++) await Promise.resolve(); };
+  return {
+    Date: class extends Date { constructor(...args) { super(...(args.length ? args : [now])); } static now() { return now; } },
+    setTimeout(callback, delay) { const id = ++serial; timers.set(id, { at: now + delay, callback }); return id; },
+    clearTimeout(id) { timers.delete(id); },
+    get pending() { return timers.size; },
+    get now() { return now; },
+    jump(milliseconds) { now += milliseconds; },
+    async advance(milliseconds) {
+      const target = now + milliseconds;
+      for (;;) {
+        await flush();
+        const next = [...timers].filter(([, timer]) => timer.at <= target).sort((a, b) => a[1].at - b[1].at)[0];
+        if (!next) break;
+        now = Math.max(now, next[1].at); timers.delete(next[0]); next[1].callback();
+      }
+      now = target; await flush();
+    },
+  };
+}
 function fixture({ deferredMvu = false, nestedIframe = false, guarded = true } = {}) {
-  const chat = [{ role: 'assistant', swipe: 0, text: ['开局一', '开局二'], variables: [{ stat_data: clone(INITIAL_STATE), custom: { untouched: true } }, { stat_data: clone(INITIAL_STATE) }] }];
-  let ctx = { chat, chatId: 'test-chat', characterId: 1, groupId: null }, writes = 0, waitCalls = 0, iframeProxyReads = 0, parentProxyReads = 0, storageWrites = 0;
+  const chat = [{ role: 'assistant', swipe_id: 0, swipes: ['开局一', '开局二'], variables: [{ stat_data: clone(INITIAL_STATE), custom: { untouched: true } }, { stat_data: clone(INITIAL_STATE) }] }];
+  let ctx = { chat, chatId: 'test-chat', characterId: 1, groupId: null }, writes = 0, waitCalls = 0, iframeProxyReads = 0, parentProxyReads = 0, storageWrites = 0, mvuReads = 0;
+  const clock = virtualClock(), messageReads = [];
   const storage = new Map(), displayEvents = [];
   const H = {
     SillyTavern: { getContext: () => ctx },
@@ -34,22 +60,27 @@ function fixture({ deferredMvu = false, nestedIframe = false, guarded = true } =
       Object.defineProperty(W, 'Mvu', { configurable: true, get: () => H.Mvu });
     },
     getTavernHelperVersion: () => '4.8.19',
-    getChatMessages: () => ctx.chat.map((m, i) => ({ message_id: i, role: m.role, swipe_id: m.swipe, swipes: m.text })).filter(m => m.role === 'assistant'),
+    getChatMessages(range, { role } = {}) {
+      messageReads.push(range);
+      const bounds = typeof range === 'number' ? [range, range] : String(range).split('-').map(Number);
+      return ctx.chat.map((m, i) => ({ message_id: i, role: m.role, swipe_id: m.swipe_id ?? 0, swipes: clone((m.swipes ?? [m.mes]).map(value => value ?? '')) }))
+        .filter(m => m.message_id >= bounds[0] && m.message_id <= bounds[1] && (!role || m.role === role));
+    },
     updateVariablesWith(updater, option) {
       assert.equal(option.type, 'message'); assert.equal(typeof option.message_id, 'number'); assert.equal(Object.hasOwn(option, 'swipe_id'), false);
-      const message = ctx.chat[option.message_id], next = updater(clone(message.variables[message.swipe]));
+      const message = ctx.chat[option.message_id], next = updater(clone(message.variables[message.swipe_id]));
       assert.equal(typeof next?.then, 'undefined');
-      message.variables[message.swipe] = next; writes++; return next;
+      message.variables[message.swipe_id] = next; writes++; return next;
     },
   };
-  const mvu = { getMvuData: option => clone(ctx.chat[option.message_id].variables[ctx.chat[option.message_id].swipe]), replaceMvuData() {} };
+  const mvu = { getMvuData: option => { mvuReads++; return clone(ctx.chat[option.message_id].variables[ctx.chat[option.message_id].swipe_id ?? 0]); }, replaceMvuData() {} };
   function initializeMvu() { H.Mvu = mvu; ready(); }
   if (!deferredMvu) initializeMvu();
-  const realm = vm.createContext({ window: W, structuredClone, console, URL });
+  const realm = vm.createContext({ window: W, structuredClone, console, URL, Date: clock.Date, setTimeout: clock.setTimeout, clearTimeout: clock.clearTimeout });
   vm.runInContext(source, realm);
-  return { api: W.RakudaiStateController, get display() { return W.RakudaiPlayerDisplay; }, W, H, storage, displayEvents, initializeMvu,
+  return { api: W.RakudaiStateController, get display() { return W.RakudaiPlayerDisplay; }, W, H, storage, displayEvents, initializeMvu, clock, messageReads,
     get ctx() { return ctx; }, set ctx(value) { ctx = value; }, get writes() { return writes; }, get storageWrites() { return storageWrites; },
-    get waitCalls() { return waitCalls; }, get proxyReads() { return { iframe: iframeProxyReads, parent: parentProxyReads }; } };
+    get waitCalls() { return waitCalls; }, get mvuReads() { return mvuReads; }, get proxyReads() { return { iframe: iframeProxyReads, parent: parentProxyReads }; } };
 }
 async function check(name, run) { try { await run(); results.push({ name, passed: true }); } catch (error) { results.push({ name, passed: false, error: error.message }); } }
 await check('副校正候选可独立完整校验，坏人物不通过且不读取或改写存档', () => {
@@ -97,12 +128,12 @@ await check('仅有开局楼层时独立替换玩家，保留人际及其他回�
   assert.equal(f.ctx.chat[0].variables[0].stat_data.玩家.姓名, '有马风月');
   assert.deepEqual(f.ctx.chat[0].variables[0].stat_data.人际, before[0].stat_data.人际);
   assert.deepEqual(f.ctx.chat[0].variables[1], before[1]); assert.equal(f.writes, 2);
-  f.ctx.chat.push({ role: 'user', swipe: 0, text: ['继续'], variables: [{}] });
+  f.ctx.chat.push({ role: 'user', swipe_id: 0, swipes: ['继续'], variables: [{}] });
   await assert.rejects(f.api.replaceOpening(capture.token, next)); await assert.rejects(f.api.verify(capture.token)); assert.equal(f.writes, 2);
 });
 await check('真实聊天已有用户楼层或剧情事件时，不因助手列表仍只有楼层0而允许替换', async () => {
   for (const mutate of [
-    f => { f.ctx.chat.push({ role: 'user', swipe: 0, text: ['继续'], variables: [{}] }); },
+    f => { f.ctx.chat.push({ role: 'user', swipe_id: 0, swipes: ['继续'], variables: [{}] }); },
     f => { f.ctx.chat[0].variables[0].stat_data.场景.已发生事件.报到 = { 卷号: 1, 章段: '第一章', 结果: '已发生', 参与者: [], 知情者: [] }; },
   ]) {
     const f = fixture(); await f.api.commitOpening((await f.api.capture()).token, payload()); mutate(f);
@@ -113,8 +144,8 @@ await check('真实聊天已有用户楼层或剧情事件时，不因助手列�
 });
 await check('替换临写时新增楼层、换回复页或竞争改变量均拒绝，不能靠先前页面检查放行', async () => {
   for (const mutate of [
-    f => { f.ctx.chat.push({ role: 'user', swipe: 0, text: ['继续'], variables: [{}] }); },
-    f => { f.ctx.chat[0].swipe = 1; },
+    f => { f.ctx.chat.push({ role: 'user', swipe_id: 0, swipes: ['继续'], variables: [{}] }); },
+    f => { f.ctx.chat[0].swipe_id = 1; },
     f => { f.ctx.chat[0].variables[0].custom.untouched = false; },
   ]) {
     const f = fixture(); await f.api.commitOpening((await f.api.capture()).token, payload());
@@ -125,18 +156,29 @@ await check('替换临写时新增楼层、换回复页或竞争改变量均拒�
     assert.equal(f.ctx.chat[0].variables[0].stat_data.玩家.姓名, '通用测试角色'); assert.equal(f.writes, 1);
   }
 });
-await check('iframe自带SillyTavern getter且MVU稍后初始化时，等待本iframe并选择最外层宿主', async () => {
+await check('健康入口不调用Helper等待，不建timer，只读取一次当前楼层和MVU', async () => {
+  const f = fixture();
+  f.W.waitGlobalInitialized = () => { assert.fail('不应调用Helper等待'); };
+  const captured = await f.api.capture({ messageId: 0 });
+  assert.deepEqual(captured.state, INITIAL_STATE); assert.equal(f.clock.pending, 0);
+  assert.deepEqual(f.messageReads, [0]); assert.equal(f.mvuReads, 1); assert.equal(f.writes, 0);
+});
+await check('MVU晚到时固定原聊天等待，使用最外层宿主接口且不安装iframe全局监听', async () => {
   const f = fixture({ deferredMvu: true, nestedIframe: true });
   assert.equal(Object.hasOwn(f.W, 'SillyTavern'), true); assert.equal(Object.hasOwn(f.W, 'Mvu'), false);
   let settled = false;
   const pending = f.api.capture().then(value => { settled = true; return value; });
   await Promise.resolve();
-  assert.equal(settled, false); assert.equal(f.waitCalls, 1); assert.equal(f.writes, 0);
+  assert.equal(settled, false); assert.equal(f.waitCalls, 0); assert.equal(f.writes, 0);
+  await f.clock.advance(1000);
+  assert.equal(settled, false); assert.deepEqual(f.messageReads, [0]); assert.equal(f.mvuReads, 0);
   f.initializeMvu();
+  await f.clock.advance(250);
   const captured = await pending;
-  assert.equal(f.W.Mvu, f.H.Mvu); assert.deepEqual(f.proxyReads, { iframe: 0, parent: 0 });
+  assert.equal(Object.hasOwn(f.W, 'Mvu'), false); assert.deepEqual(f.proxyReads, { iframe: 0, parent: 0 });
+  assert.equal(f.clock.pending, 0); assert.equal(f.mvuReads, 1);
   await f.api.commitOpening(captured.token, payload()); await f.api.verify(captured.token);
-  assert.equal(f.writes, 1); assert.equal(f.waitCalls, 1, '提交/回读的同步 CAS 不重新等待全局初始化');
+  assert.equal(f.writes, 1); assert.equal(f.waitCalls, 0, '捕获与同步提交均不借用Helper全局等待');
 });
 await check('跨源top不可访问时继续使用同源parent，不让iframe代理掩盖宿主', async () => {
   const f = fixture();
@@ -145,22 +187,89 @@ await check('跨源top不可访问时继续使用同源parent，不让iframe代�
   await f.api.commitOpening(captured.token, payload());
   assert.equal(f.writes, 1); assert.equal(f.proxyReads.iframe, 0);
 });
-await check('MVU等待失败时不读取或写入，恢复后可重新读取', async () => {
-  const f = fixture(), wait = f.W.waitGlobalInitialized;
-  f.W.waitGlobalInitialized = async () => { throw new Error('MVU 初始化失败'); };
-  await assert.rejects(f.api.capture(), /MVU 初始化失败/); assert.equal(f.writes, 0);
-  f.W.waitGlobalInitialized = wait;
-  await f.api.capture(); assert.equal(f.writes, 0);
+for (const mode of ['global', 'data']) await check(mode + '缺失15秒明确超时，迟到不续写且恢复后可重试', async () => {
+  const f = fixture({ deferredMvu: mode === 'global' }), original = clone(f.ctx.chat[0].variables[0]);
+  if (mode === 'data') f.ctx.chat[0].variables[0] = {};
+  let error;
+  const pending = f.api.capture().catch(value => { error = value; });
+  await f.clock.advance(14999); assert.equal(error, undefined);
+  await f.clock.advance(1); await pending;
+  assert.equal(error?.code, mode === 'global' ? 'MVU_NOT_READY' : 'MVU_DATA_NOT_READY');
+  assert.equal(f.clock.pending, 0); assert.equal(f.mvuReads, 0); assert.equal(f.waitCalls, 0);
+  assert.deepEqual(f.messageReads, [0]); assert.equal(f.writes, 0);
+  f.ctx.chat[0].variables[0] = original; f.initializeMvu();
+  await f.clock.advance(30000);
+  assert.equal(f.writes, 0); assert.equal(f.mvuReads, 0); assert.equal(f.clock.pending, 0);
+  const captured = await f.api.capture();
+  assert.deepEqual(captured.state, INITIAL_STATE); assert.equal(f.mvuReads, 1); assert.equal(f.clock.pending, 0);
+});
+await check('原消息对象内initvar写入可结束等待，不因替换变量与swipes数组误判聊天变化', async () => {
+  const f = fixture(), message = f.ctx.chat[0], saved = clone(message.variables);
+  message.variables = [{}];
+  const pending = f.api.capture(); await f.clock.advance(500);
+  assert.equal(f.mvuReads, 0); assert.deepEqual(f.messageReads, [0]);
+  message.variables = saved; message.swipes = [...message.swipes]; message.mes = message.swipes[0];
+  await f.clock.advance(250); const captured = await pending;
+  assert.deepEqual(captured.state, INITIAL_STATE); assert.equal(f.mvuReads, 1); assert.equal(f.clock.pending, 0);
+});
+await check('后台挂起超过截止时间后即使依赖已就绪也不继续旧操作', async () => {
+  const f = fixture({ deferredMvu: true }); let error;
+  const pending = f.api.capture().catch(value => { error = value; });
+  f.clock.jump(16000); f.initializeMvu(); await f.clock.advance(0); await pending;
+  assert.equal(error?.code, 'MVU_READINESS_TIMEOUT'); assert.equal(f.mvuReads, 0);
+  assert.equal(f.writes, 0); assert.equal(f.clock.pending, 0);
+  await f.api.capture(); assert.equal(f.mvuReads, 1);
 });
 for (const [name, mutate] of [
-  ['切swipe', f => { f.ctx.chat[0].swipe = 1; }],
+  ['聊天', f => { f.ctx = { ...f.ctx, chatId: 'other', chat: clone(f.ctx.chat) }; }],
+  ['角色', f => { f.ctx.characterId = 2; }],
+  ['群组', f => { f.ctx.groupId = 'other'; }],
+  ['聊天数组', f => { f.ctx.chat = [...f.ctx.chat]; }],
+  ['消息对象', f => { f.ctx.chat[0] = clone(f.ctx.chat[0]); }],
+  ['swipe', f => { f.ctx.chat[0].swipe_id = 1; }],
+  ['正文', f => { f.ctx.chat[0].swipes[0] = '另一开局'; }],
+  ['新增楼层', f => { f.ctx.chat.push({ role: 'user', swipe_id: 0, swipes: ['继续'], variables: [{}] }); }],
+]) await check('等待期间改变' + name + '会取消原捕获，不能转入新上下文', async () => {
+  const f = fixture({ deferredMvu: true }); let error;
+  const pending = f.api.capture().catch(value => { error = value; });
+  mutate(f); f.initializeMvu(); await f.clock.advance(250); await pending;
+  assert.match(error?.message || '', /等待期间.*变化/);
+  assert.equal(f.mvuReads, 0); assert.equal(f.writes, 0); assert.equal(f.clock.pending, 0);
+});
+await check('未知旧版本与异步接口在进入等待前立即拒绝', async () => {
+  for (const mutate of [
+    f => { f.W.getTavernHelperVersion = () => '4.8.18'; },
+    f => { f.W.getTavernHelperVersion = async () => '4.8.19'; },
+    f => { f.W.getChatMessages = async () => []; },
+  ]) {
+    const f = fixture({ deferredMvu: true }); mutate(f);
+    await assert.rejects(f.api.capture(), /同步|4.8.19/);
+    assert.equal(f.clock.pending, 0); assert.equal(f.mvuReads, 0); assert.equal(f.writes, 0);
+  }
+});
+await check('从尾部逐楼使用宿主assistant过滤，跳过system与user且不读取整段聊天', async () => {
+  const f = fixture();
+  f.ctx.chat.push({ role: 'user', swipe_id: 0, swipes: ['用户'], variables: [{}] },
+    { role: 'system', swipe_id: 0, swipes: ['旁白'], variables: [{}] });
+  await f.api.capture({ messageId: 0 });
+  assert.deepEqual(f.messageReads, [2, 1, 0]); assert.equal(f.mvuReads, 1);
+});
+await check('没有swipes的原生首楼使用mes，空正文归一化与Helper一致', async () => {
+  for (const text of ['只有mes的开场', undefined, null]) {
+    const f = fixture(); delete f.ctx.chat[0].swipes; delete f.ctx.chat[0].swipe_id; f.ctx.chat[0].mes = text;
+    const captured = await f.api.capture({ messageId: 0 });
+    assert.deepEqual(captured.state, INITIAL_STATE); assert.equal(f.clock.pending, 0);
+  }
+});
+for (const [name, mutate] of [
+  ['切swipe', f => { f.ctx.chat[0].swipe_id = 1; }],
   ['切聊天但变量相同', f => { f.ctx = { ...f.ctx, chat: clone(f.ctx.chat), chatId: 'another' }; }],
   ['当前 context 原地更换角色', f => { f.ctx.characterId = 2; }],
   ['当前 context 原地更换群组', f => { f.ctx.groupId = 'another-group'; }],
   ['当前 context 替换聊天数组但保留消息引用', f => { f.ctx.chat = [...f.ctx.chat]; }],
   ['楼层被删除后同位置重建', f => { f.ctx.chat[0] = clone(f.ctx.chat[0]); }],
-  ['正文被编辑', f => { f.ctx.chat[0].text[0] = '新开局'; }],
-  ['追加用户消息', f => { f.ctx.chat.push({ role: 'user', swipe: 0, text: ['新消息'], variables: [{}] }); }],
+  ['正文被编辑', f => { f.ctx.chat[0].swipes[0] = '新开局'; }],
+  ['追加用户消息', f => { f.ctx.chat.push({ role: 'user', swipe_id: 0, swipes: ['新消息'], variables: [{}] }); }],
 ]) await check(name + '后旧凭据不能写入', async () => {
   const f = fixture(), { token } = await f.api.capture(); mutate(f);
   await assert.rejects(f.api.commitOpening(token, payload())); assert.equal(f.writes, 0);
@@ -172,7 +281,7 @@ await check('不允许旧开局页修改已有后续助手楼层', async () => {
 await check('关闭约束可读取和建档，只修当前回复页native schema并保留包装数据', async () => {
   const f = fixture({ guarded: false });
   for (const data of f.ctx.chat[0].variables) data.schema = '没有用别管这个';
-  f.ctx.chat[0].swipe = 1;
+  f.ctx.chat[0].swipe_id = 1;
   f.ctx.chat[0].variables[1].custom = { retained: ['未知包装字段', '原值保留'] };
   const before = clone(f.ctx.chat[0].variables), capture = await f.api.capture();
   assert.deepEqual(f.ctx.chat[0].variables, before, '读取不修复或保存变量');
@@ -205,7 +314,7 @@ await check('关闭约束仍可切章、整理名册及保存赛程，controller
   const f = fixture({ guarded: false }), draft = payload(); draft.场景.时间 = '2013-04-22 08:30';
   draft.玩家.所属 = '破军学园 / 一年一班';
   await f.api.commitOpening((await f.api.capture()).token, draft);
-  assert.deepEqual(clone(f.api.capabilities), { scheduleAndRoster: true, rosterPermanentRemoval: true,
+  assert.deepEqual(clone(f.api.capabilities), { scheduleAndRoster: true, rosterPermanentRemoval: true, ocPlayerEditing: true,
     tournament: 'T01', tournamentEngine: 'T02', nativeMvu: 'N01' });
   const state = () => f.ctx.chat[0].variables[0].stat_data;
   const firstChapter = state().场景.当前章;
@@ -283,6 +392,7 @@ await check('终端操作不因无关旧字段失败，开关约束两种状态�
 await check('操作范围保留目标、比分及并发检查，不能用窄范围绕开建档校验', async () => {
   const f = fixture({ guarded: false }), draft = payload();
   draft.玩家.所属 = '破军学园'; draft.场景.时间 = '2013-05-21 08:30';
+  f.ctx.chat[0].variables[0].stat_data.系统.作品 = 'rakudai';
   const opening = await f.api.capture({ scope: 'story' }), invalid = payload(); invalid.玩家.未知字段 = '不应通过';
   await assert.rejects(f.api.commitOpening(opening.token, invalid), error => error.issues.length > 0);
   assert.equal(f.writes, 0);
@@ -341,13 +451,16 @@ await check('终端校验不以外置旧新约束标记作开关', async () => {
 });
 await check('消息返回无效活动 swipe 时拒绝读取，不猜测默认槽', async () => {
   for (const swipe of [-1, 2, null]) {
-    const f = fixture(); f.ctx.chat[0].swipe = swipe;
+    const f = fixture();
+    f.W.getChatMessages = () => [{ message_id: 0, role: 'assistant', swipe_id: swipe, swipes: ['开局一', '开局二'] }];
     await assert.rejects(f.api.capture(), /swipe/); assert.equal(f.writes, 0);
   }
 });
 await check('没有MVU数据不自行伪造初始化', async () => {
   const f = fixture(); f.ctx.chat[0].variables[0] = {};
-  await assert.rejects(f.api.capture(), /初始化/); assert.equal(f.writes, 0);
+  const pending = assert.rejects(f.api.capture(), /初始化/);
+  await f.clock.advance(15000); await pending;
+  assert.deepEqual(f.ctx.chat[0].variables[0], {}); assert.equal(f.writes, 0);
 });
 await check('旧异步API版本在写入前拒绝', async () => {
   const f = fixture(); f.W.getTavernHelperVersion = () => '3.2.0';
@@ -361,7 +474,7 @@ await check('两个界面并发提交只允许一次落地', async () => {
 await check('迁移只升级当前活动 swipe，保留另一回复页与 MVU 包装', async () => {
   const f = fixture();
   for (const data of f.ctx.chat[0].variables) { data.stat_data.系统.结构版本 = 3; delete data.stat_data.玩家.成长; }
-  f.ctx.chat[0].swipe = 1;
+  f.ctx.chat[0].swipe_id = 1;
   f.ctx.chat[0].variables[1].custom = { retained: '活动页包装' };
   const original = clone(f.ctx.chat[0].variables);
   await assert.rejects(f.api.capture(), error => error.code === 'MIGRATION_REQUIRED');
@@ -375,7 +488,7 @@ await check('迁移只升级当前活动 swipe，保留另一回复页与 MVU �
   await f.api.commitMigration(preview.token); assert.equal(f.writes, 1);
 });
 await check('迁移预览后切换 swipe 或编辑正文时旧迁移凭据不能提交', async () => {
-  for (const mutate of [f => { f.ctx.chat[0].swipe = 1; }, f => { f.ctx.chat[0].text[0] = '正文已更改'; }]) {
+  for (const mutate of [f => { f.ctx.chat[0].swipe_id = 1; }, f => { f.ctx.chat[0].swipes[0] = '正文已更改'; }]) {
     const f = fixture(); f.ctx.chat[0].variables[0].stat_data.系统.结构版本 = 3; delete f.ctx.chat[0].variables[0].stat_data.玩家.成长;
     const preview = await f.api.prepareMigration(); mutate(f);
     await assert.rejects(f.api.commitMigration(preview.token), /swipe 已变化/); assert.equal(f.writes, 0);
@@ -430,8 +543,8 @@ await check('开局建档前同步捕获外观，成功回读后绑定新姓名�
 });
 await check('已游玩聊天按最新活动回复页捕获头像，旧开局页不能借此重建人物，应用外观不写MVU', async () => {
   const f = await establishedDisplayFixture(), latest = clone(f.ctx.chat[0]);
-  f.ctx.chat.push({ role: 'user', swipe: 0, text: ['继续剧情'], variables: [{}] }, latest);
-  latest.text = ['最新正文', '另一个回复']; latest.swipe = 1;
+  f.ctx.chat.push({ role: 'user', swipe_id: 0, swipes: ['继续剧情'], variables: [{}] }, latest);
+  latest.swipes = ['最新正文', '另一个回复']; latest.swipe_id = 1;
   latest.variables[1] = clone(latest.variables[0]);
   const before = clone(f.ctx.chat), writes = f.writes;
   await assert.rejects(f.api.capture({ messageId: 0 }), /历史楼层/);
@@ -466,9 +579,9 @@ for (const [name, mutate] of [
   ['切聊天', f => { f.ctx = { ...f.ctx, chatId: 'other-chat', chat: clone(f.ctx.chat) }; }],
   ['换角色', f => { f.ctx.characterId = 2; }],
   ['换群组', f => { f.ctx.groupId = 'other-group'; }],
-  ['切swipe', f => { f.ctx.chat[0].swipe = 1; }],
-  ['编辑正文', f => { f.ctx.chat[0].text[0] = '已编辑正文'; }],
-  ['新增楼层', f => { f.ctx.chat.push({ role: 'user', swipe: 0, text: ['新的用户消息'], variables: [{}] }); }],
+  ['切swipe', f => { f.ctx.chat[0].swipe_id = 1; }],
+  ['编辑正文', f => { f.ctx.chat[0].swipes[0] = '已编辑正文'; }],
+  ['新增楼层', f => { f.ctx.chat.push({ role: 'user', swipe_id: 0, swipes: ['新的用户消息'], variables: [{}] }); }],
   ['替换聊天数组', f => { f.ctx.chat = [...f.ctx.chat]; }],
   ['重建同位置消息', f => { f.ctx.chat[0] = clone(f.ctx.chat[0]); }],
 ]) await check('开局外观捕获后' + name + '使旧头像凭据失效，不写存储或MVU', async () => {
@@ -532,7 +645,7 @@ await check('本机外观存储失败不修改MVU，也不发出保存成功事�
 });
 await check('伴随guard运行时保护：恢复章段后也拒绝关联未来事件', () => {
   const hooks = new Map(), events = [], H = {}, W = { parent: H, addEventListener: (...args) => events.push(args) };
-  const script = JSON.parse(fs.readFileSync(new URL('../世界书规则/MVU/落第骑士-MVU-v4字段约束.json', import.meta.url), 'utf8')).content;
+  const script = process.argv.includes('--source') ? sourceCore() + '\n' + stripModuleSyntax(read('./rakudai-mvu-reply-source.mjs')) + '\n' + read('./rakudai-mvu-guard.js') : JSON.parse(read('../世界书规则/MVU/落第骑士-MVU-v4字段约束.json')).content;
   const realm = vm.createContext({ window: W, structuredClone, z, Mvu: { events: { VARIABLE_UPDATE_ENDED: 'test-end' } },
     eventOn: (name, listener) => { hooks.set(name, listener); return { stop: () => hooks.delete(name) }; }, console: { warn() {} } });
   vm.runInContext(script.split('// 注册字段校验与写入责任保护；')[0] + '\ninstallRakudaiMvuGuard(createSchema(z));', realm);
@@ -548,6 +661,8 @@ await check('伴随guard运行时保护：恢复章段后也拒绝关联未来�
 });
 const report = { passed: results.filter(r => r.passed).length, total: results.length, runtime: '离线固定API语义模拟，未连接真实酒馆', results };
 const reportDirectory = new URL('../世界书规则/MVU/验证记录/', import.meta.url);
-fs.mkdirSync(reportDirectory, { recursive: true });
-fs.writeFileSync(new URL('浏览器适配验证.json', reportDirectory), JSON.stringify(report, null, 2) + '\n');
+if (!process.argv.includes('--no-write')) {
+  fs.mkdirSync(reportDirectory, { recursive: true });
+  fs.writeFileSync(new URL('浏览器适配验证.json', reportDirectory), JSON.stringify(report, null, 2) + '\n');
+}
 console.log(JSON.stringify(report, null, 2)); if (report.passed !== report.total) process.exitCode = 1;

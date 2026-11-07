@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "deliveryMode": "component",
+  "stableId": "d23c3cf5-68b5-4a42-be33-d1e45892ec69",
+  "changedFields": [
+    "scriptName",
+    "replaceString"
+  ],
+  "untouchedFieldsPreserved": true,
+  "fullHtmlParity": true,
+  "replacementTextParity": true,
+  "regexCompileAndFixtures": true,
+  "ejsPlainAndStrictRenderIdentity": true,
+  "sourceSincePreparationUnchanged": true,
+  "fixtureSincePreparationUnchanged": true,
+  "sourceSha256": "e39bd2a6db80b3ae447b03949f9c26ba55d497ab40e4f57a44d947527d29f016",
+  "artifactSha256": "3eb20b071f4d57edbae6435dd2c8b47669bdd7089040b0b9c38eb88a38762a66",
+  "artifact": "output/opening-ejs-delimiter-repair-20261106/opening.regex.json",
+  "asteriskMvuImplemented": true,
+  "liveSillyTavernVerified": false,
+  "liveAiVerified": false,
+  "liveAsteriskMvuVerified": false,
+  "scriptName": "[开局] 落第 × 学战 双开局 · EJS 修复 20261106",
+  "delimiterRepair": {
+    "before": "/<%|<script\\b|<UpdateVariable\\b/i",
+    "after": "/<[%]|<script\\b|<UpdateVariable\\b/i",
+    "onlyDifferenceFromLiveFixture": true,
+    "beforeLength": 608914,
+    "afterLength": 608916
+  },
+  "tests": {
+    "sceneTime": 18,
+    "schemaCore": 30,
+    "inlineScripts": 3,
+    "ejsModes": [
+      "plain",
+      "strict"
+    ],
+    "detectorFixtures": 6
+  },
+  "worldbookModified": false
+}

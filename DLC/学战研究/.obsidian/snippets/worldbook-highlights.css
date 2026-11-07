@@ -1,0 +1,65 @@
+/* ==========================================================================
+   Asterisk Worldbook Reader — Highlight & Inline Comment Styling for Obsidian
+   Supports Live Preview (.cm-s-obsidian) and Reading View (.markdown-rendered)
+   ========================================================================== */
+
+/* 1. Native ==Highlight== (Warm Amber Marker, crisp readability on Moonstone/Ukiyo) */
+.markdown-rendered mark,
+.cm-s-obsidian span.cm-highlight {
+  background-color: rgba(255, 208, 0, 0.34) !important;
+  color: inherit !important;
+  padding: 1px 4px;
+  border-radius: 4px;
+  border-bottom: 2px solid rgba(217, 148, 0, 0.65);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* 2. Native %%Inline Comment%% in Live Preview -> Styled as Violet Annotation Pill */
+.cm-s-obsidian span.cm-comment {
+  background-color: rgba(124, 58, 237, 0.12);
+  color: #6d28d9 !important;
+  font-style: normal;
+  font-size: 0.9em;
+  padding: 1px 6px;
+  margin: 0 2px;
+  border-radius: 6px;
+  border: 1px solid rgba(124, 58, 237, 0.28);
+}
+
+.theme-dark .cm-s-obsidian span.cm-comment {
+  background-color: rgba(167, 139, 250, 0.16);
+  color: #c4b5fd !important;
+  border-color: rgba(167, 139, 250, 0.35);
+}
+
+/* 3. Optional Multi-Color Semantic <mark> Classes */
+/* Character Appearance & Personality Slice (Sakura Pink) */
+mark.wb-char {
+  background-color: rgba(244, 114, 182, 0.28) !important;
+  border-bottom: 2px solid rgba(219, 39, 119, 0.65) !important;
+}
+
+/* Skills, Lux / Orga Lux & Combat Rules (Sky Blue) */
+mark.wb-skill {
+  background-color: rgba(56, 189, 248, 0.28) !important;
+  border-bottom: 2px solid rgba(2, 132, 199, 0.65) !important;
+}
+
+/* Worldview, Academies, Enterprises & Crossover Lore (Emerald Green) */
+mark.wb-lore {
+  background-color: rgba(52, 211, 153, 0.28) !important;
+  border-bottom: 2px solid rgba(5, 150, 105, 0.65) !important;
+}
+
+/* Universal Interaction Triggers: Angry / Happy / Shy & Completion Trigger (Lavender) */
+mark.wb-interact {
+  background-color: rgba(167, 139, 250, 0.30) !important;
+  border-bottom: 2px solid rgba(124, 58, 237, 0.65) !important;
+}
+
+/* Doubt / Anime-vs-Novel Verification Needed (Coral Orange) */
+mark.wb-doubt {
+  background-color: rgba(251, 146, 60, 0.30) !important;
+  border-bottom: 2px solid rgba(234, 88, 12, 0.70) !important;
+}

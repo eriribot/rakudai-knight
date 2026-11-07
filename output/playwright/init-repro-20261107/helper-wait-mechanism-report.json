@@ -1,0 +1,49 @@
+{
+  "generatedAt": "2026-11-07T07:13:39.317Z",
+  "mode": "isolated VM using installed helper dist functions and actual ST event emitter",
+  "helperVersion": "4.12.0",
+  "distPath": "F:/SillyTavern-Launcher/SillyTavern/public/scripts/extensions/third-party/JS-Slash-Runner/dist/index.js",
+  "distSha256": "d6b158cd243fe6c6423a69fd6dacd791dd248980947186e54166b42488e18de4",
+  "emitterPath": "F:/SillyTavern-Launcher/SillyTavern/public/lib/eventemitter.js",
+  "emitterSha256": "ee970f0886c68501ce709f9a056cdf1751836c4ee949504302c8762190d7d75f",
+  "limitations": [
+    "No player device logs",
+    "Iframe lifecycle wrappers not exercised",
+    "External blocked listener is intentionally synthetic, not observed in the card"
+  ],
+  "passed": true,
+  "results": [
+    {
+      "case": "global-never-published",
+      "observation": {
+        "heldMs": 6107,
+        "resolved": false,
+        "hostMvu": "undefined",
+        "iframeMvu": "undefined"
+      },
+      "resolvesAfterPublishing": true
+    },
+    {
+      "case": "global-present-data-absent",
+      "elapsedMs": 5011,
+      "result": "resolved after swallowed 5-second data timeout"
+    },
+    {
+      "case": "eight-global-event-waiters-no-data",
+      "elapsedMs": 5011,
+      "allResolved": true,
+      "serialFortySecondQueue": false
+    },
+    {
+      "case": "synthetic-third-party-event-listener-block",
+      "observation": {
+        "hostMvu": "object",
+        "oldIframeMvu": "undefined",
+        "oldWaitResolved": false,
+        "newWaitResolved": true
+      },
+      "productionEvidence": false,
+      "resolvesAfterReleasingPrecedingListener": true
+    }
+  ]
+}

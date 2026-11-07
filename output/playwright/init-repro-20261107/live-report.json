@@ -1,0 +1,78 @@
+{
+  "date": "2026-11-07",
+  "scope": "isolated real SillyTavern; source unchanged",
+  "phoneTest": false,
+  "controlledNetworkFailure": true,
+  "observations": {
+    "pending": {
+      "elapsedMs": 70742,
+      "failures": [
+        {
+          "url": "https://cdn.jsdelivr.net/gh/MagicalAstrogy/MagVarUpdate@61010dab47bc3a08a1b626320bf7fc8c9573eca4/artifact/bundle.js",
+          "error": "net::ERR_FAILED"
+        }
+      ],
+      "read": {
+        "mvu": "undefined",
+        "feedback": "正在核对本局状态并提交档案…",
+        "buttons": [
+          {
+            "text": "📋 复制档案草稿",
+            "disabled": false
+          },
+          {
+            "text": "⚔️ 确认人物并生成第一幕请求",
+            "disabled": true
+          }
+        ],
+        "system": {
+          "结构版本": 4,
+          "作品": null,
+          "开局状态": "待建档",
+          "主角模式": "未选择"
+        }
+      }
+    },
+    "terminal": {
+      "shell": "- region \"尚未选择终端\":\n  - text: 六花 · 科技界面\n  - button \"—\"\n  - button \"×\"\n  - text: 外观\n  - combobox \"终端外观\":\n    - option \"跟随本局\"\n    - option \"落第 · 黑白 ADV\"\n    - option \"学战 · 六花科技\" [selected]\n  - text: 本局：尚未选择\n  - iframe",
+      "content": "TERMINAL / OS\n等待开局\n等待开局\n等待开局\n\n当前尚未确定作品与角色档案。你可以先设置外观、头像与副 API，开局后再读取对应记录。\n\n打开终端设置\n← 返回\n终端首页\n× 收起\n请先完成开局；当前可以使用终端设置。"
+    },
+    "copy-cancel": {
+      "mvu": "object",
+      "feedback": "档案草稿已复制；尚未写入聊天，也不会凭此草稿开始第一幕。",
+      "buttons": [
+        {
+          "text": "📋 复制档案草稿",
+          "disabled": false
+        },
+        {
+          "text": "⚔️ 确认人物并生成第一幕请求",
+          "disabled": false
+        }
+      ],
+      "system": {
+        "结构版本": 4,
+        "作品": null,
+        "开局状态": "待建档",
+        "主角模式": "未选择"
+      },
+      "output": "确填写的本局映射使用，不按名称相似度换算境界、魔力量或登记等级；映射是本局创作设定，不声称是原作官方设定。\n\n本内容是可编辑档案草稿，尚未向 MVU 写入，不是已确认变量或开始剧情的指令。请先在开局页面确认场景并完成建档；不要仅凭此草稿初始化变量或推进第一幕。"
+    },
+    "retry-success": {
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+      "viewport": {
+        "width": 430,
+        "height": 932
+      },
+      "helper": "4.12.0",
+      "feedback": "建档成功并已回读。终端与正文气泡已共用档案头像。第一幕请求已生成，请检查后手动复制发送。",
+      "system": {
+        "结构版本": 4,
+        "作品": "rakudai",
+        "开局状态": "已建档",
+        "主角模式": "黑铁一辉"
+      },
+      "formalRequest": true
+    }
+  }
+}

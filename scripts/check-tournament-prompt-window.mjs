@@ -2,6 +2,7 @@
 // Actual terminal wiring and correction source; host events/MVU are offline fixtures.
 import fs from 'node:fs';
 import vm from 'node:vm';
+import { createRequire } from 'node:module';
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { INITIAL_STATE } from '../世界书规则/MVU/schema.mjs';
@@ -10,6 +11,8 @@ import { deriveTournament } from './rakudai-tournament.mjs';
 import { shouldInjectNationalTournament, deriveNationalTournament } from './rakudai-national-tournament.mjs';
 
 const read = path => fs.readFileSync(new URL(path, import.meta.url), 'utf8');
+const require = createRequire(new URL('../output/worldbook-calibration/dev/package.json', import.meta.url));
+const ejs = require('ejs');
 const template = read('../世界书规则/MVU/变量列表.txt'), correction = read('./黑白ADV轮盘终端/correction.js'), main = read('./黑白ADV轮盘终端/main.js');
 const rulesTemplate = read('../世界书规则/MVU/变量更新规则.txt'), formatTemplate = read('../世界书规则/MVU/变量输出格式.txt');
 const plain = value => JSON.parse(JSON.stringify(value));
@@ -53,17 +56,10 @@ function freeze(value) {
 }
 // Execute every maintained EJS block; filtering is deliberately absent here.
 function renderPrompt(current, source = template) {
-  let code = "let rendered = '';\n", offset = 0;
-  for (const match of source.matchAll(/<%([=-]?)([\s\S]*?)%>/g)) {
-    code += 'rendered += ' + JSON.stringify(source.slice(offset, match.index)) + ';\n';
-    code += match[1] ? 'rendered += String(' + match[2] + ');\n' : match[2] + '\n';
-    offset = match.index + match[0].length;
-  }
-  code += 'rendered += ' + JSON.stringify(source.slice(offset)) + ';\nrendered;';
-  return vm.runInContext(code, vm.createContext({ getvar(key) {
+  return ejs.render(source, { getvar(key) {
     assert.ok(key === 'stat_data' || key.startsWith('stat_data.'));
     return key.split('.').slice(1).reduce((value, part) => value?.[part], current);
-  } }), { timeout: 1000 });
+  } });
 }
 function promptState(text) {
   const json = text.match(/<status_current_variable>\s*([\s\S]*?)\s*<\/status_current_variable>/)?.[1];
@@ -105,6 +101,8 @@ function fixture(initial) {
     stateService: () => ({ tournamentView: deriveTournament, nationalTournamentView: deriveNationalTournament }),
     LS: { get: () => ({ autoApply: false }) }, structuredClone, AbortController, console,
     fn: name => helpers[name], readSnapshot() { reads++; if (failRead) throw new Error('MVU尚未保存'); return snapshot; },
+    terminalBusinessIsRakudai: (value = snapshot.state) => value?.系统?.开局状态 === '已建档' && (value.系统.作品 ?? 'rakudai') === 'rakudai',
+    terminalBusinessIsSelected: (value = snapshot.state) => value?.系统?.开局状态 === '已建档' && ['rakudai', 'asterisk'].includes(value.系统.作品 ?? 'rakudai'),
     generationPending: false, playerBubbleBinder: null, terminalStateReader: { clear() {} }, updateCbs: [],
     limeHost: { cancel() {}, isBusy: () => false }, limeStory: { cancel() {} }, limeNativeStarting: false,
     readTimer: null, clearInterval() {}, disposeStatePanel() {}, emit() {}, onResize() {}, toggle() {}, SLOT: 'pool-fixture',

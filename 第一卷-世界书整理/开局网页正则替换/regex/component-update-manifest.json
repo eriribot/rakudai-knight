@@ -5,10 +5,10 @@
   "artifacts": [
     {
       "artifactName": "opening-rakudai-asterisk-preview",
-      "id": "4f9bda79-82bd-4d2f-9a66-2497349df26e",
+      "id": "d23c3cf5-68b5-4a42-be33-d1e45892ec69",
       "kind": "regex",
       "relativePath": "opening-rakudai-asterisk-preview.regex.json",
-      "sha256": "0bdc48e54e502e9e8f81f8ed44cccd03a7fc4d6909b52695acd67ee848fdd1af"
+      "sha256": "03ede608cf555594b7e462f47aa29fc7e2e5deaf1518316c1eb2f6e21f070c43"
     }
   ]
 }

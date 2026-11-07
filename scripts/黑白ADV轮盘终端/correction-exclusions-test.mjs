@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import { hasBlazerGrowth } from '../rakudai-mvu-structure.mjs';
 import vm from 'node:vm';
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
@@ -306,8 +307,9 @@ function fixture(storage = new Map([[configKey, clone(defaultConnection)]])) {
     LS: { get: (key, fallback) => storage.has(key) ? clone(storage.get(key)) : fallback,
       set: (key, value) => { storageWrites.push(key); storage.set(key, clone(value)); } },
     generationPending: false, terminalStateReader: { clear() {} }, fn: name => helper[name], emit() {},
-    terminalBusinessIsRakudai: () => true,
-    stateService: () => ({ tournamentView: () => ({ calendar: {}, roster: [], warnings: [] }), nationalTournamentView: deriveNationalTournament }),
+    terminalBusinessIsRakudai: () => true, terminalBusinessIsSelected: () => true,
+    readTerminalState: () => persisted.stat_data, resolveTerminalWorld: () => 'rakudai',
+    stateService: () => ({ hasBlazerGrowth, tournamentView: () => ({ calendar: {}, roster: [], warnings: [] }), nationalTournamentView: deriveNationalTournament }),
     setTimeout: (fn, ms) => timer(fn, ms), clearTimeout: id => timers.delete(id),
     setInterval: (fn, ms) => timer(fn, ms, true), clearInterval: id => timers.delete(id),
   });

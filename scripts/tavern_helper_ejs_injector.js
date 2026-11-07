@@ -47,6 +47,130 @@ function nextStoryChapterForState(volume, key, state) {
   return nextStoryChapter(volume, key);
 }
 
+// 学战只整理到第一卷；条目顺序独立编号，世界书 order 从 200 起。
+const ASTERISK_VOLUMES = [{
+  volume: 1, title: '第1卷 姬焰邂逅',
+  chapters: [
+    { key: '序章', title: '序章 倏然疾风', aliases: ['序幕'] },
+    { key: '第一章', title: '第一章 华焰魔女', aliases: [] },
+    { key: '第二章', title: '第二章 学战都市', aliases: [] },
+    { key: '第三章', title: '第三章 凛凛眼神', aliases: [] },
+    { key: '第四章', title: '第四章 回忆与重逢', aliases: [] },
+    { key: '第五章', title: '第五章 黑炉魔剑', aliases: [] },
+    { key: '第六章', title: '第六章 两人的假日', aliases: [] },
+    { key: '第七章', title: '第七章 解放者', aliases: [] },
+    { key: '终章', title: '终章 并肩之誓', aliases: [] },
+  ],
+}];
+
+const STORY_ORDER_BASE = { rakudai: 100, asterisk: 200 };
+
+function resolveAsteriskChapter(key) {
+  if (typeof key !== 'string' || !key.trim()) return null;
+  const chapters = ASTERISK_VOLUMES[0].chapters, value = key.trim();
+  return chapters.find(chapter => chapter.key === value) ||
+    chapters.find(chapter => (chapter.aliases || []).includes(value)) || null;
+}
+
+function asteriskStoryPosition(key) {
+  const chapter = resolveAsteriskChapter(key);
+  return chapter ? ASTERISK_VOLUMES[0].chapters.indexOf(chapter) : -1;
+}
+
+function nextAsteriskChapter(key) {
+  const chapter = resolveAsteriskChapter(key);
+  if (!chapter) return null;
+  const chapters = ASTERISK_VOLUMES[0].chapters;
+  return chapters[chapters.indexOf(chapter) + 1] || null;
+}
+
+const ASTERISK_CONTRACT = {
+  schools: ['seidoukan', 'gallardworth', 'jielong', 'rewolf', 'arlequint'],
+  identities: ['星脉世代', '魔术师', '自定义'],
+  ranks: ['未知', '未上榜', '已上榜'],
+  weapons: ['尚未确定', '常规武器', '煌式武装', '纯星煌式武装', '研究装备', '不使用武装'],
+};
+
+// 原生模式不依赖 Zod；仅检查学战必需数据，未知资料原样保留，不做整档清洗。
+function hasAsteriskNativeContract(state) {
+  const object = value => value !== null && typeof value === 'object' && !Array.isArray(value);
+  const text = value => typeof value === 'string';
+  const texts = (value, keys) => object(value) && keys.every(key => text(value[key]));
+  const names = value => Array.isArray(value) && value.every(item => text(item) && item.length > 0);
+  const skills = value => object(value) && Object.values(value).every(skill => text(skill) || object(skill) &&
+    ['说明', '条件与代价'].every(key => skill[key] === undefined || text(skill[key])) &&
+    (skill.掌握状态 === undefined || ['待确认', '学习中', '已掌握'].includes(skill.掌握状态)));
+  if (!isSharedMvuState(state) || resolveMvuWorld(state) !== 'asterisk') return false;
+  const player = state.玩家, scene = state.场景, aw = player.学战, rank = aw?.校内序列;
+  return player.性别 === '男性' && texts(player, ['姓名', '性格关键词', '处事风格', '所属', '角色简介', '战斗风格']) &&
+    (state.系统.开局状态 !== '已建档' || player.姓名.trim().length > 0) &&
+    ['当前身体', '当前能力边界', '本局映射'].every(key => player[key] === undefined || text(player[key])) && skills(player.其他能力) &&
+    texts(aw, ['能力机制', '共通限制']) && ASTERISK_CONTRACT.schools.includes(aw.学园ID) && ASTERISK_CONTRACT.identities.includes(aw.能力身份) &&
+    skills(aw.招式) && texts(aw.星辰力, ['说明']) && object(rank) && ASTERISK_CONTRACT.ranks.includes(rank.状态) &&
+    (rank.状态 === '已上榜' ? Number.isInteger(rank.名次) && rank.名次 >= 1 && rank.名次 <= 72 : rank.名次 === null) &&
+    texts(aw.武装, ['名称', '使用条件']) && ASTERISK_CONTRACT.weapons.includes(aw.武装.类别) &&
+    scene.当前卷 === null && texts(scene, ['当前章', '时间', '地点', '切入说明']) && scene.当前章.trim().length > 0 &&
+    ['未开始', '进行中', '已结束', '已完成'].includes(scene.阶段) && object(scene.已发生事件) &&
+    Object.values(scene.已发生事件).every(event => texts(event, ['章段', '结果']) && event.章段.length > 0 && event.结果.length > 0 &&
+      event.卷号 === null && names(event.参与者) && names(event.知情者)) && (scene.日程 === undefined || object(scene.日程));
+}
+
+// 作品标记与外观无关；仅旧的已建档 v4 缺标记时按落第解释。
+function resolveMvuWorld(state) {
+  const system = state?.系统;
+  if (!system || typeof system !== 'object' || Array.isArray(system)) return null;
+  if (Object.hasOwn(system, '作品')) return ['rakudai', 'asterisk'].includes(system.作品) ? system.作品 : null;
+  return system.结构版本 === 4 && system.开局状态 === '已建档' &&
+    ['场景', '玩家', '人际'].every(key => state[key] && typeof state[key] === 'object' && !Array.isArray(state[key])) ? 'rakudai' : null;
+}
+function isSharedMvuState(state) {
+  const object = value => value !== null && typeof value === 'object' && !Array.isArray(value);
+  return Boolean(object(state) && state.系统?.结构版本 === 4 &&
+    [state.系统, state.场景, state.玩家, state.人际].every(object) &&
+    (resolveMvuWorld(state) || state.系统.开局状态 === '待建档' && state.系统.作品 == null));
+}
+function isRakudaiMvuState(state) {
+  return isSharedMvuState(state) && resolveMvuWorld(state) === 'rakudai';
+}
+function hasBlazerAbility(state) {
+  const ability = state?.玩家?.伐刀能力;
+  return isSharedMvuState(state) && state.系统.开局状态 === '已建档' &&
+    ability !== null && typeof ability === 'object' && !Array.isArray(ability);
+}
+function hasBlazerGrowth(state) {
+  const attributes = state?.玩家?.六维;
+  return hasBlazerAbility(state) && attributes !== null && typeof attributes === 'object' && !Array.isArray(attributes);
+}
+
+function repairRakudaiMvuStructure(state, { legacyRequests = true } = {}) {
+  // 学战只补已明确建立的成长账本，不因觉醒或换装备自动创建经验。
+  if (!isRakudaiMvuState(state) && !(hasBlazerGrowth(state) && Object.hasOwn(state.玩家, '成长'))) return state;
+  legacyRequests &&= resolveMvuWorld(state) === 'rakudai';
+  const player = state.玩家;
+  if (!Object.hasOwn(player, '成长')) {
+    return { ...state, 玩家: { ...player, 成长: { 经验: { 魔力控制: 0, 体能: 0, 魔力量: 0 }, ...(legacyRequests ? { 申请: {} } : {}) } } };
+  }
+  const growth = player.成长;
+  if (growth === null || typeof growth !== 'object' || Array.isArray(growth)) return state;
+  let next = growth;
+  function fill(field, value) {
+    if (next === growth) next = { ...growth };
+    next[field] = value;
+  }
+  if (!Object.hasOwn(growth, '经验')) fill('经验', { 魔力控制: 0, 体能: 0, 魔力量: 0 });
+  else if (growth.经验 !== null && typeof growth.经验 === 'object' && !Array.isArray(growth.经验)) {
+    let experience = growth.经验;
+    for (const axis of ['魔力控制', '体能', '魔力量']) if (!Object.hasOwn(experience, axis)) {
+      if (experience === growth.经验) experience = { ...growth.经验 };
+      experience[axis] = 0;
+    }
+    if (experience !== growth.经验) fill('经验', experience);
+  }
+  // N02 的父容器兼容仍保留；新规则不创建或兑现申请。
+  if (legacyRequests && !Object.hasOwn(growth, '申请')) fill('申请', {});
+  return next === growth ? state : { ...state, 玩家: { ...player, 成长: next } };
+}
+
 // 内联使用的只读工厂；章节索引由外层 storyPosition 提供。
 // 只读取当前角色 primary 世界书，不缓存正文、不修改条目、不回退到其他材料。
 function createRakudaiWorldbookReader({ getCharWorldbookNames, getWorldbook } = {}) {
@@ -75,18 +199,18 @@ function createRakudaiWorldbookReader({ getCharWorldbookNames, getWorldbook } = 
     return order;
   }
 
-  async function read(volume, chapter) {
+  async function read(volume, chapter, options = {}) {
     if (!Number.isInteger(volume) || volume < 1 || typeof chapter !== 'string' || !chapter.trim()) {
       throw new Error('剧情读取参数错误：卷号必须是正整数，章节必须是非空文字。');
     }
     if (typeof storyPosition !== 'function') {
       throw new Error('共享章节索引尚未就绪，无法定位世界书剧情条目。');
     }
-    const position = storyPosition(volume, chapter);
+    const position = Number.isInteger(options.position) ? options.position : storyPosition(volume, chapter);
     if (!Number.isInteger(position) || position < 0) {
       throw new Error('当前卷章没有有效索引，无法定位世界书剧情条目。');
     }
-    const order = position + 100;
+    const order = position + (Number.isInteger(options.orderBase) ? options.orderBase : 100);
     const worldbook = await readPrimary();
     const entries = await getWorldbook(worldbook);
     const currentPrimary = await readPrimary();
@@ -107,8 +231,7 @@ function createRakudaiWorldbookReader({ getCharWorldbookNames, getWorldbook } = 
     }
     if (!matches.length) {
       throw new Error('当前主世界书未找到顺序为 ' + order + ' 的 [剧情] 条目。');
-    }
-    if (matches.length !== 1) {
+    }    if (matches.length !== 1) {
       throw new Error('当前主世界书存在多个顺序为 ' + order + ' 的 [剧情] 条目，请先消除重复。');
     }
 
@@ -133,7 +256,7 @@ function createRakudaiWorldbookReader({ getCharWorldbookNames, getWorldbook } = 
 // 剧情正文读取当前绑定世界书；目录只用于卷章键及条目顺序定位。
 function createRakudaiPlotRuntime(deps) {
   const BEGIN = '【RK剧情注入:BEGIN】', END = '【RK剧情注入:END】';
-  const REVISION = '20261029.2';
+  const REVISION = '20261104.1';
   const handled = new WeakSet();
   const standaloneMessages = new WeakSet();
   let ticket = null, pending = null, busy = false, disposed = false, lastInjection = null, cancelPending = null;
@@ -192,15 +315,17 @@ function createRakudaiPlotRuntime(deps) {
     const state = wrapper.stat_data, system = state.系统, scene = state.场景;
     if (system?.结构版本 !== 4) throw new Error('当前存档需要先预览并确认迁移至 v4');
     if (system.开局状态 !== '已建档') throw new Error('尚未建档，停止剧情注入');
-    const chapter = resolveStoryChapter(scene?.当前卷, scene?.当前章);
+    const world = resolveMvuWorld(state);
+    if (world !== 'rakudai' && world !== 'asterisk') throw new Error('尚未确认作品：不读取任何剧情条目');
+    const chapter = world === 'asterisk' ? resolveAsteriskChapter(scene?.当前章) : resolveStoryChapter(scene?.当前卷, scene?.当前章);
     if (!chapter || !['未开始', '进行中', '已结束'].includes(scene.阶段)) throw new Error('正式卷章或阶段不合法，停止剧情注入');
-    return { identity: id, source: { chatId: id.chatId, messageId: message.message_id, swipeId }, state: copy(state), fingerprint: JSON.stringify([message, wrapper]), volume: scene.当前卷, chapter: chapter.key, phase: scene.阶段, node: chapter };
+    return { identity: id, world, source: { chatId: id.chatId, messageId: message.message_id, swipeId }, state: copy(state), fingerprint: JSON.stringify([message, wrapper]), volume: world === 'asterisk' ? 1 : scene.当前卷, chapter: chapter.key, phase: scene.阶段, node: chapter };
   }
   async function readMaterial(snapshot, cancelled) {
     if (typeof deps.readStoryEntry !== 'function') throw new Error('缺少绑定世界书读取接口，请更新剧情注入脚本');
     let timer;
     try {
-      const waiting = [deps.readStoryEntry(snapshot.volume, snapshot.chapter), new Promise((_, reject) => {
+      const waiting = [deps.readStoryEntry(snapshot.world, snapshot.volume, snapshot.chapter), new Promise((_, reject) => {
         timer = setTimeout(() => reject(new Error('读取绑定世界书超时，停止该次注入')), 8000);
       })];
       if (cancelled) waiting.push(cancelled);
@@ -211,27 +336,23 @@ function createRakudaiPlotRuntime(deps) {
     } finally { clearTimeout(timer); }
   }
   function render(snapshot, material) {
-    const { state, volume, chapter, phase } = snapshot, scene = state.场景;
-    const next = nextStoryChapterForState(volume, chapter, state);
-    const lines = [BEGIN, `当前剧情节点：第${volume}卷 · ${chapter}`, `正式阶段：${phase}`, `本局时间：${scene.时间 || '未确认'}；地点：${scene.地点 || '未确认'}`, `切入说明：${scene.切入说明 || '沿用本局已确认情境'}`,
-      `世界书来源：${material.worldbook} / ${material.name}（UID ${material.uid}，order ${material.order}）`,
-      '剧情内容及完成标识以本条世界书原文为准，不用原作目录或章节摘要重新定义结束位置。'];
-    if (phase === '已结束') {
-      lines.push('本章已结束：仅回应当前收束与玩家操作，不继续推动本章事件，不提前展开下一章。');
-    } else {
-      lines.push(phase === '未开始' ? '本章尚未开始：按原文交代切入情境，实际开始时在 MVU 中将 /场景/阶段 改为“进行中”；本轮不跨章。' : '本章进行中：按下列原文推进，以原文完成标识作为本章交接边界。');
+    const { state, world, volume, chapter, phase } = snapshot, scene = state.场景;
+    const next = world === 'asterisk' ? nextAsteriskChapter(chapter) : nextStoryChapterForState(volume, chapter, state);
+    const lines = [BEGIN, `当前剧情节点：${world === 'asterisk' ? '学战 第一卷' : '第' + volume + '卷'} · ${chapter}`, `正式阶段：${phase}`,
+      `本局时间：${scene.时间 || '未确认'}；地点：${scene.地点 || '未确认'}`, `切入说明：${scene.切入说明 || '沿用本局已确认情境'}`];
+    if (phase !== '已结束') {
       lines.push('【对应世界书条目原文】\n' + material.content);
-      lines.push('【每轮推进节奏】上面的原文是整章材料，不是这一轮必须完成的任务清单。默认只承接玩家本轮输入，推进当前场景的一小段互动；遇到需要玩家回答、决定、行动或应对攻击的位置就停下，把行动权交还玩家。不得替玩家说话、做决定、连打多轮战斗，也不得用概述或时间跳跃把多个关键事件、转场和本章结局一口气演完。自定义角色模式也须保留玩家对当前场景的介入机会，不连续播放 NPC 剧情直至章末。只有玩家明确要求快进、跳过或概述时才放宽节奏，不能把普通的“继续”当作快进整章。');
       if (phase === '进行中') {
-        lines.push('【完成后的变量交接】完成标识是否达成，以本条原文和本局已发生事实判断。未达成、原文未定义完成标识或无法确认时保持卷章；不以轮数、转场或章节摘要代替判断。');
-        lines.push('不得为了触发自动切章而赶演完成标识、提前替玩家完成行动或把计划写成既成事实。一章可以持续多轮；完成条件已经自然达成时正常交接，不为了凑轮数拖延。');
-        lines.push('条件达成时，正文停在本章完成标识指定的交接处；本轮不演下一章。已发生事件仍记录在本章卷号、章段下，不改写旧事件，不补造未发生剧情。');
-        const patch = next ? [
-          ...(next.volume !== volume ? [{ op: 'replace', path: '/场景/当前卷', value: next.volume }] : []),
-          { op: 'replace', path: '/场景/当前章', value: next.chapter },
-          { op: 'replace', path: '/场景/阶段', value: '进行中' },
-        ] : [{ op: 'replace', path: '/场景/阶段', value: '已结束' }];
-        lines.push((next ? `相邻下一节点为第${next.volume}卷 · ${next.chapter}；` : '这是最后一个目录节点，结束后不再前进；') + '仅在完成条件达成时，把以下操作合并到本轮已有的 UpdateVariable/JSONPatch 中，Analysis 写明达成事实，不另输出第二个变量块：\n' + JSON.stringify(patch));
+        const patch = world === 'asterisk'
+          ? next ? [{ op: 'replace', path: '/场景/当前章', value: next.key }, { op: 'replace', path: '/场景/阶段', value: '进行中' }]
+            : [{ op: 'replace', path: '/场景/阶段', value: '已结束' }]
+          : next ? [
+            ...(next.volume !== volume ? [{ op: 'replace', path: '/场景/当前卷', value: next.volume }] : []),
+            { op: 'replace', path: '/场景/当前章', value: next.chapter },
+            { op: 'replace', path: '/场景/阶段', value: '进行中' },
+          ] : [{ op: 'replace', path: '/场景/阶段', value: '已结束' }];
+        const nextLabel = next ? (world === 'asterisk' ? '相邻下一条目为 ' + next.key : '相邻下一节点为第' + next.volume + '卷 · ' + next.chapter) : '这是目录最后一个条目，结束后不再前进';
+        lines.push(nextLabel + '；仅在完成标识达成时，把以下操作并入本轮已有的 UpdateVariable/JSONPatch，Analysis 写明达成事实，不另输出第二个变量块：\n' + JSON.stringify(patch));
       }
     }
     lines.push(END);
@@ -415,6 +536,7 @@ function createRakudaiPlotRuntime(deps) {
       const settingsStamp = JSON.stringify(data);
       const cancelled = new Promise(resolve => { candidate.cancel = () => resolve(false); });
       if (!(await Promise.race([deps.measureBudget(messages, candidate.text, data), cancelled]))) throw new Error('发送前已取消或预算无法确认，已撤回剧情注入');
+      readState(candidate.active.excludedId);
       const material = await readMaterial(candidate.snapshot, cancelled);
       const latest = readState(candidate.active.excludedId);
       if (material.signature !== candidate.material.signature || disposed || pending !== candidate || deps.readSettings() === false || deps.getMvu()?.isDuringExtraAnalysis?.() || !same(candidate.snapshot.identity, latest.identity) || candidate.snapshot.fingerprint !== latest.fingerprint || candidate.savedChatStamp !== chatStamp() || !sameMessages(messages, candidate.messages) || settingsStamp !== JSON.stringify(data)) throw new Error('发送前世界书、状态、回复页或请求已变化，已撤回过期剧情块');
@@ -471,7 +593,8 @@ function createRakudaiPlotRuntime(deps) {
     getContext: context,
     readMessages: helper('getChatMessages'),
     getMvu: () => W.Mvu || H.Mvu,
-    readStoryEntry: (volume, chapter) => worldbookReader.read(volume, chapter),
+    readStoryEntry: (world, volume, chapter) => worldbookReader.read(volume, chapter,
+      world === 'asterisk' ? { position: asteriskStoryPosition(chapter), orderBase: STORY_ORDER_BASE.asterisk } : {}),
     readSettings: () => getVariables({ type: 'chat' })?.[settingsKey]?.enabled !== false,
     writeSettings: enabled => updateVariablesWith(variables => ({ ...variables, [settingsKey]: { ...variables[settingsKey], enabled } }), { type: 'chat' }),
     now: () => Date.now(),

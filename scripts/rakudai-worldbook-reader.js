@@ -26,18 +26,18 @@ function createRakudaiWorldbookReader({ getCharWorldbookNames, getWorldbook } = 
     return order;
   }
 
-  async function read(volume, chapter) {
+  async function read(volume, chapter, options = {}) {
     if (!Number.isInteger(volume) || volume < 1 || typeof chapter !== 'string' || !chapter.trim()) {
       throw new Error('剧情读取参数错误：卷号必须是正整数，章节必须是非空文字。');
     }
     if (typeof storyPosition !== 'function') {
       throw new Error('共享章节索引尚未就绪，无法定位世界书剧情条目。');
     }
-    const position = storyPosition(volume, chapter);
+    const position = Number.isInteger(options.position) ? options.position : storyPosition(volume, chapter);
     if (!Number.isInteger(position) || position < 0) {
       throw new Error('当前卷章没有有效索引，无法定位世界书剧情条目。');
     }
-    const order = position + 100;
+    const order = position + (Number.isInteger(options.orderBase) ? options.orderBase : 100);
     const worldbook = await readPrimary();
     const entries = await getWorldbook(worldbook);
     const currentPrimary = await readPrimary();
@@ -58,8 +58,7 @@ function createRakudaiWorldbookReader({ getCharWorldbookNames, getWorldbook } = 
     }
     if (!matches.length) {
       throw new Error('当前主世界书未找到顺序为 ' + order + ' 的 [剧情] 条目。');
-    }
-    if (matches.length !== 1) {
+    }    if (matches.length !== 1) {
       throw new Error('当前主世界书存在多个顺序为 ' + order + ' 的 [剧情] 条目，请先消除重复。');
     }
 

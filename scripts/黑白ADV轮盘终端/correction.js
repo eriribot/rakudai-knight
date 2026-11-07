@@ -25,6 +25,17 @@ const DEFAULT_CORRECTION_PROMPT = [
   '魔人觉醒使用JSON布尔true/false，可纠正错误状态。卷章按本轮已落实的完成事实修正，主回复已经推进时不重复结束下一章。',
   '选拔赛只登记本局实际参赛者、安排和赛果；同一比赛沿用ID修正。程序按剧情日历推演场外背景并计算战绩、积分与排名；不抄写推演对局，不写初始战绩或赛前胜场。若本轮OC战胜珠雫等正典人物，按实际胜者登记，绝不能为迎合原著或背景推演改回败局。'
 ].join('\n');
+const ASTERISK_CORRECTION_PROMPT = [
+  '你是本卡学战都市 MVU 校正助手。仅依据本轮正文、本轮事件、当前变量和玩家补充说明核对实际变化。本局事实优先，不补未来经历。只返回 JSONPatch 数组；无实际变化返回 []。',
+  '核对玩家共用资料、玩家/学战、玩家/伐刀能力与成长（有则核对）、自由剧情阶段、日程、已发生事件及共用人物资料、好感与支援。星辰力以说明记录，序列是所属学园排名而非通用战力等级。未知数值不推算。',
+  '分别核对好感与支援：普通正向回应+2—10，轻微好感、认可或防备缓和+11—20，重大关系事件+21—40。纠正错误旧分数可提交正确终值；已保存的本轮成果不重复加分，支援按实际协作判断。',
+  '人物在同一世界中共存，所属、武装及能力按本局已知事实记录，主线分流不删除另一作品人物、不自动建立相遇或联系方式。父对象可只写改动键，代码合并保留省略字段。数组提交最终内容，新人物与新能力补全资料。',
+  '共用身份、当前身体、当前能力边界与本局映射按实际记录修正；只修改本轮有依据的字段，不自动复制其他人的身份、排名、关系或能力。'
+].join('\n');
+function correctionWorld(state = readTerminalState()) { return resolveTerminalWorld(state); }
+function correctionTurnAccepts(state, turn = correctionMainTurn) {
+  return terminalBusinessIsSelected(state) && (!turn || turn.world === correctionWorld(state));
+}
 function correctionContext() { return (HW.SillyTavern || window.SillyTavern)?.getContext?.(); }
 function correctionChatKey() {
   const ctx = correctionContext();
@@ -40,25 +51,32 @@ function normalizeCorrectionExcludedParams(value = []) {
   if (names.some(name => !/^[A-Za-z_][A-Za-z0-9_-]{0,127}$/.test(name))) throw new Error('排除参数只填顶层参数名（字母、数字、下划线或连字符），不要填 JSON、参数值或嵌套路径。');
   return names;
 }
-function getCorrectionConfig() {
+function getCorrectionConfig(state) {
   const saved = LS.get(correctionConfigKey, {});
+  const world = correctionWorld(state), field = world === 'asterisk' ? 'asteriskPrompt' : 'prompt';
+  const defaultPrompt = world === 'asterisk' ? ASTERISK_CORRECTION_PROMPT : DEFAULT_CORRECTION_PROMPT;
   return { endpoint: saved.endpoint || '', model: saved.model || '', maxTokens: saved.maxTokens || 3000,
     excludedParams: normalizeCorrectionExcludedParams(saved.excludedParams ?? []),
     hasKey: Boolean(correctionKey), autoApply: saved.autoApply !== false, deviation: LS.get(correctionChatKey(), ''),
-    prompt: typeof saved.prompt === 'string' && saved.prompt.trim() ? saved.prompt : DEFAULT_CORRECTION_PROMPT, defaultPrompt: DEFAULT_CORRECTION_PROMPT };
+    world, prompt: typeof saved[field] === 'string' && saved[field].trim() ? saved[field] : defaultPrompt, defaultPrompt };
 }
 function saveCorrectionConfig(value) {
   cancelCorrection();
   const endpoint = String(value.endpoint || '').trim() ? normalizeCorrectionEndpoint(value.endpoint) : '';
   const model = String(value.model || '').trim(), maxTokens = Number(value.maxTokens);
   if (model.length > 200 || !Number.isInteger(maxTokens) || maxTokens < 256 || maxTokens > 30000) throw new Error('模型名不能超过200字，输出上限为256—30000的整数。');
-  const prompt = String(value.prompt ?? getCorrectionConfig().prompt).trim();
+  const current = getCorrectionConfig();
+  if (value.world && value.world !== current.world) throw new Error('本局作品已变化，请重新打开校正设置。');
+  const prompt = String(value.prompt ?? current.prompt).trim();
   if (prompt.length > 12000) throw new Error('校正提示词不能超过12000字。');
   const excludedParams = normalizeCorrectionExcludedParams(value.excludedParams ?? getCorrectionConfig().excludedParams);
   const nextKey = value.clearKey ? '' : String(value.apiKey || '').trim() || correctionKey;
   const autoApply = value.autoApply === undefined ? getCorrectionConfig().autoApply : value.autoApply === true;
+  const previous = LS.get(correctionConfigKey, {});
   const connection = { endpoint, model, maxTokens, excludedParams, autoApply, apiKey: nextKey,
-    prompt: prompt && prompt !== DEFAULT_CORRECTION_PROMPT ? prompt : '' };
+    prompt: typeof previous.prompt === 'string' ? previous.prompt : '',
+    asteriskPrompt: typeof previous.asteriskPrompt === 'string' ? previous.asteriskPrompt : '' };
+  connection[current.world === 'asterisk' ? 'asteriskPrompt' : 'prompt'] = prompt && prompt !== current.defaultPrompt ? prompt : '';
   // 只写酒馆所在浏览器的本地配置，不放入聊天变量、请求正文或导入包。
   LS.set(correctionConfigKey, connection);
   if (JSON.stringify(LS.get(correctionConfigKey, null)) !== JSON.stringify(connection)) {
@@ -170,13 +188,13 @@ function captureCorrection(checkingSettlement = false, requireParser = true, cop
   const ctx = correctionContext(), reply = correctionReply();
   if (!reply?.sourceText) throw new Error('当前助手回复内容为空，暂不校正。');
   const runtime = correctionRuntime();
-  ensureCorrectionGrowthMode(runtime);
   const mvu = window.Mvu || HW.Mvu;
   if (typeof mvu?.getMvuData !== 'function' || requireParser && typeof mvu.parseMessage !== 'function') throw new Error('MVU 解析接口尚未就绪。');
   const options = { type: 'message', message_id: reply.messageId };
   const data = mvu.getMvuData(options);
   if (!data?.stat_data || typeof data.then === 'function') throw new Error('当前 MVU 不是可确认的同步楼层接口。');
-  if (!terminalBusinessIsRakudai(data.stat_data)) throw new Error('当前作品未启用落第业务校正；外观切换不改变业务规则。');
+  if (!terminalBusinessIsSelected(data.stat_data)) throw new Error('当前作品尚未完成建档，不能校正；外观切换不改变业务规则。');
+  if (stateService().hasBlazerGrowth(data.stat_data)) ensureCorrectionGrowthMode(runtime);
   if (data.stat_data.系统?.结构版本 !== 4 || data.stat_data.系统?.开局状态 !== '已建档' ||
       !['系统', '场景', '玩家', '人际'].every(key => data.stat_data[key] && typeof data.stat_data[key] === 'object' && !Array.isArray(data.stat_data[key])))
     throw new Error('当前回复还没有完整的 v4 档案，请先完成本轮 MVU 保存。');
@@ -266,7 +284,7 @@ function correctionInput(saved) {
   delete state.$internal;
   if (state.系统) delete state.系统.关系计分;
   if (state.场景) delete state.场景.已发生事件;
-  filterTournamentPromptState(state, saved.data.stat_data);
+  if (terminalBusinessIsRakudai(state)) filterTournamentPromptState(state, saved.data.stat_data);
   // 赛期内的程序背景单独发摘要，避免与状态副本重复。
   if (state.场景?.选拔赛) delete state.场景.选拔赛.程序战况;
   if (state.玩家?.成长 && typeof state.玩家.成长 === 'object' && !Array.isArray(state.玩家.成长)) {
@@ -435,7 +453,7 @@ function normalizeCorrectionPatch(operations, state) {
     if (ignore(parts, value)) return;
     // 能力说明的文字简写也视为只改说明，避免省略的代价和掌握状态被清空。
     if (typeof value === 'string' && parts[0] === '玩家' &&
-        (parts[1] === '其他能力' && parts.length === 3 || parts[1] === '伐刀能力' && parts[2] === '招式' && parts.length === 4)) value = { 说明: value };
+        (parts[1] === '其他能力' && parts.length === 3 || ['伐刀能力', '学战'].includes(parts[1]) && parts[2] === '招式' && parts.length === 4)) value = { 说明: value };
     const parent = parts.length ? parentFor(parts, true) : null, key = parts.at(-1);
     if (Array.isArray(parent)) {
       const index = arrayIndex(parent, key, true);
@@ -512,12 +530,25 @@ function validateCorrectionPatch(operations, state) {
   return operations;
 }
 function correctionRules(state) {
+  if (correctionWorld(state) === 'asterisk') return [
+    '校正权限：允许修改玩家、场景、人际的业务字段。系统作品、框架元数据、固定玩家性别与关系派生阶段由程序维护，不得修改。保持 schema 字段名称与类型。',
+    '玩家共用字段为姓名、性格关键词、处事风格、所属、角色简介、战斗风格、其他能力；选填当前身体、当前能力边界、本局映射。其他能力和学战/招式均为以名称为键的记录，值为{说明:string,条件与代价:string,掌握状态:待确认/学习中/已掌握}。',
+  '玩家可选保存伐刀能力{能力系别:空/体能强化系/自然干涉系/概念干涉系/因果干涉系,能力本质,共通限制,招式}、固有灵装(字符串)、登记等级(F/E/D/C/B/A或null)、魔人觉醒(true/false)、六维、成长；这些都是人物实际拥有的字段，学战开局也允许。获得伐刀能力不等于觉醒，没有的字段不建默认值。',
+    '玩家/学战：学园ID为seidoukan/gallardworth/jielong/rewolf/arlequint；能力身份为星脉世代/魔术师/自定义，能力机制、共通限制为字符串。星辰力只写{说明:string}。校内序列为{状态:未知/未上榜/已上榜,名次:null或1至72整数}，前12名称始页十二人；未知或未上榜名次为null。武装为{类别:尚未确定/常规武器/煌式武装/纯星煌式武装/研究装备/不使用武装,名称:string,使用条件:string}。有煌式武装不等于有星辰力或学籍，按实际拥有的字段核对。',
+    '成长只提交终值：/玩家/成长/经验/<魔力控制/体能/魔力量>与/玩家/六维/<目标>，不创建申请。只有伐刀能力与六维都是对象时才结算；未拥有时不提交。经验为所提交评级的档内进度，门槛F100、F+100、E150、E+150、D250、D+250、C400、C+400、B600、B+900、A1200、A+1600，达标连续晋级、逐档扣除并保留余量，S保留余量。魔力量新成长须魔人觉醒为true；获得伐刀能力不自动设为true。登记等级仅随实际登记改变。',
+    '场景/当前卷保持null；当前章为自由阶段文字，阶段为未开始/进行中/已结束。时间、地点、切入说明为字符串。已发生事件以稳定ID记录{卷号:null,章段:string,结果:string,参与者:string[],知情者:string[]}。只记录本轮已发生事实，不据排期宣告完成。',
+    '场景/日程以稳定ID记录{类型:比赛/训练/约定/其他,日期:YYYY-MM-DD或空串,时间:string,地点:string,参与者:string[],状态:待定/已安排/进行中/已完成/已取消,说明:string}。已完成或取消按实际事实修改，不改写历史结果迎合原作。',
+    '人际以姓名为键；共用人物资料保留。新增人物补齐关系、态度印象、好感、支援度、羁绊阶段、变化依据。好感为0至1000整数或null；支援度0至320整数或null，无依据为null。羁绊阶段由支援度派生：null未定，0—79未建立、80—159为C、160—239为B、240—319为A、320为S。',
+    '已知资料的身份、登记等级、灵装、已知能力，以及可选所属、武装、校内序列均为字符串，只写已知事实，不因所属作品生成相遇、好感或联系方式。准确字段名为态度印象与支援度，错键先转移有依据内容再remove。',
+    '只输出JSONPatch数组，不输出分析。add/replace提交最终值，父对象合并保留省略字段；需要删除用remove。无变化返回[]。'
+  ].join('\n');
   // 副校正不再拼入主模型的字段所有权禁令；旧设置中保存的同类禁令由本次权限声明覆盖。
   return 'F01校正权限以本次为准：允许修改玩家、场景、人际的业务字段及现有对象，不限于补建。系统/框架元数据、固定玩家性别、综合初评、已有关系派生阶段和成长自动记录由程序维护，混入补丁时自动略过，不影响其他修改。' +
+    '玩家可选保存/玩家/学战 的任意已知顶层项（如仅有武装，无需学园ID、校内序列或星辰力），学战开局也可保存伐刀能力、固有灵装、登记等级、魔人觉醒、六维、成长；按实际拥有的字段核对，缺项不建默认值，获得伐刀能力不自动设为魔人觉醒。' +
     '保持现有schema字段名称、类型与范围：好感0—1000或null，支援度0—320整数或null，觉醒只用true/false；卷章须属现有目录。' +
     '人际以人物姓名为键。新增人物或修复不完整人物必须补齐关系、态度印象、好感、支援度、羁绊阶段、变化依据；文本字段使用字符串，分数无依据时用null，不编造关系、态度、经历或奖励。未知资料明确写待确认，保留已有事实。羁绊阶段由最终支援度派生：null为未定，0—79未建立、80—159为C、160—239为B、240—319为A、320为S。' +
     '准确字段名是态度印象和支援度，不能写印象或支援。修复错键时先把有依据的内容写入正确字段，再显式remove旧错键；整个人物replace按提供字段合并，省略字段仍保留，不会自动删除旧键或其它已知资料。同批补齐所有已发现的坏人物，不靠反复逐字段试错。' +
-    '本次成长统一采用终值：只写/玩家/成长/经验/<目标>与/玩家/六维/<目标>的最终值，不创建或修改成长申请；旧申请与记录只留档。经验为所提交评级的档内进度，门槛F100、F+100、E150、E+150、D250、D+250、C400、C+400、B600、B+900、A1200、A+1600，达标连续晋级、逐档扣除并保留余量，S保留余量。无约束时由模型完成计算；可选约束校验类型与门槛。读取当前实际保存值，主补丁可能漏写或部分失败；补漏纠错，不再次加已经落实的本轮经验；未知评级不猜起点。魔力量新成长须魔人觉醒:true，觉醒本身不赠经验。登记等级仅随实际登记改变。' +
+    '本次成长统一采用终值：只写/玩家/成长/经验/<目标>与/玩家/六维/<目标>的最终值，不创建或修改成长申请；旧申请与记录只留档。只有伐刀能力与六维都是对象时才结算，未拥有时不提交。经验为所提交评级的档内进度，门槛F100、F+100、E150、E+150、D250、D+250、C400、C+400、B600、B+900、A1200、A+1600，达标连续晋级、逐档扣除并保留余量，S保留余量。无约束时由模型完成计算；可选约束校验类型与门槛。读取当前实际保存值，主补丁可能漏写或部分失败；补漏纠错，不再次加已经落实的本轮经验；未知评级不猜起点。魔力量新成长须魔人觉醒:true，觉醒本身不赠经验。登记等级仅随实际登记改变。' +
     (window.RakudaiStateController.shouldInjectTournament(state) ?
     'T02日期结算沿用T01账本/场景/选拔赛，默认20轮6席。名册按稳定ID记录{姓名,来源:正典/原创/玩家,参赛状态:参赛/退选/取消资格}；只登记本局实际参赛者，初始战绩只读，禁止新增、修改或清除。新参赛者可按实际事实填入赛轮次，已有参赛者的入赛轮次不可修改；退赛日期及赛季结束日期完全由程序维护，只按事实修改参赛状态或赛季状态，不新增、改写或删除这些日期。' +
     '比赛按稳定ID记录{轮次,甲方:名册ID,乙方:名册ID,日期,时间,地点,状态:待定/已安排/已完成/已取消,胜者?:名册ID,弃权方?:名册ID,依据}；同场纠错沿用ID，结束填实际胜者及结果依据。排期不等于完赛；双方不能相同、重复对战或同轮多赛。' +
@@ -550,7 +581,7 @@ async function requestCorrection(automatic = false) {
   try {
     saved = captureCorrection();
     correctionRetry = { saved, automatic };
-    const config = getCorrectionConfig();
+    const config = getCorrectionConfig(saved.data.stat_data);
     if (!config.endpoint || !config.model) throw new Error('请先保存副 API 地址和模型。');
     if (typeof saved.ctx.ChatCompletionService?.processRequest !== 'function') throw new Error('当前 SillyTavern 缺少独立请求转发接口，请更新宿主。');
     const input = correctionInput(saved), state = input.state;
@@ -564,7 +595,7 @@ async function requestCorrection(automatic = false) {
       // 固定宿主源码在最终请求体组装后排除顶层字段；JSON 数组也是合法 YAML，避免手拼配置语法。
       custom_exclude_body: JSON.stringify(config.excludedParams),
       model: config.model, messages: [{ role: 'system', content: system }, { role: 'user', content: JSON.stringify({
-        当前变量: state, 程序选拔赛: correctionTournamentSummary(saved.data.stat_data), 赛事日历: tournamentPromptCalendar(saved.data.stat_data), 本轮正文: input.text, 本轮已发生事件: input.events, 本轮已提交人际更新: input.submittedRelations,
+        当前变量: state, ...(terminalBusinessIsRakudai(saved.data.stat_data) ? { 程序选拔赛: correctionTournamentSummary(saved.data.stat_data), 赛事日历: tournamentPromptCalendar(saved.data.stat_data) } : {}), 本轮正文: input.text, 本轮已发生事件: input.events, 本轮已提交人际更新: input.submittedRelations,
         本轮已提交进度: input.submittedStory, 主结算前场景: input.storyBefore, 主补丁状态: input.mainPatch,
         玩家补充说明: config.deviation, 最新回复楼层: saved.messageId, 当前回复页: saved.swipeId }) }],
       max_tokens: config.maxTokens, stream: false }, {}, true, abort.signal);
@@ -752,7 +783,7 @@ function correctionHostReset(type) {
   }
 }
 function startAutomaticCorrection() {
-  if (!terminalBusinessIsRakudai()) return;
+  if (!terminalBusinessIsSelected()) return;
   const config = getCorrectionStatus();
   if (SS.destroyed) return;
   const ctx = correctionContext();
@@ -762,7 +793,7 @@ function startAutomaticCorrection() {
   catch (error) { setCorrectionStatus('failed', '无法读取当前回复：' + error.message, { scope: 'main' }); return; }
   // 原生生成入口已隔离辅助请求；同页续写即使沿用相同补丁，也属于需要全面核验的新一轮。
   if (before) correctionSeen.delete(before);
-  const turn = { phase: 'waiting', chatRef: ctx.chat, chatKey: correctionChatKey(), before,
+  const turn = { phase: 'waiting', world: correctionWorld(), chatRef: ctx.chat, chatKey: correctionChatKey(), before,
     candidate: null, finished: false, settled: false };
   correctionMainTurn = turn;
   // 主保存门禁始终跟踪；只有连接与自动开关都启用时才安排后续副请求。
@@ -859,7 +890,7 @@ async function retryCorrection() {
   }
   if (!retry.automatic) return requestCorrection(false);
   const reply = correctionReply();
-  const turn = { phase: 'requesting', candidate: { reply }, attempt: 1 };
+  const turn = { phase: 'requesting', world: correctionWorld(), candidate: { reply }, attempt: 1 };
   correctionAutoTurn = turn;
   return runAutomaticCorrection(turn);
 }
@@ -873,9 +904,9 @@ async function checkAutomaticCorrection() {
       const reply = correctionReply();
       currentState = reply && (window.Mvu || HW.Mvu)?.getMvuData?.({ type: 'message', message_id: reply.messageId })?.stat_data;
     } catch (_) { /* 新回复的 MVU 尚不可读时，沿用本轮既有等待和超时流程。 */ }
-    if (currentState && !terminalBusinessIsRakudai(currentState)) {
+    if (currentState && !correctionTurnAccepts(currentState, turn)) {
       correctionMainTurn = null;
-      cancelCorrection('当前作品已变化，落第业务校正已取消。');
+      cancelCorrection('当前作品已变化，本轮业务校正已取消。');
       return;
     }
     if (turn.phase === 'retrying') {
@@ -929,14 +960,14 @@ function wireAutomaticCorrection(safeOn, TE) {
   let bound = false;
   function stampReceipt(candidate) {
     const variables = candidate.variables;
-    if (!terminalBusinessIsRakudai(variables?.stat_data)) return;
+    if (!correctionTurnAccepts(variables?.stat_data)) return;
     if (!variables.delta_data || typeof variables.delta_data !== 'object' || Array.isArray(variables.delta_data)) variables.delta_data = {};
     const delta = variables.delta_data;
     if (!delta.$internal || typeof delta.$internal !== 'object' || Array.isArray(delta.$internal)) delta.$internal = {};
     delta.$internal.__rk_main_save = { id: candidate.receiptId };
   }
   const receiptTail = variables => {
-    if (!terminalBusinessIsRakudai(variables?.stat_data)) return;
+    if (!correctionTurnAccepts(variables?.stat_data)) return;
     const turn = correctionMainTurn, candidate = turn?.candidate;
     if (turn?.phase !== 'waiting' || !candidate?.ended || candidate.variables !== variables) return;
     try {
@@ -955,7 +986,7 @@ function wireAutomaticCorrection(safeOn, TE) {
     safeOn(tailEvent, filterTournamentUpdate);
     SS.disposers.push(() => fn('eventRemoveListener')?.(tailEvent, receiptTail));
     safeOn(events.COMMAND_PARSED, (variables, commands, content) => {
-      if (!terminalBusinessIsRakudai(variables?.stat_data)) return;
+      if (!correctionTurnAccepts(variables?.stat_data)) return;
       const turn = correctionMainTurn;
       // 上一轮已取消的慢请求仍持有网络锁，也要接住新主回复的结算；发请求时再等待锁释放。
       if (!turn || turn.phase !== 'waiting') return;
@@ -970,7 +1001,7 @@ function wireAutomaticCorrection(safeOn, TE) {
       } catch (_) { /* 无法唯一绑定当前回复时不开放自动写入。 */ }
     });
     safeOn(events.VARIABLE_UPDATE_ENDED, (variables, previous) => {
-      if (!terminalBusinessIsRakudai(variables?.stat_data)) return;
+      if (!correctionTurnAccepts(variables?.stat_data)) return;
       const turn = correctionMainTurn;
       if (turn?.phase !== 'waiting' || turn.candidate?.variables !== variables) return;
       try {

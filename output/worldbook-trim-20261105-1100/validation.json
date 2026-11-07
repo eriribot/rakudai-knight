@@ -1,0 +1,109 @@
+{
+  "target": "落第骑士英雄谭v0.29",
+  "entries": 208,
+  "scope": "content-only; no initialization, character, plot or metadata changes",
+  "beforeSha256": "54b4a23f17769a1502f2086cedc0f57a956e1436a118b281b66e16d4052b52e3",
+  "expectedAfterSha256": "a8d46ded19da15cba372a23f625e95089f47ce6b8994f7f2d5a4318c6e6ad572",
+  "sourceHashes": {
+    "世界书规则/MVU/变量列表.txt": "0b44abfd9fb27429c95f32639ee30df0af8282d7fbfe6f9644eee52b1d06ab7f",
+    "世界书规则/MVU/变量更新规则.txt": "39319d6bae4add742a82359f3235b023e3b321359017297b2f11ab58fbcfcb26",
+    "世界书规则/MVU/变量输出格式.txt": "c099f3b0c0372e284ee9f643e33e30dba1a7fdf7139ed86a61ff9dcb6a136254",
+    "世界书规则/MVU/[initvar]变量初始化.yaml": "526b89799cab3d0e6097d13075b7003a3d0e3f4a723e902f7960a29f39a5037e"
+  },
+  "changes": [
+    {
+      "uid": 8,
+      "title": "[MVU]变量列表",
+      "beforeChars": 3015,
+      "afterChars": 1184
+    },
+    {
+      "uid": 10,
+      "title": "[MVU]变量更新规则",
+      "beforeChars": 12025,
+      "afterChars": 4530
+    },
+    {
+      "uid": 41,
+      "title": "[MVU]变量更新格式",
+      "beforeChars": 15385,
+      "afterChars": 4500
+    },
+    {
+      "uid": 0,
+      "title": "世界设定",
+      "beforeChars": 1565,
+      "afterChars": 882
+    },
+    {
+      "uid": 4,
+      "title": "魔力",
+      "beforeChars": 1644,
+      "afterChars": 746
+    },
+    {
+      "uid": 16,
+      "title": "能力与招式",
+      "beforeChars": 1375,
+      "afterChars": 477
+    },
+    {
+      "uid": 1,
+      "title": "伐刀者",
+      "beforeChars": 1557,
+      "afterChars": 678
+    },
+    {
+      "uid": 5,
+      "title": "觉醒",
+      "beforeChars": 1363,
+      "afterChars": 465
+    },
+    {
+      "uid": 6,
+      "title": "魔人",
+      "beforeChars": 1973,
+      "afterChars": 1075
+    },
+    {
+      "uid": 7,
+      "title": "能力系别",
+      "beforeChars": 1579,
+      "afterChars": 681
+    },
+    {
+      "uid": 18,
+      "title": "文风",
+      "beforeChars": 2046,
+      "afterChars": 2051
+    }
+  ],
+  "renderedConstantEntryMetrics": [
+    {
+      "world": "rakudai",
+      "beforeChars": 15702,
+      "afterChars": 12385,
+      "reducedPercent": 21.1
+    },
+    {
+      "world": "asterisk",
+      "beforeChars": 13423,
+      "afterChars": 10250,
+      "reducedPercent": 23.6
+    }
+  ],
+  "repositoryChangedEntries": 10,
+  "liveImported": true,
+  "preImportSha256": "9dd9bcdbf3371ffb04803d36260dbf2e95be8b10519dbefb3e7acd2702229959",
+  "backupNormalization": "第二次浏览器导出有25条新增空characterFilter（正文不变）；本次内容补丁沿用最新字段。",
+  "checks": {
+    "promptBranches": 70,
+    "worldbookUpdater": 13,
+    "independentReview": "passed",
+    "metadataPreserved": true
+  },
+  "liveReadbackVerified": true,
+  "liveReadbackSha256": "a8d46ded19da15cba372a23f625e95089f47ce6b8994f7f2d5a4318c6e6ad572",
+  "liveMethod": "Chrome 已登录酒馆：同名世界书JSON导入→确认覆盖→刷新→重新导出→208条完整对象严格相等",
+  "liveAiGenerationTested": false
+}

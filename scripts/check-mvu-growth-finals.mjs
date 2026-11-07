@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
 import { createRequire } from 'node:module';
-import { createSchema, INITIAL_STATE } from '../世界书规则/MVU/schema.mjs';
+import { createSchema, RAKUDAI_INITIAL_STATE as INITIAL_STATE } from '../世界书规则/MVU/schema.mjs';
 import { applyOpening, applyTransition, enforceGrowthProgress } from './rakudai-state-core.mjs';
 import { prepareRakudaiNativeMvu } from './rakudai-mvu-native.mjs';
 import { inlineStoryCatalog, inlineTournamentSource, stripModuleSyntax } from './story-build.mjs';
@@ -81,6 +81,29 @@ await check('初始化和建档都只有三轴零经验，不创建申请或奖�
   assert.deepEqual(saved.玩家.成长, INITIAL_STATE.玩家.成长);
   assert.equal(Object.hasOwn(payload.玩家, '成长'), false);
 });
+await check('实际字段约束允许学战首次取得伐刀能力与成长，原武装及主线保持原值', () => {
+  const before = state(); before.系统.作品 = 'asterisk'; before.场景.当前卷 = null;
+  const ability = { ...before.玩家.伐刀能力, 能力本质: '本轮确认的伐刀能力' }, attributes = clone(before.玩家.六维);
+  for (const key of ['综合初评', '伐刀能力', '固有灵装', '登记等级', '魔人觉醒', '六维', '成长']) delete before.玩家[key];
+  before.玩家.学战 = { 学园ID: 'seidoukan', 能力身份: '星脉世代', 能力机制: '本局已确认', 共通限制: '', 招式: {},
+    星辰力: { 说明: '稳定' }, 校内序列: { 状态: '未上榜', 名次: null }, 武装: { 类别: '煌式武装', 名称: '训练剑', 使用条件: '已确认适配' } };
+  schema.parse(before);
+  const fixture = guardFixture([
+    { op: 'add', path: '/玩家/伐刀能力', value: ability },
+    { op: 'add', path: '/玩家/固有灵装', value: '本局确认的灵装' },
+    { op: 'add', path: '/玩家/登记等级', value: null },
+    { op: 'add', path: '/玩家/六维', value: attributes },
+    { op: 'add', path: '/玩家/成长', value: { 经验: { 魔力控制: 130, 体能: 0, 魔力量: 0 } } },
+  ]);
+  const saved = fixture.update(before);
+  assert.equal(saved.玩家.伐刀能力.能力本质, '本轮确认的伐刀能力');
+  assert.equal(saved.玩家.六维.魔力控制, 'F+'); assert.equal(saved.玩家.成长.经验.魔力控制, 30);
+  assert.deepEqual(saved.玩家.学战, before.玩家.学战); assert.equal(saved.系统.作品, 'asterisk');
+  assert.equal(saved.玩家.固有灵装, '本局确认的灵装'); assert.equal(saved.玩家.登记等级, null);
+  assert.equal(Object.hasOwn(saved.玩家, '魔人觉醒'), false);
+  const replay = fixture.update(saved);
+  assert.equal(replay.玩家.六维.魔力控制, 'F+'); assert.equal(replay.玩家.成长.经验.魔力控制, 30);
+});
 await check('模型已完成晋级且提交档内余量时不再晋级', () => {
   const before = state(); before.玩家.成长.经验.魔力控制 = 90;
   const saved = finals(before, { 六维: { 魔力控制: 'F+' }, 经验: { 魔力控制: 30 } });
@@ -142,7 +165,7 @@ await check('手动跳章和跨卷保留历史申请/记录，无历史时不创
     const saved = applyTransition(before, request);
     assert.deepEqual(saved.玩家.成长.申请, before.玩家.成长.申请);
     assert.deepEqual(saved.玩家.成长.记录, before.玩家.成长.记录);
-    assert.match(saved.玩家.成长.最近提示, /已切入新场景/);
+    assert.deepEqual(saved.玩家, before.玩家, '切卷只改剧情定位，完整保留玩家和成长记录');
   }
 });
 await check('可选约束使用终值协议且保留相同补丁重放收据', () => {
@@ -167,7 +190,9 @@ await check('约束拒绝字符串/负数经验和非法六维，其它合法事
 const report = { passed: checks.every(check => check.passed), checks,
   evidence: 'Real final-mode core, schema and guard sources executed offline; host and per-operation application doubled; no live Tavern writes.' };
 const directory = new URL('../世界书规则/MVU/验证记录/终值成长/', import.meta.url);
-fs.mkdirSync(directory, { recursive: true });
-fs.writeFileSync(new URL('终值结算验证.json', directory), JSON.stringify(report, null, 2) + '\n');
+if (!process.argv.includes('--no-write')) {
+  fs.mkdirSync(directory, { recursive: true });
+  fs.writeFileSync(new URL('终值结算验证.json', directory), JSON.stringify(report, null, 2) + '\n');
+}
 console.log(JSON.stringify(report, null, 2));
 if (!report.passed) process.exitCode = 1;

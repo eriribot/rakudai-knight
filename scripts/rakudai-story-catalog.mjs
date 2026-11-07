@@ -46,3 +46,40 @@ export function nextStoryChapterForState(volume, key, state) {
   }
   return nextStoryChapter(volume, key);
 }
+
+// 学战只整理到第一卷；条目顺序独立编号，世界书 order 从 200 起。
+export const ASTERISK_VOLUMES = [{
+  volume: 1, title: '第1卷 姬焰邂逅',
+  chapters: [
+    { key: '序章', title: '序章 倏然疾风', aliases: ['序幕'] },
+    { key: '第一章', title: '第一章 华焰魔女', aliases: [] },
+    { key: '第二章', title: '第二章 学战都市', aliases: [] },
+    { key: '第三章', title: '第三章 凛凛眼神', aliases: [] },
+    { key: '第四章', title: '第四章 回忆与重逢', aliases: [] },
+    { key: '第五章', title: '第五章 黑炉魔剑', aliases: [] },
+    { key: '第六章', title: '第六章 两人的假日', aliases: [] },
+    { key: '第七章', title: '第七章 解放者', aliases: [] },
+    { key: '终章', title: '终章 并肩之誓', aliases: [] },
+  ],
+}];
+
+export const STORY_ORDER_BASE = { rakudai: 100, asterisk: 200 };
+
+export function resolveAsteriskChapter(key) {
+  if (typeof key !== 'string' || !key.trim()) return null;
+  const chapters = ASTERISK_VOLUMES[0].chapters, value = key.trim();
+  return chapters.find(chapter => chapter.key === value) ||
+    chapters.find(chapter => (chapter.aliases || []).includes(value)) || null;
+}
+
+export function asteriskStoryPosition(key) {
+  const chapter = resolveAsteriskChapter(key);
+  return chapter ? ASTERISK_VOLUMES[0].chapters.indexOf(chapter) : -1;
+}
+
+export function nextAsteriskChapter(key) {
+  const chapter = resolveAsteriskChapter(key);
+  if (!chapter) return null;
+  const chapters = ASTERISK_VOLUMES[0].chapters;
+  return chapters[chapters.indexOf(chapter) + 1] || null;
+}

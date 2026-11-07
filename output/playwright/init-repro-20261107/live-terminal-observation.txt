@@ -1,0 +1,6 @@
+### Result
+{"shell":"- region \"尚未选择终端\":\n  - text: 六花 · 科技界面\n  - button \"—\"\n  - button \"×\"\n  - text: 外观\n  - combobox \"终端外观\":\n    - option \"跟随本局\"\n    - option \"落第 · 黑白 ADV\"\n    - option \"学战 · 六花科技\" [selected]\n  - text: 本局：尚未选择\n  - iframe","content":"TERMINAL / OS\n等待开局\n等待开局\n等待开局\n\n当前尚未确定作品与角色档案。你可以先设置外观、头像与副 API，开局后再读取对应记录。\n\n打开终端设置\n← 返回\n终端首页\n× 收起\n请先完成开局；当前可以使用终端设置。"}
+### Ran Playwright code
+```js
+await (async page => {await page.getByRole("combobox",{name:"终端外观"}).selectOption({label:"学战 · 六花科技"});return {shell:await page.locator("#rk-shell").ariaSnapshot(),content:await page.frameLocator("#rk-shell iframe").locator("body").innerText()};})(page);
+```

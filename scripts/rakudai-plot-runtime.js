@@ -1,7 +1,7 @@
 // 剧情正文读取当前绑定世界书；目录只用于卷章键及条目顺序定位。
 function createRakudaiPlotRuntime(deps) {
   const BEGIN = '【RK剧情注入:BEGIN】', END = '【RK剧情注入:END】';
-  const REVISION = '20261029.2';
+  const REVISION = '20261104.1';
   const handled = new WeakSet();
   const standaloneMessages = new WeakSet();
   let ticket = null, pending = null, busy = false, disposed = false, lastInjection = null, cancelPending = null;
@@ -60,15 +60,17 @@ function createRakudaiPlotRuntime(deps) {
     const state = wrapper.stat_data, system = state.系统, scene = state.场景;
     if (system?.结构版本 !== 4) throw new Error('当前存档需要先预览并确认迁移至 v4');
     if (system.开局状态 !== '已建档') throw new Error('尚未建档，停止剧情注入');
-    const chapter = resolveStoryChapter(scene?.当前卷, scene?.当前章);
+    const world = resolveMvuWorld(state);
+    if (world !== 'rakudai' && world !== 'asterisk') throw new Error('尚未确认作品：不读取任何剧情条目');
+    const chapter = world === 'asterisk' ? resolveAsteriskChapter(scene?.当前章) : resolveStoryChapter(scene?.当前卷, scene?.当前章);
     if (!chapter || !['未开始', '进行中', '已结束'].includes(scene.阶段)) throw new Error('正式卷章或阶段不合法，停止剧情注入');
-    return { identity: id, source: { chatId: id.chatId, messageId: message.message_id, swipeId }, state: copy(state), fingerprint: JSON.stringify([message, wrapper]), volume: scene.当前卷, chapter: chapter.key, phase: scene.阶段, node: chapter };
+    return { identity: id, world, source: { chatId: id.chatId, messageId: message.message_id, swipeId }, state: copy(state), fingerprint: JSON.stringify([message, wrapper]), volume: world === 'asterisk' ? 1 : scene.当前卷, chapter: chapter.key, phase: scene.阶段, node: chapter };
   }
   async function readMaterial(snapshot, cancelled) {
     if (typeof deps.readStoryEntry !== 'function') throw new Error('缺少绑定世界书读取接口，请更新剧情注入脚本');
     let timer;
     try {
-      const waiting = [deps.readStoryEntry(snapshot.volume, snapshot.chapter), new Promise((_, reject) => {
+      const waiting = [deps.readStoryEntry(snapshot.world, snapshot.volume, snapshot.chapter), new Promise((_, reject) => {
         timer = setTimeout(() => reject(new Error('读取绑定世界书超时，停止该次注入')), 8000);
       })];
       if (cancelled) waiting.push(cancelled);
@@ -79,27 +81,23 @@ function createRakudaiPlotRuntime(deps) {
     } finally { clearTimeout(timer); }
   }
   function render(snapshot, material) {
-    const { state, volume, chapter, phase } = snapshot, scene = state.场景;
-    const next = nextStoryChapterForState(volume, chapter, state);
-    const lines = [BEGIN, `当前剧情节点：第${volume}卷 · ${chapter}`, `正式阶段：${phase}`, `本局时间：${scene.时间 || '未确认'}；地点：${scene.地点 || '未确认'}`, `切入说明：${scene.切入说明 || '沿用本局已确认情境'}`,
-      `世界书来源：${material.worldbook} / ${material.name}（UID ${material.uid}，order ${material.order}）`,
-      '剧情内容及完成标识以本条世界书原文为准，不用原作目录或章节摘要重新定义结束位置。'];
-    if (phase === '已结束') {
-      lines.push('本章已结束：仅回应当前收束与玩家操作，不继续推动本章事件，不提前展开下一章。');
-    } else {
-      lines.push(phase === '未开始' ? '本章尚未开始：按原文交代切入情境，实际开始时在 MVU 中将 /场景/阶段 改为“进行中”；本轮不跨章。' : '本章进行中：按下列原文推进，以原文完成标识作为本章交接边界。');
+    const { state, world, volume, chapter, phase } = snapshot, scene = state.场景;
+    const next = world === 'asterisk' ? nextAsteriskChapter(chapter) : nextStoryChapterForState(volume, chapter, state);
+    const lines = [BEGIN, `当前剧情节点：${world === 'asterisk' ? '学战 第一卷' : '第' + volume + '卷'} · ${chapter}`, `正式阶段：${phase}`,
+      `本局时间：${scene.时间 || '未确认'}；地点：${scene.地点 || '未确认'}`, `切入说明：${scene.切入说明 || '沿用本局已确认情境'}`];
+    if (phase !== '已结束') {
       lines.push('【对应世界书条目原文】\n' + material.content);
-      lines.push('【每轮推进节奏】上面的原文是整章材料，不是这一轮必须完成的任务清单。默认只承接玩家本轮输入，推进当前场景的一小段互动；遇到需要玩家回答、决定、行动或应对攻击的位置就停下，把行动权交还玩家。不得替玩家说话、做决定、连打多轮战斗，也不得用概述或时间跳跃把多个关键事件、转场和本章结局一口气演完。自定义角色模式也须保留玩家对当前场景的介入机会，不连续播放 NPC 剧情直至章末。只有玩家明确要求快进、跳过或概述时才放宽节奏，不能把普通的“继续”当作快进整章。');
       if (phase === '进行中') {
-        lines.push('【完成后的变量交接】完成标识是否达成，以本条原文和本局已发生事实判断。未达成、原文未定义完成标识或无法确认时保持卷章；不以轮数、转场或章节摘要代替判断。');
-        lines.push('不得为了触发自动切章而赶演完成标识、提前替玩家完成行动或把计划写成既成事实。一章可以持续多轮；完成条件已经自然达成时正常交接，不为了凑轮数拖延。');
-        lines.push('条件达成时，正文停在本章完成标识指定的交接处；本轮不演下一章。已发生事件仍记录在本章卷号、章段下，不改写旧事件，不补造未发生剧情。');
-        const patch = next ? [
-          ...(next.volume !== volume ? [{ op: 'replace', path: '/场景/当前卷', value: next.volume }] : []),
-          { op: 'replace', path: '/场景/当前章', value: next.chapter },
-          { op: 'replace', path: '/场景/阶段', value: '进行中' },
-        ] : [{ op: 'replace', path: '/场景/阶段', value: '已结束' }];
-        lines.push((next ? `相邻下一节点为第${next.volume}卷 · ${next.chapter}；` : '这是最后一个目录节点，结束后不再前进；') + '仅在完成条件达成时，把以下操作合并到本轮已有的 UpdateVariable/JSONPatch 中，Analysis 写明达成事实，不另输出第二个变量块：\n' + JSON.stringify(patch));
+        const patch = world === 'asterisk'
+          ? next ? [{ op: 'replace', path: '/场景/当前章', value: next.key }, { op: 'replace', path: '/场景/阶段', value: '进行中' }]
+            : [{ op: 'replace', path: '/场景/阶段', value: '已结束' }]
+          : next ? [
+            ...(next.volume !== volume ? [{ op: 'replace', path: '/场景/当前卷', value: next.volume }] : []),
+            { op: 'replace', path: '/场景/当前章', value: next.chapter },
+            { op: 'replace', path: '/场景/阶段', value: '进行中' },
+          ] : [{ op: 'replace', path: '/场景/阶段', value: '已结束' }];
+        const nextLabel = next ? (world === 'asterisk' ? '相邻下一条目为 ' + next.key : '相邻下一节点为第' + next.volume + '卷 · ' + next.chapter) : '这是目录最后一个条目，结束后不再前进';
+        lines.push(nextLabel + '；仅在完成标识达成时，把以下操作并入本轮已有的 UpdateVariable/JSONPatch，Analysis 写明达成事实，不另输出第二个变量块：\n' + JSON.stringify(patch));
       }
     }
     lines.push(END);
@@ -283,6 +281,7 @@ function createRakudaiPlotRuntime(deps) {
       const settingsStamp = JSON.stringify(data);
       const cancelled = new Promise(resolve => { candidate.cancel = () => resolve(false); });
       if (!(await Promise.race([deps.measureBudget(messages, candidate.text, data), cancelled]))) throw new Error('发送前已取消或预算无法确认，已撤回剧情注入');
+      readState(candidate.active.excludedId);
       const material = await readMaterial(candidate.snapshot, cancelled);
       const latest = readState(candidate.active.excludedId);
       if (material.signature !== candidate.material.signature || disposed || pending !== candidate || deps.readSettings() === false || deps.getMvu()?.isDuringExtraAnalysis?.() || !same(candidate.snapshot.identity, latest.identity) || candidate.snapshot.fingerprint !== latest.fingerprint || candidate.savedChatStamp !== chatStamp() || !sameMessages(messages, candidate.messages) || settingsStamp !== JSON.stringify(data)) throw new Error('发送前世界书、状态、回复页或请求已变化，已撤回过期剧情块');

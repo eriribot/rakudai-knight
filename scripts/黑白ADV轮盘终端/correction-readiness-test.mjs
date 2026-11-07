@@ -3,7 +3,9 @@ import vm from 'node:vm';
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 import { stripModuleSyntax } from '../story-build.mjs';
-import { createSchema, INITIAL_STATE, supportStage } from '../../世界书规则/MVU/schema.mjs';
+import { createSchema, RAKUDAI_INITIAL_STATE as INITIAL_STATE, supportStage } from '../../世界书规则/MVU/schema.mjs';
+import { resolveTerminalWorld } from './terminal-world.mjs';
+import { hasBlazerGrowth } from '../rakudai-mvu-structure.mjs';
 import { shouldInjectTournament, parseTournamentDate, isHagunAffiliation } from '../rakudai-tournament-calendar.mjs';
 import { deriveTournament, normalizeTournament } from '../rakudai-tournament.mjs';
 import { shouldInjectNationalTournament, deriveNationalTournament } from '../rakudai-national-tournament.mjs';
@@ -26,6 +28,14 @@ const markerKey = '__RK_MVU_GUARD_V4__';
 const bootKey = '__RK_MVU_GUARD_BOOT_V4__';
 const block = '<UpdateVariable><JSONPatch>[]</JSONPatch></UpdateVariable>';
 const flush = () => new Promise(resolve => setImmediate(resolve));
+
+await check('学战招式简写只更新说明，保留已有使用条件与掌握状态', () => {
+  const f = fixture(), state = f.state().stat_data;
+  state.玩家.学战 = { 招式: { 回旋: { 说明: '旧说明', 条件与代价: '消耗星辰力', 掌握状态: '已掌握' } } };
+  const patch = f.api.normalizeCorrectionPatch([{ op: 'replace', path: '/玩家/学战/招式/回旋', value: '新说明' }], state);
+  assert.equal(JSON.stringify(patch), JSON.stringify([{ op: 'replace', path: '/玩家/学战/招式/回旋/说明', value: '新说明' }]));
+  assert.equal(state.玩家.学战.招式.回旋.条件与代价, '消耗星辰力');
+});
 
 function fixture({ autoApply = true, connected = true, hostRenderEvent = true, tailEvents = true, respond, businessAllowed = () => true,
   patch = [{ op: 'replace', path: '/场景/地点', value: '演武场' }] } = {}) {
@@ -133,16 +143,18 @@ function fixture({ autoApply = true, connected = true, hostRenderEvent = true, t
     LS: { get: (key, fallback) => storage.has(key) ? storage.get(key) : fallback,
       set: (key, value) => storage.set(key, value) },
     generationPending: false, terminalStateReader: { clear() {} },
-    terminalBusinessIsRakudai: state => businessAllowed(state === undefined ? persisted.stat_data : state),
+    readTerminalState: () => persisted.stat_data, resolveTerminalWorld,
+    terminalBusinessIsRakudai: (state = persisted.stat_data) => businessAllowed(state) && resolveTerminalWorld(state) === 'rakudai',
+    terminalBusinessIsSelected: (state = persisted.stat_data) => businessAllowed(state) && ['rakudai', 'asterisk'].includes(resolveTerminalWorld(state)) && state?.系统?.开局状态 === '已建档',
     fn: name => helper[name], emit() {},
-    stateService: () => ({ tournamentView: state => { tournamentInputs.push(clone(state)); return deriveTournament(state); },
+    stateService: () => ({ hasBlazerGrowth, tournamentView: state => { tournamentInputs.push(clone(state)); return deriveTournament(state); },
       nationalTournamentView: deriveNationalTournament,
       validateState: value => { stateSchema.parse(value); return clone(value); } }),
     setTimeout: (fn, ms) => setTimer(fn, ms, false), clearTimeout: id => timers.delete(id),
     setInterval: (fn, ms) => setTimer(fn, ms, true), clearInterval: id => timers.delete(id),
   });
   vm.runInContext(nativeSource + '\n' + source + '\nglobalThis.api = { requestCorrection, applyCorrection, getCorrectionStatus, ' +
-    'wireAutomaticCorrection, startAutomaticCorrection, endAutomaticCorrection, cancelCorrection, correctionHostReset, correctionMainBusy, retryCorrection, correctionMvuBlock, getCorrectionInput, normalizeCorrectionPatch, correctionRules };', realm);
+    'wireAutomaticCorrection, startAutomaticCorrection, endAutomaticCorrection, cancelCorrection, correctionHostReset, correctionMainBusy, retryCorrection, correctionMvuBlock, getCorrectionInput, normalizeCorrectionPatch, correctionRules, getCorrectionConfig, saveCorrectionConfig };', realm);
   const api = realm.api;
   const TE = hostRenderEvent ? { CHARACTER_MESSAGE_RENDERED: 'host:rendered' } : {};
   api.wireAutomaticCorrection((event, callback) => {
@@ -213,14 +225,14 @@ function fixture({ autoApply = true, connected = true, hostRenderEvent = true, t
 
 // 作品解析本身由主壳测试；这些新增用例注入该边界，旧夹具继续测试原 RK 生命周期。
 const businessAllowedForTest = state => state?.系统?.开局状态 === '已建档' &&
-  (!Object.hasOwn(state.系统, '作品') || state.系统.作品 === 'rakudai');
+  ['rakudai', 'asterisk'].includes(resolveTerminalWorld(state));
 
-await check('学战、未知作品与未建档不启动自动或手动落第校正', async () => {
-  for (const system of [{ 作品: 'asterisk' }, { 作品: 'unknown' }, { 开局状态: '待建档' }]) {
+await check('未知作品与未建档不启动自动或手动业务校正', async () => {
+  for (const system of [{ 作品: 'unknown' }, { 开局状态: '待建档' }]) {
     const f = fixture({ businessAllowed: businessAllowedForTest });
     const saved = f.state(); Object.assign(saved.stat_data.系统, system); f.save(saved);
     f.context.chat[0].mes += block;
-    await assert.rejects(f.api.requestCorrection(), /当前作品未启用落第业务校正/);
+    await assert.rejects(f.api.requestCorrection(), /当前作品尚未完成建档/);
     const candidate = f.startTurn(); await f.advance(3000);
     assert.equal(candidate.delta_data?.$internal?.__rk_main_save, undefined);
     f.assertNoWork(); f.dispose();
@@ -249,7 +261,7 @@ await check('校正预览完成后业务切换阻止旧补丁解析和保存', a
   f.context.chat[0].mes += block;
   await f.api.requestCorrection();
   const saved = f.state(); saved.stat_data.系统.作品 = 'asterisk'; f.save(saved);
-  await assert.rejects(f.api.applyCorrection(), /当前作品未启用落第业务校正/);
+  await assert.rejects(f.api.applyCorrection(), /当前作品尚未完成建档|实际变量已变化/);
   assert.equal(f.requests.length, 1); assert.equal(f.parses.length, 0); assert.equal(f.writes.length, 0); f.dispose();
 });
 
@@ -1032,9 +1044,14 @@ await check('关闭约束时，副校正直接走原生终值路径并补缺失�
   assert.equal(f.parses[0].native, true); assert.equal(f.writes.length, 1);
   assert.deepEqual(f.state().stat_data.玩家.成长.经验, { 魔力控制: 0, 体能: 0, 魔力量: 0 });
 });
-await check('旧独立成长仍运行时不请求副API，避免旧申请混入终值模式', async () => {
-  for (const guardState of ['missing', 'loading', 'failed']) {
+await check('两作品已有伐刀成长且旧独立结算仍运行时，不请求副API混用协议', async () => {
+  for (const world of ['rakudai', 'asterisk']) for (const guardState of ['missing', 'loading', 'failed']) {
     const f = fixture(); f.context.chat[0].mes += block;
+    if (world === 'asterisk') {
+      const oldPlayer = f.state().stat_data.玩家, hybrid = useAsterisk(f);
+      for (const key of ['伐刀能力', '六维']) hybrid.stat_data.玩家[key] = clone(oldPlayer[key]);
+      f.save(hybrid);
+    }
     if (guardState === 'loading') f.loading();
     if (guardState === 'failed') f.HW[bootKey] = { state: 'failed' };
     f.HW.__RK_MVU_GROWTH_G04__ = { state: 'ready', growthSettlement: 'G04', parseRepair() { throw new Error('不能调用旧解析器'); } };
@@ -1286,6 +1303,51 @@ await check('截图回归：无 guard 副 API 的已完成阶段和地点混合�
   assert.equal(saved.玩家.战斗风格, before.stat_data.玩家.战斗风格);
   assert.deepEqual(saved.人际, before.stat_data.人际);
   assert.deepEqual(before, initialBefore); assert.deepEqual(patch, inputBefore);
+  f.dispose();
+});
+function useAsterisk(f) {
+  const saved = f.state();
+  saved.stat_data.系统.作品 = 'asterisk';
+  Object.assign(saved.stat_data.场景, { 当前卷: null, 当前章: '六花入学', 时间: '2013-04-09 08:00', 地点: '星导馆', 日程: {} });
+  saved.stat_data.玩家 = { 性别: '男性', 姓名: '测试角色', 性格关键词: '谨慎', 处事风格: '观察', 所属: '星导馆学园', 角色简介: '新生', 战斗风格: '近战', 其他能力: {},
+    学战: { 学园ID: 'seidoukan', 能力身份: '星脉世代', 能力机制: '', 共通限制: '', 招式: {}, 星辰力: { 说明: '尚未测定' }, 校内序列: { 状态: '未上榜', 名次: null }, 武装: { 类别: '尚未确定', 名称: '', 使用条件: '' } } };
+  stateSchema.parse(saved.stat_data); f.save(saved);
+  return saved;
+}
+await check('学战正式字段校正通过原生 MVU 保存与完整回读，不建立落第成长', async () => {
+  const patch = [
+    { op: 'replace', path: '/玩家/学战/星辰力/说明', value: '持续强化十分钟后疲劳' },
+    { op: 'add', path: '/玩家/学战/招式/回旋', value: { 说明: '侧身回旋', 条件与代价: '消耗星辰力', 掌握状态: '学习中' } },
+    { op: 'replace', path: '/场景/当前章', value: '武装适配' },
+    { op: 'add', path: '/场景/日程/适配测试', value: { 类型: '其他', 日期: '2013-04-10', 时间: '09:00', 地点: '测试室', 参与者: ['测试角色'], 状态: '已安排', 说明: '依通知登记' } }
+  ];
+  const f = fixture({ patch }); const before = useAsterisk(f); f.context.chat[0].mes += block;
+  const preview = await f.api.requestCorrection(); assert.equal(preview.count, 4); await f.api.applyCorrection();
+  assert.equal(f.writes.length, 1); assert.equal(f.state().stat_data.玩家.学战.星辰力.说明, patch[0].value);
+  assert.equal(f.state().stat_data.场景.当前章, '武装适配'); assert.equal(f.state().stat_data.场景.当前卷, null);
+  for (const key of ['成长', '六维', '伐刀能力', '登记等级']) assert.equal(Object.hasOwn(f.state().stat_data.玩家, key), false);
+  assert.deepEqual(f.state().stat_data.人际, before.stat_data.人际);
+  const payload = JSON.parse(f.requests[0].messages[1].content), prompt = f.requests[0].messages[0].content;
+  assert.equal(Object.hasOwn(payload, '程序选拔赛'), false); assert.equal(Object.hasOwn(payload, '赛事日历'), false);
+  assert.match(prompt, /星辰力.*说明/); assert.doesNotMatch(prompt, /七星剑斗祭|破军|成长申请|选拔赛/);
+  f.dispose();
+});
+await check('学战原生主轮收据确认后自动校正并回读', async () => {
+  const f = fixture(); useAsterisk(f); f.startTurn(); await f.advance(2000);
+  assert.equal(f.api.getCorrectionStatus().mainSave, 'saved'); assert.equal(f.api.getCorrectionStatus().state, 'applied');
+  assert.equal(f.requests.length, 1); assert.equal(f.writes.length, 1); assert.equal(f.state().stat_data.场景.地点, '演武场');
+  assert.equal(Object.hasOwn(f.state().stat_data.玩家, '成长'), false); f.dispose();
+});
+await check('两作品共用连接但提示词分别保存，旧落第自定义不会进入学战请求', async () => {
+  const f = fixture({ patch: [] }), rkState = f.state();
+  f.api.saveCorrectionConfig({ ...f.api.getCorrectionConfig(), prompt: '落第自定义成长指令', autoApply: false });
+  useAsterisk(f);
+  assert.match(f.api.getCorrectionConfig().prompt, /学战都市/); assert.doesNotMatch(f.api.getCorrectionConfig().prompt, /落第自定义/);
+  f.api.saveCorrectionConfig({ ...f.api.getCorrectionConfig(), prompt: '学战自定义星辰力指令' });
+  f.context.chat[0].mes += block; await f.api.requestCorrection();
+  assert.match(f.requests[0].messages[0].content, /学战自定义星辰力/); assert.doesNotMatch(f.requests[0].messages[0].content, /落第自定义/);
+  f.save(rkState); assert.equal(f.api.getCorrectionConfig().prompt, '落第自定义成长指令');
+  assert.throws(() => f.api.saveCorrectionConfig({ ...f.api.getCorrectionConfig(), world: 'asterisk' }), /作品已变化/);
   f.dispose();
 });
 console.log(JSON.stringify({ total: results.length, passed: results.filter(result => result.passed).length,

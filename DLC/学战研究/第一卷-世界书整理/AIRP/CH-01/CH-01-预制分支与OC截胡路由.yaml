@@ -51,22 +51,22 @@ branches:
         canonDisposition: {action: preserve, reason: "完全复现原著第一章经典误会与决斗开局"}
 
       - id: B01-O02
-        label: "【OC优雅绅士流截胡】在铁栅栏外礼貌出声提醒，以风压/剑气/轻功将手帕平稳送达窗台并主动背身避嫌"
+        label: "【OC守礼避嫌交互】在铁栅栏外礼貌出声提醒，以风压/剑气/身法将手帕平稳送达窗台并主动背身避嫌"
         deviationLevel: D2
         effects:
           facts:
             - {path: facts.dorm_window_intrusion, op: set, value: false}
             - {path: facts.handkerchief_returned_gracefully, op: set, value: true}
           relationships:
-            - {path: relationship.player_julis.affection_delta, op: add, value: 25}
-            - {path: relationship.player_julis.impression, op: set, value: chivalrous_expert}
-        immediateConsequence: "免除『偷窥变态』负面标签！尤莉丝穿戴整齐后亲自从四楼跃下向玩家郑重道谢，并对玩家精准控制星辰力/魔力送帕的身手产生强烈好奇，主动以『始页十二人』身份邀请玩家进行一场正规切磋决斗"
+            - {path: relationship.player_julis.impression, op: set, value: polite_capable_stranger}
+            - {path: relationship.player_julis.respect_delta, op: add, value: 15}
+        immediateConsequence: "免除『偷窥变态』敌意标签！尤莉丝整理好制服下楼向玩家郑重道谢，基于对手帕的珍视由衷感激，同时对玩家精巧身手抱有警惕与好奇；以皇女矜持询问姓名并承诺答谢，确立互相尊重的平视开局"
         delayedSeeds:
-          - id: seed-julis-favorable-first-impression
-            maturity: "决斗收束及后续食堂/假日互动"
-            possibleOutcomes: [early_partner_invitation, skip_hostile_bickering]
+          - id: seed-julis-polite-first-impression
+            maturity: "后续日常交涉与搭档考察"
+            possibleOutcomes: [mutual_respect_basis, avoid_unnecessary_hostility]
         mergePoint: AST1-CH01-E04
-        canonDisposition: {action: adapt, reason: "截胡手帕归还高光，将敌对算账决斗转化为皇女欣赏强者的正规切磋"}
+        canonDisposition: {action: adapt, reason: "改变开局敌对误会，将偷窥算账决斗转化为基于性格的平等交互与武者考察契机"}
 
   - id: AST1-CH01-B02
     title: "【截胡节点B】『赤莲』决斗与人群借剑：亲自应战 / 替绫斗接下战帖 / 抛剑相助"
@@ -94,20 +94,20 @@ branches:
         canonDisposition: {action: adapt, reason: "玩家直接接管或替战第一章核心战斗高光"}
 
       - id: B02-O02
-        label: "【OC替战截胡】当绫斗手无寸铁骑虎难下时，OC主动上前借剑或代为接下尤莉丝的决斗挑战"
+        label: "【OC介入切磋】当绫斗手无寸铁骑虎难下时，OC主动上前借剑或提出接下尤莉丝决斗"
         deviationLevel: D2
         effects:
           facts:
             - {path: facts.ch01_duel_combatant, op: set, value: player_intervened}
           relationships:
             - {path: relationship.player_ayato.trust, op: add, value: 20}
-            - {path: relationship.player_julis.interest, op: add, value: 15}
-        immediateConsequence: "绫斗对玩家的仗义解围深感感激；尤莉丝见玩家气度不凡，欣然将决斗对象转为玩家"
+            - {path: relationship.player_julis.combat_focus, op: set, value: serious_duel}
+        immediateConsequence: "绫斗对玩家仗义解围深表感激；尤莉丝以审慎威严的目光逼视玩家、确认觉悟，随后调动全身星辰力全力迎战，将决斗目标正式转为玩家"
         mergePoint: AST1-CH01-E06
-        canonDisposition: {action: adapt, reason: "同时收获男主友谊与女主战意关注"}
+        canonDisposition: {action: adapt, reason: "由玩家接管核心战斗交互，以武者对决形式展现双方实力"}
 
   - id: AST1-CH01-B03
-    title: "【截胡节点C·章节收束】爆炎盲区暗箭偷袭：挥剑斩箭完美救美 vs 原著扑倒误触 vs 决斗提前分出胜负"
+    title: "【截胡节点C·章节收束】爆炎盲区暗箭偷袭：挥剑斩箭得体救护 vs 原著扑倒误触 vs 决斗提前分出胜负"
     status: staged_template
     affectsCanonEvents: [AST1-CH01-E06]
     causedBy:
@@ -121,7 +121,7 @@ branches:
       playerRequired: true
     options:
       - id: B03-O01
-        label: "【OC完美救美截胡】在爆炎烟尘中一剑凌空斩碎偷袭光箭（或揽住尤莉丝纤腰护在怀中稳稳落地，免除袭胸尴尬）"
+        label: "【OC得体救护化解危机】在爆炎烟尘中敏锐斩碎偷袭光箭，或拉开尤莉丝护住且恪守礼节（免除袭胸冒犯）"
         deviationLevel: D2
         effects:
           facts:
@@ -129,16 +129,16 @@ branches:
             - {path: facts.accidental_grope_occurred, op: set, value: false}
             - {path: facts.ch01_completed_by_claudia_clap, op: set, value: true}
           relationships:
-            - {path: relationship.player_julis.affection_delta, op: add, value: 35}
-            - {path: relationship.player_julis.stage, op: set, value: life_debt_and_heart_flutter}
+            - {path: relationship.player_julis.life_debt, op: set, value: acknowledged}
+            - {path: relationship.player_julis.stage, op: set, value: indebted_flustered_tsundere}
             - {path: relationship.player_claudia.evaluation, op: set, value: top_tier_prospect}
-        immediateConsequence: "尤莉丝看着近在咫尺挡在自己身前斩碎冷箭的玩家，心脏剧烈狂跳、满脸通红却无需因袭胸而恼羞成怒；紧接着学生会长克劳蒂雅拍掌登场（『好了好了，两位请到此为止吧』）中止决斗【达成第一章完成标识】，尤莉丝暗下决心要向玩家报答救命之恩"
+        immediateConsequence: "尤莉丝在得体救护下脱险，纯情少女面对亲近接触面红耳赤；虽害羞嘴硬掩饰心慌，但其处世原则向来有恩必报，郑重宣布绝不欠救命恩情；会长克劳蒂雅拍掌登场中止决斗【达成第一章完成标识】"
         delayedSeeds:
-          - id: seed-julis-active-invitation
-            maturity: "第三章至第六章"
-            possibleOutcomes: [julis_proposes_phoenix_pair_early, holiday_date_affection_boost]
+          - id: seed-julis-repay-debt-drive
+            maturity: "后续篇章日常"
+            possibleOutcomes: [seeks_opportunity_to_repay, organic_closeness_development]
         mergePoint: "chapter-boundary/CH-02"
-        canonDisposition: {action: adapt, reason: "完美截胡第一章救美高光，消除原著袭胸掉好感副作用，直接触发克劳蒂雅拍掌完成标识"}
+        canonDisposition: {action: adapt, reason: "以待人接物原则代替机械倒贴，将救命人情转化为有恩必报的长线相处羁绊"}
 
       - id: B03-O02
         label: "【原著经典路线】高喊『快趴下』将尤莉丝扑倒护在身下，慌乱中手掌意外按住其胸口引发羞愤喷火"

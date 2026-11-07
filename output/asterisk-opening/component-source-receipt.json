@@ -2,18 +2,18 @@
   "schemaVersion": 1,
   "deliveryMode": "component",
   "kind": "regex",
-  "stableId": "4f9bda79-82bd-4d2f-9a66-2497349df26e",
-  "fixture": "世界书规则/MVU/落第骑士-开局页面-N08.regex.json",
-  "fixtureSha256": "f7ad8493818103fe13295dea6867f75356dc45e3278cbd0ce5683641051158a1",
+  "stableId": "d23c3cf5-68b5-4a42-be33-d1e45892ec69",
+  "fixture": "output/opening-ejs-delimiter-repair-20261106/opening-before.regex.json",
+  "fixtureSha256": "d826b205a89c53224d4bd5dcd12d81f8089fe26c58ce44e9583d172ae007dec9",
   "source": "第一卷-世界书整理/开局网页正则替换/index.html",
-  "sourceSha256": "e9cc2d9808d823cacffd2b09385d61ce2c75b3a26f66e72f27294f45d14e8a78",
+  "sourceSha256": "e39bd2a6db80b3ae447b03949f9c26ba55d497ab40e4f57a44d947527d29f016",
   "originalSource": "第一卷-世界书整理/开局页面/index.html",
-  "originalSourceSha256": "5f5672658041039ff1911cf8965b97211e965e0beda98187e36d0f9585c420fc",
+  "originalSourceSha256": "c23ac0b6040a801ec7ab4575a83d39b46c94b6a20a76993c9bb023fc4c95129e",
   "allowedChangedFields": [
     "scriptName",
     "replaceString"
   ],
-  "replacementSha256": "617edb6b9e445fce4ce3ed7ec87fd940f9e576b149beed188bc7c471075a10b6",
+  "replacementSha256": "405e6b96c41a5bc50c13b10118b7481fcdbd27d308402cdd509bd985a07f4a6f",
   "library": {
     "snapshotVersion": "2026-08-18",
     "route": "sillytavern-component-update",
@@ -24,7 +24,8 @@
     ],
     "adoptedCandidates": []
   },
+  "asteriskMvuImplemented": true,
   "liveSillyTavernVerified": false,
   "liveAiVerified": false,
-  "asteriskMvuImplemented": false
+  "liveAsteriskMvuVerified": false
 }

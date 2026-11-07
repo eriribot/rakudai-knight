@@ -29,7 +29,7 @@ class Node {
   addEventListener(type, listener) { const list = this.events.get(type) || []; list.push(listener); this.events.set(type, list); }
   dispatch(type) { for (const listener of this.events.get(type) || []) listener({ target: this }); }
 }
-function fixture({ name = '黎恩', text = '黎恩：我来试试。', kind = 'candidate', runtimeAttribute = null } = {}) {
+function fixture({ name = '黎恩', text = '黎恩：我来试试。', kind = 'candidate', runtimeAttribute = null, world = null } = {}) {
   const head = new Node('head'), body = new Node('body'), chat = new Node('div'); body.append(chat);
   const candidate = new Node('span'); candidate.setAttribute('data-rkd', kind); candidate.setAttribute('data-rkd-name', name);
   if (runtimeAttribute !== null) candidate.setAttribute('data-rkd-runtime-player', runtimeAttribute);
@@ -47,10 +47,38 @@ function fixture({ name = '黎恩', text = '黎恩：我来试试。', kind = 'c
   const host = { MutationObserver: class { constructor(listener) { this.listener = listener; this.disconnected = false; observers.push(this); }
     observe(target, options) { this.target = target; this.options = options; } disconnect() { this.disconnected = true; } } };
   const realm = vm.createContext({ URL, console }); vm.runInContext(storeSource, realm); vm.runInContext(source, realm);
-  const binder = realm.createPlayerBubbleBinder({ host, document: doc, service, css: '.test{}' });
+  const binder = realm.createPlayerBubbleBinder({ host, document: doc, service, css: '.test{}', getMessageWorld: () => world });
   return { binder, service, doc, candidate, original, chat, head, observers,
-    set available(value) { available = value; }, get snapshot() { return snapshot; }, set snapshot(value) { snapshot = value; } };
+    set available(value) { available = value; }, get snapshot() { return snapshot; }, set snapshot(value) { snapshot = value; },
+    set world(value) { world = value; } };
 }
+
+test('玩家框读取该消息作品，旧楼层不随当前终端外观改变；销毁恢复标记', () => {
+  const oldFloor = fixture({ world: 'rakudai' }), newFloor = fixture({ world: 'asterisk' });
+  assert.equal(oldFloor.candidate.getAttribute('data-rkd-world'), 'rakudai');
+  assert.equal(newFloor.candidate.getAttribute('data-rkd-world'), 'asterisk');
+  oldFloor.binder.refresh(true); newFloor.binder.refresh(true);
+  assert.equal(oldFloor.candidate.getAttribute('data-rkd-world'), 'rakudai');
+  newFloor.binder.destroy();
+  assert.equal(newFloor.candidate.getAttribute('data-rkd-world'), null);
+});
+
+test('没有该楼层作品时不把当前界面作品写进玩家框', () => {
+  const f = fixture();
+  assert.equal(f.candidate.getAttribute('data-rkd-world'), null);
+  f.world = 'asterisk'; f.binder.refresh(true);
+  assert.equal(f.candidate.getAttribute('data-rkd-world'), 'asterisk');
+  f.world = null; f.binder.refresh(true);
+  assert.equal(f.candidate.getAttribute('data-rkd-world'), null);
+});
+
+test('非玩家气泡不读取楼层主题，不更改人物固定作品框', () => {
+  const f = fixture({ name: '尤莉丝', kind: 'bubble', world: 'rakudai' });
+  f.candidate.setAttribute('data-rkd-asterisk', '尤莉丝');
+  f.binder.refresh(true);
+  assert.equal(f.candidate.getAttribute('data-rkd-asterisk'), '尤莉丝');
+  assert.equal(f.candidate.getAttribute('data-rkd-world'), null);
+});
 
 for (const name of ['黎恩', '黎恩·舒华泽', '玩家人物', 'player', '玩家', 'OC']) test(`候选 ${name} 提升为玩家气泡并使用共享头像`, () => {
   const f = fixture({ name, text: name + '：我来试试。' });

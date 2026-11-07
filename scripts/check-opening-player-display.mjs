@@ -32,7 +32,8 @@ function fixture({ canon = false, replacing = false, commitFailure = false, avat
     async verify() { calls.push('verify'); return { state: oldState }; },
   };
   const realm = vm.createContext({
-    window: { RakudaiPlayerDisplay: display, confirm: () => true }, document: { getElementById: () => button },
+    window: { RakudaiPlayerDisplay: display, confirm: () => true },
+    document: { getElementById: () => button, querySelectorAll(selector) { assert.equal(selector, '[data-opening-copy]'); return []; } },
     defaultCanonAvatarSrc: 'https://eriribot.github.io/rakudai-knight/default-avatar.jpeg',
     openingCommitBusy: false, openingUiRevision: 0, openingReceipt: null, openingPendingAttempt: null,
     requireCompleteProfile: () => true, readOpeningDraft: () => draft, validateArchive: value => value,

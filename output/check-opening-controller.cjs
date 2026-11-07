@@ -17,7 +17,8 @@ function node(id) {
 }
 let copied = [];
 const ctx = vm.createContext({
-  window: {}, document: { getElementById: node }, navigator: { clipboard: { async writeText(text) { copied.push(text); } } },
+  window: {}, document: { getElementById: node, querySelectorAll(selector) { assert.equal(selector, '[data-opening-copy]'); return [node('copy-draft'), node('copy-preview')]; } },
+  navigator: { clipboard: { async writeText(text) { copied.push(text); } } },
   requireCompleteProfile: () => true, getCurrentMessageId: () => 0, Number,
 });
 vm.runInContext(rating.slice(0, rating.indexOf('var START_PROFILES')), ctx);

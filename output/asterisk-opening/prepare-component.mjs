@@ -6,7 +6,9 @@ import { fileURLToPath } from 'node:url';
 const work = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(work, '../..');
 const target = path.join(root, '第一卷-世界书整理/开局网页正则替换');
-const fixturePath = path.join(root, '世界书规则/MVU/落第骑士-开局页面-N08.regex.json');
+const fixtureArg = process.argv.indexOf('--fixture');
+if (fixtureArg < 0 || !process.argv[fixtureArg + 1]) throw new Error('请用 --fixture 指定当前角色卡导出的开局正则，保留实机稳定 ID。');
+const fixturePath = path.resolve(root, process.argv[fixtureArg + 1]);
 const sourcePath = path.join(target, 'index.html');
 const hash = value => crypto.createHash('sha256').update(value).digest('hex');
 const fixtureBytes = fs.readFileSync(fixturePath);
@@ -19,9 +21,12 @@ if (!fixture.replaceString.startsWith('```\n') || !fixture.replaceString.endsWit
 if (!html.startsWith('<!doctype html>') || !html.includes('ASTERISK_MODE_BEGIN')) {
   throw new Error('Expected the complete independent opening HTML.');
 }
+if (!html.includes('return buildAsteriskOpeningVariables(draft);') || html.includes('return previewAsteriskOpening();')) {
+  throw new Error('Build the formal Asterisk opening before preparing its component.');
+}
 const replacement = '```\n' + html + (html.endsWith('\n') ? '' : '\n') + '```';
 const value = structuredClone(fixture);
-value.scriptName = '[开局] 落第 × 学战 DLC 预览';
+value.scriptName = '[开局] 落第 × 学战 双开局';
 value.replaceString = replacement;
 const spec = {
   schemaVersion: 1, deliveryMode: 'component', kind: 'regex',
@@ -42,7 +47,8 @@ const receipt = {
   allowedChangedFields: ['scriptName', 'replaceString'],
   replacementSha256: hash(replacement),
   library: { snapshotVersion: '2026-08-18', route: 'sillytavern-component-update', documents: ['ST-A0', 'ST-A2', 'ST-A6'], adoptedCandidates: [] },
-  liveSillyTavernVerified: false, liveAiVerified: false, asteriskMvuImplemented: false
+  asteriskMvuImplemented: true,
+  liveSillyTavernVerified: false, liveAiVerified: false, liveAsteriskMvuVerified: false
 };
 fs.writeFileSync(path.join(work, 'component-source-receipt.json'), canonical(receipt), 'utf8');
 console.log(canonical({ mode: 'component', id: fixture.id, sourceSha256: receipt.sourceSha256, spec: 'output/asterisk-opening/component-update-spec.json', staging: '第一卷-世界书整理/开局网页正则替换/regex' }));

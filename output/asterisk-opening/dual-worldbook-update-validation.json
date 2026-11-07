@@ -1,0 +1,82 @@
+{
+  "component": "双作品·世界书差异更新器 v1",
+  "mode": "component",
+  "liveImported": false,
+  "liveVerified": false,
+  "artifactSha256": "8b930faed7ff162bdedd8cdcba970728e8ea533e231db4c594e985415cda0b5b",
+  "apiEvidence": {
+    "tavernHelper": {
+      "version": "4.12.0",
+      "commit": "5cbd089f1217d00e1f6851f50bf451223860a9c2"
+    },
+    "sillyTavern": {
+      "version": "1.19.0",
+      "commit": "7e8663cd9c184a550b37238218bdd32c6efc68e9"
+    },
+    "sources": [
+      "https://github.com/N0VI028/JS-Slash-Runner/blob/5cbd089f1217d00e1f6851f50bf451223860a9c2/src/function/worldbook.ts",
+      "https://github.com/N0VI028/JS-Slash-Runner/blob/5cbd089f1217d00e1f6851f50bf451223860a9c2/@types/iframe/script.d.ts",
+      "https://github.com/SillyTavern/SillyTavern/blob/7e8663cd9c184a550b37238218bdd32c6efc68e9/public/scripts/st-context.js",
+      "https://github.com/SillyTavern/SillyTavern/blob/7e8663cd9c184a550b37238218bdd32c6efc68e9/public/scripts/world-info.js"
+    ]
+  },
+  "sourceHashes": {
+    "世界书规则/MVU/变量列表.txt": "969de1849a51d5bb9b70a323734bca7c2e65ce74ac89f771106b1978ef742ae5",
+    "世界书规则/MVU/变量更新规则.txt": "1324e613ee0d699e4e935005a69f8249c9913b88b7ad2a2d52871b1ee67726ad",
+    "世界书规则/MVU/变量输出格式.txt": "f6e34d8a57b693ff4ffbe083407c8e0f24b4e038cd8264b5253a5233a24ca594",
+    "世界书规则/MVU/[initvar]变量初始化.yaml": "526b89799cab3d0e6097d13075b7003a3d0e3f4a723e902f7960a29f39a5037e"
+  },
+  "passed": true,
+  "total": 11,
+  "checks": [
+    {
+      "name": "205-entry raw book updates only eleven target contents and preserves every metadata field",
+      "passed": true
+    },
+    {
+      "name": "RK A/B EJS original is byte-preserved and rendered; AW renders current templates with shared coexistence",
+      "passed": true
+    },
+    {
+      "name": "repeated updates are idempotent and unknown wrapper versions fail closed",
+      "passed": true
+    },
+    {
+      "name": "missing or ambiguous comments fail; format alias selection never assumes UIDs",
+      "passed": true
+    },
+    {
+      "name": "import only registers buttons, preview downloads the complete raw book, explicit apply verifies server",
+      "passed": true
+    },
+    {
+      "name": "apply without preview, ambiguous preview and target changes cannot write",
+      "passed": true
+    },
+    {
+      "name": "chat and primary switches before apply or during reads stop all writes",
+      "passed": true
+    },
+    {
+      "name": "unrelated edits after preview survive and newly ambiguous target comments reject",
+      "passed": true
+    },
+    {
+      "name": "HTTP failures and saves that never persist are not reported as successful",
+      "passed": true
+    },
+    {
+      "name": "artifact is a compilable helper component with two visible explicit buttons and no auto task",
+      "passed": true
+    },
+    {
+      "name": "generated artifact executes its real serialized functions without hidden build dependencies",
+      "passed": true
+    }
+  ],
+  "limits": [
+    "Host APIs are doubled offline; real iframe buttons/download/import remain unverified.",
+    "The raw save API has no server-side CAS; avoid concurrent worldbook editing during the write.",
+    "A/B behavior is tested with a representative private-content fixture, not a new live export."
+  ]
+}

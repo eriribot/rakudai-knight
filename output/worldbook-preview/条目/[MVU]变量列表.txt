@@ -1,0 +1,74 @@
+<% /* RK_AW_WORLDBOOK_V1 */ %>
+【同一世界与两座舞台】
+两部作品人物共存于同一个世界、互为同行，保留各自的身份、能力、所属与已确认关系；人物资料不等于已登场、与玩家熟识或触发原作事件。本局舞台由 系统.作品 决定，另一侧人物照常存在，不是本局附属 NPC。星辰力与魔力是两套独立体系：不换算数值、不互相供给、不以一方的等级或名次评价另一方。相遇不切换舞台，也不强制进入另一作品剧情。
+<% { const __dualState = getvar('stat_data'); const __dualWorld = (function resolveMvuWorld(state) {
+  const system = state?.系统;
+  if (!system || typeof system !== 'object' || Array.isArray(system)) return null;
+  if (Object.hasOwn(system, '作品')) return ['rakudai', 'asterisk'].includes(system.作品) ? system.作品 : null;
+  return system.结构版本 === 4 && system.开局状态 === '已建档' &&
+    ['场景', '玩家', '人际'].every(key => state[key] && typeof state[key] === 'object' && !Array.isArray(state[key])) ? 'rakudai' : null;
+})(__dualState); if (__dualWorld === 'rakudai') { %>
+<% /* RK_AW_ORIGINAL_BEGIN */ %>
+<status_current_variable>
+<%
+// 只裁剪发给模型的副本；当前楼层的事件与结算历史原样保存。
+const rkCurrent = getvar('stat_data');
+const rkPromptState = rkCurrent && typeof rkCurrent === 'object' ? JSON.parse(JSON.stringify(rkCurrent)) : null;
+const rkObject = value => value !== null && typeof value === 'object' && !Array.isArray(value);
+if (rkPromptState) {
+  delete rkPromptState.$internal;
+  // 收据、事件及赛期外赛事数据只从提示副本省略。
+  if (rkObject(rkPromptState.系统)) delete rkPromptState.系统.关系计分;
+  if (rkObject(rkPromptState.场景)) {
+    // 只保留最近 4 条已发生事件，更早的留在存档；不新增字段，避免模型误写。
+    const events = rkPromptState.场景.已发生事件;
+    if (rkObject(events)) {
+      const keys = Object.keys(events), keep = keys.slice(-4), shown = {};
+      for (const key of keep) shown[key] = events[key];
+      if (keep.length) rkPromptState.场景.已发生事件 = shown;
+      else delete rkPromptState.场景.已发生事件;
+    }
+  }
+  if (rkObject(rkPromptState.玩家) && rkObject(rkPromptState.玩家.成长)) {
+    const growth = rkPromptState.玩家.成长;
+    rkPromptState.玩家.成长 = Object.hasOwn(growth, '经验') ? { 经验: growth.经验 } : {};
+  }
+}
+%>
+<%- JSON.stringify(rkPromptState) %>
+</status_current_variable>
+历史、收据及赛期外赛事账本留在存档，省略不代表未发生；已发生事件只列最近 4 条，更早的凭存档与正文召回，不改写旧条目；保留原记录，按本轮事实提交变化。
+
+<% /* RK_AW_ORIGINAL_END */ %>
+<% } else { %>
+<status_current_variable>
+<%
+// 只裁剪发给模型的副本；当前楼层的事件与结算历史原样保存。
+const rkCurrent = getvar('stat_data');
+const rkPromptState = rkCurrent && typeof rkCurrent === 'object' ? JSON.parse(JSON.stringify(rkCurrent)) : null;
+const rkObject = value => value !== null && typeof value === 'object' && !Array.isArray(value);
+if (rkPromptState) {
+  delete rkPromptState.$internal;
+  // 收据、事件及赛期外赛事数据只从提示副本省略。
+  if (rkObject(rkPromptState.系统)) delete rkPromptState.系统.关系计分;
+  if (rkObject(rkPromptState.场景)) {
+    // 只保留最近 4 条已发生事件，更早的留在存档；不新增字段，避免模型误写。
+    const events = rkPromptState.场景.已发生事件;
+    if (rkObject(events)) {
+      const keys = Object.keys(events), keep = keys.slice(-4), shown = {};
+      for (const key of keep) shown[key] = events[key];
+      if (keep.length) rkPromptState.场景.已发生事件 = shown;
+      else delete rkPromptState.场景.已发生事件;
+    }
+  }
+  if (rkObject(rkPromptState.玩家) && rkObject(rkPromptState.玩家.成长)) {
+    const growth = rkPromptState.玩家.成长;
+    rkPromptState.玩家.成长 = Object.hasOwn(growth, '经验') ? { 经验: growth.经验 } : {};
+  }
+}
+%>
+<%- JSON.stringify(rkPromptState) %>
+</status_current_variable>
+历史、收据及赛期外赛事账本留在存档，省略不代表未发生；已发生事件只列最近 4 条，更早的凭存档与正文召回，不改写旧条目；保留原记录，按本轮事实提交变化。
+
+<% } } %>

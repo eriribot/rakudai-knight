@@ -53,7 +53,7 @@ function installRakudaiMvuGuard(schema) {
         relationshipCorrection: Boolean(replyKey && source?.relationshipCorrection === true), flexibleRepair });
       contactChanges = enforceRelationshipContact(variables, previous, { replyKey, flexibleRepair });
       // 选拔赛只校验自身账本；坏比赛不回滚能力、人际或其它本轮事实。
-      tournamentNotices = enforceTournamentState(variables, previous);
+      if (resolveMvuWorld(previous?.stat_data) === 'rakudai') tournamentNotices = enforceTournamentState(variables, previous);
       const scoreReceiptChanged = stateKey(variables.stat_data?.系统?.关系计分) !== stateKey(previous.stat_data?.系统?.关系计分);
       growthNotices = enforceGrowthProgress(variables, previous, { mode: 'final', replyKey,
         repairEventKeys: replyKey ? source?.repairEventKeys || [] : [],
@@ -67,7 +67,7 @@ function installRakudaiMvuGuard(schema) {
         changed.push('/场景（更新后结构或事件位置不合法）');
       }
       // 主回复无变化也要保存起点；副补漏首次推进后沿用同一起点，防止再次校正跳两章。
-      if (replyKey) rememberStory(source, source.storyCorrection ? source.storyBefore : previous.stat_data?.场景, variables.stat_data?.场景);
+      if (replyKey && resolveMvuWorld(previous?.stat_data) === 'rakudai') rememberStory(source, source.storyCorrection ? source.storyBefore : previous.stat_data?.场景, variables.stat_data?.场景);
     } catch (_) { rollback(); changed = ['/stat_data']; }
     if (changed.length) {
       const message = '已恢复越权或非法修改：' + changed.join('、') + '。自动切章只允许按当前世界书完成标识或既定路线交接；其他切入请使用终端。';

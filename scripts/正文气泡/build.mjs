@@ -10,6 +10,7 @@ export const root = path.resolve(here, '../..');
 export const output = path.join(here, '发布');
 export const reports = path.join(here, '验证记录');
 const manifestPath = path.join(root, 'resource/knightavatars/manifest.json');
+const asteriskPath = path.join(here, 'asterisk-portraits.json');
 const cssPath = path.join(here, 'bubble.css');
 const formatRulePath = path.join(here, 'format-rule.txt');
 export const formatRule = fs.readFileSync(formatRulePath, 'utf8').trim();
@@ -22,6 +23,7 @@ const readManifest = () => JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
 
 export function buildRules() {
   const manifest = readManifest();
+  const asterisk = JSON.parse(fs.readFileSync(asteriskPath, 'utf8'));
   const catalog = buildKnightAvatarCatalog();
   const names = new Map();
   const imageRules = [];
@@ -37,6 +39,32 @@ export function buildRules() {
     imageRules.push(selectors.join(',') + '{--rkd-image:url(' + cssString(catalog.entries[character.id].src) + ')}');
   }
   const alternatives = [...names.keys()].sort((a, b) => b.length - a.length).map(caseFoldLiteral).join('|');
+  const asteriskNames = [];
+  // 图床 URL 随仓库发布；预览单独映射本地原图，不把图片嵌进正则。
+  const asteriskImage = asterisk.imageUrl;
+  imageRules.push('[data-rkd-asterisk]:not([data-rkd-asterisk=""]){--rkd-image:url(' + cssString(asteriskImage) + ')}');
+  for (const character of asterisk.characters) {
+    const aliases = [...new Set([character.name, ...character.aliases])];
+    for (const name of aliases) {
+      if (names.has(name) || /[<>"&\r\n\t:：]/.test(name)) throw new Error('学战姓名重复或不安全：' + name);
+      names.set(name, character.id); asteriskNames.push(name);
+    }
+    let portrait;
+    if (character.imageUrl) {
+      const [x, y, width, height] = character.portraitCrop || [0, 0, character.width, character.height];
+      const size = character.portraitCrop ? character.width / width * 100 + '% auto' : 'cover';
+      const position = character.portraitCrop
+        ? (character.width === width ? 0 : x / (character.width - width) * 100) + '% ' + (character.height === height ? 0 : y / (character.height - height) * 100) + '%'
+        : 'center';
+      portrait = '--rkd-image:url(' + cssString(character.imageUrl) + ');--rkd-portrait-width:calc(100% - 4px);--rkd-portrait-height:calc(100% - 4px);--rkd-portrait-left:2px;--rkd-portrait-top:2px;--rkd-portrait-size:' + size + ';--rkd-portrait-position:' + position + ';--rkd-portrait-clip:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)';
+    } else {
+      portrait = Number.isInteger(character.panel)
+        ? '--rkd-person:' + character.panel + ';--rkd-portrait-width:800%;--rkd-portrait-left:calc(-70% - var(--rkd-person)*200%);--rkd-portrait-top:-10%;--rkd-portrait-height:500%'
+        : '--rkd-image:none;--rkd-initial:' + cssString(character.name[0]);
+    }
+    imageRules.push(aliases.map(name => '[data-rkd="bubble"][data-rkd-name=' + cssString(name) + ' i]').join(',') + '{' + portrait + '}');
+  }
+  const asteriskAlternatives = asteriskNames.sort((a, b) => b.length - a.length).map(caseFoldLiteral).join('|');
   // The same remaining suffix pins the end of the name exactly, including for
   // malformed multiline personas. Only the safe single-line name is rendered.
   // Regex escaping alone does not make a macro value HTML-safe.
@@ -51,7 +79,7 @@ export function buildRules() {
   const contextAtColon = buildContextGuard({opaqueDrivers: true});
   const speech = '(?![^\\r\\n\\u2028\\u2029]*\\{\\{)[ \\t]*(?<rkdSpeech>[^<>&\\r\\n\\u2028\\u2029]*[^<>&\\s])[ \\t]*(?=\\r?$)';
   const fixedPlayers = ['玩家', 'player', 'user', 'OC'].map(caseFoldLiteral).join('|');
-  const pattern = '^[ ]{0,3}(?<rkdName>(?<rkdPlayer>' + playerName + '|' + fixedPlayers + ')|' + alternatives + ')[ \\t]*[:：]' + contextAtColon + speech;
+  const pattern = '^[ ]{0,3}(?<rkdName>(?<rkdAsterisk>' + asteriskAlternatives + ')|(?<rkdPlayer>' + playerName + '|' + fixedPlayers + ')|' + alternatives + ')[ \\t]*[:：]' + contextAtColon + speech;
   // Candidate names are inert display text. Only the terminal's shared identity
   // resolver may promote one to a player bubble; never guess from a substring.
   // A named whole-line capture keeps indentation and separator spaces. The
@@ -64,7 +92,7 @@ export function buildRules() {
   return [
     {...shared, id: 'cf3083f8-42e4-4e2e-8e70-a65817a2c881', scriptName: '01 盾形对白 · 姓名与台词 v0.6', substituteRegex: 2,
       findRegex: '/' + pattern + '/gm',
-      replaceString: '<div data-rkd="bubble" data-rkd-name="$<rkdName>" data-rkd-player="$<rkdPlayer>"><span data-rkd-avatar aria-hidden="true"></span><div data-rkd-body><span data-rkd-speaker>$<rkdName></span><div data-rkd-line>$<rkdSpeech></div></div></div>'},
+      replaceString: '<div data-rkd="bubble" data-rkd-name="$<rkdName>" data-rkd-player="$<rkdPlayer>" data-rkd-asterisk="$<rkdAsterisk>"><span data-rkd-avatar aria-hidden="true"></span><div data-rkd-body><span data-rkd-speaker>$<rkdName></span><div data-rkd-line>$<rkdSpeech></div></div></div>'},
     {...shared, id: 'bea21af8-9a41-4b0c-9009-1811e54bb8e4', scriptName: '02 盾形对白 · OC 姓名候选 v0.6',
       findRegex: '/' + candidate + '/gm',
       replaceString: '<span data-rkd="candidate" data-rkd-name="$<rkdCandidateName>"><span data-rkd-source>$<rkdCandidateSource></span></span>'},
@@ -96,16 +124,21 @@ function previewPage(rules) {
   const escapeHtml = value => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   // Exact generated rules; only asset addresses are mapped to the same local images
   // for the portable preview. The import artifacts retain the configured HTTPS URLs.
-  let demo = applyRules('新增角色头像检查（以下四句仅为显示测试，不是原著台词）。\n\n天音:天音头像显示测试。\n平贺:平贺头像显示测试。\n叶暮牡丹:牡丹头像显示测试。\n叶暮桔梗:桔梗头像显示测试。\n\n放学后的走廊渐渐安静下来。\n\n史黛菈:别误会，我只是顺路。\n一辉:那就一起走吧。\n\n窗外落下一阵细雨，珠雫停在楼梯口。\n\n珠雫：哥哥，伞在这里。\n东堂刀华:训练可以等雨停再开始。路面很滑，走慢一点。\n\n两人对视一眼，谁也没有先接过那把伞。\n\n风祭：夏洛特，准备好了就出发吧。\n夏洛特·科黛:是，大小姐。', rules);
+  const asterisk = JSON.parse(fs.readFileSync(asteriskPath, 'utf8'));
+  const asteriskLines = asterisk.characters.map(person => person.name + ':学战头像显示检查，人物使用自己的六边框。').join('\n');
+  let demo = applyRules('双作品同场 · 以下为排版测试，不是原作台词。\n\n史黛菈:盾形头像保持落第样式。\n' + asteriskLines + '\n玩家:玩家头像由消息记录中的作品决定。\n\n放学后的走廊渐渐安静下来。\n\n珠雫：哥哥，伞在这里。\n东堂刀华:训练可以等雨停再开始。路面很滑，走慢一点。\n\n风祭：夏洛特，准备好了就出发吧。\n夏洛特·科黛:是，大小姐。', rules);
   for (const item of readManifest().characters) {
     if (item.imageUrl) demo = demo.split(item.imageUrl).join('../../../resource/knightavatars/' + (item.displayFile || item.file));
+  }
+  for (const item of [{imageUrl: asterisk.imageUrl, file: asterisk.sourceImage}, ...asterisk.characters]) {
+    if (item.imageUrl && item.file) demo = demo.split(item.imageUrl).join('../../../' + item.file);
   }
   const parts = demo.match(/^([\s\S]*?)<pre hidden>(<style[\s\S]*?<\/style>)<\/pre>([\s\S]*)$/);
   demo = parts[2] + (parts[1] + parts[3]).split('\n').filter(line => line.trim()).map(line =>
     line.startsWith('<div') ? line : '<p>' + line + '</p>').join('\n');
   const examples = '史黛菈:别误会，我只是顺路。\n一辉:那就一起走吧。';
   return '<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>盾形对白 · 第一版预览</title><style>' +
-    '*{box-sizing:border-box}body{margin:0;background:#14171d;color:#e8e6e1;font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif}main{max-width:1100px;margin:auto;padding:36px 22px}h1{font-size:28px;line-height:1.35;margin:0 0 12px}header p{color:#a8abb3;margin:0 0 22px}nav{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px}button,a{font:inherit}button{border:1px solid #74777e;border-radius:6px;background:transparent;color:inherit;padding:8px 14px;cursor:pointer}button:focus-visible{outline:2px solid #e1c282;outline-offset:3px}.stage{max-width:760px;padding:24px;border:1px solid #53565b;border-radius:9px;transition:none;--SmartThemeBodyColor:#e8e6e1;--SmartThemeBlurTintColor:#252933}.stage.light{background:#f7f4ee;color:#2c3038;--SmartThemeBodyColor:#2c3038;--SmartThemeBlurTintColor:#fffdf8}.stage.narrow{width:320px;max-width:100%;padding:14px;font-size:15px}.story{white-space:normal}.story>p{margin:18px 0}.stage.narrow [data-rkd="bubble"]{gap:8px}.stage.narrow [data-rkd-avatar]{flex-basis:43px;width:43px;height:61px}.note{color:#a8abb3;font-size:13px}details{margin:22px 0}pre{white-space:pre-wrap;overflow-wrap:anywhere;padding:14px;background:#20242c;border-radius:6px}a{color:#dfc58f}@media(max-width:500px){main{padding:22px 12px}.stage{padding:14px}}' +
+    '*{box-sizing:border-box}body{margin:0;background:#14171d;color:#e8e6e1;font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif}main{max-width:1100px;margin:auto;padding:36px 22px}h1{font-size:28px;line-height:1.35;margin:0 0 12px}header p{color:#a8abb3;margin:0 0 22px}nav{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px}button,a{font:inherit}button{border:1px solid #74777e;border-radius:6px;background:transparent;color:inherit;padding:8px 14px;cursor:pointer}button:focus-visible{outline:2px solid #e1c282;outline-offset:3px}.stage{max-width:760px;padding:24px;border:1px solid #53565b;border-radius:9px;transition:none;--SmartThemeBodyColor:#e8e6e1;--SmartThemeBlurTintColor:#252933}.stage.light{background:#f7f4ee;color:#2c3038;--SmartThemeBodyColor:#2c3038;--SmartThemeBlurTintColor:#fffdf8}.stage.narrow{width:320px;max-width:100%;padding:14px;font-size:15px}.story{white-space:normal}.story>p{margin:18px 0}.stage.narrow [data-rkd="bubble"]{gap:8px}.stage.narrow [data-rkd-avatar]{flex-basis:43px;width:43px;height:61px}.stage.narrow [data-rkd="bubble"]:is([data-rkd-asterisk]:not([data-rkd-asterisk=""]),[data-rkd-world="asterisk"]) [data-rkd-avatar]{height:50px}.note{color:#a8abb3;font-size:13px}details{margin:22px 0}pre{white-space:pre-wrap;overflow-wrap:anywhere;padding:14px;background:#20242c;border-radius:6px}a{color:#dfc58f}@media(max-width:500px){main{padding:22px 12px}.stage{padding:14px}}' +
     '</style><main><header><p>RAKUDAI KNIGHT / DIALOGUE 01</p><h1>盾形对白</h1><p>盾形头像、轻边框气泡，旁白保留阅读节奏。</p></header><nav><button id="theme" aria-pressed="false">浅色背景</button><button id="width" aria-pressed="false">320px 窄屏</button></nav><section class="stage" aria-label="正文气泡预览"><div class="story">' + demo +
     '</div></section><details><summary>模型输出格式</summary><p>' + formatRule + '</p><pre>' + escapeHtml(examples) + '</pre></details><p class="note">本页使用本地同源头像，是离线视觉预览；酒馆导入后的样式处理与远程图片加载需另行验证。</p>' +
     '<p><a href="components/dialogue-bubbles.regex.json">下载 01 对白正则</a>　<a href="components/dialogue-player-candidates.regex.json">下载 02 OC 候选正则</a>　<a href="components/dialogue-bubble-style.regex.json">下载 03 样式正则</a>　<a href="format-rule.txt">格式规则</a></p></main><script>const stage=document.querySelector(".stage");for(const [id,name] of [["theme","light"],["width","narrow"]]){document.getElementById(id).addEventListener("click",function(){const on=stage.classList.toggle(name);this.setAttribute("aria-pressed",String(on))})}</script></html>';
@@ -113,6 +146,8 @@ function previewPage(rules) {
 
 export function build() {
   const rules = buildRules();
+  const asterisk = JSON.parse(fs.readFileSync(asteriskPath, 'utf8'));
+  const asteriskImages = [...new Set([asterisk.sourceImage, ...asterisk.characters.map(person => person.file).filter(Boolean)])].map(file => path.join(root, file));
   fs.mkdirSync(output, {recursive: true});
   fs.writeFileSync(path.join(output, 'update-spec.json'), JSON.stringify({schemaVersion: 1, deliveryMode: 'component', kind: 'regex',
     items: rules.map((value, i) => ({artifactName: artifactNames[i], value}))}, null, 2) + '\n');
@@ -120,9 +155,9 @@ export function build() {
   fs.writeFileSync(path.join(output, 'preview.html'), previewPage(rules));
   fs.writeFileSync(path.join(output, 'source-receipt.json'), JSON.stringify({version: '0.6', deliveryMode: 'component',
     scope: '三条角色局部显示正则、格式规则、离线预览；只更新对应组件，不重打整卡或修改聊天原文',
-    sourceHashes: Object.fromEntries([manifestPath, cssPath, formatRulePath, path.join(here,'context-guard.mjs'), fileURLToPath(import.meta.url)].map(p => [path.relative(root,p).replaceAll('\\','/'),digest(fs.readFileSync(p))])),
+    sourceHashes: Object.fromEntries([manifestPath, asteriskPath, ...asteriskImages, cssPath, formatRulePath, path.join(here,'context-guard.mjs'), fileURLToPath(import.meta.url)].map(p => [path.relative(root,p).replaceAll('\\','/'),digest(fs.readFileSync(p))])),
     library: {snapshot: '2026-08-18', routes: ['sillytavern-render-regex-pipeline','sillytavern-embedded-ui','sillytavern-component-update','sillytavern-api-reference'], guides: ['A0','A5','A6','C3','D7'], adoptedDesignCandidates: []},
-    dependencies: {host: 'SillyTavern Regex + message HTML/CSS sanitization', image: '现有 manifest HTTPS 图片（远程加载）', helper: 'NPC、固定玩家标记及完整 persona 名不需要 Tavern Helper；OC 候选提升与玩家自选头像由新版终端运行时提供'},
+    dependencies: {host: 'SillyTavern Regex + message HTML/CSS sanitization', image: '落第沿用 manifest HTTPS 图片；学战使用 GitHub Pages 原图 URL，独立头像或合图 CSS 裁切，不重绘人物；本地预览映射同一素材', helper: 'NPC 作品框独立显示；OC 候选、玩家自选头像与该楼层作品标记由新版终端运行时提供'},
     apiEvidence: {referenceVersion:'SillyTavern 1.18.0', source:'https://raw.githubusercontent.com/SillyTavern/SillyTavern/1.18.0/public/scripts/extensions/regex/engine.js', fields:'AI_OUTPUT=2; dialogue substitute_find_regex.ESCAPED=2; style NONE=0; markdownOnly display gate', mergeOrder:'Object.values(SCRIPT_TYPES): global → preset → scoped', userMacro:'当前 persona name1；只替换查找模式，安全字符捕获后输出', runtimeVerified:false},
     candidateContract: {selector:'span[data-rkd="candidate"]', name:'data-rkd-name', source:'span[data-rkd-source].textContent 保留完整原行', promotion:'仅共享身份解析器唯一命中玩家时提升；未知或歧义保持原文', playerMarker:'非空 data-rkd-player 表示玩家或固定标记；NPC 为 ""'},
     realSillyTavern: '构建本身不确认实机验收；现场只读复放记录另见 验证记录/现场掉气泡-20261008/live-preview.json，需核对产物哈希与验证范围，不代表已安装或已完成最终画面验收', modelCompliance: 'not run; 不宣称绝对最少 token 或保证遵守率'},null,2)+'\n');

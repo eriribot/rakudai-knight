@@ -153,6 +153,8 @@ const generatedScript = {
   button: { enabled: false, buttons: [] }, data: {}, export_with: { data: false, button: false },
 };
 const scriptTarget = '世界书规则/MVU/落第骑士-MVU-v4字段约束.json';
+generatedScript.name += ' · 双作品MVU';
+generatedScript.info += ' 2026-11-04双作品：未建档保持中性；已建档按系统.作品校验。学战独立能力/武装/序列和自由场景，共用人际；不补落第成长、推章或赛事。旧已建档v4缺作品时按落第兼容，显式null不回退。';
 // 独立更新保留已导入脚本的身份、按钮、数据与未知字段，更新生成名称、内容和说明。
 const script = scriptOnly ? { ...JSON.parse(read(scriptTarget)), name: generatedScript.name, content: generatedScript.content, info: generatedScript.info } : generatedScript;
 if (script.id !== generatedScript.id) throw new Error('字段约束脚本 ID 不符，未生成');
