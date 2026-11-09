@@ -27,7 +27,7 @@
     bbs: { name: '论坛', english: 'CAMPUS FORUM' },
     schedule: { name: '赛事', english: 'FESTA RECORD' },
     gallery: { name: '原图画廊', english: 'VISUAL ARCHIVE' },
-    calendar: { name: '校历', english: 'ACADEMY CALENDAR' },
+    calendar: { name: '剧情与校历', english: 'STORY / CALENDAR' },
     settings: { name: '设置', english: 'TERMINAL SETTINGS' }
   };
   var appOrder = ['blazer', 'lime', 'moments', 'bbs', 'schedule', 'gallery', 'calendar', 'settings'];
@@ -47,6 +47,8 @@
   var pageScroll = Object.create(null), toastTimer = null;
   var correctionEditor = null, correctionPreview = null, correctionMessage = '', correctionAction = 0;
   var plotStatus = null, plotPreview = null, plotError = '', plotBusy = false, plotRequest = 0;
+  var storyCapture = null, storyDraft = null, storyMessage = '', storyBusy = false, storyRequest = 0;
+  var contactPortraits = /*__AW_CONTACT_PORTRAITS__*/ null;
 
   function object(value) { return value && typeof value === 'object' && !Array.isArray(value) ? value : {}; }
   function valueText(value, fallback) {
@@ -80,6 +82,12 @@
     });
   }
   function contactEntries() { return rosterEntries(true); }
+  function contactAvatar(name) {
+    var key = name.normalize('NFKC').replace(/[\s·・･‧•．.]/g, '').toLowerCase();
+    var portrait = contactPortraits?.entries[contactPortraits.byName[key]];
+    return '<span class="ax-contact-avatar' + (portrait?.world === 'rakudai' ? ' ax-contact-avatar-knight' : '') + '" aria-hidden="true"><span>' + escape(Array.from(name)[0] || '人') + '</span>' +
+      (portrait ? '<img src="' + escape(portrait.src) + '" style="' + escape(portrait.style) + '" alt="" loading="lazy" decoding="async">' : '') + '</span>';
+  }
   function names(value) { return Array.isArray(value) ? value.filter(function (name) { return typeof name === 'string'; }).join('、') : ''; }
   function skillsView(record) {
     var entries = Object.entries(object(record));
@@ -91,10 +99,10 @@
   function knownProfileView(known) {
     return ['身份', '所属', '登记等级', '灵装', '武装', '校内序列', '已知能力'].filter(function (key) { return valueText(known[key], ''); }).map(function (key) { return line(key, known[key]); }).join('');
   }
-  function line(label, value, fallback) {
+  function line(label, value, fallback, prose) {
     var display = valueText(value, fallback);
     var empty = ['待记录', '待登记', '待描述', '未测定', '未选', '尚未确定'].indexOf(display) !== -1;
-    return '<div><dt>' + escape(label) + '</dt><dd' + (empty ? ' class="is-empty"' : '') + '>' + escape(display) + '</dd></div>';
+    return '<div' + (prose ? ' class="ax-detail-prose"' : '') + '><dt>' + escape(label) + '</dt><dd' + (empty ? ' class="is-empty"' : '') + '>' + escape(display) + '</dd></div>';
   }
   function panel(code, title, body) { return '<section class="ax-panel"><span class="ax-overline">' + code + '</span><h2>' + title + '</h2>' + body + '</section>'; }
   function emptyState(app, title, description, extra) {
@@ -103,19 +111,23 @@
   function button(label, action, primary) { return '<button class="ax-button' + (primary ? ' ax-button-primary' : '') + '" data-action="' + action + '">' + label + icon('arrow') + '</button>'; }
 
   function homeView() {
-    var m = model();
+    var m = model(), scene = object(state.场景);
+    var storyEntry = usesHostStoryControls() ? 'data-action="host-story-controls"' : 'data-app="calendar"';
     var emblem = m.school ? '<img class="ax-holo-emblem" src="' + escape(asset(m.school.id)) + '" alt="' + escape(m.school.name) + '校徽">' : '<svg class="ax-icon ax-holo-placeholder" aria-label="学园尚未登记"><use href="#ax-home"/></svg>';
     return '<section class="ax-panel ax-home-hero"><div class="ax-hero-top"><div class="ax-hero-copy"><span class="ax-overline">ASTERISK / PERSONAL</span><h2>你的六花，<br><span>随身记录。</span></h2><p>学园、武装与交汇的轨迹。</p></div><div class="ax-hologram"><svg class="ax-holo-lines" viewBox="0 0 180 200" fill="none" aria-hidden="true"><path d="m90 12 70 40v80l-70 40-70-40V52Z" stroke="currentColor" opacity=".25"/><path d="m90 25 58 33v66l-58 33-58-33V58Z" stroke="currentColor" stroke-width="1.5" stroke-dasharray="28 10 42 9"/><path d="M39 74V62l51-29 51 29v13m0 32v12l-51 29-51-29v-12" stroke="#d7faff" stroke-width="2.5" opacity=".7"/><circle cx="90" cy="91" r="76" stroke="currentColor" stroke-dasharray="1 5" opacity=".2"/><path d="M4 91h22m128 0h22M90 0v19m0 144v21" stroke="currentColor" opacity=".4"/></svg>' + emblem + '<div class="ax-holo-base"></div><div class="ax-holo-scan"></div></div></div><div class="ax-hero-school">' + escape(m.schoolName) + '</div><div class="ax-home-stats"><div class="ax-home-stat"><small>学生姓名</small><strong>' + escape(m.name) + '</strong></div><div class="ax-home-stat"><small>校内序列</small><strong>' + escape(m.rank) + '</strong></div><div class="ax-home-stat"><small>当前武装</small><strong>' + escape(valueText(m.weapon.名称, '未选')) + '</strong></div></div></section>' +
+      panel('CURRENT STORY', '当前剧情', '<dl class="ax-detail-list">' + line('章节', scene.当前章) + line('阶段', scene.阶段) + '</dl><p class="ax-note">查看主线注入、选择章节与调整阶段。</p><button class="ax-button ax-button-primary" ' + storyEntry + '>打开剧情控制' + icon('arrow') + '</button>') +
       '<div class="ax-section-heading"><h2>终端应用</h2><span>APPLICATIONS / 08</span></div><nav class="ax-app-grid" aria-label="学战终端应用">' + appOrder.map(function (id) { return '<button class="ax-app" data-app="' + id + '"><span class="ax-app-hex">' + icon(id) + '</span><strong>' + apps[id].name + '</strong><small>' + apps[id].english.split(' ')[0] + '</small></button>'; }).join('') + '</nav><div class="ax-home-foot"><span>ASTERISK NETWORK</span><strong>本局档案 · 已同步</strong></div>';
   }
 
   function profileView() {
     var m = model();
-    var identity = '<div class="ax-profile-identity"><div class="ax-profile-hex">' + icon('blazer') + '</div><div><span class="ax-overline">STUDENT IDENTITY</span><h2>' + escape(m.name) + '</h2><p>' + escape(m.schoolName) + '</p></div></div><dl class="ax-detail-list">' + ['性别', '性格关键词', '处事风格', '所属', '角色简介', '战斗风格'].map(function (key) { return line(key, m.player[key]); }).join('') + line('所属学园', m.schoolName) + line('校内序列', m.rank) + '</dl>';
+    var portrait = bridge?.playerPortrait?.resolve('玩家');
+    var photo = portrait?.src ? '<img src="' + escape(portrait.src) + '" alt="" decoding="async">' : '';
+    var identity = '<div class="ax-profile-identity"><div class="ax-profile-hex" aria-hidden="true">' + icon('blazer') + photo + '</div><div><span class="ax-overline">STUDENT IDENTITY</span><h2>' + escape(m.name) + '</h2><p>' + escape(m.schoolName) + '</p></div></div><dl class="ax-detail-list">' + ['性别', '性格关键词', '处事风格', '所属', '角色简介', '战斗风格'].map(function (key) { return line(key, m.player[key]); }).join('') + line('所属学园', m.schoolName) + line('校内序列', m.rank) + '</dl>';
     var mapping = ['当前身体', '当前能力边界', '本局映射'].filter(function (key) { return valueText(m.player[key], ''); }).map(function (key) { return line(key, m.player[key]); }).join('');
     var roster = rosterEntries(false).map(function (entry) {
       var relation = object(entry[1]);
-      return '<details class="ax-contact" data-contact="' + escape(entry[0]) + '"><summary><strong>' + escape(entry[0]) + '</strong>' + icon('arrow') + '</summary><div class="ax-contact-body"><dl class="ax-detail-list">' + line('关系', relation.关系) + line('态度印象', relation.态度印象) + line('好感', relation.好感, '未知') + line('支援度', relation.支援度, '未知') + line('羁绊阶段', relation.羁绊阶段) + knownProfileView(object(relation.已知资料)) + '</dl></div></details>';
+      return '<details class="ax-contact" data-contact="' + escape(entry[0]) + '"><summary>' + contactAvatar(entry[0]) + '<div class="ax-contact-title"><strong>' + escape(entry[0]) + '</strong></div>' + icon('arrow') + '</summary><div class="ax-contact-body"><dl class="ax-detail-list">' + line('关系', relation.关系) + line('态度印象', relation.态度印象, undefined, true) + line('好感', relation.好感, '未知') + line('支援度', relation.支援度, '未知') + line('羁绊阶段', relation.羁绊阶段) + knownProfileView(object(relation.已知资料)) + '</dl></div></details>';
     }).join('');
     return '<section class="ax-panel">' + identity + '</section>' + (mapping ? panel('CURRENT IDENTITY', '本局身体与映射', '<dl class="ax-detail-list">' + mapping + '</dl>') : '') +
       panel('PRANA RECORD', '星辰力', '<p class="ax-small">' + escape(valueText(m.prana.说明)) + '</p><p class="ax-note">以实际记录描述表现；未记录的总量与百分比不作推算。</p>') +
@@ -144,7 +156,7 @@
     if (!contacts.length) return panel('COMMUNICATION', '通讯录', '<div class="ax-empty">' + icon('lime') + '<h2>尚无联系人</h2><p>人物资料的存在不代表已交换联系方式。<br>建立联系后，人物才会出现在这里。</p></div>');
     return '<section class="ax-panel">' + summary + '</section><div class="ax-roster">' + contacts.map(function (entry) {
       var name = entry[0], relation = object(entry[1]), known = object(relation.已知资料);
-      return '<details class="ax-contact" data-contact="' + escape(name) + '"><summary><div class="ax-profile-hex">' + icon('blazer') + '</div><div><strong>' + escape(name) + '</strong><small>' + escape(valueText(relation.联系状态, '已建立联系方式')) + '</small></div>' + icon('arrow') + '</summary><div class="ax-contact-body"><dl class="ax-detail-list">' + line('关系记录', relation.关系, '待确认') + knownProfileView(known) + '</dl>' + (valueText(relation.态度印象, '') ? '<p>' + escape(relation.态度印象) + '</p>' : '') + '<p class="ax-note">通讯录展示已建立的联系；此页不发送消息。</p></div></details>';
+      return '<details class="ax-contact" data-contact="' + escape(name) + '"><summary>' + contactAvatar(name) + '<div class="ax-contact-title"><strong>' + escape(name) + '</strong><small>' + escape(valueText(relation.联系状态, '已建立联系方式')) + '</small></div>' + icon('arrow') + '</summary><div class="ax-contact-body"><dl class="ax-detail-list">' + line('关系记录', relation.关系, '待确认') + knownProfileView(known) + '</dl>' + (valueText(relation.态度印象, '') ? '<p>' + escape(relation.态度印象) + '</p>' : '') + '<p class="ax-note">通讯录展示已建立的联系；此页不发送消息。</p></div></details>';
     }).join('') + '</div>';
   }
 
@@ -200,6 +212,102 @@
     }
   }
 
+  function invalidateStory(clearDraft) {
+    storyRequest++; storyCapture = null; storyBusy = false; storyMessage = '';
+    if (clearDraft) storyDraft = null;
+  }
+
+  function usesHostStoryControls() {
+    var system = object(state.系统);
+    return !bridge?.story && typeof bridge?.ui?.openStoryControls === 'function' &&
+      (system.作品 === 'rakudai' || !Object.prototype.hasOwnProperty.call(system, '作品') && system.开局状态 === '已建档');
+  }
+
+  function openHostStoryControls() {
+    if (!usesHostStoryControls()) return;
+    try { bridge.ui.openStoryControls(); }
+    catch (error) { notify(valueText(error?.message, '剧情控制暂时不可用。')); }
+  }
+
+  function storyActions() {
+    var scene = object(storyCapture?.state?.场景), chapters = storyCapture?.chapters || [];
+    var index = chapters.findIndex(function (chapter) { return chapter.key === scene.当前章; });
+    var current = chapters[index], next = chapters[index + 1];
+    var target = chapters.find(function (chapter) { return chapter.key === storyDraft?.chapter; });
+    var ready = dataStatus === 'ready' && !storyBusy && !!storyCapture?.token;
+    return {
+      ready: ready,
+      start: ready && !!current?.available && scene.阶段 === '未开始',
+      end: ready && !!current?.available && scene.阶段 === '进行中',
+      next: ready && index >= 0 && scene.阶段 === '已结束' && !!next?.available,
+      jump: ready && !!target?.available && (index < 0 || chapters.indexOf(target) > index) &&
+        ['time', 'location', 'entryNote'].every(function (key) { return typeof storyDraft?.[key] === 'string' && storyDraft[key].trim(); })
+    };
+  }
+
+  function storyControlsView() {
+    if (usesHostStoryControls()) return panel('STORY CONTROL', '章节与阶段', '<p class="ax-note">本局为落第主线，卷章操作沿用本局剧情控制。切换终端外观不会改变作品。</p><button class="ax-button" data-action="host-story-controls">打开卷章控制</button>');
+    var api = bridge?.story, actions = storyActions(), chapters = storyCapture?.chapters || [];
+    var scene = object(storyCapture?.state?.场景), index = chapters.findIndex(function (chapter) { return chapter.key === scene.当前章; });
+    var draft = storyDraft || {}, next = index >= 0 ? chapters[index + 1] : null;
+    var unavailable = chapters.filter(function (chapter) { return !chapter.available; });
+    var message = storyBusy ? '正在核对剧情状态…' : storyMessage || (dataStatus === 'pending' ? '等待当前回复更新，剧情操作暂不可用。' : !api ? '请更新终端组件以使用章节控制。' : !storyCapture ? '请读取本局章节后操作。' : '已读取当前剧情。选择和填写不会立即改变本局。');
+    var actionButtons = [['start', '开始本章'], ['end', '标记本章结束'], ['next', '进入下一章']].map(function (item) {
+      return '<button class="ax-button" data-story-action="' + item[0] + '"' + (actions[item[0]] ? '' : ' disabled') + '>' + item[1] + '</button>';
+    }).join('');
+    var options = '<option value="">请选择目标章</option>' + chapters.map(function (chapter, chapterIndex) {
+      var past = index >= 0 && chapterIndex <= index;
+      return '<option value="' + escape(chapter.key) + '"' + (draft.chapter === chapter.key ? ' selected' : '') + (!chapter.available || past ? ' disabled' : '') + '>' + escape(chapter.title || chapter.key) + (!chapter.available ? ' · 暂不可用' : past ? ' · 当前或已过' : '') + '</option>';
+    }).join('');
+    return panel('STORY CONTROL', '章节与阶段', '<div class="ax-correction"><p role="status" aria-live="polite">' + escape(message) + '</p>' +
+      '<div class="ax-button-row"><button class="ax-button" data-story-action="refresh"' + (!api || storyBusy || dataStatus !== 'ready' ? ' disabled' : '') + '>重新读取章节</button>' + actionButtons + '</div>' +
+      (next && !next.available ? '<p class="ax-note">下一章暂不可用：' + escape(next.reason || '世界书没有可读取的正文。') + '</p>' : '') +
+      (storyCapture ? '<p class="ax-small">章节来源：' + escape(storyCapture.worldbook || '本角色主世界书') + '</p><label>向前切入章节<select data-story-field="chapter"' + (!actions.ready ? ' disabled' : '') + ' style="width:100%;max-width:100%;min-height:44px;padding:10px;font:inherit;background:var(--ax-panel,#122e40);color:inherit;border:1px solid var(--ax-line,#51758b)">' + options + '</select></label>' +
+        [['time', '切入时间'], ['location', '切入地点']].map(function (field) { return '<label>' + field[1] + '<input data-story-field="' + field[0] + '" value="' + escape(draft[field[0]] || '') + '"' + (!actions.ready ? ' disabled' : '') + '></label>'; }).join('') +
+        '<label>切入说明<textarea data-story-field="entryNote" rows="3"' + (!actions.ready ? ' disabled' : '') + '>' + escape(draft.entryNote || '') + '</textarea></label><p class="ax-note">仅向前切入；保留已有经历。时间和地点按上方填写保存，不自动推算。</p>' +
+        '<button class="ax-button ax-button-primary" data-story-action="jump"' + (actions.jump ? '' : ' disabled') + '>确认切入并开始目标章</button>' : '') +
+      (unavailable.length ? '<p class="ax-note">' + unavailable.map(function (chapter) { return escape((chapter.title || chapter.key) + '：' + (chapter.reason || '暂无可读取正文')); }).join('<br>') + '</p>' : '') + '</div>');
+  }
+
+  function editStoryField(field, value) {
+    if (!storyDraft || !['chapter', 'time', 'location', 'entryNote'].includes(field) || storyBusy) return;
+    storyDraft[field] = value;
+    var button = content.querySelector('[data-story-action="jump"]');
+    if (button) button.disabled = !storyActions().jump;
+  }
+
+  async function runStoryAction(action) {
+    if (storyBusy) return;
+    var api = bridge?.story, currentBridge = bridge, ownBridge = bridgeRevision, request = ++storyRequest;
+    if (!api || dataStatus !== 'ready') { storyMessage = '当前资料尚不可操作，请等待更新后重新读取。'; render(); return; }
+    var capture = storyCapture, payload;
+    if (action !== 'refresh') {
+      if (!['start', 'end', 'next', 'jump'].includes(action) || !storyActions()[action]) { storyMessage = '此操作当前不可用，请检查章节与阶段后重新读取。'; render(); return; }
+      payload = action === 'jump' ? { action: action, chapter: storyDraft.chapter, time: storyDraft.time.trim(), location: storyDraft.location.trim(), entryNote: storyDraft.entryNote.trim(), start: true } : { action: action };
+    }
+    storyBusy = true; storyMessage = ''; render();
+    try {
+      if (action !== 'refresh') {
+        await api.transition(capture.token, payload);
+        if (request !== storyRequest || ownBridge !== bridgeRevision || currentBridge !== bridge) return;
+        storyCapture = null; storyDraft = null;
+        await refreshTerminalState();
+        if (request !== storyRequest || ownBridge !== bridgeRevision || currentBridge !== bridge) return;
+      }
+      var next = await api.read();
+      if (request !== storyRequest || ownBridge !== bridgeRevision || currentBridge !== bridge) return;
+      if (!next?.state?.场景 || !next.token || !Array.isArray(next.chapters)) throw new Error('章节控制返回的数据不完整，请更新终端后重试。');
+      storyCapture = next;
+      if (!storyDraft || action !== 'refresh') storyDraft = { chapter: '', time: next.state.场景.时间 || '', location: next.state.场景.地点 || '', entryNote: next.state.场景.切入说明 || '' };
+      storyMessage = action === 'refresh' ? '已读取当前章节，可按需操作。' : '剧情操作已保存并回读确认。';
+    } catch (error) {
+      if (request !== storyRequest || ownBridge !== bridgeRevision) return;
+      storyCapture = null; storyMessage = valueText(error?.message, String(error));
+    } finally {
+      if (request === storyRequest && ownBridge === bridgeRevision) { storyBusy = false; if (currentApp === 'calendar') render(); }
+    }
+  }
+
   function calendarView() {
     var scene = object(state.场景);
     var schedule = Object.entries(object(scene.日程)).map(function (entry) {
@@ -210,7 +318,7 @@
       var item = object(entry[1]);
       return '<div class="ax-profile-field"><h3>' + escape(entry[0]) + '</h3><dl class="ax-detail-list">' + line('章段', item.章段) + line('结果', item.结果) + line('参与者', names(item.参与者)) + line('知情者', names(item.知情者)) + '</dl></div>';
     }).join('');
-    return panel('CURRENT SCENE', '当前阶段', '<dl class="ax-detail-list">' + ['当前章', '阶段', '时间', '地点', '切入说明'].map(function (key) { return line(key, scene[key]); }).join('') + '</dl>') + plotView() + panel('SCHEDULE', '本局日程', schedule || '<p class="ax-note">尚无登记日程。</p>') + panel('EVENT RECORD', '已发生事件', events || '<p class="ax-note">尚无事件记录。</p>');
+    return panel('CURRENT SCENE', '当前阶段', '<dl class="ax-detail-list">' + ['当前章', '阶段', '时间', '地点', '切入说明'].map(function (key) { return line(key, scene[key]); }).join('') + '</dl>') + storyControlsView() + plotView() + panel('SCHEDULE', '本局日程', schedule || '<p class="ax-note">尚无登记日程。</p>') + panel('EVENT RECORD', '已发生事件', events || '<p class="ax-note">尚无事件记录。</p>');
   }
 
   function settingsView() {
@@ -293,7 +401,7 @@
     render();
     viewport.scrollTop = pageScroll[id] || 0;
     viewport.focus({ preventScroll: true });
-    if (id === 'calendar') runPlotAction('refresh');
+    if (id === 'calendar') { runPlotAction('refresh'); runStoryAction('refresh'); }
     return true;
   }
 
@@ -305,7 +413,7 @@
 
   async function refreshTerminalState() {
     if (!bridge || typeof bridge.getSnapshot !== 'function') {
-      state = {}; snapshot = null; snapshotSignature = ''; dataStatus = 'unbound'; dataMessage = '尚未连接终端宿主。请从现有轮盘终端打开学战应用。'; render(); return;
+      invalidateStory(true); state = {}; snapshot = null; snapshotSignature = ''; dataStatus = 'unbound'; dataMessage = '尚未连接终端宿主。请从现有轮盘终端打开学战应用。'; render(); return;
     }
     var ownRequest = ++requestRevision, ownBridge = bridgeRevision, currentBridge = bridge;
     try {
@@ -313,16 +421,20 @@
       if (ownRequest !== requestRevision || ownBridge !== bridgeRevision) return;
       if (!next || !next.state || typeof next.state !== 'object' || Array.isArray(next.state)) throw new Error('宿主快照缺少可读取的 state。');
       var nextSignature = JSON.stringify(next);
-      if (nextSignature === snapshotSignature && dataStatus === (next.pending ? 'pending' : 'ready')) return;
+      if (nextSignature === snapshotSignature && dataStatus === (next.pending ? 'pending' : 'ready')) {
+        if (currentApp === 'calendar' && !next.pending && !storyCapture && !storyBusy) runStoryAction('refresh');
+        return;
+      }
+      invalidateStory(snapshot?.source?.chatId !== next.source?.chatId);
       snapshotSignature = nextSignature;
       state = next.state; snapshot = next; dataStatus = next.pending ? 'pending' : 'ready';
       plotRequest++; plotPreview = null; plotStatus = null; plotError = ''; plotBusy = false;
       dataMessage = next.pending ? valueText(next.message, '当前回复尚待更新，暂时展示已保存的只读资料。') : '';
       render();
-      if (currentApp === 'calendar') runPlotAction('refresh');
+      if (currentApp === 'calendar') { runPlotAction('refresh'); if (!next.pending) runStoryAction('refresh'); }
     } catch (error) {
       if (ownRequest !== requestRevision || ownBridge !== bridgeRevision) return;
-      state = {}; snapshot = null; snapshotSignature = ''; dataStatus = 'error'; dataMessage = '无法读取当前资料：' + valueText(error && error.message, '宿主暂未提供快照。'); render();
+      invalidateStory(false); state = {}; snapshot = null; snapshotSignature = ''; dataStatus = 'error'; dataMessage = '无法读取当前资料：' + valueText(error && error.message, '宿主暂未提供快照。'); render();
     }
   }
 
@@ -343,9 +455,11 @@
   }
 
   document.addEventListener('change', function (event) {
+    if (event.target.dataset.storyField) { editStoryField(event.target.dataset.storyField, event.target.value); return; }
     if (event.target.matches('select[data-terminal-appearance]') && bridge && bridge.appearance) bridge.appearance.set(event.target.value);
   });
   document.addEventListener('input', function (event) {
+    if (event.target.dataset.storyField) { editStoryField(event.target.dataset.storyField, event.target.value); return; }
     var field = event.target.dataset.correctionField;
     if (!field || !correctionEditor) return;
     correctionEditor[field] = field === 'autoApply' ? event.target.checked : event.target.value;
@@ -355,6 +469,8 @@
   });
   document.addEventListener('click', function (event) {
     var button = event.target.closest('button'); if (!button) return;
+    if (button.dataset.storyAction) { runStoryAction(button.dataset.storyAction); return; }
+    if (button.dataset.action === 'host-story-controls') { openHostStoryControls(); return; }
     if (button.dataset.plotAction) { runPlotAction(button.dataset.plotAction); return; }
     if (button.dataset.correctionAction) { runCorrectionAction(button.dataset.correctionAction); return; }
     if (button.dataset.app) { openApp(button.dataset.app); return; }
@@ -384,6 +500,7 @@
     if (!img || img.tagName !== 'IMG') return;
     if (img.classList.contains('ax-holo-emblem')) { img.hidden = true; return; }
     var holder = img.parentElement;
+    if (holder?.classList.contains('ax-contact-avatar') || holder?.classList.contains('ax-profile-hex')) { img.hidden = true; return; }
     if (holder && (holder.classList.contains('ax-portrait') || holder.classList.contains('ax-dialogue-avatar'))) { holder.classList.add('ax-missing-media'); holder.setAttribute('aria-label', '原图暂不可用'); }
   }, true);
 
@@ -391,11 +508,14 @@
     if (typeof unsubscribe === 'function') unsubscribe();
     unsubscribe = null; bridgeRevision++; requestRevision++;
     bridge = nextBridge || null;
+    invalidateStory(true);
     correctionAction++; correctionEditor = null; correctionPreview = null; correctionMessage = '';
     plotRequest++; plotStatus = null; plotPreview = null; plotError = ''; plotBusy = false;
     state = {}; snapshot = null; snapshotSignature = ''; dataStatus = 'loading'; dataMessage = '';
     render();
     if (bridge && typeof bridge.onUpdate === 'function') unsubscribe = bridge.onUpdate(function (event) {
+      if (event?.type === 'player-portrait') { if (currentApp === 'blazer') render(); return; }
+      if (event?.reset && event.type !== 'show') invalidateStory(['CHAT_CHANGED', 'CHARACTER_FIRST_MESSAGE_SELECTED'].includes(event.type));
       if (event?.reset && !['show', 'correction-applied'].includes(event.type)) {
         correctionAction++; correctionPreview = null; correctionMessage = '';
         if (['CHAT_CHANGED', 'CHARACTER_FIRST_MESSAGE_SELECTED'].includes(event.type)) correctionEditor = null;
@@ -413,6 +533,6 @@
   window.openApp = openApp;
   window.goHome = function () { return openApp('home'); };
   window.refreshTerminalState = refreshTerminalState;
-  window.addEventListener('pagehide', function () { bridgeRevision++; requestRevision++; correctionAction++; clearTimeout(toastTimer); if (typeof unsubscribe === 'function') unsubscribe(); unsubscribe = null; });
+  window.addEventListener('pagehide', function () { bridgeRevision++; requestRevision++; correctionAction++; invalidateStory(true); clearTimeout(toastTimer); if (typeof unsubscribe === 'function') unsubscribe(); unsubscribe = null; });
   render();
 })();

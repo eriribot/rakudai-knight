@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "source": "scripts/正文气泡/format-rule.txt",
+  "sourceSha256": "50beb907dd467ac1d8533daffbc958f5b3c99fb5b59f44f91fedfbc5c71e4615",
+  "replacementText": "output/plot-bubble-repair-20261107/worldbook-uid43-聊天气泡规则.txt",
+  "replacementSha256": "50beb907dd467ac1d8533daffbc958f5b3c99fb5b59f44f91fedfbc5c71e4615",
+  "intendedTarget": {
+    "worldbook": "落第x学战v0.02",
+    "uid": 43,
+    "comment": "聊天气泡规则",
+    "field": "content"
+  },
+  "scope": "manual content replacement only; preserve entry settings and every other entry; no packaged worldbook/card",
+  "regexRulesChanged": false,
+  "preservedArtifactHashes": [
+    {
+      "file": "scripts/正文气泡/发布/components/dialogue-bubbles.regex.json",
+      "sha256": "be0bb39a873651c6a1545a1254cd3458c29091da9abc29c3d44a9fcb11e0b4f8"
+    },
+    {
+      "file": "scripts/正文气泡/发布/components/dialogue-player-candidates.regex.json",
+      "sha256": "a548f8b4d27ef1db3ef8a969051833477a05370bbc45af4dbff2fb6194fb1f38"
+    },
+    {
+      "file": "scripts/正文气泡/发布/components/dialogue-bubble-style.regex.json",
+      "sha256": "3a72ddd55635e79af7855995dc5cbeebfdfd24034300d06597f8f10fc44352db"
+    }
+  ],
+  "derivedCopies": [
+    "scripts/正文气泡/发布/format-rule.txt",
+    "scripts/正文气泡/发布/preview.html",
+    "scripts/正文气泡/发布/source-receipt.json"
+  ],
+  "buildSpecByteIdentical": true,
+  "runtimeMutationPerformed": false,
+  "library": {
+    "snapshot": "2026-08-18",
+    "route": "sillytavern-render-regex-pipeline",
+    "loaded": [
+      "ST-A0",
+      "ST-A5",
+      "ST-A6"
+    ],
+    "candidatesAdopted": [],
+    "a0": {
+      "goal": "explicit Chinese speaker prefixes in bilingual dialogue",
+      "redLines": "no guessed speaker; no live chat/config/preset/worldbook writes; no regex/CSS changes",
+      "acceptance": "actual ST1.19 engine fixtures + text-source parity; browser and future model compliance checked separately"
+    },
+    "versionNote": "ST1.19 installed engine is authoritative; its global → preset → scoped order supersedes older guide ordering"
+  }
+}

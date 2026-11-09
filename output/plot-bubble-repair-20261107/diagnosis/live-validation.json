@@ -1,0 +1,126 @@
+{
+  "baseline": {
+    "order": 205,
+    "name": "[剧情]第一卷.第五章.黑炉魔剑",
+    "chapter": "第五章",
+    "hasWorldbookBody": true,
+    "chars": 3285,
+    "bubblesByMessage": [
+      {
+        "id": "0",
+        "bubbles": 0
+      },
+      {
+        "id": "1",
+        "bubbles": 0
+      },
+      {
+        "id": "2",
+        "bubbles": 0
+      },
+      {
+        "id": "3",
+        "bubbles": 0
+      },
+      {
+        "id": "4",
+        "bubbles": 11
+      }
+    ],
+    "events": {
+      "revision": "20261104.1",
+      "entryOrder": 205,
+      "reason": "注入器修订 20261104.1。发送前已确认第1卷·第五章，追加最后一条 user，来源 #4 / 回复页 0",
+      "candidateCount": 1,
+      "finalCount": 1,
+      "chatUnchanged": true,
+      "modelRequestSent": false
+    }
+  },
+  "imports": [
+    {
+      "id": "a55b08f2-9023-44ea-8e5b-ac2321678736",
+      "name": "落第 × 学战·卷章剧情注入器 v3.0.0（20261107.1）",
+      "enabled": true,
+      "sha256": "d1725a2f9425f0faa05b7a48c44824ad5c8039145b877a4944ad94cf9740050d"
+    },
+    {
+      "id": "9782a3f0-0e8b-45c2-a6e9-c8e8c411a42d",
+      "name": "落第 × 学战·双作品终端（剧情控制 20261107.1）",
+      "enabled": true,
+      "sha256": "4190aae77b3af1334ecd973d2d4dc2909f58df7247c545cfda76c7fb0c365633"
+    }
+  ],
+  "phaseFlow": {
+    "chapter": "第六章",
+    "phase": "进行中",
+    "volume": null
+  },
+  "jump": {
+    "draftDidNotWrite": true,
+    "order": 207,
+    "chapter": "第七章",
+    "noMissingChapterPatch": true,
+    "missingNextExplained": true
+  },
+  "mobile": {
+    "clientWidth": 367,
+    "scrollWidth": 367,
+    "missing208": true,
+    "chapterButtons": [
+      {
+        "action": "refresh",
+        "disabled": false
+      },
+      {
+        "action": "start",
+        "disabled": true
+      },
+      {
+        "action": "end",
+        "disabled": false
+      },
+      {
+        "action": "next",
+        "disabled": true
+      },
+      {
+        "action": "jump",
+        "disabled": true
+      }
+    ]
+  },
+  "boundary": {
+    "nextDisabled": true,
+    "missingOptionDisabled": true
+  },
+  "finalEvents": {
+    "revision": "20261107.1",
+    "order": 207,
+    "count": 1,
+    "missingNextGuard": true,
+    "noMissingPatch": true,
+    "chatUnchanged": true,
+    "modelRequestSent": false
+  },
+  "persistence": {
+    "chapter": "第七章",
+    "phase": "已结束",
+    "volume": null,
+    "revision": "20261107.1"
+  },
+  "save": {
+    "status": 200,
+    "hostDebounceMs": 1000
+  },
+  "bilingual": {
+    "bubbles": 2,
+    "speakers": [
+      "克劳蒂雅",
+      "天雾绫斗"
+    ],
+    "anonymousRetained": true,
+    "narrationOutsideBubble": true
+  },
+  "driverPageErrorCount": 0
+}

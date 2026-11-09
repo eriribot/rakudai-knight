@@ -1,6 +1,6 @@
 # 学战都市动画头像
 
-本目录保存 10 张动画官网角色设定图，以及既有女主共享图 `heroines-official.jpg`。原图字节保持不变；正文气泡用 CSS 从设定板中选取单个人物头部，再显示在六边框内。
+本目录保存 12 张动画官网角色设定图，以及既有女主共享图 `heroines-official.jpg`。原图字节保持不变；正文气泡用 CSS 从设定板中选取单个人物头部，再显示在六边框内。
 
 来源页、原图地址、尺寸与 SHA-256 见 [sources.json](sources.json)。姓名、别名与 CSS 取景坐标维护在 `scripts/正文气泡/asterisk-portraits.json`。
 

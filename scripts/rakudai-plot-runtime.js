@@ -1,7 +1,7 @@
 // 剧情正文读取当前绑定世界书；目录只用于卷章键及条目顺序定位。
 function createRakudaiPlotRuntime(deps) {
   const BEGIN = '【RK剧情注入:BEGIN】', END = '【RK剧情注入:END】';
-  const REVISION = '20261104.1';
+  const REVISION = '20261109.1';
   const handled = new WeakSet();
   const standaloneMessages = new WeakSet();
   let ticket = null, pending = null, busy = false, disposed = false, lastInjection = null, cancelPending = null;
@@ -64,7 +64,7 @@ function createRakudaiPlotRuntime(deps) {
     if (world !== 'rakudai' && world !== 'asterisk') throw new Error('尚未确认作品：不读取任何剧情条目');
     const chapter = world === 'asterisk' ? resolveAsteriskChapter(scene?.当前章) : resolveStoryChapter(scene?.当前卷, scene?.当前章);
     if (!chapter || !['未开始', '进行中', '已结束'].includes(scene.阶段)) throw new Error('正式卷章或阶段不合法，停止剧情注入');
-    return { identity: id, world, source: { chatId: id.chatId, messageId: message.message_id, swipeId }, state: copy(state), fingerprint: JSON.stringify([message, wrapper]), volume: world === 'asterisk' ? 1 : scene.当前卷, chapter: chapter.key, phase: scene.阶段, node: chapter };
+    return { identity: id, world, source: { chatId: id.chatId, messageId: message.message_id, swipeId }, state: copy(state), fingerprint: JSON.stringify([message, wrapper]), volume: world === 'asterisk' ? chapter.volume : scene.当前卷, chapter: chapter.key, phase: scene.阶段, node: chapter };
   }
   async function readMaterial(snapshot, cancelled) {
     if (typeof deps.readStoryEntry !== 'function') throw new Error('缺少绑定世界书读取接口，请更新剧情注入脚本');
@@ -82,9 +82,12 @@ function createRakudaiPlotRuntime(deps) {
   }
   function render(snapshot, material) {
     const { state, world, volume, chapter, phase } = snapshot, scene = state.场景;
-    const next = world === 'asterisk' ? nextAsteriskChapter(chapter) : nextStoryChapterForState(volume, chapter, state);
-    const lines = [BEGIN, `当前剧情节点：${world === 'asterisk' ? '学战 第一卷' : '第' + volume + '卷'} · ${chapter}`, `正式阶段：${phase}`,
+    const catalogNext = world === 'asterisk' ? nextAsteriskChapter(chapter) : nextStoryChapterForState(volume, chapter, state);
+    const missingNext = world === 'asterisk' && catalogNext && material.next?.available !== true;
+    const next = missingNext ? null : catalogNext;
+    const lines = [BEGIN, `当前剧情节点：${world === 'asterisk' ? '学战 ' : ''}第${volume}卷 · ${snapshot.node.chapter || chapter}`, `正式阶段：${phase}`,
       `本局时间：${scene.时间 || '未确认'}；地点：${scene.地点 || '未确认'}`, `切入说明：${scene.切入说明 || '沿用本局已确认情境'}`];
+    if (world === 'asterisk') lines.push(`学战 MVU 当前卷和事件卷号保持 null；当前章使用完整目录键「${chapter}」，第二卷不得省略「第二卷·」。`);
     if (phase !== '已结束') {
       lines.push('【对应世界书条目原文】\n' + material.content);
       if (phase === '进行中') {
@@ -96,7 +99,9 @@ function createRakudaiPlotRuntime(deps) {
             { op: 'replace', path: '/场景/当前章', value: next.chapter },
             { op: 'replace', path: '/场景/阶段', value: '进行中' },
           ] : [{ op: 'replace', path: '/场景/阶段', value: '已结束' }];
-        const nextLabel = next ? (world === 'asterisk' ? '相邻下一条目为 ' + next.key : '相邻下一节点为第' + next.volume + '卷 · ' + next.chapter) : '这是目录最后一个条目，结束后不再前进';
+        const nextLabel = missingNext
+          ? `下一章 ${catalogNext.key} 的剧情原文不可用（${material.next?.reason || '尚未核验'}），完成本章后仅标记已结束，不自动切章`
+          : next ? (world === 'asterisk' ? '相邻下一条目为 ' + next.key : '相邻下一节点为第' + next.volume + '卷 · ' + next.chapter) : '这是目录最后一个条目，结束后不再前进';
         lines.push(nextLabel + '；仅在完成标识达成时，把以下操作并入本轮已有的 UpdateVariable/JSONPatch，Analysis 写明达成事实，不另输出第二个变量块：\n' + JSON.stringify(patch));
       }
     }

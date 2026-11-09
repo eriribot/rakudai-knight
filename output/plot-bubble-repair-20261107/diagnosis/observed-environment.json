@@ -1,0 +1,139 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-11-07T14:12:29.695Z",
+  "privacy": "Only hashes, counts, rule metadata and target keyword presence; no complete private chat, prompts or configuration copied.",
+  "card": {
+    "avatar": "落第x学战v0.02.png",
+    "sha256": "55b4707ebe4f20d9258f9876a3aa2b3defd6ece73ca7f1233a3f2e8c65f4c80b",
+    "scopeAllowed": true,
+    "bubbles": [
+      {
+        "order": 7,
+        "id": "9fed02fd-178d-4361-bac1-ce80f8ace852",
+        "name": "01 盾形对白 · 姓名与台词 v0.6",
+        "disabled": false,
+        "placement": [
+          2
+        ],
+        "markdownOnly": true,
+        "promptOnly": false,
+        "findSha256": "9a1d0872889f739cee8985d577d935829fc298134ba2a165aecfa032909121bc",
+        "replaceSha256": "eb4959c74369cc56af05c728b94b988d6df18c6637a6a5ada6c26e7aee01b00a",
+        "equalsCurrentSourceFind": true,
+        "equalsCurrentSourceReplacement": true
+      },
+      {
+        "order": 8,
+        "id": "a82edcd3-2e09-4217-b504-416b2fb98eca",
+        "name": "02 盾形对白 · OC 姓名候选 v0.6",
+        "disabled": false,
+        "placement": [
+          2
+        ],
+        "markdownOnly": true,
+        "promptOnly": false,
+        "findSha256": "0a4e28cba528a3b0edc5d8d3bdd60ec1b01b2ad7475b32adbb7eaa672677610a",
+        "replaceSha256": "f871992f90c45a248dd6755bcde41d18ca9a6ab29252c58fd816315b581a85fa",
+        "equalsCurrentSourceFind": true,
+        "equalsCurrentSourceReplacement": true
+      },
+      {
+        "order": 9,
+        "id": "b2ef9110-2d2a-4d6a-82ad-27ccd1de949e",
+        "name": "03 盾形对白 · 共享样式 v0.6",
+        "disabled": false,
+        "placement": [
+          2
+        ],
+        "markdownOnly": true,
+        "promptOnly": false,
+        "findSha256": "fa71ce4ceac4c9896dc3b4fcc77282bd83e8ce6dda65e2ca1e206c5571f022ae",
+        "replaceSha256": "c47e229e46ef88b6562eebbb1512fd960a0440542d98a049883cf24b64c99f29",
+        "equalsCurrentSourceFind": true,
+        "equalsCurrentSourceReplacement": true
+      }
+    ]
+  },
+  "preset": {
+    "name": "咩咩预设 - ver 5.8.1",
+    "bilingualRules": [
+      {
+        "id": "92f6a307-8a0d-4d96-8693-8ba3bbe64b21",
+        "name": "双语美化-默认",
+        "disabled": true,
+        "findRegex": "/☆‹([^‹›]+)›\\n(.+)/g"
+      },
+      {
+        "id": "f6449ba8-b8fb-46cd-941a-a1b2a0120d9c",
+        "name": "双语美化-折叠",
+        "disabled": true,
+        "findRegex": "/☆‹([^‹›]+)›\\n(.+)/g"
+      }
+    ],
+    "languagePrompt": [
+      {
+        "identifier": "a54035da-5986-4b07-92a0-6d4374bda502",
+        "name": "💬语言-中日双语",
+        "enabled": true,
+        "format": "Japanese ☆‹「dialogue」› followed by anonymous quoted Chinese translation in the preset example; no speaker prefix in that example."
+      }
+    ]
+  },
+  "worldbookEntry": {
+    "worldbook": "落第x学战v0.02",
+    "uid": 43,
+    "comment": "聊天气泡规则",
+    "disable": false,
+    "constant": true,
+    "position": 4,
+    "depth": 0,
+    "order": 396,
+    "probability": 100,
+    "useProbability": true,
+    "contentSha256": "d3c1cf5803393af6d15229a7a9ad63cc33dd1ca5a33d20663027ba8be6d82c4a",
+    "hasExistingSpeakerContract": true,
+    "hasExplicitBilingualContract": false
+  },
+  "chat": {
+    "file": "落第x学战v0.02 - 2026-11-07@21h33m46s924ms.jsonl",
+    "sha256": "5c8a11891ff1d0bfdaa612d867798e206ec722565888b6335197f1e6413aff52",
+    "floor": 2,
+    "activeSwipe": 0,
+    "messageSha256": "3a8acbe54df90946a0edad4ae70b0cecbf2fd4f750906ab6f65c71675c531f29",
+    "messageCharacters": 17467,
+    "bodyAfterKnownProtectedBlocksCharacters": 9427,
+    "bilingualSegmentCount": 119,
+    "namedDialogueLineCount": 0,
+    "targetKeywords": {
+      "firstCongratulations": false,
+      "contractEstablished": false,
+      "pureStarWeapon": true
+    },
+    "targetFormat": "Japanese quoted dialogue followed by a Chinese line beginning with a quote; neither line supplies a speaker prefix.",
+    "byteUnchangedDuringInspection": true
+  },
+  "offlineWholeRaw": {
+    "unchangedCurrentRules": {
+      "bubbles": 0,
+      "candidates": 0,
+      "styles": 0
+    },
+    "oneTargetChineseLineGivenExplicitClaudiaPrefix": {
+      "bubbles": 1,
+      "candidates": 0,
+      "styles": 1
+    },
+    "mutation": "memory only"
+  },
+  "conclusions": [
+    "Installed bubble patterns and replacements match current maintenance source; enabled order is 01 → 02 → 03.",
+    "The saved Chinese dialogue lacks the required explicit speaker prefix before any display regex runs.",
+    "Both bilingual display rules are disabled in the observed preset, so they did not remove the speaker prefix.",
+    "The active bilingual language prompt demonstrates anonymous translation while the worldbook requires named dialogue; this supports a format-conflict diagnosis, not proof of exact request assembly.",
+    "Enabling the existing preset bilingual beautifier before card bubbles is a separate compatibility limitation: its inline HTML can prevent a later anchored name pattern; no such rule was enabled in this observation."
+  ],
+  "limitations": [
+    "The exact screenshot phrases 首先恭喜天雾 and 契约成立 were absent from the saved target assistant floor at inspection.",
+    "No generation request capture, model-compliance run, browser Markdown/theme test, or live state mutation was performed by this agent."
+  ]
+}

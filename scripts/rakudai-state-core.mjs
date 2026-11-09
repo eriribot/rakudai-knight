@@ -1,7 +1,7 @@
 import { deriveTournament, prepareTournamentAction, suggestTournamentOpponents, createTournamentParticipant } from './rakudai-tournament.mjs';
 import { isHagunAffiliation, shouldInjectTournament } from './rakudai-tournament-calendar.mjs';
 import { createNationalTournamentSchema, deriveNationalTournament, shouldInjectNationalTournament } from './rakudai-national-tournament.mjs';
-import { STORY_VOLUMES, getStoryVolume, resolveStoryChapter, storyPosition, nextStoryChapter, nextStoryChapterForState, firstStoryChapter } from './rakudai-story-catalog.mjs';
+import { STORY_VOLUMES, ASTERISK_VOLUMES, getStoryVolume, resolveStoryChapter, storyPosition, nextStoryChapter, nextStoryChapterForState, firstStoryChapter, resolveAsteriskChapter, asteriskStoryPosition, nextAsteriskChapter } from './rakudai-story-catalog.mjs';
 import { RAKUDAI_INITIAL_STATE, GROWTH_RULES, GROWTH_AXES, ATTRIBUTE_GRADES, normalizeSkillEntry, normalizeGrowthRequests, normalizeStoryPhase, normalizeStoryVolume } from '../世界书规则/MVU/schema.mjs';
 import { repairRakudaiMvuStructure, resolveMvuWorld, hasBlazerAbility, hasBlazerGrowth } from './rakudai-mvu-structure.mjs';
 
@@ -20,7 +20,8 @@ export function stateKey(value) {
 
 // 终端操作只核对自己使用的字段；历史记录和自定义资料原样保留。
 export function validateStateOperation(value, scope, z) {
-  if (['story', 'tournament', 'national', 'qualification', 'dorm'].includes(scope) && resolveMvuWorld(value) !== 'rakudai') throw new Error('当前作品未启用落第剧情、宿舍或赛事操作。');
+  const world = resolveMvuWorld(value);
+  if (scope === 'story' ? !['rakudai', 'asterisk'].includes(world) : ['tournament', 'national', 'qualification', 'dorm'].includes(scope) && world !== 'rakudai') throw new Error('当前作品未启用此剧情、宿舍或赛事操作。');
   const system = z.object({
     结构版本: z.literal(4), 开局状态: z.enum(['待建档', '已建档']),
     主角模式: z.enum(['未选择', '黑铁一辉', '自定义角色']),
@@ -28,11 +29,11 @@ export function validateStateOperation(value, scope, z) {
   const fields = { 系统: system };
   if (scope === 'story') {
     fields.场景 = z.object({
-      当前卷: z.preprocess(normalizeStoryVolume, z.number().int()), 当前章: z.string().min(1),
+      当前卷: world === 'asterisk' ? z.null() : z.preprocess(normalizeStoryVolume, z.number().int()), 当前章: z.string().min(1),
       阶段: z.preprocess(normalizeStoryPhase, z.enum(['未开始', '进行中', '已结束'])),
       时间: z.string(), 地点: z.string(),
     }).passthrough().superRefine((scene, ctx) => {
-      if (!getStoryVolume(scene.当前卷)) ctx.addIssue({ code: 'custom', path: ['当前卷'], message: '当前卷不在剧情目录中。' });
+      if (world === 'rakudai' && !getStoryVolume(scene.当前卷)) ctx.addIssue({ code: 'custom', path: ['当前卷'], message: '当前卷不在剧情目录中。' });
       // 当前章可能是模型临时写入的未收录名称。保留它供手动兜底定位，
       // 目标章仍在 applyTransition/jump 中严格校验。
     });
@@ -56,7 +57,7 @@ export function validateStateOperation(value, scope, z) {
   const state = cloneState(value);
   if (scope === 'story') {
     state.场景.当前卷 = parsed.场景.当前卷;
-    state.场景.当前章 = resolveStoryChapter(parsed.场景.当前卷, parsed.场景.当前章)?.key || parsed.场景.当前章;
+    state.场景.当前章 = (world === 'asterisk' ? resolveAsteriskChapter(parsed.场景.当前章) : resolveStoryChapter(parsed.场景.当前卷, parsed.场景.当前章))?.key || parsed.场景.当前章;
     state.场景.阶段 = parsed.场景.阶段;
   }
   return state;
@@ -121,6 +122,7 @@ export function applyOpeningReplacement(before, payload) {
 }
 
 export function applyTransition(before, request) {
+  if (resolveMvuWorld(before) === 'asterisk') return applyAsteriskTransition(before, request);
   if (resolveMvuWorld(before) !== 'rakudai') throw new Error('当前作品未启用落第卷章推进。');
   if (before.系统.结构版本 !== 4) throw new Error('请先预览并确认升级为 v4，再操作剧情卷章。');
   if (before.系统.开局状态 !== '已建档') throw new Error('请先在开局页完成建档。');
@@ -175,6 +177,43 @@ export function applyTransition(before, request) {
     if (from >= 0 && target <= from) throw new Error('手动切入仅允许严格向前；回到已有剧情请使用聊天分支或已有回复页。');
     locateTarget(request.volume, request.chapter);
   } else throw new Error('未知剧情操作。');
+  return next;
+}
+
+// 学战沿独立目录操作章段，卷号仍为 null；不借用落第卷号或自动补造事件。
+function applyAsteriskTransition(before, request) {
+  if (before.系统.结构版本 !== 4 || before.系统.开局状态 !== '已建档') throw new Error('请先在开局页完成 v4 建档。');
+  if (before.场景?.当前卷 !== null) throw new Error('学战档案的当前卷必须为空，请核对本局作品。');
+  const next = cloneState(before), scene = next.场景;
+  scene.阶段 = normalizeStoryPhase(scene.阶段);
+  const current = resolveAsteriskChapter(scene.当前章);
+  if (!current && request.action !== 'jump') throw new Error('当前章不在学战剧情目录中，请手动定位章节。');
+  if (current) scene.当前章 = current.key;
+  if (request.action === 'start') {
+    if (scene.阶段 !== '未开始') throw new Error('当前章段已开始，不能重复开始。');
+    if (request.chapter && resolveAsteriskChapter(request.chapter)?.key !== current.key) throw new Error('不能以开始操作跳到其他章段。');
+    if (!scene.时间.trim() || !scene.地点.trim()) throw new Error('当前章段、时间或地点尚未确认。');
+    scene.阶段 = '进行中';
+  } else if (request.action === 'end') {
+    if (scene.阶段 !== '进行中') throw new Error('只有进行中的章段可以标记结束。');
+    scene.阶段 = '已结束';
+  } else if (request.action === 'next') {
+    if (scene.阶段 !== '已结束') throw new Error('请先确认当前章段已结束。');
+    const target = nextAsteriskChapter(current.key);
+    if (!target) throw new Error('已到已核对学战剧情目录的最后一章。');
+    scene.当前章 = target.key;
+    scene.阶段 = '未开始';
+  } else if (request.action === 'jump') {
+    const target = resolveAsteriskChapter(request.chapter);
+    if (!target) throw new Error('目标章节不在已核对的学战目录中。');
+    if (current && asteriskStoryPosition(target.key) <= asteriskStoryPosition(current.key)) throw new Error('手动切入仅允许严格向前；回到已有剧情请使用聊天分支或已有回复页。');
+    for (const key of ['time', 'location', 'entryNote']) {
+      if (typeof request[key] !== 'string' || !request[key].trim()) throw new Error('请确认目标时间、地点和切入说明后再切换章节。');
+    }
+    scene.当前章 = target.key;
+    scene.阶段 = request.start === true ? '进行中' : '未开始';
+    scene.时间 = request.time.trim(); scene.地点 = request.location.trim(); scene.切入说明 = request.entryNote.trim();
+  } else throw new Error('未知学战剧情操作。');
   return next;
 }
 
@@ -593,7 +632,7 @@ export function createStateController(adapter) {
       if (stateKey(current.data) !== stateKey(record.snapshot.data)) throw new Error('变量已被其他操作更新，请重新读取，草稿已保留。');
       if (openingReplacement) assertReplacementScope(record.snapshot);
       checkWritable();
-      await adapter.write(record.snapshot, current.data, candidate, { openingReplacement });
+      await adapter.write(record.snapshot, current.data, candidate, { openingReplacement, assertWritable: checkWritable });
       const persisted = await adapter.current(record.snapshot);
       if (openingReplacement) assertReplacementScope(record.snapshot);
       const result = adapter.validate(persisted.data.stat_data, scope);
@@ -605,9 +644,9 @@ export function createStateController(adapter) {
     } finally { record.busy = false; }
   }
   return Object.freeze({
-    version: '4.0.0', get catalogue() { return cloneState(STORY_VOLUMES); }, capture, prepareMigration,
+    version: '4.0.0', get catalogue() { return cloneState(STORY_VOLUMES); }, get asteriskCatalogue() { return cloneState(ASTERISK_VOLUMES); }, capture, prepareMigration,
     capabilities: Object.freeze({ scheduleAndRoster: true, rosterPermanentRemoval: true, ocPlayerEditing: true,
-      tournament: 'T01', tournamentEngine: 'T02', nativeMvu: 'N01' }),
+      tournament: 'T01', tournamentEngine: 'T02', nativeMvu: 'N01', asteriskStory: 'A01' }),
     get growthRules() { return cloneState(GROWTH_RULES); },
     hasBlazerAbility, hasBlazerGrowth,
     tournamentView: state => deriveTournament(requireRakudaiState(state)),
@@ -635,7 +674,7 @@ export function createStateController(adapter) {
     },
     commitOpening: (token, payload) => commit(token, state => applyOpening(state, payload)),
     replaceOpening: (token, payload) => commit(token, state => applyOpeningReplacement(state, payload), 'state', true),
-    transition: (token, request) => commit(token, state => applyTransition(state, request), 'state', false, 'story'),
+    transition: (token, request, assertWritable) => commit(token, state => applyTransition(state, request), 'state', false, 'story', assertWritable),
     editPlayerProfile: (token, request, assertWritable) => commit(token, state => editOcPlayerProfile(state, request), 'state', false, 'player-profile', assertWritable),
     setRosterHidden: (token, name, hidden) => commit(token, state => {
       if (typeof name !== 'string' || !name.trim() || /[~/]/.test(name) ||

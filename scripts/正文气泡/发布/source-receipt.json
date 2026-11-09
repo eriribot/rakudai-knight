@@ -4,7 +4,7 @@
   "scope": "三条角色局部显示正则、格式规则、离线预览；只更新对应组件，不重打整卡或修改聊天原文",
   "sourceHashes": {
     "resource/knightavatars/manifest.json": "b03cf0ae6d1b4a9cc490b573f865144d9ca9990e5df2d7a6f5d62164de509b73",
-    "scripts/正文气泡/asterisk-portraits.json": "f0785334a9c2d733f49698f4e94cbe3c2925f962c7adfa4e4b836196a3e40497",
+    "scripts/正文气泡/asterisk-portraits.json": "4cf4ff1fb34f457c56332a3f0e4dd119871fab7246017d3dd0e3c6f3f7900e05",
     "resource/asteriskavatars/heroines-official.jpg": "ad356b0f05390ae1791037cef9f342c25884a68784a36a80af27c2025a9d5345",
     "resource/asteriskavatars/kirin.jpg": "e1bb316262c71c9f5943a2e13aeaed8504f292eb68b786644d7f8d795f59c63a",
     "resource/asteriskavatars/ayato.jpg": "05193d47c39c6ffe8de6f282a3e9ce0142bd97296dfa185efe8a078c27408382",
@@ -16,8 +16,10 @@
     "resource/asteriskavatars/ernest.jpg": "3d31a52f52e86d33e19fca2901e8b47067bd2715f5511c5ccc450d0e8d1e68b4",
     "resource/asteriskavatars/dirk.jpg": "35e5f942151cd572d33772b3d738851a486485f7da15078224814d7e5c004975",
     "resource/asteriskavatars/fan.jpg": "946b01c672edc5df8f308c69e01c3f76297d4b67137ee207d8a0686cf63a8be9",
+    "resource/asteriskavatars/camilla.jpg": "10265ca5d268841ddeb67927b4b8c96c8984b1a0925a13cf8dfc332677d333d5",
+    "resource/asteriskavatars/ernesta.jpg": "3e73feb2309e55f2f7f80b02d8fb33bfd348d09b562d5f71a94e1afbe7d90557",
     "scripts/正文气泡/bubble.css": "301950b6210d65542696997a0119cd81e31c7bcef9c03b86c6f5e0b765b41b15",
-    "scripts/正文气泡/format-rule.txt": "045e0145da92912faf75f6785a8a299c1654c3fc4d0864de9e963cad757691c6",
+    "scripts/正文气泡/format-rule.txt": "50beb907dd467ac1d8533daffbc958f5b3c99fb5b59f44f91fedfbc5c71e4615",
     "scripts/正文气泡/context-guard.mjs": "c1c0210d51184f3e22029514d6cd0211630e9a3cc9d70bf360e7d958bae6be31",
     "scripts/正文气泡/build.mjs": "2de230ed7a882d1292428096555aaea2f13e2f0821d73e23fb5e4343e0aa6aaf"
   },

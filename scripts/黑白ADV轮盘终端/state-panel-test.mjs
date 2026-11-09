@@ -3,7 +3,7 @@ import vm from 'node:vm';
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 import { parseFragment } from 'parse5';
-import { INITIAL_STATE, createSchema, prepareStateMigration } from '../../世界书规则/MVU/schema.mjs';
+import { RAKUDAI_INITIAL_STATE as INITIAL_STATE, createSchema, prepareStateMigration } from '../../世界书规则/MVU/schema.mjs';
 import { createStateController, validateStateOperation } from '../rakudai-state-core.mjs';
 const require = createRequire(import.meta.url), { z } = require('../../output/worldbook-calibration/dev/node_modules/zod');
 const schema = createSchema(z), clone = structuredClone;

@@ -16,8 +16,10 @@ const realm = vm.createContext({ console, setTimeout, clearTimeout,
   window: { addEventListener() {} }
 });
 vm.runInContext(source.replace(/  render\(\);\s*\}\)\(\);\s*$/, `
-  globalThis.viewTest = { model, profileView, calendarView, communicationView, settingsView, runCorrectionAction, plotView, runPlotAction,
-    setState(value) { state = value; }, setBridge(value) { bridge = value; },
+  globalThis.viewTest = { model, homeView, profileView, calendarView, communicationView, settingsView, runCorrectionAction, plotView, runPlotAction,
+    storyControlsView, runStoryAction, editStoryField, storyActions, invalidateStory, openHostStoryControls,
+    setState(value) { state = value; dataStatus = 'ready'; }, setBridge(value) { bridge = value; bridgeRevision++; invalidateStory(true); },
+    setPending(value) { dataStatus = value ? 'pending' : 'ready'; invalidateStory(false); },
     settings() { currentApp = 'settings'; return settingsView(); } };
 })();`), realm);
 const api = realm.viewTest;
@@ -85,4 +87,86 @@ assert.doesNotMatch(api.plotView(), /<第一章>/);
 await api.runPlotAction('toggle'); assert.equal(injectionEnabled, false); assert.match(api.plotView(), /已关闭/);
 api.setBridge({ plot: { getStatus: () => ({ enabled: true, reason: '' }), preview: async () => { throw new Error('剧情条目正文为空'); } } });
 await api.runPlotAction('preview'); assert.match(api.plotView(), /剧情条目正文为空/); assert.doesNotMatch(api.plotView(), /<pre/);
-console.log('PASS: formal Asterisk fields, shared people, contacts, calendar, inert text, correction settings and preview/apply.');
+
+// The visible entrance and chapter controls use the host's existing guarded write path.
+assert.match(api.homeView(), /当前剧情/); assert.match(api.homeView(), /data-app="calendar">打开剧情控制/);
+assert.match(api.homeView(), /剧情与校历/);
+const chapters = [
+  { key: '序章', title: '序章 倏然疾风', order: 200, available: true },
+  { key: '第一章', title: '第一章 <华焰魔女>', order: 201, available: true },
+  { key: '终章', title: '终章 并肩之誓', order: 208, available: false, reason: '未找到 order 208 的剧情条目' },
+];
+let storyState = structuredClone(state), token = {}, reads = 0, transitions = [];
+storyState.场景.当前章 = '序章'; storyState.场景.阶段 = '未开始';
+const storyBridge = {
+  getSnapshot: async () => ({ state: storyState, source: { chatId: 'test', messageId: 0, swipeId: 0 } }),
+  story: {
+    async read() { reads++; return { state: structuredClone(storyState), token, chapters, worldbook: '<当前主书>' }; },
+    async transition(receivedToken, request) {
+      assert.equal(receivedToken, token); transitions.push(structuredClone(request));
+      storyState.场景.阶段 = request.action === 'end' ? '已结束' : '进行中';
+      if (request.action === 'jump') Object.assign(storyState.场景, { 当前章: request.chapter, 时间: request.time, 地点: request.location, 切入说明: request.entryNote });
+      token = {}; return { state: structuredClone(storyState) };
+    },
+  },
+};
+api.setBridge(storyBridge); api.setState(storyState);
+await api.runStoryAction('refresh');
+assert.equal(reads, 1); assert.equal(transitions.length, 0, 'Reading and rendering never write MVU');
+assert.equal(api.storyActions().start, true); assert.equal(api.storyActions().end, false);
+assert.match(api.storyControlsView(), /&lt;当前主书&gt;/); assert.match(api.storyControlsView(), /&lt;华焰魔女&gt;/);
+assert.match(api.storyControlsView(), /value="终章" disabled/); assert.match(api.storyControlsView(), /未找到 order 208/);
+api.editStoryField('chapter', '第一章'); api.editStoryField('time', ' 同一天晚间 '); api.editStoryField('location', ' 同一地点 '); api.editStoryField('entryNote', '<自定义切入>');
+assert.equal(transitions.length, 0, 'Draft edits never write'); assert.equal(api.storyActions().jump, true);
+await api.runStoryAction('jump');
+assert.deepEqual(transitions[0], { action: 'jump', chapter: '第一章', time: '同一天晚间', location: '同一地点', entryNote: '<自定义切入>', start: true });
+await api.runStoryAction('refresh');
+assert.equal(api.storyActions().end, true); assert.match(api.storyControlsView(), /&lt;自定义切入&gt;/);
+await api.runStoryAction('end'); await api.runStoryAction('refresh');
+assert.equal(api.storyActions().next, false, 'A missing adjacent chapter cannot be entered');
+const beforeBlocked = transitions.length;
+await api.runStoryAction('next'); assert.equal(transitions.length, beforeBlocked);
+api.editStoryField('chapter', '序章'); assert.equal(api.storyActions().jump, false, 'Known chapters cannot move backward');
+api.editStoryField('chapter', '终章'); assert.equal(api.storyActions().jump, false, 'Unavailable chapters cannot be selected by synthetic input');
+api.setPending(true); await api.runStoryAction('start'); assert.equal(transitions.length, beforeBlocked);
+assert.match(api.storyControlsView(), /data-story-action="start" disabled/);
+
+// Late reads from a former bridge or a now-pending reply never restore write credentials.
+let resolveRead;
+api.setPending(false); api.setBridge({ story: { read: () => new Promise(resolve => { resolveRead = resolve; }) } });
+const late = api.runStoryAction('refresh');
+api.setBridge(storyBridge);
+resolveRead({ state: storyState, token: {}, chapters, worldbook: '过期世界书' }); await late;
+assert.doesNotMatch(api.storyControlsView(), /过期世界书/); assert.equal(api.storyActions().ready, false);
+api.setBridge({ story: { read: () => new Promise(resolve => { resolveRead = resolve; }) } });
+const pendingRead = api.runStoryAction('refresh'); api.setPending(true);
+resolveRead({ state: storyState, token: {}, chapters, worldbook: '未结算世界书' }); await pendingRead;
+assert.doesNotMatch(api.storyControlsView(), /未结算世界书/); assert.equal(api.storyActions().ready, false);
+
+// Errors revoke the credential and retain the user's draft for an explicit reread.
+api.setPending(false); api.setBridge({ ...storyBridge, story: { ...storyBridge.story, transition: async () => { throw new Error('当前回复页已变化，请重新读取'); } } });
+await api.runStoryAction('refresh');
+storyState.场景.当前章 = '自由开场'; storyState.场景.阶段 = '进行中';
+await api.runStoryAction('refresh'); api.editStoryField('chapter', '第一章'); api.editStoryField('entryNote', '保留的草稿');
+await api.runStoryAction('jump'); assert.match(api.storyControlsView(), /当前回复页已变化/); assert.equal(api.storyActions().ready, false);
+await api.runStoryAction('refresh'); assert.match(api.storyControlsView(), /保留的草稿/);
+
+// A repeated click while awaiting the host cannot produce a second write.
+let finishWrite, writes = 0;
+api.setBridge({ ...storyBridge, story: { ...storyBridge.story, transition: () => { writes++; return new Promise(resolve => { finishWrite = resolve; }); } } });
+await api.runStoryAction('refresh'); api.editStoryField('chapter', '第一章'); api.editStoryField('entryNote', '确认切入');
+const writing = api.runStoryAction('jump'); await api.runStoryAction('jump'); assert.equal(writes, 1);
+finishWrite({ state: storyState }); await writing;
+
+// A Rikka appearance on a Rakudai save opens the existing host controls.
+let hostStoryOpens = 0;
+api.setState({ ...storyState, 系统: { 作品: 'rakudai', 开局状态: '已建档' } });
+api.setBridge({ ui: { openStoryControls() { hostStoryOpens++; } } });
+assert.match(api.homeView(), /data-action="host-story-controls">打开剧情控制/);
+assert.match(api.storyControlsView(), /本局为落第主线/); assert.doesNotMatch(api.storyControlsView(), /请更新终端/);
+api.openHostStoryControls(); assert.equal(hostStoryOpens, 1);
+api.setState({ ...storyState, 系统: { 开局状态: '已建档' } });
+assert.match(api.storyControlsView(), /本局为落第主线/, 'Legacy built Rakudai saves keep the existing host route');
+api.setState({ ...storyState, 系统: { 作品: 'asterisk', 开局状态: '已建档' } });
+api.openHostStoryControls(); assert.equal(hostStoryOpens, 1, 'A missing Asterisk story service cannot route into Rakudai writes');
+console.log('PASS: Asterisk profile, escaped plot preview, explicit story entrance, guarded chapter drafts, unavailable chapters and stale/duplicate actions.');

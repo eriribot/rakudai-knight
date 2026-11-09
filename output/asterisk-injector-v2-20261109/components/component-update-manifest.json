@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "deliveryMode": "component",
+  "kind": "helper-script",
+  "artifacts": [
+    {
+      "artifactName": "asterisk-plot-injector",
+      "id": "c6b247ce-164f-4f1e-9952-02731a212df2",
+      "kind": "helper-script",
+      "relativePath": "asterisk-plot-injector.script.json",
+      "sha256": "17fadd2f75cbe9dbbc70de32f4b749ca1aeb467d7757637916fd0e4456d06177"
+    },
+    {
+      "artifactName": "asterisk-story-terminal",
+      "id": "c69d61c7-7a11-4f17-a584-f28e5048332e",
+      "kind": "helper-script",
+      "relativePath": "asterisk-story-terminal.script.json",
+      "sha256": "4ec4b9a859d50cbe1b0dc7640aa065f7961555567cf453afb9ebab362b7daebe"
+    },
+    {
+      "artifactName": "dual-worldbook-updater",
+      "id": "4cbe9a41-cd60-4edd-84fb-92611a957ec2",
+      "kind": "helper-script",
+      "relativePath": "dual-worldbook-updater.script.json",
+      "sha256": "72a942945f56ff505e614a54f80f550f95a9edd030a171f0bd03022b400ae775"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
-  "passed": 56,
-  "total": 56,
+  "passed": 74,
+  "total": 74,
   "runtime": "离线固定API语义模拟，未连接真实酒馆",
   "results": [
     {
@@ -32,7 +32,11 @@
       "passed": true
     },
     {
-      "name": "iframe自带SillyTavern getter且MVU稍后初始化时，等待本iframe并选择最外层宿主",
+      "name": "健康入口不调用Helper等待，不建timer，只读取一次当前楼层和MVU",
+      "passed": true
+    },
+    {
+      "name": "MVU晚到时固定原聊天等待，使用最外层宿主接口且不安装iframe全局监听",
       "passed": true
     },
     {
@@ -40,7 +44,63 @@
       "passed": true
     },
     {
-      "name": "MVU等待失败时不读取或写入，恢复后可重新读取",
+      "name": "global缺失15秒明确超时，迟到不续写且恢复后可重试",
+      "passed": true
+    },
+    {
+      "name": "data缺失15秒明确超时，迟到不续写且恢复后可重试",
+      "passed": true
+    },
+    {
+      "name": "原消息对象内initvar写入可结束等待，不因替换变量与swipes数组误判聊天变化",
+      "passed": true
+    },
+    {
+      "name": "后台挂起超过截止时间后即使依赖已就绪也不继续旧操作",
+      "passed": true
+    },
+    {
+      "name": "等待期间改变聊天会取消原捕获，不能转入新上下文",
+      "passed": true
+    },
+    {
+      "name": "等待期间改变角色会取消原捕获，不能转入新上下文",
+      "passed": true
+    },
+    {
+      "name": "等待期间改变群组会取消原捕获，不能转入新上下文",
+      "passed": true
+    },
+    {
+      "name": "等待期间改变聊天数组会取消原捕获，不能转入新上下文",
+      "passed": true
+    },
+    {
+      "name": "等待期间改变消息对象会取消原捕获，不能转入新上下文",
+      "passed": true
+    },
+    {
+      "name": "等待期间改变swipe会取消原捕获，不能转入新上下文",
+      "passed": true
+    },
+    {
+      "name": "等待期间改变正文会取消原捕获，不能转入新上下文",
+      "passed": true
+    },
+    {
+      "name": "等待期间改变新增楼层会取消原捕获，不能转入新上下文",
+      "passed": true
+    },
+    {
+      "name": "未知旧版本与异步接口在进入等待前立即拒绝",
+      "passed": true
+    },
+    {
+      "name": "从尾部逐楼使用宿主assistant过滤，跳过system与user且不读取整段聊天",
+      "passed": true
+    },
+    {
+      "name": "没有swipes的原生首楼使用mes，空正文归一化与Helper一致",
       "passed": true
     },
     {
@@ -225,6 +285,18 @@
     },
     {
       "name": "伴随guard运行时保护：恢复章段后也拒绝关联未来事件",
+      "passed": true
+    },
+    {
+      "name": "学战剧情沿独立目录写入，卷号保持空且无关旧资料不变",
+      "passed": true
+    },
+    {
+      "name": "学战自由章只可显式定位，回退及聊天切换都不会写",
+      "passed": true
+    },
+    {
+      "name": "剧情同步守卫在 updater 内复核，生成刚开始也不落笔",
       "passed": true
     }
   ]

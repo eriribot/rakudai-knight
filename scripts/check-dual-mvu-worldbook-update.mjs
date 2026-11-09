@@ -12,6 +12,15 @@ const require = createRequire(import.meta.url), ejs = require('../output/worldbo
 const { artifact, payload, sourceHashes } = buildDualMvuWorldbookUpdate(), copy = structuredClone;
 const checks = [];
 async function check(name, run) { try { await run(); checks.push({ name, passed: true }); } catch (error) { checks.push({ name, passed: false, error: error.stack }); } }
+await check('packaged templates preserve second-volume keys and independent EJS scopes', () => {
+  for (const key of ['update', 'format']) {
+    assert.ok(payload.templates[key].includes('第二卷·第一章'));
+    assert.ok(!payload.templates[key].includes('学战目前只有第一卷'));
+  }
+  for (const key of ['list', 'update', 'format']) {
+    assert.ok(payload.templates[key].startsWith('<% { /* MVU_ENTRY_SCOPE */ %>'));
+  }
+});
 const names = ['[MVU]变量列表', '[MVU]变量更新规则', '[MVU]变量更新格式', '[initvar]变量初始化', '世界设定', '魔力', '能力与招式', '伐刀者', '觉醒', '魔人', '能力系别'];
 function bookFixture() {
   const entries = Object.fromEntries(Array.from({ length: 205 }, (_, index) => {

@@ -135,12 +135,13 @@
     current, assertOpeningReplacement,
     validate: (value, scope = 'full') => scope === 'full' ? validateState(value) : validateStateOperation(value, scope, validationZ()),
     migrate: value => prepareStateMigration(value, validationZ()),
-    write: (saved, expected, state, { openingReplacement = false } = {}) => {
+    write: (saved, expected, state, { openingReplacement = false, assertWritable } = {}) => {
       if (openingReplacement) assertOpeningReplacement(saved);
       const now = current(saved), H = now.H;
       if (stateKey(now.data) !== stateKey(expected)) throw new Error('变量在提交前发生变化，请刷新。');
       // 使用宿主同步 updater：校验与赋值之间不 await，不退回 chat/global scope。
       const result = helper('updateVariablesWith')(variables => {
+        assertWritable?.();
         current(saved);
         if (openingReplacement) assertOpeningReplacement(saved);
         if (stateKey(variables) !== stateKey(expected)) throw new Error('变量已经更新，未覆盖。');

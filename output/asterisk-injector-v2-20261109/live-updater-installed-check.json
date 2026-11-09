@@ -1,0 +1,20 @@
+{
+  "checkedAt": "2026-11-09T13:55:41.090Z",
+  "source": "F:/SillyTavern-Launcher/SillyTavern/data/default-user/characters/落第x学战v0.03.png",
+  "card": "落第x学战v0.03",
+  "world": "落第x学战v0.03",
+  "newScript": {
+    "id": "b71319a4-68d4-41f0-afd9-1c6967fa90da",
+    "found": false,
+    "sha256": null,
+    "componentFile": "output/asterisk-injector-v2-20261109/components/dual-worldbook-updater.script.json",
+    "componentSha256": "fe1421f42133ccb507d2b2168422bc503b028e8669b7ab045ee2940f3d39c345",
+    "contentMatchesComponent": false
+  },
+  "oldScript": {
+    "id": "4cbe9a41-cd60-4edd-84fb-92611a957ec2",
+    "preserved": true,
+    "enabled": true
+  },
+  "passed": false
+}

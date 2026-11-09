@@ -315,7 +315,7 @@ await check('关闭约束仍可切章、整理名册及保存赛程，controller
   draft.玩家.所属 = '破军学园 / 一年一班';
   await f.api.commitOpening((await f.api.capture()).token, draft);
   assert.deepEqual(clone(f.api.capabilities), { scheduleAndRoster: true, rosterPermanentRemoval: true, ocPlayerEditing: true,
-    tournament: 'T01', tournamentEngine: 'T02', nativeMvu: 'N01' });
+    tournament: 'T01', tournamentEngine: 'T02', nativeMvu: 'N01', asteriskStory: 'A01' });
   const state = () => f.ctx.chat[0].variables[0].stat_data;
   const firstChapter = state().场景.当前章;
   await f.api.transition((await f.api.capture()).token, { action: 'end' });
@@ -658,6 +658,51 @@ await check('伴随guard运行时保护：恢复章段后也拒绝关联未来�
   const internal = after.stat_data.$internal; delete after.stat_data.$internal;
   assert.deepEqual(after, before); assert.deepEqual(internal.delta_data, {});
   events.find(([type]) => type === 'pagehide')[1](); assert.equal(H.__RK_MVU_GUARD_V4__, undefined); assert.equal(hooks.size, 0);
+});
+await check('学战剧情沿独立目录写入，卷号保持空且无关旧资料不变', async () => {
+  const f = fixture({ guarded: false }), state = f.ctx.chat[0].variables[0].stat_data;
+  Object.assign(state.系统, { 作品: 'asterisk', 开局状态: '已建档', 主角模式: '自定义角色' });
+  Object.assign(state.场景, { 当前卷: null, 当前章: '序幕', 阶段: '进行中', 时间: '清晨', 地点: '校园' });
+  state.玩家.姓名 = '测试人物'; state.玩家.自定义 = { 保留: true }; state.人际.同伴 = { 旧字段: '保留' };
+  const unrelated = clone({ 玩家: state.玩家, 人际: state.人际, 事件: state.场景.已发生事件 });
+  const source = () => f.ctx.chat[0].variables[0].stat_data;
+  const captured = await f.api.capture({ scope: 'story' });
+  assert.equal(captured.state.场景.当前章, '序章'); assert.equal(state.场景.当前章, '序幕');
+  await f.api.transition(captured.token, { action: 'end' });
+  await f.api.transition((await f.api.capture({ scope: 'story' })).token, { action: 'next' });
+  await f.api.transition((await f.api.capture({ scope: 'story' })).token, { action: 'start' });
+  assert.equal(source().场景.当前卷, null); assert.equal(source().场景.当前章, '第一章'); assert.equal(source().场景.阶段, '进行中');
+  const jump = { action: 'jump', chapter: '第六章', time: '翌日', location: '咖啡厅', entryNote: '已确认过渡', start: true };
+  await f.api.transition((await f.api.capture({ scope: 'story' })).token, jump);
+  assert.equal(source().场景.当前章, '第六章'); assert.equal(source().场景.当前卷, null);
+  assert.deepEqual({ 玩家: source().玩家, 人际: source().人际, 事件: source().场景.已发生事件 }, unrelated);
+  for (const request of [{ action: 'jump', ...jump, chapter: '第一章' }, { action: 'jump', ...jump, chapter: '第七章', time: '' }, { action: 'nextVolume' }]) {
+    await assert.rejects(f.api.transition((await f.api.capture({ scope: 'story' })).token, request));
+  }
+  assert.equal(f.writes, 4);
+  for (const scope of ['dorm', 'tournament', 'national', 'qualification']) await assert.rejects(f.api.capture({ scope }), /当前作品/);
+  source().场景.当前卷 = 1; await assert.rejects(f.api.capture({ scope: 'story' })); assert.equal(f.writes, 4);
+});
+await check('学战自由章只可显式定位，回退及聊天切换都不会写', async () => {
+  const f = fixture(), state = f.ctx.chat[0].variables[0].stat_data;
+  Object.assign(state.系统, { 作品: 'asterisk', 开局状态: '已建档', 主角模式: '自定义角色' });
+  Object.assign(state.场景, { 当前卷: null, 当前章: '宿舍报到', 阶段: '进行中', 时间: '早晨', 地点: '宿舍' });
+  const captured = await f.api.capture({ scope: 'story' });
+  await assert.rejects(f.api.transition(captured.token, { action: 'end' }), /手动定位/);
+  await f.api.transition(captured.token, { action: 'jump', chapter: '序章', time: '早晨', location: '宿舍', entryNote: '定位本局', start: true });
+  const next = await f.api.capture({ scope: 'story' }); f.ctx.chat[0].swipe_id = 1;
+  await assert.rejects(f.api.transition(next.token, { action: 'end' }), /swipe/); assert.equal(f.writes, 1);
+});
+await check('剧情同步守卫在 updater 内复核，生成刚开始也不落笔', async () => {
+  const f = fixture(), state = f.ctx.chat[0].variables[0].stat_data;
+  Object.assign(state.系统, { 作品: 'asterisk', 开局状态: '已建档', 主角模式: '自定义角色' });
+  Object.assign(state.场景, { 当前卷: null, 当前章: '第一章', 阶段: '进行中', 时间: '早晨', 地点: '宿舍' });
+  const captured = await f.api.capture({ scope: 'story' });
+  let generating = false;
+  const original = f.W.updateVariablesWith;
+  f.W.updateVariablesWith = function (...args) { generating = true; return original.apply(this, args); };
+  await assert.rejects(f.api.transition(captured.token, { action: 'end' }, () => { if (generating) throw new Error('生成中'); }), /生成中/);
+  assert.equal(f.writes, 0); assert.equal(state.场景.阶段, '进行中');
 });
 const report = { passed: results.filter(r => r.passed).length, total: results.length, runtime: '离线固定API语义模拟，未连接真实酒馆', results };
 const reportDirectory = new URL('../世界书规则/MVU/验证记录/', import.meta.url);

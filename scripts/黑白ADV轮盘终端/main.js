@@ -57,6 +57,7 @@
   /*__INJECT_LIME_WORLDBOOK__*/
   /*__INJECT_LIME_STORY__*/
   /*__INJECT_CALENDAR_WORLDBOOK__*/
+  /*__INJECT_STORY_WORLDBOOK__*/
   /*__INJECT_PLAYER_DISPLAY_STORE__*/
   /*__INJECT_PLAYER_PORTRAIT__*/
 
@@ -629,6 +630,71 @@
     } finally { tournamentWriting = false; }
   }
 
+  // 学战章段与落第面板共用状态事务；这里只提供目录可用性与宿主临写守卫。
+  const asteriskStoryTokens = new WeakMap();
+  let asteriskStoryReader = null, asteriskStoryWriting = false;
+  function asteriskStoryService() {
+    const service = stateService();
+    if (service.capabilities?.asteriskStory !== 'A01') throw new Error('请更新支持学战章节操作的终端状态控制器。');
+    return service;
+  }
+  function assertAsteriskStoryWritable(record) {
+    if (SS.destroyed || generationPending || limeNativeStarting || correctionMainBusy() || correctionJob || correctionAutoTurn) throw new Error('请等待当前回复与变量保存完成，再操作剧情章节。');
+    const snapshot = readSnapshot();
+    if (snapshot.pending || snapshot.state?.系统?.作品 !== 'asterisk' || snapshot.state.系统.开局状态 !== '已建档') throw new Error('请先完成本局学战建档，再操作剧情章节。');
+    if (record && (record.revision !== rosterEditRevision || JSON.stringify(snapshot.source) !== record.sourceKey ||
+        JSON.stringify(snapshot.state) !== record.stateKey)) throw new Error('聊天、回复页或剧情状态已变化，请重新读取章节。');
+    if (record?.worldbook) {
+      const getNames = fn('getCharWorldbookNames'), binding = getNames?.('current');
+      if (binding?.then || binding?.primary !== record.worldbook) throw new Error('角色主世界书绑定已变化，请重新读取章节。');
+    }
+    return snapshot;
+  }
+  async function readAsteriskStoryCatalogue(service) {
+    if (!asteriskStoryReader) asteriskStoryReader = createRakudaiWorldbookReader({
+      getCharWorldbookNames: fn('getCharWorldbookNames'), getWorldbook: fn('getWorldbook'),
+    });
+    let timer;
+    try {
+      return await Promise.race([
+        asteriskStoryReader.list(1, service.asteriskCatalogue.flatMap(volume => volume.chapters), { orderBase: 200 }),
+        new Promise((_, reject) => { timer = setTimeout(() => reject(new Error('读取剧情目录超过 8 秒，请检查世界书后重试。')), 8000); }),
+      ]);
+    } finally { clearTimeout(timer); }
+  }
+  async function readAsteriskStory() {
+    const snapshot = assertAsteriskStoryWritable(), service = asteriskStoryService();
+    const record = { revision: rosterEditRevision, sourceKey: JSON.stringify(snapshot.source), stateKey: JSON.stringify(snapshot.state) };
+    const [captured, catalogue] = await Promise.all([
+      service.capture({ messageId: snapshot.source.messageId, scope: 'story' }), readAsteriskStoryCatalogue(service),
+    ]);
+    record.worldbook = catalogue.worldbook;
+    assertAsteriskStoryWritable(record);
+    asteriskStoryTokens.set(captured.token, { ...record, state: captured.state, service });
+    return { ...captured, source: structuredClone(snapshot.source), ...catalogue };
+  }
+  async function transitionAsteriskStory(token, request) {
+    const record = asteriskStoryTokens.get(token);
+    if (!record) throw new Error('章节操作凭据已失效，请重新读取。');
+    if (asteriskStoryWriting) throw new Error('正在保存章节，请勿重复操作。');
+    assertAsteriskStoryWritable(record);
+    const edit = structuredClone(request);
+    asteriskStoryWriting = true;
+    try {
+      // 世界书可能在表单打开后改动；提交前重读，不能进入缺失、重复或仍自动触发的条目。
+      const catalogue = await readAsteriskStoryCatalogue(record.service);
+      assertAsteriskStoryWritable(record);
+      if (catalogue.worldbook !== record.worldbook) throw new Error('角色主世界书绑定已变化，请重新读取章节。');
+      const chapters = catalogue.chapters, current = chapters.findIndex(chapter => chapter.key === record.state.场景.当前章);
+      const target = edit.action === 'jump' ? chapters.find(chapter => chapter.key === edit.chapter) : edit.action === 'next' ? chapters[current + 1] : chapters[current];
+      if (!target?.available) throw new Error(target?.reason || '目标章节不在当前可用剧情目录中。');
+      const result = await record.service.transition(token, edit, () => assertAsteriskStoryWritable(record));
+      asteriskStoryTokens.delete(token);
+      terminalStateReader?.clear(); emit({ type: 'story-turn', reset: true });
+      return result;
+    } finally { asteriskStoryWriting = false; }
+  }
+
   function makeBridge() {
     const appearance = { get: () => appearancePreference, set: setTerminalAppearance };
     function plotService() {
@@ -650,6 +716,7 @@
     };
     if (ASTERISK_PREVIEW || !terminalBusinessIsRakudai()) return {
       appearance, world: SS.businessWorld, ...settings,
+      ...(!ASTERISK_PREVIEW && SS.businessWorld === 'asterisk' ? { story: { read: readAsteriskStory, transition: transitionAsteriskStory } } : {}),
       version: BUILD_VERSION + (ASTERISK_PREVIEW ? ' · 外观预览' : ''),
       getSnapshot: async () => readSnapshot(), getStat: async () => readSnapshot().state,
       relationshipRules: RELATIONSHIP_SCORING, supportStage, romanceStage,

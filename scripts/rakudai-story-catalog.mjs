@@ -47,7 +47,8 @@ export function nextStoryChapterForState(volume, key, state) {
   return nextStoryChapter(volume, key);
 }
 
-// 学战只整理到第一卷；条目顺序独立编号，世界书 order 从 200 起。
+// 学战前两卷按已核对条目连续编号，worldbook order 200–216。
+// 第一卷沿用旧存档键；后续卷在章名中带卷号，兼容当前卷为 null 的学战 MVU。
 export const ASTERISK_VOLUMES = [{
   volume: 1, title: '第1卷 姬焰邂逅',
   chapters: [
@@ -61,25 +62,42 @@ export const ASTERISK_VOLUMES = [{
     { key: '第七章', title: '第七章 解放者', aliases: [] },
     { key: '终章', title: '终章 并肩之誓', aliases: [] },
   ],
-}];
+}, {
+  volume: 2, title: '第2卷 银绮觉醒',
+  chapters: [
+    { key: '第一章', title: '第一章 六花园会议', aliases: [] },
+    { key: '第二章', title: '第二章 昏枭暗跃', aliases: [] },
+    { key: '第三章', title: '第三章 疾风刃雷', aliases: [] },
+    { key: '第四章', title: '第四章 错综的思绪', aliases: [] },
+    { key: '第五章', title: '第五章 少女素颜', aliases: [] },
+    { key: '第六章', title: '第六章 雾中魔手', aliases: [] },
+    { key: '第七章', title: '第七章 决意与决斗', aliases: [] },
+    { key: '终章', title: '终章 蜀山组队', aliases: [] },
+  ],
+}].map(book => ({ ...book, chapters: book.chapters.map(chapter => ({
+  ...chapter, volume: book.volume, chapter: chapter.key,
+  key: book.volume === 1 ? chapter.key : '第二卷·' + chapter.key,
+  title: (book.volume === 1 ? '第一卷·' : '第二卷·') + chapter.title,
+  entryPrefix: '[剧情]' + (book.volume === 1 ? '第一卷.' : '第二卷.') + chapter.key + '.',
+})) }));
 
 export const STORY_ORDER_BASE = { rakudai: 100, asterisk: 200 };
 
 export function resolveAsteriskChapter(key) {
   if (typeof key !== 'string' || !key.trim()) return null;
-  const chapters = ASTERISK_VOLUMES[0].chapters, value = key.trim();
+  const chapters = ASTERISK_VOLUMES.flatMap(book => book.chapters), value = key.trim();
   return chapters.find(chapter => chapter.key === value) ||
     chapters.find(chapter => (chapter.aliases || []).includes(value)) || null;
 }
 
 export function asteriskStoryPosition(key) {
   const chapter = resolveAsteriskChapter(key);
-  return chapter ? ASTERISK_VOLUMES[0].chapters.indexOf(chapter) : -1;
+  return chapter ? ASTERISK_VOLUMES.flatMap(book => book.chapters).indexOf(chapter) : -1;
 }
 
 export function nextAsteriskChapter(key) {
   const chapter = resolveAsteriskChapter(key);
   if (!chapter) return null;
-  const chapters = ASTERISK_VOLUMES[0].chapters;
+  const chapters = ASTERISK_VOLUMES.flatMap(book => book.chapters);
   return chapters[chapters.indexOf(chapter) + 1] || null;
 }

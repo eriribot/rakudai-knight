@@ -1,0 +1,60 @@
+{
+  "checkedAt": "2026-11-09T13:42:45.502Z",
+  "card": "落第x学战v0.03",
+  "world": "落第x学战v0.03",
+  "scriptChecks": [
+    {
+      "role": "injector",
+      "id": "fac07f26-733b-4b7e-a92e-894017c05499",
+      "found": true,
+      "enabled": true,
+      "sha256": "7a863ecda8e181e33b9386846177d02232e67567b7934ccb43d594550e8e4c51",
+      "componentSha256": "7a863ecda8e181e33b9386846177d02232e67567b7934ccb43d594550e8e4c51",
+      "contentMatchesComponent": true,
+      "oldId": "c6b247ce-164f-4f1e-9952-02731a212df2",
+      "oldPreserved": true,
+      "oldEnabled": false
+    },
+    {
+      "role": "terminal",
+      "id": "22b0b7b1-5c1d-4eae-ac13-613e1af6effb",
+      "found": true,
+      "enabled": true,
+      "sha256": "9ea2ced18a0afddfa81f15ee119cd3b2015e772884d5c1c28b578e89569904e1",
+      "componentSha256": "9ea2ced18a0afddfa81f15ee119cd3b2015e772884d5c1c28b578e89569904e1",
+      "contentMatchesComponent": true,
+      "oldId": "c69d61c7-7a11-4f17-a584-f28e5048332e",
+      "oldPreserved": true,
+      "oldEnabled": false
+    }
+  ],
+  "promptChecks": [
+    {
+      "uid": 10,
+      "name": "[MVU]变量更新规则",
+      "enabled": true,
+      "changedLines": 1,
+      "replacementsMatchLocal": true,
+      "oldLinesAbsent": true,
+      "onlyExpectedReplacements": true
+    },
+    {
+      "uid": 41,
+      "name": "[MVU]变量更新格式",
+      "enabled": true,
+      "changedLines": 2,
+      "replacementsMatchLocal": true,
+      "oldLinesAbsent": true,
+      "onlyExpectedReplacements": true
+    }
+  ],
+  "worldbook": {
+    "entryCount": 242,
+    "priorEntryCount": 242,
+    "countUnchanged": true,
+    "plotMetadataCompared": 17,
+    "plotMetadataUnchanged": true,
+    "diffs": [],
+    "limitation": "仅有17条学战剧情元信息基线；没有全书或剧情正文hash基线，不能证明全部其他条目正文未变。"
+  }
+}

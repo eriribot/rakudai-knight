@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-07T12:58:21.524Z",
+  "generatedAt": "2026-11-09T13:07:28.108Z",
   "nodeVersion": "v25.6.0",
   "sourceHashes": {
     "scripts/正文气泡/build.mjs": "2de230ed7a882d1292428096555aaea2f13e2f0821d73e23fb5e4343e0aa6aaf",
@@ -33,27 +33,27 @@
   "manifestCharacters": 42,
   "uniqueNamesChecked": 235,
   "ambiguousNames": [],
-  "total": 715,
-  "passed": 715,
+  "total": 747,
+  "passed": 747,
   "failed": 0,
   "measurements": [
     {
       "name": "十万字旁白夹少量对白",
       "inputCharacters": 96014,
-      "outputCharacters": 124326,
-      "elapsedMs": 4.36
+      "outputCharacters": 125886,
+      "elapsedMs": 6.54
     },
     {
       "name": "数万字连续对白",
       "inputCharacters": 37889,
-      "outputCharacters": 324370,
-      "elapsedMs": 487.35
+      "outputCharacters": 325930,
+      "elapsedMs": 620.95
     },
     {
       "name": "八万字单行对白",
       "inputCharacters": 80003,
-      "outputCharacters": 108099,
-      "elapsedMs": 1.37
+      "outputCharacters": 109659,
+      "elapsedMs": 2.19
     }
   ],
   "results": [
@@ -751,6 +751,134 @@
     },
     {
       "name": "Persona 与学战明确姓名重名仍保留NPC框：ファンシンルー",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：卡蜜拉·帕蕾特",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：卡蜜拉",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：卡蜜拉•帕蕾特",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：Camilla",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：Camilla Pareto",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：カミラ・パレート",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：カミラ･パレート",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：卡蜜拉·帕蕾特",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：卡蜜拉",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：卡蜜拉•帕蕾特",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：Camilla",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：Camilla Pareto",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：カミラ・パレート",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：カミラ･パレート",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：艾涅丝妲·裘奈",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：艾涅丝妲",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：艾涅絲妲",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：艾涅絲妲·裘奈",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：艾涅丝妲•裘奈",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：Ernesta",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：Ernesta Kuhne",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：Ernesta Kühne",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：エルネスタ・キューネ",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：艾涅丝妲·裘奈",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：艾涅丝妲",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：艾涅絲妲",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：艾涅絲妲·裘奈",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：艾涅丝妲•裘奈",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：Ernesta",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：Ernesta Kuhne",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：Ernesta Kühne",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：エルネスタ・キューネ",
       "passed": true
     },
     {

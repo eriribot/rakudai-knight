@@ -47,7 +47,8 @@ function nextStoryChapterForState(volume, key, state) {
   return nextStoryChapter(volume, key);
 }
 
-// 学战只整理到第一卷；条目顺序独立编号，世界书 order 从 200 起。
+// 学战前两卷按已核对条目连续编号，worldbook order 200–216。
+// 第一卷沿用旧存档键；后续卷在章名中带卷号，兼容当前卷为 null 的学战 MVU。
 const ASTERISK_VOLUMES = [{
   volume: 1, title: '第1卷 姬焰邂逅',
   chapters: [
@@ -61,26 +62,43 @@ const ASTERISK_VOLUMES = [{
     { key: '第七章', title: '第七章 解放者', aliases: [] },
     { key: '终章', title: '终章 并肩之誓', aliases: [] },
   ],
-}];
+}, {
+  volume: 2, title: '第2卷 银绮觉醒',
+  chapters: [
+    { key: '第一章', title: '第一章 六花园会议', aliases: [] },
+    { key: '第二章', title: '第二章 昏枭暗跃', aliases: [] },
+    { key: '第三章', title: '第三章 疾风刃雷', aliases: [] },
+    { key: '第四章', title: '第四章 错综的思绪', aliases: [] },
+    { key: '第五章', title: '第五章 少女素颜', aliases: [] },
+    { key: '第六章', title: '第六章 雾中魔手', aliases: [] },
+    { key: '第七章', title: '第七章 决意与决斗', aliases: [] },
+    { key: '终章', title: '终章 蜀山组队', aliases: [] },
+  ],
+}].map(book => ({ ...book, chapters: book.chapters.map(chapter => ({
+  ...chapter, volume: book.volume, chapter: chapter.key,
+  key: book.volume === 1 ? chapter.key : '第二卷·' + chapter.key,
+  title: (book.volume === 1 ? '第一卷·' : '第二卷·') + chapter.title,
+  entryPrefix: '[剧情]' + (book.volume === 1 ? '第一卷.' : '第二卷.') + chapter.key + '.',
+})) }));
 
 const STORY_ORDER_BASE = { rakudai: 100, asterisk: 200 };
 
 function resolveAsteriskChapter(key) {
   if (typeof key !== 'string' || !key.trim()) return null;
-  const chapters = ASTERISK_VOLUMES[0].chapters, value = key.trim();
+  const chapters = ASTERISK_VOLUMES.flatMap(book => book.chapters), value = key.trim();
   return chapters.find(chapter => chapter.key === value) ||
     chapters.find(chapter => (chapter.aliases || []).includes(value)) || null;
 }
 
 function asteriskStoryPosition(key) {
   const chapter = resolveAsteriskChapter(key);
-  return chapter ? ASTERISK_VOLUMES[0].chapters.indexOf(chapter) : -1;
+  return chapter ? ASTERISK_VOLUMES.flatMap(book => book.chapters).indexOf(chapter) : -1;
 }
 
 function nextAsteriskChapter(key) {
   const chapter = resolveAsteriskChapter(key);
   if (!chapter) return null;
-  const chapters = ASTERISK_VOLUMES[0].chapters;
+  const chapters = ASTERISK_VOLUMES.flatMap(book => book.chapters);
   return chapters[chapters.indexOf(chapter) + 1] || null;
 }
 
@@ -199,18 +217,7 @@ function createRakudaiWorldbookReader({ getCharWorldbookNames, getWorldbook } = 
     return order;
   }
 
-  async function read(volume, chapter, options = {}) {
-    if (!Number.isInteger(volume) || volume < 1 || typeof chapter !== 'string' || !chapter.trim()) {
-      throw new Error('剧情读取参数错误：卷号必须是正整数，章节必须是非空文字。');
-    }
-    if (typeof storyPosition !== 'function') {
-      throw new Error('共享章节索引尚未就绪，无法定位世界书剧情条目。');
-    }
-    const position = Number.isInteger(options.position) ? options.position : storyPosition(volume, chapter);
-    if (!Number.isInteger(position) || position < 0) {
-      throw new Error('当前卷章没有有效索引，无法定位世界书剧情条目。');
-    }
-    const order = position + (Number.isInteger(options.orderBase) ? options.orderBase : 100);
+  async function readBook() {
     const worldbook = await readPrimary();
     const entries = await getWorldbook(worldbook);
     const currentPrimary = await readPrimary();
@@ -220,15 +227,21 @@ function createRakudaiWorldbookReader({ getCharWorldbookNames, getWorldbook } = 
     if (!Array.isArray(entries)) {
       throw new Error('世界书条目格式错误：getWorldbook 应返回条目数组。');
     }
-
-    const matches = [];
+    const orders = new Map();
     for (const entry of entries) {
       if (!entry || typeof entry !== 'object' || Array.isArray(entry) || typeof entry.name !== 'string') {
         throw new Error('世界书条目格式错误：每个条目必须包含文字 name。');
       }
       if (!entry.name.startsWith('[剧情]')) continue;
-      if (entryOrder(entry) === order) matches.push(entry);
+      const order = entryOrder(entry);
+      if (!orders.has(order)) orders.set(order, []);
+      orders.get(order).push(entry);
     }
+    return { worldbook, orders };
+  }
+
+  function select(book, order, includeSignature = true, expectedPrefix) {
+    const { worldbook, orders } = book, matches = orders.get(order) || [];
     if (!matches.length) {
       throw new Error('当前主世界书未找到顺序为 ' + order + ' 的 [剧情] 条目。');
     }    if (matches.length !== 1) {
@@ -236,6 +249,9 @@ function createRakudaiWorldbookReader({ getCharWorldbookNames, getWorldbook } = 
     }
 
     const entry = matches[0];
+    if (expectedPrefix && !entry.name.startsWith(expectedPrefix)) {
+      throw new Error('剧情顺序 ' + order + ' 的卷章不符：应为 ' + expectedPrefix + '，实际为 ' + entry.name + '。');
+    }
     if (!Number.isInteger(entry.uid) || entry.uid < 0 || typeof entry.enabled !== 'boolean') {
       throw new Error('剧情条目格式错误：uid 必须是非负整数，enabled 必须是布尔值。');
     }
@@ -247,16 +263,51 @@ function createRakudaiWorldbookReader({ getCharWorldbookNames, getWorldbook } = 
     }
 
     const material = { worldbook, uid: entry.uid, name: entry.name, order, content: entry.content };
-    return { ...material, signature: JSON.stringify(material) };
+    return { ...material, ...(includeSignature ? { signature: JSON.stringify(material) } : {}) };
   }
 
-  return { read };
+  function availability(book, order, includeSignature = true, expectedPrefix) {
+    try {
+      const material = select(book, order, includeSignature, expectedPrefix);
+      return { order, available: true, reason: '', ...(includeSignature ? { signature: material.signature } : {}) };
+    } catch (error) {
+      const reason = error.message;
+      return { order, available: false, reason, ...(includeSignature ? { signature: JSON.stringify({ worldbook: book.worldbook, order, reason }) } : {}) };
+    }
+  }
+
+  async function read(volume, chapter, options = {}) {
+    if (!Number.isInteger(volume) || volume < 1 || typeof chapter !== 'string' || !chapter.trim()) {
+      throw new Error('剧情读取参数错误：卷号必须是正整数，章节必须是非空文字。');
+    }
+    if (!Number.isInteger(options.position) && typeof storyPosition !== 'function') {
+      throw new Error('共享章节索引尚未就绪，无法定位世界书剧情条目。');
+    }
+    const position = Number.isInteger(options.position) ? options.position : storyPosition(volume, chapter);
+    if (!Number.isInteger(position) || position < 0) throw new Error('当前卷章没有有效索引，无法定位世界书剧情条目。');
+    const base = Number.isInteger(options.orderBase) ? options.orderBase : 100;
+    const book = await readBook(), material = select(book, position + base, true, options.expectedPrefix);
+    if (Number.isInteger(options.nextPosition) && options.nextPosition >= 0) material.next = availability(book, options.nextPosition + base, true, options.nextExpectedPrefix);
+    return material;
+  }
+
+  // 一次取书构建整个目录；缺章只标为不可用，不影响其他已核对条目。
+  async function list(volume, chapters, { orderBase = 100 } = {}) {
+    if (!Number.isInteger(volume) || volume < 1 || !Array.isArray(chapters) || !chapters.length || !Number.isInteger(orderBase) ||
+        chapters.some(chapter => typeof chapter?.key !== 'string' || !chapter.key.trim())) throw new Error('剧情目录读取参数不合法。');
+    const book = await readBook();
+    return { worldbook: book.worldbook, chapters: chapters.map((chapter, index) => ({
+      key: chapter.key, title: chapter.title || chapter.key, ...availability(book, orderBase + index, false, chapter.entryPrefix),
+    })) };
+  }
+
+  return { read, list };
 }
 
 // 剧情正文读取当前绑定世界书；目录只用于卷章键及条目顺序定位。
 function createRakudaiPlotRuntime(deps) {
   const BEGIN = '【RK剧情注入:BEGIN】', END = '【RK剧情注入:END】';
-  const REVISION = '20261104.1';
+  const REVISION = '20261109.1';
   const handled = new WeakSet();
   const standaloneMessages = new WeakSet();
   let ticket = null, pending = null, busy = false, disposed = false, lastInjection = null, cancelPending = null;
@@ -319,7 +370,7 @@ function createRakudaiPlotRuntime(deps) {
     if (world !== 'rakudai' && world !== 'asterisk') throw new Error('尚未确认作品：不读取任何剧情条目');
     const chapter = world === 'asterisk' ? resolveAsteriskChapter(scene?.当前章) : resolveStoryChapter(scene?.当前卷, scene?.当前章);
     if (!chapter || !['未开始', '进行中', '已结束'].includes(scene.阶段)) throw new Error('正式卷章或阶段不合法，停止剧情注入');
-    return { identity: id, world, source: { chatId: id.chatId, messageId: message.message_id, swipeId }, state: copy(state), fingerprint: JSON.stringify([message, wrapper]), volume: world === 'asterisk' ? 1 : scene.当前卷, chapter: chapter.key, phase: scene.阶段, node: chapter };
+    return { identity: id, world, source: { chatId: id.chatId, messageId: message.message_id, swipeId }, state: copy(state), fingerprint: JSON.stringify([message, wrapper]), volume: world === 'asterisk' ? chapter.volume : scene.当前卷, chapter: chapter.key, phase: scene.阶段, node: chapter };
   }
   async function readMaterial(snapshot, cancelled) {
     if (typeof deps.readStoryEntry !== 'function') throw new Error('缺少绑定世界书读取接口，请更新剧情注入脚本');
@@ -337,9 +388,12 @@ function createRakudaiPlotRuntime(deps) {
   }
   function render(snapshot, material) {
     const { state, world, volume, chapter, phase } = snapshot, scene = state.场景;
-    const next = world === 'asterisk' ? nextAsteriskChapter(chapter) : nextStoryChapterForState(volume, chapter, state);
-    const lines = [BEGIN, `当前剧情节点：${world === 'asterisk' ? '学战 第一卷' : '第' + volume + '卷'} · ${chapter}`, `正式阶段：${phase}`,
+    const catalogNext = world === 'asterisk' ? nextAsteriskChapter(chapter) : nextStoryChapterForState(volume, chapter, state);
+    const missingNext = world === 'asterisk' && catalogNext && material.next?.available !== true;
+    const next = missingNext ? null : catalogNext;
+    const lines = [BEGIN, `当前剧情节点：${world === 'asterisk' ? '学战 ' : ''}第${volume}卷 · ${snapshot.node.chapter || chapter}`, `正式阶段：${phase}`,
       `本局时间：${scene.时间 || '未确认'}；地点：${scene.地点 || '未确认'}`, `切入说明：${scene.切入说明 || '沿用本局已确认情境'}`];
+    if (world === 'asterisk') lines.push(`学战 MVU 当前卷和事件卷号保持 null；当前章使用完整目录键「${chapter}」，第二卷不得省略「第二卷·」。`);
     if (phase !== '已结束') {
       lines.push('【对应世界书条目原文】\n' + material.content);
       if (phase === '进行中') {
@@ -351,7 +405,9 @@ function createRakudaiPlotRuntime(deps) {
             { op: 'replace', path: '/场景/当前章', value: next.chapter },
             { op: 'replace', path: '/场景/阶段', value: '进行中' },
           ] : [{ op: 'replace', path: '/场景/阶段', value: '已结束' }];
-        const nextLabel = next ? (world === 'asterisk' ? '相邻下一条目为 ' + next.key : '相邻下一节点为第' + next.volume + '卷 · ' + next.chapter) : '这是目录最后一个条目，结束后不再前进';
+        const nextLabel = missingNext
+          ? `下一章 ${catalogNext.key} 的剧情原文不可用（${material.next?.reason || '尚未核验'}），完成本章后仅标记已结束，不自动切章`
+          : next ? (world === 'asterisk' ? '相邻下一条目为 ' + next.key : '相邻下一节点为第' + next.volume + '卷 · ' + next.chapter) : '这是目录最后一个条目，结束后不再前进';
         lines.push(nextLabel + '；仅在完成标识达成时，把以下操作并入本轮已有的 UpdateVariable/JSONPatch，Analysis 写明达成事实，不另输出第二个变量块：\n' + JSON.stringify(patch));
       }
     }
@@ -593,8 +649,17 @@ function createRakudaiPlotRuntime(deps) {
     getContext: context,
     readMessages: helper('getChatMessages'),
     getMvu: () => W.Mvu || H.Mvu,
-    readStoryEntry: (world, volume, chapter) => worldbookReader.read(volume, chapter,
-      world === 'asterisk' ? { position: asteriskStoryPosition(chapter), orderBase: STORY_ORDER_BASE.asterisk } : {}),
+    readStoryEntry: async (world, volume, chapter) => {
+      const position = world === 'asterisk' ? asteriskStoryPosition(chapter) : null;
+      const node = world === 'asterisk' ? resolveAsteriskChapter(chapter) : null;
+      const next = world === 'asterisk' ? nextAsteriskChapter(chapter) : null;
+      const material = await worldbookReader.read(volume, chapter, world === 'asterisk'
+        ? { position, orderBase: STORY_ORDER_BASE.asterisk, expectedPrefix: node?.entryPrefix,
+          ...(next ? { nextPosition: position + 1, nextExpectedPrefix: next.entryPrefix } : {}) } : {});
+      // Availability is read with the current entry, without another full-book request.
+      // Include it in the final-send signature so a changed next entry revokes stale guidance.
+      return material.next ? { ...material, signature: JSON.stringify([material.signature, material.next.signature]) } : material;
+    },
     readSettings: () => getVariables({ type: 'chat' })?.[settingsKey]?.enabled !== false,
     writeSettings: enabled => updateVariablesWith(variables => ({ ...variables, [settingsKey]: { ...variables[settingsKey], enabled } }), { type: 'chat' }),
     now: () => Date.now(),

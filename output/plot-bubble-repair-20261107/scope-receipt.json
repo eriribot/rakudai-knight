@@ -1,0 +1,59 @@
+{
+  "deliveryMode": "component",
+  "scope": [
+    "学战终端剧情控制",
+    "剧情缺失章防护",
+    "双语气泡格式约定"
+  ],
+  "card": "落第x学战v0.02",
+  "cardSha256": "55b4707ebe4f20d9258f9876a3aa2b3defd6ece73ca7f1233a3f2e8c65f4c80b",
+  "worldbook": "落第x学战v0.02",
+  "temporaryDirectory": "C:/Users/eriri/AppData/Local/Temp/rakudai-plot-bubble-repro-20261107",
+  "port": 18008,
+  "scripts": [
+    {
+      "id": "f5bb32b8-9a49-4e23-a0d5-ce6dd78d96dd",
+      "name": "MVU",
+      "enabled": true,
+      "sha256": "79a9a745fc6b4873e1de8865d5da87b0639eb030433f255a5f0447d433649b92"
+    },
+    {
+      "id": "485c4bcb-4090-4c72-bc09-6339ce5b27a6",
+      "name": "落第 × 学战·原生 MVU 写入兼容 [N04/W02]",
+      "enabled": true,
+      "sha256": "217e691e190f20373944ff0e09db7ef08b7a5f5564df7d68193ec57543e7fd2b"
+    },
+    {
+      "id": "c6b247ce-164f-4f1e-9952-02731a212df2",
+      "name": "落第骑士·卷章剧情注入器 v3.0.0（作品分流 20261104.1）",
+      "enabled": true,
+      "sha256": "e036986c6e672a3b3a4e4062acc96c333b0b12db9374aec013f90513e265e2bb"
+    },
+    {
+      "id": "ccebb634-335d-4659-8c3b-afae946d3d5c",
+      "name": "落第骑士·MVU v4 字段与卷章约束 [G04/T02/R01] · 双作品MVU",
+      "enabled": false,
+      "sha256": "3760476e759d9f1edec00af69909760317354723b2e2f0808ce2da29d8dce073"
+    },
+    {
+      "id": "51fe1880-ee64-432f-b800-4b2657310967",
+      "name": "落第骑士·黑白ADV轮盘终端 v1.3.29 B1（LIME状态精简）",
+      "enabled": true,
+      "sha256": "7fad53d9b19b0631fe7a7235636983facc50cfd8d2c3ee923f62ee930e8afdaa"
+    },
+    {
+      "id": "4cbe9a41-cd60-4edd-84fb-92611a957ec2",
+      "name": "双作品·世界书差异更新器 v1",
+      "enabled": true,
+      "sha256": "e1982df3f849c02a9f5baceee704badd5a175fdec78acb267064bbf71ed1de8b"
+    },
+    {
+      "id": "38bfac30-dcbe-4c08-b9d7-382f6162c6db",
+      "name": "MVU · EJS 重名修复 20261106",
+      "enabled": true,
+      "sha256": "f2f799b90a13fecd589d5620b2bfa707f71e046f5df84b8980deeb6d9bc51e3a"
+    }
+  ],
+  "chatCopied": true,
+  "productionMutation": false
+}

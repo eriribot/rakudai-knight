@@ -1,0 +1,187 @@
+{
+  "createdAt": "2026-11-07T14:13:09.531Z",
+  "mode": "Installed component factories + installed worldbook in isolated VM; no real chat or model generation",
+  "card": {
+    "name": "落第x学战v0.02",
+    "sha256": "55b4707ebe4f20d9258f9876a3aa2b3defd6ece73ca7f1233a3f2e8c65f4c80b"
+  },
+  "plot": {
+    "id": "c6b247ce-164f-4f1e-9952-02731a212df2",
+    "enabled": true,
+    "sha256": "e036986c6e672a3b3a4e4062acc96c333b0b12db9374aec013f90513e265e2bb",
+    "builtSha256": "09281b61d1e9db1c3262c3a67323f4eb27cdc02cf1336a94caadfe2ace0a35a8",
+    "sections": [
+      {
+        "name": "reader",
+        "same": true,
+        "installedSha256": "c8cf26eb804b23babf2ad9b6a05920f32e0cd4de90c1f10cbb24d8ef3d16b708",
+        "builtSha256": "c8cf26eb804b23babf2ad9b6a05920f32e0cd4de90c1f10cbb24d8ef3d16b708"
+      },
+      {
+        "name": "runtime",
+        "same": true,
+        "installedSha256": "ac9b2b050a044e0c59fd324e677e7ed341ba7e83b82b1c4a79bf39628274b649",
+        "builtSha256": "ac9b2b050a044e0c59fd324e677e7ed341ba7e83b82b1c4a79bf39628274b649"
+      },
+      {
+        "name": "bootstrap",
+        "same": true,
+        "installedSha256": "97167fbe2e89f0b33d3acfe4f9e9acc67b253429039d201b0e339bd5ea933720",
+        "builtSha256": "97167fbe2e89f0b33d3acfe4f9e9acc67b253429039d201b0e339bd5ea933720"
+      }
+    ]
+  },
+  "terminal": {
+    "id": "51fe1880-ee64-432f-b800-4b2657310967",
+    "sha256": "7fad53d9b19b0631fe7a7235636983facc50cfd8d2c3ee923f62ee930e8afdaa",
+    "matchesBuilt": true,
+    "hasPlotView": true,
+    "plotOnCalendar": true
+  },
+  "worldbook": {
+    "name": "落第x学战v0.02",
+    "sha256": "979fedea6f466fc3936fd4c49daab2f52a9b3affd098df26d5853d48fa0029ef",
+    "entries": [
+      {
+        "uid": 45,
+        "name": "[剧情]第一卷.序章.倏然疾风",
+        "order": 200,
+        "enabled": false,
+        "nonblank": true,
+        "length": 1655
+      },
+      {
+        "uid": 46,
+        "name": "[剧情]第一卷.第一章.华焰魔女",
+        "order": 201,
+        "enabled": false,
+        "nonblank": true,
+        "length": 3313
+      },
+      {
+        "uid": 90,
+        "name": "[剧情]第一卷.第二章.学战都市",
+        "order": 202,
+        "enabled": false,
+        "nonblank": true,
+        "length": 2572
+      },
+      {
+        "uid": 112,
+        "name": "[剧情]第一卷.第三章.凛凛眼神",
+        "order": 203,
+        "enabled": false,
+        "nonblank": true,
+        "length": 2571
+      },
+      {
+        "uid": 113,
+        "name": "[剧情]第一卷.第四章.回忆与重逢",
+        "order": 204,
+        "enabled": false,
+        "nonblank": true,
+        "length": 3106
+      },
+      {
+        "uid": 114,
+        "name": "[剧情]第一卷.第五章.黑炉魔剑",
+        "order": 205,
+        "enabled": false,
+        "nonblank": true,
+        "length": 2936
+      },
+      {
+        "uid": 115,
+        "name": "[剧情]第一卷.第六章.两人的假日",
+        "order": 206,
+        "enabled": false,
+        "nonblank": true,
+        "length": 3275
+      },
+      {
+        "uid": 116,
+        "name": "[剧情]第一卷.第七章.解放者",
+        "order": 207,
+        "enabled": false,
+        "nonblank": true,
+        "length": 4522
+      }
+    ]
+  },
+  "results": [
+    {
+      "chapter": "序章",
+      "ok": true,
+      "order": 200,
+      "entryName": "[剧情]第一卷.序章.倏然疾风",
+      "correctWorld": true,
+      "suggestsEpilogue": false
+    },
+    {
+      "chapter": "第一章",
+      "ok": true,
+      "order": 201,
+      "entryName": "[剧情]第一卷.第一章.华焰魔女",
+      "correctWorld": true,
+      "suggestsEpilogue": false
+    },
+    {
+      "chapter": "第二章",
+      "ok": true,
+      "order": 202,
+      "entryName": "[剧情]第一卷.第二章.学战都市",
+      "correctWorld": true,
+      "suggestsEpilogue": false
+    },
+    {
+      "chapter": "第三章",
+      "ok": true,
+      "order": 203,
+      "entryName": "[剧情]第一卷.第三章.凛凛眼神",
+      "correctWorld": true,
+      "suggestsEpilogue": false
+    },
+    {
+      "chapter": "第四章",
+      "ok": true,
+      "order": 204,
+      "entryName": "[剧情]第一卷.第四章.回忆与重逢",
+      "correctWorld": true,
+      "suggestsEpilogue": false
+    },
+    {
+      "chapter": "第五章",
+      "ok": true,
+      "order": 205,
+      "entryName": "[剧情]第一卷.第五章.黑炉魔剑",
+      "correctWorld": true,
+      "suggestsEpilogue": false
+    },
+    {
+      "chapter": "第六章",
+      "ok": true,
+      "order": 206,
+      "entryName": "[剧情]第一卷.第六章.两人的假日",
+      "correctWorld": true,
+      "suggestsEpilogue": false
+    },
+    {
+      "chapter": "第七章",
+      "ok": true,
+      "order": 207,
+      "entryName": "[剧情]第一卷.第七章.解放者",
+      "correctWorld": true,
+      "suggestsEpilogue": true
+    },
+    {
+      "chapter": "终章",
+      "ok": false,
+      "error": "当前主世界书未找到顺序为 208 的 [剧情] 条目。"
+    },
+    {
+      "chapter": "入学报到",
+      "ok": false,
+      "error": "正式卷章或阶段不合法，停止剧情注入"
+    }
+  ]
+}

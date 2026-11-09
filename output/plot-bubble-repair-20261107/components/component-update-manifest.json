@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "deliveryMode": "component",
+  "kind": "helper-script",
+  "artifacts": [
+    {
+      "artifactName": "asterisk-story-terminal",
+      "id": "51fe1880-ee64-432f-b800-4b2657310967",
+      "kind": "helper-script",
+      "relativePath": "asterisk-story-terminal.script.json",
+      "sha256": "11dfa5ef5d03322374cde803a8c3cfcd0b10a7cb99aca1fd9b4c9fc5649f6f6c"
+    },
+    {
+      "artifactName": "world-story-injector",
+      "id": "c6b247ce-164f-4f1e-9952-02731a212df2",
+      "kind": "helper-script",
+      "relativePath": "world-story-injector.script.json",
+      "sha256": "a878ba0ab15e5ac2a93ee719a75f2527fa3d2e43629f2392d0f4424b0a4c299a"
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "checkedAt": "2026-11-09T13:27:33.756Z",
+  "mode": "isolated-vm-preview-only",
+  "worldbook": "落第x学战v0.03",
+  "metadataSource": "installed-plot-metadata.json",
+  "scripts": {
+    "installed": {
+      "sha256": "e036986c6e672a3b3a4e4062acc96c333b0b12db9374aec013f90513e265e2bb",
+      "revision": "20261104.1"
+    },
+    "localLatest": {
+      "sha256": "1163126d588e907053bbb09e206ee6434a5afc12c4247103cfda85ab14043794",
+      "revision": "20261107.1"
+    }
+  },
+  "evidence": "实际脚本在现有宿主 fixture 中执行；条目 UID、名称、order、disable 对照审计元数据核验，正文仅使用真实条目前160字。未连接酒馆或执行生成生命周期。",
+  "conclusion": "旧安装版和本地最新版都会把 order208 的第二卷第一章原文标为学战第一卷终章；旧版卷2/第一章反证仍读取 order201。",
+  "schemaBoundary": "当前正式 AW schema 要求场景.当前卷及事件卷号为 null。卷2反证是隔离 fixture 绕过 schema 的非法输入，仅证明 runtime 忽略该值；不代表可写入正式 MVU。跨卷设计还需同步确定 MVU 契约，不能只加目录。",
+  "cases": [
+    {
+      "source": "installed",
+      "revision": "20261104.1",
+      "input": {
+        "world": "asterisk",
+        "volume": null,
+        "chapter": "终章",
+        "phase": "进行中"
+      },
+      "inputPassesCurrentAwVolumeContract": true,
+      "selected": {
+        "uid": 226,
+        "order": 208,
+        "name": "[剧情]第二卷.第一章.六花园会议"
+      },
+      "renderedLabel": "当前剧情节点：学战 第一卷 · 终章",
+      "renderedVolume": 1,
+      "actualEntryExcerptIncluded": true,
+      "completionPatchOnlyMarksEnded": true,
+      "modelCalls": 0,
+      "chatWrites": 0,
+      "mvuWrites": 0,
+      "settingsWrites": 0
+    },
+    {
+      "source": "installed",
+      "revision": "20261104.1",
+      "input": {
+        "world": "asterisk",
+        "volume": 2,
+        "chapter": "第一章",
+        "phase": "进行中"
+      },
+      "inputPassesCurrentAwVolumeContract": false,
+      "selected": {
+        "uid": 46,
+        "order": 201,
+        "name": "[剧情]第一卷.第一章.华焰魔女"
+      },
+      "renderedLabel": "当前剧情节点：学战 第一卷 · 第一章",
+      "renderedVolume": 1,
+      "actualEntryExcerptIncluded": true,
+      "completionPatchOnlyMarksEnded": false,
+      "modelCalls": 0,
+      "chatWrites": 0,
+      "mvuWrites": 0,
+      "settingsWrites": 0
+    },
+    {
+      "source": "localLatest",
+      "revision": "20261107.1",
+      "input": {
+        "world": "asterisk",
+        "volume": null,
+        "chapter": "终章",
+        "phase": "进行中"
+      },
+      "inputPassesCurrentAwVolumeContract": true,
+      "selected": {
+        "uid": 226,
+        "order": 208,
+        "name": "[剧情]第二卷.第一章.六花园会议"
+      },
+      "renderedLabel": "当前剧情节点：学战 第一卷 · 终章",
+      "renderedVolume": 1,
+      "actualEntryExcerptIncluded": true,
+      "completionPatchOnlyMarksEnded": true,
+      "modelCalls": 0,
+      "chatWrites": 0,
+      "mvuWrites": 0,
+      "settingsWrites": 0
+    }
+  ],
+  "totals": {
+    "modelCalls": 0,
+    "liveNetworkCalls": 0,
+    "chatWrites": 0,
+    "mvuWrites": 0,
+    "settingsWrites": 0
+  }
+}

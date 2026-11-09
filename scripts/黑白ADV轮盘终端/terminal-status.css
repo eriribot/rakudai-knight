@@ -1,5 +1,12 @@
 /* Color-block status module. Kept inside the dossier; shell and wheel keep their theme. */
+/* Scroll the whole dossier so a short terminal cannot squeeze its content to zero. */
+#scr-blazer {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
 #blazer-body.gba-status {
+  flex: 1 0 auto;
+  overflow: visible;
   --gba-ink: #1b2748;
   --gba-navy: #2b4773;
   --gba-navy-light: #3d608b;

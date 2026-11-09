@@ -30,8 +30,17 @@
     getContext: context,
     readMessages: helper('getChatMessages'),
     getMvu: () => W.Mvu || H.Mvu,
-    readStoryEntry: (world, volume, chapter) => worldbookReader.read(volume, chapter,
-      world === 'asterisk' ? { position: asteriskStoryPosition(chapter), orderBase: STORY_ORDER_BASE.asterisk } : {}),
+    readStoryEntry: async (world, volume, chapter) => {
+      const position = world === 'asterisk' ? asteriskStoryPosition(chapter) : null;
+      const node = world === 'asterisk' ? resolveAsteriskChapter(chapter) : null;
+      const next = world === 'asterisk' ? nextAsteriskChapter(chapter) : null;
+      const material = await worldbookReader.read(volume, chapter, world === 'asterisk'
+        ? { position, orderBase: STORY_ORDER_BASE.asterisk, expectedPrefix: node?.entryPrefix,
+          ...(next ? { nextPosition: position + 1, nextExpectedPrefix: next.entryPrefix } : {}) } : {});
+      // Availability is read with the current entry, without another full-book request.
+      // Include it in the final-send signature so a changed next entry revokes stale guidance.
+      return material.next ? { ...material, signature: JSON.stringify([material.signature, material.next.signature]) } : material;
+    },
     readSettings: () => getVariables({ type: 'chat' })?.[settingsKey]?.enabled !== false,
     writeSettings: enabled => updateVariablesWith(variables => ({ ...variables, [settingsKey]: { ...variables[settingsKey], enabled } }), { type: 'chat' }),
     now: () => Date.now(),

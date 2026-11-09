@@ -1,0 +1,45 @@
+{
+  "deliveryMode": "component",
+  "targetId": "6edbbb80-8e4a-4213-8334-91e76a2ad74b",
+  "enabled": true,
+  "sourceHashes": {
+    "scripts/rakudai-story-catalog.mjs": "37ded725d82391338026fe60b3fb81ac1c24fccc238730944ac88817809f326d",
+    "scripts/rakudai-plot-runtime.js": "86244f563eed75df6c3ec067f4ee1a8dfc97e28366f5f1e9ff8ad26de79cbfa9",
+    "scripts/rakudai-plot-bootstrap.js": "7a326855fa097488608715990d8553a1807df4cb1a0269a4d0a3fa8961585c18",
+    "scripts/rakudai-worldbook-reader.js": "2ce28a4c40521f0890443f4c73bc6c1e542a43ae1a93aa79dcf391842cef880f",
+    "scripts/check-asterisk-story-catalog.mjs": "96c9facdf7748066b9a0addb33a0983c7c30e9adb0b7a739344778181ce00367",
+    "scripts/build-plot-injector.mjs": "1bafc9ccb824d9be539d06ff0506d4d4ce765785a7928492409a6f7e937a927b",
+    "scripts/rakudai-state-controller.js": "a756303f80db46c344791b0653ab565f36473860e1c6acb01dccdc347a7daf4b",
+    "scripts/tavern_helper_ejs_injector.js": "1163126d588e907053bbb09e206ee6434a5afc12c4247103cfda85ab14043794",
+    "scripts/tavern_helper_ejs_injector.json": "ecbc7aebf83185712c194ada4a2606c0d85c94fdfa0e5f1bdf033ee2adbde936",
+    "世界书规则/MVU/落第骑士-卷章剧情注入器-v3.0.0.json": "ecbc7aebf83185712c194ada4a2606c0d85c94fdfa0e5f1bdf033ee2adbde936",
+    "世界书规则/MVU/落第骑士-小手机-v1.3.29-B1-头像更新.json": "defd86401c9ab07b0e98039d3b2b5c56de8c10dae6ae4a45074092a3881ef06b",
+    "世界书规则/MVU/变量输出格式.txt": "e964faaa5d138e148bbe635c98c402043163e767cf1841fe28a0a181c383288f",
+    "世界书规则/MVU/变量更新规则.txt": "dfd6bdc4bc65a0675129287eb5fc666e3bc3c89b8c1fdab9c5035519405974ad"
+  },
+  "route": "sillytavern-component-update",
+  "snapshot": "2026-08-18",
+  "guides": [
+    "A0",
+    "A2"
+  ],
+  "acceptance": "order200–216正确对应，208跨到209，216停止；旧学战null卷号兼容，落第不变",
+  "liveWrites": {
+    "method": "Chrome UI JSON import and exact worldbook text replacements",
+    "newScriptIds": [
+      "fac07f26-733b-4b7e-a92e-894017c05499",
+      "22b0b7b1-5c1d-4eae-ac13-613e1af6effb"
+    ],
+    "disabledOldScriptIds": [
+      "c6b247ce-164f-4f1e-9952-02731a212df2",
+      "c69d61c7-7a11-4f17-a584-f28e5048332e"
+    ],
+    "worldbookUids": [
+      10,
+      41
+    ],
+    "replacedSentences": 3,
+    "chatProgressWrites": 0,
+    "modelRequests": 0
+  }
+}

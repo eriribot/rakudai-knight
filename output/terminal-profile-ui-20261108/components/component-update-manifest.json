@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "deliveryMode": "component",
+  "kind": "helper-script",
+  "artifacts": [
+    {
+      "artifactName": "terminal-profile-ui",
+      "id": "3d8c6c23-f78e-46e5-8e89-4a90bab6fb85",
+      "kind": "helper-script",
+      "relativePath": "terminal-profile-ui.script.json",
+      "sha256": "8ac248be4f63b14c4a8c039d728af0a192bb34d48f16c1ae4d1928a163f03049"
+    }
+  ]
+}

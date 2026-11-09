@@ -122,6 +122,7 @@ export function buildTerminal({ asteriskPreview = false } = {}) {
   const portraitManifest = JSON.parse(read('../../resource/knightavatars/manifest.json'));
   const asteriskPortraits = JSON.parse(read('../正文气泡/asterisk-portraits.json'));
   jsModules.ASTERISK_PRESENTATION = 'asterisk-presentation.js';
+  jsModules.STORY_WORLDBOOK = '../rakudai-worldbook-reader.js';
   jsModules.TERMINAL_WORLD = 'terminal-world.mjs';
   const portraitReservedNames = [...portraitManifest.characters, ...(portraitManifest.missingPortraits || []), ...asteriskPortraits.characters]
     .flatMap(person => [person.name, ...(person.aliases || [])])
@@ -162,6 +163,8 @@ export function buildTerminal({ asteriskPreview = false } = {}) {
   const baseline = JSON.parse(read('../../世界书规则/MVU/' + filename));
   const artifact = { ...baseline, content: built.code };
   const appendInfo = note => { if (!artifact.info.includes(note)) artifact.info += note; };
+  appendInfo(' 2026-11-08档案显示：短窗口中的黑白档案页改为整页滚动；六花本局人物与通讯录复用现有头像清单，态度印象采用独立左对齐段落。');
+  appendInfo(' 同日玩家头像补充：六花学生档案显示开局或终端设置中已应用到本局的玩家照片；换照片后即时刷新。');
   appendInfo(' 2026-11-04六花图示：采用用户指定Wiki原始彩色图标并内嵌；入口与轮盘24秒旋转，悬停暂停，保留全部原色。');
   artifact.info = artifact.info.replace('不读取落第卷章、成长或赛事结算', '不读取落第卷章或赛事；能力与成长按实际档案判断');
   appendInfo(' 2026-11-05混合能力：两作档案可同时保存伐刀能力与学战武装；所属主线与终端外观分别选择。');

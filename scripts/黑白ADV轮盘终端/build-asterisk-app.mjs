@@ -4,6 +4,24 @@ const read = name => fs.readFileSync(new URL(name, import.meta.url), 'utf8');
 
 export function buildAsteriskApp() {
   let script = read('terminal-asterisk.js');
+  // 与正文气泡、黑白名册共用素材和别名；只打包小型索引，不重复内嵌头像。
+  const asterisk = JSON.parse(read('../正文气泡/asterisk-portraits.json'));
+  const knights = JSON.parse(read('../../resource/knightavatars/manifest.json'));
+  const portraits = { byName: {}, entries: {} };
+  for (const [world, characters] of [['rakudai', knights.characters], ['asterisk', asterisk.characters]]) {
+    for (const person of characters) {
+      if (!person.imageUrl) continue;
+      const id = world + '-' + person.id;
+      let style = '';
+      if (world === 'asterisk' && person.portraitCrop) {
+        const [x, y, width, height] = person.portraitCrop;
+        style = `width:${person.width / width * 100}%;height:${person.height / height * 100}%;left:${-x / width * 100}%;top:${-y / height * 100}%;`;
+      }
+      portraits.entries[id] = { src: person.imageUrl, world, style };
+      for (const name of [person.name, ...person.aliases]) portraits.byName[name.normalize('NFKC').replace(/[\s·・･‧•．.]/g, '').toLowerCase()] = id;
+    }
+  }
+  script = script.replace('/*__AW_CONTACT_PORTRAITS__*/ null', JSON.stringify(portraits));
   const assets = {
     EMBLEM_SEIDOUKAN: 'emblem-seidoukan.png', EMBLEM_GALLARDWORTH: 'emblem-gallardworth.png',
     EMBLEM_JIELONG: 'emblem-jielong.png', EMBLEM_REWOLF: 'emblem-rewolf.png',
