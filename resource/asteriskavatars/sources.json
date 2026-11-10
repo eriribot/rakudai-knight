@@ -154,11 +154,89 @@
       "kind": "官方动画人设／表情设定板",
       "visualVerified": true,
       "checkedOn": "2026-11-09"
+    },
+    {
+      "id": "ophelia",
+      "name": "奥菲莉亚·兰朵露芬",
+      "file": "resource/asteriskavatars/ophelia.jpg",
+      "sourcePage": "https://asterisk-war.com/character/lewolfe.html#orphelia",
+      "sourceUrl": "https://asterisk-war.com/assets/img/character/character_ph/orphelia2.jpg",
+      "width": 600,
+      "height": 500,
+      "sha256": "c0f7f0615a1b24ad6b84a36c377b2111147a85f70d9ba5d1d95f43e174d7d8b6",
+      "kind": "官方动画角色设定图",
+      "visualVerified": true,
+      "checkedOn": "2026-11-10"
+    },
+    {
+      "id": "irene",
+      "name": "依蕾奈·兀儿塞丝",
+      "file": "resource/asteriskavatars/irene.jpg",
+      "sourcePage": "https://asterisk-war.com/character/lewolfe.html#irene",
+      "sourceUrl": "https://asterisk-war.com/assets/img/character/character_ph/irene2.jpg",
+      "width": 600,
+      "height": 500,
+      "sha256": "324dfa396679f1c1ab9e42aaf51964089b65e9a86264a742132a2213ad3b6f07",
+      "kind": "官方动画角色设定图",
+      "visualVerified": true,
+      "checkedOn": "2026-11-10"
+    },
+    {
+      "id": "priscilla",
+      "name": "普莉熙拉·兀儿塞丝",
+      "file": "resource/asteriskavatars/priscilla.jpg",
+      "sourcePage": "https://asterisk-war.com/character/lewolfe.html#priscilla",
+      "sourceUrl": "https://asterisk-war.com/assets/img/character/character_ph/priscilla2.jpg",
+      "width": 600,
+      "height": 500,
+      "sha256": "c98d5a683a802c34af0a1b52778100b6facf36e54199704ca59ab03d7935379b",
+      "kind": "官方动画角色设定图",
+      "visualVerified": true,
+      "checkedOn": "2026-11-10"
+    },
+    {
+      "id": "corona",
+      "name": "㭴丸可罗奈",
+      "file": "resource/asteriskavatars/corona.jpg",
+      "sourcePage": "https://asterisk-war.com/character/lewolfe.html",
+      "sourceUrl": "https://asterisk-war.com/assets/img/character/character_ph/korona2.jpg",
+      "width": 600,
+      "height": 500,
+      "sha256": "76946d301f830246550246703018aca8af92852678c4a031a61f36d7fa4e70dd",
+      "kind": "官方动画角色设定图",
+      "visualVerified": true,
+      "checkedOn": "2026-11-10"
+    },
+    {
+      "id": "rimcy",
+      "name": "莉姆希",
+      "file": "resource/asteriskavatars/rimcy.jpg",
+      "sourcePage": "https://asterisk-war.com/character/allekant.html",
+      "sourceUrl": "https://asterisk-war.com/assets/img/character/character_ph/rmc2.jpg",
+      "width": 600,
+      "height": 500,
+      "sha256": "032bc208a8536ff3a9d9b7b89dfcb01038c7cbc0a99afdaacee4bd5a5a001aa8",
+      "kind": "官方动画角色设定图",
+      "visualVerified": true,
+      "checkedOn": "2026-11-10"
+    },
+    {
+      "id": "ardy",
+      "name": "阿尔第",
+      "file": "resource/asteriskavatars/ardy.jpg",
+      "sourcePage": "https://asterisk-war.com/character/allekant.html",
+      "sourceUrl": "https://asterisk-war.com/assets/img/character/character_ph/ard2.jpg",
+      "width": 600,
+      "height": 500,
+      "sha256": "aeeaa6e97e2711667805dcabb98af3b86add8a24851648929795cb8ad0634368",
+      "kind": "官方动画角色设定图",
+      "visualVerified": true,
+      "checkedOn": "2026-11-10"
     }
   ],
   "identityNotes": [
     "雷士达的两名跟班：兰迪·虎克、塞拉斯·诺曼，官网人物页与本地第一卷第五章相互核对。",
     "刀藤绮凛为正式姓名；倒置写法仅作输入兼容。"
   ],
-  "updatedOn": "2026-11-09"
+  "updatedOn": "2026-11-10"
 }

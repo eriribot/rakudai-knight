@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "passed": 8,
+  "total": 8,
+  "runtime": {
+    "version": "1.19.0",
+    "engineSha256": "2b66b54b2c3a3864e0af8643eed0c8a1afe9f78f2f9d6b8dcde10c2085ff3c21",
+    "regexParserSha256": "7c6e9e418c2b5f3355666cccd9c75435940307c9be2cd39bd5c86ca5680ce5a3",
+    "mode": "actual installed regex engine in an isolated Node VM; neutral fixtures only",
+    "presetRegexCount": 0,
+    "presetRegexSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "numericPlacement": 2,
+    "destination": "display",
+    "depth": 0,
+    "limitation": "only the user macro is stubbed; no browser, Markdown, prompt generation or compliance proof"
+  },
+  "cases": [
+    {
+      "name": "匿名双语保持原文，不猜说话人，也不注入样式",
+      "passed": true
+    },
+    {
+      "name": "明确中文姓名的克劳蒂雅与天雾绫斗各形成气泡，日文保留",
+      "passed": true
+    },
+    {
+      "name": "相邻旁白里出现姓名不会给匿名引号补说话人",
+      "passed": true
+    },
+    {
+      "name": "双语旁白与招牌独立保留，不生成气泡或候选",
+      "passed": true
+    },
+    {
+      "name": "完整驱动内的姓名行不变成气泡，外部两个中文对白正常显示",
+      "passed": true
+    },
+    {
+      "name": "未闭驱动中的双语对白保持保护，不套气泡",
+      "passed": true
+    },
+    {
+      "name": "思考和变量块中的姓名行保持原文",
+      "passed": true
+    },
+    {
+      "name": "维护合同包含可渲染的双语示例与叙述边界",
+      "passed": true
+    }
+  ]
+}

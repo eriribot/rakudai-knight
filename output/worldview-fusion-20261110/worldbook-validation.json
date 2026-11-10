@@ -1,0 +1,107 @@
+{
+  "component": "双作品·世界书差异更新器 v1（日光封岛 20261110.1）",
+  "mode": "component",
+  "liveImported": false,
+  "liveVerified": false,
+  "artifactSha256": "5e0b63c3d0111f38f8ac720b3e22e26fb7b0897907d5caff76f7c46e285d7ea8",
+  "apiEvidence": {
+    "tavernHelper": {
+      "version": "4.12.0",
+      "commit": "5cbd089f1217d00e1f6851f50bf451223860a9c2"
+    },
+    "sillyTavern": {
+      "version": "1.19.0",
+      "commit": "7e8663cd9c184a550b37238218bdd32c6efc68e9"
+    },
+    "sources": [
+      "https://github.com/N0VI028/JS-Slash-Runner/blob/5cbd089f1217d00e1f6851f50bf451223860a9c2/src/function/worldbook.ts",
+      "https://github.com/N0VI028/JS-Slash-Runner/blob/5cbd089f1217d00e1f6851f50bf451223860a9c2/@types/iframe/script.d.ts",
+      "https://github.com/SillyTavern/SillyTavern/blob/7e8663cd9c184a550b37238218bdd32c6efc68e9/public/scripts/st-context.js",
+      "https://github.com/SillyTavern/SillyTavern/blob/7e8663cd9c184a550b37238218bdd32c6efc68e9/public/scripts/world-info.js"
+    ]
+  },
+  "sourceHashes": {
+    "世界书规则/MVU/变量列表.txt": "3cd2173c4c19fbc9929af18da49b6a049b2e14c26b0aaf837afef188faf0ee01",
+    "世界书规则/MVU/变量更新规则.txt": "a3aa0d113426f21d3b3eaec1714dac39c3b770234a53c98d737c4543a52b291a",
+    "世界书规则/MVU/变量输出格式.txt": "6e44acf96e87bcaf5ca05c21c21d2fb9ce62cca707b382617bcec23503bb1a9f",
+    "世界书规则/MVU/[initvar]变量初始化.yaml": "526b89799cab3d0e6097d13075b7003a3d0e3f4a723e902f7960a29f39a5037e",
+    "世界书规则/MVU/双作品世界设定.ejs.txt": "9ca055dfeb8dd0172b003caf134c71ef50cef282ebee6055d594a655b4ba379b"
+  },
+  "passed": true,
+  "total": 17,
+  "checks": [
+    {
+      "name": "packaged templates preserve second-volume keys and independent EJS scopes",
+      "passed": true
+    },
+    {
+      "name": "205-entry raw book updates only eleven target contents and preserves every metadata field",
+      "passed": true
+    },
+    {
+      "name": "MVU contents equal the maintained templates; lore keeps original EJS and one shared declaration",
+      "passed": true
+    },
+    {
+      "name": "fusion worldview renders shared history and exactly one main-stage branch without mutating state",
+      "passed": true
+    },
+    {
+      "name": "hybrid abilities keep mechanism entries and concatenated EJS scopes independent of main-stage choice",
+      "passed": true
+    },
+    {
+      "name": "worldview template slot must be unique and original dollar sequences remain literal",
+      "passed": true
+    },
+    {
+      "name": "old wrappers upgrade to single templates; repeated updates are idempotent and malformed wrappers reject",
+      "passed": true
+    },
+    {
+      "name": "missing or ambiguous comments fail; format alias selection never assumes UIDs",
+      "passed": true
+    },
+    {
+      "name": "style replaces only the overbroad numeric ban and preserves examples and metadata",
+      "passed": true
+    },
+    {
+      "name": "offline apply shares the plan, preserves inactive format and writes nothing on invalid input",
+      "passed": true
+    },
+    {
+      "name": "import only registers buttons, preview downloads the complete raw book, explicit apply verifies server",
+      "passed": true
+    },
+    {
+      "name": "apply without preview, ambiguous preview and target changes cannot write",
+      "passed": true
+    },
+    {
+      "name": "chat and primary switches before apply or during reads stop all writes",
+      "passed": true
+    },
+    {
+      "name": "unrelated edits after preview survive and newly ambiguous target comments reject",
+      "passed": true
+    },
+    {
+      "name": "HTTP failures and saves that never persist are not reported as successful",
+      "passed": true
+    },
+    {
+      "name": "artifact is a compilable helper component with two visible explicit buttons and no auto task",
+      "passed": true
+    },
+    {
+      "name": "generated artifact executes its real serialized functions without hidden build dependencies",
+      "passed": true
+    }
+  ],
+  "limits": [
+    "Host APIs are doubled offline; real iframe buttons/download/import remain unverified.",
+    "The raw save API has no server-side CAS; avoid concurrent worldbook editing during the write.",
+    "A/B behavior is tested with a representative private-content fixture, not a new live export."
+  ]
+}

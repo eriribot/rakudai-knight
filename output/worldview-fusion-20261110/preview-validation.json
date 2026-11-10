@@ -1,0 +1,30 @@
+{
+  "source": "本轮用户提供的世界设定原文",
+  "sourceHashes": {
+    "世界书规则/MVU/变量列表.txt": "3cd2173c4c19fbc9929af18da49b6a049b2e14c26b0aaf837afef188faf0ee01",
+    "世界书规则/MVU/变量更新规则.txt": "a3aa0d113426f21d3b3eaec1714dac39c3b770234a53c98d737c4543a52b291a",
+    "世界书规则/MVU/变量输出格式.txt": "6e44acf96e87bcaf5ca05c21c21d2fb9ce62cca707b382617bcec23503bb1a9f",
+    "世界书规则/MVU/[initvar]变量初始化.yaml": "526b89799cab3d0e6097d13075b7003a3d0e3f4a723e902f7960a29f39a5037e",
+    "世界书规则/MVU/双作品世界设定.ejs.txt": "9ca055dfeb8dd0172b003caf134c71ef50cef282ebee6055d594a655b4ba379b"
+  },
+  "ejsVersion": "3.1.10",
+  "previews": [
+    {
+      "world": "rakudai",
+      "file": "预览-rakudai.txt",
+      "characters": 1790
+    },
+    {
+      "world": "asterisk",
+      "file": "预览-asterisk.txt",
+      "characters": 1457
+    },
+    {
+      "world": null,
+      "file": "预览-未建档.txt",
+      "characters": 1092
+    }
+  ],
+  "liveImported": false,
+  "liveVerified": false
+}

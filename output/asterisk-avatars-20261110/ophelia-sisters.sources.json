@@ -1,0 +1,64 @@
+{
+  "characters": [
+    {
+      "name": "奥菲莉亚·兰朵露芬",
+      "id": "ophelia",
+      "aliases": [
+        "奥菲莉亚",
+        "奧菲莉亞",
+        "奧菲莉亞·蘭朵露芬",
+        "Ophelia",
+        "Ophelia Landlufen",
+        "Orphelia",
+        "Orphelia Landlufen",
+        "オーフェリア・ランドルーフェン"
+      ],
+      "file": "resource/asteriskavatars/ophelia.jpg",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/ophelia.jpg",
+      "width": 600,
+      "height": 500,
+      "portraitCrop": [72, 42, 170, 197.2],
+      "sourcePage": "https://asterisk-war.com/character/lewolfe.html#orphelia",
+      "sourceUrl": "https://asterisk-war.com/assets/img/character/character_ph/orphelia2.jpg",
+      "sha256": "c0f7f0615a1b24ad6b84a36c377b2111147a85f70d9ba5d1d95f43e174d7d8b6"
+    },
+    {
+      "name": "依蕾奈·兀儿塞丝",
+      "id": "irene",
+      "aliases": [
+        "依蕾奈",
+        "依蕾奈·兀兒塞絲",
+        "Irene",
+        "Irene Urzaiz",
+        "イレーネ・ウルサイス"
+      ],
+      "file": "resource/asteriskavatars/irene.jpg",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/irene.jpg",
+      "width": 600,
+      "height": 500,
+      "portraitCrop": [63, 76, 170, 197.2],
+      "sourcePage": "https://asterisk-war.com/character/lewolfe.html#irene",
+      "sourceUrl": "https://asterisk-war.com/assets/img/character/character_ph/irene2.jpg",
+      "sha256": "324dfa396679f1c1ab9e42aaf51964089b65e9a86264a742132a2213ad3b6f07"
+    },
+    {
+      "name": "普莉熙拉·兀儿塞丝",
+      "id": "priscilla",
+      "aliases": [
+        "普莉熙拉",
+        "普莉熙拉·兀兒塞絲",
+        "Priscilla",
+        "Priscilla Urzaiz",
+        "プリシラ・ウルサイス"
+      ],
+      "file": "resource/asteriskavatars/priscilla.jpg",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/priscilla.jpg",
+      "width": 600,
+      "height": 500,
+      "portraitCrop": [112, 69, 180, 208.8],
+      "sourcePage": "https://asterisk-war.com/character/lewolfe.html#priscilla",
+      "sourceUrl": "https://asterisk-war.com/assets/img/character/character_ph/priscilla2.jpg",
+      "sha256": "c98d5a683a802c34af0a1b52778100b6facf36e54199704ca59ab03d7935379b"
+    }
+  ]
+}

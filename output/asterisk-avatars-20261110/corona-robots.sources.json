@@ -1,0 +1,83 @@
+{
+  "characters": [
+    {
+      "height": 500,
+      "sourcePage": "https://asterisk-war.com/character/lewolfe.html",
+      "portraitCrop": [
+        225,
+        65,
+        220,
+        255.2
+      ],
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/corona.jpg",
+      "aliases": [
+        "可罗奈",
+        "可羅奈",
+        "㭴丸可羅奈",
+        "樫丸可罗奈",
+        "樫丸可羅奈",
+        "樫丸ころな",
+        "Corona",
+        "Korona",
+        "Corona Kashimaru",
+        "Korona Kashimaru",
+        "Kashimaru Corona",
+        "Kashimaru Korona"
+      ],
+      "width": 600,
+      "name": "㭴丸可罗奈",
+      "sourceUrl": "https://asterisk-war.com/assets/img/character/character_ph/korona2.jpg",
+      "sha256": "76946d301f830246550246703018aca8af92852678c4a031a61f36d7fa4e70dd",
+      "file": "resource/asteriskavatars/corona.jpg",
+      "id": "corona"
+    },
+    {
+      "height": 500,
+      "sourcePage": "https://asterisk-war.com/character/allekant.html",
+      "portraitCrop": [
+        25,
+        170,
+        250,
+        290
+      ],
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/rimcy.jpg",
+      "aliases": [
+        "莉姆西",
+        "Rimcy",
+        "RM-C",
+        "RMC",
+        "リムシィ"
+      ],
+      "width": 600,
+      "name": "莉姆希",
+      "sourceUrl": "https://asterisk-war.com/assets/img/character/character_ph/rmc2.jpg",
+      "sha256": "032bc208a8536ff3a9d9b7b89dfcb01038c7cbc0a99afdaacee4bd5a5a001aa8",
+      "file": "resource/asteriskavatars/rimcy.jpg",
+      "id": "rimcy"
+    },
+    {
+      "height": 500,
+      "sourcePage": "https://asterisk-war.com/character/allekant.html",
+      "portraitCrop": [
+        309,
+        182,
+        270,
+        313.2
+      ],
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/ardy.jpg",
+      "aliases": [
+        "阿爾第",
+        "Ardy",
+        "AR-D",
+        "ARD",
+        "アルディ"
+      ],
+      "width": 600,
+      "name": "阿尔第",
+      "sourceUrl": "https://asterisk-war.com/assets/img/character/character_ph/ard2.jpg",
+      "sha256": "aeeaa6e97e2711667805dcabb98af3b86add8a24851648929795cb8ad0634368",
+      "file": "resource/asteriskavatars/ardy.jpg",
+      "id": "ardy"
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "generatedAt": "2026-11-10T12:45:23.311Z",
+  "scope": "Offline actual delivered JSON audit; no SillyTavern runtime access",
+  "passed": 10,
+  "total": 10,
+  "results": [
+    {
+      "name": "Actual delivered B1 contains parseable contactPortraits index",
+      "passed": true
+    },
+    {
+      "name": "Actual delivered contact portraits map ophelia and all declared aliases",
+      "passed": true
+    },
+    {
+      "name": "Actual delivered contact portraits map irene and all declared aliases",
+      "passed": true
+    },
+    {
+      "name": "Actual delivered contact portraits map priscilla and all declared aliases",
+      "passed": true
+    },
+    {
+      "name": "Actual delivered contact portraits map corona and all declared aliases",
+      "passed": true
+    },
+    {
+      "name": "Actual delivered contact portraits map rimcy and all declared aliases",
+      "passed": true
+    },
+    {
+      "name": "Actual delivered contact portraits map ardy and all declared aliases",
+      "passed": true
+    },
+    {
+      "name": "All 42 knight and 21 asterisk characters have no normalized cross-character alias collisions",
+      "passed": true
+    },
+    {
+      "name": "Rule 02 candidate artifact is byte-identical to before snapshot",
+      "passed": true
+    },
+    {
+      "name": "Previous first 15 portrait manifest entries are unchanged and exactly six are appended",
+      "passed": true
+    }
+  ],
+  "details": {
+    "contactIndex": {
+      "entries": 63,
+      "normalizedNames": 376
+    },
+    "normalization": {
+      "knights": 42,
+      "asterisk": 21,
+      "normalizedNames": 376,
+      "collisions": []
+    },
+    "rule02": {
+      "beforeSha256": "a548f8b4d27ef1db3ef8a969051833477a05370bbc45af4dbff2fb6194fb1f38",
+      "afterSha256": "a548f8b4d27ef1db3ef8a969051833477a05370bbc45af4dbff2fb6194fb1f38",
+      "bytes": 176640
+    },
+    "previousEntries": {
+      "unchanged": 15,
+      "newIds": [
+        "ophelia",
+        "irene",
+        "priscilla",
+        "corona",
+        "rimcy",
+        "ardy"
+      ]
+    },
+    "newNameMappings": 52
+  }
+}

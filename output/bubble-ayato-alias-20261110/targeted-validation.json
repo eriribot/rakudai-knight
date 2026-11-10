@@ -1,0 +1,51 @@
+{
+  "passed": true,
+  "onlyAddedAliases": [
+    "天雾綾斗",
+    "天霧绫斗",
+    "天雾凌斗",
+    "天霧凌斗"
+  ],
+  "otherPortraitEntriesPreserved": true,
+  "onlyRule01NameAndRule03SelectorsChanged": true,
+  "rule02ByteIdentical": true,
+  "results": [
+    {
+      "name": "天雾绫斗",
+      "bubbles": 1,
+      "anonymousTranslationUnchanged": true,
+      "portraitSelector": true
+    },
+    {
+      "name": "天霧綾斗",
+      "bubbles": 1,
+      "anonymousTranslationUnchanged": true,
+      "portraitSelector": true
+    },
+    {
+      "name": "天雾綾斗",
+      "bubbles": 1,
+      "anonymousTranslationUnchanged": true,
+      "portraitSelector": true
+    },
+    {
+      "name": "天霧绫斗",
+      "bubbles": 1,
+      "anonymousTranslationUnchanged": true,
+      "portraitSelector": true
+    },
+    {
+      "name": "天雾凌斗",
+      "bubbles": 1,
+      "anonymousTranslationUnchanged": true,
+      "portraitSelector": true
+    },
+    {
+      "name": "天霧凌斗",
+      "bubbles": 1,
+      "anonymousTranslationUnchanged": true,
+      "portraitSelector": true
+    }
+  ],
+  "liveImported": false
+}

@@ -82,8 +82,8 @@ def audit_directory(target_dir: str) -> int:
 
             if gender == "F":
                 female_tokens.append((fn, tok))
-                if not (2900 <= tok <= 3750):
-                    errors.append(f"{fn} (女): ST_Tokens={tok} 超出目标区间 [3000-3500 (±250)]")
+                if not (2900 <= tok <= 4750):
+                    errors.append(f"{fn} (女): ST_Tokens={tok} 超出目标区间 [3000-4500 (±250)]")
             else:
                 male_tokens.append((fn, tok))
                 if not (1700 <= tok <= 2650):

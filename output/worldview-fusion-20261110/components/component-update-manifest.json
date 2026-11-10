@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "deliveryMode": "component",
+  "kind": "helper-script",
+  "artifacts": [
+    {
+      "artifactName": "dual-worldbook-updater",
+      "id": "f8d76282-7789-4e31-b901-99a7dd88d95b",
+      "kind": "helper-script",
+      "relativePath": "dual-worldbook-updater.script.json",
+      "sha256": "5e0b63c3d0111f38f8ac720b3e22e26fb7b0897907d5caff76f7c46e285d7ea8"
+    }
+  ]
+}

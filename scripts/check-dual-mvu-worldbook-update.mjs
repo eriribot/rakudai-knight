@@ -34,7 +34,8 @@ function bookFixture() {
 }
 const applyPlan = (book, plan) => { const next = copy(book); for (const change of plan.changes) next.entries[change.key].content = change.content; return next; };
 const state = world => ({ 系统: { 结构版本: 4, 开局状态: '已建档', 作品: world, 主角模式: '自定义角色' }, 场景: { 当前卷: world === 'asterisk' ? null : 10, 当前章: '第二章', 路线: 'B' }, 玩家: {}, 人际: {} });
-const render = (content, current) => ejs.render(content, { getvar: path => path.split('.').reduce((value, key) => value?.[key], { stat_data: current }) });
+const render = (content, current, options = {}) => ejs.render(content, { getvar: path => path.split('.').reduce((value, key) => value?.[key], { stat_data: current }) }, options);
+const renderModes = [{}, { strict: true, _with: false, destructuredLocals: ['getvar'] }];
 function fixture() {
   let data = bookFixture(), current = { characterId: 7, groupId: null, chatId: 'one', chat: [] }, binding = '现用世界书', saves = 0, reads = 0;
   const alerts = [], downloads = [], handlers = new Map(), urls = new Map(), after = [], context = {
@@ -82,12 +83,58 @@ await check('MVU contents equal the maintained templates; lore keeps original EJ
     assert.ok(!change.content.includes('【以下资料的适用范围】'));
     for (const world of ['rakudai', 'asterisk']) {
       const current = state(world), text = render(change.content, current);
-      assert.ok(text.includes('第十卷私有日本B'));
+      assert.equal(text.includes('第十卷私有日本B'), change.comment !== '世界设定' || world === 'rakudai');
       if (change.comment !== '世界设定') assert.equal(text.trim(), render(change.before.content, current).trim());
     }
     assert.equal(change.content.includes('【同一世界与两座舞台】'), change.comment === '世界设定');
   }
   assert.equal(plan.changes.reduce((count, row) => count + row.content.split('【同一世界与两座舞台】').length - 1, 0), 1);
+});
+await check('fusion worldview renders shared history and exactly one main-stage branch without mutating state', () => {
+  const plan = createDualWorldbookPlan(bookFixture(), payload);
+  const worldContent = plan.changes.find(change => change.comment === '世界设定').content;
+  const legacy = state('rakudai'); delete legacy.系统.作品;
+  const brokenLegacy = copy(legacy); delete brokenLegacy.人际;
+  const cases = [
+    [state('rakudai'), 'rakudai'], [state('asterisk'), 'asterisk'], [legacy, 'rakudai'],
+    [brokenLegacy, null], [undefined, null], [null, null], [{ 系统: [] }, null],
+    ...[null, 'unknown', ''].map(world => [state(world), null]),
+    [{ ...state('asterisk'), 系统: { 结构版本: 4, 开局状态: '待建档', 作品: 'asterisk' } }, null],
+    [{ ...state('rakudai'), 系统: { 结构版本: 3, 开局状态: '已建档', 作品: 'rakudai' } }, null],
+  ];
+  for (const options of renderModes) for (const [current, expected] of cases) {
+    const before = copy(current), text = render(worldContent, current, options);
+    for (const token of ['卡尔·爱兰兹', '希朵林', '日光', '封岛', '返乡名额', '原世界', '星辰力与魔力不换算、不互供', '知情边界']) assert.ok(text.includes(token), token);
+    assert.equal(text.includes('【本局主线：落第骑士】'), expected === 'rakudai');
+    assert.equal(text.includes('【本局主线：学战都市】'), expected === 'asterisk');
+    assert.equal(text.includes('【主线尚未确认】'), expected === null);
+    assert.equal(text.includes('世界设定私有原文'), expected === 'rakudai');
+    assert.equal(text.includes('【六花的社会与学园制度】'), expected === 'asterisk');
+    assert.ok(!text.includes('<%') && !text.includes('RK_AW_ORIGINAL_SLOT'));
+    assert.deepEqual(current, before);
+  }
+});
+await check('hybrid abilities keep mechanism entries and concatenated EJS scopes independent of main-stage choice', () => {
+  const plan = createDualWorldbookPlan(bookFixture(), payload);
+  const content = plan.changes.filter(row => row.comment !== '[initvar]变量初始化').map(row => row.content).join('\n');
+  for (const options of renderModes) for (const world of ['rakudai', 'asterisk']) {
+    const current = state(world);
+    current.玩家 = { 伐刀能力: {}, 六维: {}, 学战: { 武装: { 名称: '测试煌武' } } };
+    const text = render(content, current, options);
+    for (const name of ['魔力', '能力与招式', '伐刀者', '觉醒', '魔人', '能力系别']) assert.ok(text.includes(name + '私有原文'));
+    assert.ok(text.includes('测试煌武'));
+    assert.ok(!text.includes('当前档案尚缺完整能力或六维'));
+  }
+});
+await check('worldview template slot must be unique and original dollar sequences remain literal', () => {
+  for (const world of [undefined, payload.templates.world.replace('@@RK_AW_ORIGINAL_SLOT@@', ''), payload.templates.world + '@@RK_AW_ORIGINAL_SLOT@@']) {
+    assert.throws(() => createDualWorldbookPlan(bookFixture(), { ...payload, templates: { ...payload.templates, world } }), /模板缺失或原文插槽不唯一/);
+  }
+  const book = bookFixture(), entry = Object.values(book.entries).find(row => row.comment === '世界设定');
+  entry.content += '\n用户原文 $& $1 $$';
+  const plan = createDualWorldbookPlan(book, payload), next = applyPlan(book, plan);
+  assert.ok(next.entries[String(entry.uid)].content.includes(entry.content));
+  assert.equal(createDualWorldbookPlan(next, payload).changes.length, 0);
 });
 await check('old wrappers upgrade to single templates; repeated updates are idempotent and malformed wrappers reject', () => {
   const wrapped = bookFixture();

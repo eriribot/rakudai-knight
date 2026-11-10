@@ -1,0 +1,24 @@
+{
+  "generatedAt": "2026-11-10T12:45:35.186Z",
+  "bubbles": {
+    "passed": 851,
+    "total": 851
+  },
+  "packaging": {
+    "passed": 9,
+    "total": 9
+  },
+  "playerPortraits": {
+    "passed": 77,
+    "total": 77
+  },
+  "integration": {
+    "passed": 10,
+    "total": 10,
+    "newNameMappings": 52,
+    "collisions": 0,
+    "rule02ByteIdentical": true,
+    "oldManifestEntriesUnchanged": 15
+  },
+  "runtime": "offline only; no SillyTavern access"
+}

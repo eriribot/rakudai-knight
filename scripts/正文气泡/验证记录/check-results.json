@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-09T13:07:28.108Z",
+  "generatedAt": "2026-11-10T13:10:50.425Z",
   "nodeVersion": "v25.6.0",
   "sourceHashes": {
     "scripts/正文气泡/build.mjs": "2de230ed7a882d1292428096555aaea2f13e2f0821d73e23fb5e4343e0aa6aaf",
@@ -33,27 +33,27 @@
   "manifestCharacters": 42,
   "uniqueNamesChecked": 235,
   "ambiguousNames": [],
-  "total": 747,
-  "passed": 747,
+  "total": 859,
+  "passed": 859,
   "failed": 0,
   "measurements": [
     {
       "name": "十万字旁白夹少量对白",
       "inputCharacters": 96014,
-      "outputCharacters": 125886,
-      "elapsedMs": 6.54
+      "outputCharacters": 130932,
+      "elapsedMs": 4.62
     },
     {
       "name": "数万字连续对白",
       "inputCharacters": 37889,
-      "outputCharacters": 325930,
-      "elapsedMs": 620.95
+      "outputCharacters": 330976,
+      "elapsedMs": 560.67
     },
     {
       "name": "八万字单行对白",
       "inputCharacters": 80003,
-      "outputCharacters": 109659,
-      "elapsedMs": 2.19
+      "outputCharacters": 114705,
+      "elapsedMs": 1.5
     }
   ],
   "results": [
@@ -314,6 +314,22 @@
       "passed": true
     },
     {
+      "name": "学战明确姓名保持六边作品标记：天雾綾斗",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：天霧绫斗",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：天雾凌斗",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：天霧凌斗",
+      "passed": true
+    },
+    {
       "name": "学战明确姓名保持六边作品标记：Ayato",
       "passed": true
     },
@@ -335,6 +351,22 @@
     },
     {
       "name": "Persona 与学战明确姓名重名仍保留NPC框：天霧綾斗",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：天雾綾斗",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：天霧绫斗",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：天雾凌斗",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：天霧凌斗",
       "passed": true
     },
     {
@@ -879,6 +911,422 @@
     },
     {
       "name": "Persona 与学战明确姓名重名仍保留NPC框：エルネスタ・キューネ",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：奥菲莉亚·兰朵露芬",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：奥菲莉亚",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：奧菲莉亞",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：奧菲莉亞·蘭朵露芬",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：Ophelia",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：Ophelia Landlufen",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：Orphelia",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：Orphelia Landlufen",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：オーフェリア・ランドルーフェン",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：奥菲莉亚·兰朵露芬",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：奥菲莉亚",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：奧菲莉亞",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：奧菲莉亞·蘭朵露芬",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：Ophelia",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：Ophelia Landlufen",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：Orphelia",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：Orphelia Landlufen",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：オーフェリア・ランドルーフェン",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：依蕾奈·兀儿塞丝",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：依蕾奈",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：依蕾奈·兀兒塞絲",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：Irene",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：Irene Urzaiz",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：イレーネ・ウルサイス",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：依蕾奈·乌儿塞斯",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：依蕾奈·烏兒塞斯",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：依蕾奈·兀儿塞丝",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：依蕾奈",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：依蕾奈·兀兒塞絲",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：Irene",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：Irene Urzaiz",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：イレーネ・ウルサイス",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：依蕾奈·乌儿塞斯",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：依蕾奈·烏兒塞斯",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：普莉熙拉·兀儿塞丝",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：普莉熙拉",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：普莉熙拉·兀兒塞絲",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：Priscilla",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：Priscilla Urzaiz",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：プリシラ・ウルサイス",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：普莉熙拉·乌儿塞斯",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：普莉熙拉·烏兒塞斯",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：普莉熙拉·兀儿塞丝",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：普莉熙拉",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：普莉熙拉·兀兒塞絲",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：Priscilla",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：Priscilla Urzaiz",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：プリシラ・ウルサイス",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：普莉熙拉·乌儿塞斯",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：普莉熙拉·烏兒塞斯",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：㭴丸可罗奈",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：可罗奈",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：可羅奈",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：㭴丸可羅奈",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：樫丸可罗奈",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：樫丸可羅奈",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：樫丸ころな",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：Corona",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：Korona",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：Corona Kashimaru",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：Korona Kashimaru",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：Kashimaru Corona",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：Kashimaru Korona",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：㭴丸可罗奈",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：可罗奈",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：可羅奈",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：㭴丸可羅奈",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：樫丸可罗奈",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：樫丸可羅奈",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：樫丸ころな",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：Corona",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：Korona",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：Corona Kashimaru",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：Korona Kashimaru",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：Kashimaru Corona",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：Kashimaru Korona",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：莉姆希",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：莉姆西",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：Rimcy",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：RM-C",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：RMC",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：リムシィ",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：莉姆希",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：莉姆西",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：Rimcy",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：RM-C",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：RMC",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：リムシィ",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：阿尔第",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：阿爾第",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：Ardy",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：AR-D",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：ARD",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：アルディ",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：阿尔迪",
+      "passed": true
+    },
+    {
+      "name": "学战明确姓名保持六边作品标记：阿爾迪",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：阿尔第",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：阿爾第",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：Ardy",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：AR-D",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：ARD",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：アルディ",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：阿尔迪",
+      "passed": true
+    },
+    {
+      "name": "Persona 与学战明确姓名重名仍保留NPC框：阿爾迪",
       "passed": true
     },
     {

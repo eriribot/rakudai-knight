@@ -8,7 +8,7 @@
       "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
       "kind": "regex",
       "relativePath": "dialogue-bubbles.regex.json",
-      "sha256": "04c11a7e15eb3d6076a0eb5572daad10085bbc2f5207b0c807740ba5e736b099"
+      "sha256": "f75285314fe9fe0e5f0e3451c0fb2f0bb4491483c3e5bbb4b9d63e3fa0f2a300"
     },
     {
       "artifactName": "dialogue-player-candidates",
@@ -22,7 +22,7 @@
       "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
       "kind": "regex",
       "relativePath": "dialogue-bubble-style.regex.json",
-      "sha256": "c1c929514d1010e8807e1e2b10791988650f3714594a6c21bfbc80bfd2f730e7"
+      "sha256": "9ac21b044e6772e9de005b1d5c4c84b78afe92924c4132f5f9e2b0cadad4fa61"
     }
   ]
 }

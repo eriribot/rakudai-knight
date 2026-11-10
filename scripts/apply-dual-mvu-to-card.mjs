@@ -15,6 +15,7 @@ const templates = {
   update: read('世界书规则/MVU/变量更新规则.txt'),
   format: read('世界书规则/MVU/变量输出格式.txt'),
   init: read('世界书规则/MVU/[initvar]变量初始化.yaml'),
+  world: read('世界书规则/MVU/双作品世界设定.ejs.txt'),
 };
 const raw = fs.readFileSync(file, 'utf8');
 const card = JSON.parse(raw);
