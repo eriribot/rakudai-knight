@@ -72,10 +72,8 @@ def build_plan(root, manifest):
             continue
         relative = safe_relative(raw.decode("utf-8"))
         name = relative.as_posix()
-        source = root.joinpath(*relative.parts)
-        reject_links(source)
-        if not source.resolve().is_relative_to(root):
-            raise ValueError(f"Tracked path escapes repository: {name}")
+        # Excluded paths are not build inputs. Do not traverse local-only
+        # junctions inside excluded research or backup directories.
         if relative.parts[0].casefold() in {".git", ".github"} or name.startswith(tuple(manifest["exclude_prefixes"])):
             excluded_count += 1
             continue
@@ -83,6 +81,10 @@ def build_plan(root, manifest):
         if name.casefold() == "op.mp4":
             excluded_count += 1
             continue
+        source = root.joinpath(*relative.parts)
+        reject_links(source)
+        if not source.resolve().is_relative_to(root):
+            raise ValueError(f"Tracked path escapes repository: {name}")
         details = source.stat(follow_symlinks=False)
         if not stat.S_ISREG(details.st_mode):
             raise ValueError(f"Tracked source is not a regular file: {name}")

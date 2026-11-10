@@ -8,14 +8,20 @@ V6 原片以 `rakudai-asterisk-v6-720p.mp4` 存放在 GitHub Release `mv-v6-orig
 
 为控制站点大小，仅在部署产物中排除以下开发资料；它们仍保留在 Git 仓库和本地：
 
+- `.agents/`、`.obsidian/`、`.playwright-cli/`：开发技能、编辑器状态和浏览器测试资料。
 - `DLC/MV工程/`：剪辑工程、素材和检查截图。
+- `DLC/学战研究/`：研究工作区及本地插图目录链接。
 - `scratch/`：临时研究及脚本草稿。
 - `39688/`：原始 EPUB 资料。
 - `output/playwright/`：浏览器验证截图和检查页面。
 - `output/imagegen/`：生成图研究与中间结果。
 - `resource/knightavatars/research/`：头像考据原始资料。
+- `output/asterisk-chapter-alignment-20261106/`：旧实机导出与排查资料。
+- `output/asterisk-injector-v2-20261109/before/`、`output/asterisk-avatars-20261110/before/`、`output/bubble-ayato-alias-20261110/before/`：三次组件更新前的历史备份。
 
-`.git`、`.github` 元数据也不发布。其余已跟踪文件按原路径复制，并保留 `.nojekyll`。运行时头像、背景音乐、`DLC/插图/` 和应用页面不变；研究文档指向上述资料目录的链接应在 GitHub 仓库中查看。站点含 OP 约 821 MiB，计划体积超过 **950 MiB** 时构建直接失败。
+`.git`、`.github` 元数据也不发布。其余已跟踪文件按原路径复制，并保留 `.nojekyll`。运行时头像、背景音乐、`DLC/插图/` 和应用页面不变；研究文档指向上述资料目录的链接应在 GitHub 仓库中查看。站点体积以每次构建的摘要为准，计划体积超过 **950 MiB** 时构建直接失败。排除目录先按路径判定，之后只检查实际发布输入的符号链接与越界路径。
+
+部署使用 `actions/deploy-pages@v5.0.1`（Node.js 24）。2026-11-10 的失败发生在 GitHub 端 `syncing_files` 阶段：构建与上传成功，但同步超过 10 分钟。精简上述开发目录和历史备份约 51.45 MiB，以减少同步负担；不将此认定为已经证明的超时根因。GitHub Pages 本身有 10 分钟部署限制，不靠调大 Action 的等待时间绕过。
 
 本地先检查计划（不复制、不下载）：
 

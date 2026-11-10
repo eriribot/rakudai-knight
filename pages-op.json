@@ -3,12 +3,19 @@
   "size": 116002353,
   "sha256": "65098ec436edbc21af5c6c7bec18bc2750274eecca9e335bcc3d8431506e38aa",
   "exclude_prefixes": [
+    ".agents/",
+    ".obsidian/",
+    ".playwright-cli/",
     "DLC/MV工程/",
     "DLC/学战研究/",
     "scratch/",
     "39688/",
     "output/playwright/",
     "output/imagegen/",
+    "output/asterisk-chapter-alignment-20261106/",
+    "output/asterisk-injector-v2-20261109/before/",
+    "output/asterisk-avatars-20261110/before/",
+    "output/bubble-ayato-alias-20261110/before/",
     "resource/knightavatars/research/"
   ]
 }
