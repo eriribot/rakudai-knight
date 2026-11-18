@@ -186,7 +186,7 @@ function fixture(options = {}) {
     showOrbTip: (...args) => tips.push(args), recenter() {}, toggleWheel() {}, openPhoneApp() {},
   });
   vm.runInContext("const SLOT = '__RK_PHONE_SHELL__';\n" + versionDeclaration + '\n' + stateDeclaration + '\n' + read('state-reader.js') + '\n' + read('player-display-store.js') + '\n' + read('player-portrait.js') + '\n' +
-    read('lime-chat.mjs').replace(/^export /gm, '') + '\n' + read('lime-host.js') + '\n' + read('lime-worldbook.js') + '\n' + read('lime-story.js') + '\n' + businessGuards + '\n' + shellFunctions + '\n' +
+    read('lime-chat.mjs').replace(/^export /gm, '') + '\n' + read('lime-host.js') + '\n' + read('lime-worldbook.js') + '\n' + read('lime-story.js') + '\n' + read('calendar-worldbook.js') + '\n' + businessGuards + '\n' + shellFunctions + '\n' +
     'globalThis.shell = { SS, show, hide, destroy, makeBridge, wireEvents, emit, getCorrectionStatus, ' +
     'generation: () => ({ pending: generationPending, turn: correctionMainTurn }), setBubbleBinder(value) { playerBubbleBinder = value; } };', realm);
   realm.shell.SS.host = node();
@@ -570,7 +570,7 @@ await check('未建档保留本机设置但拒绝校正业务，离线预览不�
   assert.equal(typeof bridge.getSnapshot, 'function'); assert.equal(typeof bridge.getStat, 'function');
   await bridge.getSnapshot(); await bridge.getStat(); await bridge.worldbookCalendar.read();
   assert.equal(JSON.stringify(f.context.chat), before);
-  assert.equal(f.loreReads.length, 0); assert.equal(f.messageWrites.length, 0); assertUntracked(f);
+  assert.equal(f.loreReads.filter(([kind]) => kind === 'worldbook').length, 1); assert.equal(f.messageWrites.length, 0); assertUntracked(f);
   f.api.destroy();
   const preview = fixture({ preview: true, businessAllowed: () => false }), previewBridge = preview.api.makeBridge();
   assert.equal(Object.hasOwn(previewBridge, 'correction'), false);
@@ -863,6 +863,22 @@ await check('学战复用当前剧情注入服务，外观切换不改变服务�
   selected = true; delete f.HW.__RK_PLOT_V3__;
   assert.throws(() => bridge.plot.getStatus(), /请导入并启用新版/);
   f.api.destroy();
+});
+
+await check('两作宿主均开放全部剧情的只读校历，读取不触发注入或写入', async () => {
+  const entries = [
+    { uid: 100, name: '[剧情]第一卷.序章', content: '时间：2013年4月5日\n落第原文' },
+    { uid: 200, name: '[剧情]第一卷.序章.倏然疾风', content: '时间：2013年6月12日\n学战原文' },
+  ];
+  for (const world of ['rakudai', 'asterisk']) {
+    const f = fixture({ businessAllowed: () => world === 'rakudai', selectedAllowed: () => true, world, worldbookEntries: entries });
+    seedLimeContext(f); f.api.SS.businessWorld = world;
+    const before = JSON.stringify(f.context.chat), data = await f.api.makeBridge().worldbookCalendar.read();
+    assert.deepEqual(Array.from(data.entries, entry => entry.uid), [100, 200]);
+    assert.equal(JSON.stringify(f.context.chat), before);
+    assert.equal(f.writes.length, 0); assert.equal(f.messageWrites.length, 0); assert.equal(f.injectedPrompts.length, 0);
+    f.api.destroy();
+  }
 });
 
 console.log(JSON.stringify({ total: results.length, passed: results.filter(result => result.passed).length,

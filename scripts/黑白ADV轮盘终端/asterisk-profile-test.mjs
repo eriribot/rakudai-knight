@@ -1,9 +1,11 @@
 import fs from 'node:fs';
 import vm from 'node:vm';
 import assert from 'node:assert/strict';
+import { ASTERISK_VOLUMES } from '../rakudai-story-catalog.mjs';
+import { applyTransition } from '../rakudai-state-core.mjs';
 
 // Real view builders with an inert DOM; no network, game writes or generated art.
-const source = fs.readFileSync(new URL('terminal-asterisk.js', import.meta.url), 'utf8');
+const source = fs.readFileSync(new URL('terminal-calendar.js', import.meta.url), 'utf8') + '\n' + fs.readFileSync(new URL('terminal-asterisk.js', import.meta.url), 'utf8');
 const nodes = new Map();
 function node(id) {
   if (!nodes.has(id)) nodes.set(id, { innerHTML: '', textContent: '', scrollTop: 0, style: { setProperty() {} },
@@ -16,7 +18,7 @@ const realm = vm.createContext({ console, setTimeout, clearTimeout,
   window: { addEventListener() {} }
 });
 vm.runInContext(source.replace(/  render\(\);\s*\}\)\(\);\s*$/, `
-  globalThis.viewTest = { model, homeView, profileView, calendarView, communicationView, settingsView, runCorrectionAction, plotView, runPlotAction,
+  globalThis.viewTest = { model, homeView, profileView, calendarView, calendar, communicationView, settingsView, runCorrectionAction, plotView, runPlotAction,
     storyControlsView, runStoryAction, editStoryField, storyActions, invalidateStory, openHostStoryControls,
     setState(value) { state = value; dataStatus = 'ready'; }, setBridge(value) { bridge = value; bridgeRevision++; invalidateStory(true); },
     setPending(value) { dataStatus = value ? 'pending' : 'ready'; invalidateStory(false); },
@@ -158,6 +160,76 @@ await api.runStoryAction('refresh'); api.editStoryField('chapter', '第一章');
 const writing = api.runStoryAction('jump'); await api.runStoryAction('jump'); assert.equal(writes, 1);
 finishWrite({ state: storyState }); await writing;
 
+// The complete shared catalogue is visible; worldbook availability governs each action.
+const fullChapters = ASTERISK_VOLUMES.flatMap(volume => volume.chapters)
+  .map((chapter, index) => ({ ...chapter, order: 200 + index, available: index < 25, reason: index < 25 ? '' : '未找到 order ' + (200 + index) + ' 的剧情条目' }));
+let fullState = { ...structuredClone(storyState), 系统: { 作品: 'asterisk', 结构版本: 4, 开局状态: '已建档', 主角模式: '自定义角色' } }, fullToken = {};
+Object.assign(fullState.场景, { 当前卷: null, 当前章: '第二卷·终章', 阶段: '已结束' });
+const fullTransitions = [];
+api.setBridge({
+  getSnapshot: async () => ({ state: structuredClone(fullState), source: { chatId: 'complete-catalogue', messageId: 0, swipeId: 0 } }),
+  story: {
+    read: async () => ({ state: structuredClone(fullState), token: fullToken, chapters: structuredClone(fullChapters), worldbook: '主世界书' }),
+    async transition(receivedToken, request) {
+      assert.equal(receivedToken, fullToken); fullTransitions.push(structuredClone(request));
+      fullState = applyTransition(fullState, request); fullToken = {};
+      return { state: structuredClone(fullState) };
+    },
+  },
+});
+api.setState(fullState); await api.runStoryAction('refresh');
+async function runFullStory(action) { await api.runStoryAction(action); await api.runStoryAction('refresh'); }
+assert.equal(ASTERISK_VOLUMES.length, 17); assert.equal(fullChapters.length, 140); assert.equal(api.storyActions().next, true);
+assert.equal((api.storyControlsView().match(/<option value=/g) || []).length, 141, 'Every known chapter appears even when its body is unavailable');
+assert.match(api.storyControlsView(), /补齐或修正条目后，点击“重新读取章节”即可更新/);
+assert.match(api.storyControlsView(), /<details><summary>查看暂不可用章节（115）<\/summary>/, 'Long missing-material diagnostics start collapsed');
+for (const chapter of ASTERISK_VOLUMES[2].chapters) {
+  assert.ok(api.storyControlsView().includes('<option value="' + chapter.key + '">' + chapter.title + '</option>'), 'Third-volume chapter must be visible and selectable: ' + chapter.key);
+}
+for (const chapter of fullChapters.slice(25)) {
+  assert.ok(api.storyControlsView().includes('<option value="' + chapter.key + '" disabled>'), 'A known future chapter without body is visible but disabled: ' + chapter.key);
+}
+await runFullStory('next');
+assert.equal(fullState.场景.当前章, '第三卷·第一章'); assert.equal(fullState.场景.阶段, '未开始');
+assert.equal(api.storyActions().start, true); assert.match(api.calendarView(), /第三卷·第一章/);
+await runFullStory('start'); assert.equal(fullState.场景.阶段, '进行中');
+api.editStoryField('chapter', '第三卷·第七章'); api.editStoryField('entryNote', '确认第三卷向前切入');
+assert.equal(api.storyActions().jump, true); await runFullStory('jump');
+assert.equal(fullState.场景.当前章, '第三卷·第七章'); assert.equal(fullState.场景.当前卷, null);
+api.editStoryField('chapter', '第二卷·终章'); assert.equal(api.storyActions().jump, false);
+await runFullStory('end'); await runFullStory('next');
+assert.equal(fullState.场景.当前章, '第三卷·终章'); assert.equal(fullState.场景.阶段, '未开始');
+await runFullStory('start'); await runFullStory('end');
+assert.equal(api.storyActions().next, false); const beforeUnavailable = fullTransitions.length;
+assert.match(api.storyControlsView(), /下一章暂不可用：未找到 order 225/);
+await api.runStoryAction('next'); assert.equal(fullTransitions.length, beforeUnavailable);
+api.editStoryField('chapter', '第四卷·第一章'); api.editStoryField('entryNote', '确认后续章节');
+assert.equal(api.storyActions().jump, false);
+await api.runStoryAction('jump'); assert.equal(fullTransitions.length, beforeUnavailable);
+
+// A normal refresh observes new material without replacing the bridge or reloading the script.
+fullChapters[25].available = true; fullChapters[25].reason = '';
+assert.equal(api.storyActions().next, false, 'The previously captured availability does not mutate behind the form');
+await api.runStoryAction('refresh'); assert.equal(api.storyActions().next, true); assert.equal(api.storyActions().jump, true);
+await runFullStory('next');
+assert.equal(fullState.场景.当前章, '第四卷·第一章'); assert.equal(api.storyActions().start, true);
+fullChapters[25].available = false; fullChapters[25].reason = '剧情条目正文为空';
+await api.runStoryAction('refresh'); assert.equal(api.storyActions().start, false);
+assert.match(api.storyControlsView(), /本章暂不可用：剧情条目正文为空/);
+const beforeEmpty = fullTransitions.length; await api.runStoryAction('start'); assert.equal(fullTransitions.length, beforeEmpty);
+fullChapters[25].available = true; fullChapters[25].reason = '';
+await api.runStoryAction('refresh'); await runFullStory('start');
+
+// Gaps do not forbid a forward jump to independently available later material.
+fullChapters.at(-1).available = true; fullChapters.at(-1).reason = '';
+await api.runStoryAction('refresh');
+api.editStoryField('chapter', '第十七卷·终章'); api.editStoryField('entryNote', '确认跨过未收录章节');
+assert.equal(api.storyActions().jump, true); await runFullStory('jump');
+assert.equal(fullState.场景.当前章, '第十七卷·终章'); assert.equal(fullState.场景.阶段, '进行中');
+await runFullStory('end');
+assert.equal(api.storyActions().next, false); const completedTransitions = fullTransitions.length;
+await api.runStoryAction('next'); assert.equal(fullTransitions.length, completedTransitions);
+
 // A Rikka appearance on a Rakudai save opens the existing host controls.
 let hostStoryOpens = 0;
 api.setState({ ...storyState, 系统: { 作品: 'rakudai', 开局状态: '已建档' } });
@@ -170,3 +242,18 @@ assert.match(api.storyControlsView(), /本局为落第主线/, 'Legacy built Rak
 api.setState({ ...storyState, 系统: { 作品: 'asterisk', 开局状态: '已建档' } });
 api.openHostStoryControls(); assert.equal(hostStoryOpens, 1, 'A missing Asterisk story service cannot route into Rakudai writes');
 console.log('PASS: Asterisk profile, escaped plot preview, explicit story entrance, guarded chapter drafts, unavailable chapters and stale/duplicate actions.');
+
+api.setState(state);
+const calendarBefore = JSON.stringify(state);
+api.setBridge({ worldbookCalendar: { read: async () => ({ worldbook: '两作共用主世界书', undatedCount: 0, entries: [
+  { uid: 100, name: '[剧情]第一卷.序章', dates: [{ key: '2013-04-05' }], dateLabel: '2013-04-05', content: '落第原文' },
+  { uid: 200, name: '[剧情]第一卷.序章.倏然疾风', dates: [{ key: '2013-06-12' }], dateLabel: '2013-06-12', content: '学战原文' },
+] }) } });
+await api.calendar.actions.loadCalendarLore(true);
+assert.match(node('calendar-body').innerHTML, /全部剧情 · 2 条/);
+assert.match(node('calendar-body').innerHTML, /第一卷.序章/);
+assert.match(node('calendar-body').innerHTML, /倏然疾风/);
+assert.equal(api.calendar.state.month, 4);
+assert.equal(api.calendar.state.selectedDay, 9);
+assert.equal(JSON.stringify(state), calendarBefore);
+console.log('PASS: Six-flower calendar renders both works and keeps the saved scene date.');

@@ -1,0 +1,113 @@
+{
+  "date": "2026-11-13T12:21:12.698Z",
+  "node": "v25.6.0",
+  "cardPath": "C:/Users/eriri/Downloads/落第x学战v0.06.png",
+  "cardSha256": "382222f1f9a81d17766b307d93f42ba107faa1b2a5ab9b7d8dfb4d8e5151823d",
+  "mode": "component",
+  "boundary": "每组独立Worker，顺序执行；只对字符串编译和替换，不执行卡内HTML/脚本，不启动服务或浏览器，不含构建源码耗时；不是玩家TT实机计时。",
+  "artifacts": [
+    {
+      "artifactName": "dialogue-bubbles",
+      "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+      "kind": "regex",
+      "relativePath": "dialogue-bubbles.regex.json",
+      "sha256": "8bc77461f21dce7e392098e5c65c17905bd38baf7752c3eb67bae73dedafc1f6"
+    },
+    {
+      "artifactName": "dialogue-player-candidates",
+      "id": "bea21af8-9a41-4b0c-9009-1811e54bb8e4",
+      "kind": "regex",
+      "relativePath": "dialogue-player-candidates.regex.json",
+      "sha256": "fb27282408d253e2a170895c163db4ee10e38c5d44118fd2ba343ed1bccae167"
+    },
+    {
+      "artifactName": "dialogue-bubble-style",
+      "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+      "kind": "regex",
+      "relativePath": "dialogue-bubble-style.regex.json",
+      "sha256": "fb44ad6ddd656d58d8413a0a0ea0b19397f1e9b2eddaee1f84595051857994a0"
+    }
+  ],
+  "results": [
+    {
+      "fixture": "玩家v0.06实际开局HTML",
+      "version": "卡内v0.6",
+      "characters": 611612,
+      "inputHash": "f5b3f8c3ab174d62e4a7d03abeed0f705829ced1c0596bea3da5186668959ae7",
+      "ms": 1190.55,
+      "stages": [
+        {
+          "name": "01 盾形对白 · 姓名与台词 v0.6",
+          "ms": 47.7
+        },
+        {
+          "name": "02 盾形对白 · OC 姓名候选 v0.6",
+          "ms": 1101.37
+        },
+        {
+          "name": "03 盾形对白 · 共享样式 v0.6",
+          "ms": 41.4
+        }
+      ],
+      "unchanged": true,
+      "bubbles": 0,
+      "candidates": 0
+    },
+    {
+      "fixture": "玩家v0.06实际开局HTML",
+      "version": "修复v0.6.1",
+      "characters": 611612,
+      "inputHash": "f5b3f8c3ab174d62e4a7d03abeed0f705829ced1c0596bea3da5186668959ae7",
+      "ms": 195.44,
+      "stages": [
+        {
+          "name": "01 盾形对白 · 姓名与台词 v0.6.1",
+          "ms": 43.12
+        },
+        {
+          "name": "02 盾形对白 · OC 姓名候选 v0.6.1",
+          "ms": 109.24
+        },
+        {
+          "name": "03 盾形对白 · 共享样式 v0.6.1",
+          "ms": 43
+        }
+      ],
+      "unchanged": true,
+      "bubbles": 0,
+      "candidates": 0
+    },
+    {
+      "fixture": "30万字1200句中性正文",
+      "version": "卡内v0.6",
+      "characters": 304289,
+      "inputHash": "592e4bc3ed6168e20904699c4b4373156d5f5619a46341cd5add13c8d7120eb3",
+      "ms": 4051.36,
+      "stages": [
+        {
+          "name": "01 盾形对白 · 姓名与台词 v0.6",
+          "ms": 4051.33
+        }
+      ],
+      "unchanged": false,
+      "bubbles": 1200,
+      "candidates": 0
+    },
+    {
+      "fixture": "30万字1200句中性正文",
+      "version": "修复v0.6.1",
+      "characters": 304289,
+      "inputHash": "592e4bc3ed6168e20904699c4b4373156d5f5619a46341cd5add13c8d7120eb3",
+      "ms": 105.43,
+      "stages": [
+        {
+          "name": "01 盾形对白 · 姓名与台词 v0.6.1",
+          "ms": 105.4
+        }
+      ],
+      "unchanged": false,
+      "bubbles": 1200,
+      "candidates": 0
+    }
+  ]
+}

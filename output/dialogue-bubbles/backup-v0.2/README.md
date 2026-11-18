@@ -42,4 +42,4 @@ node scripts/正文气泡/check.mjs
 node scripts/正文气泡/check-artifact.mjs
 ```
 
-导入字段依据 SillyTavern 1.18.0 `public/scripts/extensions/regex/engine.js` 的 `AI_OUTPUT=2`、显示执行条件和 `substitute_find_regex.NONE=0`。本次连接到本地 SillyTavern 1.18.0；实际验证记录见 `output/dialogue-bubbles/runtime-check.json`，离线检查结果独立记录。
+导入字段依据 SillyTavern 1.18.0 `public/scripts/extensions/regex/engine.js` 的 `AI_OUTPUT=2`、显示执行条件和 `substitute_find_regex.NONE=0`。本次连接到本地 SillyTavern 1.18.0；当时的 `output/dialogue-bubbles/runtime-check.json` 已于 2026-11-11 清理，可从 Git 历史恢复。当前组件与验证入口见 `scripts/正文气泡/README.md`，当前验证不替代历史版本的宿主结论。

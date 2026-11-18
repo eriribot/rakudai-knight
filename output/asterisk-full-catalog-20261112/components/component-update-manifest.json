@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "deliveryMode": "component",
+  "kind": "helper-script",
+  "artifacts": [
+    {
+      "artifactName": "plot-injector-full",
+      "id": "6edbbb80-8e4a-4213-8334-91e76a2ad74b",
+      "kind": "helper-script",
+      "relativePath": "plot-injector-full.script.json",
+      "sha256": "ffee05029d6c09082ead6336d9f3acbf8e33b01ba8bebef72ad52ce9602fa567"
+    },
+    {
+      "artifactName": "terminal-full-catalog",
+      "id": "3d8c6c23-f78e-46e5-8e89-4a90bab6fb85",
+      "kind": "helper-script",
+      "relativePath": "terminal-full-catalog.script.json",
+      "sha256": "4f2b515c4717d699ac4597fcf3e6466ca6f6bb5ee68e0547268a8ccc2d44980c"
+    }
+  ]
+}

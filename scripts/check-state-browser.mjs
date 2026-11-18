@@ -92,6 +92,16 @@ await check('副校正候选可独立完整校验，坏人物不通过且不读�
   assert.throws(() => f.api.validateState(state), error => error.issues.some(issue => issue.path.includes('态度印象')));
   assert.deepEqual(f.ctx.chat, before); assert.equal(f.writes, 0); assert.equal(f.waitCalls, 0);
 });
+await check('终端共享控制器暴露原生卷章校正接口，无旧约束也能结算且不自行写存档', () => {
+  const f = fixture({ guarded: false }), previous = { stat_data: clone(INITIAL_STATE) };
+  previous.stat_data.系统.开局状态 = '已建档';
+  Object.assign(previous.stat_data.场景, { 当前卷: 1, 当前章: '第一章', 阶段: '进行中' });
+  const variables = clone(previous); variables.stat_data.场景.阶段 = '已结束';
+  f.api.settleNativeStoryRepair(variables, previous, previous.stat_data.场景);
+  assert.equal(variables.stat_data.场景.当前章, '第二章');
+  assert.equal(variables.stat_data.场景.阶段, '进行中');
+  assert.equal(f.writes, 0); assert.equal(f.waitCalls, 0);
+});
 await check('外置约束的旧能力标记不阻断终端本地校验与建档', async () => {
   const f = fixture(); delete f.H.__RK_MVU_GUARD_V4__.growth;
   await f.api.commitOpening((await f.api.capture()).token, payload());
@@ -682,6 +692,47 @@ await check('学战剧情沿独立目录写入，卷号保持空且无关旧资�
   assert.equal(f.writes, 4);
   for (const scope of ['dorm', 'tournament', 'national', 'qualification']) await assert.rejects(f.api.capture({ scope }), /当前作品/);
   source().场景.当前卷 = 1; await assert.rejects(f.api.capture({ scope: 'story' })); assert.equal(f.writes, 4);
+});
+await check('学战完整目录16处跨卷都按真实章尾前进，十四卷第六章直接进入十五卷', async () => {
+  const labels = ['第一卷', '第二卷', '第三卷', '第四卷', '第五卷', '第六卷', '第七卷', '第八卷', '第九卷', '第十卷', '第十一卷', '第十二卷', '第十三卷', '第十四卷', '第十五卷', '第十六卷', '第十七卷'];
+  for (let index = 0; index < labels.length - 1; index++) {
+    const f = fixture(), state = f.ctx.chat[0].variables[0].stat_data;
+    Object.assign(state.系统, { 作品: 'asterisk', 开局状态: '已建档', 主角模式: '自定义角色' });
+    const chapter = index === 0 ? '终章' : labels[index] + (index === 13 ? '·第六章' : '·终章');
+    Object.assign(state.场景, { 当前卷: null, 当前章: chapter, 阶段: '已结束', 时间: '本局时间', 地点: '本局地点' });
+    await f.api.transition((await f.api.capture({ scope: 'story' })).token, { action: 'next' });
+    const current = f.ctx.chat[0].variables[0].stat_data;
+    assert.equal(current.场景.当前章, labels[index + 1] + '·第一章');
+    assert.equal(current.场景.当前卷, null); assert.equal(current.场景.阶段, '未开始');
+    assert.equal(current.场景.时间, '本局时间'); assert.equal(current.场景.地点, '本局地点');
+    assert.equal(f.writes, 1);
+  }
+});
+await check('学战第二卷终章跨入第三卷，第十七卷终章停止且不改写旧资料或补造章节', async () => {
+  const f = fixture(), state = f.ctx.chat[0].variables[0].stat_data;
+  Object.assign(state.系统, { 作品: 'asterisk', 开局状态: '已建档', 主角模式: '自定义角色' });
+  Object.assign(state.场景, { 当前卷: null, 当前章: '第二卷·终章', 阶段: '已结束', 时间: '清晨', 地点: '校园', 切入说明: '保留既有切入' });
+  state.玩家.自定义 = { 保留: true }; state.人际.同伴 = { 旧字段: '保留' };
+  const unrelated = clone({ 玩家: state.玩家, 人际: state.人际, 事件: state.场景.已发生事件 });
+  const current = () => f.ctx.chat[0].variables[0].stat_data;
+  const transition = async request => f.api.transition((await f.api.capture({ scope: 'story' })).token, request);
+  await transition({ action: 'next' });
+  assert.deepEqual({ 卷: current().场景.当前卷, 章: current().场景.当前章, 阶段: current().场景.阶段 }, { 卷: null, 章: '第三卷·第一章', 阶段: '未开始' });
+  assert.equal(current().场景.时间, '清晨'); assert.equal(current().场景.地点, '校园'); assert.equal(current().场景.切入说明, '保留既有切入');
+  await transition({ action: 'start' });
+  const jump = { action: 'jump', time: '赛后', location: '休息室', entryNote: '玩家确认进入终章', start: true };
+  await assert.rejects(transition({ ...jump, chapter: '第三卷·序章' }), /目录/);
+  await assert.rejects(transition({ ...jump, chapter: '第十四卷·终章' }), /目录/);
+  await assert.rejects(transition({ ...jump, chapter: '第十八卷·第一章' }), /目录/);
+  await assert.rejects(transition({ ...jump, chapter: '第二卷·终章' }), /向前/);
+  assert.equal(f.writes, 2);
+  await transition({ ...jump, chapter: '第十七卷·终章' });
+  assert.equal(current().场景.当前章, '第十七卷·终章'); assert.equal(current().场景.阶段, '进行中'); assert.equal(current().场景.当前卷, null);
+  await transition({ action: 'end' });
+  const ended = clone(current());
+  await assert.rejects(transition({ action: 'next' }), /最后一章/);
+  assert.deepEqual(current(), ended); assert.equal(f.writes, 4);
+  assert.deepEqual({ 玩家: current().玩家, 人际: current().人际, 事件: current().场景.已发生事件 }, unrelated);
 });
 await check('学战自由章只可显式定位，回退及聊天切换都不会写', async () => {
   const f = fixture(), state = f.ctx.chat[0].variables[0].stat_data;

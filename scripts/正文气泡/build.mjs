@@ -76,7 +76,13 @@ export function buildRules() {
   // for CSS/JS lines inside preset option iframes.
   // ASCII literals fold explicitly. The long fence suffix must compare exact
   // bytes without global /i, and no newer inline-modifier syntax is required.
-  const contextAtColon = buildContextGuard({opaqueDrivers: true});
+  // Plain prefixes cannot contain an HTML scope or a fenced block. Check them
+  // once with a negated character run instead of retrying every protected tag.
+  const plainPrefix = String.raw`(?<=(?<![\s\S])[^<\x60~]*)`;
+  // This card's opening is an application document, never dialogue. Reject it
+  // before the structured-prefix lexer walks its bundled CSS and JavaScript.
+  const skipOpening = String.raw`(?<!(?<![\s\S])(?:\x60{3}(?:html)?[ \t]*\r?\n)?<!doctype html>[\s\S]{0,1024}<title>落第骑士英雄谭 · 第一卷入学档案<\/title>[\s\S]*)`;
+  const contextAtColon = '(?:' + plainPrefix + '|' + skipOpening + buildContextGuard({opaqueDrivers: true}) + ')';
   const speech = '(?![^\\r\\n\\u2028\\u2029]*\\{\\{)[ \\t]*(?<rkdSpeech>[^<>&\\r\\n\\u2028\\u2029]*[^<>&\\s])[ \\t]*(?=\\r?$)';
   const fixedPlayers = ['玩家', 'player', 'user', 'OC'].map(caseFoldLiteral).join('|');
   const pattern = '^[ ]{0,3}(?<rkdName>(?<rkdAsterisk>' + asteriskAlternatives + ')|(?<rkdPlayer>' + playerName + '|' + fixedPlayers + ')|' + alternatives + ')[ \\t]*[:：]' + contextAtColon + speech;
@@ -90,13 +96,13 @@ export function buildRules() {
     runOnEdit: true, substituteRegex: 0, minDepth: null, maxDepth: null};
   const css = fs.readFileSync(cssPath, 'utf8') + '\n' + imageRules.join('\n');
   return [
-    {...shared, id: 'cf3083f8-42e4-4e2e-8e70-a65817a2c881', scriptName: '01 盾形对白 · 姓名与台词 v0.6', substituteRegex: 2,
+    {...shared, id: 'cf3083f8-42e4-4e2e-8e70-a65817a2c881', scriptName: '01 盾形对白 · 姓名与台词 v0.6.1', substituteRegex: 2,
       findRegex: '/' + pattern + '/gm',
       replaceString: '<div data-rkd="bubble" data-rkd-name="$<rkdName>" data-rkd-player="$<rkdPlayer>" data-rkd-asterisk="$<rkdAsterisk>"><span data-rkd-avatar aria-hidden="true"></span><div data-rkd-body><span data-rkd-speaker>$<rkdName></span><div data-rkd-line>$<rkdSpeech></div></div></div>'},
-    {...shared, id: 'bea21af8-9a41-4b0c-9009-1811e54bb8e4', scriptName: '02 盾形对白 · OC 姓名候选 v0.6',
+    {...shared, id: 'bea21af8-9a41-4b0c-9009-1811e54bb8e4', scriptName: '02 盾形对白 · OC 姓名候选 v0.6.1',
       findRegex: '/' + candidate + '/gm',
       replaceString: '<span data-rkd="candidate" data-rkd-name="$<rkdCandidateName>"><span data-rkd-source>$<rkdCandidateSource></span></span>'},
-    {...shared, id: 'cf3083f8-42e4-4e2e-8e70-a65817a2c882', scriptName: '03 盾形对白 · 共享样式 v0.6',
+    {...shared, id: 'cf3083f8-42e4-4e2e-8e70-a65817a2c882', scriptName: '03 盾形对白 · 共享样式 v0.6.1',
       // ST 1.18.0 encodeStyleTags only preserves a bare <style> opener.
       // Keep the deduplication marker in CSS, never on the style element.
       // Keep preceding analysis unchanged and place CSS next to the first
@@ -106,7 +112,7 @@ export function buildRules() {
       findRegex: '/(?=<(?:div|span) data-rkd="(?:bubble|candidate)")(?<!\/\\* rkd-dialogue-style:[\\s\\S]*)(?![\\s\\S]*\/\\* rkd-dialogue-style:)' + contextAtColon + '/m',
       // The host stream segmenter skips PRE elements. Hide only the stylesheet
       // wrapper so its CSS text cannot be split into fade-in spans; body is outside.
-      replaceString: '<pre hidden><style>/* rkd-dialogue-style:v0.6 */\n' + css + '</style></pre>\n\n'},
+      replaceString: '<pre hidden><style>/* rkd-dialogue-style:v0.6.1 */\n' + css + '</style></pre>\n\n'},
   ];
 }
 
@@ -153,7 +159,7 @@ export function build() {
     items: rules.map((value, i) => ({artifactName: artifactNames[i], value}))}, null, 2) + '\n');
   fs.writeFileSync(path.join(output, 'format-rule.txt'), formatRule + '\n');
   fs.writeFileSync(path.join(output, 'preview.html'), previewPage(rules));
-  fs.writeFileSync(path.join(output, 'source-receipt.json'), JSON.stringify({version: '0.6', deliveryMode: 'component',
+  fs.writeFileSync(path.join(output, 'source-receipt.json'), JSON.stringify({version: '0.6.1', deliveryMode: 'component',
     scope: '三条角色局部显示正则、格式规则、离线预览；只更新对应组件，不重打整卡或修改聊天原文',
     sourceHashes: Object.fromEntries([manifestPath, asteriskPath, ...asteriskImages, cssPath, formatRulePath, path.join(here,'context-guard.mjs'), fileURLToPath(import.meta.url)].map(p => [path.relative(root,p).replaceAll('\\','/'),digest(fs.readFileSync(p))])),
     library: {snapshot: '2026-08-18', routes: ['sillytavern-render-regex-pipeline','sillytavern-embedded-ui','sillytavern-component-update','sillytavern-api-reference'], guides: ['A0','A5','A6','C3','D7'], adoptedDesignCandidates: []},

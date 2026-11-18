@@ -4,7 +4,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { parseFragment } from 'parse5';
 
-const source = fs.readFileSync(new URL('terminal-app.js', import.meta.url), 'utf8');
+const source = fs.readFileSync(new URL('terminal-calendar.js', import.meta.url), 'utf8') + '\n' + fs.readFileSync(new URL('terminal-app.js', import.meta.url), 'utf8');
 const plain = value => JSON.parse(JSON.stringify(value));
 const cropPhoto = (id = 'photo') => ({ image: { id }, width: 1200, height: 800, x: 600, y: 400, zoom: 1, drag: null });
 const croppedPhoto = 'data:image/jpeg;base64,/9j/2Q==';
@@ -50,7 +50,7 @@ function fixture() {
   };
   const ui = vm.createContext({ URL, console, structuredClone,
     setTimeout: () => 1, clearTimeout() {}, addEventListener() {}, confirm: () => true, renderLime() {},
-    document: { body: element('body'), createElement: tag => element('created-' + tag), getElementById: element, querySelectorAll: () => [], addEventListener() {} },
+    document: { body: element('body'), createElement: tag => element('created-' + tag), getElementById: element, querySelector: () => null, querySelectorAll: () => [], addEventListener() {} },
   });
   ui.window = ui;
   vm.runInContext(source, ui);

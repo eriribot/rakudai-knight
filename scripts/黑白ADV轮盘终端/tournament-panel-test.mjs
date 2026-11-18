@@ -93,7 +93,7 @@ function hostFixture() {
     RK_TOURNAMENT_PANEL_HTML: '<p>赛事页</p>',
   });
   realm.window = realm;
-  vm.runInContext(fs.readFileSync(new URL('./terminal-tournament.js', import.meta.url), 'utf8').replace(/^export /gm, '') + '\n' +
+  vm.runInContext(fs.readFileSync(new URL('./terminal-calendar.js', import.meta.url), 'utf8') + '\n' + fs.readFileSync(new URL('./terminal-tournament.js', import.meta.url), 'utf8').replace(/^export /gm, '') + '\n' +
     fs.readFileSync(new URL('./terminal-app.js', import.meta.url), 'utf8'), realm);
   Object.assign(realm, { stat: { 玩家: { 姓名: '自捏骑士' } }, stateSource: { chatId: 'chat', messageId: 1, swipeId: 0 },
     dataStatus: 'pending', hasDisplayedState: true, currentStack: ['scr-home', 'scr-schedule', 'scr-arena'],

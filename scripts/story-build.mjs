@@ -15,7 +15,7 @@ export function inlineStoryCatalog({ summaries = false } = {}) {
   const volumes = STORY_VOLUMES.map(book => ({ volume: book.volume, title: book.title,
     chapters: book.chapters.map(chapter => ({ key: chapter.key, title: chapter.title,
       aliases: chapter.aliases || [], ...(summaries ? { summary: chapter.summary } : {}) })) }));
-  const source = fs.readFileSync(new URL('./rakudai-story-catalog.mjs', import.meta.url), 'utf8');
+  const source = fs.readFileSync(new URL('./rakudai-story-catalog.mjs', import.meta.url), 'utf8').replace(/\r\n/g, '\n');
   return stripModuleSyntax(source).replace(/^const STORY_VOLUMES = .*;$/m,
     () => 'const STORY_VOLUMES = ' + JSON.stringify(volumes).replace(/</g, '\\u003c') + ';');
 }

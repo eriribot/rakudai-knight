@@ -1,0 +1,45 @@
+{
+  "name": "久慈冢夜音",
+  "id": "yanon",
+  "aliases": [
+    "夜音",
+    "久慈塚夜音",
+    "久慈家夜音",
+    "久慈塚やのん",
+    "久慈塚 やのん",
+    "やのん",
+    "Yanon",
+    "Yanon Kujizuka",
+    "Kujizuka Yanon"
+  ],
+  "file": "resource/asteriskavatars/yanon-anime.jpg",
+  "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/yanon-anime.jpg",
+  "width": 1280,
+  "height": 720,
+  "portraitCrop": [
+    300,
+    0,
+    620,
+    719.2
+  ],
+  "sourcePage": "https://fapservice.com/gakusen-toshi-asterisk-fanservice-review-episodes-910/",
+  "sourceUrl": "https://fapservice.com/wp-content/uploads/2015/12/Purrint058.jpg",
+  "sha256": "a86a57d2aba8b77811d73aac74f6eb230359a51751091a295ff5a6edf01a4d27",
+  "animeEpisode": 10,
+  "animeEpisodeTitle": "吸血暴姫",
+  "sourceType": "anime-episode-screenshot-republished-in-review",
+  "sourceNote": "动画第1期第10话赛场近景。转载于标明Episodes 9&10的剧评页Cute tournament participants段落；不是官方网站发布图，不是白底人物设定图。原图字节完整保留，运行时以portraitCrop裁切。",
+  "identityEvidence": [
+    "https://asteriskwar.com/characters/queenvale.html",
+    "https://www.mau2.com/anime/gakusentosiasterisk/ep/10"
+  ],
+  "episodeEvidence": [
+    "https://asterisk-war.com/story/st10.html",
+    "https://www.mau2.com/anime/gakusentosiasterisk/ep/10",
+    "https://asterisk.fandom.com/wiki/Festa/Phoenix_Tags"
+  ],
+  "visualVerification": "已逐张查看原图，蓝色双马尾、金黄色发饰、棕金色双眼、紫红领结、葵恩薇儿制服均与用户DLC正片参考一致；脸部完整，无播放器按钮、水印或字幕。",
+  "aliasNote": "久慈家夜音兼容用户截图误写；本项目主名沿用DLC久慈冢夜音。",
+  "researchEvidence": "output/non-sugar-avatars-20261111/research-yanon/tournament-source-evidence.json",
+  "retrievedAt": "2026-11-11"
+}

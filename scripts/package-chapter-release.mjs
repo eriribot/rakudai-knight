@@ -13,7 +13,7 @@ const allowlist = [
   ['output/chapter-v4/落第骑士英雄谭-v1.3.6-世界书.json', '正式发布世界书'],
   ['世界书规则/MVU/落第骑士-MVU-v4字段约束.json', 'MVU v4 约束组件'],
   ['scripts/酒馆助手脚本-小手机-黑白ADV轮盘版-v1.3.6.json', '终端 v1.3.6 组件'],
-  ['scripts/tavern_helper_ejs_injector.json', '剧情注入器 v3.0.0 组件'],
+  ['世界书规则/MVU/落第骑士-卷章剧情注入器-v3.0.0.json', '剧情注入器 v3.0.0 组件'],
   ['第一卷-世界书整理/开局页面/index.html', '开局页面'],
   ['世界书规则/MVU/v4_使用与迁移.md', '使用与迁移说明'],
   ['output/chapter-v4/catalogue-check.json', '目录结构与出处检查报告'],

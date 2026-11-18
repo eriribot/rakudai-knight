@@ -1,0 +1,65 @@
+{
+  "deliveryMode": "component",
+  "componentId": "3d8c6c23-f78e-46e5-8e89-4a90bab6fb85",
+  "baselineSha256": "f888cd6450c3a6e0fdf9bfcb1553753cce4214e43f72a5e3ef568c90e98f58ba",
+  "sourceArtifact": {
+    "path": "世界书规则/MVU/落第骑士-小手机-v1.3.29-B1-头像更新.json",
+    "sha256": "e8358303236182fba21488405520addba2556bf1a2b4c468b457580204e9d0ad"
+  },
+  "sources": [
+    {
+      "path": "scripts/黑白ADV轮盘终端/main.js",
+      "sha256": "e2a2a273169caeb4d37a6c621e783b06db00f3205477a69af03e5fd76c5919cb"
+    },
+    {
+      "path": "scripts/黑白ADV轮盘终端/terminal-app.js",
+      "sha256": "d84f16ae5abd0172a8ae8b11a0d12e4578358dd2cba524db6b3345596c6fb904"
+    },
+    {
+      "path": "scripts/黑白ADV轮盘终端/terminal-app.html",
+      "sha256": "ba738920c7d952f2dc768e62580e91e8a6f42c185aa79fdfb819c2b168e01020"
+    },
+    {
+      "path": "scripts/黑白ADV轮盘终端/terminal-theme.css",
+      "sha256": "ad567b55853149fbe7e84e357546b347cac470a6a6e68d41a47cef97b7cbaffb"
+    },
+    {
+      "path": "scripts/黑白ADV轮盘终端/terminal-calendar.js",
+      "sha256": "6101edd25337b0d53009611289adf633b49e4244c21d5582b77398d3dccf66e7"
+    },
+    {
+      "path": "scripts/黑白ADV轮盘终端/terminal-calendar.css",
+      "sha256": "6fa044212d405ba1cb1a05093f418382247b768aed12339cb66183b5c261ec3f"
+    },
+    {
+      "path": "scripts/黑白ADV轮盘终端/terminal-asterisk.js",
+      "sha256": "4bcab55930a69d89b4c02ec6a40d6a64672b167f30b6cdef7881910a464fea6a"
+    },
+    {
+      "path": "scripts/黑白ADV轮盘终端/terminal-asterisk.html",
+      "sha256": "d97d163682bd42299016b07113106a7bd9e61d574ee3697aad154efb67fb0373"
+    },
+    {
+      "path": "scripts/黑白ADV轮盘终端/terminal-asterisk.css",
+      "sha256": "65b8a18736ebcc074f335fa9e2b9ed0397096904bd57884738a73524c55cda65"
+    },
+    {
+      "path": "scripts/黑白ADV轮盘终端/build-asterisk-app.mjs",
+      "sha256": "8cf7e341a8e65f9da64565c205b601329971d4514f886517e9ef4e369cd35cde"
+    },
+    {
+      "path": "scripts/黑白ADV轮盘终端/bundle.mjs",
+      "sha256": "8745556f9ec19bb52a42a64daf835647d392df14af612dffd8e40e0ff3b8dd86"
+    }
+  ],
+  "preservedFields": [
+    "type",
+    "enabled",
+    "id",
+    "button",
+    "data",
+    "export_with"
+  ],
+  "scope": "两套终端共用只读校历；剧情推进和注入继续由本局作品校验",
+  "runtimeAcceptance": "pending"
+}

@@ -6,6 +6,7 @@ import { stripModuleSyntax } from '../story-build.mjs';
 import { createSchema, RAKUDAI_INITIAL_STATE as INITIAL_STATE, supportStage } from '../../世界书规则/MVU/schema.mjs';
 import { resolveTerminalWorld } from './terminal-world.mjs';
 import { hasBlazerGrowth } from '../rakudai-mvu-structure.mjs';
+import { settleNativeStoryRepair } from '../rakudai-state-core.mjs';
 import { shouldInjectTournament, parseTournamentDate, isHagunAffiliation } from '../rakudai-tournament-calendar.mjs';
 import { deriveTournament, normalizeTournament } from '../rakudai-tournament.mjs';
 import { shouldInjectNationalTournament, deriveNationalTournament } from '../rakudai-national-tournament.mjs';
@@ -148,7 +149,7 @@ function fixture({ autoApply = true, connected = true, hostRenderEvent = true, t
     terminalBusinessIsSelected: (state = persisted.stat_data) => businessAllowed(state) && ['rakudai', 'asterisk'].includes(resolveTerminalWorld(state)) && state?.系统?.开局状态 === '已建档',
     fn: name => helper[name], emit() {},
     stateService: () => ({ hasBlazerGrowth, tournamentView: state => { tournamentInputs.push(clone(state)); return deriveTournament(state); },
-      nationalTournamentView: deriveNationalTournament,
+      nationalTournamentView: deriveNationalTournament, settleNativeStoryRepair,
       validateState: value => { stateSchema.parse(value); return clone(value); } }),
     setTimeout: (fn, ms) => setTimer(fn, ms, false), clearTimeout: id => timers.delete(id),
     setInterval: (fn, ms) => setTimer(fn, ms, true), clearInterval: id => timers.delete(id),
@@ -194,13 +195,13 @@ function fixture({ autoApply = true, connected = true, hostRenderEvent = true, t
   function loading(target = HW) {
     target[bootKey] = { state: 'loading', stage: 'dependencies', message: '等待 MVU 与 Zod', startedAt: now };
   }
-  function startTurn({ save = true, render = true, end = true, parsed = true, contentBlock = block, location = '走廊', sameSlot = false } = {}) {
+  function startTurn({ save = true, render = true, end = true, parsed = true, contentBlock = block, location = '走廊', sameSlot = false, scene = {} } = {}) {
     api.startAutomaticCorrection();
     const previous = clone(persisted);
     if (sameSlot) context.chat.at(-1).mes = '本轮同页续写了新剧情。' + contentBlock;
     else context.chat.push({ mes: '本轮抵达走廊。' + contentBlock, is_user: false, swipe_id: 0 });
     const candidate = clone(previous);
-    candidate.stat_data.场景.地点 = location;
+    Object.assign(candidate.stat_data.场景, { 地点: location }, scene);
     if (parsed) event(mvu.events.COMMAND_PARSED, candidate, [], context.chat.at(-1).mes);
     if (end) {
       event(mvu.events.VARIABLE_UPDATE_ENDED, candidate, previous);
@@ -1303,6 +1304,37 @@ await check('截图回归：无 guard 副 API 的已完成阶段和地点混合�
   assert.equal(saved.玩家.战斗风格, before.stat_data.玩家.战斗风格);
   assert.deepEqual(saved.人际, before.stat_data.人际);
   assert.deepEqual(before, initialBefore); assert.deepEqual(patch, inputBefore);
+  f.dispose();
+});
+await check('原生副校正补写本轮已结束时，独立推进相邻章并保留地点', async () => {
+  const f = fixture({ patch: [
+    { op: 'replace', path: '/场景/阶段', value: '已结束' },
+    { op: 'replace', path: '/场景/地点', value: '演武场' },
+  ] });
+  f.startTurn(); await f.advance(2000);
+  assert.equal(f.api.getCorrectionStatus().state, 'applied');
+  assert.equal(f.writes.length, 1);
+  const scene = f.state().stat_data.场景;
+  assert.equal(scene.当前章, '第二章'); assert.equal(scene.阶段, '进行中');
+  assert.equal(scene.地点, '演武场');
+  f.dispose();
+});
+await check('原生主轮已经推进后，副校正的重复完成不会再跳章且保留其他修正', async () => {
+  const f = fixture({ patch: [
+    { op: 'replace', path: '/场景/阶段', value: '已结束' },
+    { op: 'replace', path: '/场景/地点', value: '演武场' },
+    { op: 'replace', path: '/场景/切入说明', value: '本轮确认的切入说明' },
+  ] });
+  // 实际 MVU 结束监听已在 check-mvu-native-core 中覆盖；这里提供其结果，验证终端保存前的接线。
+  f.mvu.onParse = next => Object.assign(next.stat_data.场景, { 当前章: '第三章', 阶段: '进行中' });
+  f.startTurn({ scene: { 当前章: '第二章', 阶段: '进行中' } }); await f.advance(2000);
+  assert.equal(f.api.getCorrectionStatus().state, 'applied');
+  assert.equal(f.writes.length, 1);
+  const saved = f.state(), scene = saved.stat_data.场景;
+  assert.equal(scene.当前章, '第二章'); assert.equal(scene.阶段, '进行中');
+  assert.equal(scene.地点, '演武场'); assert.equal(scene.切入说明, '本轮确认的切入说明');
+  assert.equal(saved.display_data.场景.当前章, '第二章');
+  assert.equal(saved.delta_data.场景.当前章, undefined);
   f.dispose();
 });
 function useAsterisk(f) {

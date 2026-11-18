@@ -72,7 +72,7 @@ check('实际JSON交付物经反序列化、宿主HTML及作品路由完整还�
   for (const [world, expected] of Object.entries(pages)) {
     const html = unpack(host[0], world);
     assert.equal(html, expected, world + ' 页面应完整还原');
-    const inner = scripts(html); assert.equal(inner.length, world === 'rakudai' ? 2 : 1, world);
+    const inner = scripts(html); assert.equal(inner.length, world === 'rakudai' ? 3 : 2, world);
     inner.forEach((script, index) => new vm.Script(script, { filename: world + '-inner-' + index + '.js' }));
     assert.doesNotMatch(html, /<script\s+src=|<link[^>]+href="\.\//i, world + ' 页面不能依赖未打包的本地脚本或样式');
     assert.doesNotMatch(html, /__AW_ASSET_[A-Z_]+__|\/\*__INJECT_[A-Z_]+__\*\//, world + ' 页面不能遗留注入标记');
@@ -136,7 +136,7 @@ check('主壳与注入模块的真实生成位置可映射回原文件行', () =
 });
 check('内页真实script文本不trim：源映射与原文件行一致且来源名明确', () => {
   const inner = scripts(built.html);
-  for (const [index, file, needle] of [[0, 'terminal-app.js', 'function renderBlazer()'], [1, 'terminal-controls.js', 'var originalUpdate = updateHomeScreen;']]) {
+  for (const [index, file, needle] of [[0, 'terminal-calendar.js', 'function renderCalendar()'], [1, 'terminal-app.js', 'function renderBlazer()'], [2, 'terminal-controls.js', 'var originalUpdate = updateHomeScreen;']]) {
     const source = read(file), code = inner[index], consumer = new SourceMapConsumer(inlineMap(code));
     assert.ok(code.startsWith(source));
     const mapped = consumer.originalPositionFor(position(code, needle));

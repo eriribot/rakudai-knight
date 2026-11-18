@@ -157,6 +157,7 @@
   });
   const publicApi = Object.defineProperties({}, Object.getOwnPropertyDescriptors(api));
   Object.defineProperty(publicApi, 'validateState', { value: validateState, enumerable: true });
+  Object.defineProperty(publicApi, 'settleNativeStoryRepair', { value: settleNativeStoryRepair, enumerable: true });
   W.RakudaiStateController = Object.freeze(publicApi);
   // 开局页已有的照片入口只保存显示信息；沿用宿主聊天 scope，不进入 MVU。
   const displayTokens = new WeakMap();

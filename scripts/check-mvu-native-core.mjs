@@ -7,7 +7,7 @@ import { createHash } from 'node:crypto';
 import { createRequire, stripTypeScriptTypes } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { createSchema, RAKUDAI_INITIAL_STATE as INITIAL_STATE, INITIAL_STATE as NEUTRAL_INITIAL_STATE } from '../世界书规则/MVU/schema.mjs';
-import { applyOpening } from './rakudai-state-core.mjs';
+import { applyOpening, settleNativeStoryRepair } from './rakudai-state-core.mjs';
 import { installRakudaiNativeMvu } from './rakudai-mvu-native.mjs';
 import { repairRakudaiMvuStructure } from './rakudai-mvu-structure.mjs';
 import { createRakudaiNativeSchema } from './rakudai-mvu-native.mjs';
@@ -124,6 +124,56 @@ W.Mvu.parseMessage = async (content, original) => {
 };
 const installation = await installRakudaiNativeMvu(W);
 assert.equal(installation.state, 'ready', installation.message);
+const storySample = (volume = 1, chapter = '第一章', phase = '进行中') => {
+  const data = sample();
+  Object.assign(data.stat_data.系统, { 开局状态: '已建档', 主角模式: '自定义角色' });
+  Object.assign(data.stat_data.场景, { 当前卷: volume, 当前章: chapter, 阶段: phase, 时间: '2013-04-06', 地点: '本局地点', 切入说明: '本局切入', 宿舍: false });
+  return data;
+};
+await check('S01 actual MVU saves phase-only completion as the adjacent chapter without old guard', async () => {
+  for (const ended of ['已结束', '已完成']) {
+    const data = storySample(), before = clone(data.stat_data);
+    assert.equal(await context.updateVariables(patch([{ op: 'replace', path: '/场景/阶段', value: ended }]), data), true);
+    const expected = clone(before); Object.assign(expected.场景, { 当前章: '第二章', 阶段: '进行中' });
+    assert.deepEqual(clone(data.stat_data), expected);
+    assert.equal(data.display_data.场景.阶段, '进行中');
+    assert.equal(data.delta_data.场景.阶段, undefined);
+    assert.equal(data.delta_data.场景.当前章, '"第一章"->"第二章"');
+    const saved = clone(data.stat_data);
+    await context.updateVariables(patch([{ op: 'replace', path: '/场景/地点', value: '下一处本局地点' }]), data);
+    saved.场景.地点 = '下一处本局地点'; assert.deepEqual(clone(data.stat_data), saved);
+  }
+});
+await check('S01 does not advance on date alone or advance an explicitly changed chapter twice', async () => {
+  const data = storySample();
+  await context.updateVariables(patch([{ op: 'replace', path: '/场景/时间', value: '2013-04-08' }]), data);
+  assert.equal(data.stat_data.场景.当前章, '第一章');
+  await context.updateVariables(patch([{ op: 'replace', path: '/场景/当前章', value: '第二章' }, { op: 'replace', path: '/场景/阶段', value: '已结束' }]), data);
+  assert.equal(data.stat_data.场景.当前章, '第二章'); assert.equal(data.stat_data.场景.阶段, '已结束');
+});
+await check('S01 recovers a saved ended chapter on its next update and respects volume/route/final boundaries', async () => {
+  for (const [volume, chapter, route, nextVolume, nextChapter, phase] of [
+    [1, '第一章', 'A', 1, '第二章', '进行中'], [1, '终章', 'A', 2, '序章', '进行中'],
+    [10, '第二章', 'B', 16, '序章', '进行中'], [16, '终章Ⅱ', 'B', 18, '第二章', '进行中'],
+    [19, '终章', 'A', 19, '终章', '已结束'],
+  ]) {
+    const data = storySample(volume, chapter, '已结束'); data.stat_data.场景.路线 = route;
+    await context.updateVariables(patch([{ op: 'replace', path: '/场景/地点', value: '仍是本局地点' }]), data);
+    assert.equal(data.stat_data.场景.当前卷, nextVolume); assert.equal(data.stat_data.场景.当前章, nextChapter); assert.equal(data.stat_data.场景.阶段, phase);
+    assert.equal(data.stat_data.场景.时间, '2013-04-06');
+  }
+});
+await check('S01 same-reply native correction keeps the first advance and preserves other corrections', async () => {
+  const data = storySample(), start = clone(data.stat_data.场景);
+  await context.updateVariables(patch([{ op: 'replace', path: '/场景/阶段', value: '已结束' }]), data);
+  const main = clone(data);
+  await context.updateVariables(patch([{ op: 'replace', path: '/场景/阶段', value: '已结束' }, { op: 'replace', path: '/场景/地点', value: '校正地点' }]), data);
+  settleNativeStoryRepair(data, main, start);
+  assert.equal(data.stat_data.场景.当前章, '第二章'); assert.equal(data.stat_data.场景.阶段, '进行中');
+  assert.equal(data.stat_data.场景.地点, '校正地点'); assert.equal(data.stat_data.场景.切入说明, '本局切入');
+  assert.equal(data.display_data.场景.当前章, '第二章'); assert.equal(data.delta_data.场景.当前章, undefined);
+  assert.ok(data.delta_data.场景.地点.includes('校正地点'));
+});
 const asteriskSample = () => ({ stat_data: applyOpening(clone(NEUTRAL_INITIAL_STATE), {
   系统: { 结构版本: 4, 作品: 'asterisk', 主角模式: '自定义角色' },
   玩家: { ...clone(NEUTRAL_INITIAL_STATE.玩家), 姓名: '学战测试', 学战: {
@@ -131,6 +181,13 @@ const asteriskSample = () => ({ stat_data: applyOpening(clone(NEUTRAL_INITIAL_ST
     校内序列: { 状态: '未上榜', 名次: null }, 武装: { 类别: '不使用武装', 名称: '', 使用条件: '' },
   } }, 场景: { 当前卷: null, 当前章: '入学报到', 时间: '早晨', 地点: '星导馆', 切入说明: '' },
 }), external: { retained: ['wrapper'] } });
+await check('S01 leaves Asterisk phase-only completion and its display data unchanged', async () => {
+  const data = asteriskSample(), before = clone(data.stat_data);
+  await context.updateVariables(patch([{ op: 'replace', path: '/场景/阶段', value: '已结束' }]), data);
+  before.场景.阶段 = '已结束'; assert.deepEqual(clone(data.stat_data), before);
+  const saved = clone(data); settleNativeStoryRepair(data, saved, { 当前卷: 1, 当前章: '第一章', 阶段: '进行中' });
+  assert.deepEqual(clone(data), saved); assert.ok(data.delta_data.场景.阶段.includes('已结束'));
+});
 await check('AW actual parser rejects legacy commands and preserves unknown data during required-contract rollback', async () => {
   const invalid = [
     "<UpdateVariable>_.set('系统.作品', 'rakudai');</UpdateVariable>",

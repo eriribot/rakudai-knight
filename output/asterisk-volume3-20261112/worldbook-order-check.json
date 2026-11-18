@@ -1,0 +1,210 @@
+{
+  "source": "落第x学战v0.05.json",
+  "checked": 25,
+  "orderRange": [
+    200,
+    224
+  ],
+  "entries": [
+    {
+      "key": "序章",
+      "order": 200,
+      "uid": 45,
+      "name": "[剧情]第一卷.序章.倏然疾风",
+      "contentChars": 1655,
+      "disabled": true
+    },
+    {
+      "key": "第一章",
+      "order": 201,
+      "uid": 46,
+      "name": "[剧情]第一卷.第一章.华焰魔女",
+      "contentChars": 3313,
+      "disabled": true
+    },
+    {
+      "key": "第二章",
+      "order": 202,
+      "uid": 90,
+      "name": "[剧情]第一卷.第二章.学战都市",
+      "contentChars": 2572,
+      "disabled": true
+    },
+    {
+      "key": "第三章",
+      "order": 203,
+      "uid": 112,
+      "name": "[剧情]第一卷.第三章.凛凛眼神",
+      "contentChars": 2571,
+      "disabled": true
+    },
+    {
+      "key": "第四章",
+      "order": 204,
+      "uid": 113,
+      "name": "[剧情]第一卷.第四章.回忆与重逢",
+      "contentChars": 3106,
+      "disabled": true
+    },
+    {
+      "key": "第五章",
+      "order": 205,
+      "uid": 114,
+      "name": "[剧情]第一卷.第五章.黑炉魔剑",
+      "contentChars": 2936,
+      "disabled": true
+    },
+    {
+      "key": "第六章",
+      "order": 206,
+      "uid": 115,
+      "name": "[剧情]第一卷.第六章.两人的假日",
+      "contentChars": 3275,
+      "disabled": true
+    },
+    {
+      "key": "第七章",
+      "order": 207,
+      "uid": 116,
+      "name": "[剧情]第一卷.第七章.解放者",
+      "contentChars": 4522,
+      "disabled": true
+    },
+    {
+      "key": "终章",
+      "order": 208,
+      "uid": 236,
+      "name": "[剧情]第一卷.终章.并肩之誓",
+      "contentChars": 2041,
+      "disabled": true
+    },
+    {
+      "key": "第二卷·第一章",
+      "order": 209,
+      "uid": 226,
+      "name": "[剧情]第二卷.第一章.六花园会议",
+      "contentChars": 3297,
+      "disabled": true
+    },
+    {
+      "key": "第二卷·第二章",
+      "order": 210,
+      "uid": 227,
+      "name": "[剧情]第二卷.第二章.昏枭暗跃",
+      "contentChars": 3294,
+      "disabled": true
+    },
+    {
+      "key": "第二卷·第三章",
+      "order": 211,
+      "uid": 228,
+      "name": "[剧情]第二卷.第三章.疾风刃雷",
+      "contentChars": 3218,
+      "disabled": true
+    },
+    {
+      "key": "第二卷·第四章",
+      "order": 212,
+      "uid": 229,
+      "name": "[剧情]第二卷.第四章.错综的思绪",
+      "contentChars": 2980,
+      "disabled": true
+    },
+    {
+      "key": "第二卷·第五章",
+      "order": 213,
+      "uid": 230,
+      "name": "[剧情]第二卷.第五章.少女素颜",
+      "contentChars": 2714,
+      "disabled": true
+    },
+    {
+      "key": "第二卷·第六章",
+      "order": 214,
+      "uid": 231,
+      "name": "[剧情]第二卷.第六章.雾中魔手",
+      "contentChars": 2808,
+      "disabled": true
+    },
+    {
+      "key": "第二卷·第七章",
+      "order": 215,
+      "uid": 232,
+      "name": "[剧情]第二卷.第七章.决意与决斗",
+      "contentChars": 2839,
+      "disabled": true
+    },
+    {
+      "key": "第二卷·终章",
+      "order": 216,
+      "uid": 235,
+      "name": "[剧情]第二卷.终章.蜀山组队",
+      "contentChars": 2758,
+      "disabled": true
+    },
+    {
+      "key": "第三卷·第一章",
+      "order": 217,
+      "uid": 237,
+      "name": "[剧情]第三卷.第一章.开幕前夜",
+      "contentChars": 2931,
+      "disabled": true
+    },
+    {
+      "key": "第三卷·第二章",
+      "order": 218,
+      "uid": 238,
+      "name": "[剧情]第三卷.第二章.凤凰星武祭",
+      "contentChars": 3090,
+      "disabled": true
+    },
+    {
+      "key": "第三卷·第三章",
+      "order": 219,
+      "uid": 239,
+      "name": "[剧情]第三卷.第三章.阿尔第与莉姆希",
+      "contentChars": 3075,
+      "disabled": true
+    },
+    {
+      "key": "第三卷·第四章",
+      "order": 220,
+      "uid": 240,
+      "name": "[剧情]第三卷.第四章.吸血暴姬",
+      "contentChars": 3740,
+      "disabled": true
+    },
+    {
+      "key": "第三卷·第五章",
+      "order": 221,
+      "uid": 241,
+      "name": "[剧情]第三卷.第五章.雷渥夫姐妹",
+      "contentChars": 3180,
+      "disabled": true
+    },
+    {
+      "key": "第三卷·第六章",
+      "order": 222,
+      "uid": 242,
+      "name": "[剧情]第三卷.第六章.力量与代价",
+      "contentChars": 3489,
+      "disabled": true
+    },
+    {
+      "key": "第三卷·第七章",
+      "order": 223,
+      "uid": 243,
+      "name": "[剧情]第三卷.第七章.霸溃血镰",
+      "contentChars": 3135,
+      "disabled": true
+    },
+    {
+      "key": "第三卷·终章",
+      "order": 224,
+      "uid": 245,
+      "name": "[剧情]第三卷.终章.余烬与暗流",
+      "contentChars": 3053,
+      "disabled": true
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "date": "2026-11-11",
+  "deliveryMode": "component",
+  "goal": "为Non Sugar两人新增动画正片截图头像，六边框脸部居中",
+  "targets": [
+    "美原缘",
+    "久慈冢夜音"
+  ],
+  "redLines": [
+    "不以设定图替代正片",
+    "不重绘人物",
+    "不修改世界书/MVU/聊天",
+    "不操作酒馆",
+    "不提交或推送Git",
+    "保留用户已有工作区清理"
+  ],
+  "acceptance": [
+    "截图人物与第10话来源核验",
+    "01/03与终端同步",
+    "02与既有21人不变",
+    "本地预览"
+  ],
+  "library": {
+    "route": "sillytavern-component-update",
+    "snapshot": "2026-08-18",
+    "guides": [
+      "A0",
+      "A2",
+      "A6",
+      "B2"
+    ],
+    "candidates": []
+  },
+  "before": [
+    {
+      "file": "scripts/正文气泡/asterisk-portraits.json",
+      "sha256": "39e7899247f1a7dcb3c454f5986808bb137715cf6e6aab09fe3fb77727383a8f"
+    },
+    {
+      "file": "resource/asteriskavatars/sources.json",
+      "sha256": "a16c86e19d9f85048afcdabb365c7f5a39e8c91c24743f8977163f462fcf49c4"
+    },
+    {
+      "file": "scripts/正文气泡/发布/components/dialogue-bubbles.regex.json",
+      "sha256": "f75285314fe9fe0e5f0e3451c0fb2f0bb4491483c3e5bbb4b9d63e3fa0f2a300"
+    },
+    {
+      "file": "scripts/正文气泡/发布/components/dialogue-player-candidates.regex.json",
+      "sha256": "a548f8b4d27ef1db3ef8a969051833477a05370bbc45af4dbff2fb6194fb1f38"
+    },
+    {
+      "file": "scripts/正文气泡/发布/components/dialogue-bubble-style.regex.json",
+      "sha256": "9ac21b044e6772e9de005b1d5c4c84b78afe92924c4132f5f9e2b0cadad4fa61"
+    },
+    {
+      "file": "世界书规则/MVU/落第骑士-小手机-v1.3.29-B1-头像更新.json",
+      "sha256": "091d1472c405bace5dc39ccf7085e93554344ee13a8f500cc7954da63bca9ddc"
+    }
+  ]
+}

@@ -56,15 +56,28 @@ await check('缺终章、后改空条目、重复及自动触发条目均不允�
     assert.equal(g.writes, 0);
   }
 });
-await check('完整目录连续200–216，第一卷终章可进入第二卷第一章且卷号仍为空', async () => {
+await check('完整十七卷目录连续200–339，第一卷终章可进入第二卷第一章且卷号仍为空', async () => {
   const f = fixture('终章', '已结束', { completeCatalogue: true }), before = structuredClone(f.data), view = await f.api.read();
-  assert.equal(f.reads, 1); assert.equal(view.chapters.length, 17);
-  assert.deepEqual(Array.from(view.chapters, chapter => chapter.order), Array.from({ length: 17 }, (_, index) => 200 + index));
+  assert.equal(f.reads, 1); assert.equal(ASTERISK_VOLUMES.length, 17); assert.equal(view.chapters.length, 140);
+  assert.deepEqual(Array.from(view.chapters, chapter => chapter.order), Array.from({ length: 140 }, (_, index) => 200 + index));
   assert.equal(view.chapters[8].key, '终章'); assert.equal(view.chapters[9].key, '第二卷·第一章');
+  assert.equal(view.chapters[16].key, '第二卷·终章'); assert.equal(view.chapters[17].key, '第三卷·第一章');
+  assert.equal(view.chapters.every(chapter => chapter.available), true);
   await f.api.transition(view.token, { action: 'next' });
   assert.equal(f.data.stat_data.场景.当前章, '第二卷·第一章'); assert.equal(f.data.stat_data.场景.阶段, '未开始');
   assert.equal(f.data.stat_data.场景.当前卷, null); assert.equal(f.writes, 1);
   assert.deepEqual(f.data.stat_data.玩家, before.stat_data.玩家); assert.deepEqual(f.data.stat_data.场景.已发生事件, before.stat_data.场景.已发生事件);
+});
+await check('第二卷终章进入第三卷第一章，缺217时仍拒绝前进', async () => {
+  const f = fixture('第二卷·终章', '已结束', { completeCatalogue: true }), before = structuredClone(f.data);
+  await f.api.transition((await f.api.read()).token, { action: 'next' });
+  assert.equal(f.data.stat_data.场景.当前章, '第三卷·第一章'); assert.equal(f.data.stat_data.场景.阶段, '未开始');
+  assert.equal(f.data.stat_data.场景.当前卷, null); assert.equal(f.writes, 1);
+  assert.deepEqual(f.data.stat_data.玩家, before.stat_data.玩家); assert.deepEqual(f.data.stat_data.场景.已发生事件, before.stat_data.场景.已发生事件);
+  const missing = fixture('第二卷·终章', '已结束', { completeCatalogue: true });
+  missing.entries.splice(17, 1);
+  await assert.rejects(missing.api.transition((await missing.api.read()).token, { action: 'next' }), /217/);
+  assert.equal(missing.writes, 0);
 });
 await check('跨卷向前跳章保留完整键，第二卷内仍拒绝倒退', async () => {
   const f = fixture('第一章', '进行中', { completeCatalogue: true }), view = await f.api.read();
@@ -74,13 +87,73 @@ await check('跨卷向前跳章保留完整键，第二卷内仍拒绝倒退', a
   await assert.rejects(f.api.transition((await f.api.read()).token, { action: 'jump', chapter: '第二卷·第一章', time: '翌日', location: '庭园', entryNote: '不应倒退', start: true }), /严格向前/);
   assert.equal(f.writes, 1); assert.equal(f.data.stat_data.场景.当前章, '第二卷·第七章');
 });
-await check('第二卷终章216可结束但不能越过目录末尾', async () => {
-  const f = fixture('第二卷·终章', '进行中', { completeCatalogue: true }), view = await f.api.read();
-  assert.equal(view.chapters.at(-1).key, '第二卷·终章'); assert.equal(view.chapters.at(-1).order, 216);
+await check('第三卷跳章保留完整键且不允许倒退到前卷', async () => {
+  const f = fixture('第二卷·第七章', '进行中', { completeCatalogue: true }), view = await f.api.read();
+  await f.api.transition(view.token, { action: 'jump', chapter: '第三卷·第七章', time: '翌日', location: '决斗场', entryNote: '玩家确认第三卷切入', start: true });
+  assert.equal(f.data.stat_data.场景.当前章, '第三卷·第七章'); assert.equal(f.data.stat_data.场景.阶段, '进行中');
+  assert.equal(f.data.stat_data.场景.当前卷, null); assert.equal(f.writes, 1);
+  await assert.rejects(f.api.transition((await f.api.read()).token, { action: 'jump', chapter: '第二卷·终章', time: '翌日', location: '庭园', entryNote: '不应倒退', start: true }), /严格向前/);
+  assert.equal(f.writes, 1);
+});
+await check('第三卷终章之后仍有目录；补齐第四卷首章后原宿主重新读取即可前进', async () => {
+  const f = fixture('第三卷·终章', '已结束', { completeCatalogue: true });
+  const laterEntries = f.entries.splice(25), view = await f.api.read();
+  assert.equal(view.chapters[24].key, '第三卷·终章'); assert.equal(view.chapters[24].available, true);
+  assert.equal(view.chapters[25].key, '第四卷·第一章'); assert.equal(view.chapters[25].available, false);
+  assert.equal(view.chapters.at(-1).key, '第十七卷·终章');
+  await assert.rejects(f.api.transition(view.token, { action: 'next' }), /225/);
+  assert.equal(f.writes, 0);
+  f.entries.push(laterEntries[0]);
+  const refreshed = await f.api.read(); assert.equal(refreshed.chapters[25].available, true);
+  await f.api.transition(refreshed.token, { action: 'next' });
+  assert.equal(f.data.stat_data.场景.当前章, '第四卷·第一章'); assert.equal(f.data.stat_data.场景.阶段, '未开始');
+  assert.equal(f.writes, 1);
+});
+await check('缺失、空正文、错误order、卷章错配、自动触发及重复条目均阻止开始/下一章/跳章，修复后无需重载', async () => {
+  const alterations = [
+    { change: (entries, index) => { entries.splice(index, 1); }, reason: /未找到/ },
+    { change: (entries, index) => { entries[index].content = ' \n '; }, reason: /正文为空/ },
+    { change: (entries, index) => { entries[index].position.order = 999; }, reason: /未找到/ },
+    { change: (entries, index) => { entries[index].name = '[剧情]第三卷.第一章.错误卷章'; }, reason: /卷章不符/ },
+    { change: (entries, index) => { entries[index].enabled = true; }, reason: /请关闭/ },
+    { change: (entries, index) => { entries.push({ ...entries[index], uid: 999 }); }, reason: /多个/ },
+  ];
+  for (const { change, reason } of alterations) for (const action of ['start', 'next', 'jump']) {
+    const f = fixture(action === 'start' ? '第四卷·第一章' : '第三卷·终章', action === 'start' ? '未开始' : '已结束', { completeCatalogue: true });
+    const validEntries = structuredClone(f.entries), before = structuredClone(f.data), view = await f.api.read();
+    change(f.entries, 25);
+    const edit = action === 'jump' ? { action, chapter: '第四卷·第一章', time: '翌日', location: '学院', entryNote: '确认切入', start: true } : { action };
+    await assert.rejects(f.api.transition(view.token, edit), reason);
+    assert.equal(f.writes, 0); assert.deepEqual(f.data, before);
+    const unavailable = await f.api.read(); assert.equal(unavailable.chapters[25].available, false); assert.match(unavailable.chapters[25].reason, reason);
+    f.entries.splice(0, f.entries.length, ...validEntries);
+    const refreshed = await f.api.read(); assert.equal(refreshed.chapters[25].available, true);
+    await f.api.transition(refreshed.token, edit);
+    assert.equal(f.writes, 1); assert.equal(f.data.stat_data.场景.当前章, '第四卷·第一章');
+  }
+});
+await check('中间缺章不阻止显式向前跳到已备妥正文的第十七卷', async () => {
+  const f = fixture('第三卷·终章', '已结束', { completeCatalogue: true });
+  const finalEntry = f.entries.at(-1); f.entries.splice(25); f.entries.push(finalEntry);
+  const view = await f.api.read();
+  assert.equal(view.chapters[25].available, false); assert.equal(view.chapters.at(-1).available, true);
+  await f.api.transition(view.token, { action: 'jump', chapter: '第十七卷·终章', time: '约定之日', location: '学院', entryNote: '玩家确认跨过未收录章', start: true });
+  assert.equal(f.data.stat_data.场景.当前章, '第十七卷·终章'); assert.equal(f.data.stat_data.场景.阶段, '进行中');
+  assert.equal(f.writes, 1);
+});
+await check('第十七卷终章339可结束但不能越过目录末尾', async () => {
+  const f = fixture('第十七卷·终章', '进行中', { completeCatalogue: true }), view = await f.api.read();
+  assert.equal(view.chapters.at(-1).key, '第十七卷·终章'); assert.equal(view.chapters.at(-1).order, 339);
   await f.api.transition(view.token, { action: 'end' });
   await assert.rejects(f.api.transition((await f.api.read()).token, { action: 'next' }), /目录/);
-  assert.equal(f.data.stat_data.场景.当前章, '第二卷·终章'); assert.equal(f.data.stat_data.场景.阶段, '已结束');
+  assert.equal(f.data.stat_data.场景.当前章, '第十七卷·终章'); assert.equal(f.data.stat_data.场景.阶段, '已结束');
   assert.equal(f.data.stat_data.场景.当前卷, null); assert.equal(f.writes, 1);
+});
+await check('无主世界书时读取失败且不写；重新绑定后原宿主读取恢复', async () => {
+  const f = fixture(); f.setPrimary('');
+  await assert.rejects(f.api.read(), /primary 主世界书绑定/); assert.equal(f.writes, 0);
+  f.setPrimary('本局世界书'); const view = await f.api.read();
+  await f.api.transition(view.token, { action: 'end' }); assert.equal(f.writes, 1);
 });
 await check('变更chat/swipe、状态或主世界书后旧token均被拒绝', async () => {
   for (const alter of [f => f.switch(), f => f.mutate(d => { d.stat_data.玩家.姓名 = '另一个'; }), f => f.setPrimary('另一本')]) {

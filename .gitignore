@@ -36,3 +36,50 @@ __pycache__/
 *.pyc
 *.pyo
 /_site/
+
+# Local dependencies, browser captures, and disposable npm cache.
+node_modules/
+.npm-cache/
+/.playwright-cli/
+/output/guard-readiness/npm-cache/
+
+# Generated map iteration captures; retain the final recorded view.
+/map/edge_out_*.png
+!/map/edge_out_v17_trans_perfect.png
+
+# One-off root inspection outputs retired on 2026-11-11.
+/ch4_out.txt
+/ch4_grow_out.txt
+/ch5_6_out.txt
+/epilogue_out.txt
+/t03_out.txt
+/v17_kurono_out.txt
+/v19_interlude_out.txt
+
+# Local conversation exports; existing tracked copies need a separate cleanup.
+/all_user_messages.txt
+/last_user_content.txt
+/last_user_full.txt
+/temp_last_msg.json
+
+# Retired dialogue results; keep user-reproduction.txt and archived components.
+/output/dialogue-bubbles/artifact-check.json
+/output/dialogue-bubbles/browser-check.json
+/output/dialogue-bubbles/check-results.json
+/output/dialogue-bubbles/runtime-check.json
+/output/dialogue-bubbles/preview.html
+/output/dialogue-bubbles/runtime-player-v0.3.jpg
+/output/dialogue-bubbles/runtime-bubble-proof.jpg
+
+# Generated worldbook previews; keep the actual card-update receipt.
+/output/worldbook-preview/00_索引.md
+/output/worldbook-preview/条目/
+/output/worldbook-preview/渲染/
+
+# Historical result-only directories; current regression sources stay tracked.
+/output/xiaoli-avatar-delivery/
+/output/worldbook-calendar/
+/output/oc-profile-avatars-20261101/
+
+# Duplicate plan; the canonical copy is under 加加美头像-20261012.
+/scripts/正文气泡/验证记录/加加美图床-20261012/write-plan.json

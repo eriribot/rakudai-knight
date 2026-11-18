@@ -49,6 +49,9 @@
   var plotStatus = null, plotPreview = null, plotError = '', plotBusy = false, plotRequest = 0;
   var storyCapture = null, storyDraft = null, storyMessage = '', storyBusy = false, storyRequest = 0;
   var contactPortraits = /*__AW_CONTACT_PORTRAITS__*/ null;
+  var calendar = createTerminalCalendar({ getState: () => state, getBridge: () => bridge,
+    getMatches: () => [], esc: escape, toast: notify });
+  Object.assign(window, calendar.actions);
 
   function object(value) { return value && typeof value === 'object' && !Array.isArray(value) ? value : {}; }
   function valueText(value, fallback) {
@@ -249,7 +252,7 @@
     if (usesHostStoryControls()) return panel('STORY CONTROL', '章节与阶段', '<p class="ax-note">本局为落第主线，卷章操作沿用本局剧情控制。切换终端外观不会改变作品。</p><button class="ax-button" data-action="host-story-controls">打开卷章控制</button>');
     var api = bridge?.story, actions = storyActions(), chapters = storyCapture?.chapters || [];
     var scene = object(storyCapture?.state?.场景), index = chapters.findIndex(function (chapter) { return chapter.key === scene.当前章; });
-    var draft = storyDraft || {}, next = index >= 0 ? chapters[index + 1] : null;
+    var draft = storyDraft || {}, current = chapters[index], next = index >= 0 ? chapters[index + 1] : null;
     var unavailable = chapters.filter(function (chapter) { return !chapter.available; });
     var message = storyBusy ? '正在核对剧情状态…' : storyMessage || (dataStatus === 'pending' ? '等待当前回复更新，剧情操作暂不可用。' : !api ? '请更新终端组件以使用章节控制。' : !storyCapture ? '请读取本局章节后操作。' : '已读取当前剧情。选择和填写不会立即改变本局。');
     var actionButtons = [['start', '开始本章'], ['end', '标记本章结束'], ['next', '进入下一章']].map(function (item) {
@@ -261,12 +264,13 @@
     }).join('');
     return panel('STORY CONTROL', '章节与阶段', '<div class="ax-correction"><p role="status" aria-live="polite">' + escape(message) + '</p>' +
       '<div class="ax-button-row"><button class="ax-button" data-story-action="refresh"' + (!api || storyBusy || dataStatus !== 'ready' ? ' disabled' : '') + '>重新读取章节</button>' + actionButtons + '</div>' +
+      (current && !current.available ? '<p class="ax-note">本章暂不可用：' + escape(current.reason || '世界书没有可读取的正文。') + '</p>' : '') +
       (next && !next.available ? '<p class="ax-note">下一章暂不可用：' + escape(next.reason || '世界书没有可读取的正文。') + '</p>' : '') +
-      (storyCapture ? '<p class="ax-small">章节来源：' + escape(storyCapture.worldbook || '本角色主世界书') + '</p><label>向前切入章节<select data-story-field="chapter"' + (!actions.ready ? ' disabled' : '') + ' style="width:100%;max-width:100%;min-height:44px;padding:10px;font:inherit;background:var(--ax-panel,#122e40);color:inherit;border:1px solid var(--ax-line,#51758b)">' + options + '</select></label>' +
+      (storyCapture ? '<p class="ax-small">章节来源：' + escape(storyCapture.worldbook || '本角色主世界书') + '</p><p class="ax-note">目录已列出已知章节；只有主世界书中已备妥正文并通过校验的章节可用。补齐或修正条目后，点击“重新读取章节”即可更新。</p><label>向前切入章节<select data-story-field="chapter"' + (!actions.ready ? ' disabled' : '') + ' style="width:100%;max-width:100%;min-height:44px;padding:10px;font:inherit;background:var(--ax-panel,#122e40);color:inherit;border:1px solid var(--ax-line,#51758b)">' + options + '</select></label>' +
         [['time', '切入时间'], ['location', '切入地点']].map(function (field) { return '<label>' + field[1] + '<input data-story-field="' + field[0] + '" value="' + escape(draft[field[0]] || '') + '"' + (!actions.ready ? ' disabled' : '') + '></label>'; }).join('') +
         '<label>切入说明<textarea data-story-field="entryNote" rows="3"' + (!actions.ready ? ' disabled' : '') + '>' + escape(draft.entryNote || '') + '</textarea></label><p class="ax-note">仅向前切入；保留已有经历。时间和地点按上方填写保存，不自动推算。</p>' +
         '<button class="ax-button ax-button-primary" data-story-action="jump"' + (actions.jump ? '' : ' disabled') + '>确认切入并开始目标章</button>' : '') +
-      (unavailable.length ? '<p class="ax-note">' + unavailable.map(function (chapter) { return escape((chapter.title || chapter.key) + '：' + (chapter.reason || '暂无可读取正文')); }).join('<br>') + '</p>' : '') + '</div>');
+      (unavailable.length ? '<details><summary>查看暂不可用章节（' + unavailable.length + '）</summary><p class="ax-note">' + unavailable.map(function (chapter) { return escape((chapter.title || chapter.key) + '：' + (chapter.reason || '暂无可读取正文')); }).join('<br>') + '</p></details>' : '') + '</div>');
   }
 
   function editStoryField(field, value) {
@@ -318,7 +322,9 @@
       var item = object(entry[1]);
       return '<div class="ax-profile-field"><h3>' + escape(entry[0]) + '</h3><dl class="ax-detail-list">' + line('章段', item.章段) + line('结果', item.结果) + line('参与者', names(item.参与者)) + line('知情者', names(item.知情者)) + '</dl></div>';
     }).join('');
-    return panel('CURRENT SCENE', '当前阶段', '<dl class="ax-detail-list">' + ['当前章', '阶段', '时间', '地点', '切入说明'].map(function (key) { return line(key, scene[key]); }).join('') + '</dl>') + storyControlsView() + plotView() + panel('SCHEDULE', '本局日程', schedule || '<p class="ax-note">尚无登记日程。</p>') + panel('EVENT RECORD', '已发生事件', events || '<p class="ax-note">尚无事件记录。</p>');
+    return panel('CURRENT SCENE', '当前阶段', '<dl class="ax-detail-list">' + ['当前章', '阶段', '时间', '地点', '切入说明'].map(function (key) { return line(key, scene[key]); }).join('') + '</dl>') +
+      '<section class="ax-calendar"><p id="calendar-sub" class="ax-note"></p><div id="calendar-body"></div></section>' +
+      storyControlsView() + plotView() + panel('SCHEDULE', '本局日程', schedule || '<p class="ax-note">尚无登记日程。</p>') + panel('EVENT RECORD', '已发生事件', events || '<p class="ax-note">尚无事件记录。</p>');
   }
 
   function settingsView() {
@@ -379,6 +385,7 @@
     document.documentElement.style.setProperty('--ax-accent', m.school ? m.school.accent : '#a9dcea');
     document.documentElement.style.setProperty('--ax-school', m.school ? m.school.rgb : '169,220,234');
     content.innerHTML = views[currentApp](); // External values enter only through escape().
+    if (currentApp === 'calendar') calendar.actions.renderCalendar();
     content.querySelectorAll('details[data-contact]').forEach(function (node) { node.open = expanded.indexOf(node.dataset.contact) !== -1; });
     document.getElementById('ax-page-title').textContent = apps[currentApp].name;
     document.getElementById('ax-page-code').textContent = apps[currentApp].english;
@@ -396,6 +403,7 @@
     if (id === 'worldbook') id = 'calendar';
     if (!Object.prototype.hasOwnProperty.call(apps, id)) return false;
     if (dialog.open) dialog.close();
+    calendar.actions.closeCalendarStory();
     pageScroll[currentApp] = viewport.scrollTop;
     currentApp = id;
     render();
@@ -425,7 +433,10 @@
         if (currentApp === 'calendar' && !next.pending && !storyCapture && !storyBusy) runStoryAction('refresh');
         return;
       }
-      invalidateStory(snapshot?.source?.chatId !== next.source?.chatId);
+      var changedScope = ['chatId', 'characterId', 'groupId'].some(function (key) { return snapshot?.source?.[key] !== next.source?.[key]; });
+      if (changedScope) calendar.actions.resetCalendarLore();
+      if (snapshot?.source?.messageId !== next.source?.messageId || snapshot?.source?.swipeId !== next.source?.swipeId) calendar.state._initialized = false;
+      invalidateStory(changedScope);
       snapshotSignature = nextSignature;
       state = next.state; snapshot = next; dataStatus = next.pending ? 'pending' : 'ready';
       plotRequest++; plotPreview = null; plotStatus = null; plotError = ''; plotBusy = false;
@@ -508,6 +519,7 @@
     if (typeof unsubscribe === 'function') unsubscribe();
     unsubscribe = null; bridgeRevision++; requestRevision++;
     bridge = nextBridge || null;
+    calendar.actions.resetCalendarLore();
     invalidateStory(true);
     correctionAction++; correctionEditor = null; correctionPreview = null; correctionMessage = '';
     plotRequest++; plotStatus = null; plotPreview = null; plotError = ''; plotBusy = false;
@@ -515,6 +527,7 @@
     render();
     if (bridge && typeof bridge.onUpdate === 'function') unsubscribe = bridge.onUpdate(function (event) {
       if (event?.type === 'player-portrait') { if (currentApp === 'blazer') render(); return; }
+      if (['CHAT_CHANGED', 'CHARACTER_FIRST_MESSAGE_SELECTED'].includes(event?.type)) calendar.actions.resetCalendarLore();
       if (event?.reset && event.type !== 'show') invalidateStory(['CHAT_CHANGED', 'CHARACTER_FIRST_MESSAGE_SELECTED'].includes(event.type));
       if (event?.reset && !['show', 'correction-applied'].includes(event.type)) {
         correctionAction++; correctionPreview = null; correctionMessage = '';
@@ -533,6 +546,6 @@
   window.openApp = openApp;
   window.goHome = function () { return openApp('home'); };
   window.refreshTerminalState = refreshTerminalState;
-  window.addEventListener('pagehide', function () { bridgeRevision++; requestRevision++; correctionAction++; invalidateStory(true); clearTimeout(toastTimer); if (typeof unsubscribe === 'function') unsubscribe(); unsubscribe = null; });
+  window.addEventListener('pagehide', function () { bridgeRevision++; requestRevision++; correctionAction++; calendar.lore.revision++; invalidateStory(true); clearTimeout(toastTimer); if (typeof unsubscribe === 'function') unsubscribe(); unsubscribe = null; });
   render();
 })();

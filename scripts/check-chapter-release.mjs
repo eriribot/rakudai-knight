@@ -31,7 +31,7 @@ const files = {
   worldbook: '世界书规则/v0.3/导出/落第骑士英雄谭.json',
   guard: '世界书规则/MVU/落第骑士-MVU-v4字段约束.json',
   terminal: 'scripts/酒馆助手脚本-小手机-黑白ADV轮盘版-v1.3.6.json',
-  injector: 'scripts/tavern_helper_ejs_injector.json',
+  injector: '世界书规则/MVU/落第骑士-卷章剧情注入器-v3.0.0.json',
   controller: 'scripts/rakudai-state-controller.js',
   opening: '第一卷-世界书整理/开局页面/index.html',
   prechange: 'output/chapter-v4/prechange.zip',

@@ -181,7 +181,7 @@ function uiFixture() {
     document: { body: element('body'), getElementById: element, querySelectorAll: () => [], querySelector: () => null, addEventListener() {} },
     addEventListener() {},
   });
-  realm.window = realm; vm.runInContext(read('terminal-app.js'), realm);
+  realm.window = realm; vm.runInContext(read('terminal-calendar.js') + '\n' + read('terminal-app.js'), realm);
   realm.stat = viewState(playerState()); realm.stateSource = slot(); realm.hasDisplayedState = true;
   realm.dataStatus = 'ready'; realm.blazerSubTab = 'device'; realm.currentStack = ['scr-home', 'scr-blazer'];
   realm.bridge = { editPlayerProfile: async () => {} };

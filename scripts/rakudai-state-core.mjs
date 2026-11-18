@@ -4,6 +4,7 @@ import { createNationalTournamentSchema, deriveNationalTournament, shouldInjectN
 import { STORY_VOLUMES, ASTERISK_VOLUMES, getStoryVolume, resolveStoryChapter, storyPosition, nextStoryChapter, nextStoryChapterForState, firstStoryChapter, resolveAsteriskChapter, asteriskStoryPosition, nextAsteriskChapter } from './rakudai-story-catalog.mjs';
 import { RAKUDAI_INITIAL_STATE, GROWTH_RULES, GROWTH_AXES, ATTRIBUTE_GRADES, normalizeSkillEntry, normalizeGrowthRequests, normalizeStoryPhase, normalizeStoryVolume } from '../世界书规则/MVU/schema.mjs';
 import { repairRakudaiMvuStructure, resolveMvuWorld, hasBlazerAbility, hasBlazerGrowth } from './rakudai-mvu-structure.mjs';
+import { syncNativeStoryDisplay } from './rakudai-mvu-native.mjs';
 
 // 状态规则与运行时适配分开：本模块不访问宿主、不发送消息、不生成剧情。
 export const STATE_CHAPTERS = ['待选择', ...getStoryVolume(1).chapters.map(chapter => chapter.key)];
@@ -275,6 +276,17 @@ function acceptRepairStoryProgress(before, after, storyBefore) {
   return scene.当前卷 === old.当前卷 &&
     resolveStoryChapter(scene.当前卷, scene.当前章)?.key === resolveStoryChapter(old.当前卷, old.当前章)?.key &&
     ['未开始', '进行中', '已结束'].includes(scene.阶段);
+}
+
+// 原生副校正复用相邻章规则；无需注册旧字段约束，也不处理其他业务字段。
+export function settleNativeStoryRepair(variables, previous, storyBefore) {
+  if (resolveMvuWorld(previous?.stat_data) !== 'rakudai') return;
+  const entryNote = variables.stat_data.场景.切入说明;
+  if (!acceptRepairStoryProgress(previous.stat_data, variables.stat_data, storyBefore)) {
+    for (const key of ['当前卷', '当前章', '阶段']) variables.stat_data.场景[key] = previous.stat_data.场景[key];
+  }
+  variables.stat_data.场景.切入说明 = entryNote;
+  syncNativeStoryDisplay(variables, previous);
 }
 
 // 供 MVU 的更新结束事件使用。身份与初评保留页面写入权；经绑定的副校正可补切入说明。

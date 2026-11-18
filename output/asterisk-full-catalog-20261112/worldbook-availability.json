@@ -1,0 +1,990 @@
+{
+  "worldbook": "落第x学战v0.06",
+  "sourceSha256": "35659a96d4387a3e0ebb4bf80cbaa1e2b185cd0a0bcff117b8e4bb820f6308e4",
+  "volumes": 17,
+  "total": 140,
+  "available": 25,
+  "firstThreeUnchanged": true,
+  "chapters": [
+    {
+      "key": "序章",
+      "title": "第一卷·序章 倏然疾风",
+      "order": 200,
+      "available": true,
+      "reason": ""
+    },
+    {
+      "key": "第一章",
+      "title": "第一卷·第一章 华焰魔女",
+      "order": 201,
+      "available": true,
+      "reason": ""
+    },
+    {
+      "key": "第二章",
+      "title": "第一卷·第二章 学战都市",
+      "order": 202,
+      "available": true,
+      "reason": ""
+    },
+    {
+      "key": "第三章",
+      "title": "第一卷·第三章 凛凛眼神",
+      "order": 203,
+      "available": true,
+      "reason": ""
+    },
+    {
+      "key": "第四章",
+      "title": "第一卷·第四章 回忆与重逢",
+      "order": 204,
+      "available": true,
+      "reason": ""
+    },
+    {
+      "key": "第五章",
+      "title": "第一卷·第五章 黑炉魔剑",
+      "order": 205,
+      "available": true,
+      "reason": ""
+    },
+    {
+      "key": "第六章",
+      "title": "第一卷·第六章 两人的假日",
+      "order": 206,
+      "available": true,
+      "reason": ""
+    },
+    {
+      "key": "第七章",
+      "title": "第一卷·第七章 解放者",
+      "order": 207,
+      "available": true,
+      "reason": ""
+    },
+    {
+      "key": "终章",
+      "title": "第一卷·终章 并肩之誓",
+      "order": 208,
+      "available": true,
+      "reason": ""
+    },
+    {
+      "key": "第二卷·第一章",
+      "title": "第二卷·第一章 六花园会议",
+      "order": 209,
+      "available": true,
+      "reason": ""
+    },
+    {
+      "key": "第二卷·第二章",
+      "title": "第二卷·第二章 昏枭暗跃",
+      "order": 210,
+      "available": true,
+      "reason": ""
+    },
+    {
+      "key": "第二卷·第三章",
+      "title": "第二卷·第三章 疾风刃雷",
+      "order": 211,
+      "available": true,
+      "reason": ""
+    },
+    {
+      "key": "第二卷·第四章",
+      "title": "第二卷·第四章 错综的思绪",
+      "order": 212,
+      "available": true,
+      "reason": ""
+    },
+    {
+      "key": "第二卷·第五章",
+      "title": "第二卷·第五章 少女素颜",
+      "order": 213,
+      "available": true,
+      "reason": ""
+    },
+    {
+      "key": "第二卷·第六章",
+      "title": "第二卷·第六章 雾中魔手",
+      "order": 214,
+      "available": true,
+      "reason": ""
+    },
+    {
+      "key": "第二卷·第七章",
+      "title": "第二卷·第七章 决意与决斗",
+      "order": 215,
+      "available": true,
+      "reason": ""
+    },
+    {
+      "key": "第二卷·终章",
+      "title": "第二卷·终章 蜀山组队",
+      "order": 216,
+      "available": true,
+      "reason": ""
+    },
+    {
+      "key": "第三卷·第一章",
+      "title": "第三卷·第一章 开幕前夜",
+      "order": 217,
+      "available": true,
+      "reason": ""
+    },
+    {
+      "key": "第三卷·第二章",
+      "title": "第三卷·第二章 凤凰星武祭",
+      "order": 218,
+      "available": true,
+      "reason": ""
+    },
+    {
+      "key": "第三卷·第三章",
+      "title": "第三卷·第三章 阿尔第与莉姆希",
+      "order": 219,
+      "available": true,
+      "reason": ""
+    },
+    {
+      "key": "第三卷·第四章",
+      "title": "第三卷·第四章 吸血暴姬",
+      "order": 220,
+      "available": true,
+      "reason": ""
+    },
+    {
+      "key": "第三卷·第五章",
+      "title": "第三卷·第五章 雷渥夫姐妹",
+      "order": 221,
+      "available": true,
+      "reason": ""
+    },
+    {
+      "key": "第三卷·第六章",
+      "title": "第三卷·第六章 力量与代价",
+      "order": 222,
+      "available": true,
+      "reason": ""
+    },
+    {
+      "key": "第三卷·第七章",
+      "title": "第三卷·第七章 霸溃血镰",
+      "order": 223,
+      "available": true,
+      "reason": ""
+    },
+    {
+      "key": "第三卷·终章",
+      "title": "第三卷·终章 余烬与暗流",
+      "order": 224,
+      "available": true,
+      "reason": ""
+    },
+    {
+      "key": "第四卷·第一章",
+      "title": "第四卷·第一章 界龙之主",
+      "order": 225,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 225 的 [剧情] 条目。"
+    },
+    {
+      "key": "第四卷·第二章",
+      "title": "第四卷·第二章 第五轮对战",
+      "order": 226,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 226 的 [剧情] 条目。"
+    },
+    {
+      "key": "第四卷·第三章",
+      "title": "第四卷·第三章 来访者",
+      "order": 227,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 227 的 [剧情] 条目。"
+    },
+    {
+      "key": "第四卷·第四章",
+      "title": "第四卷·第四章 迷惘",
+      "order": 228,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 228 的 [剧情] 条目。"
+    },
+    {
+      "key": "第四卷·第五章",
+      "title": "第四卷·第五章 姐姐与玩伴",
+      "order": 229,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 229 的 [剧情] 条目。"
+    },
+    {
+      "key": "第四卷·第六章",
+      "title": "第四卷·第六章 第二个关键",
+      "order": 230,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 230 的 [剧情] 条目。"
+    },
+    {
+      "key": "第四卷·第七章",
+      "title": "第四卷·第七章 坚决的意志",
+      "order": 231,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 231 的 [剧情] 条目。"
+    },
+    {
+      "key": "第四卷·终章",
+      "title": "第四卷·终章 看台暗影",
+      "order": 232,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 232 的 [剧情] 条目。"
+    },
+    {
+      "key": "第五卷·第一章",
+      "title": "第五卷·第一章 准决赛第一回合",
+      "order": 233,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 233 的 [剧情] 条目。"
+    },
+    {
+      "key": "第五卷·第二章",
+      "title": "第五卷·第二章 恶辣的操偶线",
+      "order": 234,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 234 的 [剧情] 条目。"
+    },
+    {
+      "key": "第五卷·第三章",
+      "title": "第五卷·第三章 准决赛第二回合",
+      "order": 235,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 235 的 [剧情] 条目。"
+    },
+    {
+      "key": "第五卷·第四章",
+      "title": "第五卷·第四章 奔走",
+      "order": 236,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 236 的 [剧情] 条目。"
+    },
+    {
+      "key": "第五卷·第五章",
+      "title": "第五卷·第五章 偶然邂逅",
+      "order": 237,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 237 的 [剧情] 条目。"
+    },
+    {
+      "key": "第五卷·第六章",
+      "title": "第五卷·第六章 双方的决战",
+      "order": 238,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 238 的 [剧情] 条目。"
+    },
+    {
+      "key": "第五卷·第七章",
+      "title": "第五卷·第七章 后夜祭",
+      "order": 239,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 239 的 [剧情] 条目。"
+    },
+    {
+      "key": "第五卷·终章",
+      "title": "第五卷·终章 沉睡的姐姐",
+      "order": 240,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 240 的 [剧情] 条目。"
+    },
+    {
+      "key": "第六卷·第一章",
+      "title": "第六卷·第一章 各自的序章",
+      "order": 241,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 241 的 [剧情] 条目。"
+    },
+    {
+      "key": "第六卷·第二章",
+      "title": "第六卷·第二章 亲爱的人们",
+      "order": 242,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 242 的 [剧情] 条目。"
+    },
+    {
+      "key": "第六卷·第三章",
+      "title": "第六卷·第三章 莱泽塔尼亚",
+      "order": 243,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 243 的 [剧情] 条目。"
+    },
+    {
+      "key": "第六卷·第四章",
+      "title": "第六卷·第四章 尤莉丝与孤儿院",
+      "order": 244,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 244 的 [剧情] 条目。"
+    },
+    {
+      "key": "第六卷·第五章",
+      "title": "第六卷·第五章 《孤毒魔女》",
+      "order": 245,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 245 的 [剧情] 条目。"
+    },
+    {
+      "key": "第六卷·第六章",
+      "title": "第六卷·第六章 魔龙讨伐",
+      "order": 246,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 246 的 [剧情] 条目。"
+    },
+    {
+      "key": "第六卷·第七章",
+      "title": "第六卷·第七章 重逢",
+      "order": 247,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 247 的 [剧情] 条目。"
+    },
+    {
+      "key": "第六卷·终章",
+      "title": "第六卷·终章 狮鹫之约",
+      "order": 248,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 248 的 [剧情] 条目。"
+    },
+    {
+      "key": "第七卷·第一章",
+      "title": "第七卷·第一章 《大博士》的邀约",
+      "order": 249,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 249 的 [剧情] 条目。"
+    },
+    {
+      "key": "第七卷·第二章",
+      "title": "第七卷·第二章 煌式远距引导武装",
+      "order": 250,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 250 的 [剧情] 条目。"
+    },
+    {
+      "key": "第七卷·第三章",
+      "title": "第七卷·第三章 学园祭狂想曲Ⅰ",
+      "order": 251,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 251 的 [剧情] 条目。"
+    },
+    {
+      "key": "第七卷·第四章",
+      "title": "第七卷·第四章 学园祭狂想曲Ⅱ",
+      "order": 252,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 252 的 [剧情] 条目。"
+    },
+    {
+      "key": "第七卷·第五章",
+      "title": "第七卷·第五章 学园祭狂想曲Ⅲ",
+      "order": 253,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 253 的 [剧情] 条目。"
+    },
+    {
+      "key": "第七卷·第六章",
+      "title": "第七卷·第六章 顶上竞技场",
+      "order": 254,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 254 的 [剧情] 条目。"
+    },
+    {
+      "key": "第七卷·第七章",
+      "title": "第七卷·第七章 拉迪斯勒夫的幺子",
+      "order": 255,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 255 的 [剧情] 条目。"
+    },
+    {
+      "key": "第七卷·终章",
+      "title": "第七卷·终章 携手寻师",
+      "order": 256,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 256 的 [剧情] 条目。"
+    },
+    {
+      "key": "第八卷·第一章",
+      "title": "第八卷·第一章 教练研磨",
+      "order": 257,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 257 的 [剧情] 条目。"
+    },
+    {
+      "key": "第八卷·第二章",
+      "title": "第八卷·第二章 《狮鹫星武祭》",
+      "order": 258,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 258 的 [剧情] 条目。"
+    },
+    {
+      "key": "第八卷·第三章",
+      "title": "第八卷·第三章 活宝女孩们",
+      "order": 259,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 259 的 [剧情] 条目。"
+    },
+    {
+      "key": "第八卷·第四章",
+      "title": "第八卷·第四章 开始行动的人们",
+      "order": 260,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 260 的 [剧情] 条目。"
+    },
+    {
+      "key": "第八卷·第五章",
+      "title": "第八卷·第五章 蚀武遗迹",
+      "order": 261,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 261 的 [剧情] 条目。"
+    },
+    {
+      "key": "第八卷·第六章",
+      "title": "第八卷·第六章 《极北天琴》",
+      "order": 262,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 262 的 [剧情] 条目。"
+    },
+    {
+      "key": "第八卷·第七章",
+      "title": "第八卷·第七章 骚动之夜",
+      "order": 263,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 263 的 [剧情] 条目。"
+    },
+    {
+      "key": "第八卷·第八章",
+      "title": "第八卷·第八章 偶像决战",
+      "order": 264,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 264 的 [剧情] 条目。"
+    },
+    {
+      "key": "第八卷·终章",
+      "title": "第八卷·终章 夕阳告白",
+      "order": 265,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 265 的 [剧情] 条目。"
+    },
+    {
+      "key": "第九卷·第一章",
+      "title": "第九卷·第一章 追忆／前夜",
+      "order": 266,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 266 的 [剧情] 条目。"
+    },
+    {
+      "key": "第九卷·第二章",
+      "title": "第九卷·第二章 追忆Ⅱ／晓",
+      "order": 267,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 267 的 [剧情] 条目。"
+    },
+    {
+      "key": "第九卷·第三章",
+      "title": "第九卷·第三章 上半天／追忆Ⅲ",
+      "order": 268,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 268 的 [剧情] 条目。"
+    },
+    {
+      "key": "第九卷·第四章",
+      "title": "第九卷·第四章 午时",
+      "order": 269,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 269 的 [剧情] 条目。"
+    },
+    {
+      "key": "第九卷·第五章",
+      "title": "第九卷·第五章 正午",
+      "order": 270,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 270 的 [剧情] 条目。"
+    },
+    {
+      "key": "第九卷·第六章",
+      "title": "第九卷·第六章 逢魔时",
+      "order": 271,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 271 的 [剧情] 条目。"
+    },
+    {
+      "key": "第九卷·第七章",
+      "title": "第九卷·第七章 小夜",
+      "order": 272,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 272 的 [剧情] 条目。"
+    },
+    {
+      "key": "第九卷·第八章",
+      "title": "第九卷·第八章 半宵",
+      "order": 273,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 273 的 [剧情] 条目。"
+    },
+    {
+      "key": "第九卷·终章",
+      "title": "第九卷·终章 余波与战意",
+      "order": 274,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 274 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十卷·第一章",
+      "title": "第十卷·第一章 首席徒弟",
+      "order": 275,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 275 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十卷·第二章",
+      "title": "第十卷·第二章 准决赛",
+      "order": 276,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 276 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十卷·第三章",
+      "title": "第十卷·第三章 《霸军星君》与《疾风刃雷》",
+      "order": 277,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 277 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十卷·第四章",
+      "title": "第十卷·第四章 千里眼",
+      "order": 278,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 278 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十卷·第五章",
+      "title": "第十卷·第五章 《处刑刀》",
+      "order": 279,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 279 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十卷·第六章",
+      "title": "第十卷·第六章 开幕",
+      "order": 280,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 280 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十卷·第七章",
+      "title": "第十卷·第七章 兰斯洛特队",
+      "order": 281,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 281 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十卷·第八章",
+      "title": "第十卷·第八章 恩菲尔德队",
+      "order": 282,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 282 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十卷·终章",
+      "title": "第十卷·终章 桂冠之后",
+      "order": 283,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 283 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十一卷·第一章",
+      "title": "第十一卷·第一章 各自的道路",
+      "order": 284,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 284 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十一卷·第二章",
+      "title": "第十一卷·第二章 返乡，天雾家",
+      "order": 285,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 285 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十一卷·第三章",
+      "title": "第十一卷·第三章 父与母",
+      "order": 286,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 286 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十一卷·第四章",
+      "title": "第十一卷·第四章 姐姐天雾遥",
+      "order": 287,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 287 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十一卷·第五章",
+      "title": "第十一卷·第五章 返乡，刀藤家",
+      "order": 288,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 288 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十一卷·第六章",
+      "title": "第十一卷·第六章 家族之形",
+      "order": 289,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 289 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十一卷·第七章",
+      "title": "第十一卷·第七章 跨入内心的深处",
+      "order": 290,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 290 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十一卷·第八章",
+      "title": "第十一卷·第八章 决心",
+      "order": 291,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 291 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十一卷·终章",
+      "title": "第十一卷·终章 长眠初醒",
+      "order": 292,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 292 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十二卷·第一章",
+      "title": "第十二卷·第一章 姐弟重逢",
+      "order": 293,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 293 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十二卷·第二章",
+      "title": "第十二卷·第二章 八薙草朱莉",
+      "order": 294,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 294 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十二卷·第三章",
+      "title": "第十二卷·第三章 血缘关系",
+      "order": 295,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 295 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十二卷·第四章",
+      "title": "第十二卷·第四章 马迪亚斯•梅萨",
+      "order": 296,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 296 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十二卷·第五章",
+      "title": "第十二卷·第五章 聚集至王龙的众人",
+      "order": 297,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 297 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十二卷·第六章",
+      "title": "第十二卷·第六章 序曲",
+      "order": 298,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 298 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十二卷·第七章",
+      "title": "第十二卷·第七章 准备决战",
+      "order": 299,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 299 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十二卷·终章",
+      "title": "第十二卷·终章 开幕之晨",
+      "order": 300,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 300 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十三卷·第一章",
+      "title": "第十三卷·第一章 八薙草朱莉•二",
+      "order": 301,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 301 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十三卷·第二章",
+      "title": "第十三卷·第二章 八薙草朱莉•三",
+      "order": 302,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 302 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十三卷·第三章",
+      "title": "第十三卷·第三章 《王龙星武祭》开幕",
+      "order": 303,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 303 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十三卷·第四章",
+      "title": "第十三卷·第四章 预赛•一",
+      "order": 304,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 304 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十三卷·第五章",
+      "title": "第十三卷·第五章 预赛•二",
+      "order": 305,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 305 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十三卷·第六章",
+      "title": "第十三卷·第六章 预赛•三",
+      "order": 306,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 306 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十三卷·第七章",
+      "title": "第十三卷·第七章 胎动",
+      "order": 307,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 307 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十三卷·第八章",
+      "title": "第十三卷·第八章 准备反击",
+      "order": 308,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 308 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十三卷·第九章",
+      "title": "第十三卷·第九章 第四轮比赛",
+      "order": 309,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 309 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十三卷·终章",
+      "title": "第十三卷·终章 十六强揭晓",
+      "order": 310,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 310 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十四卷·第一章",
+      "title": "第十四卷·第一章 纠葛",
+      "order": 311,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 311 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十四卷·第二章",
+      "title": "第十四卷·第二章 第五轮比赛•一",
+      "order": 312,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 312 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十四卷·第三章",
+      "title": "第十四卷·第三章 第五轮比赛•二",
+      "order": 313,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 313 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十四卷·第四章",
+      "title": "第十四卷·第四章 第五轮比赛•三",
+      "order": 314,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 314 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十四卷·第五章",
+      "title": "第十四卷·第五章 第五轮比赛•四",
+      "order": 315,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 315 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十四卷·第六章",
+      "title": "第十四卷·第六章 交错",
+      "order": 316,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 316 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十五卷·第一章",
+      "title": "第十五卷·第一章 布石错综",
+      "order": 317,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 317 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十五卷·第二章",
+      "title": "第十五卷·第二章 半准决赛第一回合",
+      "order": 318,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 318 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十五卷·第三章",
+      "title": "第十五卷·第三章 半准决赛第二回合",
+      "order": 319,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 319 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十五卷·第四章",
+      "title": "第十五卷·第四章 半准决赛第三回合",
+      "order": 320,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 320 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十五卷·第五章",
+      "title": "第十五卷·第五章 魔剑的继承者",
+      "order": 321,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 321 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十五卷·第六章",
+      "title": "第十五卷·第六章 八薙草朱莉与马迪亚斯•梅萨",
+      "order": 322,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 322 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十五卷·第七章",
+      "title": "第十五卷·第七章 准决赛第一回合",
+      "order": 323,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 323 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十五卷·终章",
+      "title": "第十五卷·终章 决赛之约",
+      "order": 324,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 324 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十六卷·第一章",
+      "title": "第十六卷·第一章 准决赛第二回合",
+      "order": 325,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 325 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十六卷·第二章",
+      "title": "第十六卷·第二章 孤毒与恶辣",
+      "order": 326,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 326 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十六卷·第三章",
+      "title": "第十六卷·第三章 异色眼",
+      "order": 327,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 327 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十六卷·第四章",
+      "title": "第十六卷·第四章 一线希望",
+      "order": 328,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 328 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十六卷·第五章",
+      "title": "第十六卷·第五章 起始的回忆",
+      "order": 329,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 329 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十六卷·第六章",
+      "title": "第十六卷·第六章 《圣枪》",
+      "order": 330,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 330 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十六卷·第七章",
+      "title": "第十六卷·第七章 决战《瓦尔妲＝瓦欧斯》",
+      "order": 331,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 331 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十六卷·终章",
+      "title": "第十六卷·终章 同盟的背叛",
+      "order": 332,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 332 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十七卷·第一章",
+      "title": "第十七卷·第一章 最终决战•一",
+      "order": 333,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 333 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十七卷·第二章",
+      "title": "第十七卷·第二章 最终决战•二",
+      "order": 334,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 334 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十七卷·第三章",
+      "title": "第十七卷·第三章 最终决战•三",
+      "order": 335,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 335 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十七卷·第四章",
+      "title": "第十七卷·第四章 最终决战•四",
+      "order": 336,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 336 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十七卷·第五章",
+      "title": "第十七卷·第五章 梦境的结束",
+      "order": 337,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 337 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十七卷·第六章",
+      "title": "第十七卷·第六章 全新的日子",
+      "order": 338,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 338 的 [剧情] 条目。"
+    },
+    {
+      "key": "第十七卷·终章",
+      "title": "第十七卷·终章 并肩前行",
+      "order": 339,
+      "available": false,
+      "reason": "当前主世界书未找到顺序为 339 的 [剧情] 条目。"
+    }
+  ]
+}

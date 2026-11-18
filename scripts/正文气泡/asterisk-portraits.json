@@ -530,6 +530,541 @@
       "sha256": "aeeaa6e97e2711667805dcabb98af3b86add8a24851648929795cb8ad0634368",
       "file": "resource/asteriskavatars/ardy.jpg",
       "id": "ardy"
+    },
+    {
+      "id": "yosuga",
+      "name": "美原缘",
+      "aliases": [
+        "美之原缘",
+        "美原緣",
+        "美之原緣",
+        "美ヶ原よすが",
+        "美ヶ原 よすが",
+        "Yosuga Migahara",
+        "Migahara Yosuga",
+        "Yosuga"
+      ],
+      "file": "resource/asteriskavatars/yosuga-anime.jpg",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/yosuga-anime.jpg",
+      "width": 1280,
+      "height": 720,
+      "portraitCrop": [
+        390,
+        0,
+        620,
+        719.2
+      ],
+      "sourcePage": "https://fapservice.com/gakusen-toshi-asterisk-fanservice-review-episodes-910/",
+      "sourceUrl": "https://fapservice.com/wp-content/uploads/2015/12/Purrint059.jpg",
+      "sha256": "514b73f70977692a5e1f587ac07ea419d53812d9dd8bca43bbf3dec47504f533"
+    },
+    {
+      "id": "yanon",
+      "name": "久慈冢夜音",
+      "aliases": [
+        "夜音",
+        "久慈塚夜音",
+        "久慈家夜音",
+        "久慈塚やのん",
+        "久慈塚 やのん",
+        "やのん",
+        "Yanon",
+        "Yanon Kujizuka",
+        "Kujizuka Yanon"
+      ],
+      "file": "resource/asteriskavatars/yanon-anime.jpg",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/yanon-anime.jpg",
+      "width": 1280,
+      "height": 720,
+      "portraitCrop": [
+        300,
+        0,
+        620,
+        719.2
+      ],
+      "sourcePage": "https://fapservice.com/gakusen-toshi-asterisk-fanservice-review-episodes-910/",
+      "sourceUrl": "https://fapservice.com/wp-content/uploads/2015/12/Purrint058.jpg",
+      "sha256": "a86a57d2aba8b77811d73aac74f6eb230359a51751091a295ff5a6edf01a4d27",
+      "aliasNote": "久慈家夜音兼容用户截图误写；本项目主名沿用DLC久慈冢夜音。"
+    },
+    {
+      "id": "sylvia",
+      "name": "席尔薇雅·琉奈海姆",
+      "aliases": [
+        "席尔薇雅",
+        "席尔薇",
+        "席爾薇雅",
+        "席爾薇",
+        "席爾薇雅·琉奈海姆",
+        "Sylvia",
+        "Sylvie",
+        "Sylvia Lyyneheym",
+        "シルヴィア・リューネハイム"
+      ],
+      "portraitCrop": [
+        490,
+        10,
+        480,
+        556.8
+      ],
+      "file": "resource/asteriskavatars/sylvia-anime.jpg",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/sylvia-anime.jpg",
+      "width": 1366,
+      "height": 768,
+      "sourcePage": "https://fapservice.com/gakusen-toshi-asterisk-fanservice-review-episodes-11-12/",
+      "sourceUrl": "https://fapservice.com/wp-content/uploads/2015/12/Purrint229.jpg",
+      "sha256": "fc80a61375ba56e4068717c8dc69200fe4e36539590bb04443f520a81104785c"
+    },
+    {
+      "id": "haruka",
+      "name": "天雾遥",
+      "aliases": [
+        "天霧遙",
+        "天霧遥",
+        "天雾遙",
+        "Haruka",
+        "Haruka Amagiri",
+        "Amagiri Haruka",
+        "天霧 遥"
+      ],
+      "portraitCrop": [
+        360,
+        90,
+        300,
+        348
+      ],
+      "file": "resource/asteriskavatars/haruka-anime.jpg",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/haruka-anime.jpg",
+      "width": 1280,
+      "height": 720,
+      "sourcePage": "https://otanews.livedoor.biz/archives/52048957.html",
+      "sourceUrl": "https://livedoor.blogimg.jp/otanews/imgs/0/9/095f0fbe.jpg",
+      "sha256": "01f3576d6aac86e1bb3881a41c0894f219a0638953babd05fc73fd4efd4fb0ce"
+    },
+    {
+      "id": "flora",
+      "name": "芙萝拉·克蕾姆",
+      "aliases": [
+        "芙萝拉",
+        "芙蘿拉",
+        "芙蘿拉·克蕾姆",
+        "Flora",
+        "Flora Klemm",
+        "フローラ・クレム"
+      ],
+      "portraitCrop": [
+        285,
+        0,
+        320,
+        371.2
+      ],
+      "file": "resource/asteriskavatars/flora-anime.jpg",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/flora-anime.jpg",
+      "width": 662,
+      "height": 372,
+      "sourcePage": "https://asterisk-war.com/story/st14.html",
+      "sourceUrl": "https://asterisk-war.com/assets/img/story/14/ep_slide02.jpg",
+      "sha256": "bcffa6885496fc49a38b7f97d5040c61928ab987f3d713621e055941a67b276d"
+    },
+    {
+      "id": "hufeng",
+      "name": "赵虎峰",
+      "aliases": [
+        "虎峰",
+        "趙虎峰",
+        "Zhao Hufeng",
+        "Zhao Hu Feng",
+        "Hu Feng",
+        "ジャオ・フーフォン"
+      ],
+      "portraitCrop": [
+        385,
+        180,
+        190,
+        220.4
+      ],
+      "file": "resource/asteriskavatars/hufeng-anime.jpg",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/hufeng-anime.jpg",
+      "width": 600,
+      "height": 500,
+      "sourcePage": "https://asterisk-war.com/character/jielong.html",
+      "sourceUrl": "https://asterisk-war.com/assets/img/character/character_ph/zhao2.jpg",
+      "sha256": "4c64da28e199230df4f533fa6e38d27a10a15dc9c2f8baa7ed2bc94af008230d"
+    },
+    {
+      "id": "shenyun",
+      "name": "黎沈云",
+      "aliases": [
+        "沈云",
+        "黎沈雲",
+        "沈雲",
+        "Li Shenyun",
+        "Shenyun",
+        "リー・シェンユン"
+      ],
+      "portraitCrop": [
+        760,
+        150,
+        320,
+        371.2
+      ],
+      "file": "resource/asteriskavatars/shenyun-anime.jpg",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/shenyun-anime.jpg",
+      "width": 1280,
+      "height": 720,
+      "sourcePage": "https://otanews.livedoor.biz/archives/52048957.html",
+      "sourceUrl": "https://livedoor.blogimg.jp/otanews/imgs/2/5/250c97c2.jpg",
+      "sha256": "d1cacd8d991c7dcc67f194be59273eb98a231aa86cce02af7104c6c13f0f9175"
+    },
+    {
+      "id": "shenhua",
+      "name": "黎沈华",
+      "aliases": [
+        "沈华",
+        "黎沈華",
+        "沈華",
+        "Li Shenhua",
+        "Shenhua",
+        "リー・シェンファ"
+      ],
+      "portraitCrop": [
+        240,
+        0,
+        340,
+        394.4
+      ],
+      "file": "resource/asteriskavatars/shenhua-anime.jpg",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/shenhua-anime.jpg",
+      "width": 1280,
+      "height": 720,
+      "sourcePage": "https://otanews.livedoor.biz/archives/52048957.html",
+      "sourceUrl": "https://livedoor.blogimg.jp/otanews/imgs/2/5/250c97c2.jpg",
+      "sha256": "d1cacd8d991c7dcc67f194be59273eb98a231aa86cce02af7104c6c13f0f9175"
+    },
+    {
+      "id": "kouichiro",
+      "name": "刀藤钢一郎",
+      "aliases": [
+        "刀藤鋼一郎",
+        "钢一郎",
+        "鋼一郎"
+      ],
+      "portraitCrop": [
+        190,
+        130,
+        220,
+        255.2
+      ],
+      "file": "resource/asteriskavatars/kouichiro-anime.jpg",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/kouichiro-anime.jpg",
+      "width": 600,
+      "height": 500,
+      "sourcePage": "https://asterisk-war.com/character/others.html",
+      "sourceUrl": "https://asterisk-war.com/assets/img/character/character_ph/kouichiro2.jpg",
+      "sha256": "b419400380c7f2c7f3ded6ab7a1672a55aab4d14013b873f65d987367f7049f0"
+    },
+    {
+      "id": "sakon",
+      "name": "左近洲马",
+      "aliases": [
+        "左近州马",
+        "左近洲馬",
+        "左近州馬"
+      ],
+      "portraitCrop": [
+        60,
+        35,
+        220,
+        255.2
+      ],
+      "file": "resource/asteriskavatars/sakon-anime.jpg",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/sakon-anime.jpg",
+      "width": 600,
+      "height": 500,
+      "sourcePage": "https://asterisk-war.com/character/allekant.html",
+      "sourceUrl": "https://asterisk-war.com/assets/img/character/character_ph/shuma2.jpg",
+      "sha256": "342e77950762b07ec935b5d9399d65cc9c4893a2a82609f4795ceeddc357b530"
+    },
+    {
+      "id": "mathias",
+      "name": "马迪亚斯·梅萨",
+      "aliases": [
+        "馬迪亞斯·梅薩",
+        "马迪亚斯",
+        "馬迪亞斯"
+      ],
+      "portraitCrop": [
+        590,
+        65,
+        250,
+        290
+      ],
+      "file": "resource/asteriskavatars/mathias-anime.jpg",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/mathias-anime.jpg",
+      "width": 2880,
+      "height": 813,
+      "sourcePage": "https://totkuruma01.blogto.jp/archives/411506.html",
+      "sourceUrl": "https://livedoor.blogimg.jp/animeda/imgs/2/b/2bbf12ba.jpg",
+      "sha256": "f0584d4034fa043806e726b8be101a8541ad44c4f6b22894c1c615e8406729c3"
+    },
+    {
+      "id": "miko",
+      "name": "梁濑咪子",
+      "aliases": [
+        "梁瀨咪子",
+        "梁瀬ミーコ",
+        "咪子"
+      ],
+      "portraitCrop": [
+        660,
+        65,
+        400,
+        464
+      ],
+      "file": "resource/asteriskavatars/miko-anime.jpg",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/miko-anime.jpg",
+      "width": 1366,
+      "height": 768,
+      "sourcePage": "https://fapservice.com/gakusen-toshi-asterisk-fanservice-review-episodes-11-12/",
+      "sourceUrl": "https://fapservice.com/wp-content/uploads/2015/12/Purrint225.jpg",
+      "sha256": "7f8c403cabd1d2e829e34e6dd798b2f30552430f5c9302edb22712e30ea3eaed"
+    },
+    {
+      "id": "tsune",
+      "name": "芳亭常",
+      "aliases": [
+        "亭常",
+        "ファム・ティ・チャム",
+        "Pham Thi Tram"
+      ],
+      "portraitCrop": [
+        200,
+        250,
+        320,
+        371.2
+      ],
+      "file": "resource/asteriskavatars/tsune-anime.jpg",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/tsune-anime.jpg",
+      "width": 1366,
+      "height": 768,
+      "sourcePage": "https://fapservice.com/gakusen-toshi-asterisk-fanservice-review-episodes-11-12/",
+      "sourceUrl": "https://fapservice.com/wp-content/uploads/2015/12/Purrint224.jpg",
+      "sha256": "e1bb1e22e71cc402a5515d26ea026e502f061cb0519bfd664feccdb514c4ef01"
+    },
+    {
+      "id": "laetitia",
+      "name": "列媞希亚·布兰查得",
+      "aliases": [
+        "列媞希亚",
+        "列媞希亞",
+        "列媞希亞·布蘭查得",
+        "列媞希亚·布兰查德",
+        "列媞希亞·布蘭查德",
+        "Laetitia",
+        "Laetitia Blanchard",
+        "レティシア・ブランシャール"
+      ],
+      "portraitCrop": [
+        85,
+        80,
+        270,
+        313.2
+      ],
+      "file": "resource/asteriskavatars/laetitia-anime.jpg",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/laetitia-anime.jpg",
+      "width": 1366,
+      "height": 768,
+      "sourcePage": "https://fapservice.com/gakusen-toshi-asterisk-fanservice-review-episodes-11-12/",
+      "sourceUrl": "https://fapservice.com/wp-content/uploads/2015/12/Purrint228.jpg",
+      "sha256": "5c7d7d2365d4417ea830a65c13924e5094d74210715b984e984e509cc2ce8ebe"
+    },
+    {
+      "id": "elliot",
+      "name": "艾略特·佛斯达",
+      "aliases": [
+        "艾略特",
+        "艾略特·佛斯達",
+        "Elliot",
+        "Elliot Forster",
+        "エリオット・フォースター"
+      ],
+      "portraitCrop": [
+        35,
+        82,
+        200,
+        232
+      ],
+      "file": "resource/asteriskavatars/elliot-anime.jpg",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/elliot-anime.jpg",
+      "width": 662,
+      "height": 372,
+      "sourcePage": "https://asterisk-war.com/story/st18.html",
+      "sourceUrl": "https://asterisk-war.com/assets/img/story/18/ep_slide03.jpg",
+      "sha256": "33e5f4d2f2c088ba65856936263ee269d0d1efdd6d568bdcedd17aaf9be386db"
+    },
+    {
+      "id": "doroteo",
+      "name": "多洛提欧·雷姆斯",
+      "aliases": [
+        "多洛提欧",
+        "多洛提歐",
+        "多洛提歐·雷姆斯",
+        "Doroteo",
+        "Doroteo Lemus",
+        "ドロテオ・レムス"
+      ],
+      "portraitCrop": [
+        25,
+        75,
+        245,
+        284.2
+      ],
+      "file": "resource/asteriskavatars/doroteo-anime.jpg",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/doroteo-anime.jpg",
+      "width": 600,
+      "height": 500,
+      "sourcePage": "https://asterisk-war.com/character/gallardworth.html",
+      "sourceUrl": "https://asterisk-war.com/assets/img/character/character_ph/doroteo2.jpg",
+      "sha256": "a91c5a450b8131592f8a9ca436da5218d7b6e9baabe0cda2d936da597f00b1d1"
+    },
+    {
+      "id": "guan",
+      "name": "关",
+      "aliases": [
+        "關",
+        "Guan",
+        "Guen",
+        "Nguyen",
+        "グエン"
+      ],
+      "portraitCrop": [
+        0,
+        0,
+        310,
+        359.6
+      ],
+      "file": "resource/asteriskavatars/guan-anime.jpg",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/guan-anime.jpg",
+      "width": 314,
+      "height": 426,
+      "sourcePage": "https://otakotaku.com/character/view/4726/guen",
+      "sourceUrl": "https://otakotaku.com/asset/img/character/2016/06/guen.jpg",
+      "sha256": "7ac239922f054635b3c6945a586af9f55fa6c7b2a68a9db825f4cd95d5e89951"
+    },
+    {
+      "id": "moritz",
+      "name": "摩立兹·奈斯勒",
+      "aliases": [
+        "摩立兹",
+        "摩立茲·奈斯勒",
+        "Moritz Nesler",
+        "モーリッツ・ネスラー"
+      ],
+      "portraitCrop": [
+        530,
+        0,
+        560,
+        649.6
+      ],
+      "file": "resource/asteriskavatars/moritz-anime.jpg",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/moritz-anime.jpg",
+      "width": 1280,
+      "height": 720,
+      "sourcePage": "https://otanews.livedoor.biz/archives/52038643.html",
+      "sourceUrl": "https://livedoor.blogimg.jp/otanews/imgs/4/8/481659f4.jpg",
+      "sha256": "4a1d89c88e812558cfbf3125c943b0af65dc10b3cf0dc3e3aa7d335f959f808c"
+    },
+    {
+      "id": "gerd",
+      "name": "葛尔特·席勒",
+      "aliases": [
+        "葛尔特",
+        "葛爾特·席勒",
+        "Gerd Schiele",
+        "ゲルト・シーレ"
+      ],
+      "portraitCrop": [
+        45,
+        65,
+        350,
+        406
+      ],
+      "file": "resource/asteriskavatars/gerd-anime.jpg",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/gerd-anime.jpg",
+      "width": 1280,
+      "height": 720,
+      "sourcePage": "https://otanews.livedoor.biz/archives/52038643.html",
+      "sourceUrl": "https://livedoor.blogimg.jp/otanews/imgs/4/8/481659f4.jpg",
+      "sha256": "4a1d89c88e812558cfbf3125c943b0af65dc10b3cf0dc3e3aa7d335f959f808c"
+    },
+    {
+      "id": "song",
+      "name": "宋然",
+      "aliases": [
+        "Song Ran",
+        "ソン・ラン",
+        "宋"
+      ],
+      "portraitCrop": [
+        790,
+        0,
+        300,
+        348
+      ],
+      "file": "resource/asteriskavatars/song-anime.jpg",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/song-anime.jpg",
+      "width": 1280,
+      "height": 720,
+      "sourcePage": "https://otanews.livedoor.biz/archives/52047810.html",
+      "sourceUrl": "https://livedoor.blogimg.jp/otanews/imgs/c/5/c553ebeb.jpg",
+      "sha256": "42d3c3b89233cb6bfd9f1b89f3161f2eca7ba7ca873b73695e811afb89230856"
+    },
+    {
+      "id": "luo",
+      "name": "罗坤展",
+      "aliases": [
+        "羅坤展",
+        "Luo Kunzhan",
+        "ルオ・クンジャン",
+        "罗",
+        "羅"
+      ],
+      "portraitCrop": [
+        230,
+        0,
+        340,
+        394.4
+      ],
+      "file": "resource/asteriskavatars/luo-anime.jpg",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/luo-anime.jpg",
+      "width": 1280,
+      "height": 720,
+      "sourcePage": "https://otanews.livedoor.biz/archives/52047810.html",
+      "sourceUrl": "https://livedoor.blogimg.jp/otanews/imgs/c/5/c553ebeb.jpg",
+      "sha256": "42d3c3b89233cb6bfd9f1b89f3161f2eca7ba7ca873b73695e811afb89230856"
+    },
+    {
+      "id": "wernher",
+      "name": "威尔纳",
+      "aliases": [
+        "威爾納",
+        "Wernher",
+        "Werner",
+        "ヴェルナー"
+      ],
+      "portraitCrop": [
+        5,
+        25,
+        310,
+        359.6
+      ],
+      "file": "resource/asteriskavatars/wernher-anime.jpg",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/wernher-anime.jpg",
+      "width": 600,
+      "height": 500,
+      "sourcePage": "https://asterisk-war.com/character/lewolfe.html",
+      "sourceUrl": "https://asterisk-war.com/assets/img/character/character_ph/wernher2.jpg",
+      "sha256": "5e169520f6b46abe5d28284322857fa39832eb65e4e21c61d7903874f2c84147"
     }
   ],
   "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/heroines-official.jpg"

@@ -47,7 +47,8 @@ function nextStoryChapterForState(volume, key, state) {
   return nextStoryChapter(volume, key);
 }
 
-// 学战前两卷按已核对条目连续编号，worldbook order 200–216。
+// 学战全17卷固定目录：140个剧情节点，worldbook order 200–339。
+// 目录存在不代表正文已就绪；终端与注入器共用世界书可用性检查。
 // 第一卷沿用旧存档键；后续卷在章名中带卷号，兼容当前卷为 null 的学战 MVU。
 const ASTERISK_VOLUMES = [{
   volume: 1, title: '第1卷 姬焰邂逅',
@@ -74,12 +75,198 @@ const ASTERISK_VOLUMES = [{
     { key: '第七章', title: '第七章 决意与决斗', aliases: [] },
     { key: '终章', title: '终章 蜀山组队', aliases: [] },
   ],
-}].map(book => ({ ...book, chapters: book.chapters.map(chapter => ({
-  ...chapter, volume: book.volume, chapter: chapter.key,
-  key: book.volume === 1 ? chapter.key : '第二卷·' + chapter.key,
-  title: (book.volume === 1 ? '第一卷·' : '第二卷·') + chapter.title,
-  entryPrefix: '[剧情]' + (book.volume === 1 ? '第一卷.' : '第二卷.') + chapter.key + '.',
-})) }));
+}, {
+  volume: 3, title: '第3卷 凤凰乱武',
+  chapters: [
+    { key: '第一章', title: '第一章 开幕前夜', aliases: [] },
+    { key: '第二章', title: '第二章 凤凰星武祭', aliases: [] },
+    { key: '第三章', title: '第三章 阿尔第与莉姆希', aliases: [] },
+    { key: '第四章', title: '第四章 吸血暴姬', aliases: [] },
+    { key: '第五章', title: '第五章 雷渥夫姐妹', aliases: [] },
+    { key: '第六章', title: '第六章 力量与代价', aliases: [] },
+    { key: '第七章', title: '第七章 霸溃血镰', aliases: [] },
+    { key: '终章', title: '终章 余烬与暗流', aliases: [] },
+  ],
+}, {
+  volume: 4, title: "第4卷 追忆斗破",
+  chapters: [
+    { key: "第一章", title: "第一章 界龙之主", aliases: [] },
+    { key: "第二章", title: "第二章 第五轮对战", aliases: [] },
+    { key: "第三章", title: "第三章 来访者", aliases: [] },
+    { key: "第四章", title: "第四章 迷惘", aliases: [] },
+    { key: "第五章", title: "第五章 姐姐与玩伴", aliases: [] },
+    { key: "第六章", title: "第六章 第二个关键", aliases: [] },
+    { key: "第七章", title: "第七章 坚决的意志", aliases: [] },
+    { key: "终章", title: "终章 看台暗影", aliases: [] },
+  ],
+}, {
+  volume: 5, title: "第5卷 霸凰决战",
+  chapters: [
+    { key: "第一章", title: "第一章 准决赛第一回合", aliases: [] },
+    { key: "第二章", title: "第二章 恶辣的操偶线", aliases: [] },
+    { key: "第三章", title: "第三章 准决赛第二回合", aliases: [] },
+    { key: "第四章", title: "第四章 奔走", aliases: [] },
+    { key: "第五章", title: "第五章 偶然邂逅", aliases: [] },
+    { key: "第六章", title: "第六章 双方的决战", aliases: [] },
+    { key: "第七章", title: "第七章 后夜祭", aliases: [] },
+    { key: "终章", title: "终章 沉睡的姐姐", aliases: [] },
+  ],
+}, {
+  volume: 6, title: "第6卷 怀国凯战",
+  chapters: [
+    { key: "第一章", title: "第一章 各自的序章", aliases: [] },
+    { key: "第二章", title: "第二章 亲爱的人们", aliases: [] },
+    { key: "第三章", title: "第三章 莱泽塔尼亚", aliases: [] },
+    { key: "第四章", title: "第四章 尤莉丝与孤儿院", aliases: [] },
+    { key: "第五章", title: "第五章 《孤毒魔女》", aliases: [] },
+    { key: "第六章", title: "第六章 魔龙讨伐", aliases: [] },
+    { key: "第七章", title: "第七章 重逢", aliases: [] },
+    { key: "终章", title: "终章 狮鹫之约", aliases: [] },
+  ],
+}, {
+  volume: 7, title: "第7卷 祭华缭乱",
+  chapters: [
+    { key: "第一章", title: "第一章 《大博士》的邀约", aliases: [] },
+    { key: "第二章", title: "第二章 煌式远距引导武装", aliases: [] },
+    { key: "第三章", title: "第三章 学园祭狂想曲Ⅰ", aliases: [] },
+    { key: "第四章", title: "第四章 学园祭狂想曲Ⅱ", aliases: [] },
+    { key: "第五章", title: "第五章 学园祭狂想曲Ⅲ", aliases: [] },
+    { key: "第六章", title: "第六章 顶上竞技场", aliases: [] },
+    { key: "第七章", title: "第七章 拉迪斯勒夫的幺子", aliases: [] },
+    { key: "终章", title: "终章 携手寻师", aliases: [] },
+  ],
+}, {
+  volume: 8, title: "第8卷 偶像峻烈",
+  chapters: [
+    { key: "第一章", title: "第一章 教练研磨", aliases: [] },
+    { key: "第二章", title: "第二章 《狮鹫星武祭》", aliases: [] },
+    { key: "第三章", title: "第三章 活宝女孩们", aliases: [] },
+    { key: "第四章", title: "第四章 开始行动的人们", aliases: [] },
+    { key: "第五章", title: "第五章 蚀武遗迹", aliases: [] },
+    { key: "第六章", title: "第六章 《极北天琴》", aliases: [] },
+    { key: "第七章", title: "第七章 骚动之夜", aliases: [] },
+    { key: "第八章", title: "第八章 偶像决战", aliases: [] },
+    { key: "终章", title: "终章 夕阳告白", aliases: [] },
+  ],
+}, {
+  volume: 9, title: "第9卷 悠日战啾",
+  chapters: [
+    { key: "第一章", title: "第一章 追忆／前夜", aliases: [] },
+    { key: "第二章", title: "第二章 追忆Ⅱ／晓", aliases: [] },
+    { key: "第三章", title: "第三章 上半天／追忆Ⅲ", aliases: [] },
+    { key: "第四章", title: "第四章 午时", aliases: [] },
+    { key: "第五章", title: "第五章 正午", aliases: [] },
+    { key: "第六章", title: "第六章 逢魔时", aliases: [] },
+    { key: "第七章", title: "第七章 小夜", aliases: [] },
+    { key: "第八章", title: "第八章 半宵", aliases: [] },
+    { key: "终章", title: "终章 余波与战意", aliases: [] },
+  ],
+}, {
+  volume: 10, title: "第10卷 龙激圣霸",
+  chapters: [
+    { key: "第一章", title: "第一章 首席徒弟", aliases: [] },
+    { key: "第二章", title: "第二章 准决赛", aliases: [] },
+    { key: "第三章", title: "第三章 《霸军星君》与《疾风刃雷》", aliases: [] },
+    { key: "第四章", title: "第四章 千里眼", aliases: [] },
+    { key: "第五章", title: "第五章 《处刑刀》", aliases: [] },
+    { key: "第六章", title: "第六章 开幕", aliases: [] },
+    { key: "第七章", title: "第七章 兰斯洛特队", aliases: [] },
+    { key: "第八章", title: "第八章 恩菲尔德队", aliases: [] },
+    { key: "终章", title: "终章 桂冠之后", aliases: [] },
+  ],
+}, {
+  volume: 11, title: "第11卷 刃心切磋",
+  chapters: [
+    { key: "第一章", title: "第一章 各自的道路", aliases: [] },
+    { key: "第二章", title: "第二章 返乡，天雾家", aliases: [] },
+    { key: "第三章", title: "第三章 父与母", aliases: [] },
+    { key: "第四章", title: "第四章 姐姐天雾遥", aliases: [] },
+    { key: "第五章", title: "第五章 返乡，刀藤家", aliases: [] },
+    { key: "第六章", title: "第六章 家族之形", aliases: [] },
+    { key: "第七章", title: "第七章 跨入内心的深处", aliases: [] },
+    { key: "第八章", title: "第八章 决心", aliases: [] },
+    { key: "终章", title: "终章 长眠初醒", aliases: [] },
+  ],
+}, {
+  volume: 12, title: "第12卷 刹鬼再应",
+  chapters: [
+    { key: "第一章", title: "第一章 姐弟重逢", aliases: [] },
+    { key: "第二章", title: "第二章 八薙草朱莉", aliases: [] },
+    { key: "第三章", title: "第三章 血缘关系", aliases: [] },
+    { key: "第四章", title: "第四章 马迪亚斯•梅萨", aliases: [] },
+    { key: "第五章", title: "第五章 聚集至王龙的众人", aliases: [] },
+    { key: "第六章", title: "第六章 序曲", aliases: [] },
+    { key: "第七章", title: "第七章 准备决战", aliases: [] },
+    { key: "终章", title: "终章 开幕之晨", aliases: [] },
+  ],
+}, {
+  volume: 13, title: "第13卷 群雄云霞",
+  chapters: [
+    { key: "第一章", title: "第一章 八薙草朱莉•二", aliases: [] },
+    { key: "第二章", title: "第二章 八薙草朱莉•三", aliases: [] },
+    { key: "第三章", title: "第三章 《王龙星武祭》开幕", aliases: [] },
+    { key: "第四章", title: "第四章 预赛•一", aliases: [] },
+    { key: "第五章", title: "第五章 预赛•二", aliases: [] },
+    { key: "第六章", title: "第六章 预赛•三", aliases: [] },
+    { key: "第七章", title: "第七章 胎动", aliases: [] },
+    { key: "第八章", title: "第八章 准备反击", aliases: [] },
+    { key: "第九章", title: "第九章 第四轮比赛", aliases: [] },
+    { key: "终章", title: "终章 十六强揭晓", aliases: [] },
+  ],
+}, {
+  volume: 14, title: "第14卷 炽烈魂战",
+  chapters: [
+    { key: "第一章", title: "第一章 纠葛", aliases: [] },
+    { key: "第二章", title: "第二章 第五轮比赛•一", aliases: [] },
+    { key: "第三章", title: "第三章 第五轮比赛•二", aliases: [] },
+    { key: "第四章", title: "第四章 第五轮比赛•三", aliases: [] },
+    { key: "第五章", title: "第五章 第五轮比赛•四", aliases: [] },
+    { key: "第六章", title: "第六章 交错", aliases: [] },
+  ],
+}, {
+  volume: 15, title: "第15卷 剑云炎华",
+  chapters: [
+    { key: "第一章", title: "第一章 布石错综", aliases: [] },
+    { key: "第二章", title: "第二章 半准决赛第一回合", aliases: [] },
+    { key: "第三章", title: "第三章 半准决赛第二回合", aliases: [] },
+    { key: "第四章", title: "第四章 半准决赛第三回合", aliases: [] },
+    { key: "第五章", title: "第五章 魔剑的继承者", aliases: [] },
+    { key: "第六章", title: "第六章 八薙草朱莉与马迪亚斯•梅萨", aliases: [] },
+    { key: "第七章", title: "第七章 准决赛第一回合", aliases: [] },
+    { key: "终章", title: "终章 决赛之约", aliases: [] },
+  ],
+}, {
+  volume: 16, title: "第16卷 金枝争滥",
+  chapters: [
+    { key: "第一章", title: "第一章 准决赛第二回合", aliases: [] },
+    { key: "第二章", title: "第二章 孤毒与恶辣", aliases: [] },
+    { key: "第三章", title: "第三章 异色眼", aliases: [] },
+    { key: "第四章", title: "第四章 一线希望", aliases: [] },
+    { key: "第五章", title: "第五章 起始的回忆", aliases: [] },
+    { key: "第六章", title: "第六章 《圣枪》", aliases: [] },
+    { key: "第七章", title: "第七章 决战《瓦尔妲＝瓦欧斯》", aliases: [] },
+    { key: "终章", title: "终章 同盟的背叛", aliases: [] },
+  ],
+}, {
+  volume: 17, title: "第17卷 六花团圆",
+  chapters: [
+    { key: "第一章", title: "第一章 最终决战•一", aliases: [] },
+    { key: "第二章", title: "第二章 最终决战•二", aliases: [] },
+    { key: "第三章", title: "第三章 最终决战•三", aliases: [] },
+    { key: "第四章", title: "第四章 最终决战•四", aliases: [] },
+    { key: "第五章", title: "第五章 梦境的结束", aliases: [] },
+    { key: "第六章", title: "第六章 全新的日子", aliases: [] },
+    { key: "终章", title: "终章 并肩前行", aliases: [] },
+  ],
+}].map(book => {
+  const volumeLabel = ["第一卷", "第二卷", "第三卷", "第四卷", "第五卷", "第六卷", "第七卷", "第八卷", "第九卷", "第十卷", "第十一卷", "第十二卷", "第十三卷", "第十四卷", "第十五卷", "第十六卷", "第十七卷"][book.volume - 1];
+  return { ...book, chapters: book.chapters.map(chapter => ({
+    ...chapter, volume: book.volume, chapter: chapter.key,
+    key: book.volume === 1 ? chapter.key : volumeLabel + '·' + chapter.key,
+    title: volumeLabel + '·' + chapter.title,
+    entryPrefix: '[剧情]' + volumeLabel + '.' + chapter.key + '.',
+  })) };
+});
 
 const STORY_ORDER_BASE = { rakudai: 100, asterisk: 200 };
 
@@ -1059,6 +1246,36 @@ function normalizeRakudaiMvuCommands(commands, state) {
   return changed ? result : commands;
 }
 
+// 和 MVU ENDED 一起保存最终卷章；显示记录也反映顺推后的值。
+function syncNativeStoryDisplay(variables, previous) {
+  (variables.display_data ??= {}).场景 ??= {};
+  (variables.delta_data ??= {}).场景 ??= {};
+  for (const key of ['当前卷', '当前章', '阶段']) {
+    const value = variables.stat_data.场景[key], old = previous.stat_data.场景[key];
+    if (value === old) {
+      variables.display_data.场景[key] = value;
+      delete variables.delta_data.场景[key];
+    } else {
+      const change = JSON.stringify(old) + '->' + JSON.stringify(value);
+      variables.display_data.场景[key] = change;
+      variables.delta_data.场景[key] = change;
+    }
+  }
+}
+
+function completeNativeStory(variables, previous) {
+  const before = previous.stat_data, after = variables.stat_data;
+  if (resolveMvuWorld(before) !== 'rakudai' || before.系统.开局状态 !== '已建档') return;
+  const old = before.场景, scene = after.场景;
+  if (!['进行中', '已结束', '已完成'].includes(old.阶段) || !['已结束', '已完成'].includes(scene.阶段)) return;
+  const chapter = resolveStoryChapter(old.当前卷, old.当前章);
+  if (!chapter || scene.当前卷 !== old.当前卷 || resolveStoryChapter(scene.当前卷, scene.当前章)?.key !== chapter.key) return;
+  const next = nextStoryChapterForState(old.当前卷, chapter.key, after);
+  if (next) Object.assign(scene, { 当前卷: next.volume, 当前章: next.chapter, 阶段: '进行中' });
+  else scene.阶段 = '已结束';
+  syncNativeStoryDisplay(variables, previous);
+}
+
 // 本卡的 MVU 兼容层；补缺失经验容器/零初值，兼容旧申请父容器，不注册 Zod、不调用模型。
 // MVU 61010dab: STARTED 后读取 schema；strictSet 只关闭 set 的旧二元组解释。
 function rakudaiMvuScopes(scopes = []) {
@@ -1124,13 +1341,13 @@ async function installRakudaiNativeMvu(W, options = {}) {
   const configured = options.acceptState;
   if (configured !== undefined && typeof configured !== 'function') throw new TypeError('acceptState 必须是同步状态判定函数。');
   const existing = W[slot];
-  if (existing?.version === 'N04' && existing.dorm === 'D01' && existing.worlds === 'W02' && existing.capabilities === 'H01' && existing.state !== 'failed' &&
+  if (existing?.version === 'N04' && existing.dorm === 'D01' && existing.worlds === 'W02' && existing.capabilities === 'H01' && existing.story === 'S01' && existing.state !== 'failed' &&
       (configured === undefined || typeof existing.setAcceptState === 'function')) {
     if (configured !== undefined) existing.setAcceptState(configured);
     return existing;
   }
   W[slot]?.destroy?.();
-  const marker = { version: 'N04', dorm: 'D01', worlds: 'W02', capabilities: 'H01', state: 'loading', destroy: null };
+  const marker = { version: 'N04', dorm: 'D01', worlds: 'W02', capabilities: 'H01', story: 'S01', state: 'loading', destroy: null };
   let acceptState = configured || (() => true);
   // 重复安装可以收紧/更新本监听的门禁；未传选项的旧调用不会清掉已配置门禁。
   marker.setAcceptState = predicate => {
@@ -1207,6 +1424,8 @@ async function installRakudaiNativeMvu(W, options = {}) {
         variables.delta_data = {};
         marker.lastRejected = '本轮补丁破坏必要档案字段，已保留更新前的状态。';
       } else {
+        // 可选旧约束有自己的完成结算；原生模式独立补齐只写“已结束”的交接。
+        if (rakudaiMvuRuntime(scopes).mode === 'native') completeNativeStory(variables, previous);
         if (variables.display_data?.系统 && typeof variables.display_data.系统 === 'object') delete variables.display_data.系统.作品;
         if (variables.delta_data?.系统 && typeof variables.delta_data.系统 === 'object') delete variables.delta_data.系统.作品;
       }
@@ -1971,6 +2190,17 @@ function acceptRepairStoryProgress(before, after, storyBefore) {
     ['未开始', '进行中', '已结束'].includes(scene.阶段);
 }
 
+// 原生副校正复用相邻章规则；无需注册旧字段约束，也不处理其他业务字段。
+function settleNativeStoryRepair(variables, previous, storyBefore) {
+  if (resolveMvuWorld(previous?.stat_data) !== 'rakudai') return;
+  const entryNote = variables.stat_data.场景.切入说明;
+  if (!acceptRepairStoryProgress(previous.stat_data, variables.stat_data, storyBefore)) {
+    for (const key of ['当前卷', '当前章', '阶段']) variables.stat_data.场景[key] = previous.stat_data.场景[key];
+  }
+  variables.stat_data.场景.切入说明 = entryNote;
+  syncNativeStoryDisplay(variables, previous);
+}
+
 // 供 MVU 的更新结束事件使用。身份与初评保留页面写入权；经绑定的副校正可补切入说明。
 // v4 允许按世界书完成标识顺序推进；其他卷章修改仍恢复原值。
 function enforceStateOwnership(variables, previous, context = {}) {
@@ -2653,6 +2883,7 @@ window.RakudaiMvuNative = { version: "N04", runtime: rakudaiMvuRuntime, prepare:
   });
   const publicApi = Object.defineProperties({}, Object.getOwnPropertyDescriptors(api));
   Object.defineProperty(publicApi, 'validateState', { value: validateState, enumerable: true });
+  Object.defineProperty(publicApi, 'settleNativeStoryRepair', { value: settleNativeStoryRepair, enumerable: true });
   W.RakudaiStateController = Object.freeze(publicApi);
   // 开局页已有的照片入口只保存显示信息；沿用宿主聊天 scope，不进入 MVU。
   const displayTokens = new WeakMap();

@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "deliveryMode": "component",
+  "kind": "helper-script",
+  "artifacts": [
+    {
+      "artifactName": "terminal-shared-calendar",
+      "id": "3d8c6c23-f78e-46e5-8e89-4a90bab6fb85",
+      "kind": "helper-script",
+      "relativePath": "terminal-shared-calendar.script.json",
+      "sha256": "71033bc945a05fa136b7af223a15cbbe811ef66409c91c8d2dcca7caec53b0aa"
+    }
+  ]
+}

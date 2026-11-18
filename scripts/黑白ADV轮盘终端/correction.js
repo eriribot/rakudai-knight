@@ -658,6 +658,9 @@ async function applyCorrection() {
     }
     // 两种模式都校验真实候选；仅带回剧情阶段别名，不补写其他默认值。
     const service = stateService();
+    if (runtime.mode === 'native' && terminalBusinessIsRakudai(parsed.stat_data)) {
+      service.settleNativeStoryRepair(parsed, parseBase.data, draft.saved.storyBefore);
+    }
     if (typeof service.validateState !== 'function') throw new Error('状态服务缺少完整档案检查接口，请更新配套终端后重试；未写入。');
     try { parsed.stat_data.场景.阶段 = service.validateState(parsed.stat_data).场景.阶段; }
     catch (error) {

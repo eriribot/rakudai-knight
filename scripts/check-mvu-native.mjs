@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import vm from 'node:vm';
 import { RAKUDAI_INITIAL_STATE as INITIAL_STATE, INITIAL_STATE as NEUTRAL_INITIAL_STATE } from '../世界书规则/MVU/schema.mjs';
 import { prepareRakudaiNativeMvu, rakudaiMvuRuntime, installRakudaiNativeMvu } from './rakudai-mvu-native.mjs';
 import { repairRakudaiMvuStructure } from './rakudai-mvu-structure.mjs';
@@ -241,7 +242,7 @@ await check('同版重复安装更新门禁且默认调用不清除已配置门�
 });
 await check('旧同版marker缺少门禁能力时仅在请求门禁后替换，非法谓词不破坏已有实例', async () => {
   const f = fixture(); let destroyed = 0;
-  const old = { version: 'N04', dorm: 'D01', worlds: 'W02', capabilities: 'H01', state: 'ready', destroy: () => destroyed++ };
+  const old = { version: 'N04', dorm: 'D01', worlds: 'W02', capabilities: 'H01', story: 'S01', state: 'ready', destroy: () => destroyed++ };
   f.W.__RK_MVU_NATIVE_N01__ = old;
   assert.equal(await installRakudaiNativeMvu(f.W), old); assert.equal(destroyed, 0);
   await assert.rejects(installRakudaiNativeMvu(f.W, { acceptState: true }), /同步状态判定函数/);
@@ -263,6 +264,33 @@ await check('旧N04能力互斥回调必须替换，保留同一作品标记版�
   f.W.__RK_MVU_NATIVE_N01__ = old;
   const marker = await installRakudaiNativeMvu(f.W);
   assert.notEqual(marker, old); assert.equal(destroyed, 1); assert.equal(marker.capabilities, 'H01'); f.unload();
+});
+await check('同版N04缺少S01时替换监听；重复安装不重复顺推', async () => {
+  const f = fixture({ commands: true }); let destroyed = 0;
+  f.W.__RK_MVU_NATIVE_N01__ = { version: 'N04', dorm: 'D01', worlds: 'W02', capabilities: 'H01', state: 'ready', destroy: () => destroyed++ };
+  const marker = await installRakudaiNativeMvu(f.W);
+  assert.equal(destroyed, 1); assert.equal(marker.story, 'S01');
+  assert.equal(await installRakudaiNativeMvu(f.W), marker); assert.equal(f.endHandlers.size, 1);
+  const before = sample(); Object.assign(before.stat_data.系统, { 开局状态: '已建档' });
+  Object.assign(before.stat_data.场景, { 当前卷: 1, 当前章: '第一章', 阶段: '进行中' });
+  const after = structuredClone(before); after.stat_data.场景.阶段 = '已结束';
+  for (const callback of f.endHandlers) { callback(after, before); callback(after, before); }
+  assert.equal(after.stat_data.场景.当前章, '第二章'); assert.equal(after.stat_data.场景.阶段, '进行中');
+  f.unload(); assert.equal(f.endHandlers.size, 0);
+});
+await check('独立可导入组件携带目录并能在无旧约束时完成相邻章交接', async () => {
+  const f = fixture(), artifact = JSON.parse(fs.readFileSync(new URL('../世界书规则/MVU/落第骑士-MVU-原生兼容-N04.json', import.meta.url), 'utf8'));
+  vm.runInNewContext(artifact.content, { window: f.W, structuredClone });
+  await new Promise(resolve => setImmediate(resolve));
+  assert.equal(f.W.__RK_MVU_NATIVE_N01__.state, 'ready');
+  const before = sample();
+  before.stat_data.系统.开局状态 = '已建档';
+  Object.assign(before.stat_data.场景, { 当前卷: 1, 当前章: '第一章', 阶段: '进行中' });
+  const after = structuredClone(before); after.stat_data.场景.阶段 = '已结束';
+  f.endHandlers.forEach(callback => callback(after, before));
+  assert.equal(after.stat_data.场景.当前章, '第二章');
+  assert.equal(after.stat_data.场景.阶段, '进行中');
+  f.unload(); assert.equal(f.endHandlers.size, 0);
 });
 await check('N04纯归一合并缺父记录并纠正replace缺字段，不修改输入', () => {
   const state = sample().stat_data;

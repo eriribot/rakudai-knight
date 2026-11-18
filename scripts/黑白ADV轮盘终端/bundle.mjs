@@ -79,8 +79,8 @@ function buildApp(version) {
   let html = read('terminal-app.html');
   const knightAvatars = buildKnightAvatarCatalog();
   const tournamentPanel = buildTournamentPanel(knightAvatars);
-  const appModules = ['terminal-app.js', 'terminal-controls.js'];
-  const cssModules = ['terminal-app.css', 'terminal-theme.css', 'terminal-status.css', 'terminal-lime.css', 'terminal-cross-theme.css'];
+  const appModules = ['terminal-calendar.js', 'terminal-app.js', 'terminal-controls.js'];
+  const cssModules = ['terminal-app.css', 'terminal-theme.css', 'terminal-calendar.css', 'terminal-status.css', 'terminal-lime.css', 'terminal-cross-theme.css'];
   const seen = new Set();
   html = html.replace(/<link rel="stylesheet" href="\.\/([^"<>]+)"([^>]*)>/g, (tag, file, attrs) => {
     if (!cssModules.includes(file) || seen.has(file)) throw new Error('未知或重复的样式模块：' + file);
@@ -163,6 +163,10 @@ export function buildTerminal({ asteriskPreview = false } = {}) {
   const baseline = JSON.parse(read('../../世界书规则/MVU/' + filename));
   const artifact = { ...baseline, content: built.code };
   const appendInfo = note => { if (!artifact.info.includes(note)) artifact.info += note; };
+  appendInfo(' 2026-11-13落第S01：原生MVU完成后顺推相邻章；副校正共享主回复的单轮推进结果，保留其他修正，不重复跳章；不依赖旧字段约束，学战行为不变。');
+  appendInfo(' 2026-11-13共用校历：黑白与六花均可查阅主世界书中全部作品的剧情、月历与原文；章节推进和实际剧情注入仍限定本局作品。');
+  appendInfo(' 2026-11-12全卷目录：学战第1–17卷共140节点固定order200–339；未添加正文的章节保持不可用，补齐当前主世界书后重新读取即可进入。第14卷只有六章，第17卷终章为主线终点。');
+  appendInfo(' 2026-11-12学战第三卷：剧情目录新增第三卷8章，按order217–224读取；第二卷终章可衔接第三卷第一章，终端同步显示第三卷章节选择与剧情预览。');
   appendInfo(' 2026-11-08档案显示：短窗口中的黑白档案页改为整页滚动；六花本局人物与通讯录复用现有头像清单，态度印象采用独立左对齐段落。');
   appendInfo(' 同日玩家头像补充：六花学生档案显示开局或终端设置中已应用到本局的玩家照片；换照片后即时刷新。');
   appendInfo(' 2026-11-04六花图示：采用用户指定Wiki原始彩色图标并内嵌；入口与轮盘24秒旋转，悬停暂停，保留全部原色。');

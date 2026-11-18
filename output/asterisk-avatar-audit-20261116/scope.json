@@ -1,0 +1,55 @@
+{
+  "date": "2026-11-16",
+  "deliveryMode": "component",
+  "goal": "核对学战正式人物条目缺图，优先动画截图补齐头像与现有组件",
+  "redLines": [
+    "保留原有23人",
+    "不修改条目正文/MVU/聊天",
+    "不执行酒馆导入或Git提交推送",
+    "图只做CSS取景，不AI重绘"
+  ],
+  "acceptance": [
+    "角色身份和图源核验",
+    "新增图脸部居中",
+    "正文与终端映射一致",
+    "02逐字不变",
+    "组件验证与预览"
+  ],
+  "library": {
+    "route": "sillytavern-component-update",
+    "snapshot": "2026-08-18",
+    "guides": [
+      "A0",
+      "A2",
+      "A6",
+      "B2"
+    ],
+    "candidatesAdopted": []
+  },
+  "before": [
+    {
+      "file": "scripts/正文气泡/asterisk-portraits.json",
+      "sha256": "72596fb2826e994bd3f19a72a6bbfa04dc92877a1039855a087af5da2eb0c09e"
+    },
+    {
+      "file": "resource/asteriskavatars/sources.json",
+      "sha256": "8af3412be45ede26d1467e4ad2009f57b49cce9dc85a9e02be080f4141a85d6f"
+    },
+    {
+      "file": "scripts/正文气泡/发布/components/dialogue-bubbles.regex.json",
+      "sha256": "8bc77461f21dce7e392098e5c65c17905bd38baf7752c3eb67bae73dedafc1f6"
+    },
+    {
+      "file": "scripts/正文气泡/发布/components/dialogue-player-candidates.regex.json",
+      "sha256": "fb27282408d253e2a170895c163db4ee10e38c5d44118fd2ba343ed1bccae167"
+    },
+    {
+      "file": "scripts/正文气泡/发布/components/dialogue-bubble-style.regex.json",
+      "sha256": "fb44ad6ddd656d58d8413a0a0ea0b19397f1e9b2eddaee1f84595051857994a0"
+    },
+    {
+      "file": "世界书规则/MVU/落第骑士-小手机-v1.3.29-B1-头像更新.json",
+      "sha256": "9005240dd7b821fad93acd5016d57afa94173443e9a53d7038ad7d501e62830c"
+    }
+  ]
+}

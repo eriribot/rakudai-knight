@@ -4,9 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>六花终端 · 学战应用</title>
+  <link rel="stylesheet" href="./terminal-calendar.css">
   <link rel="stylesheet" href="./terminal-asterisk.css">
 </head>
-<body>
+<body class="ax-terminal">
   <svg class="ax-symbols" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <symbol id="ax-home" viewBox="0 0 24 24"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z"/><path d="m12 8 3.5 2v4L12 16l-3.5-2v-4L12 8Z"/></symbol>
     <symbol id="ax-blazer" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/><path d="M5 21v-3a7 7 0 0 1 14 0v3M4 3H2v5m18-5h2v5"/></symbol>
@@ -30,6 +31,16 @@
   </div>
   <dialog class="ax-dialog" id="ax-dialog" aria-labelledby="ax-dialog-title"><div class="ax-dialog-heading"><h2 id="ax-dialog-title"></h2><button class="ax-icon-button" data-action="dismiss" aria-label="关闭详情"><svg class="ax-icon"><use href="#ax-close"/></svg></button></div><div id="ax-dialog-body"></div></dialog>
   <div class="ax-toast" id="ax-toast" role="status" aria-live="polite"></div>
+  <dialog id="rk-calendar-story" aria-labelledby="rk-calendar-story-title">
+  <header class="rk-calendar-story-header">
+    <h2 id="rk-calendar-story-title"></h2>
+    <button type="button" onclick="closeCalendarStory()" autofocus>关闭</button>
+  </header>
+  <p id="rk-calendar-story-source"></p>
+  <div id="rk-calendar-story-choices"></div>
+  <pre id="rk-calendar-story-content"></pre>
+</dialog>
+  <script src="./terminal-calendar.js"></script>
   <script src="./terminal-asterisk.js"></script>
 </body>
 </html>

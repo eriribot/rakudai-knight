@@ -1,0 +1,116 @@
+{
+  "date": "2026-11-13",
+  "deliveryMode": "component",
+  "scope": "Rakudai native phase-only completion and same-reply correction; Asterisk unchanged",
+  "library": {
+    "snapshot": "2026-08-18",
+    "componentRoute": [
+      "ST-A0",
+      "ST-A2",
+      "ST-A6",
+      "ST-B2"
+    ],
+    "apiRoute": [
+      "ST-A0",
+      "ST-A5",
+      "ST-B1",
+      "ST-B2",
+      "ST-C1",
+      "ST-D3"
+    ]
+  },
+  "pinnedMvu": "61010dab47bc3a08a1b626320bf7fc8c9573eca4",
+  "sources": [
+    {
+      "file": "scripts/rakudai-mvu-native.mjs",
+      "before": "ed90178c8452d988951f9b335633d6e7bc6e02123103d5a8202a85b1acf330e9",
+      "after": "3333b9f1f75a593751c8875bf0dcf2445576e27310c36d0706db1d380d346b45"
+    },
+    {
+      "file": "scripts/rakudai-state-core.mjs",
+      "before": "60087c8ffc71a988d47574e7926fe63af46af308bfb98cd7534f41ab176cae62",
+      "after": "3dbc18e291a21aa69e6cb574570d462d272ad3802158030dfab964f0ec712c99"
+    },
+    {
+      "file": "scripts/rakudai-state-browser.js",
+      "before": "34deb8a592c0db691b6b6f893c6c37bd8bb8c5a8a86222edbb4b6cf283af5be5",
+      "after": "c5233c474f907b147a394966f1f92c0d2c08999d69e6bd816b6c66196562a6c4"
+    },
+    {
+      "file": "scripts/黑白ADV轮盘终端/correction.js",
+      "before": "d35a6aa6b7984709318fdd6a57b5be9a10c2f0110b8cdb86b3795e13a4f5fafa",
+      "after": "50f783f6e872e35aac3cb9658ddf73c35131086c94bfc41f1a8181f8d19752bc"
+    },
+    {
+      "file": "scripts/build-shared-mvu-native.mjs",
+      "before": "1797b84444ddf539b641d1c5cea6cbcdd5b27ad1b82f2f66a907495e3df0efa0",
+      "after": "c9670c848c0dcbd208b0bc763dfb9f8e7d20ee9b9dee59641053e03e27b00ab5"
+    },
+    {
+      "file": "scripts/rakudai-state-controller.js",
+      "after": "16cc7f01664bec37da3056138fa3559558e5d1816a4d7f72616c140debdfc987"
+    },
+    {
+      "file": "scripts/黑白ADV轮盘终端/bundle.mjs",
+      "after": "7b577144c0a92f57f2c8e155479c9c09325adc18cd2253f92431a6f42018cfb5"
+    },
+    {
+      "file": "scripts/check-mvu-native.mjs",
+      "after": "c8e71d3221d710638b1b52b0b41eeeabc8c2a5d747d577d204a0d90c45376162"
+    },
+    {
+      "file": "scripts/check-mvu-native-core.mjs",
+      "after": "b95df2437414818af0425630bec45fd287723a9a00fa0f1375ec10cd8db5d637"
+    },
+    {
+      "file": "scripts/check-state-browser.mjs",
+      "after": "335833b11c33674ce8c52fca5ecebdddb75e7b8590e78145e48b51382e6e3aef"
+    },
+    {
+      "file": "scripts/黑白ADV轮盘终端/correction-readiness-test.mjs",
+      "after": "e9d680271c61bcd7efeb5e29d596771355262a5bd9723bef7c969858d078887c"
+    }
+  ],
+  "untouched": [
+    {
+      "file": "scripts/rakudai-story-catalog.mjs",
+      "sha256": "ea75f48e205dfa1d75ed39146c37c2a42abd3c8f4a5b2534647ddf0e28a55b8a",
+      "unchanged": true
+    },
+    {
+      "file": "scripts/rakudai-plot-runtime.js",
+      "sha256": "8449e5da606d96c14386a145b2f3972ec641fca6dcebb1f8e484082ab9754f1f",
+      "unchanged": true
+    }
+  ],
+  "asteriskEmbeddedPage": {
+    "sha256": "09cca9ec8d614974c68742be4153f2b9ec7340ec7a35c91a910d29a0c763b9ce",
+    "unchanged": true
+  },
+  "artifacts": [
+    {
+      "file": "components/rakudai-native-story-s01.script.json",
+      "sourceArtifact": "世界书规则/MVU/落第骑士-MVU-原生兼容-N04.json",
+      "id": "0ad18dbe-5a59-4cad-acfd-50c2bce0d9ec",
+      "name": "落第 × 学战·原生 MVU 写入兼容 [N04/W02/S01]",
+      "sha256": "36d5155975164d6e6e87b7ede903da457645c6813c6fea70a5abb27f17816d66",
+      "metadataPreserved": true,
+      "sourceAndDeliveryEqual": true
+    },
+    {
+      "file": "components/rakudai-terminal-story-s01.script.json",
+      "sourceArtifact": "世界书规则/MVU/落第骑士-小手机-v1.3.29-B1-头像更新.json",
+      "id": "3d8c6c23-f78e-46e5-8e89-4a90bab6fb85",
+      "name": "落第骑士·黑白ADV轮盘终端 v1.3.29 B1（LIME状态精简）",
+      "sha256": "9005240dd7b821fad93acd5016d57afa94173443e9a53d7038ad7d501e62830c",
+      "metadataPreserved": true,
+      "sourceAndDeliveryEqual": true
+    }
+  ],
+  "checks": {
+    "passed": 274,
+    "total": 274,
+    "report": "validation/checks.json"
+  },
+  "liveImport": "Pending in player TT/SillyTavern"
+}

@@ -1,6 +1,37 @@
 import { isRakudaiMvuState, isSharedMvuState, resolveMvuWorld, repairRakudaiMvuStructure, hasAsteriskNativeContract } from './rakudai-mvu-structure.mjs';
 import { normalizeRakudaiMvuCommands } from './rakudai-mvu-patch.mjs';
+import { resolveStoryChapter, nextStoryChapterForState } from './rakudai-story-catalog.mjs';
 export { isRakudaiMvuState };
+
+// 和 MVU ENDED 一起保存最终卷章；显示记录也反映顺推后的值。
+export function syncNativeStoryDisplay(variables, previous) {
+  (variables.display_data ??= {}).场景 ??= {};
+  (variables.delta_data ??= {}).场景 ??= {};
+  for (const key of ['当前卷', '当前章', '阶段']) {
+    const value = variables.stat_data.场景[key], old = previous.stat_data.场景[key];
+    if (value === old) {
+      variables.display_data.场景[key] = value;
+      delete variables.delta_data.场景[key];
+    } else {
+      const change = JSON.stringify(old) + '->' + JSON.stringify(value);
+      variables.display_data.场景[key] = change;
+      variables.delta_data.场景[key] = change;
+    }
+  }
+}
+
+function completeNativeStory(variables, previous) {
+  const before = previous.stat_data, after = variables.stat_data;
+  if (resolveMvuWorld(before) !== 'rakudai' || before.系统.开局状态 !== '已建档') return;
+  const old = before.场景, scene = after.场景;
+  if (!['进行中', '已结束', '已完成'].includes(old.阶段) || !['已结束', '已完成'].includes(scene.阶段)) return;
+  const chapter = resolveStoryChapter(old.当前卷, old.当前章);
+  if (!chapter || scene.当前卷 !== old.当前卷 || resolveStoryChapter(scene.当前卷, scene.当前章)?.key !== chapter.key) return;
+  const next = nextStoryChapterForState(old.当前卷, chapter.key, after);
+  if (next) Object.assign(scene, { 当前卷: next.volume, 当前章: next.chapter, 阶段: '进行中' });
+  else scene.阶段 = '已结束';
+  syncNativeStoryDisplay(variables, previous);
+}
 
 // 本卡的 MVU 兼容层；补缺失经验容器/零初值，兼容旧申请父容器，不注册 Zod、不调用模型。
 // MVU 61010dab: STARTED 后读取 schema；strictSet 只关闭 set 的旧二元组解释。
@@ -67,13 +98,13 @@ export async function installRakudaiNativeMvu(W, options = {}) {
   const configured = options.acceptState;
   if (configured !== undefined && typeof configured !== 'function') throw new TypeError('acceptState 必须是同步状态判定函数。');
   const existing = W[slot];
-  if (existing?.version === 'N04' && existing.dorm === 'D01' && existing.worlds === 'W02' && existing.capabilities === 'H01' && existing.state !== 'failed' &&
+  if (existing?.version === 'N04' && existing.dorm === 'D01' && existing.worlds === 'W02' && existing.capabilities === 'H01' && existing.story === 'S01' && existing.state !== 'failed' &&
       (configured === undefined || typeof existing.setAcceptState === 'function')) {
     if (configured !== undefined) existing.setAcceptState(configured);
     return existing;
   }
   W[slot]?.destroy?.();
-  const marker = { version: 'N04', dorm: 'D01', worlds: 'W02', capabilities: 'H01', state: 'loading', destroy: null };
+  const marker = { version: 'N04', dorm: 'D01', worlds: 'W02', capabilities: 'H01', story: 'S01', state: 'loading', destroy: null };
   let acceptState = configured || (() => true);
   // 重复安装可以收紧/更新本监听的门禁；未传选项的旧调用不会清掉已配置门禁。
   marker.setAcceptState = predicate => {
@@ -150,6 +181,8 @@ export async function installRakudaiNativeMvu(W, options = {}) {
         variables.delta_data = {};
         marker.lastRejected = '本轮补丁破坏必要档案字段，已保留更新前的状态。';
       } else {
+        // 可选旧约束有自己的完成结算；原生模式独立补齐只写“已结束”的交接。
+        if (rakudaiMvuRuntime(scopes).mode === 'native') completeNativeStory(variables, previous);
         if (variables.display_data?.系统 && typeof variables.display_data.系统 === 'object') delete variables.display_data.系统.作品;
         if (variables.delta_data?.系统 && typeof variables.delta_data.系统 === 'object') delete variables.delta_data.系统.作品;
       }

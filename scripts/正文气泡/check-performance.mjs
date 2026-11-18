@@ -5,7 +5,8 @@ import {createHash} from 'node:crypto';
 import {Worker, isMainThread, parentPort, workerData} from 'node:worker_threads';
 import {buildRules, applyRules, reports} from './build.mjs';
 
-// Deterministic neutral text; no model, external script, preset or saved chat runs.
+// Neutral prose plus the repository's real opening HTML, treated only as text.
+// No model, external script, preset or saved chat runs.
 function story(size, count, unknown = false) {
   return Array.from({length:count}, (_, index) =>
     '环境安静，训练记录保持原样。'.repeat(Math.floor(size / count / 14)) + '\n' +
@@ -17,6 +18,9 @@ const fixtures = [
   {name:'50k普通正文200句', input:story(50000,200), bubbles:200, candidates:0, budgetMs:200},
   {name:'50k未知姓名200行', input:story(50000,200,true), bubbles:0, candidates:200, budgetMs:200},
   {name:'50k无匹配', input:'环境安静，无人说话。'.repeat(5000), bubbles:0, candidates:0, budgetMs:200},
+  {name:'300k普通正文1200句', input:story(300000,1200), bubbles:1200, candidates:0, budgetMs:400},
+  {name:'本卡真实开局页面', input:fs.readFileSync(new URL('../../第一卷-世界书整理/开局页面/正则替换文本.txt', import.meta.url), 'utf8'),
+    bubbles:0, candidates:0, budgetMs:400},
   {name:'50k闭合围栏夹200句', input:story(40000,150) + '\n```html\n' + story(10000,50) + '\n```\n史黛菈:正文。', bubbles:151, candidates:0},
   {name:'50k未闭合反引号100句', input:'```\n' + story(50000,100), bubbles:0, candidates:0},
   {name:'50k未闭合波浪号100句', input:'~~~html\n' + story(50000,100), bubbles:0, candidates:0},
@@ -84,9 +88,9 @@ if (!isMainThread) {
       results.push({name:fixture.name,characters:fixture.input.length,passed:false,error:error.message});
     } finally {if(worker) await worker.terminate();}
   }
-  const report = {schemaVersion:1,version:'0.6',generatedAt:new Date().toISOString(),nodeVersion:process.version,
+  const report = {schemaVersion:1,version:'0.6.1',generatedAt:new Date().toISOString(),nodeVersion:process.version,
     evidenceType:'isolated-offline-JavaScript-regex-performance',
-    boundary:'单worker顺序运行；首次build+RegExp编译+完整转换单独计时，之后三次完整转换。一行冷启动200ms，其他冷启动硬门槛1s；普通正文热预算200ms，围栏/保护块硬门槛1s。结果随硬件变化，不等于实际酒馆流式帧时间。',
+    boundary:'单worker顺序运行；首次build+RegExp编译+完整转换单独计时，之后三次完整转换。一行冷启动200ms，其他冷启动硬门槛1s；普通正文热预算200ms，300k正文及真实开局400ms，围栏/保护块1s。开局HTML仅按字符串替换，不执行。结果随硬件变化，不等于实际酒馆流式帧时间。',
     sourceHashes:Object.fromEntries(['build.mjs','context-guard.mjs','check-performance.mjs'].map(name =>
       [name,createHash('sha256').update(fs.readFileSync(new URL('./'+name,import.meta.url))).digest('hex')])),
     total:results.length,passed:results.filter(result=>result.passed).length,

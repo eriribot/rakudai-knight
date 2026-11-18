@@ -13,7 +13,7 @@ const worldbook = json('世界书规则/v0.3/导出/落第骑士英雄谭.json')
 const releaseWorldbook = json('output/chapter-v4/runtime-original-worldbook.json');
 const scripts = card.data.extensions.tavern_helper.scripts;
 const replacements = [
-  ['落第骑士·动态EJS与1~19卷剧情注入综合器 v2.0.0', 'scripts/tavern_helper_ejs_injector.json'],
+  ['落第骑士·动态EJS与1~19卷剧情注入综合器 v2.0.0', '世界书规则/MVU/落第骑士-卷章剧情注入器-v3.0.0.json'],
   ['落第骑士·黑白ADV轮盘终端 v1.3.5', 'scripts/酒馆助手脚本-小手机-黑白ADV轮盘版-v1.3.6.json'],
   ['落第骑士·MVU v3 字段与第一卷约束', '世界书规则/MVU/落第骑士-MVU-v4字段约束.json'],
 ];
@@ -143,7 +143,7 @@ Object.assign(marker, { id: 900, comment: '仅验收副本：真实EJS分支探�
 fixture.data.character_book.entries.push(marker);
 // Diagnostic observer is exclusive to the synthetic fixture, never the release card.
 fixture.data.extensions.tavern_helper.scripts.push({
-  ...json('scripts/tavern_helper_ejs_injector.json'),
+  ...json('世界书规则/MVU/落第骑士-卷章剧情注入器-v3.0.0.json'),
   id: 'd03e83b4-5c8a-46a1-9e0c-1a2d46076336',
   name: '仅验收副本·发送请求只读探针',
   info: '只观察独立合成副本的实际本地发送参数与助手活动回复页；不触发生成，不改写变量。正式卡不包含本脚本。',

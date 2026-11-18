@@ -33,10 +33,14 @@ export function buildAsteriskApp() {
     script = script.replaceAll('__AW_ASSET_' + key + '__', data);
   }
   const css = read('terminal-asterisk.css') + '\n' + read('terminal-cross-theme.css');
+  const calendar = read('terminal-calendar.js'), calendarCss = read('terminal-calendar.css');
   if (/<\/script[\s/>]|<!--|<script[\s/>]/i.test(script)) throw new Error('学战脚本包含 HTML 终止片段');
   if (/<\/style[\s/>]/i.test(css)) throw new Error('学战样式包含 HTML 终止片段');
   new vm.Script(script, { filename: 'terminal-asterisk.js' });
+  new vm.Script(calendar, { filename: 'terminal-calendar.js' });
   return read('terminal-asterisk.html')
+    .replace('<link rel="stylesheet" href="./terminal-calendar.css">', '<style>' + calendarCss + '</style>')
     .replace('<link rel="stylesheet" href="./terminal-asterisk.css">', '<style>' + css + '</style>')
+    .replace('<script src="./terminal-calendar.js"></script>', '<script>' + calendar + '</script>')
     .replace('<script src="./terminal-asterisk.js"></script>', '<script>' + script + '</script>');
 }

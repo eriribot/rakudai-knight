@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "deliveryMode": "component",
+  "kind": "sillytavern-worldbook",
+  "sourceName": "落第x学战v0.05.json",
+  "sourceSha256": "eb2cafc9e714fc860a376317a39a89f5b2907e16f1e82e4c061e12e2085729ea",
+  "artifact": "asterisk-volume3.worldbook.json",
+  "artifactSha256": "6344fb9ba2fe63b5997812ff898c7d078b6abed5b6aca3e455e96c32952bd5a1",
+  "entryCount": 8,
+  "orderRange": [
+    217,
+    224
+  ],
+  "preserved": [
+    "entry keys",
+    "uid",
+    "content",
+    "disable",
+    "all other entry fields"
+  ],
+  "entries": [
+    {
+      "key": "237",
+      "uid": 237,
+      "name": "[剧情]第三卷.第一章.开幕前夜",
+      "order": 217,
+      "disable": true,
+      "contentChars": 2931,
+      "contentSha256": "c29a10e764b2a8e42fa933d9ffb97d849868623a9d6fb365263b421f5850e2d7",
+      "entrySha256": "ed4ec0c258c997ffcc788407be11002581482e74734ac660c42c0275063e524b"
+    },
+    {
+      "key": "238",
+      "uid": 238,
+      "name": "[剧情]第三卷.第二章.凤凰星武祭",
+      "order": 218,
+      "disable": true,
+      "contentChars": 3090,
+      "contentSha256": "94aa938de6708458dc2aa33efbad3f341a45dc2d9816eab0b5266cc352232927",
+      "entrySha256": "3f7e818c5ddeca140f1a6cfb866b1682edbf745a79b406c6fa27e0abde6414da"
+    },
+    {
+      "key": "239",
+      "uid": 239,
+      "name": "[剧情]第三卷.第三章.阿尔第与莉姆希",
+      "order": 219,
+      "disable": true,
+      "contentChars": 3075,
+      "contentSha256": "559bf16030c8a63de54b3509724034bc17cc56002a47f6965275db8718fad701",
+      "entrySha256": "b2a9fcf21e235fc045e1f701827e46711d7001582fadf219c780a38733699a2c"
+    },
+    {
+      "key": "240",
+      "uid": 240,
+      "name": "[剧情]第三卷.第四章.吸血暴姬",
+      "order": 220,
+      "disable": true,
+      "contentChars": 3740,
+      "contentSha256": "3dfd13ae27eb21f7b628b1742ea7caeee7b599ec977dbd298c689d2c9be8a5d1",
+      "entrySha256": "d6dbdc7c01d63992d660da4227462876069ecbc57a82a86cbe0e0922402ec6de"
+    },
+    {
+      "key": "241",
+      "uid": 241,
+      "name": "[剧情]第三卷.第五章.雷渥夫姐妹",
+      "order": 221,
+      "disable": true,
+      "contentChars": 3180,
+      "contentSha256": "9a60ef526ecf830ad51ac8da6463d3be190ee37c372253ea09b5ebf12e946285",
+      "entrySha256": "5edfb66dfb00d1f552bb88166b5cd5305ccc71dc8af7a771973790e1da5200cc"
+    },
+    {
+      "key": "242",
+      "uid": 242,
+      "name": "[剧情]第三卷.第六章.力量与代价",
+      "order": 222,
+      "disable": true,
+      "contentChars": 3489,
+      "contentSha256": "926272294dd1a44362bece8972b0a054317edd94a2ea13b95c276b6979350291",
+      "entrySha256": "d4fb0d245e05ed915bb29aa88f37fac44de72d791f3af59790bd2fb5e40eb186"
+    },
+    {
+      "key": "243",
+      "uid": 243,
+      "name": "[剧情]第三卷.第七章.霸溃血镰",
+      "order": 223,
+      "disable": true,
+      "contentChars": 3135,
+      "contentSha256": "65818f93895dc082eda9d324db340ca0981e01f0cb82cb2bcbcecc05cab47e39",
+      "entrySha256": "b7b2180931ef38e523c1808d6f368d622d5395eae8d661b7475720c3663cee28"
+    },
+    {
+      "key": "245",
+      "uid": 245,
+      "name": "[剧情]第三卷.终章.余烬与暗流",
+      "order": 224,
+      "disable": true,
+      "contentChars": 3053,
+      "contentSha256": "15c34b7c4c318f9cbbe7f84bd0b0f41bb1ed2ffcaaa4835d121b7a79fe0855c8",
+      "entrySha256": "a01a31208ff7aadae164dd315380dd5c41d0b81f9ff08bae08e026e1f46b9e95"
+    }
+  ]
+}

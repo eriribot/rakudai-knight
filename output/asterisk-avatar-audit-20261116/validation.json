@@ -1,0 +1,291 @@
+{
+  "checkedOn": "2026-11-16",
+  "scope": "Independent read-only checks of local source assets, compiled delivery JSON, and existing terminal tests; no live Tavern or remote GitHub deployment claimed.",
+  "passed": 12,
+  "total": 12,
+  "checks": [
+    {
+      "name": "manifest counts and stable original 23 records",
+      "passed": true,
+      "evidence": {
+        "original": 23,
+        "added": 20,
+        "total": 43
+      }
+    },
+    {
+      "name": "original source records unchanged",
+      "passed": true,
+      "evidence": {
+        "records": 20,
+        "sharedHeroines": true
+      }
+    },
+    {
+      "name": "original source image bytes unchanged",
+      "passed": true,
+      "evidence": {
+        "sha256Checked": 21
+      }
+    },
+    {
+      "name": "02 player candidates bytes unchanged",
+      "passed": true,
+      "evidence": {
+        "sha256": "fb27282408d253e2a170895c163db4ee10e38c5d44118fd2ba343ed1bccae167"
+      }
+    },
+    {
+      "name": "01 and 03 stable identity and business metadata",
+      "passed": true,
+      "evidence": [
+        {
+          "file": "dialogue-bubbles.regex.json",
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c881",
+          "changed": [
+            "findRegex"
+          ]
+        },
+        {
+          "file": "dialogue-bubble-style.regex.json",
+          "id": "cf3083f8-42e4-4e2e-8e70-a65817a2c882",
+          "changed": [
+            "replaceString"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "all current image paths URLs dimensions and crop bounds",
+      "passed": true,
+      "evidence": {
+        "characters": 43,
+        "uniqueImageFiles": 41
+      }
+    },
+    {
+      "name": "20 new sources hashes URLs dimensions and manifest agreement",
+      "passed": true,
+      "evidence": {
+        "newSources": 20
+      }
+    },
+    {
+      "name": "canonical names and aliases have no cross-character collision",
+      "passed": true,
+      "evidence": {
+        "names": 533,
+        "normalizedUnique": 514
+      }
+    },
+    {
+      "name": "actual B1 bundled Asterisk contact map and reserved names match all 43 portraits",
+      "passed": true,
+      "evidence": {
+        "asteriskEntries": 43,
+        "reservedNames": 537
+      }
+    },
+    {
+      "name": "Song and Luo short names retain correct canonical character",
+      "passed": true,
+      "evidence": {
+        "宋": "宋然",
+        "罗": "罗坤展",
+        "羅": "罗坤展"
+      }
+    },
+    {
+      "name": "B1 script metadata preserved",
+      "passed": true,
+      "evidence": {
+        "preservedKeys": [
+          "type",
+          "enabled",
+          "name",
+          "id",
+          "info",
+          "button",
+          "data",
+          "export_with"
+        ]
+      }
+    },
+    {
+      "name": "formal audit can generate final completion table without losing remaining gap",
+      "passed": true,
+      "evidence": {
+        "formalPeople": 44,
+        "initialMissing": 21,
+        "newlyFilled": 20,
+        "remaining": [
+          "沙沙宫创一"
+        ]
+      }
+    }
+  ],
+  "tests": [
+    {
+      "command": "node scripts/黑白ADV轮盘终端/packaging-test.mjs",
+      "exitCode": 0,
+      "passed": 9,
+      "total": 9
+    },
+    {
+      "command": "node --test scripts/黑白ADV轮盘终端/player-portrait-service-test.mjs scripts/黑白ADV轮盘终端/player-bubble-binder-test.mjs",
+      "exitCode": 0,
+      "passed": 77,
+      "total": 77
+    }
+  ],
+  "auditCompletion": [
+    {
+      "name": "摩立兹·奈斯勒",
+      "file": "DLC/学战研究/第三卷-世界书整理/人物条目/摩立兹·奈斯勒与葛尔特·席勒.md",
+      "line": 1,
+      "id": "moritz",
+      "status": "integrated"
+    },
+    {
+      "name": "葛尔特·席勒",
+      "file": "DLC/学战研究/第三卷-世界书整理/人物条目/摩立兹·奈斯勒与葛尔特·席勒.md",
+      "line": 1,
+      "id": "gerd",
+      "status": "integrated"
+    },
+    {
+      "name": "沙沙宫创一",
+      "file": "DLC/学战研究/第三卷-世界书整理/人物条目/沙沙宫创一.md",
+      "line": 1,
+      "id": null,
+      "status": "still-missing"
+    },
+    {
+      "name": "马迪亚斯·梅萨",
+      "file": "DLC/学战研究/第三卷-世界书整理/人物条目/马迪亚斯·梅萨.md",
+      "line": 1,
+      "id": "mathias",
+      "status": "integrated"
+    },
+    {
+      "name": "刀藤钢一郎",
+      "file": "DLC/学战研究/第二卷-世界书整理/人物条目/刀藤钢一郎.md",
+      "line": 1,
+      "id": "kouichiro",
+      "status": "integrated"
+    },
+    {
+      "name": "左近洲马",
+      "file": "DLC/学战研究/第二卷-世界书整理/人物条目/左近洲马.md",
+      "line": 1,
+      "id": "sakon",
+      "status": "integrated"
+    },
+    {
+      "name": "威尔纳",
+      "file": "DLC/学战研究/第五卷-世界书整理/人物条目/威尔纳与关.md",
+      "line": 1,
+      "id": "wernher",
+      "status": "integrated"
+    },
+    {
+      "name": "关",
+      "file": "DLC/学战研究/第五卷-世界书整理/人物条目/威尔纳与关.md",
+      "line": 1,
+      "id": "guan",
+      "status": "integrated"
+    },
+    {
+      "name": "席尔薇雅·琉奈海姆",
+      "file": "DLC/学战研究/第五卷-世界书整理/人物条目/席尔薇雅·琉奈海姆.md",
+      "line": 1,
+      "id": "sylvia",
+      "status": "integrated"
+    },
+    {
+      "name": "艾略特·佛斯达",
+      "file": "DLC/学战研究/第五卷-世界书整理/人物条目/艾略特·佛斯达与多洛提欧·雷姆斯.md",
+      "line": 1,
+      "id": "elliot",
+      "status": "integrated"
+    },
+    {
+      "name": "多洛提欧·雷姆斯",
+      "file": "DLC/学战研究/第五卷-世界书整理/人物条目/艾略特·佛斯达与多洛提欧·雷姆斯.md",
+      "line": 1,
+      "id": "doroteo",
+      "status": "integrated"
+    },
+    {
+      "name": "列媞希亚·布兰查得",
+      "file": "DLC/学战研究/第四卷-世界书整理/人物条目/列媞希亚·布兰查得.md",
+      "line": 1,
+      "id": "laetitia",
+      "status": "integrated"
+    },
+    {
+      "name": "天雾遥",
+      "file": "DLC/学战研究/第四卷-世界书整理/人物条目/天雾遥.md",
+      "line": 1,
+      "id": "haruka",
+      "status": "integrated"
+    },
+    {
+      "name": "宋",
+      "file": "DLC/学战研究/第四卷-世界书整理/人物条目/宋与罗.md",
+      "line": 1,
+      "id": "song",
+      "status": "integrated"
+    },
+    {
+      "name": "罗",
+      "file": "DLC/学战研究/第四卷-世界书整理/人物条目/宋与罗.md",
+      "line": 1,
+      "id": "luo",
+      "status": "integrated"
+    },
+    {
+      "name": "梁濑咪子",
+      "file": "DLC/学战研究/第四卷-世界书整理/人物条目/梁濑咪子与芳亭常.md",
+      "line": 1,
+      "id": "miko",
+      "status": "integrated"
+    },
+    {
+      "name": "芳亭常",
+      "file": "DLC/学战研究/第四卷-世界书整理/人物条目/梁濑咪子与芳亭常.md",
+      "line": 1,
+      "id": "tsune",
+      "status": "integrated"
+    },
+    {
+      "name": "芙萝拉·克蕾姆",
+      "file": "DLC/学战研究/第四卷-世界书整理/人物条目/芙萝拉·克蕾姆.md",
+      "line": 1,
+      "id": "flora",
+      "status": "integrated"
+    },
+    {
+      "name": "赵虎峰",
+      "file": "DLC/学战研究/第四卷-世界书整理/人物条目/赵虎峰.md",
+      "line": 1,
+      "id": "hufeng",
+      "status": "integrated"
+    },
+    {
+      "name": "黎沈云",
+      "file": "DLC/学战研究/第四卷-世界书整理/人物条目/黎沈云.md",
+      "line": 1,
+      "id": "shenyun",
+      "status": "integrated"
+    },
+    {
+      "name": "黎沈华",
+      "file": "DLC/学战研究/第四卷-世界书整理/人物条目/黎沈华.md",
+      "line": 1,
+      "id": "shenhua",
+      "status": "integrated"
+    }
+  ],
+  "note": "New source image kinds are recorded individually; official character expression sheets are not mislabeled as episode frames. GitHub URLs are validated against repository paths, not current post-push availability."
+}

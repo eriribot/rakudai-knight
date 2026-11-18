@@ -1,0 +1,83 @@
+{
+  "date": "2026-11-11",
+  "scope": "新增Non Sugar两人动画头像，组件级独立验证",
+  "passed": 14,
+  "total": 14,
+  "results": [
+    {
+      "name": "当前共23人，原有21人完整对象不变",
+      "passed": true
+    },
+    {
+      "name": "原有来源记录不变",
+      "passed": true
+    },
+    {
+      "name": "新增角色姓名与别名没有跨角色冲突",
+      "passed": true
+    },
+    {
+      "name": "美原缘图片来源、尺寸、SHA256与Git图床路径一致",
+      "passed": true
+    },
+    {
+      "name": "美原缘CSS裁切不超出原图且符合50:58头像比例",
+      "passed": true
+    },
+    {
+      "name": "久慈冢夜音图片来源、尺寸、SHA256与Git图床路径一致",
+      "passed": true
+    },
+    {
+      "name": "久慈冢夜音CSS裁切不超出原图且符合50:58头像比例",
+      "passed": true
+    },
+    {
+      "name": "dialogue-bubbles.regex.json原ID与业务参数保持",
+      "passed": true
+    },
+    {
+      "name": "dialogue-bubble-style.regex.json原ID与业务参数保持",
+      "passed": true
+    },
+    {
+      "name": "02 OC候选逐字节不变",
+      "passed": true
+    },
+    {
+      "name": "美原缘所有别名纳入终端NPC保留名单",
+      "passed": true
+    },
+    {
+      "name": "美原缘实际B1内页通讯录映射与样式完整",
+      "passed": true
+    },
+    {
+      "name": "久慈冢夜音所有别名纳入终端NPC保留名单",
+      "passed": true
+    },
+    {
+      "name": "久慈冢夜音实际B1内页通讯录映射与样式完整",
+      "passed": true
+    }
+  ],
+  "existingTests": [
+    {
+      "command": "node scripts/黑白ADV轮盘终端/packaging-test.mjs",
+      "passed": 9,
+      "total": 9,
+      "exitCode": 0
+    },
+    {
+      "command": "node --test scripts/黑白ADV轮盘终端/player-portrait-service-test.mjs scripts/黑白ADV轮盘终端/player-bubble-binder-test.mjs",
+      "passed": 77,
+      "total": 77,
+      "exitCode": 0
+    }
+  ],
+  "limits": [
+    "未操作或写入真实酒馆",
+    "未验证GitHub部署后远程图片可用性",
+    "本记录不代替浏览器画面验收"
+  ]
+}

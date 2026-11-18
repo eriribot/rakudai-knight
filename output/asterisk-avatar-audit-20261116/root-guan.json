@@ -1,0 +1,36 @@
+{
+  "characters": [
+    {
+      "id": "guan",
+      "name": "关",
+      "aliases": [
+        "關",
+        "Guan",
+        "Guen",
+        "Nguyen",
+        "グエン"
+      ],
+      "file": "resource/asteriskavatars/guan-anime.jpg",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/guan-anime.jpg",
+      "width": 314,
+      "height": 426,
+      "portraitCrop": [
+        0,
+        0,
+        310,
+        359.6
+      ],
+      "sourcePage": "https://otakotaku.com/character/view/4726/guen",
+      "sourceUrl": "https://otakotaku.com/asset/img/character/2016/06/guen.jpg",
+      "sha256": "7ac239922f054635b3c6945a586af9f55fa6c7b2a68a9db825f4cd95d5e89951",
+      "kind": "动画正片截图（角色资料站转载）",
+      "animeEpisode": 19,
+      "verification": "角色资料站明确标注グエン；第19话集评明确描写关的面部和耳部穿孔、胡碴、双刀，与本图及本地第五卷条目核对。官网ep19_4的金眼长刘海角色不是关，已排除。",
+      "identityEvidence": [
+        "https://blog.livedoor.jp/himekirin/archives/51869028.html",
+        "https://www.mau2.com/anime/gakusentosiasterisk-2"
+      ],
+      "checkedOn": "2026-11-16"
+    }
+  ]
+}

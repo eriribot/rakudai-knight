@@ -7,7 +7,7 @@ import { test } from 'node:test';
 import { parseFragment } from 'parse5';
 
 const read = file => fs.readFileSync(new URL(file, import.meta.url), 'utf8');
-const source = read('terminal-tournament.js').replace(/^export /gm, '') + '\n' + read('terminal-app.js') + '\n' + read('lime-chat.mjs').replace(/^export /gm, '') + '\n' + read('terminal-lime.js');
+const source = read('terminal-calendar.js') + '\n' + read('terminal-tournament.js').replace(/^export /gm, '') + '\n' + read('terminal-app.js') + '\n' + read('lime-chat.mjs').replace(/^export /gm, '') + '\n' + read('terminal-lime.js');
 const plain = value => JSON.parse(JSON.stringify(value));
 const settle = () => new Promise(resolve => setImmediate(resolve));
 const modalIds = ['rk-calendar-story', 'rk-calendar-story-title', 'rk-calendar-story-source',
@@ -329,5 +329,23 @@ test('missing full scene date still permits dated worldbook references and undat
   assert.match(f.element('calendar-sub').textContent, /本局日期未确认/);
   assert.match(f.html(), /未定日/);
   f.ui.selectCalendarDay(10); assertOpen(f);
+  assert.equal(JSON.stringify(f.ui.stat), before);
+});
+
+for (const world of ['rakudai', 'asterisk']) test(world + ' calendar shows both works without changing the current story', async () => {
+  const f = fixture(async () => loreData([
+    loreEntry(100, '[剧情]第一卷.序章', ['2013-04-05'], '落第原文'),
+    loreEntry(200, '[剧情]第一卷.序章.倏然疾风', ['2013-06-12'], '学战原文'),
+  ]));
+  f.ui.stat.系统.作品 = world;
+  const before = JSON.stringify(f.ui.stat);
+  await loaded(f);
+  assert.match(f.html(), /全部剧情 · 2 条/);
+  assert.match(f.html(), /第一卷.序章/); assert.match(f.html(), /倏然疾风/);
+  assert.equal(f.ui.calendarState.month, 5, 'scene date takes priority over either work’s first chapter');
+  for (const [uid, body] of [[100, '落第原文'], [200, '学战原文']]) {
+    f.ui.openCalendarStory(uid); assert.equal(f.element('rk-calendar-story-content').textContent, body);
+    f.ui.closeCalendarStory();
+  }
   assert.equal(JSON.stringify(f.ui.stat), before);
 });

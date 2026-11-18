@@ -24,7 +24,22 @@ const nativeEvents = {
 const helperEvents = { GENERATION_STARTED: 'js_generation_started', GENERATION_ENDED: 'js_generation_ended' };
 const results = [];
 
-function fixture({ delayedMvu = false, assistantFloors = 1, completeAsterisk = false } = {}) {
+// 来自逐卷 EPUB 目录核验的固定夹具，不用待测 catalog 反推章数和 order。
+const asteriskFixtureLayout = [
+  ['第一卷', 9, 200], ['第二卷', 8, 209], ['第三卷', 8, 217], ['第四卷', 8, 225],
+  ['第五卷', 8, 233], ['第六卷', 8, 241], ['第七卷', 8, 249], ['第八卷', 9, 257],
+  ['第九卷', 9, 266], ['第十卷', 9, 275], ['第十一卷', 9, 284], ['第十二卷', 8, 293],
+  ['第十三卷', 10, 301], ['第十四卷', 6, 311], ['第十五卷', 8, 317], ['第十六卷', 8, 325], ['第十七卷', 7, 333],
+];
+const asteriskExpectedChapters = asteriskFixtureLayout.flatMap(([label, count, order], index) => {
+  const numbered = ['第一章', '第二章', '第三章', '第四章', '第五章', '第六章', '第七章', '第八章', '第九章'];
+  const local = index === 0 ? ['序章', ...numbered.slice(0, 7), '终章']
+    : index === 13 ? numbered.slice(0, 6) : [...numbered.slice(0, count - 1), '终章'];
+  return local.map((chapter, offset) => ({ chapter: index === 0 ? chapter : label + '·' + chapter,
+    volume: index + 1, order: order + offset, entryPrefix: '[剧情]' + label + '.' + chapter + '.' }));
+});
+
+function fixture({ delayedMvu = false, assistantFloors = 1, completeAsterisk = false, fullAsterisk = false } = {}) {
   const state = clone(INITIAL_STATE);
   state.系统 = { 结构版本: 4, 开局状态: '已建档', 主角模式: '自定义角色' };
   state.玩家.姓名 = '测试玩家';
@@ -38,11 +53,15 @@ function fixture({ delayedMvu = false, assistantFloors = 1, completeAsterisk = f
   const worldEntries = [{ uid: 13, name: '[剧情]第一卷.序章', order: 100, enabled: false, content: '落第正文' }, { uid: 15, name: '[剧情]第一卷.第一章', order: 101, enabled: false, content: '落第正文' }, { uid: 20, name: '[剧情]第二卷.序章', order: 106, enabled: false, content: '落第正文' },
     ...['序章.倏然疾风', '第一章.华焰魔女', '第二章.学战都市', '第三章.凛凛眼神', '第四章.回忆与重逢', '第五章.黑炉魔剑', '第六章.两人的假日', '第七章.解放者']
       .map((title, i) => ({ uid: 200 + i, name: '[剧情]第一卷.' + title, order: 200 + i, enabled: false, content: '学战正文 ' + title.split('.')[0] }))];
-  if (completeAsterisk) worldEntries.push(
+  if (completeAsterisk || fullAsterisk) worldEntries.push(
     { uid: 208, name: '[剧情]第一卷.终章.并肩之誓', order: 208, enabled: false, content: '学战正文 终章' },
     ...['第一章.六花园会议', '第二章.昏枭暗跃', '第三章.疾风刃雷', '第四章.错综的思绪', '第五章.少女素颜', '第六章.雾中魔手', '第七章.决意与决斗', '终章.蜀山组队']
       .map((title, i) => ({ uid: 209 + i, name: '[剧情]第二卷.' + title, order: 209 + i, enabled: false, content: '学战正文 第二卷·' + title.split('.')[0] })),
+    ...['第一章.开幕前夜', '第二章.凤凰星武祭', '第三章.阿尔第与莉姆希', '第四章.吸血暴姬', '第五章.雷渥夫姐妹', '第六章.力量与代价', '第七章.霸溃血镰', '终章.余烬与暗流']
+      .map((title, i) => ({ uid: 217 + i, name: '[剧情]第三卷.' + title, order: 217 + i, enabled: false, content: '学战正文 第三卷·' + title.split('.')[0] })),
   );
+  if (fullAsterisk) worldEntries.push(...asteriskExpectedChapters.slice(25).map(item => ({ uid: item.order,
+    name: item.entryPrefix + '核验正文', order: item.order, enabled: false, content: '学战正文 ' + item.chapter })));
   const calls = { wait: [], mvuReads: [], worldbookReads: [], variableReads: [], variableWrites: [], tokenCounts: [], generation: 0, mvuWrites: 0, contextReads: 0 };
   const forbiddenGeneration = () => { calls.generation++; throw new Error('测试期间不得主动触发生成'); };
   const context = {
@@ -250,14 +269,10 @@ await check('学战按 order 200–207 注入本章原文，保留卷 null；奇
   }
 });
 
-await check('学战 208 跨入 209、二卷独立定位与 216 终点，奇偶发送均保留完整章名及卷 null', async () => {
-  const cases = [
-    { chapter: '终章', order: 208, volume: 1, next: '第二卷·第一章' },
-    { chapter: '第二卷·第一章', order: 209, volume: 2, next: '第二卷·第二章' },
-    { chapter: '第二卷·终章', order: 216, volume: 2, next: null },
-  ];
+await check('学战全17卷140章逐条读取，所有跨卷边界及339终点的奇偶发送正文与推进补丁正确', async () => {
+  const cases = asteriskExpectedChapters.map((item, index) => ({ ...item, next: asteriskExpectedChapters[index + 1]?.chapter ?? null }));
   for (const assistantFloors of [1, 2]) for (const item of cases) {
-    const f = fixture({ assistantFloors, completeAsterisk: true }), script = f.frame(`asterisk-volume2-${assistantFloors}-${item.order}`);
+    const f = fixture({ assistantFloors, fullAsterisk: true }), script = f.frame(`asterisk-volumes-${assistantFloors}-${item.order}`);
     const state = f.chat.at(-2).variables[0].stat_data;
     state.系统.作品 = 'asterisk'; state.场景.当前卷 = null; state.场景.当前章 = item.chapter;
     const before = clone(f.chat); script.install();
@@ -266,10 +281,10 @@ await check('学战 208 跨入 209、二卷独立定位与 216 终点，奇偶�
     assert.equal(preview.entryOrder, item.order);
     assert.ok(preview.text.includes('学战正文 ' + item.chapter));
     assert.ok(!preview.text.includes('落第正文'));
-    if (item.volume === 2) {
+    if (item.volume > 1) {
       assert.ok(!preview.text.includes('学战正文 第一章'));
       assert.doesNotMatch(preview.text, /当前剧情节点：学战 第一卷/);
-      assert.ok(preview.entryName.startsWith('[剧情]第二卷.'));
+      assert.ok(preview.entryName.startsWith('[剧情]' + item.chapter.replace('·', '.') + '.'));
     }
     const patch = item.next
       ? [{ op: 'replace', path: '/场景/当前章', value: item.next }, { op: 'replace', path: '/场景/阶段', value: '进行中' }]
@@ -285,53 +300,103 @@ await check('学战 208 跨入 209、二卷独立定位与 216 终点，奇偶�
     assert.equal(last?.entryOrder, item.order); assert.equal(last?.volume, item.volume); assert.equal(last?.chapter, item.chapter);
     assert.equal(last?.placement, assistantFloors === 1 ? 'append-user' : 'standalone-user');
     assert.equal(textOf(event).split(marker).length - 1, 1);
+    const injectedBodies = textOf(event).match(/学战正文 [^\r\n<]+/g);
+    assert.deepEqual(injectedBodies, ['学战正文 ' + item.chapter]);
     assert.equal(f.calls.mvuWrites, 0); assert.equal(f.calls.variableWrites.length, 0); assert.equal(f.calls.generation, 0);
     assert.deepEqual(f.chat, before); script.pagehide();
   }
 });
 
-await check('学战缺少第二卷 209 时只完成 208，不输出跨卷或卷号补丁', async () => {
-  const f = fixture({ completeAsterisk: true }), script = f.frame('asterisk-missing-volume2');
-  f.worldEntries.splice(f.worldEntries.findIndex(entry => entry.order === 209), 1);
+await check('学战缺少后卷209、217或225时只完成当前终章，不输出跨卷或卷号补丁', async () => {
+  for (const item of [{ chapter: '终章', order: 208, missing: 209 }, { chapter: '第二卷·终章', order: 216, missing: 217 }, { chapter: '第三卷·终章', order: 224, missing: 225 }]) {
+    const f = fixture({ completeAsterisk: true }), script = f.frame('asterisk-missing-' + item.missing);
+    const missingIndex = f.worldEntries.findIndex(entry => entry.order === item.missing);
+    if (missingIndex >= 0) f.worldEntries.splice(missingIndex, 1);
+    const state = f.chat[0].variables[0].stat_data;
+    state.系统.作品 = 'asterisk'; state.场景.当前卷 = null; state.场景.当前章 = item.chapter;
+    const before = clone(f.chat); script.install();
+    const preview = await f.top.__RK_PLOT_V3__.preview();
+    assert.equal(preview.entryOrder, item.order); assert.ok(preview.text.includes(String(item.missing))); assert.match(preview.text, /不自动切章/);
+    assert.ok(preview.text.includes('[{"op":"replace","path":"/场景/阶段","value":"已结束"}]'));
+    assert.ok(!preview.text.includes('"path":"/场景/当前章"')); assert.ok(!preview.text.includes('"path":"/场景/当前卷"'));
+    const event = f.prompt();
+    await f.emit(nativeEvents.GENERATION_AFTER_COMMANDS, 'normal', {}, false);
+    await f.emit(nativeEvents.CHAT_COMPLETION_PROMPT_READY, event);
+    await f.emit(nativeEvents.CHAT_COMPLETION_SETTINGS_READY, { type: 'normal', messages: [...event.chat] });
+    assert.equal(f.top.__RK_PLOT_V3__.getStatus().lastInjection?.entryOrder, item.order);
+    assert.equal(f.calls.mvuWrites, 0); assert.equal(f.calls.variableWrites.length, 0); assert.equal(f.calls.generation, 0);
+    assert.deepEqual(f.chat, before); script.pagehide();
+  }
+});
+
+await check('只安装前三卷时224停止，补225后同一实例立即衔接，正文修改或删除下次读取即时生效', async () => {
+  const f = fixture({ completeAsterisk: true }), script = f.frame('asterisk-install-worldbook-only');
   const state = f.chat[0].variables[0].stat_data;
-  state.系统.作品 = 'asterisk'; state.场景.当前卷 = null; state.场景.当前章 = '终章';
-  const before = clone(f.chat); script.install();
-  const preview = await f.top.__RK_PLOT_V3__.preview();
-  assert.equal(preview.entryOrder, 208); assert.match(preview.text, /209/); assert.match(preview.text, /不自动切章/);
-  assert.ok(preview.text.includes('[{"op":"replace","path":"/场景/阶段","value":"已结束"}]'));
-  assert.ok(!preview.text.includes('"path":"/场景/当前章"')); assert.ok(!preview.text.includes('"path":"/场景/当前卷"'));
+  state.系统.作品 = 'asterisk'; state.场景.当前卷 = null; state.场景.当前章 = '第三卷·终章';
+  script.install(); const api = f.top.__RK_PLOT_V3__;
+  const blocked = await api.preview();
+  assert.equal(blocked.entryOrder, 224); assert.match(blocked.text, /225/);
+  assert.ok(!blocked.text.includes('"path":"/场景/当前章"'));
+  const fourth = { uid: 225, name: '[剧情]第四卷.第一章.界龙之主', order: 225, enabled: false, content: '第四卷新增的独立正文' };
+  f.worldEntries.push(fourth);
+  const ready = await api.preview();
+  assert.equal(f.top.__RK_PLOT_V3__, api);
+  assert.ok(ready.text.includes('"path":"/场景/当前章","value":"第四卷·第一章"'));
+  const crossing = f.prompt();
+  await f.emit(nativeEvents.GENERATION_AFTER_COMMANDS, 'normal', {}, false);
+  await f.emit(nativeEvents.CHAT_COMPLETION_PROMPT_READY, crossing);
+  await f.emit(nativeEvents.CHAT_COMPLETION_SETTINGS_READY, { type: 'normal', messages: [...crossing.chat] });
+  assert.equal(api.getStatus().lastInjection?.entryOrder, 224);
+  assert.ok(textOf(crossing).includes('"path":"/场景/当前章","value":"第四卷·第一章"'));
+  await f.emit(nativeEvents.GENERATION_ENDED);
+  state.场景.当前章 = '第四卷·第一章';
+  assert.match((await api.preview()).text, /第四卷新增的独立正文/);
+  fourth.content = '第四卷修订后的独立正文';
+  const changed = await api.preview();
+  assert.match(changed.text, /第四卷修订后的独立正文/); assert.doesNotMatch(changed.text, /第四卷新增的独立正文/);
+  assert.match(changed.text, /226/); assert.ok(!changed.text.includes('"path":"/场景/当前章"'));
   const event = f.prompt();
   await f.emit(nativeEvents.GENERATION_AFTER_COMMANDS, 'normal', {}, false);
   await f.emit(nativeEvents.CHAT_COMPLETION_PROMPT_READY, event);
   await f.emit(nativeEvents.CHAT_COMPLETION_SETTINGS_READY, { type: 'normal', messages: [...event.chat] });
-  assert.equal(f.top.__RK_PLOT_V3__.getStatus().lastInjection?.entryOrder, 208);
-  assert.equal(f.calls.mvuWrites, 0); assert.equal(f.calls.variableWrites.length, 0); assert.equal(f.calls.generation, 0);
-  assert.deepEqual(f.chat, before); script.pagehide();
-});
-
-await check('学战条目标题卷章与 order 错位时拒绝注入，不再把二卷一章标为一卷终章', async () => {
-  const f = fixture({ completeAsterisk: true }), script = f.frame('asterisk-misaligned-entry');
-  f.worldEntries.find(entry => entry.order === 208).name = '[剧情]第二卷.第一章.六花园会议';
-  const state = f.chat[0].variables[0].stat_data;
-  state.系统.作品 = 'asterisk'; state.场景.当前卷 = null; state.场景.当前章 = '终章';
-  script.install();
-  await assert.rejects(f.top.__RK_PLOT_V3__.preview());
-  const event = f.prompt(), before = clone(event.chat);
-  await f.emit(nativeEvents.GENERATION_AFTER_COMMANDS, 'normal', {}, false);
-  await f.emit(nativeEvents.CHAT_COMPLETION_PROMPT_READY, event);
-  await f.emit(nativeEvents.CHAT_COMPLETION_SETTINGS_READY, { type: 'normal', messages: [...event.chat] });
-  assert.deepEqual(event.chat, before); assert.equal(f.top.__RK_PLOT_V3__.getStatus().lastInjection, null);
+  assert.equal(api.getStatus().lastInjection?.entryOrder, 225);
+  assert.match(textOf(event), /第四卷修订后的独立正文/); assert.doesNotMatch(textOf(event), /第四卷新增的独立正文/);
+  await f.emit(nativeEvents.GENERATION_ENDED);
+  f.worldEntries.splice(f.worldEntries.indexOf(fourth), 1);
+  await assert.rejects(api.preview(), /225/);
   assert.equal(f.calls.mvuWrites, 0); assert.equal(f.calls.variableWrites.length, 0); assert.equal(f.calls.generation, 0);
   script.pagehide();
 });
 
-await check('学战未知章名与缺失终章给出失败原因，不能回退注入落第剧情', async () => {
-  for (const chapter of ['入学报到', '终章']) {
+await check('学战条目标题卷章与 order 错位时拒绝注入，包括第三卷同章异卷及错章', async () => {
+  for (const item of [
+    { chapter: '终章', order: 208, name: '[剧情]第二卷.第一章.六花园会议' },
+    { chapter: '第三卷·第一章', order: 217, name: '[剧情]第二卷.第一章.六花园会议' },
+    { chapter: '第三卷·第一章', order: 217, name: '[剧情]第三卷.第二章.凤凰星武祭' },
+  ]) {
+    const f = fixture({ completeAsterisk: true }), script = f.frame('asterisk-misaligned-' + item.order);
+    f.worldEntries.find(entry => entry.order === item.order).name = item.name;
+    const state = f.chat[0].variables[0].stat_data;
+    state.系统.作品 = 'asterisk'; state.场景.当前卷 = null; state.场景.当前章 = item.chapter;
+    script.install();
+    await assert.rejects(f.top.__RK_PLOT_V3__.preview());
+    const event = f.prompt(), before = clone(event.chat);
+    await f.emit(nativeEvents.GENERATION_AFTER_COMMANDS, 'normal', {}, false);
+    await f.emit(nativeEvents.CHAT_COMPLETION_PROMPT_READY, event);
+    await f.emit(nativeEvents.CHAT_COMPLETION_SETTINGS_READY, { type: 'normal', messages: [...event.chat] });
+    assert.deepEqual(event.chat, before); assert.equal(f.top.__RK_PLOT_V3__.getStatus().lastInjection, null);
+    assert.equal(f.calls.mvuWrites, 0); assert.equal(f.calls.variableWrites.length, 0); assert.equal(f.calls.generation, 0);
+    script.pagehide();
+  }
+});
+
+await check('学战未知章名、不存在的十四卷终章和十八卷及缺失正文均拒绝注入', async () => {
+  for (const chapter of ['入学报到', '第十四卷·终章', '第十八卷·第一章', '终章', '第十七卷·终章']) {
     const f = fixture(), script = f.frame('asterisk-missing-' + chapter);
     const state = f.chat[0].variables[0].stat_data;
     state.系统.作品 = 'asterisk'; state.场景.当前卷 = null; state.场景.当前章 = chapter;
     script.install();
-    await assert.rejects(f.top.__RK_PLOT_V3__.preview(), chapter === '终章' ? /208/ : /正式卷章/);
+    await assert.rejects(f.top.__RK_PLOT_V3__.preview(), chapter === '终章' ? /208/ : chapter === '第十七卷·终章' ? /339/ : /正式卷章/);
     const event = f.prompt(), before = clone(event.chat);
     await f.emit(nativeEvents.GENERATION_AFTER_COMMANDS, 'normal', {}, false);
     await f.emit(nativeEvents.CHAT_COMPLETION_PROMPT_READY, event);
@@ -666,10 +731,71 @@ await check('独立 user 转为 text parts 后撤回，保留额外文字并删�
   }
 });
 
+await check('发送阶段等值复制消息仍确认本轮剧情，两种位置均不依赖对象引用', async () => {
+  for (const assistantFloors of [1, 2]) {
+    const f = fixture({ assistantFloors }), script = f.frame('equivalent-copy'); script.install();
+    const event = f.prompt();
+    await f.emit(nativeEvents.GENERATION_AFTER_COMMANDS, 'normal', {}, false);
+    await f.emit(nativeEvents.CHAT_COMPLETION_PROMPT_READY, event);
+    const request = { type: 'normal', messages: clone(event.chat) }, before = clone(request.messages);
+    await f.emit(nativeEvents.CHAT_COMPLETION_SETTINGS_READY, request);
+    assert.ok(f.top.__RK_PLOT_V3__.getStatus().lastInjection, '等值复制不应撤回本轮剧情');
+    assert.deepEqual(request.messages, before);
+    assert.equal(textOf({ chat: request.messages }).split(marker).length - 1, 1);
+    assert.deepEqual(f.chat, f.originalChat); script.pagehide();
+  }
+});
+
+await check('已发送确认后的后台开始事件不伪报撤回，也不改请求', async () => {
+  const f = fixture(), script = f.frame('background-after-confirmation'); script.install();
+  const event = f.prompt();
+  await f.emit(nativeEvents.GENERATION_AFTER_COMMANDS, 'normal', {}, false);
+  await f.emit(nativeEvents.CHAT_COMPLETION_PROMPT_READY, event);
+  const request = { type: 'normal', messages: [...event.chat] };
+  await f.emit(nativeEvents.CHAT_COMPLETION_SETTINGS_READY, request);
+  const before = plain(f.top.__RK_PLOT_V3__.getStatus()), sent = clone(request);
+  assert.ok(before.lastInjection);
+  await f.emit(helperEvents.GENERATION_STARTED, 'background');
+  assert.deepEqual(plain(f.top.__RK_PLOT_V3__.getStatus()), before);
+  assert.deepEqual(request, sent); script.pagehide();
+});
+
+await check('同章同文的迟到旧副本不能认领新请求，新候选仍可确认', async () => {
+  const f = fixture(), script = f.frame('late-copy'); script.install();
+  const first = f.prompt();
+  await f.emit(nativeEvents.GENERATION_AFTER_COMMANDS, 'normal', {}, false);
+  await f.emit(nativeEvents.CHAT_COMPLETION_PROMPT_READY, first);
+  const late = { type: 'normal', messages: clone(first.chat) }, next = f.prompt();
+  await f.emit(nativeEvents.GENERATION_AFTER_COMMANDS, 'normal', {}, false);
+  await f.emit(nativeEvents.CHAT_COMPLETION_PROMPT_READY, next);
+  await f.emit(nativeEvents.CHAT_COMPLETION_SETTINGS_READY, late);
+  assert.equal(f.top.__RK_PLOT_V3__.getStatus().lastInjection, null);
+  assert.ok(!textOf({ chat: late.messages }).includes(marker));
+  assert.ok(textOf(next).includes(marker));
+  await f.emit(nativeEvents.CHAT_COMPLETION_SETTINGS_READY, { type: 'normal', messages: clone(next.chat) });
+  assert.ok(f.top.__RK_PLOT_V3__.getStatus().lastInjection); script.pagehide();
+});
+
+await check('深复制后取消会清理本次标记和独立尾消息，不删除原有空 user', async () => {
+  for (const assistantFloors of [1, 2]) {
+    const f = fixture({ assistantFloors }), script = f.frame('cloned-cancel'); script.install();
+    const event = f.prompt(); event.chat.at(-1).content = '';
+    const before = clone(event.chat);
+    await f.emit(nativeEvents.GENERATION_AFTER_COMMANDS, 'normal', {}, false);
+    await f.emit(nativeEvents.CHAT_COMPLETION_PROMPT_READY, event);
+    const request = { type: 'normal', messages: clone(event.chat) };
+    await f.emit(helperEvents.GENERATION_STARTED, 'background');
+    await f.emit(nativeEvents.CHAT_COMPLETION_SETTINGS_READY, request);
+    assert.deepEqual(request.messages.map(message => ({ ...message, content: message.content.trim() })), before);
+    assert.equal(f.top.__RK_PLOT_V3__.getStatus().lastInjection, null);
+    assert.deepEqual(f.chat, f.originalChat); script.pagehide();
+  }
+});
+
 await check('getStatus.reason 公开修订号，旧终端只读取 reason 也能核对实际实例', () => {
   const f = fixture(), script = f.frame('visible-revision'); script.install();
   const status = f.top.__RK_PLOT_V3__.getStatus();
-  assert.equal(status.revision, '20261109.1');
+  assert.equal(status.revision, '20261114.1');
   assert.ok(status.reason.startsWith('注入器修订 ' + status.revision + '。'));
   script.pagehide();
 });
@@ -681,8 +807,8 @@ const report = ['# 剧情注入器宿主适配离线验收', '', `结果：${pas
   '仍须实机确认终端读取最外层 API、实际 MVU 初始化顺序及旧脚本停用后的监听清理。', '',
   ...failed.flatMap(result => [`## ${result.name}`, '', '```text', result.error, '```', ''])];
 if (!noWrite) {
-  fs.mkdirSync(new URL('../output/chapter-v4/', import.meta.url), { recursive: true });
-  fs.writeFileSync(new URL(`../output/chapter-v4/bootstrap${built ? '-built' : ''}-test-review.md`, import.meta.url), report.join('\n') + '\n');
+  fs.mkdirSync(new URL('../世界书规则/MVU/验证记录/', import.meta.url), { recursive: true });
+  fs.writeFileSync(new URL(`../世界书规则/MVU/验证记录/剧情注入器${built ? '-组件' : '-源码'}验收.md`, import.meta.url), report.join('\n') + '\n');
 }
 console.log(JSON.stringify({ source: sourceLabel, passed, total: results.length, failures: failed }, null, 2));
 if (failed.length) process.exitCode = 1;

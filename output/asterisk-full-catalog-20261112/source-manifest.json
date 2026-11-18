@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "revision": "20261112.2",
+  "sources": [
+    {
+      "artifactName": "plot-injector-full",
+      "source": "世界书规则/MVU/落第骑士-卷章剧情注入器-v3.0.0.json",
+      "sourceSha256": "ffee05029d6c09082ead6336d9f3acbf8e33b01ba8bebef72ad52ce9602fa567",
+      "id": "6edbbb80-8e4a-4213-8334-91e76a2ad74b"
+    },
+    {
+      "artifactName": "terminal-full-catalog",
+      "source": "世界书规则/MVU/落第骑士-小手机-v1.3.29-B1-头像更新.json",
+      "sourceSha256": "f888cd6450c3a6e0fdf9bfcb1553753cce4214e43f72a5e3ef568c90e98f58ba",
+      "id": "3d8c6c23-f78e-46e5-8e89-4a90bab6fb85"
+    }
+  ]
+}

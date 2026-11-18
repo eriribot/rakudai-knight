@@ -1,0 +1,378 @@
+{
+  "date": "2026-11-16",
+  "scope": "各卷人物条目独立文件（合写条目拆人）＋04_登场人物档案库去重；不把正文每次提及当成待补肖像",
+  "formalFiles": 38,
+  "formalPeople": 44,
+  "integratedPeople": 23,
+  "missingPeople": 21,
+  "missing": [
+    {
+      "name": "摩立兹·奈斯勒",
+      "file": "DLC/学战研究/第三卷-世界书整理/人物条目/摩立兹·奈斯勒与葛尔特·席勒.md",
+      "line": 1,
+      "hasIntegratedAvatar": false,
+      "localIllustrationReferences": [],
+      "note": "引用插画可能只有文字卡/其他主角；非自动确认此角色肖像"
+    },
+    {
+      "name": "葛尔特·席勒",
+      "file": "DLC/学战研究/第三卷-世界书整理/人物条目/摩立兹·奈斯勒与葛尔特·席勒.md",
+      "line": 1,
+      "hasIntegratedAvatar": false,
+      "localIllustrationReferences": [],
+      "note": "引用插画可能只有文字卡/其他主角；非自动确认此角色肖像"
+    },
+    {
+      "name": "沙沙宫创一",
+      "file": "DLC/学战研究/第三卷-世界书整理/人物条目/沙沙宫创一.md",
+      "line": 1,
+      "hasIntegratedAvatar": false,
+      "localIllustrationReferences": [],
+      "note": "引用插画可能只有文字卡/其他主角；非自动确认此角色肖像"
+    },
+    {
+      "name": "马迪亚斯·梅萨",
+      "file": "DLC/学战研究/第三卷-世界书整理/人物条目/马迪亚斯·梅萨.md",
+      "line": 1,
+      "hasIntegratedAvatar": false,
+      "localIllustrationReferences": [
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 12 刹鬼再应/co2.jpg",
+          "exists": true
+        },
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 17 六花团圆/005.jpg",
+          "exists": true
+        }
+      ],
+      "note": "引用插画可能只有文字卡/其他主角；非自动确认此角色肖像"
+    },
+    {
+      "name": "刀藤钢一郎",
+      "file": "DLC/学战研究/第二卷-世界书整理/人物条目/刀藤钢一郎.md",
+      "line": 1,
+      "hasIntegratedAvatar": false,
+      "localIllustrationReferences": [],
+      "note": "引用插画可能只有文字卡/其他主角；非自动确认此角色肖像"
+    },
+    {
+      "name": "左近洲马",
+      "file": "DLC/学战研究/第二卷-世界书整理/人物条目/左近洲马.md",
+      "line": 1,
+      "hasIntegratedAvatar": false,
+      "localIllustrationReferences": [],
+      "note": "引用插画可能只有文字卡/其他主角；非自动确认此角色肖像"
+    },
+    {
+      "name": "威尔纳",
+      "file": "DLC/学战研究/第五卷-世界书整理/人物条目/威尔纳与关.md",
+      "line": 1,
+      "hasIntegratedAvatar": false,
+      "localIllustrationReferences": [
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 05 霸凰决战/006.jpg",
+          "exists": true
+        }
+      ],
+      "note": "引用插画可能只有文字卡/其他主角；非自动确认此角色肖像"
+    },
+    {
+      "name": "关",
+      "file": "DLC/学战研究/第五卷-世界书整理/人物条目/威尔纳与关.md",
+      "line": 1,
+      "hasIntegratedAvatar": false,
+      "localIllustrationReferences": [
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 05 霸凰决战/006.jpg",
+          "exists": true
+        }
+      ],
+      "note": "引用插画可能只有文字卡/其他主角；非自动确认此角色肖像"
+    },
+    {
+      "name": "席尔薇雅·琉奈海姆",
+      "file": "DLC/学战研究/第五卷-世界书整理/人物条目/席尔薇雅·琉奈海姆.md",
+      "line": 1,
+      "hasIntegratedAvatar": false,
+      "localIllustrationReferences": [
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 05 霸凰决战/cover.jpg",
+          "exists": true
+        },
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 05 霸凰决战/co3.jpg",
+          "exists": true
+        },
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 07 祭华缭乱/004.jpg",
+          "exists": true
+        },
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 17 六花团圆/009.jpg",
+          "exists": true
+        }
+      ],
+      "note": "引用插画可能只有文字卡/其他主角；非自动确认此角色肖像"
+    },
+    {
+      "name": "艾略特·佛斯达",
+      "file": "DLC/学战研究/第五卷-世界书整理/人物条目/艾略特·佛斯达与多洛提欧·雷姆斯.md",
+      "line": 1,
+      "hasIntegratedAvatar": false,
+      "localIllustrationReferences": [
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 05 霸凰决战/co2.jpg",
+          "exists": true
+        },
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 05 霸凰决战/co8.jpg",
+          "exists": true
+        }
+      ],
+      "note": "引用插画可能只有文字卡/其他主角；非自动确认此角色肖像"
+    },
+    {
+      "name": "多洛提欧·雷姆斯",
+      "file": "DLC/学战研究/第五卷-世界书整理/人物条目/艾略特·佛斯达与多洛提欧·雷姆斯.md",
+      "line": 1,
+      "hasIntegratedAvatar": false,
+      "localIllustrationReferences": [
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 05 霸凰决战/co2.jpg",
+          "exists": true
+        },
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 05 霸凰决战/co8.jpg",
+          "exists": true
+        }
+      ],
+      "note": "引用插画可能只有文字卡/其他主角；非自动确认此角色肖像"
+    },
+    {
+      "name": "列媞希亚·布兰查得",
+      "file": "DLC/学战研究/第四卷-世界书整理/人物条目/列媞希亚·布兰查得.md",
+      "line": 1,
+      "hasIntegratedAvatar": false,
+      "localIllustrationReferences": [
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 04 追忆斗破/010.jpg",
+          "exists": true
+        },
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 09 悠日战啾/001.jpg",
+          "exists": true
+        },
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 09 悠日战啾/co2.jpg",
+          "exists": true
+        },
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 09 悠日战啾/005.jpg",
+          "exists": true
+        },
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 10 龙激圣霸/co2.jpg",
+          "exists": true
+        }
+      ],
+      "note": "引用插画可能只有文字卡/其他主角；非自动确认此角色肖像"
+    },
+    {
+      "name": "天雾遥",
+      "file": "DLC/学战研究/第四卷-世界书整理/人物条目/天雾遥.md",
+      "line": 1,
+      "hasIntegratedAvatar": false,
+      "localIllustrationReferences": [
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 04 追忆斗破/007.jpg",
+          "exists": true
+        },
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 11 刃心切磋/008.jpg",
+          "exists": true
+        },
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 12 刹鬼再应/co3.jpg",
+          "exists": true
+        },
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 12 刹鬼再应/001.jpg",
+          "exists": true
+        },
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 15 剑云炎华/001.jpg",
+          "exists": true
+        },
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 17 六花团圆/001.jpg",
+          "exists": true
+        }
+      ],
+      "note": "引用插画可能只有文字卡/其他主角；非自动确认此角色肖像"
+    },
+    {
+      "name": "宋",
+      "file": "DLC/学战研究/第四卷-世界书整理/人物条目/宋与罗.md",
+      "line": 1,
+      "hasIntegratedAvatar": false,
+      "localIllustrationReferences": [
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 04 追忆斗破/co8.jpg",
+          "exists": true
+        },
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 04 追忆斗破/002.jpg",
+          "exists": true
+        }
+      ],
+      "note": "引用插画可能只有文字卡/其他主角；非自动确认此角色肖像"
+    },
+    {
+      "name": "罗",
+      "file": "DLC/学战研究/第四卷-世界书整理/人物条目/宋与罗.md",
+      "line": 1,
+      "hasIntegratedAvatar": false,
+      "localIllustrationReferences": [
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 04 追忆斗破/co8.jpg",
+          "exists": true
+        },
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 04 追忆斗破/002.jpg",
+          "exists": true
+        }
+      ],
+      "note": "引用插画可能只有文字卡/其他主角；非自动确认此角色肖像"
+    },
+    {
+      "name": "梁濑咪子",
+      "file": "DLC/学战研究/第四卷-世界书整理/人物条目/梁濑咪子与芳亭常.md",
+      "line": 1,
+      "hasIntegratedAvatar": false,
+      "localIllustrationReferences": [
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 03 凤凰乱武/co8.jpg",
+          "exists": false
+        },
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 04 追忆斗破/co8.jpg",
+          "exists": true
+        }
+      ],
+      "note": "引用插画可能只有文字卡/其他主角；非自动确认此角色肖像"
+    },
+    {
+      "name": "芳亭常",
+      "file": "DLC/学战研究/第四卷-世界书整理/人物条目/梁濑咪子与芳亭常.md",
+      "line": 1,
+      "hasIntegratedAvatar": false,
+      "localIllustrationReferences": [
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 03 凤凰乱武/co8.jpg",
+          "exists": false
+        },
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 04 追忆斗破/co8.jpg",
+          "exists": true
+        }
+      ],
+      "note": "引用插画可能只有文字卡/其他主角；非自动确认此角色肖像"
+    },
+    {
+      "name": "芙萝拉·克蕾姆",
+      "file": "DLC/学战研究/第四卷-世界书整理/人物条目/芙萝拉·克蕾姆.md",
+      "line": 1,
+      "hasIntegratedAvatar": false,
+      "localIllustrationReferences": [
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 04 追忆斗破/co3.jpg",
+          "exists": true
+        },
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 04 追忆斗破/003.jpg",
+          "exists": true
+        },
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 04 追忆斗破/004.jpg",
+          "exists": true
+        },
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 06 怀国凯战/003.jpg",
+          "exists": true
+        },
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 17 六花团圆/007.jpg",
+          "exists": true
+        }
+      ],
+      "note": "引用插画可能只有文字卡/其他主角；非自动确认此角色肖像"
+    },
+    {
+      "name": "赵虎峰",
+      "file": "DLC/学战研究/第四卷-世界书整理/人物条目/赵虎峰.md",
+      "line": 1,
+      "hasIntegratedAvatar": false,
+      "localIllustrationReferences": [
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 04 追忆斗破/co8.jpg",
+          "exists": true
+        },
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 10 龙激圣霸/001.jpg",
+          "exists": true
+        }
+      ],
+      "note": "引用插画可能只有文字卡/其他主角；非自动确认此角色肖像"
+    },
+    {
+      "name": "黎沈云",
+      "file": "DLC/学战研究/第四卷-世界书整理/人物条目/黎沈云.md",
+      "line": 1,
+      "hasIntegratedAvatar": false,
+      "localIllustrationReferences": [
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 04 追忆斗破/co2.jpg",
+          "exists": true
+        },
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 04 追忆斗破/008.jpg",
+          "exists": true
+        },
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 04 追忆斗破/co8.jpg",
+          "exists": true
+        }
+      ],
+      "note": "引用插画可能只有文字卡/其他主角；非自动确认此角色肖像"
+    },
+    {
+      "name": "黎沈华",
+      "file": "DLC/学战研究/第四卷-世界书整理/人物条目/黎沈华.md",
+      "line": 1,
+      "hasIntegratedAvatar": false,
+      "localIllustrationReferences": [
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 04 追忆斗破/co2.jpg",
+          "exists": true
+        },
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 04 追忆斗破/008.jpg",
+          "exists": true
+        },
+        {
+          "file": "DLC/学战研究/插图/学战都市Asterisk 04 追忆斗破/co8.jpg",
+          "exists": true
+        }
+      ],
+      "note": "引用插画可能只有文字卡/其他主角；非自动确认此角色肖像"
+    }
+  ],
+  "extraArchiveMissing": [],
+  "jsonWorldbooks": "当前DLC/学战研究内未发现.json世界书；审计正式Markdown人物条目。",
+  "aliasNotes": [
+    "依蕾奈／普莉熙拉的乌儿塞斯与兀儿塞丝已兼容，不重复计缺图",
+    "美原缘、久慈冢／塚／家夜音已有正片截图",
+    "宋与罗的条目指宋然、罗坤展（动画版补名），不要以同姓其他人替代",
+    "仅小说插画索引存在不等于头像已接入"
+  ]
+}

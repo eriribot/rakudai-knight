@@ -50,8 +50,8 @@ def extract_from_file(filepath: str) -> dict:
         if act_m:
             cur_act = act_m.group(1).strip()
 
-        # Track Obsidian callouts (excluding static ABSTRACT and TIP guide blocks)
-        if re.match(r"^>\s*\[!(NOTE|EXAMPLE|TIP|WARNING|CHECK)\](?!-)", line):
+        # Track Obsidian callouts (excluding static info and tip navigation guide blocks)
+        if re.match(r"^>\s*\[!(?!info\b|tip\b|abstract\b)([^\]\r\n]+)\](?!-)", line, re.IGNORECASE):
             if in_callout and callout_buf:
                 callout_notes.append((callout_start_line, callout_header, callout_buf))
             in_callout = True

@@ -1,0 +1,12 @@
+{
+  "date": "2026-11-11",
+  "browser": "Chrome",
+  "url": "http://127.0.0.1:18737/output/non-sugar-avatars-20261111/preview.html",
+  "screenshot": "output/non-sugar-avatars-20261111/preview.png",
+  "observed": [
+    "两张动画原图加载正常",
+    "美原缘与久慈冢夜音脸部位于六边框中央",
+    "放大头像和正常气泡尺寸显示正常"
+  ],
+  "scope": "本地生成组件的浏览器预览；没有写入酒馆，也没有验证远程部署"
+}

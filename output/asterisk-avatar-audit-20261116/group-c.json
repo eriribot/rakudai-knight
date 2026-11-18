@@ -1,0 +1,98 @@
+{
+  "characters": [
+    {
+      "id": "laetitia",
+      "name": "列媞希亚·布兰查得",
+      "aliases": [
+        "列媞希亚",
+        "列媞希亞",
+        "列媞希亞·布蘭查得",
+        "列媞希亚·布兰查德",
+        "列媞希亞·布蘭查德",
+        "Laetitia",
+        "Laetitia Blanchard",
+        "レティシア・ブランシャール"
+      ],
+      "portraitCrop": [
+        85,
+        80,
+        270,
+        313.2
+      ],
+      "kind": "动画第12话正片截图（剧评转载）",
+      "sourcePage": "https://fapservice.com/gakusen-toshi-asterisk-fanservice-review-episodes-11-12/",
+      "sourceUrl": "https://fapservice.com/wp-content/uploads/2015/12/Purrint228.jpg",
+      "verification": "已逐张查看；原图左侧金色长卷发、紫色眼睛、白色露肩袖与黑色制服上衣的列媞希亚，右侧为亚涅斯特；与动画官网同场景图片及本地人物条目对照。CSS只取左侧脸部。",
+      "file": "resource/asteriskavatars/laetitia-anime.jpg",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/laetitia-anime.jpg",
+      "width": 1366,
+      "height": 768,
+      "sha256": "5c7d7d2365d4417ea830a65c13924e5094d74210715b984e984e509cc2ce8ebe",
+      "checkedOn": "2026-11-16",
+      "identityEvidence": [
+        "https://asterisk-war.com/character/gallardworth.html"
+      ]
+    },
+    {
+      "id": "elliot",
+      "name": "艾略特·佛斯达",
+      "aliases": [
+        "艾略特",
+        "艾略特·佛斯達",
+        "Elliot",
+        "Elliot Forster",
+        "エリオット・フォースター"
+      ],
+      "portraitCrop": [
+        35,
+        82,
+        200,
+        232
+      ],
+      "kind": "动画官网第18话正片场景图",
+      "sourcePage": "https://asterisk-war.com/story/st18.html",
+      "sourceUrl": "https://asterisk-war.com/assets/img/story/18/ep_slide03.jpg",
+      "verification": "已查看动画官网第18话无logo场景图；金色短发、绿色眼睛、白色立领校服，挥剑对战绫斗的艾略特。与官网具名角色设定图对照。",
+      "file": "resource/asteriskavatars/elliot-anime.jpg",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/elliot-anime.jpg",
+      "width": 662,
+      "height": 372,
+      "sha256": "33e5f4d2f2c088ba65856936263ee269d0d1efdd6d568bdcedd17aaf9be386db",
+      "checkedOn": "2026-11-16",
+      "identityEvidence": [
+        "https://asterisk-war.com/character/gallardworth.html"
+      ]
+    },
+    {
+      "id": "doroteo",
+      "name": "多洛提欧·雷姆斯",
+      "aliases": [
+        "多洛提欧",
+        "多洛提歐",
+        "多洛提歐·雷姆斯",
+        "Doroteo",
+        "Doroteo Lemus",
+        "ドロテオ・レムス"
+      ],
+      "portraitCrop": [
+        25,
+        75,
+        245,
+        284.2
+      ],
+      "kind": "动画官网角色表情设定图",
+      "sourcePage": "https://asterisk-war.com/character/gallardworth.html",
+      "sourceUrl": "https://asterisk-war.com/assets/img/character/character_ph/doroteo2.jpg",
+      "verification": "已查看官网具名表情设定板；棕灰短发、深色皮肤、面部伤疤、成熟方脸，选左侧表情。已检查第18话官方场景与名场面icon，前者铠甲遮脸、后者只有极端眼鼻特写，因此采用头脸完整的动画官网表情图。",
+      "file": "resource/asteriskavatars/doroteo-anime.jpg",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/doroteo-anime.jpg",
+      "width": 600,
+      "height": 500,
+      "sha256": "a91c5a450b8131592f8a9ca436da5218d7b6e9baabe0cda2d936da597f00b1d1",
+      "checkedOn": "2026-11-16",
+      "identityEvidence": [
+        "https://asterisk-war.com/character/gallardworth.html"
+      ]
+    }
+  ]
+}

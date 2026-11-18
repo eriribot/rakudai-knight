@@ -114,7 +114,7 @@ undefined !== 2
 ```text
 AssertionError [ERR_ASSERTION]: The input did not match the regular expression /不一致/. Input:
 
-'注入器修订 20261104.1。deps.readSettings is not a function'
+'注入器修订 20261112.1。deps.readSettings is not a function'
 
     at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/check-plot-injector.mjs:170:10
     at async check (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/check-plot-injector.mjs:126:9)
@@ -274,7 +274,7 @@ AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
 ```text
 AssertionError [ERR_ASSERTION]: The input did not match the regular expression /未闭合/. Input:
 
-'注入器修订 20261104.1。deps.readSettings is not a function'
+'注入器修订 20261112.1。deps.readSettings is not a function'
 
     at file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/check-plot-injector.mjs:323:10
     at async check (file:///E:/web/%E8%90%BD%E7%AC%AC/scripts/check-plot-injector.mjs:126:9)

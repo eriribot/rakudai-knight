@@ -4,5 +4,6 @@
   "cssTheme": "Ukiyo",
   "enabledCssSnippets": [
     "worldbook-highlights"
-  ]
+  ],
+  "showRibbon": true
 }

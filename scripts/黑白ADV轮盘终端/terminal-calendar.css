@@ -1,0 +1,60 @@
+/* ===== GBA 学园校历样式 ===== */
+.gba-cal-panel{background:var(--card);border:1px solid var(--ink);margin:12px;padding:10px;box-shadow:3px 3px 0 var(--hair)}
+.gba-cal-nav{display:flex;align-items:center;justify-content:space-between;gap:6px;padding-bottom:8px;border-bottom:1px solid var(--hair);margin-bottom:8px}
+.gba-cal-cur-title{font:700 13px var(--font-title);letter-spacing:1px;color:var(--ink)}
+.gba-cal-nav .gba-btn-sm{font:11px var(--font-ui);padding:3px 8px;background:var(--card2);color:var(--ink);border:1px solid var(--hair);cursor:pointer;border-radius:0}
+.gba-cal-nav .gba-btn-sm:hover{background:var(--ink);color:var(--screen)}
+.gba-cal-nav .gba-btn-jump{border-color:var(--ink);font-weight:600}
+.gba-cal-week-row{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center;font:700 11px var(--font-num);margin-bottom:4px;padding-bottom:4px;border-bottom:1px solid var(--hair)}
+.gba-cal-wh{color:var(--ink);padding:2px 0}
+.gba-cal-wh.sun{color:var(--ink);font-weight:800}
+.gba-cal-wh.sat{color:var(--muted)}
+.gba-cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.gba-cal-cell{min-height:36px;border:1px solid var(--hair);background:var(--surface);display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:2px 1px;cursor:pointer;position:relative;border-radius:0}
+.gba-cal-cell:hover{border-color:var(--ink);background:var(--card2)}
+.gba-cal-cell.gba-cal-pad{border:none;background:transparent;cursor:default;pointer-events:none}
+.gba-cal-num{font:700 11px var(--font-num);color:var(--ink);line-height:1.1}
+.gba-cal-cell.is-sun .gba-cal-num{font-weight:800}
+.gba-cal-cell.is-sat .gba-cal-num{color:var(--muted)}
+.gba-cal-marks{font-size:9px;line-height:1;display:flex;gap:1px;min-height:9px}
+.gba-cal-mark{display:inline-block}
+.gba-cal-mark.mark-today{color:var(--ink);font-weight:700}
+.gba-cal-mark.mark-school{color:var(--ink);font-weight:700}
+.gba-cal-mark.mark-holiday{color:var(--ink)}
+.gba-cal-mark.mark-fest{color:var(--muted)}
+.gba-cal-cell.is-selected{border:2px solid var(--ink)!important;background:var(--card2);box-shadow:inset 0 0 0 1px var(--ink)}
+.gba-cal-cell.is-scene-today{border:2px solid var(--ink);background:var(--card2)}
+.gba-cal-cell.has-school{border-top:3px double var(--ink)}
+.gba-cal-detail{margin-top:6px}
+.gba-cal-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px}
+.gba-cal-desc-list{display:flex;flex-direction:column;gap:6px}
+.gba-cal-event{border-left:3px solid var(--ink);padding:6px 9px;background:var(--card2);font-size:12px;line-height:1.5}
+.gba-cal-event b{display:block;margin-bottom:3px;font-size:12px;color:var(--ink)}
+.gba-cal-event p{margin:0;color:var(--ink2);font-size:11.5px}
+.gba-badge-today{display:inline-block;padding:1px 6px;font:700 10px var(--font-num);background:var(--ink);color:var(--screen);border:1px solid var(--ink);border-radius:0}
+.gba-badge-school{display:inline-block;padding:1px 6px;font:700 10px var(--font-ui);border:2px double var(--ink);background:var(--card2);color:var(--ink);border-radius:0}
+.gba-badge-holiday{display:inline-block;padding:1px 6px;font:600 10px var(--font-ui);border:1px solid var(--ink);background:var(--card);color:var(--ink);border-radius:0}
+.gba-badge-fest{display:inline-block;padding:1px 6px;font:600 10px var(--font-ui);border:1px dashed var(--hair);background:var(--card2);color:var(--ink);border-radius:0}
+
+/* 世界书剧情只读标记与原文弹窗 */
+.gba-cal-nav{flex-wrap:wrap}
+.gba-cal-cell.has-lore{border-bottom:3px double var(--ink)}
+.gba-cal-mark.mark-lore{font:700 9px var(--font-ui);white-space:nowrap}
+.gba-cal-marks{flex-wrap:wrap;justify-content:center}
+.rk-calendar-lore-heading{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.rk-calendar-lore-heading button,.rk-calendar-story-button,#rk-calendar-story button{font:12px var(--font-ui);min-height:36px;padding:6px 10px;border:1px solid var(--ink);background:var(--card2);color:var(--ink);cursor:pointer;border-radius:0}
+.rk-calendar-lore-heading button:disabled{opacity:.55;cursor:wait}
+.rk-calendar-lore-heading button:focus-visible,.rk-calendar-story-button:focus-visible,#rk-calendar-story button:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.rk-calendar-lore-note{font-size:11px;color:var(--muted);overflow-wrap:anywhere}
+.rk-calendar-story-button{display:block;width:100%;text-align:left;margin:6px 0;overflow-wrap:anywhere}
+.rk-calendar-story-button small{display:block;color:var(--muted);font-size:10px;margin-top:3px}
+.rk-calendar-undated summary,.rk-calendar-index summary{cursor:pointer;font-weight:700;padding:8px 0}
+.rk-calendar-undated[open]{padding-bottom:8px}
+#rk-calendar-story{box-sizing:border-box;width:calc(100% - 24px);max-width:680px;max-height:calc(100% - 24px);margin:auto;padding:14px;border:2px solid var(--ink);border-radius:0;background:var(--card);color:var(--ink);overflow:auto;overscroll-behavior:contain;font:12px/1.65 var(--font-ui)}
+#rk-calendar-story::backdrop{background:rgba(0,0,0,.65)}
+.rk-calendar-story-header{position:sticky;top:-14px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;background:var(--card);padding:10px 0;border-bottom:1px solid var(--hair);z-index:1}
+#rk-calendar-story-title{font:700 14px/1.5 var(--font-title);margin:0;min-width:0;overflow-wrap:anywhere}
+.rk-calendar-story-header button{flex-shrink:0}
+#rk-calendar-story-source{font-size:11px;color:var(--muted);white-space:pre-wrap;overflow-wrap:anywhere}
+#rk-calendar-story-content{margin:12px 0 0;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;font:inherit;color:var(--ink2)}
+

@@ -1,0 +1,180 @@
+{
+  "date": "2026-11-16",
+  "group": "b",
+  "characters": [
+    {
+      "id": "kouichiro",
+      "name": "刀藤钢一郎",
+      "aliases": [
+        "刀藤钢一郎",
+        "刀藤鋼一郎",
+        "钢一郎",
+        "鋼一郎"
+      ],
+      "portraitCrop": [
+        190,
+        130,
+        220,
+        255.2
+      ],
+      "faceCenter": [
+        300,
+        255
+      ],
+      "sourcePage": "https://asterisk-war.com/character/others.html",
+      "sourceUrl": "https://asterisk-war.com/assets/img/character/character_ph/kouichiro2.jpg",
+      "kind": "official-anime-expression",
+      "verification": "动画官网刀藤鋼一郎表情图。已逐张查看：灰黑后梳发、浓眉、八字胡、无眼镜，匹配本地钢一郎人物条目；脸部中央裁切。正片第5话图源返回403，未绕过访问限制。",
+      "localEntry": "DLC/学战研究/第二卷-世界书整理/人物条目/刀藤钢一郎.md",
+      "file": "resource/asteriskavatars/kouichiro-anime.jpg",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/kouichiro-anime.jpg",
+      "width": 600,
+      "height": 500,
+      "sha256": "b419400380c7f2c7f3ded6ab7a1672a55aab4d14013b873f65d987367f7049f0"
+    },
+    {
+      "id": "sakon",
+      "name": "左近洲马",
+      "aliases": [
+        "左近洲马",
+        "左近州马",
+        "左近洲馬",
+        "左近州馬"
+      ],
+      "portraitCrop": [
+        60,
+        35,
+        220,
+        255.2
+      ],
+      "faceCenter": [
+        170,
+        162
+      ],
+      "sourcePage": "https://asterisk-war.com/character/allekant.html",
+      "sourceUrl": "https://asterisk-war.com/assets/img/character/character_ph/shuma2.jpg",
+      "kind": "official-anime-expression",
+      "verification": "动画官网左近洲馬表情图左侧正面。已逐张查看：黑色中分短发、眯眼、白色制服、弱气微笑，匹配本地人物条目。正片第5话可识别图源返回403，未绕过访问限制。",
+      "localEntry": "DLC/学战研究/第二卷-世界书整理/人物条目/左近洲马.md",
+      "file": "resource/asteriskavatars/sakon-anime.jpg",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/sakon-anime.jpg",
+      "width": 600,
+      "height": 500,
+      "sha256": "342e77950762b07ec935b5d9399d65cc9c4893a2a82609f4795ceeddc357b530"
+    },
+    {
+      "id": "mathias",
+      "name": "马迪亚斯·梅萨",
+      "aliases": [
+        "马迪亚斯·梅萨",
+        "馬迪亞斯·梅薩",
+        "马迪亚斯",
+        "馬迪亞斯"
+      ],
+      "portraitCrop": [
+        590,
+        65,
+        250,
+        290
+      ],
+      "faceCenter": [
+        715,
+        210
+      ],
+      "sourcePage": "https://totkuruma01.blogto.jp/archives/411506.html",
+      "sourceUrl": "https://livedoor.blogimg.jp/animeda/imgs/2/b/2bbf12ba.jpg",
+      "kind": "anime-frame",
+      "verification": "动画第一季第9话正片拼图左侧，马迪亚斯主持星武祭开幕的正脸。已查看并对比官网madiath2.jpg：浅褐分缝发、紫眼、短下巴胡、棕西装和金色领带一致；完整原图保留，只使用脸部区域。",
+      "localEntry": "DLC/学战研究/第三卷-世界书整理/人物条目/马迪亚斯·梅萨.md",
+      "file": "resource/asteriskavatars/mathias-anime.jpg",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/mathias-anime.jpg",
+      "width": 2880,
+      "height": 813,
+      "sha256": "f0584d4034fa043806e726b8be101a8541ad44c4f6b22894c1c615e8406729c3"
+    },
+    {
+      "id": "miko",
+      "name": "梁濑咪子",
+      "aliases": [
+        "梁濑咪子",
+        "梁瀨咪子",
+        "梁瀬ミーコ",
+        "咪子"
+      ],
+      "portraitCrop": [
+        660,
+        65,
+        400,
+        464
+      ],
+      "faceCenter": [
+        860,
+        297
+      ],
+      "sourcePage": "https://fapservice.com/gakusen-toshi-asterisk-fanservice-review-episodes-11-12/",
+      "sourceUrl": "https://fapservice.com/wp-content/uploads/2015/12/Purrint225.jpg",
+      "kind": "anime-frame",
+      "verification": "动画第一季11–12话回顾页的解说席正片截图右侧。已查看并对比官网miko2.jpg：橙棕短发、青绿眼、粉色帽及耳麦，开口播报表情；人物脸部居中。",
+      "localEntry": "DLC/学战研究/第四卷-世界书整理/人物条目/梁濑咪子与芳亭常.md",
+      "file": "resource/asteriskavatars/miko-anime.jpg",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/miko-anime.jpg",
+      "width": 1366,
+      "height": 768,
+      "sha256": "7f8c403cabd1d2e829e34e6dd798b2f30552430f5c9302edb22712e30ea3eaed"
+    },
+    {
+      "id": "tsune",
+      "name": "芳亭常",
+      "aliases": [
+        "芳亭常",
+        "亭常",
+        "ファム・ティ・チャム",
+        "Pham Thi Tram"
+      ],
+      "portraitCrop": [
+        200,
+        250,
+        320,
+        371.2
+      ],
+      "faceCenter": [
+        360,
+        436
+      ],
+      "sourcePage": "https://fapservice.com/gakusen-toshi-asterisk-fanservice-review-episodes-11-12/",
+      "sourceUrl": "https://fapservice.com/wp-content/uploads/2015/12/Purrint224.jpg",
+      "kind": "anime-frame",
+      "verification": "动画第一季11–12话回顾页的解说席正片截图左侧。已查看并对比官网pham2.jpg：蓝灰长发、棕金眼、绿色帽及耳麦，女性解说员，与梁濑咪子同席；不是其他同音角色。",
+      "localEntry": "DLC/学战研究/第四卷-世界书整理/人物条目/梁濑咪子与芳亭常.md",
+      "file": "resource/asteriskavatars/tsune-anime.jpg",
+      "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/tsune-anime.jpg",
+      "width": 1366,
+      "height": 768,
+      "sha256": "e1bb1e22e71cc402a5515d26ea026e502f061cb0519bfd664feccdb514c4ef01"
+    }
+  ],
+  "missing": [
+    {
+      "id": "souichi",
+      "name": "沙沙宫创一",
+      "aliases": [
+        "沙沙宫创一",
+        "沙沙宮創一",
+        "沙々宮創一"
+      ],
+      "file": null,
+      "reason": "未找到可验证的动画人物脸部图；官网人物页无该角色头像，动画第10话列为声音出场。保留缺图，未用女儿、声优或设备代替。",
+      "localEntry": "DLC/学战研究/第三卷-世界书整理/人物条目/沙沙宫创一.md",
+      "sources": [
+        "https://asterisk.fandom.com/wiki/Sasamiya_Souichi",
+        "https://www.mau2.com/anime/gakusentosiasterisk/ep/10"
+      ],
+      "verification": "已核对本地条目与检索来源：沙夜父亲；事故后脑部连接工房系统，不能仅凭声优表断言存在可用动画脸图。"
+    }
+  ],
+  "notes": [
+    "原始图片字节未重绘、未重新编码。portraitCrop 是前端显示裁切，比例50:58。",
+    "3张动画正片，2张动画官网表情图，1人暂缺可验证人物脸。",
+    "未修改共享manifest、构建脚本、酒馆、Git。"
+  ]
+}

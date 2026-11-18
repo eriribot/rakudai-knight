@@ -1,0 +1,139 @@
+[
+  {
+    "id": "moritz",
+    "name": "摩立兹·奈斯勒",
+    "aliases": [
+      "摩立兹",
+      "摩立茲·奈斯勒",
+      "Moritz Nesler",
+      "モーリッツ・ネスラー"
+    ],
+    "file": "resource/asteriskavatars/moritz-anime.jpg",
+    "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/moritz-anime.jpg",
+    "width": 1280,
+    "height": 720,
+    "portraitCrop": [
+      530,
+      0,
+      560,
+      649.6
+    ],
+    "sourcePage": "https://otanews.livedoor.biz/archives/52038643.html",
+    "sourceUrl": "https://livedoor.blogimg.jp/otanews/imgs/4/8/481659f4.jpg",
+    "sha256": "4a1d89c88e812558cfbf3125c943b0af65dc10b3cf0dc3e3aa7d335f959f808c",
+    "kind": "anime-screenshot",
+    "verification": "第9话阿尔第与莉姆希对战前；右前景银灰倒竖刺发、细长灰绿眼、雷渥夫紫黑大衣，与官网 moritz2.jpg 和 DLC 动画特征一致。",
+    "episode": 9,
+    "checkedOn": "2026-11-16",
+    "visualVerified": true
+  },
+  {
+    "id": "gerd",
+    "name": "葛尔特·席勒",
+    "aliases": [
+      "葛尔特",
+      "葛爾特·席勒",
+      "Gerd Schiele",
+      "ゲルト・シーレ"
+    ],
+    "file": "resource/asteriskavatars/gerd-anime.jpg",
+    "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/gerd-anime.jpg",
+    "width": 1280,
+    "height": 720,
+    "portraitCrop": [
+      45,
+      65,
+      350,
+      406
+    ],
+    "sourcePage": "https://otanews.livedoor.biz/archives/52038643.html",
+    "sourceUrl": "https://livedoor.blogimg.jp/otanews/imgs/4/8/481659f4.jpg",
+    "sha256": "4a1d89c88e812558cfbf3125c943b0af65dc10b3cf0dc3e3aa7d335f959f808c",
+    "kind": "anime-screenshot",
+    "verification": "第9话与摩立兹并肩入场；左后景古铜肤色、浅橄榄短寸发、粗眉方脸、紫灰雷渥夫外套，与官网 gerd2.jpg 一致。脸部略带场馆阴影，仍清晰可辨。",
+    "episode": 9,
+    "checkedOn": "2026-11-16",
+    "visualVerified": true
+  },
+  {
+    "id": "song",
+    "name": "宋然",
+    "aliases": [
+      "Song Ran",
+      "ソン・ラン"
+    ],
+    "file": "resource/asteriskavatars/song-anime.jpg",
+    "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/song-anime.jpg",
+    "width": 1280,
+    "height": 720,
+    "portraitCrop": [
+      790,
+      0,
+      300,
+      348
+    ],
+    "sourcePage": "https://otanews.livedoor.biz/archives/52047810.html",
+    "sourceUrl": "https://livedoor.blogimg.jp/otanews/imgs/c/5/c553ebeb.jpg",
+    "sha256": "42d3c3b89233cb6bfd9f1b89f3161f2eca7ba7ca873b73695e811afb89230856",
+    "kind": "anime-screenshot",
+    "verification": "第13话赛后与绫斗、尤莉丝交谈；右侧光头后脑长麻花辫、长袖中式长衫，与动画官网 song2.jpg 及 DLC 特征一致。",
+    "episode": 13,
+    "checkedOn": "2026-11-16",
+    "visualVerified": true
+  },
+  {
+    "id": "luo",
+    "name": "罗坤展",
+    "aliases": [
+      "羅坤展",
+      "Luo Kunzhan",
+      "ルオ・クンジャン"
+    ],
+    "file": "resource/asteriskavatars/luo-anime.jpg",
+    "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/luo-anime.jpg",
+    "width": 1280,
+    "height": 720,
+    "portraitCrop": [
+      230,
+      0,
+      340,
+      394.4
+    ],
+    "sourcePage": "https://otanews.livedoor.biz/archives/52047810.html",
+    "sourceUrl": "https://livedoor.blogimg.jp/otanews/imgs/c/5/c553ebeb.jpg",
+    "sha256": "42d3c3b89233cb6bfd9f1b89f3161f2eca7ba7ca873b73695e811afb89230856",
+    "kind": "anime-screenshot",
+    "verification": "第13话赛后与绫斗、尤莉丝交谈；左侧暗红短刺发、粗眉方脸、紫粉无袖中式背心，与动画官网 luo2.jpg 及 DLC 特征一致。",
+    "episode": 13,
+    "checkedOn": "2026-11-16",
+    "visualVerified": true
+  },
+  {
+    "id": "wernher",
+    "name": "威尔纳",
+    "aliases": [
+      "威爾納",
+      "Wernher",
+      "Werner",
+      "ヴェルナー"
+    ],
+    "file": "resource/asteriskavatars/wernher-anime.jpg",
+    "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/wernher-anime.jpg",
+    "width": 600,
+    "height": 500,
+    "portraitCrop": [
+      5,
+      25,
+      310,
+      359.6
+    ],
+    "sourcePage": "https://asterisk-war.com/character/lewolfe.html",
+    "sourceUrl": "https://asterisk-war.com/assets/img/character/character_ph/wernher2.jpg",
+    "sha256": "5e169520f6b46abe5d28284322857fa39832eb65e4e21c61d7903874f2c84147",
+    "kind": "official-anime-expression-sheet",
+    "verification": "官网具名表情板左侧头像：蓬松深色短发、青灰眼、黑色下半脸面罩；第20话近景和地下大厅战斗镜头交叉核验相符。已检索第20话正片，现有镜头过暗、过远或仅眼部特写，选择清晰官方动画表情图作为备选。",
+    "episode": null,
+    "checkedOn": "2026-11-16",
+    "visualVerified": true
+  }
+]

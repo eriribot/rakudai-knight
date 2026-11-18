@@ -51,7 +51,7 @@ function uiFixture() {
   const ui = vm.createContext({ structuredClone, setTimeout, clearTimeout,
     document: { getElementById: element, querySelector: () => null, querySelectorAll: () => [], addEventListener() {} }, addEventListener() {} });
   ui.window = ui;
-  vm.runInContext(read('terminal-tournament.js').replace(/^export /gm, '') + '\n' + read('terminal-app.js'), ui);
+  vm.runInContext(read('terminal-calendar.js') + '\n' + read('terminal-tournament.js').replace(/^export /gm, '') + '\n' + read('terminal-app.js'), ui);
   const view = makeView();
   ui.stat = structuredClone(originalState);
   ui.stateSource = { characterId: 1, chatId: 'test', messageId: 2, swipeId: 0 };

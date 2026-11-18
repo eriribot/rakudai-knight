@@ -1,0 +1,126 @@
+{
+  "date": "2026-11-13T12:24:44.306Z",
+  "card": "C:/Users/eriri/Downloads/落第x学战v0.06.png",
+  "cardHash": "382222f1f9a81d17766b307d93f42ba107faa1b2a5ab9b7d8dfb4d8e5151823d",
+  "nativeScriptHash": "217e691e190f20373944ff0e09db7ef08b7a5f5564df7d68193ec57543e7fd2b",
+  "plotScriptHash": "e952818254309ad09034e02d94a1eeaf9044950924e078312e8d731365ec592e",
+  "guardEnabled": false,
+  "terminalGuardCalls": 0,
+  "results": [
+    {
+      "name": "只写日期",
+      "requested": [
+        {
+          "op": "replace",
+          "path": "/场景/时间",
+          "value": "西历 2013 年 4 月 6 日 清晨"
+        }
+      ],
+      "accepted": [
+        {
+          "op": "replace",
+          "path": "/场景/时间",
+          "value": "西历 2013 年 4 月 6 日 清晨"
+        }
+      ],
+      "state": {
+        "当前章": "第一章",
+        "阶段": "进行中",
+        "时间": "西历 2013 年 4 月 6 日 清晨"
+      }
+    },
+    {
+      "name": "正确写相邻章节",
+      "requested": [
+        {
+          "op": "replace",
+          "path": "/场景/当前章",
+          "value": "第二章"
+        },
+        {
+          "op": "replace",
+          "path": "/场景/阶段",
+          "value": "进行中"
+        }
+      ],
+      "accepted": [
+        {
+          "op": "replace",
+          "path": "/场景/当前章",
+          "value": "第二章"
+        },
+        {
+          "op": "replace",
+          "path": "/场景/阶段",
+          "value": "进行中"
+        }
+      ],
+      "state": {
+        "当前章": "第二章",
+        "阶段": "进行中",
+        "时间": "西历 2013 年 4 月 5 日"
+      }
+    },
+    {
+      "name": "只写完成阶段",
+      "requested": [
+        {
+          "op": "replace",
+          "path": "/场景/阶段",
+          "value": "已结束"
+        }
+      ],
+      "accepted": [
+        {
+          "op": "replace",
+          "path": "/场景/阶段",
+          "value": "已结束"
+        }
+      ],
+      "state": {
+        "当前章": "第一章",
+        "阶段": "已结束",
+        "时间": "西历 2013 年 4 月 5 日"
+      }
+    },
+    {
+      "name": "替换整个场景",
+      "requested": [
+        {
+          "op": "replace",
+          "path": "/场景",
+          "value": {
+            "当前卷": 1,
+            "当前章": "第二章",
+            "阶段": "进行中"
+          }
+        }
+      ],
+      "accepted": [],
+      "state": {
+        "当前章": "第一章",
+        "阶段": "进行中",
+        "时间": "西历 2013 年 4 月 5 日"
+      }
+    }
+  ],
+  "previews": [
+    {
+      "phase": "进行中",
+      "chapter": "第一章",
+      "order": 101,
+      "hasCurrentMaterial": true,
+      "hasNextChapterPatch": true,
+      "hasDatePatch": false
+    },
+    {
+      "phase": "已结束",
+      "chapter": "第一章",
+      "order": 101,
+      "hasCurrentMaterial": false,
+      "hasNextChapterPatch": false,
+      "hasDatePatch": false
+    }
+  ],
+  "boundary": "复用现有两个检查文件的fixture，在内存执行卡内完整原生兼容脚本与剧情注入器。补丁字段应用为最小模拟，不执行真实MVU解析器或模型；未启动临时服务/浏览器，未修改玩家存档。"
+}

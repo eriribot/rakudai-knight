@@ -1,0 +1,52 @@
+{
+  "id": "yosuga",
+  "name": "美原缘",
+  "aliases": [
+    "美之原缘",
+    "美原緣",
+    "美之原緣",
+    "美ヶ原よすが",
+    "美ヶ原 よすが",
+    "Yosuga Migahara",
+    "Migahara Yosuga"
+  ],
+  "file": "resource/asteriskavatars/yosuga-anime.jpg",
+  "imageUrl": "https://eriribot.github.io/rakudai-knight/resource/asteriskavatars/yosuga-anime.jpg",
+  "width": 1280,
+  "height": 720,
+  "portraitCrop": [
+    390,
+    0,
+    620,
+    719.2
+  ],
+  "sourcePage": "https://fapservice.com/gakusen-toshi-asterisk-fanservice-review-episodes-910/",
+  "sourceUrl": "https://fapservice.com/wp-content/uploads/2015/12/Purrint059.jpg",
+  "sha256": "514b73f70977692a5e1f587ac07ea419d53812d9dd8bca43bbf3dec47504f533",
+  "animeEpisode": "第1季第10话「吸血暴姫」",
+  "sourceType": "anime-episode-screenshot-from-review",
+  "sourceNote": "分集评论文章中的第10话Non-sugar赛场截图，1280×720 JPEG，原始图片字节保留，无字幕。脸部已视觉核验；portraitCrop仅定义CSS头像视窗。该评论页面包含其他场景，所选图片仅为正常着装的脸部近景。",
+  "identityEvidence": [
+    "https://asterisk-war.com/sp/character/queenvale.html",
+    "https://asteriskwar.com/sp/staffcast/",
+    "https://www.mau2.com/anime/gakusentosiasterisk/ep/10"
+  ],
+  "episodeEvidence": [
+    "https://asterisk-war.com/sp/story/st10.html",
+    "https://www.mau2.com/anime/gakusentosiasterisk/ep/10",
+    "https://totkuruma01.blogto.jp/archives/497092.html",
+    "https://fapservice.com/gakusen-toshi-asterisk-fanservice-review-episodes-910/"
+  ],
+  "visualVerification": "金棕色单马尾、黄色发带、蓝紫色眼睛、葵恩薇儿白色制服与紫红领结；与用户提供的持枪正脸截图以及第10话Non-sugar双人赛场截图交叉比对。",
+  "rejectedCandidates": [
+    {
+      "reason": "公开场面稿没有缘。第3张眨眼棕发女孩为艾涅丝妲，非美原缘。",
+      "source": "https://www.animatetimes.com/news/details.php?id=1449856809"
+    },
+    {
+      "reason": "第10话五张官方icon均不是缘。",
+      "source": "https://asterisk-war.com/sp/special/"
+    }
+  ],
+  "retrievedAt": "2026-11-11"
+}

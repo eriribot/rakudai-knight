@@ -659,6 +659,19 @@ check('原始消息字符串保留，离线替换返回新字符串', () => {
   assert.equal(input, saved);
 });
 
+check('本卡开局整页中的伪对白保持原样', () => {
+  const input = ['<!doctype html>', '<html lang="zh-CN"><head>', '<meta name="test" content="' + 'x'.repeat(512) + '">',
+    '<title>落第骑士英雄谭 · 第一卷入学档案</title>', '</head><body>',
+    '史黛菈:页面文案，不应变成对白。', '朝阳:页面字段，不应变成候选。', '</body></html>'].join('\n');
+  for (const text of [input, '```\n' + input + '\n```', '```html\n' + input + '\n```']) {
+    assert.equal(applyRules(text, rules), text);
+  }
+});
+check('普通 HTML 正文不被本卡开局排除规则误伤', () => {
+  const input = '<!doctype html>\n<html><head><title>其他文档</title></head><body>\n史黛菈:正文对白。\n</body></html>';
+  rendered(input, 1);
+});
+
 for (const [name, input, expectedBubbles] of [
   ['十万字旁白夹少量对白', `一辉:起始。\n${'这是很长的叙述段落，保持文字、标点与换行不变。\n'.repeat(4000)}史黛菈:结束。`, 2],
   ['数万字连续对白', Array.from({ length: 1200 }, (_, i) => `${i % 2 ? '一辉' : '史黛菈'}:第${i}句对白，包含一些额外文字用于检测大量相邻匹配。`).join('\n'), 1200],

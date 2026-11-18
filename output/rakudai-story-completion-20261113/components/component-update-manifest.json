@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "deliveryMode": "component",
+  "kind": "helper-script",
+  "artifacts": [
+    {
+      "artifactName": "rakudai-native-story-s01",
+      "id": "0ad18dbe-5a59-4cad-acfd-50c2bce0d9ec",
+      "kind": "helper-script",
+      "relativePath": "rakudai-native-story-s01.script.json",
+      "sha256": "36d5155975164d6e6e87b7ede903da457645c6813c6fea70a5abb27f17816d66"
+    },
+    {
+      "artifactName": "rakudai-terminal-story-s01",
+      "id": "3d8c6c23-f78e-46e5-8e89-4a90bab6fb85",
+      "kind": "helper-script",
+      "relativePath": "rakudai-terminal-story-s01.script.json",
+      "sha256": "9005240dd7b821fad93acd5016d57afa94173443e9a53d7038ad7d501e62830c"
+    }
+  ]
+}

@@ -707,6 +707,7 @@
     // ponytail: 设置沿用同一份本机配置，业务操作仍检查当前 MVU。
     const settings = ASTERISK_PREVIEW ? {} : {
       playerPortrait: portraitBridge,
+      worldbookCalendar: { read: readCalendarWorldbook },
       plot: { getStatus: () => plotService().getStatus(), preview: () => plotService().preview(),
         setEnabled: enabled => plotService().setEnabled(enabled) },
       correction: { getConfig: getCorrectionConfig, saveConfig: saveCorrectionConfig,
@@ -723,8 +724,7 @@
       onUpdate: subscribeAppUpdate,
       ui: { close: hide, openWheel() { hide(); toggleWheel(true); }, recenter,
         openStoryControls() { SS.iframe?.contentWindow?.openApp?.('calendar'); } },
-      notify() {}, setOrbBadge() {},
-      worldbookCalendar: { read: async () => ({ entries: [], chapters: [], message: '学战采用当前 MVU 的自由阶段、日程与事件。' }) }
+      notify() {}, setOrbBadge() {}
     };
     return {
       appearance, world: SS.businessWorld, ...settings,
@@ -755,7 +755,6 @@
       getSnapshot: async () => readSnapshot(),
       getStat: async () => readSnapshot().state,
       lime: { read: businessAction(() => limeHost.read()), send: businessAction(request => limeHost.send(request)) },
-      worldbookCalendar: { read: readCalendarWorldbook },
       setRosterHidden: businessAction(setRosterHidden),
       deleteRosterPerson: businessAction(deleteRosterPerson),
       editPlayerProfile: businessAction(editPlayerProfile),
