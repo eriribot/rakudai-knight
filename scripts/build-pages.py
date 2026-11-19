@@ -59,6 +59,13 @@ def load_manifest(path):
         safe_relative(prefix, directory=True)
     if len(set(prefixes)) != len(prefixes):
         raise ValueError("Duplicate excluded directory")
+    files = manifest.get("exclude_files", [])
+    if not isinstance(files, list):
+        raise ValueError("exclude_files must be a list of relative file paths")
+    for name in files:
+        safe_relative(name)
+    if len(set(files)) != len(files):
+        raise ValueError("Duplicate excluded file")
     return manifest
 
 
@@ -67,6 +74,7 @@ def build_plan(root, manifest):
     files = []
     total = manifest["size"]
     excluded_count = 0
+    excluded_files = set(manifest.get("exclude_files", []))
     for raw in tracked.split(b"\0"):
         if not raw:
             continue
@@ -74,7 +82,9 @@ def build_plan(root, manifest):
         name = relative.as_posix()
         # Excluded paths are not build inputs. Do not traverse local-only
         # junctions inside excluded research or backup directories.
-        if relative.parts[0].casefold() in {".git", ".github"} or name.startswith(tuple(manifest["exclude_prefixes"])):
+        if (relative.parts[0].casefold() in {".git", ".github"}
+                or name.startswith(tuple(manifest["exclude_prefixes"]))
+                or name in excluded_files):
             excluded_count += 1
             continue
         # The verified Release asset owns this URL, even if an older OP is tracked.

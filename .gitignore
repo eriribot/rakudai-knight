@@ -56,11 +56,26 @@ node_modules/
 /v17_kurono_out.txt
 /v19_interlude_out.txt
 
-# Local conversation exports; existing tracked copies need a separate cleanup.
+# Local conversation exports.
 /all_user_messages.txt
 /last_user_content.txt
 /last_user_full.txt
 /temp_last_msg.json
+
+# Local research books used by the Asterisk readers.
+/DLC/*.epub
+/DLC/外传/*.epub
+
+# Retired card backups and downloaded portrait search results.
+/落第骑士英雄谭*.json.bak*
+/output/asterisk-avatar-audit-20261116/*/*.jpg
+/output/asterisk-avatar-audit-20261116/*/*.png
+/output/asterisk-avatar-audit-20261116/*/*.html
+/output/non-sugar-avatars-20261111/research-*/*.jpg
+/output/non-sugar-avatars-20261111/research-*/*.png
+/output/non-sugar-avatars-20261111/research-*/*.html
+/output/asterisk-opening/history-rejected-crossover/
+/output/pages-audit-20261119/
 
 # Retired dialogue results; keep user-reproduction.txt and archived components.
 /output/dialogue-bubbles/artifact-check.json

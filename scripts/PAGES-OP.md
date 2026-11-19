@@ -18,8 +18,22 @@ V6 原片以 `rakudai-asterisk-v6-720p.mp4` 存放在 GitHub Release `mv-v6-orig
 - `resource/knightavatars/research/`：头像考据原始资料。
 - `output/asterisk-chapter-alignment-20261106/`：旧实机导出与排查资料。
 - `output/asterisk-injector-v2-20261109/before/`、`output/asterisk-avatars-20261110/before/`、`output/bubble-ayato-alias-20261110/before/`：三次组件更新前的历史备份。
+- `output/asterisk-avatar-audit-20261116/`：头像检索和核验记录。
 
-`.git`、`.github` 元数据也不发布。其余已跟踪文件按原路径复制，并保留 `.nojekyll`。运行时头像、背景音乐、`DLC/插图/` 和应用页面不变；研究文档指向上述资料目录的链接应在 GitHub 仓库中查看。站点体积以每次构建的摘要为准，计划体积超过 **950 MiB** 时构建直接失败。排除目录先按路径判定，之后只检查实际发布输入的符号链接与越界路径。
+2026-11-19 另按 `pages-op.json` 排除 **322 个已审计文件，约 60.76 MiB**：三处专用记录目录使用 `exclude_prefixes`，16 个旧终端包和 21 个原文 TXT 使用 `exclude_files`。这些文件继续由 Git 跟踪，仍可供本地构建、测试和回溯使用：
+
+| 范围 | 文件数 | Pages 减少 |
+| --- | ---: | ---: |
+| MVU 历史构建记录 | 109 | 34.55 MiB |
+| v1.3.0–v1.3.15 旧终端 JSON | 16 | 15.36 MiB |
+| 正文气泡与终端验证记录 | 176 | 6.92 MiB |
+| 根目录落第原文 TXT | 21 | 3.92 MiB |
+
+三个目录为 `世界书规则/MVU/构建记录/`、`scripts/正文气泡/验证记录/`、`scripts/黑白ADV轮盘终端/验证记录/`，以后新增的记录也不发布。其余 37 项只匹配完整相对路径，不支持通配符，不会误伤以后新增的现行终端包。旧终端 v1.3.1、v1.3.6、v1.3.15 仍被检查器或历史打包器读取；根目录原文仍被 `check-story-catalogue.py` 使用，因此这里只停发 Pages，不取消 Git 跟踪。既有 Pages 下载或报告链接会失效，查看这些记录应改用 GitHub 仓库路径。
+
+另有 **25 本 DLC 学战及外传 EPUB，约 127.77 MiB**，改为本地研究资料并停止 Git 跟踪；文件本身保留在本机。它们不进入上述 322 项名单，因为 Pages 只复制 Git 已跟踪文件。干净克隆不再含这 25 本书，需要重新做原书研究或提取时，另行准备本地原书。原 EPUB 的 GitHub 当前分支下载和 Pages 地址不再提供，既有历史提交仍可能保存旧版本。运行开局使用独立图片资源，不从 EPUB 在线读取内容。
+
+`.git`、`.github` 元数据也不发布。其余已跟踪文件按原路径复制，并保留 `.nojekyll`。运行时头像、背景音乐、`DLC/插图/` 和应用页面不变；研究文档指向保留在 Git 的资料应在 GitHub 仓库中查看。站点体积以每次构建的摘要为准，计划体积超过 **950 MiB** 时构建直接失败。目录前缀和精确文件名单先按路径判定，之后只检查实际发布输入的符号链接与越界路径。
 
 部署使用 `actions/deploy-pages@v5.0.1`（Node.js 24）。2026-11-10 的失败发生在 GitHub 端 `syncing_files` 阶段：构建与上传成功，但同步超过 10 分钟。精简上述开发目录和历史备份约 51.45 MiB，以减少同步负担；不将此认定为已经证明的超时根因。GitHub Pages 本身有 10 分钟部署限制，不靠调大 Action 的等待时间绕过。
 
